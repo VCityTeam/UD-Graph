@@ -2448,7 +2448,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0/relativeGMLGeometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -2624,6 +2624,12 @@
     
 
 
+    <!-- http://www.opengis.net/citygml/appearance/2.0/ -->
+
+    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/"/>
+    
+
+
     <!-- http://www.opengis.net/citygml/appearance/2.0/Appearance -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/Appearance">
@@ -2737,6 +2743,18 @@
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/TexCoordGen">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0/_TextureParameterization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/worldToTexture"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/worldToTexture"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:comment>Texture parameterization using a transformation matrix. The transformation matrix &quot;worldToTexture&quot; can be
 
       used to derive texture coordinates from an object&apos;s location. This 3x4 matrix T computes the coordinates (s,t) from a
@@ -2756,6 +2774,18 @@
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/TexCoordList">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0/_TextureParameterization"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/textureCoordinates"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/textureCoordinates"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:comment>Texture parameterization using texture coordinates: Each gml:LinearRing that is part of the surface
 
       requires a separate &quot;textureCoordinates&quot;-entry with 2 doubles per ring vertex. The &quot;ring&quot;- attribute provides the gml:id
@@ -2987,7 +3017,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod1Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3005,7 +3035,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3023,7 +3053,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3041,7 +3071,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3097,7 +3127,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3151,7 +3181,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3163,7 +3193,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3175,7 +3205,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3264,7 +3294,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3371,7 +3401,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3516,7 +3546,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod1Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3540,7 +3570,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod2Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3564,7 +3594,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod3Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3588,7 +3618,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3773,7 +3803,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3820,7 +3850,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3832,7 +3862,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3844,7 +3874,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3962,7 +3992,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4062,7 +4092,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4183,7 +4213,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod1Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4207,7 +4237,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod2Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4231,7 +4261,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod3Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4255,7 +4285,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4456,7 +4486,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityfurniture/2.0/lod1Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4474,7 +4504,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityfurniture/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4492,7 +4522,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityfurniture/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4510,7 +4540,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityfurniture/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4559,7 +4589,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0/geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4646,7 +4676,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0/lod0Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4664,7 +4694,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0/lod1Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4682,7 +4712,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4700,7 +4730,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4718,7 +4748,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5127,7 +5157,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/relief/2.0/extent"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Polygon"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Polygon"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5519,7 +5549,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/transportation/2.0/lod0Network"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#GeometricComplex"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/GeometricComplex"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5678,7 +5708,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5722,7 +5752,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5823,7 +5853,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5870,7 +5900,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5882,7 +5912,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5894,7 +5924,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6008,7 +6038,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod1Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6032,7 +6062,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod2Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6056,7 +6086,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod3Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6080,7 +6110,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6318,7 +6348,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/vegetation/2.0/lod1Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6330,7 +6360,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/vegetation/2.0/lod2Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6342,7 +6372,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/vegetation/2.0/lod3Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6354,7 +6384,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/vegetation/2.0/lod4Geometry"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6454,25 +6484,25 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod1Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod2Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod3Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod4Solid"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6542,19 +6572,19 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod2Surface"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Surface"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod3Surface"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Surface"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0/lod4Surface"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Surface"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>A WaterBoundarySurface is a thematic object which classifies surfaces bounding a water body.
@@ -6584,13 +6614,17 @@
 
     <!-- http://www.opengis.net/gml/AbstractFeatureCollectionType -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractFeatureCollectionType"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractFeatureCollectionType">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureType"/>
+    </owl:Class>
     
 
 
     <!-- http://www.opengis.net/gml/AbstractFeatureType -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractFeatureType"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractFeatureType">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGMLType"/>
+    </owl:Class>
     
 
 
@@ -6600,45 +6634,93 @@
     
 
 
-    <!-- http://www.opengis.net/gml/AbstractGeometricAggregate -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractGeometricAggregate">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/Geometry"/>
-    </owl:Class>
-    
-
-
     <!-- http://www.opengis.net/gml/CodeType -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/CodeType"/>
     
 
 
-    <!-- http://www.opengis.net/gml/Curve -->
+    <!-- http://www.opengis.net/gml/CompositeCurve -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/Curve">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/GeometricPrimitive"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/CompositeCurve">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Curve"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/curveMember"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Curve"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
 
-    <!-- http://www.opengis.net/gml/GeometricPrimitive -->
+    <!-- http://www.opengis.net/gml/CompositeSolid -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/GeometricPrimitive">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/Geometry"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/CompositeSolid">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Solid"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/solidMember"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
 
-    <!-- http://www.opengis.net/gml/Geometry -->
+    <!-- http://www.opengis.net/gml/CompositeSurface -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/Geometry"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/CompositeSurface">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Surface"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/surfaceMember"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/GeometricComplex -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/GeometricComplex">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Geometry"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/element"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/element"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
     
 
 
     <!-- http://www.opengis.net/gml/LengthType -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/LengthType"/>
+    
+
+
+    <!-- http://www.opengis.net/gml/LineString -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/LineString">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Curve"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/LinearRing -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/LinearRing">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Ring"/>
+    </owl:Class>
     
 
 
@@ -6657,11 +6739,11 @@
     <!-- http://www.opengis.net/gml/MultiCurve -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/MultiCurve">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGeometricAggregate"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricAggregate"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/gml/curveMember"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Curve"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Curve"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -6671,11 +6753,11 @@
     <!-- http://www.opengis.net/gml/MultiGeometry -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/MultiGeometry">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGeometricAggregate"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricAggregate"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/gml/geometryMember"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Geometry"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Geometry"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -6685,7 +6767,7 @@
     <!-- http://www.opengis.net/gml/MultiPoint -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/MultiPoint">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGeometricAggregate"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricAggregate"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/gml/pointMember"/>
@@ -6699,11 +6781,11 @@
     <!-- http://www.opengis.net/gml/MultiSolid -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/MultiSolid">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGeometricAggregate"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricAggregate"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/gml/solidMember"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Solid"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Solid"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -6713,11 +6795,11 @@
     <!-- http://www.opengis.net/gml/MultiSurface -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/MultiSurface">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGeometricAggregate"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricAggregate"/>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/gml/surfaceMember"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Surface"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -6727,7 +6809,13 @@
     <!-- http://www.opengis.net/gml/OrientableSurface -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/OrientableSurface">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/Surface"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Surface"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/baseSurface"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -6735,7 +6823,41 @@
     <!-- http://www.opengis.net/gml/Point -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/Point">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/GeometricPrimitive"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/Polygon -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/Polygon">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Surface"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/exterior"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Ring"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/interior"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Ring"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/Rectangle -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/Rectangle">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_SurfacePatch"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/exterior"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Ring"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -6752,10 +6874,58 @@
     
 
 
+    <!-- http://www.opengis.net/gml/Solid -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/Solid">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Solid"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/exterior"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/interior"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
     <!-- http://www.opengis.net/gml/Surface -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/Surface">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/GeometricPrimitive"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Surface"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/TIN -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/TIN">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/TriangulatedSurface"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/Triangle -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/Triangle">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_SurfacePatch"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/exterior"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Ring"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/trianglePatchOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/TriangulatedSurface"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
     </owl:Class>
     
 
@@ -6767,7 +6937,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/gml/trianglePatches"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/ont/gml#Triangle"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/Triangle"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Denotes the relation of a TINRelief to its components. The gml:TriangulatedSurface element must either carry a
@@ -6779,27 +6949,103 @@
     
 
 
+    <!-- http://www.opengis.net/gml/_Curve -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_Curve">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+    </owl:Class>
+    
+
+
     <!-- http://www.opengis.net/gml/_Feature -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/_Feature"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/_Feature">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GML"/>
+    </owl:Class>
     
 
 
     <!-- http://www.opengis.net/gml/_FeatureCollection -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/_FeatureCollection"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/_FeatureCollection">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Feature"/>
+    </owl:Class>
     
 
 
     <!-- http://www.opengis.net/gml/_GML -->
 
-    <owl:Class rdf:about="http://www.opengis.net/gml/_GML"/>
+    <owl:Class rdf:about="http://www.opengis.net/gml/_GML">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Object"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/_GeometricAggregate -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_GeometricAggregate">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Geometry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/_GeometricPrimitive -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_GeometricPrimitive">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Geometry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/_Geometry -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_Geometry">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GML"/>
+    </owl:Class>
     
 
 
     <!-- http://www.opengis.net/gml/_Object -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/_Object"/>
+    
+
+
+    <!-- http://www.opengis.net/gml/_Ring -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_Ring">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Geometry"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/_Solid -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_Solid">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/_Surface -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_Surface">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.opengis.net/gml/_SurfacePatch -->
+
+    <owl:Class rdf:about="http://www.opengis.net/gml/_SurfacePatch">
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GeometricPrimitive"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/gml/patchOf"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/_Surface"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
     
 
 
@@ -6812,70 +7058,6 @@
     <!-- http://www.opengis.net/gml/featureMember -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/featureMember"/>
-    
-
-
-    <!-- http://www.opengis.net/ont/gml#AbstractSurfacePatch -->
-
-    <owl:Class rdf:about="http://www.opengis.net/ont/gml#AbstractSurfacePatch">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/Surface"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/gml/patchOf"/>
-                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/Surface"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/ont/gml#GeometricComplex -->
-
-    <owl:Class rdf:about="http://www.opengis.net/ont/gml#GeometricComplex">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/gml/element"/>
-                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/GeometricPrimitive"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/gml/element"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml/GeometricPrimitive"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:isDefinedBy>http://www.opengis.net/gml</rdfs:isDefinedBy>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/ont/gml#Polygon -->
-
-    <owl:Class rdf:about="http://www.opengis.net/ont/gml#Polygon">
-        <rdfs:isDefinedBy>http://www.opengis.net/gml</rdfs:isDefinedBy>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/ont/gml#Solid -->
-
-    <owl:Class rdf:about="http://www.opengis.net/ont/gml#Solid">
-        <rdfs:isDefinedBy>http://www.opengis.net/gml</rdfs:isDefinedBy>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/ont/gml#Triangle -->
-
-    <owl:Class rdf:about="http://www.opengis.net/ont/gml#Triangle">
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/gml/trianglePatchOf"/>
-                <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml/TriangulatedSurface"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:isDefinedBy>http://www.opengis.net/gml</rdfs:isDefinedBy>
-    </owl:Class>
     
 
 
