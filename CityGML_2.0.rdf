@@ -2336,7 +2336,6 @@
     <!-- http://www.opengis.net/citygml/2.0/Address -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/Address">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Feature"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -2371,7 +2370,6 @@
     <!-- http://www.opengis.net/citygml/2.0/CityModel -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/CityModel">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureCollectionType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_FeatureCollection"/>
         <rdfs:comment>Type describing the &quot;root&quot; element of any city model file. It is a collection whose members are restricted
 
@@ -2419,7 +2417,6 @@
     <!-- http://www.opengis.net/citygml/2.0/ImplicitGeometry -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/ImplicitGeometry">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGMLType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GML"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -2522,7 +2519,6 @@
     <!-- http://www.opengis.net/citygml/2.0/_CityObject -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/_CityObject">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Feature"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -2624,16 +2620,9 @@
     
 
 
-    <!-- http://www.opengis.net/citygml/appearance/2.0/ -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/"/>
-    
-
-
     <!-- http://www.opengis.net/citygml/appearance/2.0/Appearance -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/Appearance">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Feature"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -2743,18 +2732,6 @@
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/TexCoordGen">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0/_TextureParameterization"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/worldToTexture"/>
-                <owl:someValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/worldToTexture"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:comment>Texture parameterization using a transformation matrix. The transformation matrix &quot;worldToTexture&quot; can be
 
       used to derive texture coordinates from an object&apos;s location. This 3x4 matrix T computes the coordinates (s,t) from a
@@ -2774,18 +2751,6 @@
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/TexCoordList">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0/_TextureParameterization"/>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/textureCoordinates"/>
-                <owl:someValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0/textureCoordinates"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0/"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
         <rdfs:comment>Texture parameterization using texture coordinates: Each gml:LinearRing that is part of the surface
 
       requires a separate &quot;textureCoordinates&quot;-entry with 2 doubles per ring vertex. The &quot;ring&quot;- attribute provides the gml:id
@@ -2887,7 +2852,6 @@
     <!-- http://www.opengis.net/citygml/appearance/2.0/_SurfaceData -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/_SurfaceData">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_Feature"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -2957,7 +2921,6 @@
     <!-- http://www.opengis.net/citygml/appearance/2.0/_TextureParameterization -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/_TextureParameterization">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGMLType"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_GML"/>
         <rdfs:comment>Base class for augmenting a link &quot;texture-&gt;surface&quot; with texture parameterization. Subclasses of this
 
@@ -5180,21 +5143,6 @@
     
 
 
-    <!-- http://www.opengis.net/citygml/texturedsurface/2.0/AbstractAppearance -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/texturedsurface/2.0/AbstractAppearance">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGMLType"/>
-        <rdfs:comment>Deprecated since CityGML version 0.4.0. Use the concepts of the CityGML Appearance module instead. This
-
-      abstract type is the parent type of Material and SimpleTexture. It is derived from gml:AbstractGMLType, thus it
-
-      inherits the attribute gml:id and may be referenced by an appearanceProperty, although it is defined elsewhere in another
-
-      appearanceProperty. </rdfs:comment>
-    </owl:Class>
-    
-
-
     <!-- http://www.opengis.net/citygml/texturedsurface/2.0/Appearance -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/texturedsurface/2.0/Appearance">
@@ -5224,7 +5172,6 @@
     <!-- http://www.opengis.net/citygml/texturedsurface/2.0/Material -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/texturedsurface/2.0/Material">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/texturedsurface/2.0/AbstractAppearance"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/texturedsurface/2.0/_Appearance"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -5272,7 +5219,6 @@
     <!-- http://www.opengis.net/citygml/texturedsurface/2.0/SimpleTexture -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/texturedsurface/2.0/SimpleTexture">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/texturedsurface/2.0/AbstractAppearance"/>
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/texturedsurface/2.0/_Appearance"/>
         <rdfs:subClassOf>
             <owl:Restriction>
@@ -6609,28 +6555,6 @@
 
      </rdfs:comment>
     </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/gml/AbstractFeatureCollectionType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractFeatureCollectionType">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractFeatureType"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/gml/AbstractFeatureType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractFeatureType">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/AbstractGMLType"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/gml/AbstractGMLType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml/AbstractGMLType"/>
     
 
 
