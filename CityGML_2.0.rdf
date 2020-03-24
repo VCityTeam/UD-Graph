@@ -50,6 +50,14 @@
     
 
 
+    <!-- http://www.opengis.net/citygml/2.0/cityObjectMember -->
+
+    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0/cityObjectMember">
+        <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml/featureMember"/>
+    </owl:ObjectProperty>
+    
+
+
     <!-- http://www.opengis.net/citygml/2.0/creationDate -->
 
     <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0/creationDate"/>
@@ -131,6 +139,14 @@
     <!-- http://www.opengis.net/citygml/appearance/2.0/ambientIntensity -->
 
     <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0/ambientIntensity"/>
+    
+
+
+    <!-- http://www.opengis.net/citygml/appearance/2.0/appearanceMember -->
+
+    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0/appearanceMember">
+        <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml/featureMember"/>
+    </owl:ObjectProperty>
     
 
 
@@ -1676,6 +1692,12 @@
     
 
 
+    <!-- http://www.opengis.net/gml/featureMember -->
+
+    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml/featureMember"/>
+    
+
+
     <!-- http://www.opengis.net/gml/geometryMember -->
 
     <owl:ObjectProperty rdf:about="http://www.opengis.net/gml/geometryMember"/>
@@ -2371,6 +2393,12 @@
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/CityModel">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/_FeatureCollection"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0/cityObjectMember"/>
+                <owl:someValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0/_CityObject"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:comment>Type describing the &quot;root&quot; element of any city model file. It is a collection whose members are restricted
 
       to be features of a city model. All features are included as cityObjectMember. </rdfs:comment>
@@ -2396,20 +2424,6 @@
       either by a string or by an URI. If the informationSystem element is missing in the ExternalReference, the
 
       ExternalObjectReference must be an URI, which contains an indication of the informationSystem.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/2.0/GeneralizationRelationType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/GeneralizationRelationType">
-        <rdfs:comment>Denotes the relation of a _CityObject to its corresponding _CityObject in higher LOD, i.e. to the
-
-      _CityObjects representing the same real world object in higher LOD. The GeneralizationRelationType element must either
-
-      carry a reference to a _CityObject object or contain a _CityObject object inline, but neither both nor none.
-
-     </rdfs:comment>
     </owl:Class>
     
 
@@ -2535,7 +2549,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0/generalizesTo"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0/GeneralizationRelationType"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0/_CityObject"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -2584,14 +2598,6 @@
       bridges and tunnels would be modelled as subclasses of _Site. As subclass of _CityObject, a _Site inherits all attributes
 
       and relations, in particular an id, names, external references, and generalization relations. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/2.0/cityObjectMember -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0/cityObjectMember">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/featureMember"/>
     </owl:Class>
     
 
@@ -2935,14 +2941,6 @@
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/appearance">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0/_GenericApplicationPropertyOfCityObject"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0/appearanceMember -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0/appearanceMember">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml/featureMember"/>
     </owl:Class>
     
 
@@ -3727,18 +3725,6 @@
     
 
 
-    <!-- http://www.opengis.net/citygml/building/2.0/BridgeFurniture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0/BridgeFurniture">
-        <rdfs:comment>Denotes the relation of a Room to its interior furnitures (movable). The BridgeFurniture
-
-      element must either carry a reference to a BuildingFurniture object or contain a BuildingFurniture object inline, but
-
-      neither both nor none. </rdfs:comment>
-    </owl:Class>
-    
-
-
     <!-- http://www.opengis.net/citygml/building/2.0/Building -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0/Building">
@@ -4043,7 +4029,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/building/2.0/interiorFurniture"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/building/2.0/BridgeFurniture"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/building/2.0/BuildingFurniture"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -5554,14 +5540,6 @@
     
 
 
-    <!-- http://www.opengis.net/citygml/tunnel/2.0/BridgeFurniture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/tunnel/2.0/BridgeFurniture">
-        <rdfs:comment>Denotes the relation of a hollow space to the furnitures it contains. </rdfs:comment>
-    </owl:Class>
-    
-
-
     <!-- http://www.opengis.net/citygml/tunnel/2.0/CeilingSurface -->
 
     <owl:Class rdf:about="http://www.opengis.net/citygml/tunnel/2.0/CeilingSurface">
@@ -5642,7 +5620,7 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/interiorFurniture"/>
-                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/BridgeFurniture"/>
+                <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/tunnel/2.0/TunnelFurniture"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -6976,12 +6954,6 @@
     <!-- http://www.opengis.net/gml/doubleList -->
 
     <owl:Class rdf:about="http://www.opengis.net/gml/doubleList"/>
-    
-
-
-    <!-- http://www.opengis.net/gml/featureMember -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml/featureMember"/>
     
 
 
