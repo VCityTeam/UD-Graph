@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:cgml="http://www.opengis.net/citygml/2.0"
+<xsl:stylesheet xmlns:cgml="http://www.opengis.net/citygml/2.0#"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:imro="http://www.geonovum.nl/imro/2008/1"
@@ -10,18 +10,18 @@
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
                 xmlns:owl="http://www.w3.org/2002/07/owl#"
                 xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-                xmlns:gen="http://www.opengis.net/citygml/generics/2.0"
-                xmlns:app="http://www.opengis.net/citygml/appearance/2.0"
-                xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
-                xmlns:brid="http://www.opengis.net/citygml/bridge/2.0"
-                xmlns:core="http://www.opengis.net/citygml/base/2.0"
-                xmlns:dem="http://www.opengis.net/citygml/relief/2.0"
-                xmlns:luse="http://www.opengis.net/citygml/landuse/2.0"
-                xmlns:tex="http://www.opengis.net/citygml/textures/2.0"
-                xmlns:tran="http://www.opengis.net/citygml/transportation/2.0"
-                xmlns:tun="http://www.opengis.net/citygml/tunnel/2.0"
-                xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0"
-                xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0"
+                xmlns:gen="http://www.opengis.net/citygml/generics/2.0#"
+                xmlns:app="http://www.opengis.net/citygml/appearance/2.0#"
+                xmlns:bldg="http://www.opengis.net/citygml/building/2.0/"
+                xmlns:brid="http://www.opengis.net/citygml/bridge/2.0#"
+                xmlns:core="http://www.opengis.net/citygml/base/2.0#"
+                xmlns:dem="http://www.opengis.net/citygml/relief/2.0#"
+                xmlns:luse="http://www.opengis.net/citygml/landuse/2.0#"
+                xmlns:tex="http://www.opengis.net/citygml/textures/2.0#"
+                xmlns:tran="http://www.opengis.net/citygml/transportation/2.0#"
+                xmlns:tun="http://www.opengis.net/citygml/tunnel/2.0#"
+                xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0#"
+                xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0#"
                 xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
                 exclude-result-prefixes="xs"
                 version="2.0">
@@ -41,6 +41,7 @@
    <xsl:template match="*[count(ancestor::*) mod 2 = 0]">
       <rdf:Description rdf:about="{if (@gml:id) then @gml:id else generate-id(.)}" rdf:type="{name()}">
          <xsl:apply-templates select="@srsName"/>
+         <xsl:apply-templates select="@srsDimension"/>
          <xsl:apply-templates/>
       </rdf:Description>
    </xsl:template>
@@ -48,6 +49,11 @@
    <!-- template for srsName GML property This template matches the srsName attribute and transforms this to an RDF property named gml:srsName. The URN that refers to the coordinate reference system is contained in rdf:resource. -->
    <xsl:template match="@srsName">
       <gml:srsName rdf:resource="{.}"/>
+   </xsl:template>
+
+   <!-- template for srsDimension GML property This template matches the srsDimension attribute and transforms this to an RDF property named gml:srsDimension. -->
+   <xsl:template match="@srsDimension">
+      <gml:srsDimension rdf:resource="{.}"/>
    </xsl:template>
 
    <!-- template for description GML property This template matches the gml:description element and transforms this to rdfs:comment. -->
