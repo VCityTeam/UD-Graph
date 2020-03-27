@@ -8,3 +8,5 @@ The ontology also imports GeoSPARQL's GML 3.2 ontology. These classes are declar
 
 CityGML 2.0 Ontology is edited using the [Protégé](https://protege.stanford.edu/) resource, which is supported by grant GM10331601 from the National Institute of General Medical Sciences of the United States National Institutes of Health.
 
+## CityGML2RDF
+CityGML2RDF is an XSLT stylesheet to transform CityGML 2.0 files into RDF/XML format. This stylesheet is based on the GML > RDF stylesheet proposed by Linda van den Brink, Paul Janssen, and Wilko Quak in their article _"From Geo-data to Linked Data: Automated Transformation from GML to RDF"_. 

@@ -46,6 +46,21 @@
       </rdf:Description>
    </xsl:template>
 
+   <!-- template for description GML property This template matches the gml:description element and transforms this to rdfs:comment. -->
+   <xsl:template match="gml:description" priority="1">
+      <rdfs:comment>
+         <xsl:value-of select="text()"/>
+      </rdfs:comment>
+   </xsl:template>
+
+   <!-- template for name GML property This template matches the gml:name element and transforms this to rdfs:label. -->
+
+   <xsl:template match="gml:name" priority="1">
+      <rdfs:label>
+         <xsl:value-of select="text()"/>
+      </rdfs:label>
+   </xsl:template>
+
    <!-- template for srsName GML property This template matches the srsName attribute and transforms this to an RDF property named gml:srsName. The URN that refers to the coordinate reference system is contained in rdf:resource. -->
    <xsl:template match="@srsName">
       <gml:srsName rdf:resource="{.}"/>
@@ -54,21 +69,6 @@
    <!-- template for srsDimension GML property This template matches the srsDimension attribute and transforms this to an RDF property named gml:srsDimension. -->
    <xsl:template match="@srsDimension">
       <gml:srsDimension rdf:resource="{.}"/>
-   </xsl:template>
-
-   <!-- template for description GML property This template matches the gml:description element and transforms this to rdfs:comment. -->
-   <xsl:template match="gml:description">
-      <rdfs:comment>
-         <xsl:value-of select="text()"/>
-      </rdfs:comment>
-   </xsl:template>
-
-   <!-- template for name GML property This template matches the gml:name element and transforms this to rdfs:label. -->
-
-   <xsl:template match="gml:name">
-      <rdfs:label>
-         <xsl:value-of select="text()"/>
-      </rdfs:label>
    </xsl:template>
 
 

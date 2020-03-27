@@ -91,7 +91,9 @@ Which results in the following output:
 </rdf:RDF>
 ```
 
-The resulting RDF is a hierarchy of `rdf:Description`s and `rdf:resource`s representing the GML classes and their children. Each element is given an `rdf:about` to identify itself. These are based off of it's corresponding `gml:id` and if no such ID exists, a generic ID is generated. Note that only the `gml:id`s of even depth elements are recorded. For example `#solid_1` is saved after the transformation, while `#someGeometry_1` is not. In addition, every `rdfDescription` generated has an `rdf-type` _(this may a typo from the existing RDF attribute `rdf:type`)_ attribute that corresponds to its GML tag or class instance. The transformation of this attribute is always prefixed with "http://someuri". Besides `gml:id`, `gml:srsName` is the only other attribute to be translated. The attribute `srsDimension` is lost during transformation, for example in the `gml:Envelope` element in the sample data. Additionally, it is worth noting that the transformation of `xlink`s are preserved as `rdf:resource`s.
+The resulting RDF is a hierarchy of `rdf:Description`s and `rdf:resource`s representing the GML classes and their children. Each element is given an `rdf:about` to identify itself. These are based off of it's corresponding `gml:id` and if no such ID exists, a generic ID is generated. Note that only the `gml:id`s of even depth elements are recorded. For example `#solid_1` is saved after the transformation, while `#someGeometry_1` is not. In addition, every `rdfDescription` generated has an `rdf-type` _(this may a typo from the existing RDF attribute `rdf:type`)_ attribute that corresponds to its GML tag or class instance. The transformation of this attribute is always prefixed with "http://someuri". Besides `gml:id`, `gml:srsName` is the only other attribute to be translated. The attribute `srsDimension` is lost during transformation, for example in the `gml:Envelope` element in the sample data. Additionally, it is worth noting that the transformation of `xlink`s are preserved as `rdf:resource`s. Finally 
+
+One uninteded behavior in this transformation was the mistranslation of `gml:description` and `gml:name` elements. Normally they should be translated to `rdfs:comment` and `rdfs:label` respectively but in this case the match for leaf element values was applied. Although the resulting RDF can still be queried to find these elements under the gml schema, the purpose of this transformation is to take advantage of rdfs and rdf syntax when possible. The stylesheet appears to be written correctly to apply these transformations but it is possible that Saxon, the program used for testing, does not correctly respect the priority of template matches. Testing with other XSL translators is required to confirm. Another approach for fixing this issue, is assigning a priority to these match statements.
 
 Before making SPARQL queries on the data the assignment of `rdf-type` was changed to `rdf:type`
 
@@ -119,12 +121,15 @@ And returns:
 | d1e3               | <http://someuri#name>             |
 
 
-This approach works well for representing GML but how can it be adapted for CityGML?
+This approach works well for representing GML but how can it be adapted for CityGML? CityGML is still based on the GML structure of object-properties: each even depth element is a class with odd depth children that contain values or nested objects.
 
-In order to make this XSLT comply dynamically with CityGML, the following changes are proposed:
-* Modify the assignment of `rdf-type` to `rdf:type`
-* Add CityGML xml namespaces
-* Modify rdf:type transformations to respect namespaces
-* Add missing GML attributes such as `srsDimensions`
+Much of the existing stylesheet can be reused, but in order to make this XSLT comply dynamically with CityGML, the following changes are proposed:
+* Update CityGML classes to take advantage of existing rdfs and rdf types.
+  * Modify the assignment of `rdf-type` to `rdf:type`
+  * Modify `rdf:type` transformations to use existing namespaces
+* Add CityGML namespaces
+* Add missing GML 3.1 attributes
+  * `srsDimensions`
 * Add support for CityGML attributes such as `name`
+* Add priorities to avoid conflicting XSL matches
 
