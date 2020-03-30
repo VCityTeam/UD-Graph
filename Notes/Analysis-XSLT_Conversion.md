@@ -124,11 +124,11 @@ And returns:
 This approach works well for representing GML but how can it be adapted for CityGML? CityGML is still based on the GML structure of object-properties: each even depth element is a class with odd depth children that contain values or nested objects.
 
 Much of the existing stylesheet can be reused, but in order to make this XSLT comply dynamically with CityGML, the following changes are proposed:
-* Update CityGML classes to take advantage of existing rdfs and rdf types.
+* Change CityGML classes to take advantage of existing rdfs and rdf types.
   * Modify the assignment of `rdf-type` to `rdf:type`
   * Modify `rdf:type` transformations to use existing namespaces
 * Add CityGML namespaces
 * Add missing GML 3.1 attributes
   * `srsDimensions`
 * Add priorities to avoid conflicting XSL matches
-
+* Change `rdf:about` conversions to append the element id to a '#' character to match `rdf:resource`s  

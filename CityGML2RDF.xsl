@@ -39,7 +39,7 @@
 
    <!-- template for features / resources. This template matches all elements that have an even number of ancestors: the Classes. These are transformed to rdf:Description. The rdf:about attribute is filled with gml:id if it"s present; if not, an id is generated. @srsName and the properties are then processed (apply-templates). -->
    <xsl:template match="*[count(ancestor::*) mod 2 = 0]">
-      <rdf:Description rdf:about="{if (@*:id) then @*:id else generate-id(.)}" rdf:type="{concat( namespace-uri(), '#', local-name() )}">
+      <rdf:Description rdf:about="{concat('#', if (@*:id) then @*:id else generate-id(.))}" rdf:type="{concat(namespace-uri(), '#', local-name())}">
          <xsl:apply-templates select="@srsName"/>
          <xsl:apply-templates select="@srsDimension"/>
          <xsl:apply-templates/>
