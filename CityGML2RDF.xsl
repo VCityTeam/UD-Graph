@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns:cgml="http://www.opengis.net/citygml/2.0#"
+<xsl:stylesheet xmlns="http://www.opengis.net/citygml/2.0#"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:imro="http://www.geonovum.nl/imro/2008/1"
                 xmlns:xlink="http://www.w3.org/1999/xlink"
-                xmlns:gml="http://www.opengis.net/gml"
+                xmlns:gml="http://www.opengis.net/gml#"
                 xmlns:math="http://www.w3.org/2005/xpath-functions/math"
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:dc="http://purl.org/dc/elements/1.1/"
@@ -12,9 +12,9 @@
                 xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
                 xmlns:gen="http://www.opengis.net/citygml/generics/2.0#"
                 xmlns:app="http://www.opengis.net/citygml/appearance/2.0#"
-                xmlns:bldg="http://www.opengis.net/citygml/building/2.0/"
+                xmlns:bldg="http://www.opengis.net/citygml/building/2.0#"
                 xmlns:brid="http://www.opengis.net/citygml/bridge/2.0#"
-                xmlns:core="http://www.opengis.net/citygml/base/2.0#"
+                xmlns:core="http://www.opengis.net/citygml/2.0#"
                 xmlns:dem="http://www.opengis.net/citygml/relief/2.0#"
                 xmlns:luse="http://www.opengis.net/citygml/landuse/2.0#"
                 xmlns:tex="http://www.opengis.net/citygml/textures/2.0#"
@@ -22,7 +22,7 @@
                 xmlns:tun="http://www.opengis.net/citygml/tunnel/2.0#"
                 xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0#"
                 xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0#"
-                xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+                xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0#"
                 exclude-result-prefixes="xs"
                 version="2.0">
 
@@ -39,7 +39,7 @@
 
    <!-- template for features / resources. This template matches all elements that have an even number of ancestors: the Classes. These are transformed to rdf:Description. The rdf:about attribute is filled with gml:id if it"s present; if not, an id is generated. @srsName and the properties are then processed (apply-templates). -->
    <xsl:template match="*[count(ancestor::*) mod 2 = 0]">
-      <rdf:Description rdf:about="{if (@gml:id) then @gml:id else generate-id(.)}" rdf:type="{name()}">
+      <rdf:Description rdf:about="{if (@*:id) then @*:id else generate-id(.)}" rdf:type="{concat( namespace-uri(), '#', local-name() )}">
          <xsl:apply-templates select="@srsName"/>
          <xsl:apply-templates select="@srsDimension"/>
          <xsl:apply-templates/>
@@ -83,7 +83,7 @@
    <xsl:template match="*[count(ancestor::*) mod 2 != 0 and child::*]">
       <xsl:for-each select="*">
          <xsl:element name="{parent::*/name()}">
-            <xsl:attribute name="rdf:resource" select="concat('#', if (@gml:id) then @gml:id else generate-id(.))"></xsl:attribute>
+            <xsl:attribute name="rdf:resource" select="concat('#', if (@*:id) then @*:id else generate-id(.))"></xsl:attribute>
          </xsl:element>
       </xsl:for-each>
    </xsl:template>

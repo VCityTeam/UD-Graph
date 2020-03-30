@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<cgml:CityModel xmlns:cgml="http://www.opengis.net/citygml/2.0"
+<CityModel xmlns="http://www.opengis.net/citygml/2.0"
            xmlns:app="http://www.opengis.net/citygml/appearance/2.0"
            xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
            xmlns:brid="http://www.opengis.net/citygml/bridge/2.0"
-           xmlns:core="http://www.opengis.net/citygml/base/2.0"
+           xmlns:core="http://www.opengis.net/citygml/2.0"
            xmlns:dem="http://www.opengis.net/citygml/relief/2.0"
            xmlns:gen="http://www.opengis.net/citygml/generics/2.0"
            xmlns:gml="http://www.opengis.net/gml"
@@ -37,7 +37,7 @@
       <gml:upperCorner>1842949.625000 5176608.000000 298.512482</gml:upperCorner>
     </gml:Envelope>
   </gml:boundedBy>
-  <cgml:cityObjectMember>
+  <cityObjectMember>
     <bldg:Building gml:id="BU_69381AB243">
       <gml:name>inconnu</gml:name>
       <gml:boundedBy>
@@ -46,7 +46,7 @@
           <gml:upperCorner>1841500.875000 5175872.000000 186.755569</gml:upperCorner>
         </gml:Envelope>
       </gml:boundedBy>
-      <cgml:creationDate>2017-04-05</cgml:creationDate>
+      <creationDate>2017-04-05</creationDate>
       <bldg:consistsOfBuildingPart>
         <bldg:BuildingPart gml:id="BU_69381AB243_1">
           <bldg:measuredHeight uom="#m">12.056</bldg:measuredHeight>
@@ -313,5 +313,5 @@
         </bldg:BuildingPart>
       </bldg:consistsOfBuildingPart>
     </bldg:Building>
-  </cgml:cityObjectMember>
-</cgml:CityModel>
+  </cityObjectMember>
+</CityModel>

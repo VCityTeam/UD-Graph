@@ -130,6 +130,5 @@ Much of the existing stylesheet can be reused, but in order to make this XSLT co
 * Add CityGML namespaces
 * Add missing GML 3.1 attributes
   * `srsDimensions`
-* Add support for CityGML attributes such as `name`
 * Add priorities to avoid conflicting XSL matches
 
