@@ -42,7 +42,7 @@
       <gml:name>inconnu</gml:name>
       <gml:boundedBy>
         <gml:Envelope srsDimension="3">
-          <gml:lowerCorner>1841489.000000 5175864.000000 174.699997$</gml:lowerCorner>
+          <gml:lowerCorner>1841489.000000 5175864.000000 174.699997</gml:lowerCorner>
           <gml:upperCorner>1841500.875000 5175872.000000 186.755569</gml:upperCorner>
         </gml:Envelope>
       </gml:boundedBy>

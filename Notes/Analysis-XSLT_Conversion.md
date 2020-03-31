@@ -1,9 +1,9 @@
-# XSLT Conversion
+# XSLT transformation
 XSLT transformations appear to be the most straightforward way to convert GML/CityGML into RDF or OWL. This is naturally because all of these formats are encoded in XML. This document will analyze the structure of Brink, et al's proposed stylesheet, which can be found [here](https://www.pldn.nl/wiki/Boek/BrinkEtAl-GML2RDF#XSLT_stylesheet_GML_.3E_RDF), for converting GML into RDF, and later how it functions when converting CityGML to RDF.
 
 
 ## Related Articles
-* Brink, Linda van den, et al. « **Linking Spatial Data: Automated Conversion of Geo-Information Models and GML Data to RDF** ». International Journal of Spatial Data Infrastructures Research, vol. 9, nᵒ 0, octobre 2014, p. 59‑85. ijsdir.sadl.kuleuven.be, doi:10.2902/.
+* Brink, Linda van den, et al. « **Linking Spatial Data: Automated transformation of Geo-Information Models and GML Data to RDF** ». International Journal of Spatial Data Infrastructures Research, vol. 9, nᵒ 0, octobre 2014, p. 59‑85. ijsdir.sadl.kuleuven.be, doi:10.2902/.
 * Linda van den Brink, **Geospatial Data on the Web**, PhD Thesis, October 2018
 * Van den Brink, L., et al. « **From Geo-Data to Linked Data: Automated Transformation from GML to RDF** ». Linked Open Data - Pilot Linked Open Data Nederland. Deel 2 - De Verdieping, Geonovum, 2013, Pp. 249-261, 2013. repository.tudelft.nl, https://repository.tudelft.nl/islandora/object/uuid%3A8ec77e83-8406-47d3-8705-32633619ba1f.
 
@@ -121,7 +121,28 @@ And returns:
 | d1e3               | <http://someuri#name>             |
 
 
-This approach works well for representing GML but how can it be adapted for CityGML? CityGML is still based on the GML structure of object-properties: each even depth element is a class with odd depth children that contain values or nested objects.
+This approach works well for representing GML but how can it be adapted for CityGML? CityGML is still based on the GML structure of object-properties: each even depth element is a class with odd depth children that contain values or nested objects. However there are still attibutes at odd depths that denote important information.
+
+For example in the following CityGML example, an odd depth element has an attribute value `uom`.
+```
+<bldg:BuildingPart gml:id="BU_69381AB243_1">
+   <bldg:measuredHeight uom="#m">12.056</bldg:measuredHeight>
+   <bldg:lod2Solid>
+      <gml:Solid gml:id="UUID_faf245d6-9484-4d80-a053-a00833669f26"/>
+   </bldg:lod2Solid>
+</bldg:BuildingPart>
+```
+The transformation would result in two RDF triples: one for the `BuildingPart` and another for the `Solid`.
+```
+<rdf:Description rdf:about="#BU_69381AB243_1"
+                 rdf:type="http://someuri#BuildingPart">
+   <bldg:measuredHeight>12.056</bldg:measuredHeight>
+   <bldg:lod2Solid rdf:resource="#UUID_faf245d6-9484-4d80-a053-a00833669f26"/>
+
+<rdf:Description rdf:about="#UUID_faf245d6-9484-4d80-a053-a00833669f26"
+                 rdf:type="http://someuri#Solid">
+```
+This transformation does preserve the `bldg:measuredHeight` value but the `uom="#m"` attribute is lost since its parent element is at an uneven depth.
 
 Much of the existing stylesheet can be reused, but in order to make this XSLT comply dynamically with CityGML, the following changes are proposed:
 * Change CityGML classes to take advantage of existing rdfs and rdf types.
@@ -131,4 +152,5 @@ Much of the existing stylesheet can be reused, but in order to make this XSLT co
 * Add missing GML 3.1 attributes
   * `srsDimensions`
 * Add priorities to avoid conflicting XSL matches
-* Change `rdf:about` conversions to append the element id to a '#' character to match `rdf:resource`s  
+* Change `rdf:about` transformations to append the element id to a '#' character to match `rdf:resource`s
+* Move information stored at odd depth elements down to their children
