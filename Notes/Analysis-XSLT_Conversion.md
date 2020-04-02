@@ -121,7 +121,7 @@ And returns:
 | d1e3               | <http://someuri#name>             |
 
 
-This approach works well for representing GML but how can it be adapted for CityGML? CityGML is still based on the GML structure of object-properties: each even depth element is a class with odd depth children that contain values or nested objects. However there are still attibutes at odd depths that denote important information.
+This approach works well for representing GML but how can it be adapted for CityGML? CityGML is still based on the GML structure of object-properties: each even depth element is a class with odd depth children that contain values or nested objects. However there are still attibutes at odd depths that denote important information. Note that the depth of an element is measured from 0; first level elements are considered 0 depth and even.
 
 For example in the following CityGML example, an odd depth element has an attribute value `uom`.
 ```
@@ -143,6 +143,31 @@ The transformation would result in two RDF triples: one for the `BuildingPart` a
                  rdf:type="http://someuri#Solid">
 ```
 This transformation does preserve the `bldg:measuredHeight` value but the `uom="#m"` attribute is lost since its parent element is at an uneven depth.
+
+Furthermore, conversion of even depth child elements containing only text or attributes does not match any templates, and therefore those elements will match the built-in XSL templates. These templates are not explicitly listed in the XSL file but are invoked whenever a `<xsl:apply-templates/>` call finds no matching elements. This is not a problem in GML since the object-property structure is respected but there are violations of this in CityGML. In the following example, the text of generic attribute classes of even depth are converted even though there is no specified template to match them:
+```
+<bldg:Building gml:id="ID_0599100000643092">
+   <creationDate>2019-06-11</creationDate>
+   <gen:stringAttribute name="statusOmschr">
+     <gen:value>Pand in gebruik</gen:value>
+   </gen:stringAttribute>
+</bldg:Building>
+``` 
+After transformation:
+```
+<rdf:Description rdf:type="http://someuri#Building" rdf:about="ID_0599100000643092">
+      <gen:stringAttribute rdf:resource="#d1e11"/>
+</rdf:Description>
+<rdf:Description rdf:type="http://someuri#value" rdf:about="d1e11">Pand in gebruik</rdf:Description>
+```
+Although the resource _#d1e11_ is even depth, and no even depth template is called to return its text, the text _Pand in gebruik_ is returned after transformation. This results in malformed RDF since `rdf:Description` elements resolve to subjects in the triple structure and raw text cannot be interpreted as a predicate with no object. This behavior likely occurs because the text is matching a call to the built-in XSL template:
+```
+<xsl:template match="text()|@*" mode="#all">
+  <xsl:value-of select="string(.)"/>
+</xsl:template>
+```
+In order to fix this, a pattern must be provided to match even depth child elements, and assign their text, if any, to an rdf/rdfs attribute or child element with a relevant name or tag respectively, thus completing the triple structure.
+
 
 Much of the existing stylesheet can be reused, but in order to make this XSLT comply dynamically with CityGML, the following changes are proposed:
 * Change CityGML classes to take advantage of existing rdfs and rdf types.
