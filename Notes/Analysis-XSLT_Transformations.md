@@ -179,3 +179,4 @@ Much of the existing stylesheet can be reused, but in order to make this XSLT co
 * Add priorities to avoid conflicting XSL matches
 * Change `rdf:about` transformations to append the element id to a '#' character to match `rdf:resource`s
 * Move information stored at odd depth elements down to their children
+  * `rdf:value` could be used to store the information when appropriate

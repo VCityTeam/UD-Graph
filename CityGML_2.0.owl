@@ -6,7 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://liris.cnrs.fr/citygml_2.0.owl">
-    <Prefix name="" IRI="http://cui.unige.ch/citygml/2.0/"/>
+    <Prefix name="" IRI="http://liris.cnrs.fr/citygml_2.0.owl"/>
     <Prefix name="dc" IRI="http://purl.org/dc/elements/1.1/"/>
     <Prefix name="xs" IRI="http://www.w3.org/2001/XMLSchema"/>
     <Prefix name="app" IRI="http://www.opengis.net/citygml/appearance/2.0#"/>
@@ -35,12 +35,18 @@
     <Import>http://www.opengis.net/ont/geosparql</Import>
     <Annotation>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <Literal>This OWL version of the CityGML standard has been created by
+        <Literal>This OWL version of the CityGML standard is based off of the CityGML 2.0 Owl proposed
+by Claudine Metral and Gilles Falquet from the university of Geneva 
 
+The original ontology was created by:
 - generating classes, properties and axioms from the CityGML 2 XML Schemas
 - manually fixing some generation problems
 - manually replacing every refernce to  gml:xxxPropertyType by references to xxx 
 - manually adding missing gml: classes, properties, and axioms for the geometry profile of CityGML
+
+Modifications to the original ontology include:
+- manually restructuring gml classes to inherit each other when possible to conform with GML 3.1.1
+- import GeoSPARQL ontology to allow for more rich spacial queries
 </Literal>
     </Annotation>
     <Declaration>
@@ -470,6 +476,9 @@
         <Class abbreviatedIRI="gml:CompositeSurface"/>
     </Declaration>
     <Declaration>
+        <Class abbreviatedIRI="gml:Envelope"/>
+    </Declaration>
+    <Declaration>
         <Class abbreviatedIRI="gml:GeometricComplex"/>
     </Declaration>
     <Declaration>
@@ -570,6 +579,9 @@
     </Declaration>
     <Declaration>
         <Class abbreviatedIRI="gml:doubleList"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="rdf:Bag"/>
     </Declaration>
     <Declaration>
         <Class abbreviatedIRI="www:XMLSchemaanyURI"/>
@@ -948,6 +960,51 @@
     </Declaration>
     <Declaration>
         <ObjectProperty abbreviatedIRI="bldg:yearOfDemolition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:class"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:function"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod1Geometry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod1ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod1TerrainIntersection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod2Geometry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod2ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod2TerrainIntersection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod3Geometry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod3ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod3TerrainIntersection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod4Geometry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod4ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:lod4TerrainIntersection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="frn:usage"/>
     </Declaration>
     <Declaration>
         <ObjectProperty abbreviatedIRI="grp:class"/>
@@ -1667,293 +1724,12 @@
         <DataProperty abbreviatedIRI="wtr:waterLevel"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_18ba4e42-a5e1-4eab-9491-d8de9a13851b"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_60cf34f7-4d52-487e-bfd2-c0122b1d239e"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_febd25f5-7c09-4949-bd76-3b078634d44d"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d03ce88c-1b9c-4bf2-b62b-1a1d5a313fb6"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6b901cff-859b-4496-8cd8-3347be75861e"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/measuredHeight"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/upperCorner"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod3Geometry"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9185eef2-8779-4ad2-8479-2b903dbdd9c2"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef6b2605-0d57-4b98-98af-1c60a13efec1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e12"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_332117ab-1ba5-44e9-a6c5-a6ebfdcf8a0f"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:function"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod1ImplicitRepresentation"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1e767f28-0434-483c-82bb-7fff9fcf1a87"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod4TerrainIntersection"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef44b011-97c8-439d-bec5-b3f24d044189"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_10125ec6-769a-430c-ada6-70bceec68ddd"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod1TerrainIntersection"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod3TerrainIntersection"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_789c3c06-6596-4214-bb58-a12f3fec7ab6"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_e5441ada-9b7f-4cc3-bc9a-bfb17773f4ba"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod4ImplicitRepresentation"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d8220e84-ea6e-4651-aa50-484b91cf7444"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e5"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:class"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b63f9a2e-d184-4066-a634-d648a9a6fce0"/>
-    </Declaration>
-    <Declaration>
         <AnnotationProperty abbreviatedIRI="rdf:value"/>
     </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/boundedBy"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_75e9a63e-bbf3-4276-9448-cb88c82774b4"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/2.0/cityObjectMember"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_2e446949-7cd6-41a8-a849-3ab9c66d30c0"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_deb1528c-ff07-473f-8c33-318241f52104"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a6e94168-45cc-40e9-b387-1bad64684121"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d5ce4476-b89d-424a-9e70-34ccf6ddc843"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_80153ba2-a1fc-43f6-9e0b-50bf921b4812"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_952df424-d9be-44b8-8cd7-ca6581e436e2"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_5b88993e-b1a7-42a3-a2cb-37aab0beb707"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c8b68e31-8fd0-49a2-a6b6-3cee2bd0d91d"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a7c8e888-c8ce-4b21-9677-fbf07a384efa"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fd7115f6-7c57-4f82-9a1f-322fb2da6463"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c09c4970-4b56-4e0f-b689-87a63ef57fee"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8aafa594-528e-49b6-8ca4-2e486a0fd68c"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod1Geometry"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d4dad8ec-16ab-486c-ac31-acea2a7db390"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:usage"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod2TerrainIntersection"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/consistsOfBuildingPart"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_7a6575c3-285d-4a29-9cbf-5646241b037a"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/uom"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/lowerCorner"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3e2a405c-8b54-4950-911a-9c1d1d82202d"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b7b700ac-7fa7-4d3a-9ca1-fdc7d4e40341"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9797baf5-b63a-405d-8df3-1bb8b56efcb4"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod3ImplicitRepresentation"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d77dc0d3-8f95-4c5f-a1e6-173524a382f6"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_70358f69-3364-45ab-b09b-547d0de19a6d"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d65f9556-12c9-4ba7-9ddc-56a875fe9fad"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_f4ebea88-03cb-4bc7-85f3-645670657403"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod2Geometry"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_15574319-1646-4a85-a2c2-4b21764bbe02"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6dbc16a6-6c48-4eb9-a4db-937fad063f0f"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2Solid"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/2.0/creationDate"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_890b074f-e24a-4a80-b8e9-e46d82c0d70e"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_407ea9ee-e2b5-4ee4-8443-4f707b020776"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_42e8b1a9-7975-4c78-b2eb-631ddca7f59d"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_faf245d6-9484-4d80-a053-a00833669f26"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_0ca316be-38cb-4c7f-8db7-723e08565df4"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod4Geometry"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fef6e858-1dfc-4dd9-ae80-acc7d4ebd2ea"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1b5c6064-b48c-45c8-93e1-58769c09a08a"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_054de052-2bd1-42d2-b34e-2f97637538c5"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_eada64ff-782e-47e0-8e68-e8df93b64794"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b2bb71f7-9ac9-43d7-a411-dfd586a37943"/>
-    </Declaration>
-    <Declaration>
-        <Class abbreviatedIRI="rdf:Bag"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_40b1d329-e30c-4793-9828-fd2de8c98111"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8528a645-fa11-4102-9588-20a05129a778"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_4259a93c-d301-4146-95aa-6c7e2d4dabd6"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c47369d9-a3c7-4d4e-ad18-1b2504953f26"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8e4ec2bb-6dee-4d59-9a34-d7bd420bc9e3"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_58ba18c5-2840-4672-8250-2e868bae9d39"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_108ae372-bb7c-4380-9f4c-a8c647e95daa"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty abbreviatedIRI="frn:lod2ImplicitRepresentation"/>
-    </Declaration>
-    <Declaration>
-        <Class abbreviatedIRI="gml:Envelope"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d687bb52-6cba-4b37-b6e2-8ad25323e867"/>
-    </Declaration>
+    <EquivalentClasses>
+        <Class abbreviatedIRI="gml:_Feature"/>
+        <Class IRI="http://www.opengis.net/ont/geosparql#Feature"/>
+    </EquivalentClasses>
     <SubClassOf>
         <Class abbreviatedIRI="core:Address"/>
         <Class abbreviatedIRI="gml:_Feature"/>
@@ -5532,260 +5308,8 @@
         </ObjectSomeValuesFrom>
     </SubClassOf>
     <ClassAssertion>
-        <Class abbreviatedIRI="bldg:Building"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:BuildingPart"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_054de052-2bd1-42d2-b34e-2f97637538c5"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:RoofSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_0ca316be-38cb-4c7f-8db7-723e08565df4"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_10125ec6-769a-430c-ada6-70bceec68ddd"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_108ae372-bb7c-4380-9f4c-a8c647e95daa"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_15574319-1646-4a85-a2c2-4b21764bbe02"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_18ba4e42-a5e1-4eab-9491-d8de9a13851b"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1b5c6064-b48c-45c8-93e1-58769c09a08a"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:RoofSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1e767f28-0434-483c-82bb-7fff9fcf1a87"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_2e446949-7cd6-41a8-a849-3ab9c66d30c0"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:GroundSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_332117ab-1ba5-44e9-a6c5-a6ebfdcf8a0f"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:CompositeSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3e2a405c-8b54-4950-911a-9c1d1d82202d"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:RoofSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_407ea9ee-e2b5-4ee4-8443-4f707b020776"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_40b1d329-e30c-4793-9828-fd2de8c98111"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_4259a93c-d301-4146-95aa-6c7e2d4dabd6"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_42e8b1a9-7975-4c78-b2eb-631ddca7f59d"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_58ba18c5-2840-4672-8250-2e868bae9d39"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_5b88993e-b1a7-42a3-a2cb-37aab0beb707"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_60cf34f7-4d52-487e-bfd2-c0122b1d239e"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6b901cff-859b-4496-8cd8-3347be75861e"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6dbc16a6-6c48-4eb9-a4db-937fad063f0f"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_70358f69-3364-45ab-b09b-547d0de19a6d"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_75e9a63e-bbf3-4276-9448-cb88c82774b4"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_789c3c06-6596-4214-bb58-a12f3fec7ab6"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_7a6575c3-285d-4a29-9cbf-5646241b037a"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_80153ba2-a1fc-43f6-9e0b-50bf921b4812"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8528a645-fa11-4102-9588-20a05129a778"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_890b074f-e24a-4a80-b8e9-e46d82c0d70e"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:RoofSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8aafa594-528e-49b6-8ca4-2e486a0fd68c"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8e4ec2bb-6dee-4d59-9a34-d7bd420bc9e3"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9185eef2-8779-4ad2-8479-2b903dbdd9c2"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_952df424-d9be-44b8-8cd7-ca6581e436e2"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9797baf5-b63a-405d-8df3-1bb8b56efcb4"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a6e94168-45cc-40e9-b387-1bad64684121"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a7c8e888-c8ce-4b21-9677-fbf07a384efa"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b2bb71f7-9ac9-43d7-a411-dfd586a37943"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b63f9a2e-d184-4066-a634-d648a9a6fce0"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b7b700ac-7fa7-4d3a-9ca1-fdc7d4e40341"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c09c4970-4b56-4e0f-b689-87a63ef57fee"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c47369d9-a3c7-4d4e-ad18-1b2504953f26"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c8b68e31-8fd0-49a2-a6b6-3cee2bd0d91d"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:RoofSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d03ce88c-1b9c-4bf2-b62b-1a1d5a313fb6"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d4dad8ec-16ab-486c-ac31-acea2a7db390"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d5ce4476-b89d-424a-9e70-34ccf6ddc843"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d65f9556-12c9-4ba7-9ddc-56a875fe9fad"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d687bb52-6cba-4b37-b6e2-8ad25323e867"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d77dc0d3-8f95-4c5f-a1e6-173524a382f6"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d8220e84-ea6e-4651-aa50-484b91cf7444"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_deb1528c-ff07-473f-8c33-318241f52104"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_e5441ada-9b7f-4cc3-bc9a-bfb17773f4ba"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_eada64ff-782e-47e0-8e68-e8df93b64794"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef44b011-97c8-439d-bec5-b3f24d044189"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="bldg:WallSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef6b2605-0d57-4b98-98af-1c60a13efec1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Polygon"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_f4ebea88-03cb-4bc7-85f3-645670657403"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Solid"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_faf245d6-9484-4d80-a053-a00833669f26"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fd7115f6-7c57-4f82-9a1f-322fb2da6463"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:MultiSurface"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_febd25f5-7c09-4949-bd76-3b078634d44d"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:LinearRing"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fef6e858-1dfc-4dd9-ae80-acc7d4ebd2ea"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="core:CityModel"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Envelope"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e12"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class abbreviatedIRI="gml:Envelope"/>
-        <NamedIndividual IRI="file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e5"/>
-    </ClassAssertion>
-    <ClassAssertion>
         <Class abbreviatedIRI="rdf:Bag"/>
-        <AnonymousIndividual nodeID="_:genid2147484083"/>
+        <AnonymousIndividual nodeID="_:genid2147483652"/>
     </ClassAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty abbreviatedIRI="core:cityObjectMember"/>
@@ -5807,6 +5331,10 @@
         <ObjectProperty abbreviatedIRI="gml:trianglePatchOf"/>
         <ObjectProperty abbreviatedIRI="gml:trianglePatches"/>
     </InverseObjectProperties>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="http://www.opengis.net/ont/geosparql#hasGeometry"/>
+        <Class abbreviatedIRI="gml:_Geometry"/>
+    </ObjectPropertyRange>
     <DataPropertyDomain>
         <DataProperty IRI="http://www.opengis.net/ont/geosparql#asGML"/>
         <Class abbreviatedIRI="gml:_Geometry"/>
@@ -5819,581 +5347,6 @@
             <Literal>Unknown</Literal>
         </DataOneOf>
     </DataPropertyRange>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/2.0/creationDate"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243</IRI>
-        <Literal>2017-04-05</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/consistsOfBuildingPart"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e12</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243</IRI>
-        <Literal>inconnu</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_0ca316be-38cb-4c7f-8db7-723e08565df4</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_15574319-1646-4a85-a2c2-4b21764bbe02</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1e767f28-0434-483c-82bb-7fff9fcf1a87</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_332117ab-1ba5-44e9-a6c5-a6ebfdcf8a0f</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_407ea9ee-e2b5-4ee4-8443-4f707b020776</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_5b88993e-b1a7-42a3-a2cb-37aab0beb707</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_789c3c06-6596-4214-bb58-a12f3fec7ab6</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8aafa594-528e-49b6-8ca4-2e486a0fd68c</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a7c8e888-c8ce-4b21-9677-fbf07a384efa</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c8b68e31-8fd0-49a2-a6b6-3cee2bd0d91d</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d03ce88c-1b9c-4bf2-b62b-1a1d5a313fb6</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d77dc0d3-8f95-4c5f-a1e6-173524a382f6</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef44b011-97c8-439d-bec5-b3f24d044189</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef6b2605-0d57-4b98-98af-1c60a13efec1</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2Solid"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_faf245d6-9484-4d80-a053-a00833669f26</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/measuredHeight"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243_1</IRI>
-        <AnonymousIndividual nodeID="_:genid2147484083"/>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_054de052-2bd1-42d2-b34e-2f97637538c5</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_75e9a63e-bbf3-4276-9448-cb88c82774b4</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_0ca316be-38cb-4c7f-8db7-723e08565df4</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d4dad8ec-16ab-486c-ac31-acea2a7db390</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_10125ec6-769a-430c-ada6-70bceec68ddd</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_10125ec6-769a-430c-ada6-70bceec68ddd</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6dbc16a6-6c48-4eb9-a4db-937fad063f0f</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_108ae372-bb7c-4380-9f4c-a8c647e95daa</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_108ae372-bb7c-4380-9f4c-a8c647e95daa</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_60cf34f7-4d52-487e-bfd2-c0122b1d239e</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_15574319-1646-4a85-a2c2-4b21764bbe02</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d65f9556-12c9-4ba7-9ddc-56a875fe9fad</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_18ba4e42-a5e1-4eab-9491-d8de9a13851b</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_18ba4e42-a5e1-4eab-9491-d8de9a13851b</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_054de052-2bd1-42d2-b34e-2f97637538c5</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1b5c6064-b48c-45c8-93e1-58769c09a08a</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3e2a405c-8b54-4950-911a-9c1d1d82202d</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1e767f28-0434-483c-82bb-7fff9fcf1a87</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_18ba4e42-a5e1-4eab-9491-d8de9a13851b</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_2e446949-7cd6-41a8-a849-3ab9c66d30c0</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_2e446949-7cd6-41a8-a849-3ab9c66d30c0</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6b901cff-859b-4496-8cd8-3347be75861e</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_332117ab-1ba5-44e9-a6c5-a6ebfdcf8a0f</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_58ba18c5-2840-4672-8250-2e868bae9d39</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_054de052-2bd1-42d2-b34e-2f97637538c5</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1b5c6064-b48c-45c8-93e1-58769c09a08a</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_40b1d329-e30c-4793-9828-fd2de8c98111</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_60cf34f7-4d52-487e-bfd2-c0122b1d239e</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6b901cff-859b-4496-8cd8-3347be75861e</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6dbc16a6-6c48-4eb9-a4db-937fad063f0f</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_70358f69-3364-45ab-b09b-547d0de19a6d</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_7a6575c3-285d-4a29-9cbf-5646241b037a</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8528a645-fa11-4102-9588-20a05129a778</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_890b074f-e24a-4a80-b8e9-e46d82c0d70e</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b2bb71f7-9ac9-43d7-a411-dfd586a37943</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b63f9a2e-d184-4066-a634-d648a9a6fce0</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b7b700ac-7fa7-4d3a-9ca1-fdc7d4e40341</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_f4ebea88-03cb-4bc7-85f3-645670657403</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3e2a405c-8b54-4950-911a-9c1d1d82202d</IRI>
-        <Literal>1841500.56423100 5175870.25504000 174.70000000 1841500.54989500 5175869.09632300 174.70000000 1841500.54159300 5175868.42530650 174.70000000 1841500.53329100 5175867.75429000 174.70000000 1841500.70979200 5175864.36908500 174.70000000 1841494.54539500 5175864.64403407 174.70000000 1841489.04759700 5175864.88925100 174.70000000 1841489.19109050 5175866.55757450 174.70000000 1841489.33458400 5175868.22589800 174.70000000 1841489.62707600 5175871.62654800 174.70000000 1841492.68022971 5175871.51402798 174.70000000 1841495.73338342 5175871.40150797 174.70000000 1841495.65851900 5175870.50573900 174.70000000 1841497.77334600 5175870.39766396 174.70000000 1841500.56423100 5175870.25504000 174.70000000 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_407ea9ee-e2b5-4ee4-8443-4f707b020776</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_febd25f5-7c09-4949-bd76-3b078634d44d</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_40b1d329-e30c-4793-9828-fd2de8c98111</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a6e94168-45cc-40e9-b387-1bad64684121</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_4259a93c-d301-4146-95aa-6c7e2d4dabd6</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_4259a93c-d301-4146-95aa-6c7e2d4dabd6</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_40b1d329-e30c-4793-9828-fd2de8c98111</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_42e8b1a9-7975-4c78-b2eb-631ddca7f59d</IRI>
-        <Literal>1841497.77334600 5175870.39766396 185.87431300 1841497.77334600 5175870.39766396 185.03264600 1841497.72348480 5175869.12983001 185.44394142 1841497.67131100 5175867.80319300 185.87431300 1841497.72348480 5175869.12983001 186.75556300 1841497.77334600 5175870.39766396 185.87431300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_58ba18c5-2840-4672-8250-2e868bae9d39</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_58ba18c5-2840-4672-8250-2e868bae9d39</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_1b5c6064-b48c-45c8-93e1-58769c09a08a</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_5b88993e-b1a7-42a3-a2cb-37aab0beb707</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8e4ec2bb-6dee-4d59-9a34-d7bd420bc9e3</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_60cf34f7-4d52-487e-bfd2-c0122b1d239e</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d8220e84-ea6e-4651-aa50-484b91cf7444</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6b901cff-859b-4496-8cd8-3347be75861e</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_eada64ff-782e-47e0-8e68-e8df93b64794</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_6dbc16a6-6c48-4eb9-a4db-937fad063f0f</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_deb1528c-ff07-473f-8c33-318241f52104</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_70358f69-3364-45ab-b09b-547d0de19a6d</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_80153ba2-a1fc-43f6-9e0b-50bf921b4812</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_75e9a63e-bbf3-4276-9448-cb88c82774b4</IRI>
-        <Literal>1841497.77334600 5175870.39766396 185.03264600 1841495.65851900 5175870.50573900 185.03264600 1841495.73338342 5175871.40150797 184.73264600 1841489.62707600 5175871.62654800 184.76598000 1841489.33458400 5175868.22589800 185.91598000 1841497.67131100 5175867.80319300 185.87431300 1841497.72348480 5175869.12983001 185.44394142 1841497.77334600 5175870.39766396 185.03264600 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_789c3c06-6596-4214-bb58-a12f3fec7ab6</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_108ae372-bb7c-4380-9f4c-a8c647e95daa</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_7a6575c3-285d-4a29-9cbf-5646241b037a</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9185eef2-8779-4ad2-8479-2b903dbdd9c2</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_80153ba2-a1fc-43f6-9e0b-50bf921b4812</IRI>
-        <Literal>1841495.73338342 5175871.40150797 184.73264600 1841495.65851900 5175870.50573900 185.03264600 1841495.65851900 5175870.50573900 174.70000000 1841495.73338342 5175871.40150797 174.70000000 1841495.73338342 5175871.40150797 184.73264600 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8528a645-fa11-4102-9588-20a05129a778</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_42e8b1a9-7975-4c78-b2eb-631ddca7f59d</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_890b074f-e24a-4a80-b8e9-e46d82c0d70e</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d687bb52-6cba-4b37-b6e2-8ad25323e867</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8aafa594-528e-49b6-8ca4-2e486a0fd68c</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_2e446949-7cd6-41a8-a849-3ab9c66d30c0</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8e4ec2bb-6dee-4d59-9a34-d7bd420bc9e3</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8e4ec2bb-6dee-4d59-9a34-d7bd420bc9e3</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_890b074f-e24a-4a80-b8e9-e46d82c0d70e</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9185eef2-8779-4ad2-8479-2b903dbdd9c2</IRI>
-        <Literal>1841500.53329100 5175867.75429000 185.87431300 1841497.67131100 5175867.80319300 185.87431300 1841489.33458400 5175868.22589800 185.91598000 1841489.04759700 5175864.88925100 184.69931300 1841494.54539500 5175864.64403407 184.69931300 1841500.70979200 5175864.36908500 184.69931300 1841500.53329100 5175867.75429000 185.87431300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_952df424-d9be-44b8-8cd7-ca6581e436e2</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_952df424-d9be-44b8-8cd7-ca6581e436e2</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_70358f69-3364-45ab-b09b-547d0de19a6d</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9797baf5-b63a-405d-8df3-1bb8b56efcb4</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9797baf5-b63a-405d-8df3-1bb8b56efcb4</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_8528a645-fa11-4102-9588-20a05129a778</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a6e94168-45cc-40e9-b387-1bad64684121</IRI>
-        <Literal>1841500.56423100 5175870.25504000 185.87431300 1841497.72348480 5175869.12983001 186.75556300 1841500.54989500 5175869.09632300 186.75556300 1841500.56423100 5175870.25504000 185.87431300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_a7c8e888-c8ce-4b21-9677-fbf07a384efa</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c09c4970-4b56-4e0f-b689-87a63ef57fee</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b2bb71f7-9ac9-43d7-a411-dfd586a37943</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c47369d9-a3c7-4d4e-ad18-1b2504953f26</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b63f9a2e-d184-4066-a634-d648a9a6fce0</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fd7115f6-7c57-4f82-9a1f-322fb2da6463</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b7b700ac-7fa7-4d3a-9ca1-fdc7d4e40341</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fef6e858-1dfc-4dd9-ae80-acc7d4ebd2ea</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c09c4970-4b56-4e0f-b689-87a63ef57fee</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c09c4970-4b56-4e0f-b689-87a63ef57fee</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b7b700ac-7fa7-4d3a-9ca1-fdc7d4e40341</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c47369d9-a3c7-4d4e-ad18-1b2504953f26</IRI>
-        <Literal>1841500.70979200 5175864.36908500 184.69931300 1841494.54539500 5175864.64403407 184.69931300 1841489.04759700 5175864.88925100 184.69931300 1841489.04759700 5175864.88925100 174.70000000 1841494.54539500 5175864.64403407 174.70000000 1841500.70979200 5175864.36908500 174.70000000 1841500.70979200 5175864.36908500 184.69931300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_c8b68e31-8fd0-49a2-a6b6-3cee2bd0d91d</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_e5441ada-9b7f-4cc3-bc9a-bfb17773f4ba</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d03ce88c-1b9c-4bf2-b62b-1a1d5a313fb6</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_4259a93c-d301-4146-95aa-6c7e2d4dabd6</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d4dad8ec-16ab-486c-ac31-acea2a7db390</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d4dad8ec-16ab-486c-ac31-acea2a7db390</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_f4ebea88-03cb-4bc7-85f3-645670657403</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d5ce4476-b89d-424a-9e70-34ccf6ddc843</IRI>
-        <Literal>1841500.54989500 5175869.09632300 186.75556300 1841497.72348480 5175869.12983001 186.75556300 1841497.67131100 5175867.80319300 185.87431300 1841500.53329100 5175867.75429000 185.87431300 1841500.54989500 5175869.09632300 186.75556300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d65f9556-12c9-4ba7-9ddc-56a875fe9fad</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d65f9556-12c9-4ba7-9ddc-56a875fe9fad</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b2bb71f7-9ac9-43d7-a411-dfd586a37943</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d687bb52-6cba-4b37-b6e2-8ad25323e867</IRI>
-        <Literal>1841500.70979200 5175864.36908500 174.70000000 1841500.53329100 5175867.75429000 174.70000000 1841500.53329100 5175867.75429000 185.87431300 1841500.70979200 5175864.36908500 184.69931300 1841500.70979200 5175864.36908500 174.70000000 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d77dc0d3-8f95-4c5f-a1e6-173524a382f6</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_10125ec6-769a-430c-ada6-70bceec68ddd</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d8220e84-ea6e-4651-aa50-484b91cf7444</IRI>
-        <Literal>1841500.56423100 5175870.25504000 174.70000000 1841500.56423100 5175870.25504000 185.87431300 1841500.54989500 5175869.09632300 186.75556300 1841500.53329100 5175867.75429000 185.87431300 1841500.53329100 5175867.75429000 174.70000000 1841500.54159300 5175868.42530650 174.70000000 1841500.54989500 5175869.09632300 174.70000000 1841500.56423100 5175870.25504000 174.70000000 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_deb1528c-ff07-473f-8c33-318241f52104</IRI>
-        <Literal>1841500.56423100 5175870.25504000 185.87431300 1841500.56423100 5175870.25504000 174.70000000 1841497.77334600 5175870.39766396 174.70000000 1841495.65851900 5175870.50573900 174.70000000 1841495.65851900 5175870.50573900 185.03264600 1841497.77334600 5175870.39766396 185.03264600 1841497.77334600 5175870.39766396 185.87431300 1841500.56423100 5175870.25504000 185.87431300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_e5441ada-9b7f-4cc3-bc9a-bfb17773f4ba</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_e5441ada-9b7f-4cc3-bc9a-bfb17773f4ba</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_b63f9a2e-d184-4066-a634-d648a9a6fce0</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_eada64ff-782e-47e0-8e68-e8df93b64794</IRI>
-        <Literal>1841500.56423100 5175870.25504000 185.87431300 1841497.77334600 5175870.39766396 185.87431300 1841497.72348480 5175869.12983001 186.75556300 1841500.56423100 5175870.25504000 185.87431300 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef44b011-97c8-439d-bec5-b3f24d044189</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_952df424-d9be-44b8-8cd7-ca6581e436e2</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/lod2MultiSurface"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_ef6b2605-0d57-4b98-98af-1c60a13efec1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_9797baf5-b63a-405d-8df3-1bb8b56efcb4</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_f4ebea88-03cb-4bc7-85f3-645670657403</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_d5ce4476-b89d-424a-9e70-34ccf6ddc843</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/exterior"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_faf245d6-9484-4d80-a053-a00833669f26</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_3935a695-4dae-4f35-aee3-04d6d3761b74</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fd7115f6-7c57-4f82-9a1f-322fb2da6463</IRI>
-        <Literal>1841495.73338342 5175871.40150797 174.70000000 1841492.68022971 5175871.51402798 174.70000000 1841489.62707600 5175871.62654800 174.70000000 1841489.62707600 5175871.62654800 184.76598000 1841495.73338342 5175871.40150797 184.73264600 1841495.73338342 5175871.40150797 174.70000000 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_febd25f5-7c09-4949-bd76-3b078634d44d</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/surfaceMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_febd25f5-7c09-4949-bd76-3b078634d44d</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_7a6575c3-285d-4a29-9cbf-5646241b037a</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/posList"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#UUID_fef6e858-1dfc-4dd9-ae80-acc7d4ebd2ea</IRI>
-        <Literal>1841489.62707600 5175871.62654800 174.70000000 1841489.33458400 5175868.22589800 174.70000000 1841489.19109050 5175866.55757450 174.70000000 1841489.04759700 5175864.88925100 174.70000000 1841489.04759700 5175864.88925100 184.69931300 1841489.33458400 5175868.22589800 185.91598000 1841489.62707600 5175871.62654800 184.76598000 1841489.62707600 5175871.62654800 174.70000000 </Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/2.0/cityObjectMember"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#BU_69381AB243</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/boundedBy"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e1</IRI>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e5</IRI>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e1</IRI>
-        <Literal>Exported by Rhinocity</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e1</IRI>
-        <Literal>LYON_1ER_2015</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/lowerCorner"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e12</IRI>
-        <Literal>1841489.000000 5175864.000000 174.699997</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e12</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/upperCorner"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e12</IRI>
-        <Literal>1841500.875000 5175872.000000 186.755569</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/lowerCorner"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e5</IRI>
-        <Literal>1841069.875000 5175491.500000 165.999985</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/srsDimension"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e5</IRI>
-        <Literal>3</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/gml/upperCorner"/>
-        <IRI>file:/home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/output.rdf#d1e5</IRI>
-        <Literal>1842949.625000 5176608.000000 298.512482</Literal>
-    </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <AbbreviatedIRI>core:Address</AbbreviatedIRI>
@@ -7588,13 +6541,8 @@
       none. </Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty IRI="http://www.opengis.net/citygml/building/2.0/uom"/>
-        <AnonymousIndividual nodeID="_:genid2147484083"/>
-        <Literal>#m</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdf:value"/>
-        <AnonymousIndividual nodeID="_:genid2147484083"/>
+        <AnonymousIndividual nodeID="_:genid2147483652"/>
         <Literal>12.056</Literal>
     </AnnotationAssertion>
 </Ontology>

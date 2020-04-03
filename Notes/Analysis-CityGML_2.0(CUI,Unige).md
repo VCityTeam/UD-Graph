@@ -189,7 +189,7 @@ _BoundarySurface:
 
 The CityGML 2.0 structure of the building module is well preserved. Almost every generalization and association is present and correct, along with their respective attributes. <sup>1</sup>There is however, one mistake regarding the furniture associated with the `Room` class, as noted above. The `Room` class has the object property: `interiorFurniture only BridgeFurniture` which should instead contain only **BuildingFurniture**. However, there are actually 2 distinct `BridgeFurniture` classes in the ontology and both of them are missing the required object properties of their attributes and associations, and are not subclasses of `_CityObject`. I believe these classes were made in error or imported incorrectly.
 
-To fix these, I propose using the existing GML ontology provided my [GeoSPARQL](http://www.opengis.net/ont/gml). A new ontology will be created using a modification of the existing CityGML 2.0, that references the existing GML ontology. 
+To fix these, the existing CityGML ontology is modified to adhere with the CityGML UML model. In addition, the existing GML ontology provided by GeoSPARQL will be imported. Previous analysis has shown _(also mentioned in Linda Van den Brink's article)_ that SPARQL queries can be quite lengthy as city objects have deep hierarchies of geometry. GeoSPARQL can help reduce these queries with the `hasGeometry` property.
 
 These changes will be made in the [UD-Graph](https://github.com/VCityTeam/UD-Graph) repository
 
