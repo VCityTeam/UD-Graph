@@ -14,22 +14,26 @@
     To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityModel">
-      <rdfs:subPropertyOf rdf:resource="xs:anyType"/>
-   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityModel">
+      <rdfs:comment>Warning: This Class is declared outside of the original schema. It may not be a Class.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+   </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#cityObjectMember">
-      <rdfs:comment>Warning: This Class type is declared outside of the original schema. It may not be a Class.</rdfs:comment>
+      <rdfs:comment>Warning: This Class is declared outside of the original schema. It may not be a Class.</rdfs:comment>
       <rdfs:subClassOf rdf:resource="gml:FeaturePropertyType"/>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject">
-      <rdfs:subPropertyOf rdf:resource="xs:anyType"/>
-   </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfSite">
-      <rdfs:subPropertyOf rdf:resource="xs:anyType"/>
-   </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfAddress">
-      <rdfs:subPropertyOf rdf:resource="xs:anyType"/>
-   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject">
+      <rdfs:comment>Warning: This Class is declared outside of the original schema. It may not be a Class.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfSite">
+      <rdfs:comment>Warning: This Class is declared outside of the original schema. It may not be a Class.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfAddress">
+      <rdfs:comment>Warning: This Class is declared outside of the original schema. It may not be a Class.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+   </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#CityModelType">
       <rdfs:comment>Type describing the "root" element of any city model file. It is a collection whose members are restricted
 				to be features of a city model. All features are included as cityObjectMember. </rdfs:comment>
@@ -134,12 +138,28 @@
          <owl:Thing rdf:resource="http://www.opengis.net/citygml/2.0#"/>
       </owl:intersectionOf>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#RelativeToTerrainType"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#RelativeToWaterType"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1List"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix4x4Type"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#integerBetween0and4"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#RelativeToTerrainType">
+      <rdfs:range rdf:resource="xs:string"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#RelativeToWaterType">
+      <rdfs:range rdf:resource="xs:string"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1">
+      <rdfs:range rdf:resource="xs:double"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1List">
+      <rdfs:range rdf:resource="doubleBetween0and1"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix4x4Type">
+      <rdfs:range rdf:resource="gml:doubleList"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type">
+      <rdfs:range rdf:resource="gml:doubleList"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type">
+      <rdfs:range rdf:resource="gml:doubleList"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#integerBetween0and4">
+      <rdfs:range rdf:resource="xs:integer"/>
+   </owl:DatatypeProperty>
 </rdf:RDF>
