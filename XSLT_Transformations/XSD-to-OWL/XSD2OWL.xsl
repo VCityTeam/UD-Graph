@@ -2,18 +2,15 @@
 <!-- TODO: replace <xsl:if> nodes with <xsl:element name="{if}"> nodes for more and concise templates. --> 
 <!-- TODO: replace attribute::* with @* when possible for more concise templates -->
 <!-- TODO: add attribute support -->
-<xsl:stylesheet exclude-result-prefixes="xs"
-                version="2.0"
+<xsl:stylesheet version="2.0"
                 xmlns:math="http://www.w3.org/2005/xpath-functions/math"
                 xmlns:owl="http://www.w3.org/2002/07/owl#"
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output indent="yes"/>
   <xsl:strip-space elements="*"/>
-  <xsl:namespace-alias stylesheet-prefix="xsd" result-prefix="xs"/>
   <xsl:variable name="namespace" select="concat( //@targetNamespace, '#' )"/>
 
   <!-- ================================================================================================= -->
@@ -23,7 +20,7 @@
   for 1st depth elements, complex types, and simple types. -->
   <xsl:template match="/">
     <rdf:RDF>
-      <owl:Ontology rdf:about="http://liris.cnrs.fr/citygml_2.0.owl">
+      <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies">
         <xsl:apply-templates select="//*[name() = 'xs:import']"/>
         <xsl:apply-templates select="//*[parent::xs:schema and name() = 'xs:annotation']"/>
       </owl:Ontology>
@@ -76,7 +73,7 @@
       if the element type is of a common xs datatype, it will be transformed into a Datatype property.
       Otherwise it will be assumed to be a class.-->
       <xsl:when test="contains( @type, ':' )">
-        <xsl:element name="{if (contains( 'xs:string xs:decimal xs:integer xs:boolean xs:date xs:time', @type )) then 'owl:DatatypeProperty' else 'owl:Class'}">
+        <xsl:element name="{if (contains( @type, 'xs:' )) then 'owl:DatatypeProperty' else 'owl:Class'}">
           <xsl:attribute name="rdf:about" select="@name"/>
           <rdfs:comment>Warning: This entity is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
           <xsl:apply-templates select="descendant::xs:annotation"/>
@@ -107,8 +104,8 @@
   <xsl:template match="@substitutionGroup[../@type]">
     <xsl:choose>
       <!-- substitution group attributes that belong to elements with types declared outside the schema are transformed into subclasses or subproperties -->
-      <xsl:when test="contains( ../@type, ':' )">
-        <xsl:element name="{if (contains( 'xs:string xs:decimal xs:integer xs:boolean xs:date xs:time', ../@type )) then 'rdfs:subPropertyOf' else 'rdfs:subClassOf'}">
+      <xsl:when test="contains( . , ':' )">
+        <xsl:element name="{if (contains( 'xs:string xs:decimal xs:integer xs:boolean xs:date xs:time', . )) then 'rdfs:subPropertyOf' else 'rdfs:subClassOf'}">
           <xsl:attribute name="rdf:resource" select="."/>
         </xsl:element>
       </xsl:when>
@@ -201,20 +198,17 @@
       <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
       <rdfs:subClassOf>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="{concat( $namespace, $thisName )}"/>
+          <owl:onProperty rdf:resource="{if (contains( $thisName, ':' )) then $thisName else concat( $namespace, $thisName )}"/>
           <owl:allValuesFrom>
             <xsl:choose>
               <xsl:when test="@name">
-                <xsl:attribute name="rdf:resource" select="if (contains( @type, ':'))
-                                                           then @type
-                                                           else concat( $namespace, @type )"/>
+                <xsl:attribute name="rdf:resource" select="if (contains( @type, ':')) then @type else concat( $namespace, @type )"/>
               </xsl:when>
-              <xsl:when test="@ref">
+              <xsl:when test="@ref and not(contains( @ref, ':' ))">
                 <xsl:variable name="thisType" select="//xs:element[@name = $thisName]/@type"/>
-                <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':'))
-                                                           then $thisType
-                                                           else concat( $namespace, $thisType )"/>
+                <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':' )) then $thisType else concat( $namespace, $thisType )"/>
               </xsl:when>
+              <xsl:otherwise><xsl:attribute name="rdf:resource" select=""/></xsl:otherwise>
             </xsl:choose>
           </owl:allValuesFrom>
         </owl:Restriction>
