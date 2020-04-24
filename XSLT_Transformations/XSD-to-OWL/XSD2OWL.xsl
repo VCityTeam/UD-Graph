@@ -75,7 +75,7 @@
       <xsl:when test="contains( @type, ':' )">
         <xsl:element name="{if (contains( @type, 'xs:' )) then 'owl:DatatypeProperty' else 'owl:Class'}">
           <xsl:attribute name="rdf:about" select="@name"/>
-          <rdfs:comment>Warning: This entity is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
+          <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
           <xsl:apply-templates select="descendant::xs:annotation"/>
           <xsl:element name="{if (contains( 'xs:string xs:decimal xs:integer xs:boolean xs:date xs:time', @type )) then 'rdfs:subPropertyOf' else 'rdfs:subClassOf'}">
             <xsl:attribute name="rdf:resource" select="@type"/>
@@ -208,26 +208,28 @@
                 <xsl:variable name="thisType" select="//xs:element[@name = $thisName]/@type"/>
                 <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':' )) then $thisType else concat( $namespace, $thisType )"/>
               </xsl:when>
-              <xsl:otherwise><xsl:attribute name="rdf:resource" select=""/></xsl:otherwise>
+              <xsl:otherwise><xsl:attribute name="rdf:resource" select="concat( substring-before( @ref, ':' ), ':UNKNOWN_TYPE' )"/></xsl:otherwise>
             </xsl:choose>
           </owl:allValuesFrom>
         </owl:Restriction>
       </rdfs:subClassOf>
-      <xsl:apply-templates select="attribute::maxOccurs"/>
-      <xsl:apply-templates select="attribute::minOccurs"/>
+      <xsl:apply-templates select="@maxOccurs"/>
+      <xsl:apply-templates select="@minOccurs"/>
     </xsl:for-each>
   </xsl:template>
 
-  <!-- TODO: implement choice template -->
+  <xsl:template match="xs:choice">
+    <xsl:for-each select="child::xs:element">
+      <!-- TODO: implement xsd:choice -->
+    </xsl:for-each>
+  </xsl:template>
 
   <!-- Cardinality is preserved by transforming xs:minOccurs into owl:minCardinality unless the value is 0 -->
   <xsl:template match="@minOccurs">
     <xsl:if test=". != 0">
       <rdfs:subClassOf>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="{concat( $namespace, if (../@name)
-                                                                     then ../@name
-                                                                     else ../@ref )}"/>
+          <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
           <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
             <xsl:value-of select="."/>
           </owl:minCardinality>
@@ -242,9 +244,7 @@
     <xsl:if test=". != 'unbounded'">
       <rdfs:subClassOf>
         <owl:Restriction>
-          <owl:onProperty rdf:resource="{concat( $namespace, if (../@name)
-                                                                     then ../@name
-                                                                     else ../@ref )}"/>
+          <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
           <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
             <xsl:value-of select="."/>
           </owl:minCardinality>
@@ -258,22 +258,22 @@
   <!-- ================================== SimpleType Transformations =================================== -->
   <!-- ================================================================================================= -->
   <xsl:template match="//xs:simpleType[parent::xs:schema]">
-    <owl:DatatypeProperty rdf:about="{concat( $namespace, attribute::name )}">
+    <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
       <xsl:apply-templates select="descendant::xs:restriction|descendant::xs:list|descendant::xs:union"/>
       <!-- TODO: add enumeration support -->
     </owl:DatatypeProperty>
   </xsl:template>
 
   <xsl:template match="xs:restriction">
-    <rdfs:range rdf:resource="{attribute::base}"/>
+    <rdfs:range rdf:resource="{if (contains( @base, ':' )) then @base else concat( $namespace, @base )}"/>
   </xsl:template>
 
   <xsl:template match="xs:list">
-    <rdfs:range rdf:resource="{attribute::itemType}"/>
+    <rdfs:range rdf:resource="{if (contains( @itemType, ':' )) then @itemType else concat( $namespace, @itemType )}"/>
   </xsl:template>
 
   <xsl:template match="xs:union">
-    <rdfs:range rdf:resource="{attribute::memberTypes}"/>
+    <rdfs:range rdf:resource="{if (contains( @memberTypes, ':' )) then @memberTypes else concat( $namespace, @memberTypes )}"/>
   </xsl:template>
 
 
