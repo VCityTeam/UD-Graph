@@ -2,11 +2,11 @@ import sys
 from lxml import etree
 
 if len(sys.argv) != 3:
-   sys.exit('Incorrect number of arguments. Usage: qualify-ns [xsd with namespaces] [rdf to clean]')
+   sys.exit('Incorrect number of arguments. Usage: qualify-ns.py [xsd with namespaces] [rdf to clean]')
 
 # Get namespaces
 namespaces = etree.parse(sys.argv[1]).getroot().nsmap
-namespaces.pop(None, None)
+namespaces.pop(None, None) # remove nil namespace prefixes
 
 # Iterate through file line by line. When a prefixed namespace is found 
 new_file_content = ''

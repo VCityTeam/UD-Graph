@@ -73,7 +73,7 @@
       if the element type is of a common xs datatype, it will be transformed into a Datatype property.
       Otherwise it will be assumed to be a class.-->
       <xsl:when test="contains( @type, ':' )">
-        <xsl:element name="{if (contains( @type, 'xs:' )) then 'owl:DatatypeProperty' else 'owl:Class'}">
+        <xsl:element name="{if ( contains( @type, 'xs:' ) and not( @type = 'xs:anyType' ) ) then 'owl:DatatypeProperty' else 'owl:Class'}">
           <xsl:attribute name="rdf:about" select="@name"/>
           <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
           <xsl:apply-templates select="descendant::xs:annotation"/>
@@ -120,10 +120,10 @@
   </xsl:template>
 
 
-  <!-- The element is a child of a xs:sequence xs:all or xs:choice node these elements are converted into
+  <!-- The element is a child of a xs:sequence, xs:all, or xs:choice node these elements are converted into
   object and data properties. rdfs:domain axioms are set by the respective ancestor element name.
   rdfs:range axioms are set by the type attribute -->
-  <xsl:template match="//xs:element[parent::xs:sequence or parent::xs:all]">
+  <xsl:template match="//xs:element[parent::xs:sequence or parent::xs:all or parent::xs:choice]">
     <xsl:variable name="thisType" select="@type"/>
     <xsl:choose>
       <!-- elements with xs:* type prefixes are assumed to be datatype properties -->
@@ -160,7 +160,6 @@
     </xsl:choose>
   </xsl:template>
 
-
   <!-- ================================================================================================= -->
   <!-- ================================== ComplexType Transformations ================================== -->
   <!-- ================================================================================================= -->
@@ -169,13 +168,13 @@
   element. In this case, the respective element will call the appropriate templates and only transform
   the contents of the type.-->
 
-  <!-- complexType is declared as a child of the root schema -->
-  <xsl:template match="//xs:complexType[parent::xs:schema]">
+  <!-- # 3. complexType is declared as a child of the root schema -->
+  <xsl:template match="/xs:schema/xs:complexType">
     <owl:Class rdf:about="{concat( $namespace, attribute::name )}">
       <xsl:apply-templates select="attribute::abstract"/>
       <xsl:apply-templates select="descendant::xs:annotation"/>
       <xsl:apply-templates select="descendant::xs:extension"/>
-      <xsl:apply-templates select="descendant::xs:sequence|descendant::xs:all"/>
+      <xsl:apply-templates select="descendant::xs:sequence|descendant::xs:all|descendant::xs:choice"/>
     </owl:Class>
   </xsl:template>
 
@@ -194,47 +193,100 @@
   <!-- xs:sequences and xs:all transform their children into subclass or subproperty restrictions. --> 
   <xsl:template match="xs:sequence|xs:all">
   <!-- TODO: add min/max occurs case when attribute is declared in parent of element -->
-    <xsl:for-each select="child::xs:element">
-      <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
-      <rdfs:subClassOf>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="{if (contains( $thisName, ':' )) then $thisName else concat( $namespace, $thisName )}"/>
-          <owl:allValuesFrom>
-            <xsl:choose>
-              <xsl:when test="@name">
-                <xsl:attribute name="rdf:resource" select="if (contains( @type, ':')) then @type else concat( $namespace, @type )"/>
-              </xsl:when>
-              <xsl:when test="@ref and not(contains( @ref, ':' ))">
-                <xsl:variable name="thisType" select="//xs:element[@name = $thisName]/@type"/>
-                <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':' )) then $thisType else concat( $namespace, $thisType )"/>
-              </xsl:when>
-              <xsl:otherwise><xsl:attribute name="rdf:resource" select="concat( substring-before( @ref, ':' ), ':UNKNOWN_TYPE' )"/></xsl:otherwise>
-            </xsl:choose>
-          </owl:allValuesFrom>
-        </owl:Restriction>
-      </rdfs:subClassOf>
-      <xsl:apply-templates select="@maxOccurs"/>
-      <xsl:apply-templates select="@minOccurs"/>
-    </xsl:for-each>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <xsl:for-each select="child::xs:element">
+            <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
+              <owl:Restriction>
+                <owl:onProperty rdf:resource="{if (contains( $thisName, ':' )) then $thisName else concat( $namespace, $thisName )}"/>
+                <owl:allValuesFrom>
+                  <xsl:choose>
+                    <xsl:when test="@name">
+                      <xsl:attribute name="rdf:resource" select="if (contains( @type, ':' )) then @type else concat( $namespace, @type )"/>
+                    </xsl:when>
+                    <xsl:when test="@ref and not(contains( @ref, ':' ))">
+                      <xsl:variable name="thisType" select="//xs:element[@name = $thisName]/@type"/>
+                      <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':' )) then $thisType else concat( $namespace, $thisType )"/>
+                    </xsl:when>
+                    <xsl:otherwise><xsl:attribute name="rdf:resource" select="concat( substring-before( @ref, ':' ), ':UNKNOWN_TYPE' )"/></xsl:otherwise>
+                  </xsl:choose>
+                </owl:allValuesFrom>
+              </owl:Restriction>
+            <xsl:apply-templates select="@maxOccurs"/>
+            <xsl:apply-templates select="@minOccurs"/>
+          </xsl:for-each>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
   </xsl:template>
 
   <xsl:template match="xs:choice">
-    <xsl:for-each select="child::xs:element">
-      <!-- TODO: implement xsd:choice -->
-    </xsl:for-each>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <owl:Class>
+            <owl:unionOf rdf:parseType="Collection">
+              <xsl:for-each select="child::xs:element">
+                <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
+                <owl:Restriction>
+                  <owl:onProperty rdf:resource="{if (contains( $thisName, ':' )) then $thisName else concat( $namespace, $thisName )}"/>
+                  <owl:allValuesFrom>
+                    <xsl:choose>
+                      <xsl:when test="@name">
+                        <xsl:attribute name="rdf:resource" select="if (contains( @type, ':' )) then @type else concat( $namespace, @type )"/>
+                      </xsl:when>
+                      <xsl:when test="@ref and not(contains( @ref, ':' ))">
+                        <xsl:variable name="thisType" select="//xs:element[@name = $thisName]/@type"/>
+                        <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':' )) then $thisType else concat( $namespace, $thisType )"/>
+                      </xsl:when>
+                      <xsl:otherwise><xsl:attribute name="rdf:resource" select="concat( substring-before( @ref, ':' ), ':UNKNOWN_TYPE' )"/></xsl:otherwise>
+                    </xsl:choose>
+                  </owl:allValuesFrom>
+                </owl:Restriction>
+              </xsl:for-each>
+            </owl:unionOf>
+          </owl:Class>
+          <owl:Class>
+            <owl:complementOf>
+              <owl:Class>
+                <owl:intersectionOf rdf:parseType="Collection">
+                  <xsl:for-each select="child::xs:element">
+                    <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
+                    <owl:Restriction>
+                      <owl:onProperty rdf:resource="{if (contains( $thisName, ':' )) then $thisName else concat( $namespace, $thisName )}"/>
+                      <owl:allValuesFrom>
+                        <xsl:choose>
+                          <xsl:when test="@name">
+                            <xsl:attribute name="rdf:resource" select="if (contains( @type, ':' )) then @type else concat( $namespace, @type )"/>
+                          </xsl:when>
+                          <xsl:when test="@ref and not(contains( @ref, ':' ))">
+                            <xsl:variable name="thisType" select="//xs:element[@name = $thisName]/@type"/>
+                            <xsl:attribute name="rdf:resource" select="if (contains( $thisType, ':' )) then $thisType else concat( $namespace, $thisType )"/>
+                          </xsl:when>
+                          <xsl:otherwise><xsl:attribute name="rdf:resource" select="concat( substring-before( @ref, ':' ), ':UNKNOWN_TYPE' )"/></xsl:otherwise>
+                        </xsl:choose>
+                      </owl:allValuesFrom>
+                    </owl:Restriction>
+                  </xsl:for-each>
+                </owl:intersectionOf>
+              </owl:Class>
+            </owl:complementOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
   </xsl:template>
 
   <!-- Cardinality is preserved by transforming xs:minOccurs into owl:minCardinality unless the value is 0 -->
   <xsl:template match="@minOccurs">
     <xsl:if test=". != 0">
-      <rdfs:subClassOf>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
-          <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
-            <xsl:value-of select="."/>
-          </owl:minCardinality>
-        </owl:Restriction>
-      </rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
+        <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
+          <xsl:value-of select="."/>
+        </owl:minCardinality>
+      </owl:Restriction>
     </xsl:if>
   </xsl:template>
 
@@ -242,14 +294,12 @@
   unbounded, in which case it is ignored -->
   <xsl:template match="@maxOccurs">
     <xsl:if test=". != 'unbounded'">
-      <rdfs:subClassOf>
-        <owl:Restriction>
-          <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
-          <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
-            <xsl:value-of select="."/>
-          </owl:minCardinality>
-        </owl:Restriction>
-      </rdfs:subClassOf>
+      <owl:Restriction>
+        <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
+        <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
+          <xsl:value-of select="."/>
+        </owl:minCardinality>
+      </owl:Restriction>
     </xsl:if>
   </xsl:template>
 
@@ -257,25 +307,51 @@
   <!-- ================================================================================================= -->
   <!-- ================================== SimpleType Transformations =================================== -->
   <!-- ================================================================================================= -->
-  <xsl:template match="//xs:simpleType[parent::xs:schema]">
-    <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
-      <xsl:apply-templates select="descendant::xs:restriction|descendant::xs:list|descendant::xs:union"/>
-      <!-- TODO: add enumeration support -->
-    </owl:DatatypeProperty>
+
+  <!-- # 1 -->
+  <xsl:template match="/xs:schema/xs:simpleType[@name]">
+    <rdfs:Datatype rdf:about="{concat( $namespace, @name )}">
+      <xsl:apply-templates select="./xs:restriction[xs:enumeration]"/>
+      <xsl:apply-templates select="./xs:union"/>
+      <!-- TODO: <xsl:apply-templates select="./xs:list"/> -->
+    </rdfs:Datatype>
   </xsl:template>
 
-  <xsl:template match="xs:restriction">
-    <rdfs:range rdf:resource="{if (contains( @base, ':' )) then @base else concat( $namespace, @base )}"/>
+  <!-- # 2 -->
+  <xsl:template match="/xs:schema/xs:simpleType[@name]/xs:union">
+      <rdfs:comment>TODO: implement unions</rdfs:comment>
   </xsl:template>
 
-  <xsl:template match="xs:list">
-    <rdfs:range rdf:resource="{if (contains( @itemType, ':' )) then @itemType else concat( $namespace, @itemType )}"/>
+  <!-- # 4 -->
+  <xsl:template match="xs:restriction[xs:enumeration]">
+    <owl:equivalentClass>
+      <rdfs:Datatype>
+        <owl:oneOf rdf:parseType="Collection">
+          <xsl:call-template name="enumeration">
+            <xsl:with-param name="pos" select="1"/>
+          </xsl:call-template>
+        </owl:oneOf>
+      </rdfs:Datatype>
+    </owl:equivalentClass>
   </xsl:template>
-
-  <xsl:template match="xs:union">
-    <rdfs:range rdf:resource="{if (contains( @memberTypes, ':' )) then @memberTypes else concat( $namespace, @memberTypes )}"/>
+  <xsl:template name="enumeration">
+    <xsl:param name="pos"/>
+    <rdf:List>
+      <rdf:first rdf:datatype="{@base}"><xsl:value-of select="./xs:enumeration[position() = $pos]/@value"/></rdf:first>
+      <xsl:choose>
+        <xsl:when test="$pos = count(./xs:enumeration)">
+          <rdf:rest rdf:resource="rdf:nil"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <rdf:rest>
+            <xsl:call-template name="enumeration">
+              <xsl:with-param name="pos" select="$pos + 1"/>
+            </xsl:call-template>
+          </rdf:rest>
+        </xsl:otherwise>
+      </xsl:choose>
+    </rdf:List>
   </xsl:template>
-
 
   <!-- ================================================================================================= -->
   <!-- ================================= Miscellaneous Transformations ================================= -->
