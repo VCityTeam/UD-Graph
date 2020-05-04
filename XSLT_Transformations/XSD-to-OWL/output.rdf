@@ -3,8 +3,9 @@
          xmlns:owl="http://www.w3.org/2002/07/owl#"
          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema">
-   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies">
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/cityGMLBase">
       <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
       <rdfs:comment>Warning: The schema urn:oasis:names:tc:ciq:xsdschema:xAL:2.0 was not imported.</rdfs:comment>
       <rdfs:comment>
@@ -15,24 +16,24 @@
    </owl:Ontology>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#CityModel">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#CityModelType"/>
-      <rdfs:subClassOf rdf:resource="gml:_FeatureCollection"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_FeatureCollection"/>
    </owl:Class>
    <owl:Class rdf:about="_GenericApplicationPropertyOfCityModel">
       <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
    </owl:Class>
    <owl:Class rdf:about="cityObjectMember">
       <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:FeaturePropertyType"/>
-      <rdfs:subClassOf rdf:resource="gml:featureMember"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeaturePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#featureMember"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#_CityObject">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
-      <rdfs:subClassOf rdf:resource="gml:_Feature"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
    </owl:Class>
    <owl:Class rdf:about="_GenericApplicationPropertyOfCityObject">
       <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#_Site">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractSiteType"/>
@@ -40,27 +41,27 @@
    </owl:Class>
    <owl:Class rdf:about="_GenericApplicationPropertyOfSite">
       <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#Address">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AddressType"/>
-      <rdfs:subClassOf rdf:resource="gml:_Feature"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
    </owl:Class>
    <owl:Class rdf:about="_GenericApplicationPropertyOfAddress">
       <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="xs:anyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#ImplicitGeometry">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitGeometryType"/>
-      <rdfs:subClassOf rdf:resource="gml:_GML"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#creationDate">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
-      <rdfs:range rdf:resource="xs:date"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#terminationDate">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
-      <rdfs:range rdf:resource="xs:date"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#externalReference">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
@@ -80,7 +81,7 @@
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#informationSystem">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ExternalReferenceType"/>
-      <rdfs:range rdf:resource="xs:anyURI"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#externalObject">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ExternalReferenceType"/>
@@ -93,12 +94,12 @@
    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#multiPoint">
       <rdfs:comment>Warning: This ObjectProperty type is declared outside of its original schema. It may not be an ObjectProperty.</rdfs:comment>
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#AddressType"/>
-      <rdfs:range rdf:resource="gml:MultiPointPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiPointPropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#mimeType">
       <rdfs:comment>Warning: This ObjectProperty type is declared outside of its original schema. It may not be an ObjectProperty.</rdfs:comment>
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitGeometryType"/>
-      <rdfs:range rdf:resource="gml:CodeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
    </owl:ObjectProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#transformationMatrix">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitGeometryType"/>
@@ -106,28 +107,28 @@
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#libraryObject">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitGeometryType"/>
-      <rdfs:range rdf:resource="xs:anyURI"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#relativeGMLGeometry">
       <rdfs:comment>Warning: This ObjectProperty type is declared outside of its original schema. It may not be an ObjectProperty.</rdfs:comment>
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitGeometryType"/>
-      <rdfs:range rdf:resource="gml:GeometryPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#referencePoint">
       <rdfs:comment>Warning: This ObjectProperty type is declared outside of its original schema. It may not be an ObjectProperty.</rdfs:comment>
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitGeometryType"/>
-      <rdfs:range rdf:resource="gml:PointPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#CityModelType">
       <rdfs:comment>Type describing the "root" element of any city model file. It is a collection whose members are restricted
 				to be features of a city model. All features are included as cityObjectMember. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:AbstractFeatureCollectionType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureCollectionType"/>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityModel"/>
-                  <owl:allValuesFrom rdf:resource="xs:anyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -140,17 +141,17 @@
 				may be used to relate features, which represent the same real-world object in different Levels-of-Detail, i.e. a feature
 				and its generalized counterpart(s). The direction of this relation is from the feature to the corresponding generalized
 				feature.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:AbstractFeatureType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#creationDate"/>
-                  <owl:allValuesFrom rdf:resource="xs:date"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#terminationDate"/>
-                  <owl:allValuesFrom rdf:resource="xs:date"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#externalReference"/>
@@ -170,7 +171,7 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject"/>
-                  <owl:allValuesFrom rdf:resource="xs:anyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -187,7 +188,7 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfSite"/>
-                  <owl:allValuesFrom rdf:resource="xs:anyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -220,7 +221,7 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#informationSystem"/>
-                  <owl:allValuesFrom rdf:resource="xs:anyURI"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#externalObject"/>
@@ -238,11 +239,11 @@
                   <owl:unionOf rdf:parseType="Collection">
                      <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#name"/>
-                        <owl:allValuesFrom rdf:resource="xs:string"/>
+                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                      </owl:Restriction>
                      <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#uri"/>
-                        <owl:allValuesFrom rdf:resource="xs:anyURI"/>
+                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                      </owl:Restriction>
                   </owl:unionOf>
                </owl:Class>
@@ -252,11 +253,11 @@
                         <owl:intersectionOf rdf:parseType="Collection">
                            <owl:Restriction>
                               <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#name"/>
-                              <owl:allValuesFrom rdf:resource="xs:string"/>
+                              <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                            </owl:Restriction>
                            <owl:Restriction>
                               <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#uri"/>
-                              <owl:allValuesFrom rdf:resource="xs:anyURI"/>
+                              <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                            </owl:Restriction>
                         </owl:intersectionOf>
                      </owl:Class>
@@ -284,7 +285,7 @@
       <rdfs:comment>Type for addresses. It references the xAL address standard issued by the OASIS consortium. Please note,
 				that addresses are modelled as GML features. Every address can be assigned zero or more 2D or 3D point geometries (one
 				gml:MultiPoint geometry) locating the entrance(s). </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:AbstractFeatureType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -294,11 +295,11 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#multiPoint"/>
-                  <owl:allValuesFrom rdf:resource="gml:MultiPointPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiPointPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfAddress"/>
-                  <owl:allValuesFrom rdf:resource="xs:anyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -310,8 +311,8 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="xAL:AddressDetails"/>
-                  <owl:allValuesFrom rdf:resource="xAL:UNKNOWN_TYPE"/>
+                  <owl:onProperty rdf:resource="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0#AddressDetails"/>
+                  <owl:allValuesFrom rdf:resource="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0#UNKNOWN_TYPE"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -329,13 +330,13 @@
 				is a 4x4 matrix that is multiplied with the prototype coordinates using homogeneous coordinates, i.e. (x,y,z,1). This way
 				even a projection might be modelled by the transformation matrix. The concept of implicit geometries is an enhancement of
 				the geometry model of GML3. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:AbstractGMLType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#mimeType"/>
-                  <owl:allValuesFrom rdf:resource="gml:CodeType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#transformationMatrix"/>
@@ -343,15 +344,15 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#libraryObject"/>
-                  <owl:allValuesFrom rdf:resource="xs:anyURI"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#relativeGMLGeometry"/>
-                  <owl:allValuesFrom rdf:resource="gml:GeometryPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#referencePoint"/>
-                  <owl:allValuesFrom rdf:resource="gml:PointPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -376,31 +377,31 @@
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#RelativeToTerrainType">
       <owl:equivalentClass>
          <rdfs:Datatype>
-            <owl:oneOf rdf:parseType="Collection">
-               <rdf:List>
-                  <rdf:first rdf:datatype="xs:string">entirelyAboveTerrain</rdf:first>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">entirelyAboveTerrain</rdf:first>
                   <rdf:rest>
-                     <rdf:List>
-                        <rdf:first rdf:datatype="xs:string">substantiallyAboveTerrain</rdf:first>
+                     <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">substantiallyAboveTerrain</rdf:first>
                         <rdf:rest>
-                           <rdf:List>
-                              <rdf:first rdf:datatype="xs:string">substantiallyAboveAndBelowTerrain</rdf:first>
+                           <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                              <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">substantiallyAboveAndBelowTerrain</rdf:first>
                               <rdf:rest>
-                                 <rdf:List>
-                                    <rdf:first rdf:datatype="xs:string">substantiallyBelowTerrain</rdf:first>
+                                 <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">substantiallyBelowTerrain</rdf:first>
                                     <rdf:rest>
-                                       <rdf:List>
-                                          <rdf:first rdf:datatype="xs:string">entirelyBelowTerrain</rdf:first>
-                                          <rdf:rest rdf:resource="rdf:nil"/>
-                                       </rdf:List>
+                                       <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                          <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">entirelyBelowTerrain</rdf:first>
+                                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                       </rdf:Description>
                                     </rdf:rest>
-                                 </rdf:List>
+                                 </rdf:Description>
                               </rdf:rest>
-                           </rdf:List>
+                           </rdf:Description>
                         </rdf:rest>
-                     </rdf:List>
+                     </rdf:Description>
                   </rdf:rest>
-               </rdf:List>
+               </rdf:Description>
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
@@ -408,44 +409,72 @@
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#RelativeToWaterType">
       <owl:equivalentClass>
          <rdfs:Datatype>
-            <owl:oneOf rdf:parseType="Collection">
-               <rdf:List>
-                  <rdf:first rdf:datatype="xs:string">entirelyAboveWaterSurface</rdf:first>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">entirelyAboveWaterSurface</rdf:first>
                   <rdf:rest>
-                     <rdf:List>
-                        <rdf:first rdf:datatype="xs:string">substantiallyAboveWaterSurface</rdf:first>
+                     <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">substantiallyAboveWaterSurface</rdf:first>
                         <rdf:rest>
-                           <rdf:List>
-                              <rdf:first rdf:datatype="xs:string">substantiallyAboveAndBelowWaterSurface</rdf:first>
+                           <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                              <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">substantiallyAboveAndBelowWaterSurface</rdf:first>
                               <rdf:rest>
-                                 <rdf:List>
-                                    <rdf:first rdf:datatype="xs:string">substantiallyBelowWaterSurface</rdf:first>
+                                 <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">substantiallyBelowWaterSurface</rdf:first>
                                     <rdf:rest>
-                                       <rdf:List>
-                                          <rdf:first rdf:datatype="xs:string">entirelyBelowWaterSurface</rdf:first>
+                                       <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                          <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">entirelyBelowWaterSurface</rdf:first>
                                           <rdf:rest>
-                                             <rdf:List>
-                                                <rdf:first rdf:datatype="xs:string">temporarilyAboveAndBelowWaterSurface</rdf:first>
-                                                <rdf:rest rdf:resource="rdf:nil"/>
-                                             </rdf:List>
+                                             <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">temporarilyAboveAndBelowWaterSurface</rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                             </rdf:Description>
                                           </rdf:rest>
-                                       </rdf:List>
+                                       </rdf:Description>
                                     </rdf:rest>
-                                 </rdf:List>
+                                 </rdf:Description>
                               </rdf:rest>
-                           </rdf:List>
+                           </rdf:Description>
                         </rdf:rest>
-                     </rdf:List>
+                     </rdf:Description>
                   </rdf:rest>
-               </rdf:List>
+               </rdf:Description>
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1">
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+            <owl:withRestrictions rdf:parseType="Collection">
+               <rdf:Description>
+                  <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">0</xsd:minInclusive>
+               </rdf:Description>
+               <rdf:Description>
+                  <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1</xsd:maxInclusive>
+               </rdf:Description>
+            </owl:withRestrictions>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1List"/>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix4x4Type"/>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#integerBetween0and4"/>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#integerBetween0and4">
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+            <owl:withRestrictions rdf:parseType="Collection">
+               <rdf:Description>
+                  <xsd:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</xsd:minInclusive>
+               </rdf:Description>
+               <rdf:Description>
+                  <xsd:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</xsd:maxInclusive>
+               </rdf:Description>
+            </owl:withRestrictions>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
 </rdf:RDF>

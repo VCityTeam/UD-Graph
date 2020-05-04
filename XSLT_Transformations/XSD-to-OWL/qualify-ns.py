@@ -6,6 +6,7 @@ if len(sys.argv) != 3:
 
 # Get namespaces
 namespaces = etree.parse(sys.argv[1]).getroot().nsmap
+namespaces.update({'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns'})
 namespaces.pop(None, None) # remove nil namespace prefixes
 
 # Iterate through file line by line. When a prefixed namespace is found 
@@ -18,10 +19,14 @@ with open(sys.argv[2]) as file:
       for prefix in namespaces.keys():
          # update resource uri with fully qualified namespace
          line = line.replace( 'rdf:resource="{}:'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
+         line = line.replace( 'rdf:datatype="{}:'.format(prefix), 'rdf:datatype="{}#'.format(namespaces[prefix]) )
+         line = line.replace( 'rdf:type="{}:'.format(prefix), 'rdf:type="{}#'.format(namespaces[prefix]) )
+         line = line.replace( '<xs:', '<xsd:' )
+         line = line.replace( '</xs:', '</xsd:' )
       new_file_content += line
       line = file.readline()
 
-with open('cleaned_' + sys.argv[2], 'w') as new_file:
-   new_file.write(new_file_content)
+with open(sys.argv[2], 'w') as file:
+   file.write(new_file_content)
 
 print('Namespaces Qualified: {}'.format(namespaces.keys()))

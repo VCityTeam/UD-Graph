@@ -8,6 +8,7 @@
                 xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
                 xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <xsl:output indent="yes"/>
   <xsl:strip-space elements="*"/>
@@ -170,10 +171,10 @@
 
   <!-- # 3. complexType is declared as a child of the root schema -->
   <xsl:template match="/xs:schema/xs:complexType">
-    <owl:Class rdf:about="{concat( $namespace, attribute::name )}">
-      <xsl:apply-templates select="attribute::abstract"/>
+    <owl:Class rdf:about="{concat( $namespace, @name )}">
+      <xsl:apply-templates select="@abstract"/>
       <xsl:apply-templates select="descendant::xs:annotation"/>
-      <xsl:apply-templates select="descendant::xs:extension"/>
+      <xsl:apply-templates select="./xs:simpleContent/xs:extension"/>
       <xsl:apply-templates select="descendant::xs:sequence|descendant::xs:all|descendant::xs:choice"/>
     </owl:Class>
   </xsl:template>
@@ -311,22 +312,22 @@
   <!-- # 1 -->
   <xsl:template match="/xs:schema/xs:simpleType[@name]">
     <rdfs:Datatype rdf:about="{concat( $namespace, @name )}">
-      <xsl:apply-templates select="./xs:restriction[xs:enumeration]"/>
+      <xsl:apply-templates select="./xs:restriction"/>
       <xsl:apply-templates select="./xs:union"/>
       <!-- TODO: <xsl:apply-templates select="./xs:list"/> -->
     </rdfs:Datatype>
   </xsl:template>
 
-  <!-- # 2 -->
+  <!-- ============================================== # 2 ============================================== -->
   <xsl:template match="/xs:schema/xs:simpleType[@name]/xs:union">
-      <rdfs:comment>TODO: implement unions</rdfs:comment>
+      <rdfs:comment>TODO: implement xsd:union</rdfs:comment>
   </xsl:template>
 
-  <!-- # 4 -->
+  <!-- ============================================== # 4 ============================================== -->
   <xsl:template match="xs:restriction[xs:enumeration]">
     <owl:equivalentClass>
       <rdfs:Datatype>
-        <owl:oneOf rdf:parseType="Collection">
+        <owl:oneOf>
           <xsl:call-template name="enumeration">
             <xsl:with-param name="pos" select="1"/>
           </xsl:call-template>
@@ -334,9 +335,10 @@
       </rdfs:Datatype>
     </owl:equivalentClass>
   </xsl:template>
+
   <xsl:template name="enumeration">
     <xsl:param name="pos"/>
-    <rdf:List>
+    <rdf:Description rdf:type="rdf:List">
       <rdf:first rdf:datatype="{@base}"><xsl:value-of select="./xs:enumeration[position() = $pos]/@value"/></rdf:first>
       <xsl:choose>
         <xsl:when test="$pos = count(./xs:enumeration)">
@@ -350,8 +352,28 @@
           </rdf:rest>
         </xsl:otherwise>
       </xsl:choose>
-    </rdf:List>
+    </rdf:Description>
   </xsl:template>
+
+  <!-- ============================================= # 5,7 ============================================= -->
+  <xsl:template match="xs:restriction[xs:minInclusive|xs:maxInclusive|xs:minExclusive|xs:maxExclusive]">
+    <owl:equivalentClass>
+      <rdfs:Datatype>
+        <owl:onDatatype rdf:resource="{@base}"/>
+        <owl:withRestrictions rdf:parseType="Collection">
+          <xsl:for-each select="xs:minInclusive|xs:maxInclusive|xs:minExclusive|xs:maxExclusive">
+            <rdf:Description>
+              <xsl:element name="{name()}">
+                <xsl:attribute name="rdf:datatype" select="../@base"/>
+                <xsl:value-of select="@value"/>
+              </xsl:element>
+            </rdf:Description>
+          </xsl:for-each>
+        </owl:withRestrictions>
+      </rdfs:Datatype>
+    </owl:equivalentClass>
+  </xsl:template>
+
 
   <!-- ================================================================================================= -->
   <!-- ================================= Miscellaneous Transformations ================================= -->
