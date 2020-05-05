@@ -23,12 +23,12 @@
     <rdf:RDF>
       <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies">
         <xsl:apply-templates select="//*[name() = 'xs:import']"/>
-        <xsl:apply-templates select="//*[parent::xs:schema and name() = 'xs:annotation']"/>
+        <xsl:apply-templates select="/xs:schema/xs:annotation"/>
       </owl:Ontology>
-      <xsl:apply-templates select="//xs:element[parent::xs:schema]"/>
+      <xsl:apply-templates select="/xs:schema/xs:complexType"/>
+      <xsl:apply-templates select="/xs:schema/xs:simpleType"/>
+      <xsl:apply-templates select="/xs:schema/xs:element"/>
       <xsl:apply-templates select="//xs:element[parent::xs:sequence or parent::xs:all]"/>
-      <xsl:apply-templates select="//xs:complexType[parent::xs:schema]"/>
-      <xsl:apply-templates select="//xs:simpleType[parent::xs:schema]"/>
     </rdf:RDF>
   </xsl:template>
 
@@ -52,39 +52,36 @@
   and searching for it (for example: test="//xs:complexType[attribute::name = $thisType]"). The element's
   complex or simple type will be referenced as an rdfs:subClassOf or rdfs:subPropertyOf resource after
   transformation. -->
-  <xsl:template match="//xs:element[parent::xs:schema and @type]">
+  <!-- ========================================= # 15,16,22,23 ========================================= -->
+  <xsl:template match="/xs:schema/xs:element[@type]">
+    <xsl:variable name="thisType" select="@type"/>
     <xsl:choose>
-      <!-- If the element type contains a prefix, it must be declared outside of this schema. In this case
-      if the element type is of a common xs datatype, it will be transformed into a Datatype property.
-      Otherwise it will be assumed to be a class.-->
-      <xsl:when test="contains( @type, ':' )">
-        <xsl:element name="{if ( starts-with( @type, 'xs:' ) and not( @type = 'xs:anyType' ) ) then 'owl:DatatypeProperty' else 'owl:Class'}">
-          <xsl:attribute name="rdf:about" select="@name"/>
-          <rdfs:comment>Warning: This entity type is declared outside of its original schema. It may be declared incorrectly.</rdfs:comment>
+      <xsl:when test="starts-with( @type, 'xs:' ) and @type != 'xs:anyType' or //xs:simpleType[@name = $thisType]">
+        <rdfs:Datatype rdf:about="concat( $namespace, @name )">
           <xsl:apply-templates select="descendant::xs:annotation"/>
-          <xsl:element name="{if (starts-with( @type, 'xs:' ) and @type != 'xs:anyType') then 'rdfs:subPropertyOf' else 'rdfs:subClassOf'}">
-            <xsl:attribute name="rdf:resource" select="@type"/>
-          </xsl:element>
-          <xsl:apply-templates select="@substitutionGroup"/>
-        </xsl:element>
+          <owl:equivalentClass rdf:resource="{if (contains( @type, ':' )) then @type else concat( $namespace, @type )}"/>
+        </rdfs:Datatype>
       </xsl:when>
-      <!-- Otherwise the element type must be declared in the schema. If the type is a complexType create a
-      Class as a subclass of the type. If the type is not complex, it must be a simpleType. In this case
-      create a DatatypeProperty as a subproperty of the type. -->
-      <xsl:otherwise>
-        <xsl:variable name="thisType" select="@type"/>
-        <xsl:element name="{if ( //xs:complexType[@name = $thisType] ) then 'owl:Class' else 'owl:DatatypeProperty'}">
-          <xsl:attribute name="rdf:about" select="concat( $namespace, @name )"/>
+      <xsl:when test="//xs:complexType[@name = $thisType]">
+        <owl:Class rdf:about="{concat( $namespace, @name )}">
           <xsl:apply-templates select="descendant::xs:annotation"/>
-          <xsl:element name="{if ( //xs:complexType[@name = $thisType] ) then 'rdfs:subClassOf' else 'rdfs:subPropertyOf'}">
-            <xsl:attribute name="rdf:resource" select="concat( $namespace, @type )"/>
-          </xsl:element>
           <xsl:apply-templates select="@substitutionGroup"/>
-        </xsl:element>
+          <rdfs:subClassOf rdf:resource="{concat( $namespace, @type )}"/>
+        </owl:Class>
+      </xsl:when>
+      <xsl:otherwise><!-- Otherwise this element type is declared outside of the schema -->
+        <owl:Class rdf:about="{concat( $namespace, @name )}">
+          <xsl:apply-templates select="descendant::xs:annotation"/>
+          <xsl:apply-templates select="@substitutionGroup"/>
+          <rdfs:subClassOf rdf:resource="{@type}"/>
+          <rdfs:comment>Warning: This class type is declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+        </owl:Class>
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
 
+
+  <!-- ============================================== # 25 ============================================== -->
   <!-- substitution group attributes are transformed into subclasses -->
   <xsl:template match="@substitutionGroup">
     <rdfs:subClassOf rdf:resource="{if (contains( . , ':' )) then . else concat( $namespace, . )}"/>
@@ -94,7 +91,7 @@
   <!-- The element is a child of a xs:sequence, xs:all, or xs:choice node these elements are converted into
   object and data properties. rdfs:domain axioms are set by the respective ancestor element name.
   rdfs:range axioms are set by the type attribute -->
-  <xsl:template match="//xs:element[parent::xs:sequence or parent::xs:all or parent::xs:choice]">
+  <xsl:template match="//xs:element[../xs:sequence or ../xs:all or ../xs:choice]">
     <xsl:variable name="thisType" select="@type"/>
     <xsl:choose>
       <!-- elements with xs:* type prefixes are assumed to be datatype properties -->
@@ -146,7 +143,7 @@
       <xsl:apply-templates select="descendant::xs:annotation"/>
       <xsl:apply-templates select="descendant::xs:sequence|descendant::xs:all|descendant::xs:choice"/>
       <!-- If the class is an extension of a complexType, this class is a subclass of that class -->
-      <!-- =========================================== # 9,12 =========================================== -->
+      <!-- ======================================== # 9,12,13,14 ======================================== -->
       <xsl:variable name="thisBase" select="descendant::*/@base"/>
       <xsl:choose>
         <xsl:when test="//xs:complexType[@name = $thisBase] or //xs:element[@name = @thisBase and xs:complexType]">
