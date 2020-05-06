@@ -52,17 +52,17 @@
   and searching for it (for example: test="//xs:complexType[attribute::name = $thisType]"). The element's
   complex or simple type will be referenced as an rdfs:subClassOf or rdfs:subPropertyOf resource after
   transformation. -->
-  <!-- ========================================= # 15,16,22,23 ========================================= -->
+  <!-- =========================================== # 15,16,21 =========================================== -->
   <xsl:template match="/xs:schema/xs:element[@type]">
     <xsl:variable name="thisType" select="@type"/>
     <xsl:choose>
-      <xsl:when test="starts-with( @type, 'xs:' ) and @type != 'xs:anyType' or //xs:simpleType[@name = $thisType]">
+      <xsl:when test="starts-with( @type, 'xs:' ) and @type != 'xs:anyType' or //xs:simpleType[@name = $thisType] or //xs:element[xs:simpleType and @name = $thisType]">
         <rdfs:Datatype rdf:about="concat( $namespace, @name )">
           <xsl:apply-templates select="descendant::xs:annotation"/>
           <owl:equivalentClass rdf:resource="{if (contains( @type, ':' )) then @type else concat( $namespace, @type )}"/>
         </rdfs:Datatype>
       </xsl:when>
-      <xsl:when test="//xs:complexType[@name = $thisType]">
+      <xsl:when test="//xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisType]">
         <owl:Class rdf:about="{concat( $namespace, @name )}">
           <xsl:apply-templates select="descendant::xs:annotation"/>
           <xsl:apply-templates select="@substitutionGroup"/>
@@ -74,7 +74,7 @@
           <xsl:apply-templates select="descendant::xs:annotation"/>
           <xsl:apply-templates select="@substitutionGroup"/>
           <rdfs:subClassOf rdf:resource="{@type}"/>
-          <rdfs:comment>Warning: This class type is declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+          <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
         </owl:Class>
       </xsl:otherwise>
     </xsl:choose>
@@ -91,42 +91,58 @@
   <!-- The element is a child of a xs:sequence, xs:all, or xs:choice node these elements are converted into
   object and data properties. rdfs:domain axioms are set by the respective ancestor element name.
   rdfs:range axioms are set by the type attribute -->
-  <xsl:template match="//xs:element[../xs:sequence or ../xs:all or ../xs:choice]">
+  <!-- ======================================== # 17,18,22,23,24 ======================================== -->
+  <xsl:template match="//xs:element[parent::xs:sequence or parent::xs:all or parent::xs:choice]">
     <xsl:variable name="thisType" select="@type"/>
     <xsl:choose>
-      <!-- elements with xs:* type prefixes are assumed to be datatype properties -->
-      <!-- TODO: denote specific, commonly used xs properties -->
-      <xsl:when test="starts-with( $thisType, 'xs:' )">
-        <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
-          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::xs:complexType/@name )}"/>
-          <rdfs:range rdf:resource="{$thisType}"/>
-        </owl:DatatypeProperty>
-      </xsl:when>
-      <!-- elements with other type prefixes are declared outside of the schema and are assumed to be
-      object properties. -->
-      <xsl:when test="contains( $thisType, ':' )">
+      <xsl:when test="@type = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisType]">
         <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
-          <rdfs:comment>Warning: This ObjectProperty type is declared outside of its original schema. It may not be an ObjectProperty.</rdfs:comment>
-          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::xs:complexType/@name )}"/>
-          <rdfs:range rdf:resource="{$thisType}"/>
+          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+          <rdfs:range rdf:resource="{concat( $namespace, @type )}"/>
         </owl:ObjectProperty>
       </xsl:when>
-      <!-- element type is a complexType. The element is transformed into an object property -->
-      <xsl:when test="//xs:complexType[@name = $thisType]">
-        <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
-          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::xs:complexType/@name )}"/>
-          <rdfs:range rdf:resource="{concat( $namespace, $thisType )}"/>
-        </owl:ObjectProperty>
-      </xsl:when>
-      <!-- element type is a simpleType. The element is transformed into an data property -->
-      <xsl:when test="//xs:simpleType[@name = $thisType]">
+      <xsl:when test="starts-with( @type, 'xs:' ) and not( @type = 'xs:anyType' )">
         <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
-          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::xs:complexType/@name )}"/>
-          <rdfs:range rdf:resource="{concat( $namespace, $thisType )}"/>
+          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+          <rdfs:range rdf:resource="{@type}"/>
         </owl:DatatypeProperty>
       </xsl:when>
+      <xsl:when test="//xs:simpleType[@name = $thisType] or //xs:element[xs:simpleType and @name = $thisType]">
+        <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
+          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+          <rdfs:range rdf:resource="{concat( $namespace, @type )}"/>
+        </owl:DatatypeProperty>
+      </xsl:when>
+      <xsl:when test="contains( @type, ':' )">
+        <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
+          <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+          <rdfs:range rdf:resource="{@type}"/>
+        </owl:ObjectProperty>
+      </xsl:when>
+      <xsl:when test="contains( @ref, ':' )">
+        <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
+        <owl:ObjectProperty rdf:about="{concat( $thisReference[1], ':has', $thisReference[2] )}">
+          <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+          <rdfs:range rdf:resource="{@ref}"/>
+        </owl:ObjectProperty>
+      </xsl:when>
+      <xsl:otherwise><!-- Otherwise this element has a reference to another element within the schema.
+      The referenced element is either a complex or simple type -->
+        <xsl:variable name="thisReference" select="@ref"/>
+        <xsl:variable name="thisType" select="//xs:element[@name = $thisReference]/@type"/>
+        <xsl:element name="{if ( $thisType = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisReference] )
+                            then 'owl:ObjectProperty'
+                            else 'owl:DatatypeProperty'}">
+        <xsl:attribute name="rdf:about" select="concat( $namespace, 'has', @ref )"/>
+          <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+          <rdfs:range rdf:resource="{concat( $namespace, @ref )}"/>
+        </xsl:element>
+      </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
+
 
   <!-- ================================================================================================= -->
   <!-- ================================== ComplexType Transformations ================================== -->
@@ -157,7 +173,7 @@
         </xsl:when>
         <xsl:when test="contains( $thisBase, ':') and not(starts-with( $thisBase, 'xs:' )) or $thisBase ='xs:anyType'">
           <rdfs:subClassOf rdf:resource="{$thisBase}"/>
-          <rdfs:comment>Warning: The parent class '<xsl:value-of select="$thisBase"/>' is declared outside of this class' original schema. It may not be a class.</rdfs:comment>
+          <rdfs:comment>Warning: The parent class '<xsl:value-of select="$thisBase"/>' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
         </xsl:when>
         <xsl:otherwise/>
       </xsl:choose>
@@ -200,7 +216,7 @@
     <xsl:if test="not(starts-with( ./*/@base, 'xs:' )) or ./*/@base = 'xs:anyType'">
       <rdfs:subPropertyOf rdf:resource="{concat( 'has', ./*/@base )}"/>
       <xsl:if test="contains( ./*/@base, ':')">
-        <rdfs:comment>Warning: The parent property '<xsl:value-of select="concat( 'has', ./*/@base )"/>' is declared outside of this property's original schema. It may not be a property.</rdfs:comment>
+        <rdfs:comment>Warning: The parent property '<xsl:value-of select="concat( 'has', ./*/@base )"/>' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
       </xsl:if>
     </xsl:if>
     <!-- TODO: add attribute cases 26-28 for @base of a complexType -->
@@ -297,9 +313,17 @@
 
   <!-- Cardinality is preserved by transforming xs:minOccurs into owl:minCardinality unless the value is 0 -->
   <xsl:template match="@minOccurs">
-    <xsl:if test=". != 0">
+    <xsl:if test=". >= 0">
       <owl:Restriction>
-        <owl:onProperty rdf:resource="{concat( $namespace, if (../@name) then ../@name else ../@ref )}"/>
+        <owl:onProperty>
+          <xsl:if test="../@name">
+            <xsl:attribute name="rdf:resource" select="concat( $namespace, ../@name)"/>
+          </xsl:if>
+          <xsl:if test="../@ref">
+            <xsl:variable name="thisReference" select="tokenize( ../@ref, ':' )"/>
+            <xsl:attribute name="rdf:resource" select="if ( count($thisReference) = 1 ) then concat( $namespace, 'has', $thisReference[1] ) else concat( $thisReference[1], ':has', $thisReference[2] )"/>
+          </xsl:if>
+        </owl:onProperty>
         <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">
           <xsl:value-of select="."/>
         </owl:minCardinality>

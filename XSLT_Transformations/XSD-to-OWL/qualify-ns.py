@@ -21,6 +21,7 @@ with open(sys.argv[2]) as file:
          line = line.replace( 'rdf:resource="{}:'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
          line = line.replace( 'rdf:datatype="{}:'.format(prefix), 'rdf:datatype="{}#'.format(namespaces[prefix]) )
          line = line.replace( 'rdf:type="{}:'.format(prefix), 'rdf:type="{}#'.format(namespaces[prefix]) )
+         line = line.replace( 'rdf:about="{}:'.format(prefix), 'rdf:about="{}#'.format(namespaces[prefix]) )
          line = line.replace( '<xs:', '<xsd:' )
          line = line.replace( '</xs:', '</xsd:' )
       new_file_content += line
