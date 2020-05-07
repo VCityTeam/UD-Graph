@@ -1,6 +1,7 @@
-the command
+### To Run
 
+Before running the following code, saxon must be installed
 ```
 saxon -s:[xsd to transform] -xsl:XSD2OWL.xsl > output.rdf
-python qualify-ns.py [xsd with namespaces] [file to qualify]
+python qualify-ns.py [xsd to transform] output.rdf
 ```
