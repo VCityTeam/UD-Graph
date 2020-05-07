@@ -488,6 +488,7 @@
       <rdfs:comment><xsl:if test="@xml:lang"><xsl:attribute name="xml:lang" select="@xml:lang"/></xsl:if><xsl:value-of select="text()"/></rdfs:comment>
       <xsl:if test="@source">
         <rdfs:seeAlso><xsl:value-of select="@source"/></rdfs:seeAlso>
+      </xsl:if>
     </xsl:for-each>
   </xsl:template>
 
