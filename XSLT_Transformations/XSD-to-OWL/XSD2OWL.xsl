@@ -385,8 +385,15 @@
   </xsl:template>
 
   <!-- ============================================== # 2 ============================================== -->
-  <xsl:template match="//xs:union">
-      <rdfs:comment>TODO: implement xsd:union</rdfs:comment>
+  <xsl:template match="xs:union">
+    <xsl:variable name="memberTypes" select="tokenize( @memberTypes, ' ' )"/>
+    <xsl:for-each select="$memberTypes">
+      <owl:equivalentClass rdf:resource="{if (contains( . , ':' )) then . else concat( $namespace, . )}"/>
+    </xsl:for-each>
+  </xsl:template>
+
+  <xsl:template match="xs:list">
+    <owl:equivalentClass rdf:resource="{rdfs:Literal}"/>
   </xsl:template>
 
   <!-- ============================================== # 4 ============================================== -->
