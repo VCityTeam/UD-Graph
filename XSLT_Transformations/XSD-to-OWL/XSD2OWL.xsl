@@ -474,11 +474,13 @@
   <!-- ================================================================================================= -->
   <!-- ================================= Miscellaneous Transformations ================================= -->
   <!-- ================================================================================================= -->
+
+  <!-- ============================================ # 39,40 ============================================ -->
   <xsl:template match="xs:annotation">
     <xsl:for-each select="child::*">
-      <rdfs:comment>
-        <xsl:value-of select="text()"/>
-      </rdfs:comment>
+      <rdfs:comment><xsl:if test="@xml:lang"><xsl:attribute name="xml:lang" select="@xml:lang"/></xsl:if><xsl:value-of select="text()"/></rdfs:comment>
+      <xsl:if test="@source">
+        <rdfs:seeAlso><xsl:value-of select="@source"/></rdfs:seeAlso>
     </xsl:for-each>
   </xsl:template>
 
