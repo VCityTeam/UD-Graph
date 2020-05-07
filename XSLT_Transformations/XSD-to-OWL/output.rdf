@@ -338,6 +338,9 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#RelativeToTerrainType">
+      <rdfs:comment>Specifies the spatial relation of a CityObject realativ to terrain in a qualitative way. The values of
+				this type are defined in the XML file RelativeToTerrainType.xml, according to the dictionary concept of
+				GML3.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
             <owl:oneOf>
@@ -370,6 +373,9 @@
       </owl:equivalentClass>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#RelativeToWaterType">
+      <rdfs:comment>Specifies the spatial relation of a CityObject realativ to the water surface in a qualitative way. The
+				values of this type are defined in the XML file RelativeToTerrainType.xml, according to the dictionary concept of
+				GML3.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
             <owl:oneOf>
@@ -407,6 +413,8 @@
       </owl:equivalentClass>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1">
+      <rdfs:comment>Type for values, which are greater or equal than 0 and less or equal than 1. Used for color encoding, for
+				example. </rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
             <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
@@ -421,11 +429,28 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1List"/>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix4x4Type"/>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1List">
+      <rdfs:comment>List for double values, which are greater or equal than 0 and less or equal than 1. Used for color
+				encoding, for example. </rdfs:comment>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix4x4Type">
+      <rdfs:comment>Used for implicit geometries. The Transformation matrix is a 4 by 4 matrix, thus it must be a list with 16
+				items. The order the matrix element are represented is row-major, i. e. the first 4 elements represent the first row, the
+				fifth to the eight element the second row,... </rdfs:comment>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type">
+      <rdfs:comment>Used for georeferencing. The Transformation matrix is a 2 by 2 matrix, thus it must be a list with 4
+				items. The order the matrix element are represented is row-major, i. e. the first 2 elements represent the first row, the
+				fifth to the eight element the second row,... </rdfs:comment>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type">
+      <rdfs:comment>Used for texture parameterization. The Transformation matrix is a 3 by 4 matrix, thus it must be a list
+				with 12 items. The order the matrix element are represented is row-major, i. e. the first 4 elements represent the first
+				row, the fifth to the eight element the second row,... </rdfs:comment>
+   </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/2.0#integerBetween0and4">
+      <rdfs:comment>Type for integer values, which are greater or equal than 0 and less or equal than 4. Used for encoding of
+				the LOD number. </rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
             <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>

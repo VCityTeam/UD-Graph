@@ -349,17 +349,41 @@
   <!-- ================================== SimpleType Transformations =================================== -->
   <!-- ================================================================================================= -->
 
-  <!-- # 1 -->
-  <xsl:template match="/xs:schema/xs:simpleType[@name]">
+  <!-- ============================================== # 1 ============================================== -->
+  <xsl:template match="/xs:schema/xs:simpleType">
     <rdfs:Datatype rdf:about="{concat( $namespace, @name )}">
-      <xsl:apply-templates select="./xs:restriction"/>
-      <xsl:apply-templates select="./xs:union"/>
+      <xsl:apply-templates select="descendant::xs:annotation"/>
+      <xsl:apply-templates select="descendant::xs:restriction"/>
+      <xsl:apply-templates select="descendant::xs:union"/>
       <!-- TODO: <xsl:apply-templates select="./xs:list"/> -->
     </rdfs:Datatype>
   </xsl:template>
 
+  <!-- ============================================ # 19,20 ============================================ -->
+  <xsl:template match="/xs:schema/xs:element[xs:simpleType]">
+    <rdfs:Datatype rdf:about="{concat( $namespace, @name )}">
+      <xsl:apply-templates select="descendant::xs:annotation"/>
+      <xsl:apply-templates select="descendant::xs:restriction"/>
+      <xsl:apply-templates select="descendant::xs:union"/>
+      <!-- TODO: <xsl:apply-templates select="./xs:list"/> -->
+    </rdfs:Datatype>
+    <owl:DatatypeProperty rdf:about="{concat( $namespace, 'has', @name )}">
+      <rdfs:range rdf:resource="{concat( $namespace, @name )}"/>
+      <xsl:variable name="thisBase" select="./xs:restriction/@base"/>
+      <xsl:choose>
+        <xsl:when test="//xs:simpleType[@name = $thisBase]">
+          <rdfs:subPropertyOf rdf:resource="{concat( $namespace, 'has', $thisBase )}"/>
+        </xsl:when>
+        <xsl:when test="contains( $thisBase, ':' ) and not(starts-with( $thisBase, 'xs:' ))">
+          <xsl:variable name="thisBase" select="tokenize( $thisBase, ':' )"/>
+          <rdfs:subPropertyOf rdf:resource="{concat( $thisBase[1], ':has', $thisBase[2] )}"/>
+        </xsl:when>
+      </xsl:choose>
+    </owl:DatatypeProperty>
+  </xsl:template>
+
   <!-- ============================================== # 2 ============================================== -->
-  <xsl:template match="/xs:schema/xs:simpleType[@name]/xs:union">
+  <xsl:template match="//xs:union">
       <rdfs:comment>TODO: implement xsd:union</rdfs:comment>
   </xsl:template>
 
