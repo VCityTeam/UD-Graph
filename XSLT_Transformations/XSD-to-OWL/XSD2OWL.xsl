@@ -101,26 +101,26 @@ rdfs:range axioms are set by the type attribute -->
   <xsl:choose>
     <xsl:when test="@type = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisType]">
       <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{concat( $namespace, @type )}"/>
       </owl:ObjectProperty>
     </xsl:when>
     <xsl:when test="starts-with( @type, 'xs:' ) and not( @type = 'xs:anyType' )">
       <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{@type}"/>
       </owl:DatatypeProperty>
     </xsl:when>
     <xsl:when test="//xs:simpleType[@name = $thisType] or //xs:element[xs:simpleType and @name = $thisType]">
       <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range rdf:resource="{concat( $namespace, @type )}"/>
       </owl:DatatypeProperty>
     </xsl:when>
     <xsl:when test="contains( @type, ':' )">
       <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
         <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{@type}"/>
       </owl:ObjectProperty>
     </xsl:when>
@@ -128,7 +128,7 @@ rdfs:range axioms are set by the type attribute -->
       <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
       <owl:ObjectProperty rdf:about="{concat( $thisReference[1], ':has', $thisReference[2] )}">
         <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{@ref}"/>
       </owl:ObjectProperty>
     </xsl:when>
@@ -140,7 +140,7 @@ rdfs:range axioms are set by the type attribute -->
                           then 'owl:ObjectProperty'
                           else 'owl:DatatypeProperty'}">
         <xsl:attribute name="rdf:about" select="concat( $namespace, 'has', @ref )"/>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{concat( $namespace, @ref )}"/>
       </xsl:element>
     </xsl:otherwise>
@@ -154,28 +154,28 @@ rdfs:range axioms are set by the type attribute -->
     <xsl:when test="@type = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisType]">
       <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
         <rdf:type    rdf:resource="owl:FunctionalProperty"/>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{concat( $namespace, @type )}"/>
       </owl:ObjectProperty>
     </xsl:when>
     <xsl:when test="starts-with( @type, 'xs:' ) and not( @type = 'xs:anyType' )">
       <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
         <rdf:type    rdf:resource="owl:FunctionalProperty"/>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{@type}"/>
       </owl:DatatypeProperty>
     </xsl:when>
     <xsl:when test="//xs:simpleType[@name = $thisType] or //xs:element[xs:simpleType and @name = $thisType]">
       <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
         <rdf:type    rdf:resource="owl:FunctionalProperty"/>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{concat( $namespace, @type )}"/>
       </owl:DatatypeProperty>
     </xsl:when>
     <xsl:when test="contains( @type, ':' )">
       <owl:ObjectProperty rdf:about="{concat( $namespace, @name )}">
         <rdf:type    rdf:resource="owl:FunctionalProperty"/>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{@type}"/>
         <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       </owl:ObjectProperty>
@@ -184,7 +184,7 @@ rdfs:range axioms are set by the type attribute -->
       <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
       <owl:ObjectProperty rdf:about="{concat( $thisReference[1], ':has', $thisReference[2] )}">
         <rdf:type    rdf:resource="owl:FunctionalProperty"/>
-        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range  rdf:resource="{@ref}"/>
         <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       </owl:ObjectProperty>
@@ -198,7 +198,7 @@ rdfs:range axioms are set by the type attribute -->
                           else 'owl:DatatypeProperty'}">
         <xsl:attribute name="rdf:about" select="concat( $namespace, 'has', @ref )"/>
         <rdf:type      rdf:resource="owl:FunctionalProperty"/>
-        <rdfs:domain   rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+        <rdfs:domain   rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
         <rdfs:range    rdf:resource="{concat( $namespace, @ref )}"/>
       </xsl:element>
     </xsl:otherwise>
@@ -225,7 +225,7 @@ the contents of the type.-->
     <xsl:apply-templates select="descendant::xs:attribute"/>
     <!-- If the class is an extension of a complexType, this class is a subclass of that class -->
     <!-- ======================================== # 9,12,13,14 ======================================== -->
-    <xsl:variable name="thisBase" select="descendant::*/@base"/>
+    <xsl:variable name="thisBase" select="descendant::*[@base][position() = 1]/@base"/>
     <xsl:choose>
       <xsl:when test="//xs:complexType[@name = $thisBase] or //xs:element[@name = @thisBase and xs:complexType]">
         <rdfs:subClassOf rdf:resource="{concat( $namespace, $thisBase )}"/>
@@ -259,12 +259,12 @@ conflicting intersections with it's parent complexType. If a @base attribute is 
 Datatypes and DatatypePropreties will inherit it as a superclass or superproperty. -->
 <!-- ============================================ # 6,8,9 ============================================ -->
 <xsl:template match="xs:simpleContent">
-  <owl:DatatypeProperty rdf:about="{concat( $namespace, 'has' ,ancestor::*/@name )}">
+  <owl:DatatypeProperty rdf:about="{concat( $namespace, 'has' ,ancestor::*[@name][last()]/@name )}">
     <xsl:call-template name="simpleContent-property"/>
   </owl:DatatypeProperty>
   <!-- ========================================== # 10,11,12 ========================================== -->
   <xsl:if test="./xs:restriction">
-    <rdfs:Datatype rdf:about="{concat( $namespace, ancestor::*/@name, 'Datatype' )}">
+    <rdfs:Datatype rdf:about="{concat( $namespace, ancestor::*[@name][last()]/@name, 'Datatype' )}">
       <xsl:apply-templates select="xs:restriction"/>
     </rdfs:Datatype>
   </xsl:if>
@@ -272,11 +272,11 @@ Datatypes and DatatypePropreties will inherit it as a superclass or superpropert
 
 <!-- xs:extensions are transformed into datatype properties with 'has' appended to
 the name. The extension is declared as a datatype property as well and as the superclass of the initial
-datatype property. Note that 'ancestor::*/@name' is used to determine the name of the
+datatype property. Note that 'ancestor::*[@name][last()]/@name' is used to determine the name of the
 original class. This is required because we cannot assume which parent node contains the @name attribute.
 It could be the parent xs:element or xs:complexType. -->
 <xsl:template name="simpleContent-property">
-  <rdfs:domain rdf:resource="{ancestor::*/@name}"/>
+  <rdfs:domain rdf:resource="{ancestor::*[@name][last()]/@name}"/>
   <rdfs:range  rdf:resource="{./*/@base}"/>
   <xsl:if test="not(starts-with( ./*/@base, 'xs:' )) or ./*/@base = 'xs:anyType'">
     <rdfs:subPropertyOf rdf:resource="{concat( 'has', ./*/@base )}"/>
@@ -370,7 +370,7 @@ It could be the parent xs:element or xs:complexType. -->
 <xsl:template match="xs:group[@ref]|xs:attributeGroup[@ref]">
   <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
   <owl:ObjectProperty rdf:about="{if (contains( @ref, ':' )) then concat( $thisReference[1], ':has', $thisReference[2] ) else concat( $namespace, 'has', @ref )}">
-    <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+    <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range  rdf:resource="{if (contains( @ref, ':')) then @ref else concat( $namespace, @ref )}"/>
   </owl:ObjectProperty>
 </xsl:template>
@@ -559,7 +559,7 @@ unbounded, in which case it is ignored -->
 <!-- ============================================ # 27 ============================================ -->
 <xsl:template match="xs:attribute[ancestor::xs:complexType and @name]">
   <owl:DatatypeProperty rdf:about="{concat( $namespace, @name )}">
-    <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+    <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range rdf:resource="{concat( $namespace, @type )}"/>
   </owl:DatatypeProperty>
 </xsl:template>
@@ -568,7 +568,7 @@ unbounded, in which case it is ignored -->
 <xsl:template match="xs:attribute[ancestor::xs:complexType and @ref]">
   <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
   <owl:DatatypeProperty rdf:about="{if (contains( @ref, ':')) then concat( $thisReference[1], ':has', $thisReference[2] ) else concat( $namespace, 'has', @ref )}">
-    <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*/@name )}"/>
+    <rdfs:domain rdf:resource="{concat( $namespace, ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range rdf:resource="{if (contains( @ref, ':' )) then @ref else concat( $namespace, @ref )}"/>
   </owl:DatatypeProperty>
 </xsl:template>
