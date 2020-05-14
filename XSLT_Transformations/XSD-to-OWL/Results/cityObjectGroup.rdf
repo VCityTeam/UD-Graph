@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/cityObjectGroup">
+      <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
+      <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
+      <rdfs:comment>
+	CityGML is an OGC Standard.
+	Copyright (c) 2012 Open Geospatial Consortium.
+	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</rdfs:comment>
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType">
+      <rdfs:comment> A group may be used to aggregate arbitrary CityObjects according to some user-defined criteria. Examples
+				for groups are the buildings in a specific region, the result of a query, or objects put together for visualization
+				purposes. Each group has a name (inherited from AbstractGMLType), functions (e.g., building group), a class and zero or
+				more usages. A geometry may optionally be attached to a group, if the geometry of the whole group differs from the
+				geometry of the parts. Each member of a group may be qualified by a role name, reflecting the role each CityObject plays
+				in the context of the group. As subclass of _CityObject, a CityObjectGroup inherits all attributes and relations, in
+				particular an id, names, external references, and generalization relations. As CityObjectGroup itself is a CityObject, it
+				may also be contained by another group. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#groupMember"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupMemberType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#groupMember"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#parent"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupParentType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#parent"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#has_GenericApplicationPropertyOfCityObjectGroup"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#_GenericApplicationPropertyOfCityObjectGroup"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#has_GenericApplicationPropertyOfCityObjectGroup"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupMemberType">
+      <rdfs:comment>Denotes the relation of a CityObjectGroup to its members, which are _CityObjects. The
+				CityObjectGroupMemberType element must either carry a reference to a _CityObject object or contain a _CityObject object
+				inline, but neither both nor none. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#has_CityObject"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#role"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupParentType">
+      <rdfs:comment>Denotes the relation of a CityObjectGroup to its parent, which is a CityObject. The
+				CityObjectGroupParentType element must either carry a reference to a _CityObject object or contain a _CityObject object
+				inline, but neither both nor none. The parent association allows for modelling of a generic hierarchical grouping concept.
+				Named aggregations of components (CityObjects) can be added to specific CityObjects considered as the parent object. The
+				parent association links to the aggregate, while the parts are given by the group members. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#has_CityObject"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#role">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupMemberType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroup">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#_GenericApplicationPropertyOfCityObjectGroup">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#groupMember">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupMemberType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#parent">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupParentType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#has_GenericApplicationPropertyOfCityObjectGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#_GenericApplicationPropertyOfCityObjectGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#has_CityObject">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupMemberType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/2.0#has_CityObject">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupParentType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+   </owl:ObjectProperty>
+</rdf:RDF>

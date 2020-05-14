@@ -4,6 +4,8 @@ from lxml import etree
 if len(sys.argv) != 3:
    sys.exit('Incorrect number of arguments. Usage: qualify-ns.py [xsd with namespaces] [rdf to clean]')
 
+filename = sys.argv[1].split('/')[-1]
+
 # Get namespaces
 namespaces = etree.parse(sys.argv[1]).getroot().nsmap
 namespaces.update({'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns'})
@@ -15,7 +17,8 @@ with open(sys.argv[2]) as file:
    line = file.readline()
    while line != '':
       # update ontology uri to reference xsd filename
-      line = line.replace( 'http://liris.cnrs.fr/ontologies', 'http://liris.cnrs.fr/ontologies/' + sys.argv[1].split('.')[0] )
+      line = line.replace( '<owl:Ontology rdf:about="">',
+                           '<owl:Ontology rdf:about="{}">'.format( 'http://liris.cnrs.fr/ontologies/' + filename.split('.')[0] ))
       for prefix in namespaces.keys():
          # update resource uri with fully qualified namespace
          line = line.replace( 'rdf:resource="{}:'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )

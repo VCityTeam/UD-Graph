@@ -7,13 +7,14 @@ Testing is done using [Saxon-HE](http://saxon.sourceforge.net/)
 XSD2OWL is an XSLT stylesheet to transform XML Schema files into OWL/RDF format. This stylesheet is based on the transformation patterns proposed by Ivan Bedini, Christopher Matheus, Peter F. Patel-Schneider , Aidan Boran, and Benjamin Nguyen in their article _Transforming XML Schema to OWL Using Patterns_.
 
 ### To Run
-Before running the following code, saxon must be installed
+Saxon HE is dependent on Java. Before running the following code, Java 8 or later must be installed.
 
-Transform xsd to owl
+Transform a single schema to owl
 ```
-saxon -s:[xsd to transform] -xsl:XSD2OWL.xsl > [output file]
+bash run.sh [Filepath to XSL] [Output filename].rdf
 ```
-Clean namespaces
+
+Transform all CityGML schema to owl
 ```
-python qualify-ns.py [xsd to transform] [output file]
+bash runall.sh
 ```

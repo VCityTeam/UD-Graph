@@ -1,0 +1,1874 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/bridge">
+      <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
+      <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
+      <rdfs:comment>
+	CityGML is an OGC Standard.
+	Copyright (c) 2012 Open Geospatial Consortium.
+	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</rdfs:comment>
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Type describing the thematic and geometric attributes and the associations of bridges. It is an abstract
+				type, only its subclasses Bridge and BridgePart can be instantiated. An _AbstractBridge may consist of BridgeParts, which
+				are again _AbstractBridges by inheritance. Thus an aggregation hierarchy between _AbstractBridges of arbitrary depth may
+				be specified. In such an hierarchy, top elements are Bridges, while all other elements are BridgeParts. Each element of
+				such a hierarchy may have all attributes and geometries of _AbstractBridges. It must, however, be assured that no
+				inconsistencies occur.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#yearOfConstruction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#yearOfConstruction"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#yearOfDemolition"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#yearOfDemolition"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#isMovable"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#isMovable"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1Solid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1Solid"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2Solid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2Solid"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2MultiCurve"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2MultiCurve"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#outerBridgeConstruction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#outerBridgeConstruction"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#outerBridgeInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#outerBridgeInstallation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#interiorBridgeInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#interiorBridgeInstallation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3Solid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3Solid"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiCurve"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiCurve"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Solid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Solid"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiCurve"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiCurve"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#interiorBridgeRoom"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorBridgeRoomPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#interiorBridgeRoom"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#consistsOfBridgePart"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePartPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#consistsOfBridgePart"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#address"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#AddressPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#address"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfAbstractBridge"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfAbstractBridge"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfAbstractBridge"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractSiteType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractSiteType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridge"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridge"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridge"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgePartType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgePart"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgePart"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgePart"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgePartPropertyType">
+      <rdfs:comment>Denotes the relation of an _AbstractBridge to its bridge parts. The BridgePartPropertyType element must
+				either carry a reference to a BridgePart object or contain a BridgePart object inline, but neither both nor
+				none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#hasBridgePart"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePart"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType">
+      <rdfs:comment>A BridgeInstallation is a part of a Bridge which has not the significance of a BridgePart. In contrast to
+				BridgeConstructionElements, a BridgeInstallation is not essential from a structural point of view. Thus, it may be removed
+				without the bridge collapsing. Examples are stairs, antennas, railways, etc. As subclass of _CityObject, a
+				BridgeInstallation inherits all attributes and relations, in particular an id, names, external references, generic
+				attributes and generalization relations.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeInstallation"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeInstallation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationPropertyType">
+      <rdfs:comment>Denotes the relation of an _AbstractBridge to its bridge installations. The BridgeInstallationPropertyType
+				element must either carry a reference to a BridgeInstallation object or contain a BridgeInstallation object inline, but
+				neither both nor none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#hasBridgeInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallation"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType">
+      <rdfs:comment>An IntBridgeInstallation is an interior part of a Bridge which has a specific function or semantic
+				meaning. Examples are interior stairs, railings, radiators or pipes. As subclass of _CityObject, an IntBridgeInstallation
+				inherits all attributes and relations, in particular an id, names, external references, generic attributes and
+				generalization relations. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfIntBridgeInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfIntBridgeInstallation"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfIntBridgeInstallation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationPropertyType">
+      <rdfs:comment>Denotes the relation of an _AbstractBridge to its interior bridge installations. The
+				IntBridgeInstallationPropertyType element must either carry a reference to a IntBridgeInstallation object or contain a
+				IntBridgeInstallation object inline, but neither both nor none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#hasIntBridgeInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallation"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType">
+      <rdfs:comment>A BridgeConstructionElement is a part of a Bridge which has not the significance of a BridgePart. In
+				contrast to BridgeInstallation, a BridgeConstructionElement is essential from a structural point of view. Examples are
+				pylons, anchorages, etc. As subclass of _CityObject, a BridgeInstallation inherits all attributes and relations, in
+				particular an id, names, external references, generic attributes and generalization relations.</rdfs:comment>
+      <rdfs:comment> The name will be represented by gml:name (inherited from _GML) The lodXMultiSurface must be used,
+							if the geometry of a building is just a collection of surfaces bounding a solid, but not a topologically clean solid
+							boundary necessary for GML3 solid boundaries. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod1ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeConstructionElement"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeConstructionElement"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeConstructionElement"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementPropertyType">
+      <rdfs:comment>Denotes the relation of an _AbstractBridge to its bridge construction elements. The
+				BridgeConstructionElementPropertyType element must either carry a reference to a BridgeConstructionElement object or
+				contain a BridgeConstructionElement object inline, but neither both nor none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#hasBridgeConstructionElement"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElement"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>A BoundarySurface is a thematic object which classifies surfaces bounding an _AbstractBridge,
+				BridgeInstallation, IntBuildingInstallation, BridgeConstructionElement, and BridgeRoom. The geometry of a BoundarySurface
+				is given by MultiSurfaces. As it is a subclass of _CityObject, it inherits all atributes and relations, in particular the
+				external references, the generic attributes, and the generalization relations. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod2MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#opening"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OpeningPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#opening"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBoundarySurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBoundarySurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBoundarySurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#RoofSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfRoofSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfRoofSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfRoofSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#WallSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfWallSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfWallSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfWallSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#GroundSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfGroundSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfGroundSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfGroundSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#ClosureSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfClosureSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfClosureSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfClosureSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#OuterFloorSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOuterFloorSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOuterFloorSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOuterFloorSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#OuterCeilingSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOuterCeilingSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOuterCeilingSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOuterCeilingSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#FloorSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfFloorSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfFloorSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfFloorSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#InteriorWallSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfInteriorWallSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfInteriorWallSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfInteriorWallSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#CeilingSurfaceType">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfCeilingSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfCeilingSurface"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfCeilingSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType">
+      <rdfs:comment>Denotes the relation of an _AbstractBridge to its bounding thematic surfaces (walls, roofs, ..). The
+				BoundarySurfacePropertyType element must either carry a reference to a _BoundarySurface object or contain a
+				_BoundarySurface object inline, but neither both nor none. There is no differentiation between interior surfaces bounding
+				rooms and outer ones bounding bridges (one reason is, that ClosureSurface belongs to both types). It has to be made sure
+				by additional integrity constraints that, e.g. an _AbstractBridge is not related to CeilingSurfaces or a room not to
+				RoofSurfaces.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_BoundarySurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#OpeningPropertyType">
+      <rdfs:comment>Denotes the relation of an _BondarySurface to its openings (doors, windows). The OpeningPropertyType
+				element must either carry a reference to an _Opening object or contain an _Opening object inline, but neither both nor
+				none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_Opening"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_Opening"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment> Type for openings (doors, windows) in boundary surfaces. Used in LoD3 and LoD4 only. As subclass of
+				_CityObject, an _Opening inherits all attributes and relations, in particular an id, names, external references, generic
+				attributes and generalization relations. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOpening"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOpening"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOpening"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#WindowType">
+      <rdfs:comment> Type for windows in boundary surfaces. Used in LoD3 and LoD4 only . As subclass of _CityObject, a window
+				inherits all attributes and relations, in particular an id, names, external references, generic attributes and
+				generalization relations. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfWindow"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfWindow"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfWindow"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#DoorType">
+      <rdfs:comment> Type for doors in boundary surfaces. Used in LoD3 and LoD4 only . As subclass of _CityObject, a Door
+				inherits all attributes and relations, in particular an id, names, external references, generic attributes and
+				generalization relations. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#address"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#AddressPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#address"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfDoor"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfDoor"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfDoor"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType">
+      <rdfs:comment>A BridgeRoom is a thematic object for modelling the closed parts inside a Bridge. It has to be closed, if
+				necessary by using closure surfaces. The geometry may be either a solid, or a MultiSurface if the boundary is not
+				topologically clean. The BridgeRoom connectivity may be derived by detecting shared thematic openings or closure surfaces:
+				two rooms are connected if both use the same opening object or the same closure surface. The thematic surfaces bounding a
+				BridgeRoom are referenced by the boundedBy property. As subclass of _CityObject, a BridgeRoom inherits all attributes and
+				relations, in particular an id, names, external references, generic attributes and generalization relations.
+			</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Solid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Solid"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#boundedBy"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#interiorFurniture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorFurniturePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#interiorFurniture"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#bridgeRoomInstallation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#bridgeRoomInstallation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeRoom"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeRoom"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeRoom"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType">
+      <rdfs:comment>Type for bridge furnitures. As subclass of _CityObject, a BridgeFurniture inherits all attributes and
+				relations, in particular an id, names, external references, generic attributes and generalization relations.
+			</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeFurniture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeFurniture"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeFurniture"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#InteriorBridgeRoomPropertyType">
+      <rdfs:comment>Denotes the relation of an _AbstractBridge to its rooms. The InteriorBridgeRoomPropertyType element must
+				either carry a reference to an BridgeRoom object or contain an BridgeRoom object inline, but neither both nor
+				none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#hasBridgeRoom"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoom"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#InteriorFurniturePropertyType">
+      <rdfs:comment>Denotes the relation of a BridgeRoom to its interior bridge furniture. The
+				InteriorBridgeFurniturePropertyType element must either carry a reference to an BridgeFurniture object or contain an
+				BridgeFurniture object inline, but neither both nor none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/bridge/2.0#hasBridgeFurniture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurniture"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_AbstractBridge">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_Site"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfAbstractBridge">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#Bridge">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_AbstractBridge"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridge">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgePart">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_AbstractBridge"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePartType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgePart">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallation">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeInstallation">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallation">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfIntBridgeInstallation">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElement">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeConstructionElement">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBoundarySurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#RoofSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#RoofSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfRoofSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#WallSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#WallSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfWallSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#GroundSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#GroundSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfGroundSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#ClosureSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#ClosureSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfClosureSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#OuterFloorSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OuterFloorSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOuterFloorSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#OuterCeilingSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OuterCeilingSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOuterCeilingSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#FloorSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#FloorSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfFloorSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#InteriorWallSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorWallSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfInteriorWallSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#CeilingSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#CeilingSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfCeilingSurface">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_Opening">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOpening">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#Window">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_Opening"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#WindowType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfWindow">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#Door">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_Opening"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#DoorType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfDoor">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeRoom">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeRoom">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#BridgeFurniture">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeFurniture">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#yearOfConstruction">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#yearOfDemolition">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#gYear"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#isMovable">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod1Solid">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod1MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod1TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2Solid">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2MultiCurve">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#outerBridgeConstruction">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#outerBridgeInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#interiorBridgeInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#boundedBy">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3Solid">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3MultiCurve">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4Solid">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4MultiCurve">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#interiorBridgeRoom">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorBridgeRoomPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#consistsOfBridgePart">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePartPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#address">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#AddressPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfAbstractBridge">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfAbstractBridge"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridge">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridge"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgePart">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePartType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgePart"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#hasBridgePart">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePartPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgePart"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#boundedBy">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeInstallation"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#hasBridgeInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallationPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeInstallation"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#boundedBy">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfIntBridgeInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfIntBridgeInstallation"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#hasIntBridgeInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallation"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod1Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod1TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod1ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#boundedBy">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeConstructionElement">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeConstructionElement"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#hasBridgeConstructionElement">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElementPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeConstructionElement"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod2MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#opening">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OpeningPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBoundarySurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBoundarySurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfRoofSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#RoofSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfRoofSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfWallSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#WallSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfWallSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfGroundSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#GroundSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfGroundSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfClosureSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#ClosureSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfClosureSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOuterFloorSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OuterFloorSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOuterFloorSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOuterCeilingSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OuterCeilingSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOuterCeilingSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfFloorSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#FloorSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfFloorSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfInteriorWallSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorWallSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfInteriorWallSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfCeilingSurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#CeilingSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfCeilingSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_BoundarySurface">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_BoundarySurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_Opening">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#OpeningPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_Opening"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod3ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfOpening">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#AbstractOpeningType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfOpening"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfWindow">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#WindowType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfWindow"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#address">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#DoorType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#AddressPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfDoor">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#DoorType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfDoor"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4Solid">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4MultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#boundedBy">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BoundarySurfacePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#interiorFurniture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorFurniturePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#bridgeRoomInstallation">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#IntBridgeInstallationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeRoom">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoomType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeRoom"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#lod4ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#has_GenericApplicationPropertyOfBridgeFurniture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurnitureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#_GenericApplicationPropertyOfBridgeFurniture"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#hasBridgeRoom">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorBridgeRoomPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeRoom"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/bridge/2.0#hasBridgeFurniture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/bridge/2.0#InteriorFurniturePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/bridge/2.0#BridgeFurniture"/>
+   </owl:ObjectProperty>
+</rdf:RDF>
