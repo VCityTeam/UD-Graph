@@ -11,10 +11,10 @@ Saxon HE is dependent on Java. Before running the following code, Java 8 or late
 
 Transform a single schema to owl
 ```
-bash run.sh [Filepath to XSL] [Output filename].rdf
+./run.sh [Filepath to XSL] [Output filename].rdf
 ```
 
-Transform all CityGML schema to owl
+Transform all known CityGML schema to owl
 ```
-bash runall.sh
+./ run.sh -a
 ```
