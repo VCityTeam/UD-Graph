@@ -34,23 +34,29 @@ filenames=(
    [13]="texturedSurface.rdf"
 )
 
-if [ "$1" = "-a" ]; then
-   echo "Transforming all known schema..."
-   for (( i = 0 ; i < ${#paths[@]} ; i++ ))
-   do
-      echo "transforming ${paths[$i]} to Results/${filenames[$i]}"
-      java -jar ../saxon9he.jar -s:${paths[$i]} -xsl:XSD2OWL.xsl > Results/${filenames[$i]}
-      python qualify-ns.py ${paths[$i]} Results/${filenames[$i]}
-   done
-elif [ $# -lt 2 ]; then
-   echo "Incorrect number of arguments: $#"
-   echo "Usage: ./run.sh [-a] [path to xsl file] [output filename]"
-   echo "                -a : transform known schema automatically"
-   exit 0
-else
+if [ $# -eq 2 ]; then
    echo "transforming $1 to Results/$2"
    java -jar ../saxon9he.jar -s:$1 -xsl:XSD2OWL.xsl > Results/$2
-   python qualify-ns.py $1 Results/$2
+   echo "post-transformation cleanup..."
+   python postXSLT.py $1 Results/$2
+elif [ $# -eq 0 ]; then
+   echo "Transforming known schema..."
+   for (( i = 0 ; i < ${#paths[@]} ; i++ ))
+   do
+      echo "${paths[$i]} to Results/${filenames[$i]}"
+      java -jar ../saxon9he.jar -s:${paths[$i]} -xsl:XSD2OWL.xsl > Results/${filenames[$i]}
+   done
+   echo "post-transformation cleanup..."
+   for (( i = 0 ; i < ${#paths[@]} ; i++ ))
+   do
+      echo "cleaning ${filenames[$i]}"
+      python postXSLT.py ${paths[$i]} Results/${filenames[$i]}
+   done
+else
+   echo "Incorrect number of arguments: $#"
+   echo "Usage: ./run.sh"
+   echo "       ./run.sh [path to xsl file] [output filename]"
+   exit 0
 fi
 
 exit 0

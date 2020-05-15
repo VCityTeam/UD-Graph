@@ -9,12 +9,11 @@ XSD2OWL is an XSLT stylesheet to transform XML Schema files into OWL/RDF format.
 ### To Run
 Saxon HE is dependent on Java. Before running the following code, Java 8 or later must be installed.
 
-Transform a single schema to owl
+Transform known schema to owl
 ```
-./run.sh [Filepath to XSL] [Output filename].rdf
+./run.sh
 ```
-
-Transform all known CityGML schema to owl
+Transform a specific schema to owl
 ```
-./ run.sh -a
+./run.sh [filepath to XSL] [output filename].rdf
 ```

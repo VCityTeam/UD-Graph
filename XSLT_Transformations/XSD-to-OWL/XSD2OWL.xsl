@@ -23,7 +23,7 @@ for 1st depth elements, complex types, and simple types. -->
 <xsl:template match="/">
   <rdf:RDF>
     <owl:Ontology rdf:about="">
-      <xsl:apply-templates select="//*[name() = 'xs:import']"/>
+      <xsl:apply-templates select="//xs:import"/>
       <xsl:apply-templates select="/xs:schema/xs:annotation"/>
     </owl:Ontology>
     <xsl:apply-templates select="//xs:complexType"/>
@@ -37,6 +37,7 @@ for 1st depth elements, complex types, and simple types. -->
 <!-- Imports are not handled in this stylesheet (yet). If one is declared, transform it into a warning. -->
 <!-- TODO: test document() function for resolving imports? -->
 <xsl:template match="xs:import">
+  <owl:import rdf:resource="{@schemaLocation}"/>
   <rdfs:comment>Warning: The schema <xsl:value-of select="@namespace"/> was not imported.</rdfs:comment>
 </xsl:template>
 
