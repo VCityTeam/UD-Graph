@@ -1,1272 +1,771 @@
-<?xml version="1.0"?>
-<rdf:RDF xmlns="http://liris.cnrs.fr/ontologies/appearance#"
-     xml:base="http://liris.cnrs.fr/ontologies/appearance"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:www="http://www.w3.org/2001/"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/appearance">
-        <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
-        <rdfs:comment>
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/appearance">
+      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
+      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
+      <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
+      <rdfs:comment>
     CityGML is an OGC Standard.
     Copyright (c) 2012 Open Geospatial Consortium.
     To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
-        <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
-        <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
-    </owl:Ontology>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Datatypes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#Color -->
-
-    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#Color">
-        <rdfs:comment>List of three values (red, green, blue), separated by spaces. The values must be in the range between zero
-				and one. </rdfs:comment>
-    </rdfs:Datatype>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity -->
-
-    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity">
-        <rdfs:comment>List of three or four values (red, green, blue, opacity), separated by spaces. The values must be in the
-				range between zero and one. If no opacity is given, it is assumed as 1.0.</rdfs:comment>
-    </rdfs:Datatype>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#TextureTypeType -->
-
-    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#TextureTypeType">
-        <rdfs:comment>Textures can be qualified by the attribute textureType. The textureType differentiates between textures,
-				which are specific for a certain object and are only used for that object (specific), and prototypic textures being
-				typical for that kind of object and are used many times for all objects of that kind (typical). A typical texture may be
-				replaced by a specific, if available. Textures may also be classified as unknown. </rdfs:comment>
-        <owl:equivalentClass>
-            <rdfs:Datatype>
-                <owl:oneOf>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">specific</rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">typical</rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unknown</rdf:first>
-                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </owl:oneOf>
-            </rdfs:Datatype>
-        </owl:equivalentClass>
-    </rdfs:Datatype>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#WrapModeType -->
-
-    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#WrapModeType">
-        <rdfs:comment>Fill mode for a texture. &quot;wrap&quot; repeats the texture, &quot;clamp&quot; extends the edges of the texture, and
-				&quot;border&quot; fills all undefined areas with &quot;borderColor&quot;</rdfs:comment>
-        <owl:equivalentClass>
-            <rdfs:Datatype>
-                <owl:oneOf>
-                    <rdf:Description>
-                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">border</rdf:first>
-                        <rdf:rest>
-                            <rdf:Description>
-                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">clamp</rdf:first>
-                                <rdf:rest>
-                                    <rdf:Description>
-                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mirror</rdf:first>
-                                        <rdf:rest>
-                                            <rdf:Description>
-                                                <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">none</rdf:first>
-                                                <rdf:rest>
-                                                    <rdf:Description>
-                                                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
-                                                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">wrap</rdf:first>
-                                                        <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-                                                    </rdf:Description>
-                                                </rdf:rest>
-                                            </rdf:Description>
-                                        </rdf:rest>
-                                    </rdf:Description>
-                                </rdf:rest>
-                            </rdf:Description>
-                        </rdf:rest>
-                    </rdf:Description>
-                </owl:oneOf>
-            </rdfs:Datatype>
-        </owl:equivalentClass>
-    </rdfs:Datatype>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#ambientIntensity -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#ambientIntensity">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hasAppearance -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasAppearance">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Appearance"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hasTexCoordGenType -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordGenType">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hasTexCoordListType -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordListType">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#doubleList"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#has_TextureParameterization -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_TextureParameterization">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hastextureCoordinates -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hastextureCoordinates">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hasworldToTexture -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasworldToTexture">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#worldToTexture"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#mimeType -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#mimeType">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#orientation -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#orientation">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#referencePoint -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#referencePoint">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#shininess -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#shininess">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#target -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#target">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#transparency -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#transparency">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Data properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/2.0#hasTransformationMatrix3x4Type -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/2.0#hasTransformationMatrix3x4Type"/>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#borderColor -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#borderColor">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#diffuseColor -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#diffuseColor">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#emissiveColor -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#emissiveColor">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hasTexCoordGenType -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordGenType">
-        <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/citygml/2.0#hasTransformationMatrix3x4Type"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#hasTexCoordListType -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordListType">
-        <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#imageURI -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#imageURI">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#isFront -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#isFront">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#isSmooth -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#isSmooth">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#preferWorldFile -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#preferWorldFile">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#ring -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#ring">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#specularColor -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#specularColor">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#target -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#target">
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#textureType -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#textureType">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureTypeType"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#theme -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#theme">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#uri -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#uri">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#wrapMode -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#wrapMode">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#WrapModeType"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/gml#hasdoubleList -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasdoubleList"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
-    
-
-
-    <!-- http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
-    
-
-
-    <!-- http://www.opengis.net/citygml/2.0#doubleBetween0and1 -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isFront"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isFront"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
-        <rdfs:comment>Base class for textures and material. Contains only isFront-flag.</rdfs:comment>
-        <rdfs:comment>This is an abstract class</rdfs:comment>
-        <rdfs:comment>Warning: The parent class &apos;gml:AbstractFeatureType&apos; is declared outside of this class&apos; original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-        <rdfs:comment>Base class for augmenting a link &quot;texture-&gt;surface&quot; with texture parameterization. Subclasses of this
-				class define concrete parameterizations. Currently, texture coordinates and texture coordinate generation using a
-				transformation matrix are available. </rdfs:comment>
-        <rdfs:comment>This is an abstract class</rdfs:comment>
-        <rdfs:comment>Warning: The parent class &apos;gml:AbstractGMLType&apos; is declared outside of this class&apos; original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#mimeType"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#mimeType"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#borderColor"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#imageURI"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureType"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureTypeType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#wrapMode"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#WrapModeType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#borderColor"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureType"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#wrapMode"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Base class for textures. &quot;imageURI&quot; can contain any valid URI from references to a local file to
-				preformatted web service requests. The linking to geometry and texture parameterization is provided by derived
-				classes.</rdfs:comment>
-        <rdfs:comment>This is an abstract class</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#Appearance -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#Appearance">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hasAppearance"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Appearance"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Denotes the relation of a _CityObject to its appearances. The AppearancePropertyType element must either
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AppearanceType">
+      <rdfs:comment> Named container for all surface data (texture/material). All appearances of the same name ("theme")
+				within a CityGML file are considered a group. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#theme"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#theme"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType">
+      <rdfs:comment>Denotes the relation of a _CityObject to its appearances. The AppearancePropertyType element must either
 				carry a reference to a Appearance object or contain a Appearance object inline, but neither both nor
 				none.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#AppearanceType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AppearanceType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#theme"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#theme"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
-        <rdfs:comment> Named container for all surface data (texture/material). All appearances of the same name (&quot;theme&quot;)
-				within a CityGML file are considered a group. </rdfs:comment>
-        <rdfs:comment>Warning: The parent class &apos;gml:AbstractFeatureType&apos; is declared outside of this class&apos; original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTexture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTexture">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_Texture"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#orientation"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#referencePoint"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#orientation"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#referencePoint"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#preferWorldFile"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#preferWorldFile"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Specialization for georeferenced textures, i.e. textures using a planimetric projection. Such textures
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hasAppearance"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Appearance"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Base class for textures and material. Contains only isFront-flag.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isFront"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isFront"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType">
+      <rdfs:comment>Denotes the relation of an Appearance to its surface data. The SurfaceDataPropertyType element must either
+				carry a reference to a _SurfaceData object or contain a _SurfaceData object inline, but neither both nor
+				none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Base class for textures. "imageURI" can contain any valid URI from references to a local file to
+				preformatted web service requests. The linking to geometry and texture parameterization is provided by derived
+				classes.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#imageURI"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#mimeType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#mimeType"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureTypeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureType"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#wrapMode"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#WrapModeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#wrapMode"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#borderColor"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#borderColor"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType">
+      <rdfs:comment>Specialization for standard 2D textures. "target" provides the linking to surface geometry. Only
+				gml:MultiSurface and decendants of gml:AbstractSurfaceType are valid targets. As property of the link, a texture
+				parameterization either as set of texture coordinates or transformation matrix is given. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType">
+      <rdfs:comment>Specialization for georeferenced textures, i.e. textures using a planimetric projection. Such textures
 				contain an implicit parameterization (either stored within the image file, in an acompanying world file, or using the
-				&quot;referencePoint&quot; and &quot;orientation&quot;-elements). A georeference provided by &quot;referencePoint&quot; and &quot;orientation&quot; always takes
+				"referencePoint" and "orientation"-elements). A georeference provided by "referencePoint" and "orientation" always takes
 				precedence. The search order for an external georeference is determined by the boolean flag preferWorldFile. If this flag
 				is set to true (its default value), a world file is looked for first and only if it is not found the georeference from the
 				image data is used. If preferWorldFile is false, the world file is used only if no georeference from the image data is
-				available. The &quot;boundedBy&quot;-property should contain the bounding box of the projected image data. Since a georeferenced
-				texture has a unique parameterization, &quot;target&quot; only provides links to surface geometry without any additional texture
+				available. The "boundedBy"-property should contain the bounding box of the projected image data. Since a georeferenced
+				texture has a unique parameterization, "target" only provides links to surface geometry without any additional texture
 				parameterization. Only gml:MultiSurface or decendants of gml:AbstractSurfaceType are valid targets.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#ParameterizedTexture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTexture">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_Texture"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Specialization for standard 2D textures. &quot;target&quot; provides the linking to surface geometry. Only
-				gml:MultiSurface and decendants of gml:AbstractSurfaceType are valid targets. As property of the link, a texture
-				parameterization either as set of texture coordinates or transformation matrix is given. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Denotes the relation of an Appearance to its surface data. The SurfaceDataPropertyType element must either
-				carry a reference to a _SurfaceData object or contain a _SurfaceData object inline, but neither both nor
-				none.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#TexCoordGen -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordGen">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hasworldToTexture"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#worldToTexture"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Texture parameterization using a transformation matrix. The transformation matrix &quot;worldToTexture&quot; can be
-				used to derive texture coordinates from an object&apos;s location. This 3x4 matrix T computes the coordinates (s,t) from a
-				homogeneous world position p as (s,t) = (s&apos;/q&apos;, t&apos;/q&apos;) with (s&apos;, t&apos;, q&apos;) = T*p. Thus, perspective projections can be
-				specified. The SRS can be specified using standard attributes. If an object is given in a different reference system, it
-				is transformed to the SRS before applying the transformation. A transformation matrix can be used for whole surfaces. It
-				is not required to specify it per LinearRing. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#TexCoordList -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordList">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#TexCoordListType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hastextureCoordinates"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Texture parameterization using texture coordinates: Each gml:LinearRing that is part of the surface
-				requires a separate &quot;textureCoordinates&quot;-entry with 2 doubles per ring vertex. The &quot;ring&quot;- attribute provides the gml:id
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#preferWorldFile"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#preferWorldFile"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#referencePoint"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#referencePoint"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#orientation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#orientation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType">
+      <rdfs:comment>Denotes the relation of a texture to a surface, that is augmented by a TextureParameterization object. The
+				TextureAssociationType element must either carry a reference to a _TextureParameterization object or contain a
+				_TextureParameterization object inline, but neither both nor none.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_TextureParameterization"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#uri"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Base class for augmenting a link "texture-&gt;surface" with texture parameterization. Subclasses of this
+				class define concrete parameterizations. Currently, texture coordinates and texture coordinate generation using a
+				transformation matrix are available. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType">
+      <rdfs:comment>Texture parameterization using texture coordinates: Each gml:LinearRing that is part of the surface
+				requires a separate "textureCoordinates"-entry with 2 doubles per ring vertex. The "ring"- attribute provides the gml:id
 				of the target LinearRing. It is prohibited to link texture coordinates to any other object type than LinearRing. Thus,
 				surfaces not consisting of LinearRings cannot be textured this way. Use transformation matrices (see below) or
 				georeferenced textures instead. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_TextureParameterization"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#uri"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Denotes the relation of a texture to a surface, that is augmented by a TextureParameterization object. The
-				TextureAssociationType element must either carry a reference to a _TextureParameterization object or contain a
-				_TextureParameterization object inline, but neither both nor none.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#X3DMaterial -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#X3DMaterial">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ambientIntensity"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#shininess"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#transparency"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ambientIntensity"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#shininess"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#transparency"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#diffuseColor"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#emissiveColor"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isSmooth"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#specularColor"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#diffuseColor"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#emissiveColor"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isSmooth"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#specularColor"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Class for defining constant surface properties. It is based on X3D&apos;s material definition. In addition,
-				&quot;isSmooth&quot; provides a hint for value interpolation. The link to surface geometry is established via the &quot;target&quot;-property.
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hastextureCoordinates"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates">
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ring"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
+      <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordListType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#doubleList"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
+      <rdfs:comment>Warning: The parent property 'gml:hasdoubleList' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType">
+      <rdfs:comment>Texture parameterization using a transformation matrix. The transformation matrix "worldToTexture" can be
+				used to derive texture coordinates from an object's location. This 3x4 matrix T computes the coordinates (s,t) from a
+				homogeneous world position p as (s,t) = (s'/q', t'/q') with (s', t', q') = T*p. Thus, perspective projections can be
+				specified. The SRS can be specified using standard attributes. If an object is given in a different reference system, it
+				is transformed to the SRS before applying the transformation. A transformation matrix can be used for whole surfaces. It
+				is not required to specify it per LinearRing. </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hasworldToTexture"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#worldToTexture"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#worldToTexture">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
+      <rdfs:comment>Warning: The parent class 'core:TransformationMatrix3x4Type' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordGenType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/citygml/2.0#hasTransformationMatrix3x4Type"/>
+      <rdfs:comment>Warning: The parent property 'core:hasTransformationMatrix3x4Type' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType">
+      <rdfs:comment>Class for defining constant surface properties. It is based on X3D's material definition. In addition,
+				"isSmooth" provides a hint for value interpolation. The link to surface geometry is established via the "target"-property.
 				Only gml:MultiSurface or decendants of gml:AbstractSurfaceType are valid targets. </rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial">
-        <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_SurfaceData -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_Texture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_Texture">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#appearance -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#appearance">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#appearanceMember -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#appearanceMember">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeaturePropertyType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#featureMember"/>
-        <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#textureCoordinates -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ring"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
-        <rdfs:comment>Warning: The parent class &apos;gml:doubleList&apos; is declared outside of this class&apos; original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/appearance/2.0#worldToTexture -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#worldToTexture">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
-        <rdfs:comment>Warning: The parent class &apos;core:TransformationMatrix3x4Type&apos; is declared outside of this class&apos; original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/gml#doubleList -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml#doubleList"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotations
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <rdf:Description rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordGenType">
-        <rdfs:comment>Warning: The parent property &apos;core:hasTransformationMatrix3x4Type&apos; is declared outside of this property&apos;s original schema. This property may be declared incorrectly.</rdfs:comment>
-    </rdf:Description>
-    <rdf:Description rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasTexCoordListType">
-        <rdfs:comment>Warning: The parent property &apos;gml:hasdoubleList&apos; is declared outside of this property&apos;s original schema. This property may be declared incorrectly.</rdfs:comment>
-    </rdf:Description>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ambientIntensity"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ambientIntensity"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#diffuseColor"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#diffuseColor"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#emissiveColor"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#emissiveColor"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#specularColor"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#specularColor"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#shininess"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#shininess"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#transparency"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#transparency"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isSmooth"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#isSmooth"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#target"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#WrapModeType">
+      <rdfs:comment>Fill mode for a texture. "wrap" repeats the texture, "clamp" extends the edges of the texture, and
+				"border" fills all undefined areas with "borderColor"</rdfs:comment>
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">none</rdf:first>
+                  <rdf:rest>
+                     <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">wrap</rdf:first>
+                        <rdf:rest>
+                           <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                              <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">mirror</rdf:first>
+                              <rdf:rest>
+                                 <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                    <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">clamp</rdf:first>
+                                    <rdf:rest>
+                                       <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                          <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">border</rdf:first>
+                                          <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                       </rdf:Description>
+                                    </rdf:rest>
+                                 </rdf:Description>
+                              </rdf:rest>
+                           </rdf:Description>
+                        </rdf:rest>
+                     </rdf:Description>
+                  </rdf:rest>
+               </rdf:Description>
+            </owl:oneOf>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#TextureTypeType">
+      <rdfs:comment>Textures can be qualified by the attribute textureType. The textureType differentiates between textures,
+				which are specific for a certain object and are only used for that object (specific), and prototypic textures being
+				typical for that kind of object and are used many times for all objects of that kind (typical). A typical texture may be
+				replaced by a specific, if available. Textures may also be classified as unknown. </rdfs:comment>
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">specific</rdf:first>
+                  <rdf:rest>
+                     <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                        <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">typical</rdf:first>
+                        <rdf:rest>
+                           <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                              <rdf:first rdf:datatype="http://www.w3.org/2001/XMLSchema#string">unknown</rdf:first>
+                              <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                           </rdf:Description>
+                        </rdf:rest>
+                     </rdf:Description>
+                  </rdf:rest>
+               </rdf:Description>
+            </owl:oneOf>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#Color">
+      <rdfs:comment>List of three values (red, green, blue), separated by spaces. The values must be in the range between zero
+				and one. </rdfs:comment>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity">
+      <rdfs:comment>List of three or four values (red, green, blue, opacity), separated by spaces. The values must be in the
+				range between zero and one. If no opacity is given, it is assumed as 1.0.</rdfs:comment>
+   </rdfs:Datatype>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#uri">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#ring">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#Appearance">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#appearanceMember">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#featureMember"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeaturePropertyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#appearance">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_Texture">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTexture">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_Texture"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTexture">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_Texture"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordList">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TexCoordGen">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#X3DMaterial">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial">
+      <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#theme">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#surfaceDataMember">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfAppearance">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearanceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfAppearance"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasAppearance">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Appearance"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#isFront">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfSurfaceData">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfSurfaceData"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_SurfaceData">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#SurfaceDataPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_SurfaceData"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#imageURI">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#mimeType">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#textureType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureTypeType"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#wrapMode">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#WrapModeType"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#borderColor">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexture"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#target">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfParameterizedTexture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfParameterizedTexture"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#preferWorldFile">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#referencePoint">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#orientation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix2x2Type"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#target">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfGeoreferencedTexture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfGeoreferencedTexture"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_TextureParameterization">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_TextureParameterization"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTextureParameterization">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTextureParameterization"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hastextureCoordinates">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordList">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordListType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordList"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#hasworldToTexture">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#worldToTexture"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfTexCoordGen">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TexCoordGenType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfTexCoordGen"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#ambientIntensity">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#diffuseColor">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#emissiveColor">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#specularColor">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#Color"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#shininess">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#transparency">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#isSmooth">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#target">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#has_GenericApplicationPropertyOfX3DMaterial">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#X3DMaterialType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/appearance/2.0#_GenericApplicationPropertyOfX3DMaterial"/>
+   </owl:ObjectProperty>
 </rdf:RDF>
-
-
-
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
-

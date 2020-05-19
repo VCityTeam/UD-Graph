@@ -23,11 +23,11 @@ with open(sys.argv[2]) as file:
       line = line.replace( '<owl:Ontology rdf:about="">',
                            '<owl:Ontology rdf:about="{}">'.format( 'http://liris.cnrs.fr/ontologies/' + filename.split('.')[0] ))
 
-      # update import statements with existing local ontologies
-      if re.match( '<owl:import rdf:resource=".*?"/>', line ) != None:
-         schemaLocation = etree.Element(line).attrib
-         line = '<owl:import rdf:resource="http://liris.cnrs.fr/ontologies/{}"/>'.format( schemaLocation.split('/')[-1].split('.')[0] )
-         print('Import set: {}'.format(line))
+      # update import statements with local naming conventions ontologies
+      if re.match( '<owl:import rdf:resource=".*?"/>', line.strip() ) != None:
+         split_line = line.split('"')
+         line = ( split_line[0] + '"http://liris.cnrs.fr/ontologies/{}"'.format( split_line[1].split('/')[-1].split('.')[0] ) +
+            split_line[2] )
 
       # fully qualify namespace
       for prefix in namespaces.keys():

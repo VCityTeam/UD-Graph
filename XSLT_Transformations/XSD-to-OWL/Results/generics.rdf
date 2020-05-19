@@ -1,743 +1,470 @@
-<?xml version="1.0"?>
-<rdf:RDF xmlns="http://liris.cnrs.fr/ontologies/generics#"
-     xml:base="http://liris.cnrs.fr/ontologies/generics"
-     xmlns:owl="http://www.w3.org/2002/07/owl#"
-     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-     xmlns:www="http://www.w3.org/2001/"
-     xmlns:xml="http://www.w3.org/XML/1998/namespace"
-     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
-     xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
-    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/generics">
-        <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
-        <rdfs:comment>
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/generics">
+      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
+      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
+      <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
+      <rdfs:comment>
 	CityGML is an OGC Standard.
 	Copyright (c) 2012 Open Geospatial Consortium.
 	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
-        <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
-        <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
-    </owl:Ontology>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Datatypes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/gml#MeasureType -->
-
-    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#MeasureType"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Object Properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#class -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#class">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#function -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#function">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#has_genericAttribute -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#has_genericAttribute">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod0Geometry -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod0Geometry">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod1Geometry -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod1Geometry">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod2Geometry -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod2Geometry">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod3Geometry -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod3Geometry">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod4Geometry -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod4Geometry">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#usage -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#usage">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#value -->
-
-    <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#DateAttributeType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#IntAttributeType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#StringAttributeType"/>
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#UriAttributeType"/>
-    </owl:ObjectProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Data properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#codeSpace -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#codeSpace">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#name -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#name">
-        <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#value -->
-
-    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
-        <rdfs:range rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-    </owl:DatatypeProperty>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Classes
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
-            </owl:Class>
-        </owl:equivalentClass>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#name"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment> Generic (user defined) attributes may be used to represent attributes which are not covered explicitly by
-				the CityGML schema. Generic attributes must be used with care; they shall only be used if there is no appropiate attribute
-				available in the overall CityGML schema. Oherwise, problems concerning semantic interoperability may arise. A generic
-				attribute has a name and a value, which has further subclasses (IntAttrribute, StringAttribute, ...). </rdfs:comment>
-        <rdfs:comment>This is an abstract class</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#DateAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#DateAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#has_genericAttribute"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#has_genericAttribute"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#codeSpace"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment>Set of generic attributes with an optional codeSpace. If the codeSpace attribute is present, then its
-				value should identify an authority for the set, such as the organisation or community who defined its content. The generic
-				attribute set may contain arbitrary generic attributes.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#GenericCityObject -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#GenericCityObject">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#class"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#function"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0Geometry"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1Geometry"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2Geometry"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3Geometry"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4Geometry"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#usage"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#class"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#function"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0Geometry"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1Geometry"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2Geometry"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3Geometry"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4Geometry"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#usage"/>
-                        <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
-        <rdfs:comment>Generic (user defined) city objects may be used to model features which are not covered explicitly by the
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType">
+      <rdfs:comment>Generic (user defined) city objects may be used to model features which are not covered explicitly by the
 				CityGML schema. Generic objects must be used with care; they shall only be used if there is no appropiate thematic class
 				available in the overall CityGML schema. Oherwise, problems concerning semantic interoperability may arise. As subclass of
 				_CityObject, a generic city object inherits all attributes and relations, in particular an id, names, external references,
 				and generalization relations. </rdfs:comment>
-        <rdfs:comment>Warning: The parent class &apos;core:AbstractCityObjectType&apos; is declared outside of this class&apos; original schema. This class may be declared incorrectly.</rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#IntAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#IntAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
-                        <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#StringAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#StringAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#UriAttributeType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#UriAttributeType">
-        <owl:equivalentClass>
-            <owl:Class>
-                <owl:intersectionOf rdf:parseType="Collection">
-                    <owl:Restriction>
-                        <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
-                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-                    </owl:Restriction>
-                </owl:intersectionOf>
-            </owl:Class>
-        </owl:equivalentClass>
-        <rdfs:comment></rdfs:comment>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#_genericAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#_genericAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#dateAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#dateAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#DateAttributeType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#doubleAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#doubleAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#genericAttributeSet -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#genericAttributeSet">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#intAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#intAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#IntAttributeType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#measureAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#measureAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#stringAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#stringAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#StringAttributeType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/citygml/generics/2.0#uriAttribute -->
-
-    <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#uriAttribute">
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#UriAttributeType"/>
-        <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
-    </owl:Class>
-    
-
-
-    <!-- http://www.opengis.net/gml#MultiCurvePropertyType -->
-
-    <owl:Class rdf:about="http://www.opengis.net/gml#MultiCurvePropertyType"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotations
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-    <rdf:Description rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
-        <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-    </rdf:Description>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#class"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#class"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#function"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#function"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#usage"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#usage"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4Geometry"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4Geometry"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment> Generic (user defined) attributes may be used to represent attributes which are not covered explicitly by
+				the CityGML schema. Generic attributes must be used with care; they shall only be used if there is no appropiate attribute
+				available in the overall CityGML schema. Oherwise, problems concerning semantic interoperability may arise. A generic
+				attribute has a name and a value, which has further subclasses (IntAttrribute, StringAttribute, ...). </rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection"/>
+         </owl:Class>
+      </owl:equivalentClass>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#name"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#StringAttributeType">
+      <rdfs:comment/>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#IntAttributeType">
+      <rdfs:comment/>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType">
+      <rdfs:comment/>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#DateAttributeType">
+      <rdfs:comment/>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#UriAttributeType">
+      <rdfs:comment/>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType">
+      <rdfs:comment/>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#value"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType">
+      <rdfs:comment>Set of generic attributes with an optional codeSpace. If the codeSpace attribute is present, then its
+				value should identify an authority for the set, such as the organisation or community who defined its content. The generic
+				attribute set may contain arbitrary generic attributes.</rdfs:comment>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#has_genericAttribute"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#has_genericAttribute"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+      <owl:equivalentClass>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/generics/2.0#codeSpace"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </owl:equivalentClass>
+   </owl:Class>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#name">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#codeSpace">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#GenericCityObject">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#_genericAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_GenericApplicationPropertyOfCityObject"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#AbstractGenericAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#stringAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#StringAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#intAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#IntAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#doubleAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#dateAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#DateAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#uriAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#UriAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#measureAttribute">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/citygml/generics/2.0#genericAttributeSet">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType"/>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#class">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#function">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#usage">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod0Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod1Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod2Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod3Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod4Geometry">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod0TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod1TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod2TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod3TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod4TerrainIntersection">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod0ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod1ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod2ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod3ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#lod4ImplicitRepresentation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericCityObjectType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/2.0#ImplicitRepresentationPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#StringAttributeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#IntAttributeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#DoubleAttributeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#DateAttributeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#UriAttributeType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#value">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#MeasureAttributeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/generics/2.0#has_genericAttribute">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/generics/2.0#GenericAttributeSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/citygml/generics/2.0#_genericAttribute"/>
+   </owl:ObjectProperty>
 </rdf:RDF>
-
-
-
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
-

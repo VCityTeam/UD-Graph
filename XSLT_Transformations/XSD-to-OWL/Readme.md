@@ -9,11 +9,16 @@ XSD2OWL is an XSLT stylesheet to transform XML Schema files into OWL/RDF format.
 ### To Run
 Saxon HE is dependent on Java. Before running the following code, Java 8 or later must be installed.
 
-Transform known schema to owl
+python scripts are dependent on the lxml library. To install use:
+```
+pip install lxml
+```
+
+To transform known schema to owl
 ```
 ./run.sh
 ```
-Transform a specific schema to owl
+To transform a specific schema to owl
 ```
 ./run.sh [filepath to XSL] [output filename].rdf
 ```

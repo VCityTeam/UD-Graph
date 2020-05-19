@@ -15,6 +15,7 @@ paths=(
    [11]="./Schema/CityGML/vegetation/2.0/vegetation.xsd"
    [12]="./Schema/CityGML/waterbody/2.0/waterBody.xsd"
    [13]="./Schema/CityGML/texturedsurface/2.0/texturedSurface.xsd"
+   [14]="./Schema/CityGML/profiles/base/2.0/CityGML.xsd"
 )
 
 filenames=(
@@ -32,6 +33,7 @@ filenames=(
    [11]="vegetation.rdf"
    [12]="waterBody.rdf"
    [13]="texturedSurface.rdf"
+   [14]="CityGML.rdf"
 )
 
 if [ $# -eq 2 ]; then
