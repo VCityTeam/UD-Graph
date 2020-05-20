@@ -258,14 +258,7 @@ for i in range(100):
       element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/gml#LinearRing' )
       # generate linear ring reference to positionlist
       sub_element = etree.SubElement( element, '{http://www.opengis.net/gml#}hasposList' )
-      sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#positionlist_' + str(i) + '_' + str(j) )
-
-      # generate position list
-      element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
-      element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#positionlist_' + str(i) + '_' + str(j) )
-      element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/gml#posList' )
-      # generate positionlist coordinates
-      sub_element = etree.SubElement( element, '{http://www.opengis.net/gml#}hasLiteral' )
+      sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}datatype', 'http://www.opengis.net/gml#posList' )
       sub_element.text = randomCoordinates(4)
 
 
