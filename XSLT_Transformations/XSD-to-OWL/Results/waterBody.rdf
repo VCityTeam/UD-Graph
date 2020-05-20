@@ -6,10 +6,8 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/waterBody">
-      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
-      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
-      <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
       <rdfs:comment>
 	CityGML is an OGC Standard.
 	Copyright (c) 2012 Open Geospatial Consortium.
@@ -217,10 +215,6 @@
       <rdfs:comment>Type describing the surface of a water body, which separates the water from the air. As subclass of
 				_CityObject, a WaterSurface inherits all attributes and relations, in particular an id, names, external references, and
 				generalization relations. </rdfs:comment>
-      <rdfs:comment>Type for the specification of the level of a water surface. The optional attribute waterLevel of a
-								WaterSurface can be used to describe the water level, for which the given 3D surface geometry was acquired. This
-								is especially important, when the water body is influenced by the tide. The values of this type are defined in
-								external code lists.</rdfs:comment>
       <owl:equivalentClass>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -282,6 +276,10 @@
          </owl:Class>
       </owl:equivalentClass>
    </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#BoundedByWaterSurfacePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
    <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_WaterObject">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterObjectType"/>

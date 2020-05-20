@@ -6,10 +6,8 @@
          xmlns:xs="http://www.w3.org/2001/XMLSchema"
          xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/texturedSurface">
-      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <rdfs:comment>Warning: The schema http://www.opengis.net/gml was not imported.</rdfs:comment>
-      <owl:import rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
-      <rdfs:comment>Warning: The schema http://www.opengis.net/citygml/2.0 was not imported.</rdfs:comment>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
       <rdfs:comment>
 	CityGML is an OGC Standard.
 	Copyright (c) 2012 Open Geospatial Consortium.
@@ -173,6 +171,10 @@
          </owl:Class>
       </owl:equivalentClass>
    </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/texturedsurface/2.0#AppearancePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/texturedsurface/2.0#TextureTypeType">
       <rdfs:comment>deprecated</rdfs:comment>
       <rdfs:comment>Deprecated since CityGML version 0.4.0. Use the concepts of the CityGML Appearance module instead.

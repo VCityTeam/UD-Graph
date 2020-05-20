@@ -24,7 +24,7 @@ with open(sys.argv[2]) as file:
                            '<owl:Ontology rdf:about="{}">'.format( 'http://liris.cnrs.fr/ontologies/' + filename.split('.')[0] ))
 
       # update import statements with local naming conventions ontologies
-      if re.match( '<owl:import rdf:resource=".*?"/>', line.strip() ) != None:
+      if re.match( '<owl:imports rdf:resource=".*?"/>', line.strip() ) != None:
          split_line = line.split('"')
          line = ( split_line[0] + '"http://liris.cnrs.fr/ontologies/{}"'.format( split_line[1].split('/')[-1].split('.')[0] ) +
             split_line[2] )
@@ -41,4 +41,5 @@ with open(sys.argv[2]) as file:
 with open(sys.argv[2], 'w') as file:
    file.write(new_file_content)
 
-print('Namespaces Qualified: {}'.format(namespaces.keys()))
+# sys.stdout.write('Namespaces Qualified: {}\r'.format(namespaces.keys()))
+# sys.stdout.flush()

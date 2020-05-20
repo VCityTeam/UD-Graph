@@ -39,8 +39,7 @@ for 1st depth elements, complex types, and simple types. -->
 <!-- Imports are not handled in this stylesheet (yet). If one is declared, transform it into a warning. -->
 <!-- TODO: test document() function for resolving imports? -->
 <xsl:template match="xs:import">
-  <owl:import rdf:resource="{@schemaLocation}"/>
-  <rdfs:comment>Warning: The schema <xsl:value-of select="@namespace"/> was not imported.</rdfs:comment>
+  <owl:imports rdf:resource="{@schemaLocation}"/>
 </xsl:template>
 
 

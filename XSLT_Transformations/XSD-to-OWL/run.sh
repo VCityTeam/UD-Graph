@@ -1,27 +1,27 @@
 #!/bin/bash
 
 paths=(
-   [0]="./Schema/cityGMLBase.xsd"
-   [1]="./Schema/appearance.xsd"
-   [2]="./Schema/bridge.xsd"
-   [3]="./Schema/building.xsd"
-   [4]="./Schema/cityFurniture.xsd"
-   [5]="./Schema/cityObjectGroup.xsd"
-   [6]="./Schema/generics.xsd"
-   [7]="./Schema/landUse.xsd"
-   [8]="./Schema/relief.xsd"
-   [9]="./Schema/transportation.xsd"
-   [10]="./Schema/tunnel.xsd"
-   [11]="./Schema/vegetation.xsd"
-   [12]="./Schema/waterBody.xsd"
-   [13]="./Schema/texturedSurface.xsd"
-   [14]="./Schema/CityGML.xsd"
+   [0]="./Schema/CityGML/cityGMLBase.xsd"
+   [1]="./Schema/CityGML/appearance.xsd"
+   [2]="./Schema/CityGML/relief.xsd"
+   [3]="./Schema/CityGML/building.xsd"
+   [4]="./Schema/CityGML/cityFurniture.xsd"
+   [5]="./Schema/CityGML/cityObjectGroup.xsd"
+   [6]="./Schema/CityGML/generics.xsd"
+   [7]="./Schema/CityGML/landUse.xsd"
+   [8]="./Schema/CityGML/relief.xsd"
+   [9]="./Schema/CityGML/transportation.xsd"
+   [10]="./Schema/CityGML/tunnel.xsd"
+   [11]="./Schema/CityGML/vegetation.xsd"
+   [12]="./Schema/CityGML/waterBody.xsd"
+   [13]="./Schema/CityGML/texturedSurface.xsd"
+   [14]="./Schema/CityGML/CityGML.xsd"
 )
 
 filenames=(
    [0]="cityGMLBase.rdf"
    [1]="appearance.rdf"
-   [2]="bridge.rdf"
+   [2]="relief.rdf"
    [3]="building.rdf"
    [4]="cityFurniture.rdf"
    [5]="cityObjectGroup.rdf"
@@ -39,20 +39,21 @@ filenames=(
 if [ $# -eq 2 ]; then
    echo "transforming $1 to Results/$2"
    java -jar ../saxon9he.jar -s:$1 -xsl:XSD2OWL.xsl > Results/$2
-   echo "post-transformation cleanup..."
    python postXSLT.py $1 Results/$2
 elif [ $# -eq 0 ]; then
    echo "Transforming known schema..."
    for (( i = 0 ; i < ${#paths[@]} ; i++ ))
    do
-      echo "${paths[$i]} to Results/${filenames[$i]}"
+      echo -ne "[$i/${#paths[@]}] ${paths[$i]}\r"
       java -jar ../saxon9he.jar -s:${paths[$i]} -xsl:XSD2OWL.xsl > Results/${filenames[$i]}
+      echo -ne "                                                                                \r"
    done
    echo "post-transformation cleanup..."
    for (( i = 0 ; i < ${#paths[@]} ; i++ ))
    do
-      echo "cleaning ${filenames[$i]}"
+      echo -ne "[$i/${#paths[@]}] cleaning ${filenames[$i]}: \r"
       python postXSLT.py ${paths[$i]} Results/${filenames[$i]}
+      echo -ne "                                                                                \r"
    done
 else
    echo "Incorrect number of arguments: $#"
