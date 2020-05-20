@@ -1,21 +1,21 @@
 #!/bin/bash
 
 paths=(
-   [0]="./Schema/CityGML/2.0/cityGMLBase.xsd"
-   [1]="./Schema/CityGML/appearance/2.0/appearance.xsd"
-   [2]="./Schema/CityGML/bridge/2.0/bridge.xsd"
-   [3]="./Schema/CityGML/building/2.0/building.xsd"
-   [4]="./Schema/CityGML/cityfurniture/2.0/cityFurniture.xsd"
-   [5]="./Schema/CityGML/cityobjectgroup/2.0/cityObjectGroup.xsd"
-   [6]="./Schema/CityGML/generics/2.0/generics.xsd"
-   [7]="./Schema/CityGML/landuse/2.0/landUse.xsd"
-   [8]="./Schema/CityGML/relief/2.0/relief.xsd"
-   [9]="./Schema/CityGML/transportation/2.0/transportation.xsd"
-   [10]="./Schema/CityGML/tunnel/2.0/tunnel.xsd"
-   [11]="./Schema/CityGML/vegetation/2.0/vegetation.xsd"
-   [12]="./Schema/CityGML/waterbody/2.0/waterBody.xsd"
-   [13]="./Schema/CityGML/texturedsurface/2.0/texturedSurface.xsd"
-   [14]="./Schema/CityGML/profiles/base/2.0/CityGML.xsd"
+   [0]="./Schema/cityGMLBase.xsd"
+   [1]="./Schema/appearance.xsd"
+   [2]="./Schema/bridge.xsd"
+   [3]="./Schema/building.xsd"
+   [4]="./Schema/cityFurniture.xsd"
+   [5]="./Schema/cityObjectGroup.xsd"
+   [6]="./Schema/generics.xsd"
+   [7]="./Schema/landUse.xsd"
+   [8]="./Schema/relief.xsd"
+   [9]="./Schema/transportation.xsd"
+   [10]="./Schema/tunnel.xsd"
+   [11]="./Schema/vegetation.xsd"
+   [12]="./Schema/waterBody.xsd"
+   [13]="./Schema/texturedSurface.xsd"
+   [14]="./Schema/CityGML.xsd"
 )
 
 filenames=(
