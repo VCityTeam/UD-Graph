@@ -265,7 +265,8 @@ for i in range(100):
       element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#positionlist_' + str(i) + '_' + str(j) )
       element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/gml#posList' )
       # generate positionlist coordinates
-      element.text = randomCoordinates(4)
+      sub_element = etree.SubElement( element, '{http://www.opengis.net/gml#}hasLiteral' )
+      sub_element.text = randomCoordinates(4)
 
 
 
