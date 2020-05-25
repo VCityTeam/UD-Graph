@@ -27,10 +27,10 @@ xml_template = ('<?xml version="1.0"?>' +
                      'xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" ' +
                      'xmlns:gml="http://www.opengis.net/gml#" ' +
                      'xmlns:core="http://www.opengis.net/citygml/2.0#" ' +
-                     'xmlns:app="http://www.opengis.net/citygml/appearance/2.0/appearance#" ' +
-                     'xmlns:bldg="http://www.opengis.net/citygml/building/2.0/building#" ' +
-                     'xmlns:gen="http://www.opengis.net/citygml/generics/2.0/generics#">' +
+                     'xmlns:bldg="http://www.opengis.net/citygml/building/2.0#">' +
                   '<owl:Ontology rdf:about="http://www.example.org/ontologies/CityGML">' +
+                     '<owl:imports rdf:resource="http:liris.cnrs.fr/ontologies/cityGMLBase"/>' +
+                     '<owl:imports rdf:resource="http:liris.cnrs.fr/ontologies/building"/>' +
                      '<rdfs:comment>This is a mock ontology. The structure of this data is subject to change.</rdfs:comment>' +
                   '</owl:Ontology>' +
                   '<owl:NamedIndividual rdf:about="http://www.example.org/ontologies/CityGML#TestModel" ' +
@@ -62,7 +62,7 @@ for i in range(100):
    # generate building
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#building_' + str(i) )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#Building' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#Building' )
    # generate building children
    sub_element = etree.SubElement( element, '{http://www.w3.org/2000/01/rdf-schema#}label' )
    sub_element.text = randomString(8)
@@ -70,8 +70,8 @@ for i in range(100):
    sub_element.text = randomDate()
    sub_element = etree.SubElement( element, '{http://www.opengis.net/gml#}hasboundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) )
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}consistsOfBuildingPart' )
-   sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#consistsOfBuildingPart_' + str(i) )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}consistsOfBuildingPart' )
+   sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#BuildingPart_' + str(i) )
 
 
 
@@ -97,38 +97,30 @@ for i in range(100):
 
 
 
-   # generate building consistsOfBuildingPart
-   element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#consistsOfBuildingPart_' + str(i) )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#consistsOfBuildingPart' )
-   # generate consistsOfBuildingPart reference to buildingPart
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}hasBuildingPart' )
-   sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#BuildingPart_' + str(i) )
-
    # generate building BuildingPart
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#BuildingPart_' + str(i) )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#BuildingPart' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#BuildingPart' )
    # generate BuildingPart child geometry
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}lod2Solid' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}lod2Solid' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#lod2Solid_' + str(i) )
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}boundedBy' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}boundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) + '_0')
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}boundedBy' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}boundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) + '_1')
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}boundedBy' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}boundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) + '_2')
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}boundedBy' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}boundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) + '_3')
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}boundedBy' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}boundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) + '_4')
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}boundedBy' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}boundedBy' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#boundedBy_' + str(i) + '_5')
 
    # generate buildingpart lod2Solid
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#lod2Solid_' + str(i) )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#lod2Solid' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#lod2Solid' )
    # generate lod2solid reference to solid
    sub_element = etree.SubElement( element, '{http://www.opengis.net/gml#}has_Solid' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#Solid_' + str(i) )
@@ -171,50 +163,50 @@ for i in range(100):
    # generate roof boundary
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#boundedBy_' + str(i) + '_0' )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#BoundarySurfacePropertyType' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#BoundarySurfacePropertyType' )
    # generate boundary reference to surface
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}has_BoundarySurface' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}has_BoundarySurface' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#roofSurface_' + str(i) )
 
    # generate roof surface
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#roofSurface_' + str(i) )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#RoofSurface' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#RoofSurface' )
    # generate surface reference to multisurface
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}lod2MultiSurface' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}lod2MultiSurface' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#multiSurface_' + str(i) + '_0' )
 
    # generate ground boundary
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#boundedBy_' + str(i) + '_1' )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#BoundarySurfacePropertyType' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#BoundarySurfacePropertyType' )
    # generate boundary reference to surface
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}has_BoundarySurface' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}has_BoundarySurface' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#groundSurface_' + str(i) )
 
    # generate ground surface
    element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
    element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#groundSurface_' + str(i) )
-   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#GroundSurface' )
+   element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#GroundSurface' )
    # generate surface reference to multisurface
-   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}lod2MultiSurface' )
+   sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}lod2MultiSurface' )
    sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#multiSurface_' + str(i) + '_1' )
 
    for j in range(2, 6):
       # generate wall boundary
       element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
       element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#boundedBy_' + str(i) + '_' + str(j) )
-      element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#BoundarySurfacePropertyType' )
+      element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#BoundarySurfacePropertyType' )
       # generate boundary reference to surface
-      sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}has_BoundarySurface' )
+      sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}has_BoundarySurface' )
       sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#wallSurface_' + str(i) + '_' + str(j) )
 
       # generate wall surface
       element = etree.SubElement( root, '{http://www.w3.org/2002/07/owl#}NamedIndividual' )
       element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', '#wallSurface_' + str(i) + '_' + str(j) )
-      element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0/building#WallSurface' )
+      element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}type', 'http://www.opengis.net/citygml/building/2.0#WallSurface' )
       # generate surface reference to multisurface
-      sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0/building#}lod2MultiSurface' )
+      sub_element = etree.SubElement( element, '{http://www.opengis.net/citygml/building/2.0#}lod2MultiSurface' )
       sub_element.set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource', '#multiSurface_' + str(i) + '_' + str(j) )
 
 
