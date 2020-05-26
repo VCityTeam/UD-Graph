@@ -17,7 +17,7 @@
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#CityModelType">
       <rdfs:comment>Type describing the "root" element of any city model file. It is a collection whose members are restricted
 				to be features of a city model. All features are included as cityObjectMember. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -30,7 +30,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureCollectionType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureCollectionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -41,7 +41,7 @@
 				may be used to relate features, which represent the same real-world object in different Levels-of-Detail, i.e. a feature
 				and its generalized counterpart(s). The direction of this relation is from the feature to the corresponding generalized
 				feature.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -102,7 +102,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -111,7 +111,7 @@
       <rdfs:comment>Type describing the abstract superclass for buildings, facilities, etc. Future extensions of CityGML like
 				bridges and tunnels would be modelled as subclasses of _Site. As subclass of _CityObject, a _Site inherits all attributes
 				and relations, in particular an id, names, external references, and generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -124,14 +124,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#GeneralizationRelationType">
       <rdfs:comment>Denotes the relation of a _CityObject to its corresponding _CityObject in higher LOD, i.e. to the
 				_CityObjects representing the same real world object in higher LOD. The GeneralizationRelationType element must either
 				carry a reference to a _CityObject object or contain a _CityObject object inline, but neither both nor none.
 			</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -140,7 +140,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#ExternalReferenceType">
       <rdfs:comment>Type describing the reference to an corresponding object in an other information system, for example in
@@ -148,7 +148,7 @@
 				of the name of the external information system, represented by an URI, and the reference of the external object, given
 				either by a string or by an URI. If the informationSystem element is missing in the ExternalReference, the
 				ExternalObjectReference must be an URI, which contains an indication of the informationSystem.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -165,24 +165,24 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#ExternalObjectReferenceType">
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#name"/>
-            <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/citygml/2.0#uri"/>
-            <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#AddressPropertyType">
       <rdfs:comment>Denotes the relation of an _CityObject to its addresses. The AddressPropertyType element must either carry
 				a reference to an Address object or contain an Address object inline, but neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -191,13 +191,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#AddressType">
       <rdfs:comment>Type for addresses. It references the xAL address standard issued by the OASIS consortium. Please note,
 				that addresses are modelled as GML features. Every address can be assigned zero or more 2D or 3D point geometries (one
 				gml:MultiPoint geometry) locating the entrance(s). </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -222,13 +222,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#xalAddressPropertyType">
       <rdfs:comment>Denotes the relation of an Address feature to the xAL address element.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -237,7 +237,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/2.0#ImplicitGeometryType">
       <rdfs:comment> Type for the implicit representation of a geometry. An implicit geometry is a geometric object, where the
@@ -251,7 +251,7 @@
 				is a 4x4 matrix that is multiplied with the prototype coordinates using homogeneous coordinates, i.e. (x,y,z,1). This way
 				even a projection might be modelled by the transformation matrix. The concept of implicit geometries is an enhancement of
 				the geometry model of GML3. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -292,7 +292,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -301,7 +301,7 @@
 				of a geometry by referencing a prototype and transforming it to its real position in space. The
 				ImplicitRepresentationPropertyType element must either carry a reference to a ImplicitGeometry object or contain a
 				ImplicitGeometry object inline, but neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -310,7 +310,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/2.0#GeneralizationRelationType"/>

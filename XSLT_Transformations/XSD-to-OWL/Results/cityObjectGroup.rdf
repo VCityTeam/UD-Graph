@@ -23,7 +23,7 @@
 				in the context of the group. As subclass of _CityObject, a CityObjectGroup inherits all attributes and relations, in
 				particular an id, names, external references, and generalization relations. As CityObjectGroup itself is a CityObject, it
 				may also be contained by another group. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -84,7 +84,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -92,7 +92,7 @@
       <rdfs:comment>Denotes the relation of a CityObjectGroup to its members, which are _CityObjects. The
 				CityObjectGroupMemberType element must either carry a reference to a _CityObject object or contain a _CityObject object
 				inline, but neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -101,8 +101,8 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
-      <owl:equivalentClass>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -111,7 +111,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupParentType">
       <rdfs:comment>Denotes the relation of a CityObjectGroup to its parent, which is a CityObject. The
@@ -119,7 +119,7 @@
 				inline, but neither both nor none. The parent association allows for modelling of a generic hierarchical grouping concept.
 				Named aggregations of components (CityObjects) can be added to specific CityObjects considered as the parent object. The
 				parent association links to the aggregate, while the parts are given by the group members. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -128,7 +128,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/cityobjectgroup/2.0#CityObjectGroupMemberType"/>

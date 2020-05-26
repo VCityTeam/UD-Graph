@@ -17,7 +17,7 @@
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AppearanceType">
       <rdfs:comment> Named container for all surface data (texture/material). All appearances of the same name ("theme")
 				within a CityGML file are considered a group. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -46,7 +46,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -54,7 +54,7 @@
       <rdfs:comment>Denotes the relation of a _CityObject to its appearances. The AppearancePropertyType element must either
 				carry a reference to a Appearance object or contain a Appearance object inline, but neither both nor
 				none.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -63,12 +63,12 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractSurfaceDataType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Base class for textures and material. Contains only isFront-flag.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -89,7 +89,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -97,7 +97,7 @@
       <rdfs:comment>Denotes the relation of an Appearance to its surface data. The SurfaceDataPropertyType element must either
 				carry a reference to a _SurfaceData object or contain a _SurfaceData object inline, but neither both nor
 				none.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -110,14 +110,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Base class for textures. "imageURI" can contain any valid URI from references to a local file to
 				preformatted web service requests. The linking to geometry and texture parameterization is provided by derived
 				classes.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -166,13 +166,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#ParameterizedTextureType">
       <rdfs:comment>Specialization for standard 2D textures. "target" provides the linking to surface geometry. Only
 				gml:MultiSurface and decendants of gml:AbstractSurfaceType are valid targets. As property of the link, a texture
 				parameterization either as set of texture coordinates or transformation matrix is given. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -193,7 +193,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#GeoreferencedTextureType">
       <rdfs:comment>Specialization for georeferenced textures, i.e. textures using a planimetric projection. Such textures
@@ -205,7 +205,7 @@
 				available. The "boundedBy"-property should contain the bounding box of the projected image data. Since a georeferenced
 				texture has a unique parameterization, "target" only provides links to surface geometry without any additional texture
 				parameterization. Only gml:MultiSurface or decendants of gml:AbstractSurfaceType are valid targets.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -250,13 +250,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType">
       <rdfs:comment>Denotes the relation of a texture to a surface, that is augmented by a TextureParameterization object. The
 				TextureAssociationType element must either carry a reference to a _TextureParameterization object or contain a
 				_TextureParameterization object inline, but neither both nor none.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -265,8 +265,8 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
-      <owl:equivalentClass>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -275,14 +275,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Base class for augmenting a link "texture-&gt;surface" with texture parameterization. Subclasses of this
 				class define concrete parameterizations. Currently, texture coordinates and texture coordinate generation using a
 				transformation matrix are available. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -295,7 +295,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -305,7 +305,7 @@
 				of the target LinearRing. It is prohibited to link texture coordinates to any other object type than LinearRing. Thus,
 				surfaces not consisting of LinearRings cannot be textured this way. Use transformation matrices (see below) or
 				georeferenced textures instead. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -322,10 +322,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#textureCoordinates">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -334,7 +334,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
       <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -351,7 +351,7 @@
 				specified. The SRS can be specified using standard attributes. If an object is given in a different reference system, it
 				is transformed to the SRS before applying the transformation. A transformation matrix can be used for whole surfaces. It
 				is not required to specify it per LinearRing. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -368,7 +368,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#worldToTexture">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
@@ -384,7 +384,7 @@
       <rdfs:comment>Class for defining constant surface properties. It is based on X3D's material definition. In addition,
 				"isSmooth" provides a hint for value interpolation. The link to surface geometry is established via the "target"-property.
 				Only gml:MultiSurface or decendants of gml:AbstractSurfaceType are valid targets. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -461,7 +461,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AppearancePropertyType"/>

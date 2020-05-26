@@ -29,8 +29,8 @@ xml_template = ('<?xml version="1.0"?>' +
                      'xmlns:core="http://www.opengis.net/citygml/2.0#" ' +
                      'xmlns:bldg="http://www.opengis.net/citygml/building/2.0#">' +
                   '<owl:Ontology rdf:about="http://www.example.org/ontologies/CityGML">' +
-                     '<owl:imports rdf:resource="http:liris.cnrs.fr/ontologies/cityGMLBase"/>' +
-                     '<owl:imports rdf:resource="http:liris.cnrs.fr/ontologies/building"/>' +
+                     '<owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>' +
+                     '<owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/building"/>' +
                      '<rdfs:comment>This is a mock ontology. The structure of this data is subject to change.</rdfs:comment>' +
                   '</owl:Ontology>' +
                   '<owl:NamedIndividual rdf:about="http://www.example.org/ontologies/CityGML#TestModel" ' +

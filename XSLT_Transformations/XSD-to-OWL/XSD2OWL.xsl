@@ -283,7 +283,7 @@ the contents of the type.-->
 </xsl:template>
 
 <xsl:template name="complextype-attributes">
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <xsl:for-each select="./xs:attribute|./xs:simpleContent/xs:restriction/xs:attribute|./xs:simpleContent/xs:extension/xs:attribute|
@@ -312,7 +312,7 @@ the contents of the type.-->
         </xsl:for-each>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </xsl:template>
 
 <!-- xs:simpleContent will always be converted into a datatype property. 'has' is added to the beggining
@@ -360,9 +360,9 @@ It could be the parent xs:element or xs:complexType. -->
 <!-- ================================================================================================== -->
 
 <!-- xs:sequences and xs:all transform their children into subclass or subproperty restrictions. --> 
-<xsl:template match="xs:sequence|xs:all">
+<xsl:template match="xs:sequence[count(child::*) > 0]|xs:all[count(child::*) > 0]">
 <!-- TODO: add min/max occurs case when attribute is declared in parent of element -->
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <xsl:for-each select="./xs:element">
@@ -401,11 +401,11 @@ It could be the parent xs:element or xs:complexType. -->
         </xsl:for-each>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </xsl:template>
 
 <!-- ============================================== # 31 ============================================== -->
-<xsl:template match="xs:choice"> 
+<xsl:template match="xs:choice[count(child::*) > 0]"> 
   <owl:disjointUnionOf rdf:parseType="Collection">
     <xsl:for-each select="./xs:element">
       <xsl:variable name="thisName" select="tokenize( @name, ':' )"/>
@@ -414,21 +414,21 @@ It could be the parent xs:element or xs:complexType. -->
         <xsl:when test="@name">
           <owl:Restriction>
             <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, @name )}"/>
-            <owl:allValuesFrom rdf:resource="{if (contains( @type, ':' )) then @type else concat( $namespace, @type )}"/>
+            <owl:someValuesFrom rdf:resource="{if (contains( @type, ':' )) then @type else concat( $namespace, @type )}"/>
           </owl:Restriction>
           <xsl:call-template name="minOccurs-maxOccurs"/>
         </xsl:when>
         <xsl:when test="contains( @ref, ':' )">
           <owl:Restriction>
             <owl:onProperty    rdf:resource="{concat( $thisReference[1], ':has', $thisReference[2] )}"/>
-            <owl:allValuesFrom rdf:resource="{@ref}"/>
+            <owl:someValuesFrom rdf:resource="{@ref}"/>
           </owl:Restriction>
           <xsl:call-template name="minOccurs-maxOccurs"/>
         </xsl:when>
         <xsl:otherwise><!-- @ref reference is declared in the schema -->
           <owl:Restriction>
             <owl:onProperty    rdf:resource="{concat( $namespace, 'has', @ref )}"/>
-            <owl:allValuesFrom rdf:resource="{@ref}"/>
+            <owl:someValuesFrom rdf:resource="{@ref}"/>
           </owl:Restriction>
           <xsl:call-template name="minOccurs-maxOccurs"/>
         </xsl:otherwise>
@@ -459,7 +459,7 @@ It could be the parent xs:element or xs:complexType. -->
 </xsl:template>
 
 <xsl:template name="group-attributes">
-  <owl:equivalentClass>
+  <rdfs:subClassOf>
     <owl:Class>
       <owl:intersectionOf rdf:parseType="Collection">
         <xsl:for-each select="./xs:attribute">
@@ -487,7 +487,7 @@ It could be the parent xs:element or xs:complexType. -->
         </xsl:for-each>
       </owl:intersectionOf>
     </owl:Class>
-  </owl:equivalentClass>
+  </rdfs:subClassOf>
 </xsl:template>
 
 <!-- ============================================== # 38 ============================================== -->
@@ -613,7 +613,7 @@ unbounded, in which case it is ignored -->
 </xsl:template>
 
 <xsl:template match="xs:list">
-  <owl:equivalentClass rdf:resource="{rdfs:Literal}"/>
+  <owl:equivalentClass rdf:resource="rdfs:Literal"/>
 </xsl:template>
 
 <!-- ============================================== # 4 ============================================== -->

@@ -25,7 +25,7 @@
 				geometries of its parts, or if the roof type of a Building is saddle roof, while its parts have an hip roof). As subclass
 				of _CityObject, an _AbstractBuilding inherits all attributes and relations, in particular an id, names, external
 				references, and generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -310,12 +310,12 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractSiteType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractSiteType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#BuildingType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -328,10 +328,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#BuildingPartType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -344,13 +344,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#BuildingPartPropertyType">
       <rdfs:comment>Denotes the relation of an _AbstractBuilding to its building parts. The BuildingPartPropertyType element
 				must either carry a reference to a BuildingPart object or contain a BuildingPart object inline, but neither both nor
 				none.</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -359,13 +359,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#BuildingInstallationType">
       <rdfs:comment>A BuildingInstallation is a part of a Building which has not the significance of a BuildingPart. Examples
 				are stairs, antennas, balconies or small roofs. As subclass of _CityObject, a BuildingInstallation inherits all attributes
 				and relations, in particular an id, names, external references, and generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -458,7 +458,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -466,7 +466,7 @@
       <rdfs:comment>Denotes the relation of an _AbstractBuilding to its building installations. The
 				BuildingInstallationPropertyType element must either carry a reference to a BuildingInstallation object or contain a
 				BuildingInstallation object inline, but neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -475,14 +475,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#IntBuildingInstallationType">
       <rdfs:comment>An IntBuildingInstallation is an interior part of a Building which has a specific function or semantical
 				meaning. Examples are interior stairs, railings, radiators or pipes. As subclass of _CityObject, a
 				nIntBuildingInstallation inherits all attributes and relations, in particular an id, names, external references, and
 				generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -543,7 +543,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -551,7 +551,7 @@
       <rdfs:comment>Denotes the relation of an _AbstractBuilding to its interior building installations. The
 				IntBuildingInstallationPropertyType element must either carry a reference to a IntBuildingInstallation object or contain a
 				IntBuildingInstallation object inline, but neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -560,7 +560,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#AbstractBoundarySurfaceType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -568,7 +568,7 @@
 				BuildingInstallation, and IntBuildingInstallation. The geometry of a BoundarySurface is given by MultiSurfaces. As it is a
 				subclass of _CityObject, it inherits all atributes and relations, in particular the external references, and the
 				generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -613,12 +613,12 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#RoofSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -631,10 +631,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#WallSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -647,10 +647,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#GroundSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -663,10 +663,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#ClosureSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -679,10 +679,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#FloorSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -695,10 +695,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#OuterFloorSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -711,10 +711,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#InteriorWallSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -727,10 +727,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#CeilingSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -743,10 +743,10 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#OuterCeilingSurfaceType">
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -759,7 +759,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#BoundarySurfacePropertyType">
       <rdfs:comment>Denotes the relation of an _AbstractBuilding to its bounding thematic surfaces (walls, roofs, ..). The
@@ -768,7 +768,7 @@
 				rooms and outer ones bounding buildings (one reason is, that ClosureSurface belongs to both types). It has to be made sure
 				by additional integrity constraints that, e.g. an _AbstractBuilding is not related to CeilingSurfaces or a room not to
 				RoofSurfaces. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -777,13 +777,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#OpeningPropertyType">
       <rdfs:comment>Denotes the relation of an _BondarySurface to its openings (doors, windows). The OpeningPropertyType
 				element must either carry a reference to an _Opening object or contain an _Opening object inline, but neither both nor
 				none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -792,14 +792,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#AbstractOpeningType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment> Type for openings (doors, windows) in boundary surfaces. Used in LOD3 and LOD4 only. As subclass of
 				_CityObject, an _Opening inherits all attributes and relations, in particular an id, names, external references, and
 				generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -844,7 +844,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -852,7 +852,7 @@
       <rdfs:comment> Type for windows in boundary surfaces. Used in LOD3 and LOD4 only . As subclass of _CityObject, a window
 				inherits all attributes and relations, in particular an id, names, external references, and generalization relations.
 			</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -865,13 +865,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#DoorType">
       <rdfs:comment> Type for doors in boundary surfaces. Used in LOD3 and LOD4 only . As subclass of _CityObject, a Door
 				inherits all attributes and relations, in particular an id, names, external references, and generalization relations.
 			</rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -892,7 +892,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#RoomType">
       <rdfs:comment>A Room is a thematic object for modelling the closed parts inside a building. It has to be closed, if
@@ -901,7 +901,7 @@
 				rooms are connected if both use the same opening object or the same closure surface. The thematic surfaces bounding a room
 				are referenced by the boundedBy property. As subclass of _CityObject, a Room inherits all attributes and relations, in
 				particular an id, names, external references, and generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -978,14 +978,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#BuildingFurnitureType">
       <rdfs:comment>Type for building furnitures. As subclass of _CityObject, a BuildingFurniture inherits all attributes and
 				relations, in particular an id, names, external references, and generalization relations. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -1038,14 +1038,14 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#InteriorRoomPropertyType">
       <rdfs:comment>Denotes the relation of an _AbstractBuilding to its rooms. The InteriorRoomPropertyType element must
 				either carry a reference to a Room object or contain a Room object inline, but neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -1054,13 +1054,13 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/building/2.0#InteriorFurniturePropertyType">
       <rdfs:comment>Denotes the relation of a Room to its interior furnitures (movable). The InteriorFurniturePropertyType
 				element must either carry a reference to a BuildingFurniture object or contain a BuildingFurniture object inline, but
 				neither both nor none. </rdfs:comment>
-      <owl:equivalentClass>
+      <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
@@ -1069,7 +1069,7 @@
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
-      </owl:equivalentClass>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/building/2.0#BuildingPartPropertyType"/>
