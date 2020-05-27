@@ -258,11 +258,11 @@ the contents of the type.-->
     <!-- ======================================== # 9,12,13,14 ======================================== -->
     <xsl:variable name="thisBase" select="descendant::*[@base][position() = 1]/@base"/>
     <xsl:choose>
-      <xsl:when test="//xs:complexType[$thisName = $thisBase] or //xs:element[$thisName = @thisBase and xs:complexType]">
+      <xsl:when test="//xs:complexType[@name = $thisBase] or //xs:element[@name = @thisBase and xs:complexType]">
         <rdfs:subClassOf rdf:resource="{concat( $namespace, $thisBase )}"/>
       </xsl:when>
-      <xsl:when test="//xs:element[$thisName = $thisBase and @type]">
-        <xsl:variable name="thisType" select="//xs:element[$thisName = $thisBase]/@type"/>
+      <xsl:when test="//xs:element[@name = $thisBase and @type]">
+        <xsl:variable name="thisType" select="//xs:element[@name = $thisBase]/@type"/>
         <xsl:if test="//xs:complexType[$thisName = $thisType]">
           <rdfs:subClassOf rdf:resource="{concat( $namespace, $thisBase )}"/>
         </xsl:if>
