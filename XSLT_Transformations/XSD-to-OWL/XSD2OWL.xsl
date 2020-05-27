@@ -577,7 +577,7 @@ unbounded, in which case it is ignored -->
     <xsl:apply-templates select="./xs:annotation"/>
     <xsl:apply-templates select="./xs:restriction"/>
     <xsl:apply-templates select="./xs:union"/>
-    <!-- TODO: <xsl:apply-templates select="./xs:list"/> -->
+    <xsl:apply-templates select="./xs:list"/>
   </rdfs:Datatype>
 </xsl:template>
 
@@ -587,7 +587,7 @@ unbounded, in which case it is ignored -->
     <xsl:apply-templates select="./xs:annotation"/>
     <xsl:apply-templates select="./xs:restriction"/>
     <xsl:apply-templates select="./xs:union"/>
-    <!-- TODO: <xsl:apply-templates select="./xs:list"/> -->
+    <xsl:apply-templates select="./xs:list"/>
   </rdfs:Datatype>
   <owl:DatatypeProperty rdf:about="{concat( $namespace, 'has', ../@name )}">
     <rdfs:range rdf:resource="{concat( $namespace, ../@name )}"/>
@@ -612,6 +612,7 @@ unbounded, in which case it is ignored -->
   </xsl:for-each>
 </xsl:template>
 
+<!-- xs:lists are transformed into rdfs:Literals -->
 <xsl:template match="xs:list">
   <owl:equivalentClass rdf:resource="rdfs:Literal"/>
 </xsl:template>

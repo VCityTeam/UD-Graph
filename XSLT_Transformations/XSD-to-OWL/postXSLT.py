@@ -12,6 +12,7 @@ root     = etree.parse(sys.argv[1]).getroot()
 # Get namespaces
 namespaces = root.nsmap
 namespaces.update({'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns'})
+namespaces.update({'rdfs': 'http://www.w3.org/2000/01/rdf-schema'})
 namespaces.pop(None, None) # remove nil namespace prefixes
 
 # Iterate through file line by line
