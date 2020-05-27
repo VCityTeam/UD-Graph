@@ -1,0 +1,1075 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/coverage">
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/feature"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/valueObjects"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/grids"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryAggregates"/>
+      <rdfs:comment>coverage.xsd</rdfs:comment>
+      <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:coverage:3.1.1</rdfs:seeAlso>
+      <rdfs:comment xml:lang="en">GML Coverage schema.
+			
+			GML is an OGC Standard.
+			Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</rdfs:comment>
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCoverageType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Abstract element which acts as the head of a substitution group for coverages. Note that a coverage is a GML feature.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdomainSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#domainSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#dimension"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#positiveInteger"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractContinuousCoverageType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>A continuous coverage as defined in ISO 19123 is a coverage that can return different values for the same feature attribute at different direct positions within a single spatiotemporal object in its spatiotemporal domain</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractDiscreteCoverageType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>A discrete coverage consists of a domain set, range set and optionally a coverage function. The domain set consists of either geometry or temporal objects, finite in number. The range set is comprised of a finite number of attribute values each of which is associated to every direct position within any single spatiotemporal object in the domain. In other words, the range values are constant on each spatiotemporal object in the domain. This coverage function maps each element from the coverage domain to an element in its range. This definition conforms to ISO 19123.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#DomainSetType">
+      <rdfs:comment>The spatiotemporal domain of a coverage.  
+  Typically 
+  * a geometry collection, 
+  * an implicit geometry (e.g. a grid), 
+  * an explicit or implicit collection of time instances or periods, or
+
+N.B. Temporal geometric complexes and temporal grids are not yet implemented in GML.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection"/>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#RangeSetType">
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValueArray"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#ValueArray"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDataBlock"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DataBlock"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasFile"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#File"/>
+         </owl:Restriction>
+      </owl:disjointUnionOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CoverageFunctionType">
+      <rdfs:comment>The function or rule which defines the map from members of the domainSet to the range.  
+      More functions will be added to this list</rdfs:comment>
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMappingRule"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#MappingRule"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasGridFunction"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#GridFunction"/>
+         </owl:Restriction>
+      </owl:disjointUnionOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#DataBlockType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeParameters"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeParameters"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#FileType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeParameters"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeParameters"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#fileName"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#fileStructure"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#FileValueModelType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#mimeType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#mimeType"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#compression"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#compression"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#RangeParametersType">
+      <rdfs:comment>Metadata about the rangeSet.  Definition of record structure.   
+      This is required if the rangeSet is encoded in a DataBlock.  
+      We use a gml:_Value with empty values as a map of the composite value structure.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection"/>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GridFunctionType">
+      <rdfs:comment>Defines how values in the domain are mapped to the range set. The start point and the sequencing rule are specified here.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#sequenceRule"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SequenceRuleType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#sequenceRule"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#startPoint"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integerList"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#startPoint"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#IndexMapType">
+      <rdfs:comment>Exends GridFunctionType with a lookUpTable.  This contains a list of indexes of members within the rangeSet corresponding with the members of the domainSet.  The domainSet is traversed in list order if it is enumerated explicitly, or in the order specified by a SequenceRule if the domain is an implicit set.    The length of the lookUpTable corresponds with the length of the subset of the domainSet for which the coverage is defined.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#lookUpTable"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integerList"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridFunctionType"/>
+      <rdfs:comment>Warning: The parent class 'gml:GridFunctionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#SequenceRuleType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#order"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#IncrementOrder"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SequenceRuleNames"/>
+      <rdfs:comment>Warning: The parent class 'gml:SequenceRuleNames' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasSequenceRuleType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SequenceRuleType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SequenceRuleNames"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasSequenceRuleNames"/>
+      <rdfs:comment>Warning: The parent property 'gml:hasSequenceRuleNames' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiPointCoverageType">
+      <rdfs:comment>A discrete coverage type whose domain is defined by a collection of point</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmultiPointDomain"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#multiPointDomain"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiPointDomainType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMultiPoint"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiPoint"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiCurveCoverageType">
+      <rdfs:comment>A discrete coverage type whose domain is defined by a collection of curves.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmultiCurveDomain"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#multiCurveDomain"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiCurveDomainType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMultiCurve"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurve"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiSurfaceCoverageType">
+      <rdfs:comment>A discrete coverage type whose domain is defined by a collection of surface patches (includes polygons, triangles, rectangles, etc).</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmultiSurfaceDomain"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#multiSurfaceDomain"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiSurfaceDomainType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurface"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiSolidCoverageType">
+      <rdfs:comment>A discrete coverage type whose domain is defined by a collection of Solids.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmultiSolidDomain"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#multiSolidDomain"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiSolidDomainType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMultiSolid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSolid"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GridCoverageType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasgridDomain"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#gridDomain"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GridDomainType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasGrid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Grid"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGridCoverageType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundedBy"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrectifiedGridDomain"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rectifiedGridDomain"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrangeSet"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoverageFunction"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGridDomainType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasRectifiedGrid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#RectifiedGrid"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasScalarValueList">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ScalarValueList"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValueObject">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeParametersType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueObject"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeParametersType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#FileValueModelType">
+      <rdfs:comment>List of codes that identifies the file structure model for records stored in files.</rdfs:comment>
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="string">Record Interleaved</rdf:first>
+                  <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+               </rdf:Description>
+            </owl:oneOf>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SequenceRuleNames">
+      <rdfs:comment>List of codes (adopted from ISO 19123 Annex C) that identifies the rule for traversing a grid to correspond with the sequence of members of the rangeSet.</rdfs:comment>
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="string">Linear</rdf:first>
+                  <rdf:rest>
+                     <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                        <rdf:first rdf:datatype="string">Boustrophedonic</rdf:first>
+                        <rdf:rest>
+                           <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                              <rdf:first rdf:datatype="string">Cantor-diagonal</rdf:first>
+                              <rdf:rest>
+                                 <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                    <rdf:first rdf:datatype="string">Spiral</rdf:first>
+                                    <rdf:rest>
+                                       <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                          <rdf:first rdf:datatype="string">Morton</rdf:first>
+                                          <rdf:rest>
+                                             <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                                <rdf:first rdf:datatype="string">Hilbert</rdf:first>
+                                                <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                             </rdf:Description>
+                                          </rdf:rest>
+                                       </rdf:Description>
+                                    </rdf:rest>
+                                 </rdf:Description>
+                              </rdf:rest>
+                           </rdf:Description>
+                        </rdf:rest>
+                     </rdf:Description>
+                  </rdf:rest>
+               </rdf:Description>
+            </owl:oneOf>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#IncrementOrder">
+      <rdfs:comment>The enumeration value here indicates the incrementation order  to be used on the first 2 axes, i.e. "+x-y" means that the points on the first axis are to be traversed from lowest to highest and  the points on the second axis are to be traversed from highest to lowest. The points on all other axes (if any) beyond the first 2 are assumed to increment from lowest to highest.</rdfs:comment>
+      <owl:equivalentClass>
+         <rdfs:Datatype>
+            <owl:oneOf>
+               <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                  <rdf:first rdf:datatype="string">+x+y</rdf:first>
+                  <rdf:rest>
+                     <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                        <rdf:first rdf:datatype="string">+y+x</rdf:first>
+                        <rdf:rest>
+                           <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                              <rdf:first rdf:datatype="string">+x-y</rdf:first>
+                              <rdf:rest>
+                                 <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
+                                    <rdf:first rdf:datatype="string">-x-y</rdf:first>
+                                    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+                                 </rdf:Description>
+                              </rdf:rest>
+                           </rdf:Description>
+                        </rdf:rest>
+                     </rdf:Description>
+                  </rdf:rest>
+               </rdf:Description>
+            </owl:oneOf>
+         </rdfs:Datatype>
+      </owl:equivalentClass>
+   </rdfs:Datatype>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#dimension">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#positiveInteger"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#order">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SequenceRuleType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#IncrementOrder"/>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/gml#_Coverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#_ContinuousCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Coverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractContinuousCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#_DiscreteCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Coverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#domainSet">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#rangeSet">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RangeSetType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#coverageFunction">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoverageFunctionType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#DataBlock">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DataBlockType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#tupleList">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinatesType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#doubleOrNullTupleList">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleOrNullList"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#File">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FileType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#rangeParameters">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RangeParametersType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MappingRule">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GridFunction">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridFunctionType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#IndexMap">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridFunction"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IndexMapType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiPointCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_DiscreteCoverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#multiPointDomain">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#domainSet"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiPointDomainType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiCurveCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_DiscreteCoverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#multiCurveDomain">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#domainSet"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiCurveDomainType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiSurfaceCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_DiscreteCoverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#multiSurfaceDomain">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#domainSet"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiSurfaceDomainType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MultiSolidCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_DiscreteCoverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#multiSolidDomain">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#domainSet"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MultiSolidDomainType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GridCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_DiscreteCoverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#gridDomain">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#domainSet"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridDomainType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGridCoverage">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_DiscreteCoverage"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#rectifiedGridDomain">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#domainSet"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RectifiedGridDomainType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdomainSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#domainSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractContinuousCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Geometry">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#_Geometry"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_TimeObject">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#_TimeObject"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValueArray">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueArray"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasDataBlock">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#DataBlock"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasFile">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeSetType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#File"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasMappingRule">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoverageFunctionType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MappingRule"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasGridFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoverageFunctionType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GridFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeParameters">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DataBlockType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeParameters"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastupleList">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DataBlockType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#tupleList"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdoubleOrNullTupleList">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DataBlockType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#doubleOrNullTupleList"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeParameters">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FileType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeParameters"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FileType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#fileStructure">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FileType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#FileValueModelType"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FileType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   </owl:DatatypeProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FileType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   </owl:DatatypeProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#sequenceRule">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridFunctionType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#SequenceRuleType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#startPoint">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridFunctionType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#integerList"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#lookUpTable">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#IndexMapType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#integerList"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmultiPointDomain">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#multiPointDomain"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasMultiPoint">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiPoint"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmultiCurveDomain">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#multiCurveDomain"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasMultiCurve">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurve"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmultiSurfaceDomain">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#multiSurfaceDomain"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasMultiSurface">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmultiSolidDomain">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#multiSolidDomain"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasMultiSolid">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSolid"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgridDomain">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#gridDomain"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasGrid">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Grid"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundedBy"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrectifiedGridDomain">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rectifiedGridDomain"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrangeSet">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#rangeSet"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoverageFunction">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#coverageFunction"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasRectifiedGrid">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridDomainType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#RectifiedGrid"/>
+   </owl:ObjectProperty>
+</rdf:RDF>

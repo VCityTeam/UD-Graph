@@ -24,6 +24,7 @@ for 1st depth elements, complex types, and simple types. -->
   <rdf:RDF>
     <owl:Ontology rdf:about="">
       <xsl:apply-templates select="//xs:import"/>
+      <xsl:apply-templates select="//xs:include"/>
       <xsl:apply-templates select="/xs:schema/xs:annotation"/>
     </owl:Ontology>
     <xsl:apply-templates select="//xs:complexType"/>
@@ -38,7 +39,7 @@ for 1st depth elements, complex types, and simple types. -->
 
 <!-- Imports are not handled in this stylesheet (yet). If one is declared, transform it into a warning. -->
 <!-- TODO: test document() function for resolving imports? -->
-<xsl:template match="xs:import">
+<xsl:template match="xs:import|xs:include">
   <owl:imports rdf:resource="{@schemaLocation}"/>
 </xsl:template>
 
@@ -402,6 +403,7 @@ It could be the parent xs:element or xs:complexType. -->
       </owl:intersectionOf>
     </owl:Class>
   </rdfs:subClassOf>
+  <!-- TODO: add match template for nested xs:choice and xs:group nodes -->
 </xsl:template>
 
 <!-- ============================================== # 31 ============================================== -->
@@ -496,11 +498,11 @@ It could be the parent xs:element or xs:complexType. -->
     <xsl:when test="@minOccurs and @maxOccurs and @minOccurs = @maxOccurs">
       <owl:Restriction>
         <owl:onProperty>
-          <xsl:if test="../@name">
-            <xsl:attribute name="rdf:resource" select="concat( $namespace, ../@name)"/>
+          <xsl:if test="@name">
+            <xsl:attribute name="rdf:resource" select="concat( $namespace, @name)"/>
           </xsl:if>
-          <xsl:if test="../@ref">
-            <xsl:variable  name="thisReference" select="tokenize( ../@ref, ':' )"/>
+          <xsl:if test="@ref">
+            <xsl:variable  name="thisReference" select="tokenize( @ref, ':' )"/>
             <xsl:attribute name="rdf:resource" select="if ( count($thisReference) = 1 ) then concat( $namespace, 'has', $thisReference[1] ) else concat( $thisReference[1], ':has', $thisReference[2] )"/>
           </xsl:if>
         </owl:onProperty>

@@ -2,11 +2,12 @@ import sys
 import re
 from lxml import etree
 
-if len(sys.argv) != 3:
-   sys.exit('Incorrect number of arguments. Usage: qualify-ns.py [xsd with namespaces] [rdf to clean]')
+if len(sys.argv) != 2:
+   sys.exit('Incorrect number of arguments. Usage: postXSLT.py [path to original xsd]')
 
 # Initialize variables
-filename = sys.argv[1].split('/')[-1]
+filename = sys.argv[1].split('/')[-1].split('.')[0]
+filepath = 'Results/{}.rdf'.format( filename )
 root     = etree.parse(sys.argv[1]).getroot()
 
 # Get namespaces
@@ -17,12 +18,12 @@ namespaces.pop(None, None) # remove nil namespace prefixes
 
 # Iterate through file line by line
 new_file_content = ''
-with open(sys.argv[2]) as file:
+with open(filepath) as file:
    line = file.readline()
    while line != '':
       # update ontology uri to reference given filename
       line = line.replace( '<owl:Ontology rdf:about="">',
-                           '<owl:Ontology rdf:about="{}">'.format( 'http://liris.cnrs.fr/ontologies/' + filename.split('.')[0] ))
+                           '<owl:Ontology rdf:about="{}">'.format( 'http://liris.cnrs.fr/ontologies/' + filename ))
 
       # update import statements with local naming conventions ontologies
       if re.match( '<owl:imports rdf:resource=".*?"/>', line.strip() ) != None:
@@ -39,7 +40,7 @@ with open(sys.argv[2]) as file:
       new_file_content += line
       line = file.readline()
 
-with open(sys.argv[2], 'w') as file:
+with open(filepath, 'w') as file:
    file.write(new_file_content)
 
 # sys.stdout.write('Namespaces Qualified: {}\r'.format(namespaces.keys()))

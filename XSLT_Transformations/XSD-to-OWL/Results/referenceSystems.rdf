@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:xs="http://www.w3.org/2001/XMLSchema"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/referenceSystems">
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic2d"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/temporal"/>
+      <rdfs:comment/>
+      <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:referenceSystems:3.1.1</rdfs:seeAlso>
+      <rdfs:comment>How to encode reference system definitions. Builds on several other parts of GML 3 to encode the data needed to define reference systems.
+		This schema encodes the Reference System (RS_) package of the extended UML Model for OGC Abstract Specification Topic 2: Spatial Referencing by Coordinates. That UML model is adapted from ISO 19111 - Spatial referencing by coordinates, as described in Annex C of Topic 2. The SC_CRS class is also encoded here, to eliminate the (circular) references from coordinateOperations.xsd to coordinateReferenceSystems.xsd. The RS_SpatialReferenceSystemUsingGeographicIdentifier class is not encoded, since it is not applicable to coordinate positions. The CI_Citation class is not directly encoded, since such information can be included as metaDataProperty elements which are optionally allowed. A modified version of the EX_Extent (DataType) class from ISO 19115 is currently encoded here, using GML 3 schema types. (A more extensive version of the EX_Extent package might be XML encoded in the future, probably in a separate extent.xsd schema.)
+		Caution: The CRS package in GML 3.1 and GML 3.1.1 is preliminary, and is expected to undergo some modifications that are not backward compatible during the development of GML 3.2 (ISO 19136). The GML 3.2 package will implement the model described in the revised version of ISO 19111.
+		
+		GML is an OGC Standard.
+		Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</rdfs:comment>
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractReferenceSystemBaseType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Basic encoding for reference system objects, simplifying and restricting the DefinitionType as needed.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmetaDataProperty"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmetaDataProperty"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassrsName"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#srsName"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#id"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
+      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractReferenceSystemType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment>Description of a spatial and/or temporal reference system used by a dataset.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassrsID"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#srsID"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassrsID"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#remarks"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalidArea"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#validArea"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalidArea"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasscope"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#scope"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasscope"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemBaseType"/>
+      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#ReferenceSystemRefType">
+      <rdfs:comment>Association to a reference system, either referencing or containing the definition of that reference system.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_ReferenceSystem"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_ReferenceSystem"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CRSRefType">
+      <rdfs:comment>Association to a CRS abstract coordinate reference system, either referencing or containing the definition of that CRS.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_CRS"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_CRS"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#IdentifierType">
+      <rdfs:comment>An identification of a CRS object. The first use of the IdentifierType for an object, if any, is normally the primary identification code, and any others are aliases.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasname"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#name"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasversion"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#version"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasversion"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#remarks"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#ExtentType">
+      <rdfs:comment>Information about the spatial, vertical, and/or temporal extent of a reference system object. Constraints: At least one of the elements "description", "boundingBox", "boundingPolygon", "verticalExtent", and temporalExtent" must be included, but more that one can be included when appropriate. Furthermore, more than one "boundingBox", "boundingPolygon", "verticalExtent", and/or temporalExtent" element can be included, with more than one meaning the union of the individual domains.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdescription"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#description"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdescription"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasverticalExtent"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#verticalExtent"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasverticalExtent"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hastemporalExtent"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#temporalExtent"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hastemporalExtent"/>
+                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ReferenceSystemRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CRSRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   </owl:ObjectProperty>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemBaseType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
+   </owl:DatatypeProperty>
+   <owl:Class rdf:about="http://www.opengis.net/gml#_ReferenceSystem">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#srsName">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#srsID">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#referenceSystemRef">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ReferenceSystemRefType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#_CRS">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_ReferenceSystem"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#crsRef">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CRSRefType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#version">
+      <rdfs:subClassOf rdf:resource="string"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#remarks">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#scope">
+      <rdfs:subClassOf rdf:resource="string"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#validArea">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ExtentType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#boundingBox">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EnvelopeType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#boundingPolygon">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PolygonType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#verticalExtent">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EnvelopeType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#temporalExtent">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimePeriodType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemBaseType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassrsName">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemBaseType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#srsName"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassrsID">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#srsID"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalidArea">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#validArea"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasscope">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#scope"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_ReferenceSystem">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ReferenceSystemRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#_ReferenceSystem"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_CRS">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CRSRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#_CRS"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasname">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#name"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasversion">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#version"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdescription">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ExtentType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#description"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundingBox">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ExtentType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundingBox"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundingPolygon">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ExtentType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#boundingPolygon"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasverticalExtent">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ExtentType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#verticalExtent"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastemporalExtent">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ExtentType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#temporalExtent"/>
+   </owl:ObjectProperty>
+</rdf:RDF>
