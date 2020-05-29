@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/coordinateSystems">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/referenceSystems"/>
@@ -19,23 +13,23 @@
 		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateSystemAxisBaseType">
+   <owl:Class rdf:about="#CoordinateSystemAxisBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Basic encoding for coordinate system axis objects, simplifying and restricting the DefinitionType as needed. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmetaDataProperty"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
+                  <owl:onProperty rdf:resource="gml:hasmetaDataProperty"/>
+                  <owl:allValuesFrom rdf:resource="gml:metaDataProperty"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmetaDataProperty"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasmetaDataProperty"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasname"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#name"/>
+                  <owl:onProperty rdf:resource="gml:hasname"/>
+                  <owl:allValuesFrom rdf:resource="gml:name"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -44,43 +38,43 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#id"/>
+                  <owl:onProperty rdf:resource="gml:hasid"/>
+                  <owl:allValuesFrom rdf:resource="gml:id"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
+      <rdfs:subClassOf rdf:resource="gml:DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateSystemAxisType">
+   <owl:Class rdf:about="#CoordinateSystemAxisType">
       <rdfs:comment>Definition of a coordinate system axis. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasaxisID"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#axisID"/>
+                  <owl:onProperty rdf:resource="gml:hasaxisID"/>
+                  <owl:allValuesFrom rdf:resource="gml:axisID"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasaxisID"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasaxisID"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#remarks"/>
+                  <owl:onProperty rdf:resource="gml:hasremarks"/>
+                  <owl:allValuesFrom rdf:resource="gml:remarks"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasremarks"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasaxisAbbrev"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#axisAbbrev"/>
+                  <owl:onProperty rdf:resource="gml:hasaxisAbbrev"/>
+                  <owl:allValuesFrom rdf:resource="gml:axisAbbrev"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasaxisDirection"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#axisDirection"/>
+                  <owl:onProperty rdf:resource="gml:hasaxisDirection"/>
+                  <owl:allValuesFrom rdf:resource="gml:axisDirection"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -89,45 +83,45 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasuom"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#uom"/>
+                  <owl:onProperty rdf:resource="gml:hasuom"/>
+                  <owl:allValuesFrom rdf:resource="gml:uom"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisBaseType"/>
+      <rdfs:subClassOf rdf:resource="gml:CoordinateSystemAxisBaseType"/>
       <rdfs:comment>Warning: The parent class 'gml:CoordinateSystemAxisBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateSystemAxisRefType">
+   <owl:Class rdf:about="#CoordinateSystemAxisRefType">
       <rdfs:comment>Association to a coordinate system axis, either referencing or containing the definition of that axis. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCoordinateSystemAxis"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxis"/>
+                  <owl:onProperty rdf:resource="gml:hasCoordinateSystemAxis"/>
+                  <owl:allValuesFrom rdf:resource="gml:CoordinateSystemAxis"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCoordinateSystemBaseType">
+   <owl:Class rdf:about="#AbstractCoordinateSystemBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Basic encoding for coordinate system objects, simplifying and restricting the DefinitionType as needed. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmetaDataProperty"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
+                  <owl:onProperty rdf:resource="gml:hasmetaDataProperty"/>
+                  <owl:allValuesFrom rdf:resource="gml:metaDataProperty"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmetaDataProperty"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasmetaDataProperty"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascsName"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#csName"/>
+                  <owl:onProperty rdf:resource="gml:hascsName"/>
+                  <owl:allValuesFrom rdf:resource="gml:csName"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -136,546 +130,546 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#id"/>
+                  <owl:onProperty rdf:resource="gml:hasid"/>
+                  <owl:allValuesFrom rdf:resource="gml:id"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
+      <rdfs:subClassOf rdf:resource="gml:DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCoordinateSystemType">
+   <owl:Class rdf:about="#AbstractCoordinateSystemType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>A coordinate system (CS) is the set of coordinate system axes that spans a given coordinate space. A CS is derived from a set of (mathematical) rules for specifying how coordinates in a given space are to be assigned to points. The coordinate values in a coordinate tuple shall be recorded in the order in which the coordinate system axes associations are recorded, whenever those coordinates use a coordinate reference system that uses this coordinate system. This abstract complexType shall not be used, extended, or restricted, in an Application Schema, to define a concrete subtype with a meaning equivalent to a concrete subtype specified in this document. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascsID"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#csID"/>
+                  <owl:onProperty rdf:resource="gml:hascsID"/>
+                  <owl:allValuesFrom rdf:resource="gml:csID"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascsID"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hascsID"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#remarks"/>
+                  <owl:onProperty rdf:resource="gml:hasremarks"/>
+                  <owl:allValuesFrom rdf:resource="gml:remarks"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasremarks"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasremarks"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasusesAxis"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#usesAxis"/>
+                  <owl:onProperty rdf:resource="gml:hasusesAxis"/>
+                  <owl:allValuesFrom rdf:resource="gml:usesAxis"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemBaseType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemBaseType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateSystemRefType">
+   <owl:Class rdf:about="#CoordinateSystemRefType">
       <rdfs:comment>Association to a coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_CoordinateSystem"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
+                  <owl:onProperty rdf:resource="gml:has_CoordinateSystem"/>
+                  <owl:allValuesFrom rdf:resource="gml:_CoordinateSystem"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#EllipsoidalCSType">
+   <owl:Class rdf:about="#EllipsoidalCSType">
       <rdfs:comment>A two- or three-dimensional coordinate system in which position is specified by geodetic latitude, geodetic longitude, and (in the three-dimensional case) ellipsoidal height. An EllipsoidalCS shall have two or three usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#EllipsoidalCSRefType">
+   <owl:Class rdf:about="#EllipsoidalCSRefType">
       <rdfs:comment>Association to an ellipsoidal coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasEllipsoidalCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#EllipsoidalCS"/>
+                  <owl:onProperty rdf:resource="gml:hasEllipsoidalCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:EllipsoidalCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CartesianCSType">
+   <owl:Class rdf:about="#CartesianCSType">
       <rdfs:comment>A 1-, 2-, or 3-dimensional coordinate system. Gives the position of points relative to orthogonal straight axes in the 2- and 3-dimensional cases. In the 1-dimensional case, it contains a single straight coordinate axis. In the multi-dimensional case, all axes shall have the same length unit of measure. A CartesianCS shall have one, two, or three usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CartesianCSRefType">
+   <owl:Class rdf:about="#CartesianCSRefType">
       <rdfs:comment>Association to a Cartesian coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCartesianCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CartesianCS"/>
+                  <owl:onProperty rdf:resource="gml:hasCartesianCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:CartesianCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#VerticalCSType">
+   <owl:Class rdf:about="#VerticalCSType">
       <rdfs:comment>A one-dimensional coordinate system used to record the heights (or depths) of points. Such a coordinate system is usually dependent on the Earth's gravity field, perhaps loosely as when atmospheric pressure is the basis for the vertical coordinate system axis. A VerticalCS shall have one usesAxis association. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#VerticalCSRefType">
+   <owl:Class rdf:about="#VerticalCSRefType">
       <rdfs:comment>Association to a vertical coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasVerticalCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VerticalCS"/>
+                  <owl:onProperty rdf:resource="gml:hasVerticalCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:VerticalCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TemporalCSType">
+   <owl:Class rdf:about="#TemporalCSType">
       <rdfs:comment>A one-dimensional coordinate system containing a single time axis, used to describe the temporal position of a point in the specified time units from a specified time origin. A TemporalCS shall have one usesAxis association. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TemporalCSRefType">
+   <owl:Class rdf:about="#TemporalCSRefType">
       <rdfs:comment>Association to a temporal coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTemporalCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TemporalCS"/>
+                  <owl:onProperty rdf:resource="gml:hasTemporalCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:TemporalCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#LinearCSType">
+   <owl:Class rdf:about="#LinearCSType">
       <rdfs:comment>A one-dimensional coordinate system that consists of the points that lie on the single axis described. The associated ordinate is the distance from the specified origin to the point along the axis. Example: usage of the line feature representing a road to describe points on or along that road. A LinearCS shall have one usesAxis association. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#LinearCSRefType">
+   <owl:Class rdf:about="#LinearCSRefType">
       <rdfs:comment>Association to a linear coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLinearCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LinearCS"/>
+                  <owl:onProperty rdf:resource="gml:hasLinearCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:LinearCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#UserDefinedCSType">
+   <owl:Class rdf:about="#UserDefinedCSType">
       <rdfs:comment>A two- or three-dimensional coordinate system that consists of any combination of coordinate axes not covered by any other coordinate system type. An example is a multilinear coordinate system which contains one coordinate axis that may have any 1-D shape which has no intersections with itself. This non-straight axis is supplemented by one or two straight axes to complete a 2 or 3 dimensional coordinate system. The non-straight axis is typically incrementally straight or curved. A UserDefinedCS shall have two or three usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#UserDefinedCSRefType">
+   <owl:Class rdf:about="#UserDefinedCSRefType">
       <rdfs:comment>Association to a user-defined coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasUserDefinedCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#UserDefinedCS"/>
+                  <owl:onProperty rdf:resource="gml:hasUserDefinedCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:UserDefinedCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SphericalCSType">
+   <owl:Class rdf:about="#SphericalCSType">
       <rdfs:comment>A three-dimensional coordinate system with one distance measured from the origin and two angular coordinates. Not to be confused with an ellipsoidal coordinate system based on an ellipsoid "degenerated" into a sphere. A SphericalCS shall have three usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SphericalCSRefType">
+   <owl:Class rdf:about="#SphericalCSRefType">
       <rdfs:comment>Association to a spherical coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasSphericalCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SphericalCS"/>
+                  <owl:onProperty rdf:resource="gml:hasSphericalCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:SphericalCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolarCSType">
+   <owl:Class rdf:about="#PolarCSType">
       <rdfs:comment>A two-dimensional coordinate system in which position is specified by the distance from the origin and the angle between the line from the origin to a point and a reference direction. A PolarCS shall have two usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolarCSRefType">
+   <owl:Class rdf:about="#PolarCSRefType">
       <rdfs:comment>Association to a polar coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasPolarCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PolarCS"/>
+                  <owl:onProperty rdf:resource="gml:hasPolarCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:PolarCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CylindricalCSType">
+   <owl:Class rdf:about="#CylindricalCSType">
       <rdfs:comment>A three-dimensional coordinate system consisting of a polar coordinate system extended by a straight coordinate axis perpendicular to the plane spanned by the polar coordinate system. A CylindricalCS shall have three usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CylindricalCSRefType">
+   <owl:Class rdf:about="#CylindricalCSRefType">
       <rdfs:comment>Association to a cylindrical coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCylindricalCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CylindricalCS"/>
+                  <owl:onProperty rdf:resource="gml:hasCylindricalCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:CylindricalCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ObliqueCartesianCSType">
+   <owl:Class rdf:about="#ObliqueCartesianCSType">
       <rdfs:comment>A two- or three-dimensional coordinate system with straight axes that are not necessarily orthogonal. An ObliqueCartesianCS shall have two or three usesAxis associations. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ObliqueCartesianCSRefType">
+   <owl:Class rdf:about="#ObliqueCartesianCSRefType">
       <rdfs:comment>Association to an oblique-Cartesian coordinate system, either referencing or containing the definition of that coordinate system. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasObliqueCartesianCS"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCS"/>
+                  <owl:onProperty rdf:resource="gml:hasObliqueCartesianCS"/>
+                  <owl:allValuesFrom rdf:resource="gml:ObliqueCartesianCS"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#CoordinateSystemRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#EllipsoidalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#EllipsoidalCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CartesianCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#CartesianCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#VerticalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#VerticalCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TemporalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#TemporalCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LinearCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#LinearCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#UserDefinedCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#UserDefinedCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SphericalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#SphericalCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolarCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#PolarCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CylindricalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#CylindricalCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#ObliqueCartesianCSRefType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisBaseType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
+   <owl:DatatypeProperty rdf:about="gml:hasid">
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisBaseType"/>
+      <rdfs:range rdf:resource="gml:id"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasuom">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#uom"/>
+   <owl:DatatypeProperty rdf:about="gml:hasuom">
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisType"/>
+      <rdfs:range rdf:resource="gml:uom"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemBaseType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
+   <owl:DatatypeProperty rdf:about="gml:hasid">
+      <rdfs:domain rdf:resource="#AbstractCoordinateSystemBaseType"/>
+      <rdfs:range rdf:resource="gml:id"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateSystemAxis">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisType"/>
+   <owl:Class rdf:about="#CoordinateSystemAxis">
+      <rdfs:subClassOf rdf:resource="gml:Definition"/>
+      <rdfs:subClassOf rdf:resource="gml:CoordinateSystemAxisType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#axisID">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+   <owl:Class rdf:about="#axisID">
+      <rdfs:subClassOf rdf:resource="gml:IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#axisAbbrev">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   <owl:Class rdf:about="#axisAbbrev">
+      <rdfs:subClassOf rdf:resource="gml:CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#axisDirection">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   <owl:Class rdf:about="#axisDirection">
+      <rdfs:subClassOf rdf:resource="gml:CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#coordinateSystemAxisRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisRefType"/>
+   <owl:Class rdf:about="#coordinateSystemAxisRef">
+      <rdfs:subClassOf rdf:resource="gml:CoordinateSystemAxisRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_CoordinateSystem">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
+   <owl:Class rdf:about="#_CoordinateSystem">
+      <rdfs:subClassOf rdf:resource="gml:Definition"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCoordinateSystemType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#csName">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   <owl:Class rdf:about="#csName">
+      <rdfs:subClassOf rdf:resource="gml:name"/>
+      <rdfs:subClassOf rdf:resource="gml:CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#csID">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+   <owl:Class rdf:about="#csID">
+      <rdfs:subClassOf rdf:resource="gml:IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#usesAxis">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisRefType"/>
+   <owl:Class rdf:about="#usesAxis">
+      <rdfs:subClassOf rdf:resource="gml:CoordinateSystemAxisRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#coordinateSystemRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateSystemRefType"/>
+   <owl:Class rdf:about="#coordinateSystemRef">
+      <rdfs:subClassOf rdf:resource="gml:CoordinateSystemRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#EllipsoidalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidalCSType"/>
+   <owl:Class rdf:about="#EllipsoidalCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:EllipsoidalCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ellipsoidalCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidalCSRefType"/>
+   <owl:Class rdf:about="#ellipsoidalCSRef">
+      <rdfs:subClassOf rdf:resource="gml:EllipsoidalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CartesianCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CartesianCSType"/>
+   <owl:Class rdf:about="#CartesianCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:CartesianCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#cartesianCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CartesianCSRefType"/>
+   <owl:Class rdf:about="#cartesianCSRef">
+      <rdfs:subClassOf rdf:resource="gml:CartesianCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#VerticalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalCSType"/>
+   <owl:Class rdf:about="#VerticalCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:VerticalCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#verticalCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalCSRefType"/>
+   <owl:Class rdf:about="#verticalCSRef">
+      <rdfs:subClassOf rdf:resource="gml:VerticalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TemporalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalCSType"/>
+   <owl:Class rdf:about="#TemporalCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:TemporalCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#temporalCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalCSRefType"/>
+   <owl:Class rdf:about="#temporalCSRef">
+      <rdfs:subClassOf rdf:resource="gml:TemporalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#LinearCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LinearCSType"/>
+   <owl:Class rdf:about="#LinearCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:LinearCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#linearCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LinearCSRefType"/>
+   <owl:Class rdf:about="#linearCSRef">
+      <rdfs:subClassOf rdf:resource="gml:LinearCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#UserDefinedCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#UserDefinedCSType"/>
+   <owl:Class rdf:about="#UserDefinedCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:UserDefinedCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#userDefinedCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#UserDefinedCSRefType"/>
+   <owl:Class rdf:about="#userDefinedCSRef">
+      <rdfs:subClassOf rdf:resource="gml:UserDefinedCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SphericalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SphericalCSType"/>
+   <owl:Class rdf:about="#SphericalCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:SphericalCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#sphericalCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SphericalCSRefType"/>
+   <owl:Class rdf:about="#sphericalCSRef">
+      <rdfs:subClassOf rdf:resource="gml:SphericalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolarCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PolarCSType"/>
+   <owl:Class rdf:about="#PolarCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:PolarCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#polarCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PolarCSRefType"/>
+   <owl:Class rdf:about="#polarCSRef">
+      <rdfs:subClassOf rdf:resource="gml:PolarCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CylindricalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CylindricalCSType"/>
+   <owl:Class rdf:about="#CylindricalCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:CylindricalCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#cylindricalCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CylindricalCSRefType"/>
+   <owl:Class rdf:about="#cylindricalCSRef">
+      <rdfs:subClassOf rdf:resource="gml:CylindricalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ObliqueCartesianCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCSType"/>
+   <owl:Class rdf:about="#ObliqueCartesianCS">
+      <rdfs:subClassOf rdf:resource="gml:_CoordinateSystem"/>
+      <rdfs:subClassOf rdf:resource="gml:ObliqueCartesianCSType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#obliqueCartesianCSRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCSRefType"/>
+   <owl:Class rdf:about="#obliqueCartesianCSRef">
+      <rdfs:subClassOf rdf:resource="gml:ObliqueCartesianCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
+   <owl:ObjectProperty rdf:about="gml:hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisBaseType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisBaseType"/>
+      <rdfs:range rdf:resource="gml:metaDataProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasname">
+   <owl:ObjectProperty rdf:about="gml:hasname">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisBaseType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#name"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisBaseType"/>
+      <rdfs:range rdf:resource="gml:name"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasaxisID">
+   <owl:ObjectProperty rdf:about="gml:hasaxisID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#axisID"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisType"/>
+      <rdfs:range rdf:resource="gml:axisID"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
+   <owl:ObjectProperty rdf:about="gml:hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisType"/>
+      <rdfs:range rdf:resource="gml:remarks"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasaxisAbbrev">
+   <owl:ObjectProperty rdf:about="gml:hasaxisAbbrev">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#axisAbbrev"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisType"/>
+      <rdfs:range rdf:resource="gml:axisAbbrev"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasaxisDirection">
+   <owl:ObjectProperty rdf:about="gml:hasaxisDirection">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#axisDirection"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisType"/>
+      <rdfs:range rdf:resource="gml:axisDirection"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCoordinateSystemAxis">
+   <owl:ObjectProperty rdf:about="gml:hasCoordinateSystemAxis">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxisRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CoordinateSystemAxis"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemAxisRefType"/>
+      <rdfs:range rdf:resource="gml:CoordinateSystemAxis"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
+   <owl:ObjectProperty rdf:about="gml:hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemBaseType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
+      <rdfs:domain rdf:resource="#AbstractCoordinateSystemBaseType"/>
+      <rdfs:range rdf:resource="gml:metaDataProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascsName">
+   <owl:ObjectProperty rdf:about="gml:hascsName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemBaseType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#csName"/>
+      <rdfs:domain rdf:resource="#AbstractCoordinateSystemBaseType"/>
+      <rdfs:range rdf:resource="gml:csName"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascsID">
+   <owl:ObjectProperty rdf:about="gml:hascsID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#csID"/>
+      <rdfs:domain rdf:resource="#AbstractCoordinateSystemType"/>
+      <rdfs:range rdf:resource="gml:csID"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
+   <owl:ObjectProperty rdf:about="gml:hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
+      <rdfs:domain rdf:resource="#AbstractCoordinateSystemType"/>
+      <rdfs:range rdf:resource="gml:remarks"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesAxis">
+   <owl:ObjectProperty rdf:about="gml:hasusesAxis">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateSystemType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#usesAxis"/>
+      <rdfs:domain rdf:resource="#AbstractCoordinateSystemType"/>
+      <rdfs:range rdf:resource="gml:usesAxis"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_CoordinateSystem">
+   <owl:ObjectProperty rdf:about="gml:has_CoordinateSystem">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateSystemRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#_CoordinateSystem"/>
+      <rdfs:domain rdf:resource="#CoordinateSystemRefType"/>
+      <rdfs:range rdf:resource="gml:_CoordinateSystem"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasEllipsoidalCS">
+   <owl:ObjectProperty rdf:about="gml:hasEllipsoidalCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#EllipsoidalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#EllipsoidalCS"/>
+      <rdfs:domain rdf:resource="#EllipsoidalCSRefType"/>
+      <rdfs:range rdf:resource="gml:EllipsoidalCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCartesianCS">
+   <owl:ObjectProperty rdf:about="gml:hasCartesianCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CartesianCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CartesianCS"/>
+      <rdfs:domain rdf:resource="#CartesianCSRefType"/>
+      <rdfs:range rdf:resource="gml:CartesianCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasVerticalCS">
+   <owl:ObjectProperty rdf:about="gml:hasVerticalCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#VerticalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VerticalCS"/>
+      <rdfs:domain rdf:resource="#VerticalCSRefType"/>
+      <rdfs:range rdf:resource="gml:VerticalCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTemporalCS">
+   <owl:ObjectProperty rdf:about="gml:hasTemporalCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TemporalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TemporalCS"/>
+      <rdfs:domain rdf:resource="#TemporalCSRefType"/>
+      <rdfs:range rdf:resource="gml:TemporalCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasLinearCS">
+   <owl:ObjectProperty rdf:about="gml:hasLinearCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LinearCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LinearCS"/>
+      <rdfs:domain rdf:resource="#LinearCSRefType"/>
+      <rdfs:range rdf:resource="gml:LinearCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasUserDefinedCS">
+   <owl:ObjectProperty rdf:about="gml:hasUserDefinedCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#UserDefinedCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#UserDefinedCS"/>
+      <rdfs:domain rdf:resource="#UserDefinedCSRefType"/>
+      <rdfs:range rdf:resource="gml:UserDefinedCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasSphericalCS">
+   <owl:ObjectProperty rdf:about="gml:hasSphericalCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SphericalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SphericalCS"/>
+      <rdfs:domain rdf:resource="#SphericalCSRefType"/>
+      <rdfs:range rdf:resource="gml:SphericalCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasPolarCS">
+   <owl:ObjectProperty rdf:about="gml:hasPolarCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolarCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#PolarCS"/>
+      <rdfs:domain rdf:resource="#PolarCSRefType"/>
+      <rdfs:range rdf:resource="gml:PolarCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCylindricalCS">
+   <owl:ObjectProperty rdf:about="gml:hasCylindricalCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CylindricalCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CylindricalCS"/>
+      <rdfs:domain rdf:resource="#CylindricalCSRefType"/>
+      <rdfs:range rdf:resource="gml:CylindricalCS"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasObliqueCartesianCS">
+   <owl:ObjectProperty rdf:about="gml:hasObliqueCartesianCS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCSRefType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCS"/>
+      <rdfs:domain rdf:resource="#ObliqueCartesianCSRefType"/>
+      <rdfs:range rdf:resource="gml:ObliqueCartesianCS"/>
    </owl:ObjectProperty>
 </rdf:RDF>

@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/basicTypes">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <rdfs:comment>basicTypes.xsd</rdfs:comment>
@@ -17,7 +11,7 @@
     To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
     </rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CodeType">
+   <owl:Class rdf:about="#CodeType">
       <rdfs:comment>Name or code with an (optional) authority.  Text token.  
       If the codeSpace attribute is present, then its value should identify a dictionary, thesaurus 
       or authority for the term, such as the organisation who assigned the value, 
@@ -27,19 +21,19 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#codeSpace"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+                  <owl:onProperty rdf:resource="#codeSpace"/>
+                  <owl:allValuesFrom rdf:resource="#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasCodeType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasstring"/>
+   <owl:DatatypeProperty rdf:about="#hasCodeType">
+      <rdfs:domain rdf:resource="#CodeType"/>
+      <rdfs:range rdf:resource="#string"/>
+      <rdfs:subPropertyOf rdf:resource="#hasstring"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CodeListType">
+   <owl:Class rdf:about="#CodeListType">
       <rdfs:comment>List of values on a uniform nominal scale.  List of text tokens.   
       In a list context a token should not include any spaces, so xsd:Name is used instead of xsd:string.   
       If a codeSpace attribute is present, then its value is a reference to 
@@ -48,22 +42,22 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#codeSpace"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+                  <owl:onProperty rdf:resource="#codeSpace"/>
+                  <owl:allValuesFrom rdf:resource="#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#NameList"/>
+      <rdfs:subClassOf rdf:resource="gml:NameList"/>
       <rdfs:comment>Warning: The parent class 'gml:NameList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasCodeListType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#NameList"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasNameList"/>
+   <owl:DatatypeProperty rdf:about="#hasCodeListType">
+      <rdfs:domain rdf:resource="#CodeListType"/>
+      <rdfs:range rdf:resource="gml:NameList"/>
+      <rdfs:subPropertyOf rdf:resource="gml:hasNameList"/>
       <rdfs:comment>Warning: The parent property 'gml:hasNameList' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CodeOrNullListType">
+   <owl:Class rdf:about="#CodeOrNullListType">
       <rdfs:comment>List of values on a uniform nominal scale.  List of text tokens.   
       In a list context a token should not include any spaces, so xsd:Name is used instead of xsd:string.  
       A member of the list may be a typed null.  
@@ -73,41 +67,41 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#codeSpace"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+                  <owl:onProperty rdf:resource="#codeSpace"/>
+                  <owl:allValuesFrom rdf:resource="#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#NameOrNullList"/>
+      <rdfs:subClassOf rdf:resource="gml:NameOrNullList"/>
       <rdfs:comment>Warning: The parent class 'gml:NameOrNullList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasCodeOrNullListType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#NameOrNullList"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasNameOrNullList"/>
+   <owl:DatatypeProperty rdf:about="#hasCodeOrNullListType">
+      <rdfs:domain rdf:resource="#CodeOrNullListType"/>
+      <rdfs:range rdf:resource="gml:NameOrNullList"/>
+      <rdfs:subPropertyOf rdf:resource="gml:hasNameOrNullList"/>
       <rdfs:comment>Warning: The parent property 'gml:hasNameOrNullList' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#MeasureType">
+   <owl:Class rdf:about="#MeasureType">
       <rdfs:comment>Number with a scale.  
       The value of uom (Units Of Measure) attribute is a reference to a Reference System for the amount, either a ratio or position scale. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#uom"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+                  <owl:onProperty rdf:resource="#uom"/>
+                  <owl:allValuesFrom rdf:resource="#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasMeasureType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#double"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasdouble"/>
+   <owl:DatatypeProperty rdf:about="#hasMeasureType">
+      <rdfs:domain rdf:resource="#MeasureType"/>
+      <rdfs:range rdf:resource="#double"/>
+      <rdfs:subPropertyOf rdf:resource="#hasdouble"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#MeasureListType">
+   <owl:Class rdf:about="#MeasureListType">
       <rdfs:comment>List of numbers with a uniform scale.  
       The value of uom (Units Of Measure) attribute is a reference to 
       a Reference System for the amount, either a ratio or position scale. </rdfs:comment>
@@ -115,22 +109,22 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#uom"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+                  <owl:onProperty rdf:resource="#uom"/>
+                  <owl:allValuesFrom rdf:resource="#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
+      <rdfs:subClassOf rdf:resource="gml:doubleList"/>
       <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasMeasureListType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#doubleList"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
+   <owl:DatatypeProperty rdf:about="#hasMeasureListType">
+      <rdfs:domain rdf:resource="#MeasureListType"/>
+      <rdfs:range rdf:resource="gml:doubleList"/>
+      <rdfs:subPropertyOf rdf:resource="gml:hasdoubleList"/>
       <rdfs:comment>Warning: The parent property 'gml:hasdoubleList' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#MeasureOrNullListType">
+   <owl:Class rdf:about="#MeasureOrNullListType">
       <rdfs:comment>List of numbers with a uniform scale.  
       A member of the list may be a typed null. 
       The value of uom (Units Of Measure) attribute is a reference to 
@@ -139,22 +133,22 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#uom"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#anyURI"/>
+                  <owl:onProperty rdf:resource="#uom"/>
+                  <owl:allValuesFrom rdf:resource="#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleOrNullList"/>
+      <rdfs:subClassOf rdf:resource="gml:doubleOrNullList"/>
       <rdfs:comment>Warning: The parent class 'gml:doubleOrNullList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasMeasureOrNullListType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#doubleOrNullList"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasdoubleOrNullList"/>
+   <owl:DatatypeProperty rdf:about="#hasMeasureOrNullListType">
+      <rdfs:domain rdf:resource="#MeasureOrNullListType"/>
+      <rdfs:range rdf:resource="gml:doubleOrNullList"/>
+      <rdfs:subPropertyOf rdf:resource="gml:hasdoubleOrNullList"/>
       <rdfs:comment>Warning: The parent property 'gml:hasdoubleOrNullList' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinatesType">
+   <owl:Class rdf:about="#CoordinatesType">
       <rdfs:comment>Tables or arrays of tuples.  
         May be used for text-encoding of values from a table.  
         Actually just a string, but allows the user to indicate which characters are used as separators.  
@@ -167,27 +161,27 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#decimal"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#string"/>
+                  <owl:onProperty rdf:resource="#decimal"/>
+                  <owl:allValuesFrom rdf:resource="#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#cs"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#string"/>
+                  <owl:onProperty rdf:resource="#cs"/>
+                  <owl:allValuesFrom rdf:resource="#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#ts"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#string"/>
+                  <owl:onProperty rdf:resource="#ts"/>
+                  <owl:allValuesFrom rdf:resource="#string"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasCoordinatesType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinatesType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
-      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasstring"/>
+   <owl:DatatypeProperty rdf:about="#hasCoordinatesType">
+      <rdfs:domain rdf:resource="#CoordinatesType"/>
+      <rdfs:range rdf:resource="#string"/>
+      <rdfs:subPropertyOf rdf:resource="#hasstring"/>
    </owl:DatatypeProperty>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NullEnumeration">
+   <rdfs:Datatype rdf:about="#NullEnumeration">
       <rdfs:comment> Some common reasons for a null value:   
 			
         innapplicable - the object does not have a value
@@ -203,7 +197,7 @@
         Specific communities may agree to assign more strict semantics when these terms are used in a particular context.  
       </rdfs:comment>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#">
+   <rdfs:Datatype rdf:about="#">
       <owl:equivalentClass>
          <rdfs:Datatype>
             <owl:oneOf>
@@ -235,13 +229,13 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#"/>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NullType">
+   <rdfs:Datatype rdf:about="#"/>
+   <rdfs:Datatype rdf:about="#NullType">
       <rdfs:comment>Utility type for null elements.  The value may be selected from one of the enumerated tokens, or may be a URI in which case this should identify a resource which describes the reason for the null. </rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#NullEnumeration"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#anyURI"/>
+      <owl:equivalentClass rdf:resource="gml:NullEnumeration"/>
+      <owl:equivalentClass rdf:resource="#anyURI"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SignType">
+   <rdfs:Datatype rdf:about="#SignType">
       <rdfs:comment>Utility type used in various places 
       - e.g. to indicate the direction of topological objects;
       "+" for forwards, or "-" for backwards.</rdfs:comment>
@@ -261,114 +255,114 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#booleanOrNull">
+   <rdfs:Datatype rdf:about="#booleanOrNull">
       <rdfs:comment>Union of the XML Schema boolean type and the GML Nulltype.  An element which uses this type may have content which is either a boolean {0,1,true,false} or a value from Nulltype</rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#NullEnumeration"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#boolean"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#anyURI"/>
+      <owl:equivalentClass rdf:resource="gml:NullEnumeration"/>
+      <owl:equivalentClass rdf:resource="#boolean"/>
+      <owl:equivalentClass rdf:resource="#anyURI"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#booleanOrNullList">
+   <rdfs:Datatype rdf:about="#booleanOrNullList">
       <rdfs:comment>XML List based on the union type defined above.  An element declared with this type contains a space-separated list of boolean values {0,1,true,false} with null values interspersed as needed</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#booleanList">
+   <rdfs:Datatype rdf:about="#booleanList">
       <rdfs:comment>XML List based on XML Schema boolean type.  An element of this type contains a space-separated list of boolean values {0,1,true,false}</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#stringOrNull">
+   <rdfs:Datatype rdf:about="#stringOrNull">
       <rdfs:comment>Union of the XML Schema string type and the GML Nulltype.  An element which uses this type may have content which is either a string or a value from Nulltype.  Note that a "string" may contain whitespace.  </rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#NullEnumeration"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#string"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#anyURI"/>
+      <owl:equivalentClass rdf:resource="gml:NullEnumeration"/>
+      <owl:equivalentClass rdf:resource="#string"/>
+      <owl:equivalentClass rdf:resource="#anyURI"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NameOrNull">
+   <rdfs:Datatype rdf:about="#NameOrNull">
       <rdfs:comment>Union of the XML Schema Name type and the GML Nulltype.  An element which uses this type may have content which is either a Name or a value from Nulltype.  Note that a "Name" may not contain whitespace.  </rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#NullEnumeration"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#Name"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#anyURI"/>
+      <owl:equivalentClass rdf:resource="gml:NullEnumeration"/>
+      <owl:equivalentClass rdf:resource="#Name"/>
+      <owl:equivalentClass rdf:resource="#anyURI"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NameOrNullList">
+   <rdfs:Datatype rdf:about="#NameOrNullList">
       <rdfs:comment>XML List based on the union type defined above.  An element declared with this type contains a space-separated list of Name values with null values interspersed as needed</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NameList">
+   <rdfs:Datatype rdf:about="#NameList">
       <rdfs:comment>XML List based on XML Schema Name type.  An element of this type contains a space-separated list of Name values</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#doubleOrNull">
+   <rdfs:Datatype rdf:about="#doubleOrNull">
       <rdfs:comment>Union of the XML Schema double type and the GML Nulltype.  An element which uses this type may have content which is either a double or a value from Nulltype</rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#NullEnumeration"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#double"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#anyURI"/>
+      <owl:equivalentClass rdf:resource="gml:NullEnumeration"/>
+      <owl:equivalentClass rdf:resource="#double"/>
+      <owl:equivalentClass rdf:resource="#anyURI"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#doubleOrNullList">
+   <rdfs:Datatype rdf:about="#doubleOrNullList">
       <rdfs:comment>XML List based on the union type defined above.  An element declared with this type contains a space-separated list of double values with null values interspersed as needed</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#doubleList">
+   <rdfs:Datatype rdf:about="#doubleList">
       <rdfs:comment>XML List based on XML Schema double type.  An element of this type contains a space-separated list of double values</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#integerOrNull">
+   <rdfs:Datatype rdf:about="#integerOrNull">
       <rdfs:comment>Union of the XML Schema integer type and the GML Nulltype.  An element which uses this type may have content which is either an integer or a value from Nulltype</rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#NullEnumeration"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#integer"/>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#anyURI"/>
+      <owl:equivalentClass rdf:resource="gml:NullEnumeration"/>
+      <owl:equivalentClass rdf:resource="#integer"/>
+      <owl:equivalentClass rdf:resource="#anyURI"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#integerOrNullList">
+   <rdfs:Datatype rdf:about="#integerOrNullList">
       <rdfs:comment>XML List based on the union type defined above.  An element declared with this type contains a space-separated list of integer values with null values interspersed as needed</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#integerList">
+   <rdfs:Datatype rdf:about="#integerList">
       <rdfs:comment>XML List based on XML Schema integer type.  An element of this type contains a space-separated list of integer values</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NCNameList">
+   <rdfs:Datatype rdf:about="#NCNameList">
       <rdfs:comment>A set of values, representing a list of token with the lexical value space of NCName. The tokens are seperated by whitespace.</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#QNameList">
+   <rdfs:Datatype rdf:about="#QNameList">
       <rdfs:comment>A set of values, representing a list of token with the lexical value space of QName. The tokens are seperated by whitespace.</rdfs:comment>
       <owl:equivalentClass rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
    </rdfs:Datatype>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#codeSpace">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#anyURI"/>
+   <owl:DatatypeProperty rdf:about="#codeSpace">
+      <rdfs:domain rdf:resource="#CodeType"/>
+      <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#codeSpace">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#anyURI"/>
+   <owl:DatatypeProperty rdf:about="#codeSpace">
+      <rdfs:domain rdf:resource="#CodeListType"/>
+      <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#codeSpace">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#anyURI"/>
+   <owl:DatatypeProperty rdf:about="#codeSpace">
+      <rdfs:domain rdf:resource="#CodeOrNullListType"/>
+      <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#uom">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#anyURI"/>
+   <owl:DatatypeProperty rdf:about="#uom">
+      <rdfs:domain rdf:resource="#MeasureType"/>
+      <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#uom">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#anyURI"/>
+   <owl:DatatypeProperty rdf:about="#uom">
+      <rdfs:domain rdf:resource="#MeasureListType"/>
+      <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#uom">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#anyURI"/>
+   <owl:DatatypeProperty rdf:about="#uom">
+      <rdfs:domain rdf:resource="#MeasureOrNullListType"/>
+      <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#decimal">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinatesType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
+   <owl:DatatypeProperty rdf:about="#decimal">
+      <rdfs:domain rdf:resource="#CoordinatesType"/>
+      <rdfs:range rdf:resource="#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#cs">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinatesType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
+   <owl:DatatypeProperty rdf:about="#cs">
+      <rdfs:domain rdf:resource="#CoordinatesType"/>
+      <rdfs:range rdf:resource="#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#ts">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinatesType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
+   <owl:DatatypeProperty rdf:about="#ts">
+      <rdfs:domain rdf:resource="#CoordinatesType"/>
+      <rdfs:range rdf:resource="#string"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Null">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#NullType"/>
+   <owl:Class rdf:about="#Null">
+      <rdfs:subClassOf rdf:resource="gml:NullType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
 </rdf:RDF>

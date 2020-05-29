@@ -100,7 +100,7 @@ filenames=(
 if [ $# -eq 2 ]; then
    echo "transforming $1 to Results/$2"
    java -jar ../saxon9he.jar -s:$1 -xsl:XSD2OWL.xsl > Results/$2
-   python postXSLT.py $1 Results/$2
+   python postXSLT.py $1
 elif [ $# -eq 0 ]; then
    echo "Transforming known schema..."
    for (( i = 0 ; i < ${#paths[@]} ; i++ ))

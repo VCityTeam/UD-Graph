@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/waterBody">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>
@@ -14,7 +8,7 @@
 	To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterObjectType">
+   <owl:Class rdf:about="#AbstractWaterObjectType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Type describing the abstract superclass for water objects. As subclass of _CityObject, a _WaterObject
 				inherits all attributes and relations, in particular an id, names, external references, and generalization relations.
@@ -23,20 +17,20 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterObject"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterObject"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterObject"/>
+                  <owl:allValuesFrom rdf:resource="#_GenericApplicationPropertyOfWaterObject"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterObject"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterObject"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:subClassOf rdf:resource="core:AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType">
+   <owl:Class rdf:about="#WaterBodyType">
       <rdfs:comment>Type describing Water Bodies, e.g., lakes, rivers. As subclass of _CityObject, a WaterBody inherits all
 				attributes and relations, in particular an id, names, external references, and generalization relations.
 			</rdfs:comment>
@@ -44,115 +38,115 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#class"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+                  <owl:onProperty rdf:resource="#class"/>
+                  <owl:allValuesFrom rdf:resource="gml:CodeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#class"/>
+                  <owl:onProperty rdf:resource="#class"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#function"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+                  <owl:onProperty rdf:resource="#function"/>
+                  <owl:allValuesFrom rdf:resource="gml:CodeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#function"/>
+                  <owl:onProperty rdf:resource="#function"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#usage"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+                  <owl:onProperty rdf:resource="#usage"/>
+                  <owl:allValuesFrom rdf:resource="gml:CodeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#usage"/>
+                  <owl:onProperty rdf:resource="#usage"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod0MultiCurve"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod0MultiCurve"/>
+                  <owl:allValuesFrom rdf:resource="gml:MultiCurvePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod0MultiCurve"/>
+                  <owl:onProperty rdf:resource="#lod0MultiCurve"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod0MultiSurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod0MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="gml:MultiSurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod0MultiSurface"/>
+                  <owl:onProperty rdf:resource="#lod0MultiSurface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod1MultiCurve"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod1MultiCurve"/>
+                  <owl:allValuesFrom rdf:resource="gml:MultiCurvePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod1MultiCurve"/>
+                  <owl:onProperty rdf:resource="#lod1MultiCurve"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod1MultiSurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod1MultiSurface"/>
+                  <owl:allValuesFrom rdf:resource="gml:MultiSurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod1MultiSurface"/>
+                  <owl:onProperty rdf:resource="#lod1MultiSurface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod1Solid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+                  <owl:onProperty rdf:resource="#lod1Solid"/>
+                  <owl:allValuesFrom rdf:resource="gml:SolidPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod1Solid"/>
+                  <owl:onProperty rdf:resource="#lod1Solid"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod2Solid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+                  <owl:onProperty rdf:resource="#lod2Solid"/>
+                  <owl:allValuesFrom rdf:resource="gml:SolidPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod2Solid"/>
+                  <owl:onProperty rdf:resource="#lod2Solid"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod3Solid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+                  <owl:onProperty rdf:resource="#lod3Solid"/>
+                  <owl:allValuesFrom rdf:resource="gml:SolidPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod3Solid"/>
+                  <owl:onProperty rdf:resource="#lod3Solid"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod4Solid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+                  <owl:onProperty rdf:resource="#lod4Solid"/>
+                  <owl:allValuesFrom rdf:resource="gml:SolidPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod4Solid"/>
+                  <owl:onProperty rdf:resource="#lod4Solid"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#boundedBy"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#BoundedByWaterSurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#boundedBy"/>
+                  <owl:allValuesFrom rdf:resource="#BoundedByWaterSurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#boundedBy"/>
+                  <owl:onProperty rdf:resource="#boundedBy"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterBody"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterBody"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterBody"/>
+                  <owl:allValuesFrom rdf:resource="#_GenericApplicationPropertyOfWaterBody"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterBody"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterBody"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterObjectType"/>
+      <rdfs:subClassOf rdf:resource="#AbstractWaterObjectType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#BoundedByWaterSurfacePropertyType">
+   <owl:Class rdf:about="#BoundedByWaterSurfacePropertyType">
       <rdfs:comment>Denotes the relation of a WaterBody to its boundary surfaces, which are of type _WaterBoundarySurface. The
 				BoundedByWaterSurfacePropertyType element must either carry a reference to a _WaterBoundarySurface object or contain a
 				_WaterBoundarySurface object inline, but neither both nor none. </rdfs:comment>
@@ -160,14 +154,14 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_WaterBoundarySurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_WaterBoundarySurface"/>
+                  <owl:onProperty rdf:resource="#has_WaterBoundarySurface"/>
+                  <owl:allValuesFrom rdf:resource="#_WaterBoundarySurface"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType">
+   <owl:Class rdf:about="#AbstractWaterBoundarySurfaceType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>A WaterBoundarySurface is a thematic object which classifies surfaces bounding a water body.
 			</rdfs:comment>
@@ -175,44 +169,44 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod2Surface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod2Surface"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod2Surface"/>
+                  <owl:onProperty rdf:resource="#lod2Surface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod3Surface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod3Surface"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod3Surface"/>
+                  <owl:onProperty rdf:resource="#lod3Surface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod4Surface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#lod4Surface"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#lod4Surface"/>
+                  <owl:onProperty rdf:resource="#lod4Surface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterBoundarySurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterBoundarySurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterBoundarySurface"/>
+                  <owl:allValuesFrom rdf:resource="#_GenericApplicationPropertyOfWaterBoundarySurface"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterBoundarySurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterBoundarySurface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#AbstractCityObjectType"/>
+      <rdfs:subClassOf rdf:resource="core:AbstractCityObjectType"/>
       <rdfs:comment>Warning: The parent class 'core:AbstractCityObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterSurfaceType">
+   <owl:Class rdf:about="#WaterSurfaceType">
       <rdfs:comment>Type describing the surface of a water body, which separates the water from the air. As subclass of
 				_CityObject, a WaterSurface inherits all attributes and relations, in particular an id, names, external references, and
 				generalization relations. </rdfs:comment>
@@ -220,27 +214,27 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#waterLevel"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+                  <owl:onProperty rdf:resource="#waterLevel"/>
+                  <owl:allValuesFrom rdf:resource="gml:CodeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#waterLevel"/>
+                  <owl:onProperty rdf:resource="#waterLevel"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterSurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterSurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterSurface"/>
+                  <owl:allValuesFrom rdf:resource="#_GenericApplicationPropertyOfWaterSurface"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterSurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterSurface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:subClassOf rdf:resource="#AbstractWaterBoundarySurfaceType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterGroundSurfaceType">
+   <owl:Class rdf:about="#WaterGroundSurfaceType">
       <rdfs:comment>Type describing the ground surface of a water body, i.e. the boundary to the digital terrain model. As
 				subclass of _CityObject, a WaterGroundSurface inherits all attributes and relations, in particular an id, names, external
 				references, and generalization relations. </rdfs:comment>
@@ -248,19 +242,19 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterGroundSurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterGroundSurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterGroundSurface"/>
+                  <owl:allValuesFrom rdf:resource="#_GenericApplicationPropertyOfWaterGroundSurface"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterGroundSurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterGroundSurface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:subClassOf rdf:resource="#AbstractWaterBoundarySurfaceType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterClosureSurfaceType">
+   <owl:Class rdf:about="#WaterClosureSurfaceType">
       <rdfs:comment>Type describing the closure surface between water bodys. As subclass of _CityObject, a WaterClosureSurface
 				inherits all attributes and relations, in particular an id, names, external references, and generalization relations.
 			</rdfs:comment>
@@ -268,175 +262,175 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterClosureSurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterClosureSurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterClosureSurface"/>
+                  <owl:allValuesFrom rdf:resource="#_GenericApplicationPropertyOfWaterClosureSurface"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterClosureSurface"/>
+                  <owl:onProperty rdf:resource="#has_GenericApplicationPropertyOfWaterClosureSurface"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:subClassOf rdf:resource="#AbstractWaterBoundarySurfaceType"/>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#BoundedByWaterSurfacePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#BoundedByWaterSurfacePropertyType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_WaterObject">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterObjectType"/>
+   <owl:Class rdf:about="#_WaterObject">
+      <rdfs:subClassOf rdf:resource="core:_CityObject"/>
+      <rdfs:subClassOf rdf:resource="#AbstractWaterObjectType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterObject">
+   <owl:Class rdf:about="#_GenericApplicationPropertyOfWaterObject">
       <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterBody">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_WaterObject"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
+   <owl:Class rdf:about="#WaterBody">
+      <rdfs:subClassOf rdf:resource="#_WaterObject"/>
+      <rdfs:subClassOf rdf:resource="#WaterBodyType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterBody">
+   <owl:Class rdf:about="#_GenericApplicationPropertyOfWaterBody">
       <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_WaterBoundarySurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#_CityObject"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
+   <owl:Class rdf:about="#_WaterBoundarySurface">
+      <rdfs:subClassOf rdf:resource="core:_CityObject"/>
+      <rdfs:subClassOf rdf:resource="#AbstractWaterBoundarySurfaceType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterBoundarySurface">
+   <owl:Class rdf:about="#_GenericApplicationPropertyOfWaterBoundarySurface">
       <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_WaterBoundarySurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterSurfaceType"/>
+   <owl:Class rdf:about="#WaterSurface">
+      <rdfs:subClassOf rdf:resource="#_WaterBoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="#WaterSurfaceType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterSurface">
+   <owl:Class rdf:about="#_GenericApplicationPropertyOfWaterSurface">
       <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterGroundSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_WaterBoundarySurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterGroundSurfaceType"/>
+   <owl:Class rdf:about="#WaterGroundSurface">
+      <rdfs:subClassOf rdf:resource="#_WaterBoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="#WaterGroundSurfaceType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterGroundSurface">
+   <owl:Class rdf:about="#_GenericApplicationPropertyOfWaterGroundSurface">
       <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#WaterClosureSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_WaterBoundarySurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterClosureSurfaceType"/>
+   <owl:Class rdf:about="#WaterClosureSurface">
+      <rdfs:subClassOf rdf:resource="#_WaterBoundarySurface"/>
+      <rdfs:subClassOf rdf:resource="#WaterClosureSurfaceType"/>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterClosureSurface">
+   <owl:Class rdf:about="#_GenericApplicationPropertyOfWaterClosureSurface">
       <rdfs:subClassOf rdf:resource="http://www.w3.org/2001/XMLSchema#anyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterObject">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterObjectType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterObject"/>
+   <owl:ObjectProperty rdf:about="#has_GenericApplicationPropertyOfWaterObject">
+      <rdfs:domain rdf:resource="#AbstractWaterObjectType"/>
+      <rdfs:range rdf:resource="#_GenericApplicationPropertyOfWaterObject"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#class">
+   <owl:ObjectProperty rdf:about="#class">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:CodeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#function">
+   <owl:ObjectProperty rdf:about="#function">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:CodeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#usage">
+   <owl:ObjectProperty rdf:about="#usage">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:CodeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod0MultiCurve">
+   <owl:ObjectProperty rdf:about="#lod0MultiCurve">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:MultiCurvePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod0MultiSurface">
+   <owl:ObjectProperty rdf:about="#lod0MultiSurface">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:MultiSurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod1MultiCurve">
+   <owl:ObjectProperty rdf:about="#lod1MultiCurve">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiCurvePropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:MultiCurvePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod1MultiSurface">
+   <owl:ObjectProperty rdf:about="#lod1MultiSurface">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#MultiSurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:MultiSurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod1Solid">
+   <owl:ObjectProperty rdf:about="#lod1Solid">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:SolidPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod2Solid">
+   <owl:ObjectProperty rdf:about="#lod2Solid">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:SolidPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod3Solid">
+   <owl:ObjectProperty rdf:about="#lod3Solid">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:SolidPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod4Solid">
+   <owl:ObjectProperty rdf:about="#lod4Solid">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="gml:SolidPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#boundedBy">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#BoundedByWaterSurfacePropertyType"/>
+   <owl:ObjectProperty rdf:about="#boundedBy">
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="#BoundedByWaterSurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterBody">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterBodyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterBody"/>
+   <owl:ObjectProperty rdf:about="#has_GenericApplicationPropertyOfWaterBody">
+      <rdfs:domain rdf:resource="#WaterBodyType"/>
+      <rdfs:range rdf:resource="#_GenericApplicationPropertyOfWaterBody"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_WaterBoundarySurface">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#BoundedByWaterSurfacePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_WaterBoundarySurface"/>
+   <owl:ObjectProperty rdf:about="#has_WaterBoundarySurface">
+      <rdfs:domain rdf:resource="#BoundedByWaterSurfacePropertyType"/>
+      <rdfs:range rdf:resource="#_WaterBoundarySurface"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod2Surface">
+   <owl:ObjectProperty rdf:about="#lod2Surface">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="gml:SurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod3Surface">
+   <owl:ObjectProperty rdf:about="#lod3Surface">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="gml:SurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#lod4Surface">
+   <owl:ObjectProperty rdf:about="#lod4Surface">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="gml:SurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterBoundarySurface">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#AbstractWaterBoundarySurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterBoundarySurface"/>
+   <owl:ObjectProperty rdf:about="#has_GenericApplicationPropertyOfWaterBoundarySurface">
+      <rdfs:domain rdf:resource="#AbstractWaterBoundarySurfaceType"/>
+      <rdfs:range rdf:resource="#_GenericApplicationPropertyOfWaterBoundarySurface"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#waterLevel">
+   <owl:ObjectProperty rdf:about="#waterLevel">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:domain rdf:resource="#WaterSurfaceType"/>
+      <rdfs:range rdf:resource="gml:CodeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterSurface">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterSurface"/>
+   <owl:ObjectProperty rdf:about="#has_GenericApplicationPropertyOfWaterSurface">
+      <rdfs:domain rdf:resource="#WaterSurfaceType"/>
+      <rdfs:range rdf:resource="#_GenericApplicationPropertyOfWaterSurface"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterGroundSurface">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterGroundSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterGroundSurface"/>
+   <owl:ObjectProperty rdf:about="#has_GenericApplicationPropertyOfWaterGroundSurface">
+      <rdfs:domain rdf:resource="#WaterGroundSurfaceType"/>
+      <rdfs:range rdf:resource="#_GenericApplicationPropertyOfWaterGroundSurface"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/citygml/waterbody/2.0#has_GenericApplicationPropertyOfWaterClosureSurface">
-      <rdfs:domain rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#WaterClosureSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/citygml/waterbody/2.0#_GenericApplicationPropertyOfWaterClosureSurface"/>
+   <owl:ObjectProperty rdf:about="#has_GenericApplicationPropertyOfWaterClosureSurface">
+      <rdfs:domain rdf:resource="#WaterClosureSurfaceType"/>
+      <rdfs:range rdf:resource="#_GenericApplicationPropertyOfWaterClosureSurface"/>
    </owl:ObjectProperty>
 </rdf:RDF>

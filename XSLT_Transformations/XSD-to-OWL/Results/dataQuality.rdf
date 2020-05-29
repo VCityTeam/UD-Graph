@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/dataQuality">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/units"/>
@@ -19,175 +13,175 @@
 		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractPositionalAccuracyType">
+   <owl:Class rdf:about="#AbstractPositionalAccuracyType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Position error estimate (or accuracy) data. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmeasureDescription"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#measureDescription"/>
+                  <owl:onProperty rdf:resource="gml:hasmeasureDescription"/>
+                  <owl:allValuesFrom rdf:resource="gml:measureDescription"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasmeasureDescription"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasmeasureDescription"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbsoluteExternalPositionalAccuracyType">
+   <owl:Class rdf:about="#AbsoluteExternalPositionalAccuracyType">
       <rdfs:comment>Closeness of reported coordinate values to values accepted as or being true. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasresult"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#result"/>
+                  <owl:onProperty rdf:resource="gml:hasresult"/>
+                  <owl:allValuesFrom rdf:resource="gml:result"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractPositionalAccuracyType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractPositionalAccuracyType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractPositionalAccuracyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#RelativeInternalPositionalAccuracyType">
+   <owl:Class rdf:about="#RelativeInternalPositionalAccuracyType">
       <rdfs:comment>Closeness of the relative positions of two or more positions to their respective relative positions accepted as or being true. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasresult"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#result"/>
+                  <owl:onProperty rdf:resource="gml:hasresult"/>
+                  <owl:allValuesFrom rdf:resource="gml:result"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractPositionalAccuracyType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractPositionalAccuracyType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractPositionalAccuracyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CovarianceMatrixType">
+   <owl:Class rdf:about="#CovarianceMatrixType">
       <rdfs:comment>Error estimate covariance matrix. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasunitOfMeasure"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#unitOfMeasure"/>
+                  <owl:onProperty rdf:resource="gml:hasunitOfMeasure"/>
+                  <owl:allValuesFrom rdf:resource="gml:unitOfMeasure"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasincludesElement"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#includesElement"/>
+                  <owl:onProperty rdf:resource="gml:hasincludesElement"/>
+                  <owl:allValuesFrom rdf:resource="gml:includesElement"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractPositionalAccuracyType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractPositionalAccuracyType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractPositionalAccuracyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CovarianceElementType">
+   <owl:Class rdf:about="#CovarianceElementType">
       <rdfs:comment>An element of a covariance matrix.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrowIndex"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#rowIndex"/>
+                  <owl:onProperty rdf:resource="gml:hasrowIndex"/>
+                  <owl:allValuesFrom rdf:resource="gml:rowIndex"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascolumnIndex"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#columnIndex"/>
+                  <owl:onProperty rdf:resource="gml:hascolumnIndex"/>
+                  <owl:allValuesFrom rdf:resource="gml:columnIndex"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascovariance"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#covariance"/>
+                  <owl:onProperty rdf:resource="gml:hascovariance"/>
+                  <owl:allValuesFrom rdf:resource="gml:covariance"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_positionalAccuracy">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractPositionalAccuracyType"/>
+   <owl:Class rdf:about="#_positionalAccuracy">
+      <rdfs:subClassOf rdf:resource="gml:AbstractPositionalAccuracyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#measureDescription">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+   <owl:Class rdf:about="#measureDescription">
+      <rdfs:subClassOf rdf:resource="gml:CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#absoluteExternalPositionalAccuracy">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_positionalAccuracy"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbsoluteExternalPositionalAccuracyType"/>
+   <owl:Class rdf:about="#absoluteExternalPositionalAccuracy">
+      <rdfs:subClassOf rdf:resource="gml:_positionalAccuracy"/>
+      <rdfs:subClassOf rdf:resource="gml:AbsoluteExternalPositionalAccuracyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#relativeInternalPositionalAccuracy">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_positionalAccuracy"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RelativeInternalPositionalAccuracyType"/>
+   <owl:Class rdf:about="#relativeInternalPositionalAccuracy">
+      <rdfs:subClassOf rdf:resource="gml:_positionalAccuracy"/>
+      <rdfs:subClassOf rdf:resource="gml:RelativeInternalPositionalAccuracyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#result">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+   <owl:Class rdf:about="#result">
+      <rdfs:subClassOf rdf:resource="gml:MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#covarianceMatrix">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_positionalAccuracy"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CovarianceMatrixType"/>
+   <owl:Class rdf:about="#covarianceMatrix">
+      <rdfs:subClassOf rdf:resource="gml:_positionalAccuracy"/>
+      <rdfs:subClassOf rdf:resource="gml:CovarianceMatrixType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#includesElement">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CovarianceElementType"/>
+   <owl:Class rdf:about="#includesElement">
+      <rdfs:subClassOf rdf:resource="gml:CovarianceElementType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#rowIndex">
+   <owl:Class rdf:about="#rowIndex">
       <rdfs:subClassOf rdf:resource="positiveInteger"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#columnIndex">
+   <owl:Class rdf:about="#columnIndex">
       <rdfs:subClassOf rdf:resource="positiveInteger"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#covariance">
+   <owl:Class rdf:about="#covariance">
       <rdfs:subClassOf rdf:resource="double"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmeasureDescription">
+   <owl:ObjectProperty rdf:about="gml:hasmeasureDescription">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractPositionalAccuracyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#measureDescription"/>
+      <rdfs:domain rdf:resource="#AbstractPositionalAccuracyType"/>
+      <rdfs:range rdf:resource="gml:measureDescription"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasresult">
+   <owl:ObjectProperty rdf:about="gml:hasresult">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbsoluteExternalPositionalAccuracyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#result"/>
+      <rdfs:domain rdf:resource="#AbsoluteExternalPositionalAccuracyType"/>
+      <rdfs:range rdf:resource="gml:result"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasresult">
+   <owl:ObjectProperty rdf:about="gml:hasresult">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RelativeInternalPositionalAccuracyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#result"/>
+      <rdfs:domain rdf:resource="#RelativeInternalPositionalAccuracyType"/>
+      <rdfs:range rdf:resource="gml:result"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasunitOfMeasure">
+   <owl:ObjectProperty rdf:about="gml:hasunitOfMeasure">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CovarianceMatrixType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#unitOfMeasure"/>
+      <rdfs:domain rdf:resource="#CovarianceMatrixType"/>
+      <rdfs:range rdf:resource="gml:unitOfMeasure"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasincludesElement">
+   <owl:ObjectProperty rdf:about="gml:hasincludesElement">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CovarianceMatrixType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#includesElement"/>
+      <rdfs:domain rdf:resource="#CovarianceMatrixType"/>
+      <rdfs:range rdf:resource="gml:includesElement"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrowIndex">
+   <owl:ObjectProperty rdf:about="gml:hasrowIndex">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CovarianceElementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#rowIndex"/>
+      <rdfs:domain rdf:resource="#CovarianceElementType"/>
+      <rdfs:range rdf:resource="gml:rowIndex"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascolumnIndex">
+   <owl:ObjectProperty rdf:about="gml:hascolumnIndex">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CovarianceElementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#columnIndex"/>
+      <rdfs:domain rdf:resource="#CovarianceElementType"/>
+      <rdfs:range rdf:resource="gml:columnIndex"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascovariance">
+   <owl:ObjectProperty rdf:about="gml:hascovariance">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CovarianceElementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#covariance"/>
+      <rdfs:domain rdf:resource="#CovarianceElementType"/>
+      <rdfs:range rdf:resource="gml:covariance"/>
    </owl:ObjectProperty>
 </rdf:RDF>

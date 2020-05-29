@@ -8,7 +8,7 @@ if len(sys.argv) != 2:
 # Initialize variables
 filename = sys.argv[1].split('/')[-1].split('.')[0]
 filepath = 'Results/{}.rdf'.format( filename )
-root     = etree.parse(sys.argv[1]).getroot()
+root     = etree.parse(filepath).getroot()
 
 # Get namespaces
 namespaces = root.nsmap
@@ -21,9 +21,6 @@ new_file_content = ''
 with open(filepath) as file:
    line = file.readline()
    while line != '':
-      # update ontology uri to reference given filename
-      line = line.replace( '<owl:Ontology rdf:about="">',
-                           '<owl:Ontology rdf:about="{}">'.format( 'http://liris.cnrs.fr/ontologies/' + filename ))
 
       # update import statements with local naming conventions ontologies
       if re.match( '<owl:imports rdf:resource=".*?"/>', line.strip() ) != None:
@@ -40,8 +37,12 @@ with open(filepath) as file:
       new_file_content += line
       line = file.readline()
 
+# set ontology name
+root          = etree.fromstring(new_file_content)
+root[0].set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', 'http://liris.cnrs.fr/ontologies/' + filename )
+
 with open(filepath, 'w') as file:
-   file.write(new_file_content)
+   file.write(etree.tostring( root, pretty_print=True ))
 
 # sys.stdout.write('Namespaces Qualified: {}\r'.format(namespaces.keys()))
 # sys.stdout.flush()

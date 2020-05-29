@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/grids">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic0d1d"/>
@@ -19,18 +13,18 @@
     To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/gml#GridType">
+   <owl:Class rdf:about="#GridType">
       <rdfs:comment>An unrectified grid, which is a network composed of two or more sets of equally spaced parallel lines in which the members of each set intersect the members of the other sets at right angles.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#limits"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GridLimitsType"/>
+                  <owl:onProperty rdf:resource="#limits"/>
+                  <owl:allValuesFrom rdf:resource="gml:GridLimitsType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#axisName"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#string"/>
+                  <owl:onProperty rdf:resource="#axisName"/>
+                  <owl:allValuesFrom rdf:resource="#string"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -39,114 +33,114 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#dimension"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#positiveInteger"/>
+                  <owl:onProperty rdf:resource="#dimension"/>
+                  <owl:allValuesFrom rdf:resource="#positiveInteger"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometryType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGeometryType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeometryType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#GridLimitsType">
+   <owl:Class rdf:about="#GridLimitsType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#GridEnvelope"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GridEnvelopeType"/>
+                  <owl:onProperty rdf:resource="#GridEnvelope"/>
+                  <owl:allValuesFrom rdf:resource="gml:GridEnvelopeType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#GridEnvelopeType">
+   <owl:Class rdf:about="#GridEnvelopeType">
       <rdfs:comment>Provides grid coordinate values for the diametrically opposed corners of an envelope that bounds a section of grid. The value of a single coordinate is the number of offsets from the origin of the grid in the direction of a specific axis.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#low"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integerList"/>
+                  <owl:onProperty rdf:resource="#low"/>
+                  <owl:allValuesFrom rdf:resource="gml:integerList"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#high"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integerList"/>
+                  <owl:onProperty rdf:resource="#high"/>
+                  <owl:allValuesFrom rdf:resource="gml:integerList"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGridType">
+   <owl:Class rdf:about="#RectifiedGridType">
       <rdfs:comment>A rectified grid has an origin and vectors that define its post locations.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#origin"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
+                  <owl:onProperty rdf:resource="#origin"/>
+                  <owl:allValuesFrom rdf:resource="gml:PointPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#offsetVector"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#offsetVector"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridType"/>
+      <rdfs:subClassOf rdf:resource="gml:GridType"/>
       <rdfs:comment>Warning: The parent class 'gml:GridType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#dimension">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#positiveInteger"/>
+   <owl:DatatypeProperty rdf:about="#dimension">
+      <rdfs:domain rdf:resource="#GridType"/>
+      <rdfs:range rdf:resource="#positiveInteger"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_ImplicitGeometry">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Geometry"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometryType"/>
+   <owl:Class rdf:about="#_ImplicitGeometry">
+      <rdfs:subClassOf rdf:resource="gml:_Geometry"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGeometryType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Grid">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_ImplicitGeometry"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridType"/>
+   <owl:Class rdf:about="#Grid">
+      <rdfs:subClassOf rdf:resource="gml:_ImplicitGeometry"/>
+      <rdfs:subClassOf rdf:resource="gml:GridType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGrid">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_ImplicitGeometry"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RectifiedGridType"/>
+   <owl:Class rdf:about="#RectifiedGrid">
+      <rdfs:subClassOf rdf:resource="gml:_ImplicitGeometry"/>
+      <rdfs:subClassOf rdf:resource="gml:RectifiedGridType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#limits">
+   <owl:ObjectProperty rdf:about="#limits">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#GridLimitsType"/>
+      <rdfs:domain rdf:resource="#GridType"/>
+      <rdfs:range rdf:resource="gml:GridLimitsType"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#GridType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#GridEnvelope">
+   <owl:ObjectProperty rdf:about="#GridEnvelope">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridLimitsType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#GridEnvelopeType"/>
+      <rdfs:domain rdf:resource="#GridLimitsType"/>
+      <rdfs:range rdf:resource="gml:GridEnvelopeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#low">
+   <owl:ObjectProperty rdf:about="#low">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridEnvelopeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integerList"/>
+      <rdfs:domain rdf:resource="#GridEnvelopeType"/>
+      <rdfs:range rdf:resource="gml:integerList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#high">
+   <owl:ObjectProperty rdf:about="#high">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridEnvelopeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integerList"/>
+      <rdfs:domain rdf:resource="#GridEnvelopeType"/>
+      <rdfs:range rdf:resource="gml:integerList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#origin">
+   <owl:ObjectProperty rdf:about="#origin">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
+      <rdfs:domain rdf:resource="#RectifiedGridType"/>
+      <rdfs:range rdf:resource="gml:PointPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#offsetVector">
+   <owl:ObjectProperty rdf:about="#offsetVector">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#RectifiedGridType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
 </rdf:RDF>

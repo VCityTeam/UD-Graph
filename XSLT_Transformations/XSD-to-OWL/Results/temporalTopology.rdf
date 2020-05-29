@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/temporalTopology">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/temporal"/>
@@ -25,22 +19,22 @@
 		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeTopologyComplexType">
+   <owl:Class rdf:about="#TimeTopologyComplexType">
       <rdfs:comment xml:lang="en">A temporal topology complex.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#primitive"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeTopologyPrimitivePropertyType"/>
+                  <owl:onProperty rdf:resource="#primitive"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeTopologyPrimitivePropertyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeComplexType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractTimeComplexType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeComplexType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeTopologyComplexPropertyType">
+   <owl:Class rdf:about="#TimeTopologyComplexPropertyType">
       <rdfs:comment>A time topology complex property can either be any time topology complex element
 			 encapsulated in an element of this type or an XLink reference to a remote time topology complex element 
 			 (where remote includes elements located elsewhere in the same document). 
@@ -49,34 +43,34 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeTopologyComplex"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeTopologyComplex"/>
+                  <owl:onProperty rdf:resource="gml:hasTimeTopologyComplex"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeTopologyComplex"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractTimeTopologyPrimitiveType">
+   <owl:Class rdf:about="#AbstractTimeTopologyPrimitiveType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment xml:lang="en">The element "complex" carries a reference to the complex containing this primitive.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#complex"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
+                  <owl:onProperty rdf:resource="#complex"/>
+                  <owl:allValuesFrom rdf:resource="gml:ReferenceType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#complex"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#complex"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimePrimitiveType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractTimePrimitiveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimePrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeTopologyPrimitivePropertyType">
+   <owl:Class rdf:about="#TimeTopologyPrimitivePropertyType">
       <rdfs:comment>A time topology primitive property can either hold any time topology complex element
 			 eor carry an XLink reference to a remote time topology complex element 
 			 (where remote includes elements located elsewhere in the same document). 
@@ -85,49 +79,49 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_TimeTopologyPrimitive"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_TimeTopologyPrimitive"/>
+                  <owl:onProperty rdf:resource="gml:has_TimeTopologyPrimitive"/>
+                  <owl:allValuesFrom rdf:resource="gml:_TimeTopologyPrimitive"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeNodeType">
+   <owl:Class rdf:about="#TimeNodeType">
       <rdfs:comment xml:lang="en">Type declaration of the element "TimeNode".</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#previousEdge"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeEdgePropertyType"/>
+                  <owl:onProperty rdf:resource="#previousEdge"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeEdgePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#previousEdge"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#previousEdge"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#nextEdge"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeEdgePropertyType"/>
+                  <owl:onProperty rdf:resource="#nextEdge"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeEdgePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#nextEdge"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#nextEdge"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#position"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
+                  <owl:onProperty rdf:resource="#position"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeInstantPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#position"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#position"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeTopologyPrimitiveType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractTimeTopologyPrimitiveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeTopologyPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeNodePropertyType">
+   <owl:Class rdf:about="#TimeNodePropertyType">
       <rdfs:comment>A time node property can either be any time node element encapsulated in an element of this type 
 			or an XLink reference to a remote time node element (where remote includes elements located elsewhere in the same document). 
 			Note that either the reference or the contained element must be given, but not both or none.</rdfs:comment>
@@ -135,41 +129,41 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeNode"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeNode"/>
+                  <owl:onProperty rdf:resource="gml:hasTimeNode"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeNode"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeEdgeType">
+   <owl:Class rdf:about="#TimeEdgeType">
       <rdfs:comment xml:lang="en">Type declaration of the element "TimeEdge".</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#start"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
+                  <owl:onProperty rdf:resource="#start"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeNodePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#end"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
+                  <owl:onProperty rdf:resource="#end"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeNodePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#extent"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimePeriodPropertyType"/>
+                  <owl:onProperty rdf:resource="#extent"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimePeriodPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#extent"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#extent"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeTopologyPrimitiveType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractTimeTopologyPrimitiveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeTopologyPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeEdgePropertyType">
+   <owl:Class rdf:about="#TimeEdgePropertyType">
       <rdfs:comment>A time edge property can either be any time edge element encapsulated in an element of this type 
 			or an XLink reference to a remote time edge element (where remote includes elements located elsewhere in the same document). 
 			Note that either the reference or the contained element must be given, but not both or none.</rdfs:comment>
@@ -177,30 +171,30 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeEdge"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeEdge"/>
+                  <owl:onProperty rdf:resource="gml:hasTimeEdge"/>
+                  <owl:allValuesFrom rdf:resource="gml:TimeEdge"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeTopologyComplexPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#TimeTopologyComplexPropertyType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeTopologyPrimitivePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#TimeTopologyPrimitivePropertyType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#TimeNodePropertyType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeEdgePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#TimeEdgePropertyType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SuccessionType">
+   <rdfs:Datatype rdf:about="#SuccessionType">
       <rdfs:comment>Feature succession is a semantic relationship derived from evaluation of observer, and 
 			Feature Substitution, Feature Division and Feature Fusion are defined as associations between 
 			previous features and next features in the temporal context. 
@@ -233,84 +227,84 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeTopologyComplex">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeComplex"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeTopologyComplexType"/>
+   <owl:Class rdf:about="#TimeTopologyComplex">
+      <rdfs:subClassOf rdf:resource="gml:_TimeComplex"/>
+      <rdfs:subClassOf rdf:resource="gml:TimeTopologyComplexType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_TimeTopologyPrimitive">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimePrimitive"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeTopologyPrimitiveType"/>
+   <owl:Class rdf:about="#_TimeTopologyPrimitive">
+      <rdfs:subClassOf rdf:resource="gml:_TimePrimitive"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractTimeTopologyPrimitiveType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeNode">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeTopologyPrimitive"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeNodeType"/>
+   <owl:Class rdf:about="#TimeNode">
+      <rdfs:subClassOf rdf:resource="gml:_TimeTopologyPrimitive"/>
+      <rdfs:subClassOf rdf:resource="gml:TimeNodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TimeEdge">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeTopologyPrimitive"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeEdgeType"/>
+   <owl:Class rdf:about="#TimeEdge">
+      <rdfs:subClassOf rdf:resource="gml:_TimeTopologyPrimitive"/>
+      <rdfs:subClassOf rdf:resource="gml:TimeEdgeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#primitive">
+   <owl:ObjectProperty rdf:about="#primitive">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeTopologyComplexType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeTopologyPrimitivePropertyType"/>
+      <rdfs:domain rdf:resource="#TimeTopologyComplexType"/>
+      <rdfs:range rdf:resource="gml:TimeTopologyPrimitivePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeTopologyComplex">
+   <owl:ObjectProperty rdf:about="gml:hasTimeTopologyComplex">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeTopologyComplexPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeTopologyComplex"/>
+      <rdfs:domain rdf:resource="#TimeTopologyComplexPropertyType"/>
+      <rdfs:range rdf:resource="gml:TimeTopologyComplex"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#complex">
+   <owl:ObjectProperty rdf:about="#complex">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractTimeTopologyPrimitiveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
+      <rdfs:domain rdf:resource="#AbstractTimeTopologyPrimitiveType"/>
+      <rdfs:range rdf:resource="gml:ReferenceType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_TimeTopologyPrimitive">
+   <owl:ObjectProperty rdf:about="gml:has_TimeTopologyPrimitive">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeTopologyPrimitivePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#_TimeTopologyPrimitive"/>
+      <rdfs:domain rdf:resource="#TimeTopologyPrimitivePropertyType"/>
+      <rdfs:range rdf:resource="gml:_TimeTopologyPrimitive"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#previousEdge">
+   <owl:ObjectProperty rdf:about="#previousEdge">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeNodeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeEdgePropertyType"/>
+      <rdfs:domain rdf:resource="#TimeNodeType"/>
+      <rdfs:range rdf:resource="gml:TimeEdgePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#nextEdge">
+   <owl:ObjectProperty rdf:about="#nextEdge">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeNodeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeEdgePropertyType"/>
+      <rdfs:domain rdf:resource="#TimeNodeType"/>
+      <rdfs:range rdf:resource="gml:TimeEdgePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#position">
+   <owl:ObjectProperty rdf:about="#position">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeNodeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
+      <rdfs:domain rdf:resource="#TimeNodeType"/>
+      <rdfs:range rdf:resource="gml:TimeInstantPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeNode">
+   <owl:ObjectProperty rdf:about="gml:hasTimeNode">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeNode"/>
+      <rdfs:domain rdf:resource="#TimeNodePropertyType"/>
+      <rdfs:range rdf:resource="gml:TimeNode"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#start">
+   <owl:ObjectProperty rdf:about="#start">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeEdgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
+      <rdfs:domain rdf:resource="#TimeEdgeType"/>
+      <rdfs:range rdf:resource="gml:TimeNodePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#end">
+   <owl:ObjectProperty rdf:about="#end">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeEdgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
+      <rdfs:domain rdf:resource="#TimeEdgeType"/>
+      <rdfs:range rdf:resource="gml:TimeNodePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#extent">
+   <owl:ObjectProperty rdf:about="#extent">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeEdgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimePeriodPropertyType"/>
+      <rdfs:domain rdf:resource="#TimeEdgeType"/>
+      <rdfs:range rdf:resource="gml:TimePeriodPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeEdge">
+   <owl:ObjectProperty rdf:about="gml:hasTimeEdge">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeEdgePropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeEdge"/>
+      <rdfs:domain rdf:resource="#TimeEdgePropertyType"/>
+      <rdfs:range rdf:resource="gml:TimeEdge"/>
    </owl:ObjectProperty>
 </rdf:RDF>

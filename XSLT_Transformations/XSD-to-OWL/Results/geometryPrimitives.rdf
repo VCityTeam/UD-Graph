@@ -1,10 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-         xmlns:owl="http://www.w3.org/2002/07/owl#"
-         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-         xmlns:xs="http://www.w3.org/2001/XMLSchema"
-         xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/geometryPrimitives">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic2d"/>
@@ -16,7 +10,7 @@
 			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CurveType">
+   <owl:Class rdf:about="#CurveType">
       <rdfs:comment>Curve is a 1-dimensional primitive. Curves are continuous, connected, and have a measurable length in terms of the coordinate system. 
 				A curve is composed of one or more curve segments. Each curve segment within a curve may be defined using a different interpolation method. The curve segments are connected to one another, with the end point of each segment except the last being the start point of the next segment in the segment list.
 				The orientation of the curve is positive.</rdfs:comment>
@@ -24,23 +18,23 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassegments"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#segments"/>
+                  <owl:onProperty rdf:resource="gml:hassegments"/>
+                  <owl:allValuesFrom rdf:resource="gml:segments"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#OrientableCurveType">
+   <owl:Class rdf:about="#OrientableCurveType">
       <rdfs:comment>OrientableCurve consists of a curve and an orientation. If the orientation is "+", then the OrientableCurve is identical to the baseCurve. If the orientation is "-", then the OrientableCurve is related to another _Curve with a parameterization that reverses the sense of the curve traversal.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasbaseCurve"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#baseCurve"/>
+                  <owl:onProperty rdf:resource="gml:hasbaseCurve"/>
+                  <owl:allValuesFrom rdf:resource="gml:baseCurve"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -49,55 +43,55 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#orientation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SignType"/>
+                  <owl:onProperty rdf:resource="#orientation"/>
+                  <owl:allValuesFrom rdf:resource="gml:SignType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCurveSegmentType">
+   <owl:Class rdf:about="#AbstractCurveSegmentType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Curve segment defines a homogeneous segment of a curve.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numDerivativesAtStart"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numDerivativesAtStart"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numDerivativesAtEnd"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numDerivativesAtEnd"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numDerivativeInterior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numDerivativeInterior"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CurveSegmentArrayPropertyType">
+   <owl:Class rdf:about="#CurveSegmentArrayPropertyType">
       <rdfs:comment>A container for an array of curve segments.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_CurveSegment"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
+                  <owl:onProperty rdf:resource="gml:has_CurveSegment"/>
+                  <owl:allValuesFrom rdf:resource="gml:_CurveSegment"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_CurveSegment"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:has_CurveSegment"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#LineStringSegmentType">
+   <owl:Class rdf:about="#LineStringSegmentType">
       <rdfs:comment>A LineStringSegment is a curve segment that is defined by two or more coordinate tuples, with linear interpolation between them.
 				Note: LineStringSegment implements GM_LineString of ISO 19107.</rdfs:comment>
       <rdfs:subClassOf>
@@ -109,16 +103,16 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcStringType">
+   <owl:Class rdf:about="#ArcStringType">
       <rdfs:comment>An ArcString is a curve segment that uses three-point circular arc interpolation.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -129,20 +123,20 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numArc"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numArc"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcType">
+   <owl:Class rdf:about="#ArcType">
       <rdfs:comment>An Arc is an arc string with only one arc unit, i.e. three control points.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -153,32 +147,32 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numArc"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numArc"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcStringType"/>
       <rdfs:comment>Warning: The parent class 'gml:ArcStringType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CircleType">
+   <owl:Class rdf:about="#CircleType">
       <rdfs:comment>A Circle is an arc whose ends coincide to form a simple closed loop. The "start" and "end" bearing are equal and shall be the bearing for the first controlPoint listed. The three control points must be distinct non-co-linear points for the Circle to be unambiguously defined. The arc is simply extended past the third control point until the first control point is encountered.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcType"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcType"/>
       <rdfs:comment>Warning: The parent class 'gml:ArcType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcStringByBulgeType">
+   <owl:Class rdf:about="#ArcStringByBulgeType">
       <rdfs:comment>This variant of the arc computes the mid points of the arcs instead of storing the coordinates directly. The control point sequence consists of the start and end points of each arc plus the bulge.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#bulge"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#double"/>
+                  <owl:onProperty rdf:resource="#bulge"/>
+                  <owl:allValuesFrom rdf:resource="#double"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#normal"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#normal"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -187,31 +181,31 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numArc"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numArc"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcByBulgeType">
+   <owl:Class rdf:about="#ArcByBulgeType">
       <rdfs:comment>An ArcByBulge is an arc string with only one arc unit, i.e. two control points and one bulge.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#bulge"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#double"/>
+                  <owl:onProperty rdf:resource="#bulge"/>
+                  <owl:allValuesFrom rdf:resource="#double"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#normal"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#normal"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -220,39 +214,39 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numArc"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numArc"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcStringByBulgeType"/>
       <rdfs:comment>Warning: The parent class 'gml:ArcStringByBulgeType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcByCenterPointType">
+   <owl:Class rdf:about="#ArcByCenterPointType">
       <rdfs:comment>This variant of the arc requires that the points on the arc have to be computed instead of storing the coordinates directly. The control point is the center point of the arc plus the radius and the bearing at start and end. This represenation can be used only in 2D.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#radius"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LengthType"/>
+                  <owl:onProperty rdf:resource="#radius"/>
+                  <owl:allValuesFrom rdf:resource="gml:LengthType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#startAngle"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#AngleType"/>
+                  <owl:onProperty rdf:resource="#startAngle"/>
+                  <owl:allValuesFrom rdf:resource="gml:AngleType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#startAngle"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#startAngle"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#endAngle"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#AngleType"/>
+                  <owl:onProperty rdf:resource="#endAngle"/>
+                  <owl:allValuesFrom rdf:resource="gml:AngleType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#endAngle"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#endAngle"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -261,25 +255,25 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#numArc"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#numArc"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CircleByCenterPointType">
+   <owl:Class rdf:about="#CircleByCenterPointType">
       <rdfs:comment>A CircleByCenterPoint is an ArcByCenterPoint with identical start and end angle to form a full circle. Again, this represenation can be used only in 2D.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcByCenterPointType"/>
       <rdfs:comment>Warning: The parent class 'gml:ArcByCenterPointType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#OffsetCurveType">
+   <owl:Class rdf:about="#OffsetCurveType">
       <rdfs:comment>An offset curve is a curve at a constant
 		 distance from the basis curve. They can be useful as a cheap
 		 and simple alternative to constructing curves that are offsets	
@@ -288,28 +282,28 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#offsetBase"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurvePropertyType"/>
+                  <owl:onProperty rdf:resource="#offsetBase"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurvePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#distance"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LengthType"/>
+                  <owl:onProperty rdf:resource="#distance"/>
+                  <owl:allValuesFrom rdf:resource="gml:LengthType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#refDirection"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#refDirection"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#refDirection"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#refDirection"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AffinePlacementType">
+   <owl:Class rdf:about="#AffinePlacementType">
       <rdfs:comment>A placement takes a standard geometric
    construction and places it in geographic space. It defines a
    transformation from a constructive parameter space to the 
@@ -340,26 +334,26 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#location"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#DirectPositionType"/>
+                  <owl:onProperty rdf:resource="#location"/>
+                  <owl:allValuesFrom rdf:resource="gml:DirectPositionType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#refDirection"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#refDirection"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#inDimension"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#positiveInteger"/>
+                  <owl:onProperty rdf:resource="#inDimension"/>
+                  <owl:allValuesFrom rdf:resource="#positiveInteger"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#outDimension"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#positiveInteger"/>
+                  <owl:onProperty rdf:resource="#outDimension"/>
+                  <owl:allValuesFrom rdf:resource="#positiveInteger"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ClothoidType">
+   <owl:Class rdf:about="#ClothoidType">
       <rdfs:comment>A clothoid, or Cornu's spiral, is plane
    curve whose curvature is a fixed function of its length.
    In suitably chosen co-ordinates it is given by Fresnel's
@@ -381,40 +375,40 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrefLocation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#refLocation"/>
+                  <owl:onProperty rdf:resource="#hasrefLocation"/>
+                  <owl:allValuesFrom rdf:resource="#refLocation"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#scaleFactor"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#decimal"/>
+                  <owl:onProperty rdf:resource="#scaleFactor"/>
+                  <owl:allValuesFrom rdf:resource="#decimal"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#startParameter"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#double"/>
+                  <owl:onProperty rdf:resource="#startParameter"/>
+                  <owl:allValuesFrom rdf:resource="#double"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#endParameter"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#double"/>
+                  <owl:onProperty rdf:resource="#endParameter"/>
+                  <owl:allValuesFrom rdf:resource="#double"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#refLocation">
+   <owl:Class rdf:about="#refLocation">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasAffinePlacement"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#AffinePlacement"/>
+                  <owl:onProperty rdf:resource="gml:hasAffinePlacement"/>
+                  <owl:allValuesFrom rdf:resource="gml:AffinePlacement"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#GeodesicStringType">
+   <owl:Class rdf:about="#GeodesicStringType">
       <rdfs:comment>A GeodesicString consists of sequence of
    geodesic segments. The type essentially combines a sequence of
    Geodesic into a single object.
@@ -423,24 +417,24 @@
    ellipsoid) of the co-ordinate reference system being used.</rdfs:comment>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:onProperty rdf:resource="gml:hasposList"/>
+            <owl:someValuesFrom rdf:resource="gml:posList"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#GeodesicType">
+   <owl:Class rdf:about="#GeodesicType">
       <rdfs:comment>A Geodesic consists of two distinct
    positions joined by a geodesic curve. The control points of
    a Geodesic shall lie on the geodesic between its start
@@ -449,10 +443,10 @@
    co-ordinate reference systems may be used to interpolate
    other positions. Any other point in the controlPoint array
    must fall on this geodesic.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodesicStringType"/>
+      <rdfs:subClassOf rdf:resource="gml:GeodesicStringType"/>
       <rdfs:comment>Warning: The parent class 'gml:GeodesicStringType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CubicSplineType">
+   <owl:Class rdf:about="#CubicSplineType">
       <rdfs:comment>Cubic splines are similar to line strings in that they are a sequence of segments each with its own defining function. A cubic spline uses the control points and a set of derivative parameters to define a piecewise 3rd degree polynomial interpolation. Unlike line-strings, the parameterization by arc length is not necessarily still a polynomial. 
 				The function describing the curve must be C2, that is, have a continuous 1st and 2nd derivative at all points, and pass through the controlPoints in the order given. Between the control points, the curve segment is defined by a cubic polynomial. At each control point, the polynomial changes in such a manner that the 1st and 2nd derivative vectors are the same from either side. The control parameters record must contain vectorAtStart, and vectorAtEnd which are the unit tangent vectors at controlPoint[1] and controlPoint[n] where n = controlPoint.count. 
 				Note: only the direction of the vectors is relevant, not their length.</rdfs:comment>
@@ -460,12 +454,12 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#vectorAtStart"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#vectorAtStart"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#vectorAtEnd"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#VectorType"/>
+                  <owl:onProperty rdf:resource="#vectorAtEnd"/>
+                  <owl:allValuesFrom rdf:resource="gml:VectorType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -474,69 +468,69 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#degree"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#degree"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#KnotType">
+   <owl:Class rdf:about="#KnotType">
       <rdfs:comment>A knot is a breakpoint on a piecewise spline curve.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#value"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#double"/>
+                  <owl:onProperty rdf:resource="#value"/>
+                  <owl:allValuesFrom rdf:resource="#double"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#multiplicity"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#nonNegativeInteger"/>
+                  <owl:onProperty rdf:resource="#multiplicity"/>
+                  <owl:allValuesFrom rdf:resource="#nonNegativeInteger"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#weight"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#double"/>
+                  <owl:onProperty rdf:resource="#weight"/>
+                  <owl:allValuesFrom rdf:resource="#double"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#KnotPropertyType">
+   <owl:Class rdf:about="#KnotPropertyType">
       <rdfs:comment>Encapsulates a knot to use it in a geometric type.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#Knot"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#KnotType"/>
+                  <owl:onProperty rdf:resource="#Knot"/>
+                  <owl:allValuesFrom rdf:resource="gml:KnotType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#BSplineType">
+   <owl:Class rdf:about="#BSplineType">
       <rdfs:comment>A B-Spline is a piecewise parametric polynomial or rational curve described in terms of control points and basis functions. Knots are breakpoints on the curve that connect its pieces. They are given as a non-decreasing sequence of real numbers. If the weights in the knots are equal then it is a polynomial spline. The degree is the algebraic degree of the basis functions.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#degree"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#nonNegativeInteger"/>
+                  <owl:onProperty rdf:resource="#degree"/>
+                  <owl:allValuesFrom rdf:resource="#nonNegativeInteger"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#knot"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#KnotPropertyType"/>
+                  <owl:onProperty rdf:resource="#knot"/>
+                  <owl:allValuesFrom rdf:resource="gml:KnotPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#knot"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">2</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#knot"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -545,39 +539,39 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#isPolynomial"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boolean"/>
+                  <owl:onProperty rdf:resource="#isPolynomial"/>
+                  <owl:allValuesFrom rdf:resource="#boolean"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#knotType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#KnotTypesType"/>
+                  <owl:onProperty rdf:resource="#knotType"/>
+                  <owl:allValuesFrom rdf:resource="gml:KnotTypesType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCurveSegmentType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#BezierType">
+   <owl:Class rdf:about="#BezierType">
       <rdfs:comment>Bezier curves are polynomial splines that use Bezier or Bernstein polynomials for interpolation purposes. It is a special case of the B-Spline curve with two knots.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#degree"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#nonNegativeInteger"/>
+                  <owl:onProperty rdf:resource="#degree"/>
+                  <owl:allValuesFrom rdf:resource="#nonNegativeInteger"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#knot"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#KnotPropertyType"/>
+                  <owl:onProperty rdf:resource="#knot"/>
+                  <owl:allValuesFrom rdf:resource="gml:KnotPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#knot"/>
-                  <owl:cardinality rdf:datatype="xs:nonNegativeInteger">2</owl:cardinality>
+                  <owl:onProperty rdf:resource="#knot"/>
+                  <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:cardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -586,47 +580,47 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#isPolynomial"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#boolean"/>
+                  <owl:onProperty rdf:resource="#isPolynomial"/>
+                  <owl:allValuesFrom rdf:resource="#boolean"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#knotType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#KnotTypesType"/>
+                  <owl:onProperty rdf:resource="#knotType"/>
+                  <owl:allValuesFrom rdf:resource="gml:KnotTypesType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BSplineType"/>
+      <rdfs:subClassOf rdf:resource="gml:BSplineType"/>
       <rdfs:comment>Warning: The parent class 'gml:BSplineType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SurfaceType">
+   <owl:Class rdf:about="#SurfaceType">
       <rdfs:comment>A Surface is a 2-dimensional primitive and is composed of one or more surface patches. The surface patches are connected to one another.
 				The orientation of the surface is positive ("up"). The orientation of a surface chooses an "up" direction through the choice of the upward normal, which, if the surface is not a cycle, is the side of the surface from which the exterior boundary appears counterclockwise. Reversal of the surface orientation reverses the curve orientation of each boundary component, and interchanges the conceptual "up" and "down" direction of the surface. If the surface is the boundary of a solid, the "up" direction is usually outward. For closed surfaces, which have no boundary, the up direction is that of the surface patches, which must be consistent with one another. Its included surface patches describe the interior structure of the Surface.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspatches"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#patches"/>
+                  <owl:onProperty rdf:resource="gml:haspatches"/>
+                  <owl:allValuesFrom rdf:resource="gml:patches"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#OrientableSurfaceType">
+   <owl:Class rdf:about="#OrientableSurfaceType">
       <rdfs:comment>OrientableSurface consists of a surface and an orientation. If the orientation is "+", then the OrientableSurface is identical to the baseSurface. If the orientation is "-", then the OrientableSurface is a reference to a Surface with an up-normal that reverses the direction for this OrientableSurface, the sense of "the top of the surface".</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasbaseSurface"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#baseSurface"/>
+                  <owl:onProperty rdf:resource="gml:hasbaseSurface"/>
+                  <owl:allValuesFrom rdf:resource="gml:baseSurface"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -635,52 +629,52 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#orientation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SignType"/>
+                  <owl:onProperty rdf:resource="#orientation"/>
+                  <owl:allValuesFrom rdf:resource="gml:SignType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractSurfacePatchType">
+   <owl:Class rdf:about="#AbstractSurfacePatchType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>A surface patch defines a homogenuous portion of a surface.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SurfacePatchArrayPropertyType">
+   <owl:Class rdf:about="#SurfacePatchArrayPropertyType">
       <rdfs:comment>A container for an array of surface patches.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_SurfacePatch"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_SurfacePatch"/>
+                  <owl:onProperty rdf:resource="gml:has_SurfacePatch"/>
+                  <owl:allValuesFrom rdf:resource="gml:_SurfacePatch"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolygonPatchType">
+   <owl:Class rdf:about="#PolygonPatchType">
       <rdfs:comment>A PolygonPatch is a surface patch that is defined by a set of boundary curves and an underlying surface to which these curves adhere. The curves are coplanar and the polygon uses planar interpolation in its interior. Implements GM_Polygon of ISO 19107.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasexterior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#exterior"/>
+                  <owl:onProperty rdf:resource="gml:hasexterior"/>
+                  <owl:allValuesFrom rdf:resource="gml:exterior"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasexterior"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasexterior"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasinterior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#interior"/>
+                  <owl:onProperty rdf:resource="gml:hasinterior"/>
+                  <owl:allValuesFrom rdf:resource="gml:interior"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasinterior"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasinterior"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -689,23 +683,23 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfaceInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfaceInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfacePatchType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfacePatchType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSurfacePatchType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TriangleType">
+   <owl:Class rdf:about="#TriangleType">
       <rdfs:comment>Represents a triangle as a surface with an outer boundary consisting of a linear ring. Note that this is a polygon (subtype) with no inner boundaries. The number of points in the linear ring must be four.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasexterior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#exterior"/>
+                  <owl:onProperty rdf:resource="gml:hasexterior"/>
+                  <owl:allValuesFrom rdf:resource="gml:exterior"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -714,23 +708,23 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfaceInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfaceInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfacePatchType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfacePatchType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSurfacePatchType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#RectangleType">
+   <owl:Class rdf:about="#RectangleType">
       <rdfs:comment>Represents a rectangle as a surface with an outer boundary consisting of a linear ring. Note that this is a polygon (subtype) with no inner boundaries. The number of points in the linear ring must be five.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasexterior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#exterior"/>
+                  <owl:onProperty rdf:resource="gml:hasexterior"/>
+                  <owl:allValuesFrom rdf:resource="gml:exterior"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -739,16 +733,16 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interpolation"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfaceInterpolationType"/>
+                  <owl:onProperty rdf:resource="#interpolation"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfaceInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfacePatchType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfacePatchType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSurfacePatchType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#RingType">
+   <owl:Class rdf:about="#RingType">
       <rdfs:comment>A Ring is used to represent a single connected component of a surface boundary. It consists of a sequence of curves connected in a cycle (an object whose boundary is empty).
 A Ring is structurally similar to a composite curve in that the endPoint of each curve in the sequence is the startPoint of the next curve in the Sequence. Since the sequence is circular, there is no exception to this rule. Each ring, like all boundaries, is a cycle and each ring is simple.
 NOTE: Even though each Ring is simple, the boundary need not be simple. The easiest case of this is where one of the interior rings of a surface is tangent to its exterior ring.</rdfs:comment>
@@ -756,41 +750,41 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascurveMember"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#curveMember"/>
+                  <owl:onProperty rdf:resource="gml:hascurveMember"/>
+                  <owl:allValuesFrom rdf:resource="gml:curveMember"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractRingType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractRingType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractRingType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#RingPropertyType">
+   <owl:Class rdf:about="#RingPropertyType">
       <rdfs:comment>Encapsulates a ring to represent properties in features or geometry collections.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasRing"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Ring"/>
+                  <owl:onProperty rdf:resource="gml:hasRing"/>
+                  <owl:allValuesFrom rdf:resource="gml:Ring"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#row">
+   <owl:Class rdf:about="#row">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection"/>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractParametricCurveSurfaceType">
+   <owl:Class rdf:about="#AbstractParametricCurveSurfaceType">
       <rdfs:comment/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfacePatchType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfacePatchType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSurfacePatchType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGriddedSurfaceType">
+   <owl:Class rdf:about="#AbstractGriddedSurfaceType">
       <rdfs:comment>A gridded surface is a parametric curve
    surface derived from a rectangular grid in the parameter
    space. The rows from this grid are control points for
@@ -817,28 +811,28 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#rows"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#rows"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#rows"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#rows"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#columns"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integer"/>
+                  <owl:onProperty rdf:resource="#columns"/>
+                  <owl:allValuesFrom rdf:resource="#integer"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#columns"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#columns"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractParametricCurveSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractParametricCurveSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractParametricCurveSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ConeType">
+   <owl:Class rdf:about="#ConeType">
       <rdfs:comment>A cone is a gridded surface given as a
    family of conic sections whose control points vary linearly.
    NOTE! A 5-point ellipse with all defining positions identical
@@ -854,20 +848,20 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#horizontalCurveType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#horizontalCurveType"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#verticalCurveType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#verticalCurveType"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGriddedSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGriddedSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CylinderType">
+   <owl:Class rdf:about="#CylinderType">
       <rdfs:comment>A cylinder is a gridded surface given as a
    family of circles whose positions vary along a set of parallel
    lines, keeping the cross sectional horizontal curves of a
@@ -879,20 +873,20 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#horizontalCurveType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#horizontalCurveType"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#verticalCurveType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#verticalCurveType"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGriddedSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGriddedSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SphereType">
+   <owl:Class rdf:about="#SphereType">
       <rdfs:comment>A sphere is a gridded surface given as a
    family of circles whose positions vary linearly along the
    axis of the sphere, and whise radius varies in proportions to
@@ -930,20 +924,20 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#horizontalCurveType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#horizontalCurveType"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#verticalCurveType"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+                  <owl:onProperty rdf:resource="#verticalCurveType"/>
+                  <owl:allValuesFrom rdf:resource="gml:CurveInterpolationType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGriddedSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGriddedSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolyhedralSurfaceType">
+   <owl:Class rdf:about="#PolyhedralSurfaceType">
       <rdfs:comment>A polyhedral surface is a surface composed
    of polygon surfaces connected along their common boundary 
    curves. This differs from the surface type only in the
@@ -952,48 +946,48 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspolygonPatches"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#polygonPatches"/>
+                  <owl:onProperty rdf:resource="gml:haspolygonPatches"/>
+                  <owl:allValuesFrom rdf:resource="gml:polygonPatches"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:SurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:SurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolygonPatchArrayPropertyType">
+   <owl:Class rdf:about="#PolygonPatchArrayPropertyType">
       <rdfs:comment>This type defines a container for an array of 
    polygon patches.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasPolygonPatch"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PolygonPatch"/>
+                  <owl:onProperty rdf:resource="gml:hasPolygonPatch"/>
+                  <owl:allValuesFrom rdf:resource="gml:PolygonPatch"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfacePatchArrayPropertyType"/>
+      <rdfs:subClassOf rdf:resource="gml:SurfacePatchArrayPropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:SurfacePatchArrayPropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TrianglePatchArrayPropertyType">
+   <owl:Class rdf:about="#TrianglePatchArrayPropertyType">
       <rdfs:comment>This type defines a container for an array of 
      triangle patches.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTriangle"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Triangle"/>
+                  <owl:onProperty rdf:resource="gml:hasTriangle"/>
+                  <owl:allValuesFrom rdf:resource="gml:Triangle"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfacePatchArrayPropertyType"/>
+      <rdfs:subClassOf rdf:resource="gml:SurfacePatchArrayPropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:SurfacePatchArrayPropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TriangulatedSurfaceType">
+   <owl:Class rdf:about="#TriangulatedSurfaceType">
       <rdfs:comment>A triangulated surface is a polyhedral 
    surface that is composed only of triangles. There is no
    restriction on how the triangulation is derived.</rdfs:comment>
@@ -1001,16 +995,16 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hastrianglePatches"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#trianglePatches"/>
+                  <owl:onProperty rdf:resource="gml:hastrianglePatches"/>
+                  <owl:allValuesFrom rdf:resource="gml:trianglePatches"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:SurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:SurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TinType">
+   <owl:Class rdf:about="#TinType">
       <rdfs:comment>A tin is a triangulated surface that uses
    the Delauny algorithm or a similar algorithm complemented with
    consideration of breaklines, stoplines, and maximum length of 
@@ -1022,36 +1016,36 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#stopLines"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LineStringSegmentArrayPropertyType"/>
+                  <owl:onProperty rdf:resource="#stopLines"/>
+                  <owl:allValuesFrom rdf:resource="gml:LineStringSegmentArrayPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#stopLines"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#stopLines"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#breakLines"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LineStringSegmentArrayPropertyType"/>
+                  <owl:onProperty rdf:resource="#breakLines"/>
+                  <owl:allValuesFrom rdf:resource="gml:LineStringSegmentArrayPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#breakLines"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#breakLines"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#maxLength"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LengthType"/>
+                  <owl:onProperty rdf:resource="#maxLength"/>
+                  <owl:allValuesFrom rdf:resource="gml:LengthType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascontrolPoint"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#controlPoint"/>
+                  <owl:onProperty rdf:resource="#hascontrolPoint"/>
+                  <owl:allValuesFrom rdf:resource="#controlPoint"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TriangulatedSurfaceType"/>
+      <rdfs:subClassOf rdf:resource="gml:TriangulatedSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:TriangulatedSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#controlPoint">
+   <owl:Class rdf:about="#controlPoint">
       <rdfs:comment>The corners of the triangles in the TIN 
   are often referred to as pots. ControlPoint shall contain a 
   set of the GM_Position used as posts for this TIN. Since each  
@@ -1062,90 +1056,90 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
        the reconstruction of the TIN from the control points.</rdfs:comment>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:onProperty rdf:resource="gml:hasposList"/>
+            <owl:someValuesFrom rdf:resource="gml:posList"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#LineStringSegmentArrayPropertyType">
+   <owl:Class rdf:about="#LineStringSegmentArrayPropertyType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLineStringSegment"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LineStringSegment"/>
+                  <owl:onProperty rdf:resource="gml:hasLineStringSegment"/>
+                  <owl:allValuesFrom rdf:resource="gml:LineStringSegment"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLineStringSegment"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="gml:hasLineStringSegment"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractSolidType">
+   <owl:Class rdf:about="#AbstractSolidType">
       <rdfs:comment>An abstraction of a solid to support the different levels of complexity. A solid is always contiguous.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometricPrimitiveType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGeometricPrimitiveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SolidPropertyType">
+   <owl:Class rdf:about="#SolidPropertyType">
       <rdfs:comment>A property that has a solid as its value domain can either be an appropriate geometry element encapsulated in an element of this type or an XLink reference to a remote geometry element (where remote includes geometry elements located elsewhere in the same document). Either the reference or the contained element must be given, but neither both nor none.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Solid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Solid"/>
+                  <owl:onProperty rdf:resource="gml:has_Solid"/>
+                  <owl:allValuesFrom rdf:resource="gml:_Solid"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SolidArrayPropertyType">
+   <owl:Class rdf:about="#SolidArrayPropertyType">
       <rdfs:comment>A container for an array of solids. The elements are always contained in the array property, referencing geometry elements or arrays of geometry elements is not supported.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Solid"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Solid"/>
+                  <owl:onProperty rdf:resource="gml:has_Solid"/>
+                  <owl:allValuesFrom rdf:resource="gml:_Solid"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#SolidType">
+   <owl:Class rdf:about="#SolidType">
       <rdfs:comment>A solid is the basis for 3-dimensional geometry. The extent of a solid is defined by the boundary surfaces (shells). A shell is represented by a composite surface, where every  shell is used to represent a single connected component of the boundary of a solid. It consists of a composite surface (a list of orientable surfaces) connected in a topological cycle (an object whose boundary is empty). Unlike a Ring, a Shell's elements have no natural sort order. Like Rings, Shells are simple.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#exterior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#exterior"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#exterior"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#exterior"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interior"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+                  <owl:onProperty rdf:resource="#interior"/>
+                  <owl:allValuesFrom rdf:resource="gml:SurfacePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#interior"/>
-                  <owl:minCardinality rdf:datatype="xs:nonNegativeInteger">0</owl:minCardinality>
+                  <owl:onProperty rdf:resource="#interior"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSolidType"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSolidType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractSolidType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgeometricPositionGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeodesicStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#geometricPositionGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasgeometricPositionGroup">
+      <rdfs:domain rdf:resource="#GeodesicStringType"/>
+      <rdfs:range rdf:resource="gml:geometricPositionGroup"/>
    </owl:ObjectProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PointGrid">
+   <owl:Class rdf:about="#PointGrid">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection"/>
@@ -1155,8 +1149,8 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasrow"/>
-                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#row"/>
+                  <owl:onProperty rdf:resource="#hasrow"/>
+                  <owl:allValuesFrom rdf:resource="#row"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -1164,31 +1158,31 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
       <rdfs:comment>Reference points which are organised
    into sequences or grids(sequences of equal length sequences).</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgeometricPositionListGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PointGrid"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#geometricPositionListGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasgeometricPositionListGroup">
+      <rdfs:domain rdf:resource="#PointGrid"/>
+      <rdfs:range rdf:resource="gml:geometricPositionListGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasPointGrid">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#PointGrid"/>
+   <owl:ObjectProperty rdf:about="gml:hasPointGrid">
+      <rdfs:domain rdf:resource="#AbstractGriddedSurfaceType"/>
+      <rdfs:range rdf:resource="gml:PointGrid"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolyhedralSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   <owl:ObjectProperty rdf:about="gml:hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="#PolyhedralSurfaceType"/>
+      <rdfs:range rdf:resource="gml:StandardObjectProperties"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TriangulatedSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+   <owl:ObjectProperty rdf:about="gml:hasStandardObjectProperties">
+      <rdfs:domain rdf:resource="#TriangulatedSurfaceType"/>
+      <rdfs:range rdf:resource="gml:StandardObjectProperties"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgeometricPositionGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TinType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#geometricPositionGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasgeometricPositionGroup">
+      <rdfs:domain rdf:resource="#TinType"/>
+      <rdfs:range rdf:resource="gml:geometricPositionGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
+   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+      <rdfs:domain rdf:resource="#SolidPropertyType"/>
+      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#CurveInterpolationType">
+   <rdfs:Datatype rdf:about="#CurveInterpolationType">
       <rdfs:comment>CurveInterpolationType is a list of codes that may be used to identify the interpolation mechanisms specified by an
 application schema.</rdfs:comment>
       <owl:equivalentClass>
@@ -1252,7 +1246,7 @@ application schema.</rdfs:comment>
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SurfaceInterpolationType">
+   <rdfs:Datatype rdf:about="#SurfaceInterpolationType">
       <rdfs:comment>SurfaceInterpolationType is a list of codes that may be used to identify the interpolation mechanisms specified by an
 application schema.</rdfs:comment>
       <owl:equivalentClass>
@@ -1311,7 +1305,7 @@ application schema.</rdfs:comment>
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#KnotTypesType">
+   <rdfs:Datatype rdf:about="#KnotTypesType">
       <rdfs:comment>Defines allowed values for the knots` type. Uniform knots implies that all knots are of multiplicity 1 and they differ by a positive constant from the preceding knot. Knots are quasi-uniform iff they are of multiplicity (degree + 1) at the ends, of multiplicity 1 elsewhere, and they differ by a positive constant from the preceding knot.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -1334,850 +1328,850 @@ application schema.</rdfs:comment>
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#orientation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OrientableCurveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SignType"/>
+   <owl:DatatypeProperty rdf:about="#orientation">
+      <rdfs:domain rdf:resource="#OrientableCurveType"/>
+      <rdfs:range rdf:resource="gml:SignType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numDerivativesAtStart">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numDerivativesAtStart">
+      <rdfs:domain rdf:resource="#AbstractCurveSegmentType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numDerivativesAtEnd">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numDerivativesAtEnd">
+      <rdfs:domain rdf:resource="#AbstractCurveSegmentType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numDerivativeInterior">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numDerivativeInterior">
+      <rdfs:domain rdf:resource="#AbstractCurveSegmentType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#LineStringSegmentType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numArc">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numArc">
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numArc">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numArc">
+      <rdfs:domain rdf:resource="#ArcType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numArc">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numArc">
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numArc">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numArc">
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#numArc">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#numArc">
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeodesicStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#GeodesicStringType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#degree">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#integer"/>
+   <owl:DatatypeProperty rdf:about="#degree">
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="#integer"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#isPolynomial">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#boolean"/>
+   <owl:DatatypeProperty rdf:about="#isPolynomial">
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="#boolean"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#knotType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#KnotTypesType"/>
+   <owl:DatatypeProperty rdf:about="#knotType">
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:KnotTypesType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#isPolynomial">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#boolean"/>
+   <owl:DatatypeProperty rdf:about="#isPolynomial">
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="#boolean"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#knotType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#KnotTypesType"/>
+   <owl:DatatypeProperty rdf:about="#knotType">
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:KnotTypesType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#orientation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OrientableSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SignType"/>
+   <owl:DatatypeProperty rdf:about="#orientation">
+      <rdfs:domain rdf:resource="#OrientableSurfaceType"/>
+      <rdfs:range rdf:resource="gml:SignType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolygonPatchType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfaceInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#PolygonPatchType"/>
+      <rdfs:range rdf:resource="gml:SurfaceInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TriangleType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfaceInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#TriangleType"/>
+      <rdfs:range rdf:resource="gml:SurfaceInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#interpolation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectangleType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfaceInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#interpolation">
+      <rdfs:domain rdf:resource="#RectangleType"/>
+      <rdfs:range rdf:resource="gml:SurfaceInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#horizontalCurveType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#horizontalCurveType">
+      <rdfs:domain rdf:resource="#ConeType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#verticalCurveType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#verticalCurveType">
+      <rdfs:domain rdf:resource="#ConeType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#horizontalCurveType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CylinderType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#horizontalCurveType">
+      <rdfs:domain rdf:resource="#CylinderType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#verticalCurveType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CylinderType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#verticalCurveType">
+      <rdfs:domain rdf:resource="#CylinderType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#horizontalCurveType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SphereType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#horizontalCurveType">
+      <rdfs:domain rdf:resource="#SphereType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#verticalCurveType">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SphereType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurveInterpolationType"/>
+   <owl:DatatypeProperty rdf:about="#verticalCurveType">
+      <rdfs:domain rdf:resource="#SphereType"/>
+      <rdfs:range rdf:resource="gml:CurveInterpolationType"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Curve">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Curve"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CurveType"/>
+   <owl:Class rdf:about="#Curve">
+      <rdfs:subClassOf rdf:resource="gml:_Curve"/>
+      <rdfs:subClassOf rdf:resource="gml:CurveType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#baseCurve">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CurvePropertyType"/>
+   <owl:Class rdf:about="#baseCurve">
+      <rdfs:subClassOf rdf:resource="gml:CurvePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#OrientableCurve">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Curve"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OrientableCurveType"/>
+   <owl:Class rdf:about="#OrientableCurve">
+      <rdfs:subClassOf rdf:resource="gml:_Curve"/>
+      <rdfs:subClassOf rdf:resource="gml:OrientableCurveType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_CurveSegment">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveSegmentType"/>
+   <owl:Class rdf:about="#_CurveSegment">
+      <rdfs:subClassOf rdf:resource="gml:AbstractCurveSegmentType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#segments">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CurveSegmentArrayPropertyType"/>
+   <owl:Class rdf:about="#segments">
+      <rdfs:subClassOf rdf:resource="gml:CurveSegmentArrayPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#LineStringSegment">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
+   <owl:Class rdf:about="#LineStringSegment">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:LineStringSegmentType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcString">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
+   <owl:Class rdf:about="#ArcString">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcStringType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Arc">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcString"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcType"/>
+   <owl:Class rdf:about="#Arc">
+      <rdfs:subClassOf rdf:resource="gml:ArcString"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Circle">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Arc"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CircleType"/>
+   <owl:Class rdf:about="#Circle">
+      <rdfs:subClassOf rdf:resource="gml:Arc"/>
+      <rdfs:subClassOf rdf:resource="gml:CircleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcStringByBulge">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
+   <owl:Class rdf:about="#ArcStringByBulge">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcStringByBulgeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcByBulge">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcStringByBulge"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
+   <owl:Class rdf:about="#ArcByBulge">
+      <rdfs:subClassOf rdf:resource="gml:ArcStringByBulge"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcByBulgeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#ArcByCenterPoint">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
+   <owl:Class rdf:about="#ArcByCenterPoint">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:ArcByCenterPointType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CircleByCenterPoint">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArcByCenterPoint"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CircleByCenterPointType"/>
+   <owl:Class rdf:about="#CircleByCenterPoint">
+      <rdfs:subClassOf rdf:resource="gml:ArcByCenterPoint"/>
+      <rdfs:subClassOf rdf:resource="gml:CircleByCenterPointType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#OffsetCurve">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OffsetCurveType"/>
+   <owl:Class rdf:about="#OffsetCurve">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:OffsetCurveType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#AffinePlacement">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AffinePlacementType"/>
+   <owl:Class rdf:about="#AffinePlacement">
+      <rdfs:subClassOf rdf:resource="gml:AffinePlacementType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Clothoid">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ClothoidType"/>
+   <owl:Class rdf:about="#Clothoid">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:ClothoidType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#GeodesicString">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodesicStringType"/>
+   <owl:Class rdf:about="#GeodesicString">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:GeodesicStringType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Geodesic">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodesicString"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodesicType"/>
+   <owl:Class rdf:about="#Geodesic">
+      <rdfs:subClassOf rdf:resource="gml:GeodesicString"/>
+      <rdfs:subClassOf rdf:resource="gml:GeodesicType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CubicSpline">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
+   <owl:Class rdf:about="#CubicSpline">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:CubicSplineType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#BSpline">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BSplineType"/>
+   <owl:Class rdf:about="#BSpline">
+      <rdfs:subClassOf rdf:resource="gml:_CurveSegment"/>
+      <rdfs:subClassOf rdf:resource="gml:BSplineType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Bezier">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BSpline"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BezierType"/>
+   <owl:Class rdf:about="#Bezier">
+      <rdfs:subClassOf rdf:resource="gml:BSpline"/>
+      <rdfs:subClassOf rdf:resource="gml:BezierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Surface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Surface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfaceType"/>
+   <owl:Class rdf:about="#Surface">
+      <rdfs:subClassOf rdf:resource="gml:_Surface"/>
+      <rdfs:subClassOf rdf:resource="gml:SurfaceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#baseSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+   <owl:Class rdf:about="#baseSurface">
+      <rdfs:subClassOf rdf:resource="gml:SurfacePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#OrientableSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Surface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OrientableSurfaceType"/>
+   <owl:Class rdf:about="#OrientableSurface">
+      <rdfs:subClassOf rdf:resource="gml:_Surface"/>
+      <rdfs:subClassOf rdf:resource="gml:OrientableSurfaceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_SurfacePatch">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfacePatchType"/>
+   <owl:Class rdf:about="#_SurfacePatch">
+      <rdfs:subClassOf rdf:resource="gml:AbstractSurfacePatchType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#patches">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfacePatchArrayPropertyType"/>
+   <owl:Class rdf:about="#patches">
+      <rdfs:subClassOf rdf:resource="gml:SurfacePatchArrayPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolygonPatch">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_SurfacePatch"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PolygonPatchType"/>
+   <owl:Class rdf:about="#PolygonPatch">
+      <rdfs:subClassOf rdf:resource="gml:_SurfacePatch"/>
+      <rdfs:subClassOf rdf:resource="gml:PolygonPatchType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Triangle">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_SurfacePatch"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TriangleType"/>
+   <owl:Class rdf:about="#Triangle">
+      <rdfs:subClassOf rdf:resource="gml:_SurfacePatch"/>
+      <rdfs:subClassOf rdf:resource="gml:TriangleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Rectangle">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_SurfacePatch"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RectangleType"/>
+   <owl:Class rdf:about="#Rectangle">
+      <rdfs:subClassOf rdf:resource="gml:_SurfacePatch"/>
+      <rdfs:subClassOf rdf:resource="gml:RectangleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#curveMember">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CurvePropertyType"/>
+   <owl:Class rdf:about="#curveMember">
+      <rdfs:subClassOf rdf:resource="gml:CurvePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Ring">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Ring"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#RingType"/>
+   <owl:Class rdf:about="#Ring">
+      <rdfs:subClassOf rdf:resource="gml:_Ring"/>
+      <rdfs:subClassOf rdf:resource="gml:RingType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_ParametricCurveSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_SurfacePatch"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractParametricCurveSurfaceType"/>
+   <owl:Class rdf:about="#_ParametricCurveSurface">
+      <rdfs:subClassOf rdf:resource="gml:_SurfacePatch"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractParametricCurveSurfaceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_GriddedSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_ParametricCurveSurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
+   <owl:Class rdf:about="#_GriddedSurface">
+      <rdfs:subClassOf rdf:resource="gml:_ParametricCurveSurface"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractGriddedSurfaceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Cone">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GriddedSurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ConeType"/>
+   <owl:Class rdf:about="#Cone">
+      <rdfs:subClassOf rdf:resource="gml:_GriddedSurface"/>
+      <rdfs:subClassOf rdf:resource="gml:ConeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Cylinder">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GriddedSurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CylinderType"/>
+   <owl:Class rdf:about="#Cylinder">
+      <rdfs:subClassOf rdf:resource="gml:_GriddedSurface"/>
+      <rdfs:subClassOf rdf:resource="gml:CylinderType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Sphere">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GriddedSurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SphereType"/>
+   <owl:Class rdf:about="#Sphere">
+      <rdfs:subClassOf rdf:resource="gml:_GriddedSurface"/>
+      <rdfs:subClassOf rdf:resource="gml:SphereType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#PolyhedralSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Surface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PolyhedralSurfaceType"/>
+   <owl:Class rdf:about="#PolyhedralSurface">
+      <rdfs:subClassOf rdf:resource="gml:Surface"/>
+      <rdfs:subClassOf rdf:resource="gml:PolyhedralSurfaceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#polygonPatches">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#patches"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PolygonPatchArrayPropertyType"/>
+   <owl:Class rdf:about="#polygonPatches">
+      <rdfs:subClassOf rdf:resource="gml:patches"/>
+      <rdfs:subClassOf rdf:resource="gml:PolygonPatchArrayPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#trianglePatches">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#patches"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TrianglePatchArrayPropertyType"/>
+   <owl:Class rdf:about="#trianglePatches">
+      <rdfs:subClassOf rdf:resource="gml:patches"/>
+      <rdfs:subClassOf rdf:resource="gml:TrianglePatchArrayPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#TriangulatedSurface">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Surface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TriangulatedSurfaceType"/>
+   <owl:Class rdf:about="#TriangulatedSurface">
+      <rdfs:subClassOf rdf:resource="gml:Surface"/>
+      <rdfs:subClassOf rdf:resource="gml:TriangulatedSurfaceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Tin">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TriangulatedSurface"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TinType"/>
+   <owl:Class rdf:about="#Tin">
+      <rdfs:subClassOf rdf:resource="gml:TriangulatedSurface"/>
+      <rdfs:subClassOf rdf:resource="gml:TinType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#_Solid">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeometricPrimitive"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSolidType"/>
+   <owl:Class rdf:about="#_Solid">
+      <rdfs:subClassOf rdf:resource="gml:_GeometricPrimitive"/>
+      <rdfs:subClassOf rdf:resource="gml:AbstractSolidType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#solidProperty">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
+   <owl:Class rdf:about="#solidProperty">
+      <rdfs:subClassOf rdf:resource="gml:SolidPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#solidArrayProperty">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SolidArrayPropertyType"/>
+   <owl:Class rdf:about="#solidArrayProperty">
+      <rdfs:subClassOf rdf:resource="gml:SolidArrayPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#Solid">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Solid"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SolidType"/>
+   <owl:Class rdf:about="#Solid">
+      <rdfs:subClassOf rdf:resource="gml:_Solid"/>
+      <rdfs:subClassOf rdf:resource="gml:SolidType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassegments">
+   <owl:ObjectProperty rdf:about="gml:hassegments">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CurveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#segments"/>
+      <rdfs:domain rdf:resource="#CurveType"/>
+      <rdfs:range rdf:resource="gml:segments"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasbaseCurve">
+   <owl:ObjectProperty rdf:about="gml:hasbaseCurve">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OrientableCurveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#baseCurve"/>
+      <rdfs:domain rdf:resource="#OrientableCurveType"/>
+      <rdfs:range rdf:resource="gml:baseCurve"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_CurveSegment">
+   <owl:ObjectProperty rdf:about="gml:has_CurveSegment">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CurveSegmentArrayPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#_CurveSegment"/>
+      <rdfs:domain rdf:resource="#CurveSegmentArrayPropertyType"/>
+      <rdfs:range rdf:resource="gml:_CurveSegment"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#LineStringSegmentType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#LineStringSegmentType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#LineStringSegmentType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#LineStringSegmentType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#LineStringSegmentType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#ArcStringType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#ArcType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#ArcType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#ArcType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#ArcType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#ArcType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#normal">
+   <owl:ObjectProperty rdf:about="#normal">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcStringByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#ArcStringByBulgeType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#normal">
+   <owl:ObjectProperty rdf:about="#normal">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByBulgeType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#ArcByBulgeType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#radius">
+   <owl:ObjectProperty rdf:about="#radius">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LengthType"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:LengthType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#startAngle">
+   <owl:ObjectProperty rdf:about="#startAngle">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AngleType"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:AngleType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#endAngle">
+   <owl:ObjectProperty rdf:about="#endAngle">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArcByCenterPointType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AngleType"/>
+      <rdfs:domain rdf:resource="#ArcByCenterPointType"/>
+      <rdfs:range rdf:resource="gml:AngleType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#offsetBase">
+   <owl:ObjectProperty rdf:about="#offsetBase">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OffsetCurveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#CurvePropertyType"/>
+      <rdfs:domain rdf:resource="#OffsetCurveType"/>
+      <rdfs:range rdf:resource="gml:CurvePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#distance">
+   <owl:ObjectProperty rdf:about="#distance">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OffsetCurveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LengthType"/>
+      <rdfs:domain rdf:resource="#OffsetCurveType"/>
+      <rdfs:range rdf:resource="gml:LengthType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#refDirection">
+   <owl:ObjectProperty rdf:about="#refDirection">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OffsetCurveType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#OffsetCurveType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#location">
+   <owl:ObjectProperty rdf:about="#location">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AffinePlacementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#DirectPositionType"/>
+      <rdfs:domain rdf:resource="#AffinePlacementType"/>
+      <rdfs:range rdf:resource="gml:DirectPositionType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#refDirection">
+   <owl:ObjectProperty rdf:about="#refDirection">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AffinePlacementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#AffinePlacementType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AffinePlacementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#AffinePlacementType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AffinePlacementType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#AffinePlacementType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrefLocation">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ClothoidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#refLocation"/>
+   <owl:ObjectProperty rdf:about="#hasrefLocation">
+      <rdfs:domain rdf:resource="#ClothoidType"/>
+      <rdfs:range rdf:resource="#refLocation"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAffinePlacement">
+   <owl:ObjectProperty rdf:about="gml:hasAffinePlacement">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ClothoidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#AffinePlacement"/>
+      <rdfs:domain rdf:resource="#ClothoidType"/>
+      <rdfs:range rdf:resource="gml:AffinePlacement"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ClothoidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#ClothoidType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ClothoidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#ClothoidType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ClothoidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#ClothoidType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeodesicStringType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#GeodesicStringType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#vectorAtStart">
+   <owl:ObjectProperty rdf:about="#vectorAtStart">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#vectorAtEnd">
+   <owl:ObjectProperty rdf:about="#vectorAtEnd">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CubicSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#VectorType"/>
+      <rdfs:domain rdf:resource="#CubicSplineType"/>
+      <rdfs:range rdf:resource="gml:VectorType"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#KnotType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#KnotType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#KnotType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#KnotType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#KnotType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#KnotType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#Knot">
+   <owl:ObjectProperty rdf:about="#Knot">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#KnotPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#KnotType"/>
+      <rdfs:domain rdf:resource="#KnotPropertyType"/>
+      <rdfs:range rdf:resource="gml:KnotType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#knot">
+   <owl:ObjectProperty rdf:about="#knot">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BSplineType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#KnotPropertyType"/>
+      <rdfs:domain rdf:resource="#BSplineType"/>
+      <rdfs:range rdf:resource="gml:KnotPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspos">
+   <owl:ObjectProperty rdf:about="gml:haspos">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pos"/>
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:pos"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointProperty">
+   <owl:ObjectProperty rdf:about="gml:haspointProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:pointProperty"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspointRep">
+   <owl:ObjectProperty rdf:about="gml:haspointRep">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#pointRep"/>
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:pointRep"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinates">
+   <owl:ObjectProperty rdf:about="gml:hascoordinates">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinates"/>
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:coordinates"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#knot">
+   <owl:ObjectProperty rdf:about="#knot">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BezierType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#KnotPropertyType"/>
+      <rdfs:domain rdf:resource="#BezierType"/>
+      <rdfs:range rdf:resource="gml:KnotPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspatches">
+   <owl:ObjectProperty rdf:about="gml:haspatches">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#patches"/>
+      <rdfs:domain rdf:resource="#SurfaceType"/>
+      <rdfs:range rdf:resource="gml:patches"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasbaseSurface">
+   <owl:ObjectProperty rdf:about="gml:hasbaseSurface">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OrientableSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#baseSurface"/>
+      <rdfs:domain rdf:resource="#OrientableSurfaceType"/>
+      <rdfs:range rdf:resource="gml:baseSurface"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_SurfacePatch">
+   <owl:ObjectProperty rdf:about="gml:has_SurfacePatch">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SurfacePatchArrayPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#_SurfacePatch"/>
+      <rdfs:domain rdf:resource="#SurfacePatchArrayPropertyType"/>
+      <rdfs:range rdf:resource="gml:_SurfacePatch"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasexterior">
+   <owl:ObjectProperty rdf:about="gml:hasexterior">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolygonPatchType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#exterior"/>
+      <rdfs:domain rdf:resource="#PolygonPatchType"/>
+      <rdfs:range rdf:resource="gml:exterior"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasinterior">
+   <owl:ObjectProperty rdf:about="gml:hasinterior">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolygonPatchType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#interior"/>
+      <rdfs:domain rdf:resource="#PolygonPatchType"/>
+      <rdfs:range rdf:resource="gml:interior"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasexterior">
+   <owl:ObjectProperty rdf:about="gml:hasexterior">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TriangleType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#exterior"/>
+      <rdfs:domain rdf:resource="#TriangleType"/>
+      <rdfs:range rdf:resource="gml:exterior"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasexterior">
+   <owl:ObjectProperty rdf:about="gml:hasexterior">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectangleType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#exterior"/>
+      <rdfs:domain rdf:resource="#RectangleType"/>
+      <rdfs:range rdf:resource="gml:exterior"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascurveMember">
+   <owl:ObjectProperty rdf:about="gml:hascurveMember">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RingType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#curveMember"/>
+      <rdfs:domain rdf:resource="#RingType"/>
+      <rdfs:range rdf:resource="gml:curveMember"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasRing">
+   <owl:ObjectProperty rdf:about="gml:hasRing">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#RingPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#Ring"/>
+      <rdfs:domain rdf:resource="#RingPropertyType"/>
+      <rdfs:range rdf:resource="gml:Ring"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasrow">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PointGrid"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#row"/>
+   <owl:ObjectProperty rdf:about="#hasrow">
+      <rdfs:domain rdf:resource="#PointGrid"/>
+      <rdfs:range rdf:resource="#row"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#AbstractGriddedSurfaceType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#has">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#"/>
+   <owl:DatatypeProperty rdf:about="#has">
+      <rdfs:domain rdf:resource="#AbstractGriddedSurfaceType"/>
+      <rdfs:range rdf:resource="#"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haspolygonPatches">
+   <owl:ObjectProperty rdf:about="gml:haspolygonPatches">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolyhedralSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#polygonPatches"/>
+      <rdfs:domain rdf:resource="#PolyhedralSurfaceType"/>
+      <rdfs:range rdf:resource="gml:polygonPatches"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasPolygonPatch">
+   <owl:ObjectProperty rdf:about="gml:hasPolygonPatch">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolygonPatchArrayPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#PolygonPatch"/>
+      <rdfs:domain rdf:resource="#PolygonPatchArrayPropertyType"/>
+      <rdfs:range rdf:resource="gml:PolygonPatch"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTriangle">
+   <owl:ObjectProperty rdf:about="gml:hasTriangle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TrianglePatchArrayPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#Triangle"/>
+      <rdfs:domain rdf:resource="#TrianglePatchArrayPropertyType"/>
+      <rdfs:range rdf:resource="gml:Triangle"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastrianglePatches">
+   <owl:ObjectProperty rdf:about="gml:hastrianglePatches">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TriangulatedSurfaceType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#trianglePatches"/>
+      <rdfs:domain rdf:resource="#TriangulatedSurfaceType"/>
+      <rdfs:range rdf:resource="gml:trianglePatches"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#stopLines">
+   <owl:ObjectProperty rdf:about="#stopLines">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TinType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LineStringSegmentArrayPropertyType"/>
+      <rdfs:domain rdf:resource="#TinType"/>
+      <rdfs:range rdf:resource="gml:LineStringSegmentArrayPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#breakLines">
+   <owl:ObjectProperty rdf:about="#breakLines">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TinType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LineStringSegmentArrayPropertyType"/>
+      <rdfs:domain rdf:resource="#TinType"/>
+      <rdfs:range rdf:resource="gml:LineStringSegmentArrayPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#maxLength">
+   <owl:ObjectProperty rdf:about="#maxLength">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TinType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LengthType"/>
+      <rdfs:domain rdf:resource="#TinType"/>
+      <rdfs:range rdf:resource="gml:LengthType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascontrolPoint">
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TinType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#controlPoint"/>
+   <owl:ObjectProperty rdf:about="#hascontrolPoint">
+      <rdfs:domain rdf:resource="#TinType"/>
+      <rdfs:range rdf:resource="#controlPoint"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasposList">
+   <owl:ObjectProperty rdf:about="gml:hasposList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TinType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#posList"/>
+      <rdfs:domain rdf:resource="#TinType"/>
+      <rdfs:range rdf:resource="gml:posList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasLineStringSegment">
+   <owl:ObjectProperty rdf:about="gml:hasLineStringSegment">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LineStringSegmentArrayPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#LineStringSegment"/>
+      <rdfs:domain rdf:resource="#LineStringSegmentArrayPropertyType"/>
+      <rdfs:range rdf:resource="gml:LineStringSegment"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Solid">
+   <owl:ObjectProperty rdf:about="gml:has_Solid">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SolidPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#_Solid"/>
+      <rdfs:domain rdf:resource="#SolidPropertyType"/>
+      <rdfs:range rdf:resource="gml:_Solid"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Solid">
+   <owl:ObjectProperty rdf:about="gml:has_Solid">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SolidArrayPropertyType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#_Solid"/>
+      <rdfs:domain rdf:resource="#SolidArrayPropertyType"/>
+      <rdfs:range rdf:resource="gml:_Solid"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#exterior">
+   <owl:ObjectProperty rdf:about="#exterior">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SolidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#SolidType"/>
+      <rdfs:range rdf:resource="gml:SurfacePropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#interior">
+   <owl:ObjectProperty rdf:about="#interior">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SolidType"/>
-      <rdfs:range rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+      <rdfs:domain rdf:resource="#SolidType"/>
+      <rdfs:range rdf:resource="gml:SurfacePropertyType"/>
    </owl:ObjectProperty>
 </rdf:RDF>
