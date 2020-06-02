@@ -3,7 +3,6 @@
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/temporalTopology"/>
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/dictionary"/>
-      <rdfs:comment/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:temporalReferenceSystems:3.1.1</rdfs:seeAlso>
       <rdfs:comment xml:lang="en">The Temporal Reference Systems schema for GML 3.1 provides constructs for handling various styles of temporal reference system. 
     This schema reflects a partial implementation of the model described in ISO 19108:2002.
@@ -23,7 +22,7 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#domainOfValidity"/>
-                  <owl:allValuesFrom rdf:resource="#string"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#domainOfValidity"/>
@@ -32,7 +31,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:DefinitionType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeCoordinateSystemType">
@@ -42,12 +41,12 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#interval"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeIntervalLengthType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeIntervalLengthType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:AbstractTimeReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeReferenceSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeOrdinalReferenceSystemType">
@@ -59,12 +58,12 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#component"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeOrdinalEraPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeOrdinalEraPropertyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:AbstractTimeReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeReferenceSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeOrdinalEraType">
@@ -82,7 +81,7 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#relatedTime"/>
-                  <owl:allValuesFrom rdf:resource="gml:RelatedTimeType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#RelatedTimeType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#relatedTime"/>
@@ -90,15 +89,15 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#start"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeNodePropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#end"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeNodePropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#extent"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimePeriodPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimePeriodPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#extent"/>
@@ -106,7 +105,7 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#member"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeOrdinalEraPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeOrdinalEraPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#member"/>
@@ -114,7 +113,7 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#group"/>
-                  <owl:allValuesFrom rdf:resource="gml:ReferenceType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#group"/>
@@ -123,7 +122,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:DefinitionType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeOrdinalEraPropertyType">
@@ -131,8 +130,8 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasTimeOrdinalEra"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeOrdinalEra"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeOrdinalEra"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeOrdinalEra"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -147,12 +146,12 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#referenceFrame"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeCalendarEraPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeCalendarEraPropertyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:AbstractTimeReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeReferenceSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeCalendarPropertyType">
@@ -160,8 +159,8 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasTimeCalendar"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeCalendar"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeCalendar"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeCalendar"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -176,11 +175,11 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#referenceEvent"/>
-                  <owl:allValuesFrom rdf:resource="gml:StringOrRefType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#referenceDate"/>
-                  <owl:allValuesFrom rdf:resource="#date"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#referenceDate"/>
@@ -188,16 +187,16 @@
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#julianReference"/>
-                  <owl:allValuesFrom rdf:resource="#decimal"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#epochOfUse"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimePeriodPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimePeriodPropertyType"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:DefinitionType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeCalendarEraPropertyType">
@@ -205,8 +204,8 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasTimeCalendarEra"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeCalendarEra"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeCalendarEra"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeCalendarEra"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
@@ -221,19 +220,19 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#referenceEvent"/>
-                  <owl:allValuesFrom rdf:resource="gml:StringOrRefType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#referenceTime"/>
-                  <owl:allValuesFrom rdf:resource="#time"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#time"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#utcReference"/>
-                  <owl:allValuesFrom rdf:resource="#time"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#time"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#dateBasis"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeCalendarPropertyType"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeCalendarPropertyType"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#dateBasis"/>
@@ -242,7 +241,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:AbstractTimeReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeReferenceSystemType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeClockPropertyType">
@@ -250,176 +249,176 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasTimeClock"/>
-                  <owl:allValuesFrom rdf:resource="gml:TimeClock"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeClock"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeClock"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="#TimeOrdinalEraPropertyType"/>
-      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="#TimeCalendarPropertyType"/>
-      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="#TimeCalendarEraPropertyType"/>
-      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="#TimeClockPropertyType"/>
-      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="#_TimeReferenceSystem">
-      <rdfs:subClassOf rdf:resource="gml:Definition"/>
-      <rdfs:subClassOf rdf:resource="gml:AbstractTimeReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeReferenceSystemType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeCoordinateSystem">
-      <rdfs:subClassOf rdf:resource="gml:_TimeReferenceSystem"/>
-      <rdfs:subClassOf rdf:resource="gml:TimeCoordinateSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeReferenceSystem"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeCoordinateSystemType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeOrdinalReferenceSystem">
-      <rdfs:subClassOf rdf:resource="gml:_TimeReferenceSystem"/>
-      <rdfs:subClassOf rdf:resource="gml:TimeOrdinalReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeReferenceSystem"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeOrdinalReferenceSystemType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeOrdinalEra">
-      <rdfs:subClassOf rdf:resource="gml:TimeOrdinalEraType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeOrdinalEraType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeCalendar">
-      <rdfs:subClassOf rdf:resource="gml:_TimeReferenceSystem"/>
-      <rdfs:subClassOf rdf:resource="gml:TimeCalendarType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeReferenceSystem"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeCalendarType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeCalendarEra">
-      <rdfs:subClassOf rdf:resource="gml:Definition"/>
-      <rdfs:subClassOf rdf:resource="gml:TimeCalendarEraType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeCalendarEraType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#TimeClock">
-      <rdfs:subClassOf rdf:resource="gml:_TimeReferenceSystem"/>
-      <rdfs:subClassOf rdf:resource="gml:TimeClockType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeReferenceSystem"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimeClockType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="#has">
+   <owl:DatatypeProperty rdf:about="#domainOfValidity">
       <rdfs:domain rdf:resource="#AbstractTimeReferenceSystemType"/>
-      <rdfs:range rdf:resource="#"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="#originPosition">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCoordinateSystemType"/>
-      <rdfs:range rdf:resource="gml:TimePositionType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimePositionType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#origin">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCoordinateSystemType"/>
-      <rdfs:range rdf:resource="gml:TimeInstantPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#interval">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCoordinateSystemType"/>
-      <rdfs:range rdf:resource="gml:TimeIntervalLengthType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeIntervalLengthType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#component">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalReferenceSystemType"/>
-      <rdfs:range rdf:resource="gml:TimeOrdinalEraPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeOrdinalEraPropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#relatedTime">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraType"/>
-      <rdfs:range rdf:resource="gml:RelatedTimeType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#RelatedTimeType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#start">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraType"/>
-      <rdfs:range rdf:resource="gml:TimeNodePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#end">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraType"/>
-      <rdfs:range rdf:resource="gml:TimeNodePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeNodePropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#extent">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraType"/>
-      <rdfs:range rdf:resource="gml:TimePeriodPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimePeriodPropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#member">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraType"/>
-      <rdfs:range rdf:resource="gml:TimeOrdinalEraPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeOrdinalEraPropertyType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#group">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraType"/>
-      <rdfs:range rdf:resource="gml:ReferenceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasTimeOrdinalEra">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeOrdinalEra">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeOrdinalEraPropertyType"/>
-      <rdfs:range rdf:resource="gml:TimeOrdinalEra"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeOrdinalEra"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#referenceFrame">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCalendarType"/>
-      <rdfs:range rdf:resource="gml:TimeCalendarEraPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeCalendarEraPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasTimeCalendar">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeCalendar">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCalendarPropertyType"/>
-      <rdfs:range rdf:resource="gml:TimeCalendar"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeCalendar"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#referenceEvent">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCalendarEraType"/>
-      <rdfs:range rdf:resource="gml:StringOrRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#has">
+   <owl:DatatypeProperty rdf:about="#referenceDate">
       <rdfs:domain rdf:resource="#TimeCalendarEraType"/>
-      <rdfs:range rdf:resource="#"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#has">
+   <owl:DatatypeProperty rdf:about="#julianReference">
       <rdfs:domain rdf:resource="#TimeCalendarEraType"/>
-      <rdfs:range rdf:resource="#"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="#epochOfUse">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCalendarEraType"/>
-      <rdfs:range rdf:resource="gml:TimePeriodPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimePeriodPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasTimeCalendarEra">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeCalendarEra">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeCalendarEraPropertyType"/>
-      <rdfs:range rdf:resource="gml:TimeCalendarEra"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeCalendarEra"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="#referenceEvent">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeClockType"/>
-      <rdfs:range rdf:resource="gml:StringOrRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#has">
+   <owl:DatatypeProperty rdf:about="#referenceTime">
       <rdfs:domain rdf:resource="#TimeClockType"/>
-      <rdfs:range rdf:resource="#"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#time"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#has">
+   <owl:DatatypeProperty rdf:about="#utcReference">
       <rdfs:domain rdf:resource="#TimeClockType"/>
-      <rdfs:range rdf:resource="#"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#time"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="#dateBasis">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeClockType"/>
-      <rdfs:range rdf:resource="gml:TimeCalendarPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeCalendarPropertyType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasTimeClock">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTimeClock">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#TimeClockPropertyType"/>
-      <rdfs:range rdf:resource="gml:TimeClock"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#TimeClock"/>
    </owl:ObjectProperty>
 </rdf:RDF>

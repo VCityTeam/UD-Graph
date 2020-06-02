@@ -20,53 +20,53 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasvalueComponent"/>
-                  <owl:allValuesFrom rdf:resource="gml:valueComponent"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalueComponent"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#valueComponent"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasvalueComponent"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalueComponent"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasvalueComponents"/>
-                  <owl:allValuesFrom rdf:resource="gml:valueComponents"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalueComponents"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#valueComponents"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasvalueComponents"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalueComponents"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:AbstractGMLType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#ValueArrayType">
       <rdfs:comment>A Value Array is used for homogeneous arrays of primitive and aggregate values.  The member values may be scalars, composites, arrays or lists.  ValueArray has the same content model as CompositeValue, but the member values must be homogeneous.  The element declaration contains a Schematron constraint which expresses this restriction precisely.            Since the members are homogeneous, the referenceSystem (uom, codeSpace) may be specified on the ValueArray itself and implicitly inherited by all the members if desired.    Note that a_ScalarValueList is preferred for arrays of Scalar Values since this is a more efficient encoding.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:CompositeValueType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeValueType"/>
       <rdfs:comment>Warning: The parent class 'gml:CompositeValueType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#QuantityExtentType">
       <rdfs:comment>Restriction of list type to store a 2-point range of numeric values. If one member is a null, then this is a single ended interval.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:MeasureOrNullListType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
       <rdfs:comment>Warning: The parent class 'gml:MeasureOrNullListType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="#hasQuantityExtentType">
       <rdfs:domain rdf:resource="#QuantityExtentType"/>
-      <rdfs:range rdf:resource="gml:MeasureOrNullListType"/>
-      <rdfs:subPropertyOf rdf:resource="gml:hasMeasureOrNullListType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasMeasureOrNullListType"/>
       <rdfs:comment>Warning: The parent property 'gml:hasMeasureOrNullListType' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
    </owl:DatatypeProperty>
    <rdfs:Datatype rdf:about="#QuantityExtentTypeDatatype"/>
    <owl:Class rdf:about="#CategoryExtentType">
       <rdfs:comment>Restriction of list type to store a 2-point range of ordinal values. If one member is a null, then this is a single ended interval.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="gml:CodeOrNullListType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
       <rdfs:comment>Warning: The parent class 'gml:CodeOrNullListType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="#hasCategoryExtentType">
       <rdfs:domain rdf:resource="#CategoryExtentType"/>
-      <rdfs:range rdf:resource="gml:CodeOrNullListType"/>
-      <rdfs:subPropertyOf rdf:resource="gml:hasCodeOrNullListType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasCodeOrNullListType"/>
       <rdfs:comment>Warning: The parent property 'gml:hasCodeOrNullListType' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
    </owl:DatatypeProperty>
    <rdfs:Datatype rdf:about="#CategoryExtentTypeDatatype"/>
@@ -93,7 +93,7 @@
             <owl:intersectionOf rdf:parseType="Collection"/>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#BooleanPropertyType">
@@ -102,13 +102,13 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasBoolean"/>
-                  <owl:allValuesFrom rdf:resource="gml:Boolean"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasBoolean"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Boolean"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#CategoryPropertyType">
@@ -117,13 +117,13 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasCategory"/>
-                  <owl:allValuesFrom rdf:resource="gml:Category"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategory"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Category"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#QuantityPropertyType">
@@ -132,13 +132,13 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasQuantity"/>
-                  <owl:allValuesFrom rdf:resource="gml:Quantity"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantity"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Quantity"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#CountPropertyType">
@@ -147,13 +147,13 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="gml:hasCount"/>
-                  <owl:allValuesFrom rdf:resource="gml:Count"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCount"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Count"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#Value">
@@ -164,21 +164,21 @@
       </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:has_Object"/>
-            <owl:someValuesFrom rdf:resource="gml:_Object"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Object"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_Object"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasNull"/>
-            <owl:someValuesFrom rdf:resource="gml:Null"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNull"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:comment>Utility choice group which unifies generic Values defined in this schema document with 
 			Geometry and Temporal objects and the Measures described above, 
 			so that any of these may be used within aggregate Values.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="gml:hasValueObject">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValueObject">
       <rdfs:domain rdf:resource="#Value"/>
-      <rdfs:range rdf:resource="gml:ValueObject"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueObject"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="#ValueObject">
       <rdfs:subClassOf>
@@ -188,22 +188,22 @@
       </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCompositeValue"/>
-            <owl:someValuesFrom rdf:resource="gml:CompositeValue"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeValue"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeValue"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="gml:hasScalarValue">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasScalarValue">
       <rdfs:domain rdf:resource="#ValueObject"/>
-      <rdfs:range rdf:resource="gml:ScalarValue"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ScalarValue"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasScalarValueList">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasScalarValueList">
       <rdfs:domain rdf:resource="#ValueObject"/>
-      <rdfs:range rdf:resource="gml:ScalarValueList"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ScalarValueList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasValueExtent">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValueExtent">
       <rdfs:domain rdf:resource="#ValueObject"/>
-      <rdfs:range rdf:resource="gml:ValueExtent"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueExtent"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="#ScalarValue">
       <rdfs:subClassOf>
@@ -213,20 +213,20 @@
       </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasBoolean"/>
-            <owl:someValuesFrom rdf:resource="gml:Boolean"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasBoolean"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Boolean"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCategory"/>
-            <owl:someValuesFrom rdf:resource="gml:Category"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategory"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Category"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasQuantity"/>
-            <owl:someValuesFrom rdf:resource="gml:Quantity"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantity"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Quantity"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCount"/>
-            <owl:someValuesFrom rdf:resource="gml:Count"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCount"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Count"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -238,20 +238,20 @@
       </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasBooleanList"/>
-            <owl:someValuesFrom rdf:resource="gml:BooleanList"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasBooleanList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#BooleanList"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCategoryList"/>
-            <owl:someValuesFrom rdf:resource="gml:CategoryList"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategoryList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryList"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasQuantityList"/>
-            <owl:someValuesFrom rdf:resource="gml:QuantityList"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantityList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityList"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCountList"/>
-            <owl:someValuesFrom rdf:resource="gml:CountList"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCountList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CountList"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -263,34 +263,34 @@
       </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCategoryExtent"/>
-            <owl:someValuesFrom rdf:resource="gml:CategoryExtent"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategoryExtent"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryExtent"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasQuantityExtent"/>
-            <owl:someValuesFrom rdf:resource="gml:QuantityExtent"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantityExtent"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityExtent"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="gml:hasCountExtent"/>
-            <owl:someValuesFrom rdf:resource="gml:CountExtent"/>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCountExtent"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CountExtent"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="gml:hasValue">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValue">
       <rdfs:domain rdf:resource="#ValuePropertyType"/>
-      <rdfs:range rdf:resource="gml:Value"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Value"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasValue">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValue">
       <rdfs:domain rdf:resource="#ValueArrayPropertyType"/>
-      <rdfs:range rdf:resource="gml:Value"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Value"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasScalarValue">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasScalarValue">
       <rdfs:domain rdf:resource="#ScalarValuePropertyType"/>
-      <rdfs:range rdf:resource="gml:ScalarValue"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#ScalarValue"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasreferenceSystem">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasreferenceSystem">
       <rdfs:domain rdf:resource="#ValueArrayType"/>
-      <rdfs:range rdf:resource="gml:referenceSystem"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#referenceSystem"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="#referenceSystem">
       <rdfs:subClassOf>
@@ -298,19 +298,19 @@
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#codeSpace"/>
-                  <owl:allValuesFrom rdf:resource="#anyURI"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
                <owl:Restriction>
                   <owl:onProperty rdf:resource="#uom"/>
-                  <owl:allValuesFrom rdf:resource="#anyURI"/>
+                  <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="gml:hasAssociationAttributeGroup">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
       <rdfs:domain rdf:resource="#ValuePropertyType"/>
-      <rdfs:range rdf:resource="gml:AssociationAttributeGroup"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <rdfs:Datatype rdf:about="#CountExtentType">
       <rdfs:comment>Restriction of list type to store a 2-point range of frequency values. If one member is a null, then this is a single ended interval.</rdfs:comment>
@@ -323,169 +323,167 @@
       <rdfs:domain rdf:resource="#referenceSystem"/>
       <rdfs:range rdf:resource="#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="#Boolean">
-      <rdfs:subClassOf rdf:resource="boolean"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-   </owl:Class>
+   <rdfs:Datatype rdf:about="concat( '#', @name )">
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+   </rdfs:Datatype>
    <owl:Class rdf:about="#BooleanList">
-      <rdfs:subClassOf rdf:resource="gml:booleanOrNullList"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#booleanOrNullList"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#Category">
-      <rdfs:subClassOf rdf:resource="gml:CodeType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#CategoryList">
-      <rdfs:subClassOf rdf:resource="gml:CodeOrNullListType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#Quantity">
-      <rdfs:subClassOf rdf:resource="gml:MeasureType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#QuantityList">
-      <rdfs:subClassOf rdf:resource="gml:MeasureOrNullListType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#Count">
-      <rdfs:subClassOf rdf:resource="integer"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-   </owl:Class>
+   <rdfs:Datatype rdf:about="concat( '#', @name )">
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+   </rdfs:Datatype>
    <owl:Class rdf:about="#CountList">
-      <rdfs:subClassOf rdf:resource="gml:integerOrNullList"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#integerOrNullList"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#CompositeValue">
-      <rdfs:subClassOf rdf:resource="gml:CompositeValueType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeValueType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#ValueArray">
-      <rdfs:subClassOf rdf:resource="gml:CompositeValue"/>
-      <rdfs:subClassOf rdf:resource="gml:ValueArrayType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeValue"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValueArrayType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#QuantityExtent">
-      <rdfs:subClassOf rdf:resource="gml:QuantityExtentType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#QuantityExtentType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#CategoryExtent">
-      <rdfs:subClassOf rdf:resource="gml:CategoryExtentType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CategoryExtentType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#CountExtent">
-      <rdfs:subClassOf rdf:resource="gml:CountExtentType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CountExtentType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#valueProperty">
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#valueComponent">
-      <rdfs:subClassOf rdf:resource="gml:ValuePropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="#valueComponents">
-      <rdfs:subClassOf rdf:resource="gml:ValueArrayPropertyType"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValueArrayPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:ObjectProperty rdf:about="gml:has_Object">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Object">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#Value"/>
-      <rdfs:range rdf:resource="gml:_Object"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#_Object"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasNull">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasNull">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#Value"/>
-      <rdfs:range rdf:resource="gml:Null"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Null"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCompositeValue">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ValueObject"/>
-      <rdfs:range rdf:resource="gml:CompositeValue"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeValue"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasBoolean">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasBoolean">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValue"/>
-      <rdfs:range rdf:resource="gml:Boolean"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Boolean"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCategory">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCategory">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValue"/>
-      <rdfs:range rdf:resource="gml:Category"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Category"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasQuantity">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasQuantity">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValue"/>
-      <rdfs:range rdf:resource="gml:Quantity"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Quantity"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCount">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCount">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValue"/>
-      <rdfs:range rdf:resource="gml:Count"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Count"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasBooleanList">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasBooleanList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValueList"/>
-      <rdfs:range rdf:resource="gml:BooleanList"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#BooleanList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCategoryList">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCategoryList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValueList"/>
-      <rdfs:range rdf:resource="gml:CategoryList"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CategoryList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasQuantityList">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasQuantityList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValueList"/>
-      <rdfs:range rdf:resource="gml:QuantityList"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#QuantityList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCountList">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCountList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ScalarValueList"/>
-      <rdfs:range rdf:resource="gml:CountList"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CountList"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasvalueComponent">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalueComponent">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#CompositeValueType"/>
-      <rdfs:range rdf:resource="gml:valueComponent"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#valueComponent"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasvalueComponents">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalueComponents">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#CompositeValueType"/>
-      <rdfs:range rdf:resource="gml:valueComponents"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#valueComponents"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCategoryExtent">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCategoryExtent">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ValueExtent"/>
-      <rdfs:range rdf:resource="gml:CategoryExtent"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CategoryExtent"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasQuantityExtent">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasQuantityExtent">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ValueExtent"/>
-      <rdfs:range rdf:resource="gml:QuantityExtent"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#QuantityExtent"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCountExtent">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCountExtent">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#ValueExtent"/>
-      <rdfs:range rdf:resource="gml:CountExtent"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CountExtent"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasBoolean">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasBoolean">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#BooleanPropertyType"/>
-      <rdfs:range rdf:resource="gml:Boolean"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Boolean"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCategory">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCategory">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#CategoryPropertyType"/>
-      <rdfs:range rdf:resource="gml:Category"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Category"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasQuantity">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasQuantity">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#QuantityPropertyType"/>
-      <rdfs:range rdf:resource="gml:Quantity"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Quantity"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="gml:hasCount">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCount">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
       <rdfs:domain rdf:resource="#CountPropertyType"/>
-      <rdfs:range rdf:resource="gml:Count"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#Count"/>
    </owl:ObjectProperty>
 </rdf:RDF>

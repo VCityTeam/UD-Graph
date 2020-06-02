@@ -8,13 +8,15 @@ if len(sys.argv) != 2:
 # Initialize variables
 filename = sys.argv[1].split('/')[-1].split('.')[0]
 filepath = 'Results/{}.rdf'.format( filename )
-root     = etree.parse(filepath).getroot()
+root     = etree.parse(sys.argv[1]).getroot()
 
-# Get namespaces
+# Update recognized namespaces
 namespaces = root.nsmap
 namespaces.update({'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns'})
 namespaces.update({'rdfs': 'http://www.w3.org/2000/01/rdf-schema'})
-namespaces.pop(None, None) # remove nil namespace prefixes
+if namespaces.get(None) == 'http://www.w3.org/2001/XMLSchema':
+   namespaces.update({'xs': 'http://www.w3.org/2001/XMLSchema'})
+# print('Namespaces targeted: {}'.format(namespaces))
 
 # Iterate through file line by line
 new_file_content = ''
@@ -28,17 +30,23 @@ with open(filepath) as file:
          line = ( split_line[0] + '"http://liris.cnrs.fr/ontologies/{}"'.format( split_line[1].split('/')[-1].split('.')[0] ) +
             split_line[2] )
 
-      # fully qualify namespace
+      # fully qualify namespaces
       for prefix in namespaces.keys():
-         line = line.replace( 'rdf:resource="{}:'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
-         line = line.replace( 'rdf:datatype="{}:'.format(prefix), 'rdf:datatype="{}#'.format(namespaces[prefix]) )
+         # if prefix == None:
+         #    line = line.replace( 'rdf:type="#'.format(prefix),     'rdf:type="{}#'.format(namespaces[prefix]) )
+         #    line = line.replace( 'rdf:about="#'.format(prefix),    'rdf:about="{}#'.format(namespaces[prefix]) )
+         #    line = line.replace( 'rdf:resource="#'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
+         #    line = line.replace( 'rdf:datatype="#'.format(prefix), 'rdf:datatype="{}#'.format(namespaces[prefix]) )
+
          line = line.replace( 'rdf:type="{}:'.format(prefix),     'rdf:type="{}#'.format(namespaces[prefix]) )
          line = line.replace( 'rdf:about="{}:'.format(prefix),    'rdf:about="{}#'.format(namespaces[prefix]) )
+         line = line.replace( 'rdf:resource="{}:'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
+         line = line.replace( 'rdf:datatype="{}:'.format(prefix), 'rdf:datatype="{}#'.format(namespaces[prefix]) )
       new_file_content += line
       line = file.readline()
 
 # set ontology name
-root          = etree.fromstring(new_file_content)
+root = etree.fromstring(new_file_content)
 root[0].set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', 'http://liris.cnrs.fr/ontologies/' + filename )
 
 with open(filepath, 'w') as file:
