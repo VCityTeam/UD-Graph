@@ -122,5 +122,5 @@ else
    echo "       ./run.sh [path to xsl file] [output filename]"
    exit 0
 fi
-
+echo "Done!"
 exit 0

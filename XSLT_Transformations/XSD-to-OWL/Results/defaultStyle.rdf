@@ -13,7 +13,7 @@
 			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="#DefaultStylePropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#DefaultStylePropertyType">
       <rdfs:comment>[complexType of] Top-level property. Used in application schemas to "attach" the styling information to GML data. The link between the data and the style should be established through this property only.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -33,20 +33,20 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractStyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractStyleType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>[complexType of] The value of the top-level property. It is an abstract element. Used as the head element of the substitution group for extensibility purposes.</rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#StyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#StyleType">
       <rdfs:comment>[complexType of] Predefined concrete value of the top-level property. Encapsulates all other styling information.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -69,7 +69,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractStyleType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractStyleType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#FeatureStylePropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#FeatureStylePropertyType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -88,24 +88,24 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#FeatureStyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#FeatureStyleType">
       <rdfs:comment>[complexType of] The style descriptor for features.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#featureConstraint"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#featureConstraint"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#featureConstraint"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#featureConstraint"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
@@ -139,15 +139,15 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#featureType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#featureType"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#baseType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#baseType"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#queryGrammar"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#queryGrammar"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#QueryGrammarEnumeration"/>
                </owl:Restriction>
             </owl:intersectionOf>
@@ -156,25 +156,25 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#BaseStyleDescriptorType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#BaseStyleDescriptorType">
       <rdfs:comment>Base complex type for geometry, topology, label and graph styles.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#spatialResolution"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#spatialResolution"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ScaleType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#spatialResolution"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#spatialResolution"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#styleVariation"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#styleVariation"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StyleVariationType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#styleVariation"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#styleVariation"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
@@ -215,7 +215,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GeometryStylePropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeometryStylePropertyType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -234,14 +234,14 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#GeometryStyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeometryStyleType">
       <rdfs:comment>[complexType of] The style descriptor for geometries of a feature.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -257,15 +257,25 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassymbol"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#symbol"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#style"/>
+            <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+         </owl:Restriction>
+      </owl:disjointUnionOf>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#geometryProperty"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#geometryProperty"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#geometryType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#geometryType"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
             </owl:intersectionOf>
@@ -274,7 +284,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#TopologyStylePropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#TopologyStylePropertyType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -293,14 +303,14 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#TopologyStyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#TopologyStyleType">
       <rdfs:comment>[complexType of] The style descriptor for topologies of a feature. Describes individual topology elements styles.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -316,15 +326,25 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassymbol"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#symbol"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#style"/>
+            <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+         </owl:Restriction>
+      </owl:disjointUnionOf>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#topologyProperty"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#topologyProperty"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#topologyType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#topologyType"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
             </owl:intersectionOf>
@@ -333,7 +353,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#LabelStylePropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#LabelStylePropertyType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -352,24 +372,24 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#LabelStyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#LabelStyleType">
       <rdfs:comment>[complexType of] The style descriptor for labels of a feature, geometry or topology.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#style"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#style"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#label"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#label"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LabelType"/>
                </owl:Restriction>
             </owl:intersectionOf>
@@ -378,7 +398,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GraphStylePropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GraphStylePropertyType">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -397,88 +417,88 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#GraphStyleType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GraphStyleType">
       <rdfs:comment>[complexType of] The style descriptor for a graph consisting of a number of features. Describes graph-specific style attributes.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#planar"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#planar"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#planar"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#planar"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#directed"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#directed"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#directed"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#directed"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#grid"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#grid"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#grid"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#grid"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#minDistance"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#minDistance"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#minDistance"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#minDistance"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#minAngle"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#minAngle"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#minAngle"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#minAngle"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#graphType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#graphType"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GraphTypeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#graphType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#graphType"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#drawingType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#drawingType"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#DrawingTypeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#drawingType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#drawingType"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#lineType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#lineType"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LineTypeType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#lineType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#lineType"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#aestheticCriteria"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#aestheticCriteria"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#AesheticCriteriaType"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#aestheticCriteria"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#aestheticCriteria"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
@@ -487,7 +507,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#SymbolType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#SymbolType">
       <rdfs:comment>[complexType of] The symbol property. Allows for remote referencing of symbols.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -498,7 +518,7 @@
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#symbolType"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#symbolType"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#SymbolTypeEnumeration"/>
                </owl:Restriction>
                <owl:Restriction>
@@ -506,24 +526,24 @@
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#transform"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#LabelType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#LabelType">
       <rdfs:comment>Label is mixed -- composed of text and XPath expressions used to extract the useful information from the feature.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#LabelExpression"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#LabelExpression"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#LabelExpression"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#LabelExpression"/>
                   <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                </owl:Restriction>
             </owl:intersectionOf>
@@ -540,57 +560,57 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#StyleVariationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#StyleVariationType">
       <rdfs:comment>Used to vary individual graphic parameters and attributes of the style, symbol or text.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#styleProperty"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#styleProperty"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#featurePropertyRange"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#featurePropertyRange"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="#hasStyleVariationType">
-      <rdfs:domain rdf:resource="#StyleVariationType"/>
-      <rdfs:range rdf:resource="#string"/>
-      <rdfs:subPropertyOf rdf:resource="#hasstring"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasStyleVariationType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StyleVariationType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasstring"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#DefaultStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DefaultStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#FeatureStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#GeometryStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#TopologyStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#LabelStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#GraphStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#SymbolType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SymbolType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <rdfs:Datatype rdf:about="#QueryGrammarEnumeration">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#QueryGrammarEnumeration">
       <rdfs:comment>Used to specify the grammar of the feature query mechanism.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -613,7 +633,7 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="#SymbolTypeEnumeration">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SymbolTypeEnumeration">
       <rdfs:comment>Used to specify the type of the symbol used.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -636,7 +656,7 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="#GraphTypeType">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#GraphTypeType">
       <rdfs:comment>Graph-specific styling property.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -654,7 +674,7 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="#DrawingTypeType">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#DrawingTypeType">
       <rdfs:comment>Graph-specific styling property.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -672,7 +692,7 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="#LineTypeType">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#LineTypeType">
       <rdfs:comment>Graph-specific styling property.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -690,7 +710,7 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="#AesheticCriteriaType">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AesheticCriteriaType">
       <rdfs:comment>Graph-specific styling property.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
@@ -758,313 +778,317 @@
          </rdfs:Datatype>
       </owl:equivalentClass>
    </rdfs:Datatype>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#DefaultStylePropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DefaultStylePropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#FeatureStylePropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStylePropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#featureType">
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#featureType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#baseType">
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#baseType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#queryGrammar">
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#queryGrammar">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#QueryGrammarEnumeration"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#GeometryStylePropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStylePropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#geometryProperty">
-      <rdfs:domain rdf:resource="#GeometryStyleType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#geometryProperty">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStyleType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#geometryType">
-      <rdfs:domain rdf:resource="#GeometryStyleType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#geometryType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStyleType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#TopologyStylePropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStylePropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#topologyProperty">
-      <rdfs:domain rdf:resource="#TopologyStyleType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#topologyProperty">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStyleType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#topologyType">
-      <rdfs:domain rdf:resource="#TopologyStyleType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#topologyType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStyleType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#LabelStylePropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelStylePropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#GraphStylePropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStylePropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#symbolType">
-      <rdfs:domain rdf:resource="#SymbolType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#symbolType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SymbolType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#SymbolTypeEnumeration"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hastransform">
-      <rdfs:domain rdf:resource="#SymbolType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SymbolType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#transform"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#SymbolType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SymbolType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hastransform">
-      <rdfs:domain rdf:resource="#LabelType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#transform"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#styleProperty">
-      <rdfs:domain rdf:resource="#StyleVariationType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#transform">
+      <rdfs:comment>Defines the geometric transformation of entities. There is no particular grammar defined for this value.</rdfs:comment>
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+   </rdfs:Datatype>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#styleProperty">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StyleVariationType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#featurePropertyRange">
-      <rdfs:domain rdf:resource="#StyleVariationType"/>
-      <rdfs:range rdf:resource="#string"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#featurePropertyRange">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StyleVariationType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="#defaultStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#defaultStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefaultStylePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_Style">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_Style">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractStyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#Style">
+   <owl:Class rdf:about="http://www.opengis.net/gml#Style">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Style"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#featureStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#featureStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeatureStylePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#FeatureStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#FeatureStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#geometryStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#geometryStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeometryStylePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GeometryStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeometryStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeometryStyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#topologyStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#topologyStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TopologyStylePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#TopologyStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#TopologyStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TopologyStyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#labelStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#labelStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LabelStylePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#LabelStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#LabelStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LabelStyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#graphStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#graphStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GraphStylePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GraphStyle">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GraphStyle">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#symbol">
+   <owl:Class rdf:about="http://www.opengis.net/gml#symbol">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SymbolType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Style">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#DefaultStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#DefaultStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_Style"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasfeatureStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#StyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#featureStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgraphStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#StyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#graphStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasFeatureStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#FeatureStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#FeatureStyle"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#featureConstraint">
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#featureConstraint">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgeometryStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#geometryStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastopologyStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#topologyStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haslabelStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#FeatureStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#FeatureStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#labelStyle"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="#spatialResolution">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#spatialResolution">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BaseStyleDescriptorType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#ScaleType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="#styleVariation">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#styleVariation">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BaseStyleDescriptorType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#StyleVariationType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20/#hasanimate">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BaseStyleDescriptorType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20/#animate"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20/#hasanimateMotion">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BaseStyleDescriptorType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20/#animateMotion"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20/#hasanimateColor">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BaseStyleDescriptorType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20/#animateColor"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20/#hasset">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BaseStyleDescriptorType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20/#set"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasGeometryStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GeometryStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometryStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassymbol">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GeometryStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#symbol"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#style">
-      <rdfs:domain rdf:resource="#GeometryStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#style">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haslabelStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GeometryStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometryStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#labelStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTopologyStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#TopologyStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#TopologyStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassymbol">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#TopologyStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#symbol"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#style">
-      <rdfs:domain rdf:resource="#TopologyStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#style">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haslabelStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#TopologyStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TopologyStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#labelStyle"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasLabelStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#LabelStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#LabelStyle"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#style">
-      <rdfs:domain rdf:resource="#LabelStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#style">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="#label">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#label">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#LabelStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#LabelType"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasGraphStyle">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GraphStylePropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStylePropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#GraphStyle"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#planar">
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#planar">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#directed">
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#directed">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#grid">
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#grid">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#minDistance">
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#minDistance">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#minAngle">
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#minAngle">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
    </owl:DatatypeProperty>
-   <owl:ObjectProperty rdf:about="#graphType">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#graphType">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#GraphTypeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="#drawingType">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#drawingType">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#DrawingTypeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="#lineType">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#lineType">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#LineTypeType"/>
    </owl:ObjectProperty>
-   <owl:ObjectProperty rdf:about="#aestheticCriteria">
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#aestheticCriteria">
       <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GraphStyleType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GraphStyleType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AesheticCriteriaType"/>
    </owl:ObjectProperty>
-   <owl:DatatypeProperty rdf:about="#LabelExpression">
-      <rdfs:domain rdf:resource="#LabelType"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#LabelExpression">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#LabelType"/>
       <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </owl:DatatypeProperty>
 </rdf:RDF>

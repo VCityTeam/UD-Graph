@@ -13,7 +13,7 @@
 			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="#AbstractGMLType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGMLType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>All complexContent GML elements are directly or indirectly derived from this abstract supertype 
 	to establish a hierarchy of GML types that may be distinguished from other XML types by their ancestry. 
@@ -23,6 +23,10 @@
             <owl:intersectionOf rdf:parseType="Collection"/>
          </owl:Class>
       </rdfs:subClassOf>
+      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
+         <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
+         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+      </owl:ObjectProperty>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -34,7 +38,7 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#BagType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#BagType">
       <rdfs:comment>A non-abstract generic collection type that can be used as a document element for a collection of any GML types - Geometries, Topologies, Features ...
 
 FeatureCollections may only contain Features.  GeometryCollections may only contain Geometrys.  Bags are less constrained  they must contain objects that are substitutable for gml:_Object.  This may mix several levels, including Features, Definitions, Dictionaries, Geometries etc.  
@@ -73,7 +77,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ArrayType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ArrayType">
       <rdfs:comment>A non-abstract generic collection type that can be used as a document element for a homogeneous collection of any GML types - Geometries, Topologies, Features ...</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -92,7 +96,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractMetaDataType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractMetaDataType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>An abstract base type for complex metadata types.</rdfs:comment>
       <rdfs:subClassOf>
@@ -106,7 +110,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#GenericMetaDataType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GenericMetaDataType">
       <rdfs:comment>Deprecated with GML version 3.1.0.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -116,7 +120,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractMetaDataType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#AssociationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AssociationType">
       <rdfs:comment>A pattern or base for derived types used to specify complex types corresponding to an  unspecified UML association - either composition or aggregation.  Restricts the cardinality of Objects contained in the association to a maximum of one.  An instance of this type can contain an element representing an Object, or serve as a pointer to a remote Object.  
 
 Descendents of this type can be restricted in an application schema to 
@@ -139,10 +143,10 @@ If co-occurence is not prohibited, then both a link and content may be present. 
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#ReferenceType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ReferenceType">
       <rdfs:comment>A pattern or base for derived types used to specify complex types corresponding to a UML aggregation association.  An instance of this type serves as a pointer to a remote Object.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ArrayAssociationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ArrayAssociationType">
       <rdfs:comment>A base for derived types used to specify complex types containing an array of objects, by unspecified UML association - either composition or aggregation.  An instance of this type contains elements representing Objects.
 
 Ideally this type would be derived by extension of AssociationType.  
@@ -162,7 +166,7 @@ However, this leads to a non-deterministic content model, since both the base an
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#MetaDataPropertyType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#MetaDataPropertyType">
       <rdfs:comment>Base type for complex metadata property types.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -173,22 +177,22 @@ However, this leads to a non-deterministic content model, since both the base an
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
-                  <owl:onProperty rdf:resource="#about"/>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
                   <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
                </owl:Restriction>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#StringOrRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#StringOrRefType">
       <rdfs:comment>This type is available wherever there is a need for a "text" type property. It is of string type, so the text can be included inline, but the value can also be referenced remotely via xlinks from the AssociationAttributeGroup. If the remote reference is present, then the value obtained by traversing the link should be used, and the string content of the element can be used for an annotation.</rdfs:comment>
    </owl:Class>
-   <owl:DatatypeProperty rdf:about="#hasStringOrRefType">
-      <rdfs:domain rdf:resource="#StringOrRefType"/>
-      <rdfs:range rdf:resource="#string"/>
-      <rdfs:subPropertyOf rdf:resource="#hasstring"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasStringOrRefType">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#string"/>
+      <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasstring"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="#StandardObjectProperties">
+   <owl:Class rdf:about="http://www.opengis.net/gml#StandardObjectProperties">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection"/>
@@ -229,22 +233,22 @@ However, this leads to a non-deterministic content model, since both the base an
       A reference to the group saves having to enumerate the standard object properties.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-      <rdfs:domain rdf:resource="#AbstractGMLType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#AssociationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AssociationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#ReferenceType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#MetaDataPropertyType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MetaDataPropertyType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
-   <owl:Class rdf:about="#AssociationAttributeGroup">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AssociationAttributeGroup">
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -258,124 +262,132 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:comment>Attribute group used to enable property elements to refer to their value remotely. It contains the simple link components from xlinks.xsd, with all members optional, and the remoteSchema attribute, which is also optional.  These attributes can be attached to any element, thus allowing it to act as a pointer. The 'remoteSchema' attribute allows an element  that carries link attributes to indicate that the element is declared  in a remote schema rather than by the schema that constrains the current document instance.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.w3.org/1999/xlink#hassimpleAttrs">
-      <rdfs:domain rdf:resource="#AssociationAttributeGroup"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
       <rdfs:range rdf:resource="http://www.w3.org/1999/xlink#simpleAttrs"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#StringOrRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#AbstractGMLType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#AbstractMetaDataType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
-   <owl:DatatypeProperty rdf:about="#about">
-      <rdfs:domain rdf:resource="#MetaDataPropertyType"/>
-      <rdfs:range rdf:resource="#anyURI"/>
+   <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#about">
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MetaDataPropertyType"/>
+      <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </owl:DatatypeProperty>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#id">
+      <rdfs:comment>Database handle for the object.  It is of XML type ID, so is constrained to be unique in the XML document within which it occurs.  An external identifier for the object in the form of a URI may be constructed using standard XML and XPointer methods.  This is done by concatenating the URI for the document, a fragment separator, and the value of the id attribute.</rdfs:comment>
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#ID"/>
+   </rdfs:Datatype>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#remoteSchema">
+      <rdfs:comment>Reference to an XML Schema fragment that specifies the content model of the propertys value. This is in conformance with the XML Schema Section 4.14 Referencing Schemas from Elsewhere.</rdfs:comment>
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
+   </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasremoteSchema">
-      <rdfs:domain rdf:resource="#AssociationAttributeGroup"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remoteSchema"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="#_GML">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_GML">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Object"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#Bag">
+   <owl:Class rdf:about="http://www.opengis.net/gml#Bag">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BagType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#Array">
+   <owl:Class rdf:about="http://www.opengis.net/gml#Array">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArrayType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_MetaData">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_MetaData">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Object"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GenericMetaData">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GenericMetaData">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_MetaData"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GenericMetaDataType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_association">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_association">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AssociationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_strictAssociation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_strictAssociation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AssociationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#member">
+   <owl:Class rdf:about="http://www.opengis.net/gml#member">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AssociationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_reference">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_reference">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#members">
+   <owl:Class rdf:about="http://www.opengis.net/gml#members">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArrayAssociationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#metaDataProperty">
+   <owl:Class rdf:about="http://www.opengis.net/gml#metaDataProperty">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MetaDataPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#name">
+   <owl:Class rdf:about="http://www.opengis.net/gml#name">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#description">
+   <owl:Class rdf:about="http://www.opengis.net/gml#description">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#StandardObjectProperties"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdescription">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#StandardObjectProperties"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#description"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasname">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#StandardObjectProperties"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#name"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmember">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BagType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BagType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#member"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmembers">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#BagType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#BagType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#members"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmembers">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ArrayType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArrayType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#members"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Object">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AssociationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AssociationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_Object"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Object">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ArrayAssociationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ArrayAssociationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_Object"/>
    </owl:ObjectProperty>
 </rdf:RDF>

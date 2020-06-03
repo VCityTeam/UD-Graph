@@ -14,7 +14,7 @@
 		To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
 		</rdfs:comment>
    </owl:Ontology>
-   <owl:Class rdf:about="#AbstractCoordinateOperationBaseType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCoordinateOperationBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Basic encoding for coordinate operation objects, simplifying and restricting the DefinitionType as needed. </rdfs:comment>
       <rdfs:subClassOf>
@@ -48,7 +48,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractCoordinateOperationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCoordinateOperationType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>A mathematical operation on coordinates that transforms or converts coordinates to another coordinate reference system. Many but not all coordinate operations (from CRS A to CRS B) also uniquely define the inverse operation (from CRS B to CRS A). In some cases, the operation method algorithm for the inverse operation is the same as for the forward algorithm, but the signs of some operation parameter values must be reversed. In other cases, different algorithms are required for the forward and inverse operations, but the same operation parameter values are used. If (some) entirely different parameter values are needed, a different coordinate operation shall be defined.</rdfs:comment>
       <rdfs:subClassOf>
@@ -124,7 +124,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationBaseType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#CoordinateOperationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateOperationRefType">
       <rdfs:comment>Association to a coordinate operation, either referencing or containing the definition of that coordinate operation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -137,7 +137,7 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#ConcatenatedOperationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ConcatenatedOperationType">
       <rdfs:comment>An ordered sequence of two or more single coordinate operations. The sequence of operations is constrained by the requirement that the source coordinate reference system of step (n+1) must be the same as the target coordinate reference system of step (n). The source coordinate reference system of the first step and the target coordinate reference system of the last step are the source and target coordinate reference system associated with the concatenated operation. Instead of a forward operation, an inverse operation may be used for one or more of the operation steps mentioned above, if the inverse operation is uniquely defined by the forward operation.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -156,7 +156,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ConcatenatedOperationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ConcatenatedOperationRefType">
       <rdfs:comment>Association to a concatenated operation, either referencing or containing the definition of that concatenated operation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -169,7 +169,7 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#SingleOperationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#SingleOperationRefType">
       <rdfs:comment>Association to a single operation, either referencing or containing the definition of that single operation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -182,7 +182,7 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#PassThroughOperationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#PassThroughOperationType">
       <rdfs:comment>A pass-through operation specifies that a subset of a coordinate tuple is subject to a specific coordinate operation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -201,7 +201,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#PassThroughOperationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#PassThroughOperationRefType">
       <rdfs:comment>Association to a pass through operation, either referencing or containing the definition of that pass through operation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -214,7 +214,7 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#OperationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationRefType">
       <rdfs:comment>Association to an abstract operation, either referencing or containing the definition of that operation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -227,7 +227,7 @@
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractGeneralConversionType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeneralConversionType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>An abstract operation on coordinates that does not include any change of datum. The best-known example of a coordinate conversion is a map projection. The parameters describing coordinate conversions are defined rather than empirically derived. Note that some conversions have no parameters.
 
@@ -303,7 +303,7 @@ This abstract complexType is expected to be extended for well-known operation me
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GeneralConversionRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeneralConversionRefType">
       <rdfs:comment>Association to a general conversion, either referencing or containing the definition of that conversion. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -316,7 +316,7 @@ This abstract complexType is expected to be extended for well-known operation me
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#ConversionType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ConversionType">
       <rdfs:comment>A concrete operation on coordinates that does not include any change of Datum. The best-known example of a coordinate conversion is a map projection. The parameters describing coordinate conversions are defined rather than empirically derived. Note that some conversions have no parameters.
 
 This concrete complexType can be used with all operation methods, without using an Application Schema that defines operation-method-specialized element names and contents, especially for methods with only one Conversion instance. </rdfs:comment>
@@ -341,7 +341,7 @@ This concrete complexType can be used with all operation methods, without using 
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralConversionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ConversionRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ConversionRefType">
       <rdfs:comment>Association to a concrete general-purpose conversion, either referencing or containing the definition of that conversion. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -354,7 +354,7 @@ This concrete complexType can be used with all operation methods, without using 
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractGeneralTransformationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeneralTransformationType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>An abstract operation on coordinates that usually includes a change of Datum. The parameters of a coordinate transformation are empirically derived from data containing the coordinates of a series of points in both coordinate reference systems. This computational process is usually "over-determined", allowing derivation of error (or accuracy) estimates for the transformation. Also, the stochastic nature of the parameters may result in multiple (different) versions of the same coordinate transformation.
 
@@ -442,7 +442,7 @@ This abstract complexType is expected to be extended for well-known operation me
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#GeneralTransformationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeneralTransformationRefType">
       <rdfs:comment>Association to a general transformation, either referencing or containing the definition of that transformation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -455,7 +455,7 @@ This abstract complexType is expected to be extended for well-known operation me
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#TransformationType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#TransformationType">
       <rdfs:comment>A concrete operation on coordinates that usually includes a change of datum. The parameters of a coordinate transformation are empirically derived from data containing the coordinates of a series of points in both coordinate reference systems. This computational process is usually "over-determined", allowing derivation of error (or accuracy) estimates for the transformation. Also, the stochastic nature of the parameters may result in multiple (different) versions of the same coordinate transformation.
 
 This concrete complexType can be used for all operation methods, without using an Application Schema that defines operation-method-specialized element names and contents, especially for methods with only one Transformation instance. </rdfs:comment>
@@ -480,7 +480,7 @@ This concrete complexType can be used for all operation methods, without using a
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralTransformationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#TransformationRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#TransformationRefType">
       <rdfs:comment>Association to a transformation, either referencing or containing the definition of that transformation. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -493,13 +493,13 @@ This concrete complexType can be used for all operation methods, without using a
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractGeneralParameterValueType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeneralParameterValueType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Abstract parameter value or group of parameter values.
 			
 This abstract complexType is expected to be extended and restricted for well-known operation methods with many instances, in Application Schemas that define operation-method-specialized element names and contents. Specific parameter value elements are directly contained in concrete subtypes, not in this abstract type. All concrete types derived from this type shall extend this type to include one "...Value" element with an appropriate type, which should be one of the element types allowed in the ParameterValueType. In addition, all derived concrete types shall extend this type to include a "valueOfParameter" element that references one element substitutable for the "OperationParameter" element. </rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ParameterValueType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ParameterValueType">
       <rdfs:comment>A parameter value, ordered sequence of values, or reference to a file of parameter values. This concrete complexType can be used for operation methods without using an Application Schema that defines operation-method-specialized element names and contents, especially for methods with only one instance. This complexType can be used, extended, or restricted for well-known operation methods, especially for methods with many instances. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -511,10 +511,44 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalue"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#value"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdmsAngleValue"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#dmsAngleValue"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstringValue"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#stringValue"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasintegerValue"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integerValue"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasbooleanValue"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#booleanValue"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalueList"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#valueList"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasintegerValueList"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#integerValueList"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalueFile"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#valueFile"/>
+         </owl:Restriction>
+      </owl:disjointUnionOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralParameterValueType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralParameterValueType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ParameterValueGroupType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ParameterValueGroupType">
       <rdfs:comment>A group of related parameter values. The same group can be repeated more than once in a Conversion, Transformation, or higher level parameterValueGroup, if those instances contain different values of one or more parameterValues which suitably distinquish among those groups. This concrete complexType can be used for operation methods without using an Application Schema that defines operation-method-specialized element names and contents, especially for methods with only one instance. This complexType can be used, extended, or restricted for well-known operation methods, especially for methods with many instances. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -537,7 +571,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralParameterValueType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralParameterValueType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationMethodBaseType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethodBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Basic encoding for operation method objects, simplifying and restricting the DefinitionType as needed. </rdfs:comment>
       <rdfs:subClassOf>
@@ -571,7 +605,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationMethodType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethodType">
       <rdfs:comment>Definition of an algorithm used to perform a coordinate operation. Most operation methods use a number of operation parameters, although some coordinate conversions use none. Each coordinate operation using the method assigns values to these parameters. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -618,7 +652,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationMethodBaseType"/>
       <rdfs:comment>Warning: The parent class 'gml:OperationMethodBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationMethodRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethodRefType">
       <rdfs:comment>Association to a concrete general-purpose operation method, either referencing or containing the definition of that method. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -631,7 +665,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractGeneralOperationParameterType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeneralOperationParameterType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Abstract definition of a parameter or group of parameters used by an operation method. </rdfs:comment>
       <rdfs:subClassOf>
@@ -651,7 +685,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#AbstractGeneralOperationParameterRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType">
       <rdfs:comment>Association to an operation parameter or group, either referencing or containing the definition of that parameter or group. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -664,7 +698,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterBaseType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Basic encoding for operation parameter objects, simplifying and restricting the DefinitionType as needed. </rdfs:comment>
       <rdfs:subClassOf>
@@ -706,7 +740,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralOperationParameterType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterType">
       <rdfs:comment>The definition of a parameter used by an operation method. Most parameter values are numeric, but other types of parameter values are possible. This complexType is expected to be used or extended for all operation methods, without defining operation-method-specialized element names.  </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -733,7 +767,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterBaseType"/>
       <rdfs:comment>Warning: The parent class 'gml:OperationParameterBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterRefType">
       <rdfs:comment>Association to an operation parameter, either referencing or containing the definition of that parameter. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -746,7 +780,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
          </owl:Class>
       </rdfs:subClassOf>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterGroupBaseType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterGroupBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>Basic encoding for operation parameter group objects, simplifying and restricting the DefinitionType as needed. </rdfs:comment>
       <rdfs:subClassOf>
@@ -788,7 +822,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralOperationParameterType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterGroupType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterGroupType">
       <rdfs:comment>The definition of a group of parameters used by an operation method. This complexType is expected to be used or extended for all applicable operation methods, without defining operation-method-specialized element names.  </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -831,7 +865,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterGroupBaseType"/>
       <rdfs:comment>Warning: The parent class 'gml:OperationParameterGroupBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterGroupRefType">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterGroupRefType">
       <rdfs:comment>Association to an operation parameter, either referencing or containing the definition of that parameter. </rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
@@ -845,736 +879,736 @@ This abstract complexType is expected to be extended and restricted for well-kno
       </rdfs:subClassOf>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#CoordinateOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#ConcatenatedOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConcatenatedOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#SingleOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SingleOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#PassThroughOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PassThroughOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#OperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#GeneralConversionRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeneralConversionRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#ConversionRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConversionRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#GeneralTransformationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeneralTransformationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#TransformationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TransformationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#OperationMethodRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#AbstractGeneralOperationParameterRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#OperationParameterRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasAssociationAttributeGroup">
-      <rdfs:domain rdf:resource="#OperationParameterGroupRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#AssociationAttributeGroup"/>
    </owl:ObjectProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#OperationMethodBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#OperationParameterBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasid">
-      <rdfs:domain rdf:resource="#OperationParameterGroupBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#id"/>
    </owl:DatatypeProperty>
-   <owl:Class rdf:about="#_CoordinateOperation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_CoordinateOperation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#coordinateOperationName">
+   <owl:Class rdf:about="http://www.opengis.net/gml#coordinateOperationName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#coordinateOperationID">
+   <owl:Class rdf:about="http://www.opengis.net/gml#coordinateOperationID">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#sourceCRS">
+   <owl:Class rdf:about="http://www.opengis.net/gml#sourceCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CRSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#targetCRS">
+   <owl:Class rdf:about="http://www.opengis.net/gml#targetCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CRSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#coordinateOperationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#coordinateOperationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateOperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#ConcatenatedOperation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#ConcatenatedOperation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateOperation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ConcatenatedOperationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#usesSingleOperation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#usesSingleOperation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SingleOperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#concatenatedOperationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#concatenatedOperationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ConcatenatedOperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_SingleOperation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_SingleOperation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateOperation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#singleOperationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#singleOperationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SingleOperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#PassThroughOperation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#PassThroughOperation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_SingleOperation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PassThroughOperationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#usesOperation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#usesOperation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#passThroughOperationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#passThroughOperationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PassThroughOperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_Operation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_Operation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_SingleOperation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#operationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#operationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_GeneralConversion">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_GeneralConversion">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Operation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#generalConversionRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#generalConversionRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeneralConversionRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#Conversion">
+   <owl:Class rdf:about="http://www.opengis.net/gml#Conversion">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeneralConversion"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ConversionType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#usesMethod">
+   <owl:Class rdf:about="http://www.opengis.net/gml#usesMethod">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationMethodRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#usesValue">
+   <owl:Class rdf:about="http://www.opengis.net/gml#usesValue">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#conversionRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#conversionRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ConversionRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_GeneralTransformation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_GeneralTransformation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Operation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#generalTransformationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#generalTransformationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeneralTransformationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#Transformation">
+   <owl:Class rdf:about="http://www.opengis.net/gml#Transformation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeneralTransformation"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TransformationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#transformationRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#transformationRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TransformationRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_generalParameterValue">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_generalParameterValue">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralParameterValueType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#parameterValue">
+   <owl:Class rdf:about="http://www.opengis.net/gml#parameterValue">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_generalParameterValue"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#value">
+   <owl:Class rdf:about="http://www.opengis.net/gml#value">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#dmsAngleValue">
+   <owl:Class rdf:about="http://www.opengis.net/gml#dmsAngleValue">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DMSAngleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#valueList">
+   <owl:Class rdf:about="http://www.opengis.net/gml#valueList">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureListType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#integerValueList">
+   <owl:Class rdf:about="http://www.opengis.net/gml#integerValueList">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#integerList"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#valueOfParameter">
+   <owl:Class rdf:about="http://www.opengis.net/gml#valueOfParameter">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#parameterValueGroup">
+   <owl:Class rdf:about="http://www.opengis.net/gml#parameterValueGroup">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_generalParameterValue"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ParameterValueGroupType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#includesValue">
+   <owl:Class rdf:about="http://www.opengis.net/gml#includesValue">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_generalParameterValue"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralParameterValueType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#valuesOfGroup">
+   <owl:Class rdf:about="http://www.opengis.net/gml#valuesOfGroup">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterGroupRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationMethod">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethod">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#methodName">
+   <owl:Class rdf:about="http://www.opengis.net/gml#methodName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#methodID">
+   <owl:Class rdf:about="http://www.opengis.net/gml#methodID">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#methodFormula">
+   <owl:Class rdf:about="http://www.opengis.net/gml#methodFormula">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#usesParameter">
+   <owl:Class rdf:about="http://www.opengis.net/gml#usesParameter">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#operationMethodRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#operationMethodRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationMethodRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#_GeneralOperationParameter">
+   <owl:Class rdf:about="http://www.opengis.net/gml#_GeneralOperationParameter">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#abstractGeneralOperationParameterRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#abstractGeneralOperationParameterRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameter">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameter">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeneralOperationParameter"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#parameterName">
+   <owl:Class rdf:about="http://www.opengis.net/gml#parameterName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#parameterID">
+   <owl:Class rdf:about="http://www.opengis.net/gml#parameterID">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#operationParameterRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#operationParameterRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#OperationParameterGroup">
+   <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterGroup">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeneralOperationParameter"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterGroupType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#groupName">
+   <owl:Class rdf:about="http://www.opengis.net/gml#groupName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#groupID">
+   <owl:Class rdf:about="http://www.opengis.net/gml#groupID">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( '#', @name )">
+   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <owl:Class rdf:about="#includesParameter">
+   <owl:Class rdf:about="http://www.opengis.net/gml#includesParameter">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="#operationParameterGroupRef">
+   <owl:Class rdf:about="http://www.opengis.net/gml#operationParameterGroupRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinateOperationName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinateOperationName"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinateOperationID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinateOperationID"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasoperationVersion">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#operationVersion"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalidArea">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#validArea"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasscope">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#scope"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_positionalAccuracy">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_positionalAccuracy"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassourceCRS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#sourceCRS"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastargetCRS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractCoordinateOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#targetCRS"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_CoordinateOperation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#CoordinateOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CoordinateOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_CoordinateOperation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesSingleOperation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ConcatenatedOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConcatenatedOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesSingleOperation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasConcatenatedOperation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ConcatenatedOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConcatenatedOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#ConcatenatedOperation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_SingleOperation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#SingleOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#SingleOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_SingleOperation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmodifiedCoordinate">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#PassThroughOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PassThroughOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#modifiedCoordinate"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesOperation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#PassThroughOperationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PassThroughOperationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesOperation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasPassThroughOperation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#PassThroughOperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#PassThroughOperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#PassThroughOperation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Operation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_Operation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinateOperationName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinateOperationName"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinateOperationID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinateOperationID"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalidArea">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#validArea"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasscope">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#scope"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_positionalAccuracy">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_positionalAccuracy"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_GeneralConversion">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GeneralConversionRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeneralConversionRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_GeneralConversion"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesMethod">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesMethod"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ConversionType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConversionType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasConversion">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ConversionRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ConversionRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#Conversion"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinateOperationName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinateOperationName"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascoordinateOperationID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#coordinateOperationID"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasoperationVersion">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#operationVersion"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalidArea">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#validArea"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasscope">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#scope"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_positionalAccuracy">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_positionalAccuracy"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassourceCRS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#sourceCRS"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastargetCRS">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralTransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#targetCRS"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_GeneralTransformation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#GeneralTransformationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeneralTransformationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_GeneralTransformation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesMethod">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#TransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesMethod"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#TransformationType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TransformationType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasTransformation">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#TransformationRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TransformationRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#Transformation"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#value"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdmsAngleValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#dmsAngleValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasstringValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#stringValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasintegerValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#integerValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasbooleanValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#booleanValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalueList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#valueList"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasintegerValueList">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#integerValueList"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalueFile">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#valueFile"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalueOfParameter">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#valueOfParameter"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasincludesValue">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueGroupType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueGroupType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#includesValue"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvaluesOfGroup">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#ParameterValueGroupType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#ParameterValueGroupType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#valuesOfGroup"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmethodName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#methodName"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmethodID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#methodID"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmethodFormula">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#methodFormula"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassourceDimensions">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#sourceDimensions"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastargetDimensions">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#targetDimensions"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasusesParameter">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#usesParameter"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasOperationMethod">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationMethodRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationMethodRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#OperationMethod"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasminimumOccurs">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralOperationParameterType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#minimumOccurs"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_GeneralOperationParameter">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#AbstractGeneralOperationParameterRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#_GeneralOperationParameter"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasparameterName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#parameterName"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasminimumOccurs">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#minimumOccurs"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasparameterID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#parameterID"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasOperationParameter">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#OperationParameter"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#metaDataProperty"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgroupName">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#groupName"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasminimumOccurs">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupBaseType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupBaseType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#minimumOccurs"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgroupID">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#groupID"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasremarks">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#remarks"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmaximumOccurs">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#maximumOccurs"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasincludesParameter">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#includesParameter"/>
    </owl:ObjectProperty>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasOperationParameterGroup">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
-      <rdfs:domain rdf:resource="#OperationParameterGroupRefType"/>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#OperationParameterGroupRefType"/>
       <rdfs:range rdf:resource="http://www.opengis.net/gml#OperationParameterGroup"/>
    </owl:ObjectProperty>
 </rdf:RDF>

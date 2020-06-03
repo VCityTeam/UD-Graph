@@ -1,16 +1,17 @@
 import sys
-import re
 from lxml import etree
 
 if len(sys.argv) != 2:
    sys.exit('Incorrect number of arguments. Usage: postXSLT.py [path to original xsd]')
 
-# Initialize variables
-filename = sys.argv[1].split('/')[-1].split('.')[0]
-filepath = 'Results/{}.rdf'.format( filename )
-root     = etree.parse(sys.argv[1]).getroot()
 
-# Update recognized namespaces
+# initialize variables
+filename      = sys.argv[1].split('/')[-1].split('.')[0]
+filepath      = 'Results/{}.rdf'.format( filename )
+ontology_name = 'http://liris.cnrs.fr/ontologies/' + filename
+root          = etree.parse(sys.argv[1]).getroot()
+
+# update recognized namespaces
 namespaces = root.nsmap
 namespaces.update({'rdf': 'http://www.w3.org/1999/02/22-rdf-syntax-ns'})
 namespaces.update({'rdfs': 'http://www.w3.org/2000/01/rdf-schema'})
@@ -18,26 +19,14 @@ if namespaces.get(None) == 'http://www.w3.org/2001/XMLSchema':
    namespaces.update({'xs': 'http://www.w3.org/2001/XMLSchema'})
 # print('Namespaces targeted: {}'.format(namespaces))
 
-# Iterate through file line by line
+
+# iterate through file line by line
 new_file_content = ''
 with open(filepath) as file:
    line = file.readline()
    while line != '':
-
-      # update import statements with local naming conventions ontologies
-      if re.match( '<owl:imports rdf:resource=".*?"/>', line.strip() ) != None:
-         split_line = line.split('"')
-         line = ( split_line[0] + '"http://liris.cnrs.fr/ontologies/{}"'.format( split_line[1].split('/')[-1].split('.')[0] ) +
-            split_line[2] )
-
       # fully qualify namespaces
       for prefix in namespaces.keys():
-         # if prefix == None:
-         #    line = line.replace( 'rdf:type="#'.format(prefix),     'rdf:type="{}#'.format(namespaces[prefix]) )
-         #    line = line.replace( 'rdf:about="#'.format(prefix),    'rdf:about="{}#'.format(namespaces[prefix]) )
-         #    line = line.replace( 'rdf:resource="#'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
-         #    line = line.replace( 'rdf:datatype="#'.format(prefix), 'rdf:datatype="{}#'.format(namespaces[prefix]) )
-
          line = line.replace( 'rdf:type="{}:'.format(prefix),     'rdf:type="{}#'.format(namespaces[prefix]) )
          line = line.replace( 'rdf:about="{}:'.format(prefix),    'rdf:about="{}#'.format(namespaces[prefix]) )
          line = line.replace( 'rdf:resource="{}:'.format(prefix), 'rdf:resource="{}#'.format(namespaces[prefix]) )
@@ -45,9 +34,16 @@ with open(filepath) as file:
       new_file_content += line
       line = file.readline()
 
+
 # set ontology name
 root = etree.fromstring(new_file_content)
-root[0].set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', 'http://liris.cnrs.fr/ontologies/' + filename )
+root[0].set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', ontology_name )
+
+# update import statements with local naming conventions ontologies
+for child in root[0]:
+   if child.tag == '{http://www.w3.org/2002/07/owl#}imports':
+      resource = child.attrib['{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource'].split('/')[-1].split('.')[0]
+      child.attrib['{http://www.w3.org/1999/02/22-rdf-syntax-ns#}resource'] = 'http://liris.cnrs.fr/ontologies/{}'.format(resource) 
 
 with open(filepath, 'w') as file:
    file.write(etree.tostring( root, pretty_print=True ))
