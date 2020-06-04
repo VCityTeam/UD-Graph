@@ -74,37 +74,40 @@
       <rdfs:comment>GML property which refers to, or contains, a Value</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValue"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Value"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValue">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#Value"/>
-      </owl:ObjectProperty>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ValueArrayPropertyType">
       <rdfs:comment>GML property which refers to, or contains, a set of homogeneously typed Values.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValue"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Value"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValue">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#ValueArrayPropertyType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#Value"/>
-      </owl:ObjectProperty>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ScalarValuePropertyType">
       <rdfs:comment>Property whose content is a scalar value.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasScalarValue"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ScalarValue"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasScalarValue">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#ScalarValuePropertyType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#ScalarValue"/>
-      </owl:ObjectProperty>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -169,19 +172,18 @@
       <rdfs:comment>Warning: The parent class 'gml:ValuePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Value">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Object"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Object"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_Object"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNull"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValueObject"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ValueObject"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:comment>Utility choice group which unifies generic Values defined in this schema document with 
@@ -193,15 +195,22 @@
       <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueObject"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#ValueObject">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeValue"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeValue"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeValue"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasScalarValue"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ScalarValue"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasScalarValueList"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ScalarValueList"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValueExtent"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ValueExtent"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -218,73 +227,58 @@
       <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueExtent"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#ScalarValue">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasBoolean"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Boolean"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Boolean"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategory"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Category"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Category"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantity"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Quantity"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Quantity"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCount"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Count"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Count"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ScalarValueList">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasBooleanList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#BooleanList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#BooleanList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategoryList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantityList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCountList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CountList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CountList"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ValueExtent">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategoryExtent"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryExtent"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryExtent"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantityExtent"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityExtent"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityExtent"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCountExtent"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CountExtent"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CountExtent"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

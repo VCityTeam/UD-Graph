@@ -92,19 +92,14 @@
   * an explicit or implicit collection of time instances or periods, or
 
 N.B. Temporal geometric complexes and temporal grids are not yet implemented in GML.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Geometry"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Geometry"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_Geometry"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_TimeObject"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_TimeObject"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_TimeObject"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -112,15 +107,19 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValueArray"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ValueArray"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#ValueArray"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDataBlock"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#DataBlock"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DataBlock"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasFile"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#File"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#File"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasScalarValueList"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ScalarValueList"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -130,11 +129,11 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMappingRule"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MappingRule"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#MappingRule"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasGridFunction"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GridFunction"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#GridFunction"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -152,11 +151,11 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hastupleList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#tupleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#tupleList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleOrNullTupleList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#doubleOrNullTupleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleOrNullTupleList"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -202,13 +201,14 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       We use a gml:_Value with empty values as a map of the composite value structure.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasValueObject"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#ValueObject"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasValueObject">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#RangeParametersType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#ValueObject"/>
-      </owl:ObjectProperty>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GridFunctionType">
       <rdfs:comment>Defines how values in the domain are mapped to the range set. The start point and the sequencing rule are specified here.</rdfs:comment>
@@ -302,10 +302,16 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiPointCoverageType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -355,10 +361,16 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiCurveCoverageType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -408,10 +420,16 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSurfaceCoverageType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -461,10 +479,16 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#MultiSolidCoverageType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -513,10 +537,16 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridCoverageType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -565,10 +595,16 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#RectifiedGridCoverageType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>

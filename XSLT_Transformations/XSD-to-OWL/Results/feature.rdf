@@ -41,19 +41,14 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#BoundingShapeType">
       <rdfs:comment>Bounding shape.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasEnvelope"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Envelope"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Envelope"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNull"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -170,10 +165,16 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#BoundedFeatureType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -182,27 +183,22 @@
       A representative location for plotting or analysis.  
       Often augmented by one or more additional geometry properties with more specific semantics.</rdfs:comment>
       <rdfs:comment>Deprecated in GML 3.1.0</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Geometry"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Geometry"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_Geometry"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLocationKeyWord"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LocationKeyWord"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#LocationKeyWord"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLocationString"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LocationString"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#LocationString"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNull"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Null"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

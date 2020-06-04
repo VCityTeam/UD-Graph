@@ -46,28 +46,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNode"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Node"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Node"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasEdge"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Edge"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Edge"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ContainerPropertyType">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasFace"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#Face"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#Face"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTopoSolid"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TopoSolid"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TopoSolid"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -471,15 +466,10 @@ is the start Node of the next directedEdge of the TopoCurveType in document orde
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TopoPrimitiveArrayAssociationType">
       <rdfs:comment>This type supports embedding an array of topological primitives in a TopoComplex</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_TopoPrimitive"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_TopoPrimitive"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_TopoPrimitive"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

@@ -20,13 +20,14 @@
 	Elements in this hierarchy may have an ID and are thus referenceable.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
@@ -112,11 +113,6 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GenericMetaDataType">
       <rdfs:comment>Deprecated with GML version 3.1.0.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractMetaDataType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -170,11 +166,6 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:comment>Base type for complex metadata property types.</rdfs:comment>
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
-      <rdfs:subClassOf>
-         <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
                <owl:Restriction>
                   <owl:onProperty rdf:resource="http://www.opengis.net/gml#about"/>
@@ -193,11 +184,6 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:subPropertyOf rdf:resource="http://www.opengis.net/gml#hasstring"/>
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#StandardObjectProperties">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">

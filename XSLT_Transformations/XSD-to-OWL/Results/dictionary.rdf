@@ -56,19 +56,14 @@ The gml:id attribute is required - it must be possible to reference this definit
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DictionaryType">
       <rdfs:comment>A non-abstract bag that is specialized for use as a dictionary which contains a set of definitions. These definitions are referenced from other places, in the same and different XML documents. In this restricted type, the inherited optional "description" element can be used for a description of this dictionary. The inherited optional "name" element can be used for the name(s) of this dictionary. The inherited "metaDataProperty" elements can be used to reference or contain more information about this dictionary. The inherited required gml:id attribute allows the dictionary to be referenced using this handle. </rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdictionaryEntry"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#dictionaryEntry"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#dictionaryEntry"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasindirectEntry"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#indirectEntry"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#indirectEntry"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
@@ -118,11 +113,6 @@ The number of definitions contained in this dictionaryEntry is restricted to one
       <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#StandardDefinitionProperties">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">

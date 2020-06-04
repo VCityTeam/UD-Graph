@@ -129,35 +129,36 @@
       </rdfs:subClassOf>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TimePeriodType">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#beginPosition"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimePositionType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimePositionType"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#begin"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#endPosition"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimePositionType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimePositionType"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#end"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimeInstantPropertyType"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hastimeLength">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimePeriodType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#timeLength"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hastimeLength"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#timeLength"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeGeometricPrimitiveType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractTimeGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -243,19 +244,14 @@
       <rdfs:range rdf:resource="http://www.opengis.net/gml#timeLength"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#timeLength">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasduration"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#duration"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#duration"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hastimeInterval"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#timeInterval"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#timeInterval"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:comment>This model group is provided as an alternative to the abstract susbstitutionGroup head _timeLength.

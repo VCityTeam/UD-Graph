@@ -142,11 +142,11 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasangle"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#angle"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#angle"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdmsAngle"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#dmsAngle"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#dmsAngle"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -183,7 +183,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdecimalMinutes"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#decimalMinutes"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#decimalMinutes"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasminutes"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#minutes"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasseconds"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#seconds"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasseconds"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

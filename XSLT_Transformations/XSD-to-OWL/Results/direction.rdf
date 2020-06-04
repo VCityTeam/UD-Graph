@@ -15,19 +15,19 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDirectionVector"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#DirectionVector"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DirectionVector"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompassPoint"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompassPoint"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompassPoint"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#DirectionKeyword"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CodeType"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#DirectionString"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -36,7 +36,19 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvector"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#vector"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#vector"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#horizontalAngle"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#AngleType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#verticalAngle"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#AngleType"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

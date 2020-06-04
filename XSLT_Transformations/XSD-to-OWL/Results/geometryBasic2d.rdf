@@ -93,27 +93,34 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#LinearRingType">
       <rdfs:comment>A LinearRing is defined by four or more coordinate tuples, with linear interpolation between them; the first and last coordinates must be coincident.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoord"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coord"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coord"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoord"/>
             <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">4</owl:minCardinality>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractRingType"/>
@@ -124,7 +131,7 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLinearRing"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#LinearRing"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#LinearRing"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

@@ -110,27 +110,22 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#GeometricComplexPropertyType">
       <rdfs:comment>A property that has a geometric complex as its value domain can either be an appropriate geometry element encapsulated in an element of this type or an XLink reference to a remote geometry element (where remote includes geometry elements located elsewhere in the same document). Either the reference or the contained element must be given, but neither both nor none.
 NOTE: The allowed geometry elements contained in such a property (or referenced by it) have to be modelled by an XML Schema choice element since the composites inherit both from geometric complex *and* geometric primitive and are already part of the _GeometricPrimitive substitution group.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasGeometricComplex"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometricComplex"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#GeometricComplex"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeCurve"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeCurve"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeCurve"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeSurface"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSurface"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSurface"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeSolid"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSolid"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSolid"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

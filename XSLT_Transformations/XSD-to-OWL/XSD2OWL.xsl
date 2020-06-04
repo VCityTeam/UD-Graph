@@ -263,6 +263,9 @@ the contents of the type.-->
       |./xs:simpleContent/xs:extension/xs:attribute|./xs:simpleContent/xs:extension/xs:attribute">
       <xsl:call-template name="complextype-attributes"/>
     </xsl:if>
+    <xsl:if test="./xs:group">
+      <xsl:call-template name="group-properties"/>
+    </xsl:if>
     <!-- If the class is an extension of a complexType, this class is a subclass of that class -->
     <!-- ======================================== # 9,12,13,14 ======================================== -->
     <xsl:if test="descendant::*[@base][position() = 1]/@base">
@@ -416,46 +419,118 @@ It could be the parent xs:element or xs:complexType. -->
     </owl:Class>
   </rdfs:subClassOf>
   <xsl:apply-templates select="./xs:choice"/>
-  <xsl:apply-templates select="./xs:group"/>
+  <xsl:if test="./xs:group">
+    <xsl:call-template name="group-properties"/>
+  </xsl:if>
   <xsl:apply-templates select="./xs:sequence"/>
 </xsl:template>
 
 <!-- ============================================== # 31 ============================================== -->
-<xsl:template match="xs:choice[count(child::*) > 0]"> 
+
+<xsl:template match="xs:choice[count(child::*) > 0]">
   <owl:disjointUnionOf rdf:parseType="Collection">
-    <xsl:for-each select="./xs:element">
-      <owl:Restriction>
-        <xsl:choose>
-          <xsl:when test="@name and @type">
-            <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
-            <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
-                                                  then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                  else @type"/>
-            <owl:onProperty     rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
-            <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
-          </xsl:when>
-          <xsl:when test="@name and not(@type)">
-            <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', @name )}"/>
-            <owl:allValuesFrom rdf:resource="{concat( $namespace, '#', @name )}"/>
-          </xsl:when>
-          <xsl:when test="contains( @ref, ':' )">
-            <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
-            <owl:onProperty     rdf:resource="{concat( $thisReference[1], ':has', $thisReference[2] )}"/>
-            <owl:allValuesFrom rdf:resource="{@ref}"/>
-          </xsl:when>
-          <xsl:otherwise><!-- @ref reference is declared in the schema -->
-            <owl:onProperty     rdf:resource="{concat( $namespace, '#', 'has', @ref )}"/>
-            <owl:allValuesFrom rdf:resource="{concat( $namespace, '#', @ref )}"/>
-          </xsl:otherwise>
-        </xsl:choose>
-      </owl:Restriction>
-      <xsl:if test="@minOccurs or @maxOccurs and @maxOccurs != 'unbounded'">
-        <xsl:call-template name="minOccurs-maxOccurs"/>
-      </xsl:if>
-    </xsl:for-each>
+    <xsl:call-template name="choice-child"/>
   </owl:disjointUnionOf>
 </xsl:template>
 
+<xsl:template name="choice-child">
+  <xsl:for-each select="./xs:element">
+    <owl:Restriction>
+      <xsl:choose>
+        <xsl:when test="@name and @type">
+          <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
+          <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
+                                                then concat( 'xs:', local-name-from-QName($thisTypeQName) )
+                                                else @type"/>
+          <owl:onProperty     rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
+          <owl:someValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
+        </xsl:when>
+        <xsl:when test="@name and not(@type)">
+          <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', @name )}"/>
+          <owl:someValuesFrom rdf:resource="{concat( $namespace, '#', @name )}"/>
+        </xsl:when>
+        <xsl:when test="contains( @ref, ':' )">
+          <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
+          <owl:onProperty     rdf:resource="{concat( $thisReference[1], ':has', $thisReference[2] )}"/>
+          <owl:someValuesFrom rdf:resource="{@ref}"/>
+        </xsl:when>
+        <xsl:otherwise><!-- @ref reference is declared in the schema -->
+          <owl:onProperty     rdf:resource="{concat( $namespace, '#', 'has', @ref )}"/>
+          <owl:someValuesFrom rdf:resource="{concat( $namespace, '#', @ref )}"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </owl:Restriction>
+    <xsl:if test="@minOccurs or @maxOccurs and @maxOccurs != 'unbounded'">
+      <xsl:call-template name="minOccurs-maxOccurs"/>
+    </xsl:if>
+  </xsl:for-each>
+  <xsl:for-each select="./xs:choice">
+    <xsl:call-template name="choice-child"/>
+  </xsl:for-each>
+  <xsl:for-each select="./xs:group">
+    <owl:Restriction>
+      <xsl:choose>
+        <xsl:when test="@name and @type">
+          <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
+          <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
+                                                then concat( 'xs:', local-name-from-QName($thisTypeQName) )
+                                                else @type"/>
+          <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
+          <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
+        </xsl:when>
+        <xsl:when test="@name">
+          <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
+          <owl:allValuesFrom rdf:resource="xs:string"/>
+        </xsl:when>
+        <xsl:when test="@ref and not(contains( @ref, ':' ))">
+          <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', @ref )}"/>                  
+          <owl:allValuesFrom rdf:resource="{concat( $namespace, '#', @ref )}"/>
+        </xsl:when>
+        <xsl:otherwise><!-- Otherwise element/@ref refers to an object outside of the specified schema -->
+          <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
+          <owl:onProperty    rdf:resource="{concat( $thisReference[1], ':has', $thisReference[2] )}"/>
+          <owl:allValuesFrom rdf:resource="{@ref}"/>
+        </xsl:otherwise>
+      </xsl:choose>
+    </owl:Restriction>
+  </xsl:for-each>
+  <xsl:for-each select="./xs:sequence">
+    <owl:Restriction>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <xsl:for-each select="./xs:element">
+          <owl:Restriction>
+            <xsl:choose>
+              <xsl:when test="@name and @type">
+                <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
+                <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
+                                                      then concat( 'xs:', local-name-from-QName($thisTypeQName) )
+                                                      else @type"/>
+                <owl:onProperty rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
+                <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
+              </xsl:when>
+              <xsl:when test="@name and not(@type)">
+                <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', @name )}"/>
+                <owl:allValuesFrom rdf:resource="{concat( $namespace, '#', @name )}"/>
+              </xsl:when>
+              <xsl:when test="@ref and not(contains( @ref, ':' ))">
+                <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', @ref )}"/>
+                <owl:allValuesFrom rdf:resource="{concat( $namespace, '#', @ref )}"/>
+              </xsl:when>
+              <xsl:otherwise><!-- Otherwise element/@ref refers to an object outside of the specified schema -->
+                <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
+                <owl:onProperty    rdf:resource="{concat( $thisReference[1], ':has', $thisReference[2] )}"/>
+                <owl:allValuesFrom rdf:resource="{@ref}"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </owl:Restriction>
+          <xsl:if test="@minOccurs or @maxOccurs and @maxOccurs != 'unbounded'">
+            <xsl:call-template name="minOccurs-maxOccurs"/>
+          </xsl:if>
+        </xsl:for-each>
+      </owl:intersectionOf>
+    </owl:Restriction>
+  </xsl:for-each>
+</xsl:template>
 
 <!-- ============================================ # 32,34 ============================================ -->
 <xsl:template match="xs:group[@name]|xs:attributeGroup[@name]">
@@ -475,6 +550,42 @@ It could be the parent xs:element or xs:complexType. -->
     <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range  rdf:resource="{if (contains( @ref, ':')) then @ref else concat( $namespace, '#', @ref )}"/>
   </owl:ObjectProperty>
+</xsl:template>
+
+<xsl:template name="group-properties">
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:intersectionOf rdf:parseType="Collection">
+        <xsl:for-each select="./xs:group">
+          <owl:Restriction>
+            <xsl:choose>
+              <xsl:when test="@name and @type">
+                <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
+                <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
+                                                      then concat( 'xs:', local-name-from-QName($thisTypeQName) )
+                                                      else @type"/>
+                <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
+                <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
+              </xsl:when>
+              <xsl:when test="@name">
+                <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
+                <owl:allValuesFrom rdf:resource="xs:string"/>
+              </xsl:when>
+              <xsl:when test="@ref and not(contains( @ref, ':' ))">
+                <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', @ref )}"/>                  
+                <owl:allValuesFrom rdf:resource="{concat( $namespace, '#', @ref )}"/>
+              </xsl:when>
+              <xsl:otherwise><!-- Otherwise element/@ref refers to an object outside of the specified schema -->
+                <xsl:variable name="thisReference" select="tokenize( @ref, ':' )"/>
+                <owl:onProperty    rdf:resource="{concat( $thisReference[1], ':has', $thisReference[2] )}"/>
+                <owl:allValuesFrom rdf:resource="{@ref}"/>
+              </xsl:otherwise>
+            </xsl:choose>
+          </owl:Restriction>
+        </xsl:for-each>
+      </owl:intersectionOf>
+    </owl:Class>
+  </rdfs:subClassOf>
 </xsl:template>
 
 <xsl:template name="group-attributes">

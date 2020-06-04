@@ -15,19 +15,14 @@
    </owl:Ontology>
    <owl:Class rdf:about="http://www.opengis.net/gml#TargetPropertyType">
       <rdfs:comment>Container for an object representing the target or subject of an observation.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Feature"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Feature"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_Feature"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_Geometry"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_Geometry"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#_Geometry"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>

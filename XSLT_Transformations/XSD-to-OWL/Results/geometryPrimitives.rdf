@@ -94,19 +94,26 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#LineStringSegmentType">
       <rdfs:comment>A LineStringSegment is a curve segment that is defined by two or more coordinate tuples, with linear interpolation between them.
 				Note: LineStringSegment implements GM_LineString of ISO 19107.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -124,19 +131,26 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ArcStringType">
       <rdfs:comment>An ArcString is a curve segment that uses three-point circular arc interpolation.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -158,19 +172,26 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ArcType">
       <rdfs:comment>An Arc is an arc string with only one arc unit, i.e. three control points.</rdfs:comment>
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -210,11 +231,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -253,11 +286,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -304,11 +349,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -478,7 +535,11 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasgeometricPositionGroup"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#geometricPositionGroup"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -527,11 +588,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -608,11 +681,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -659,11 +744,23 @@
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coordinates"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointProperty"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointProperty"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspointRep"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf>
@@ -865,13 +962,14 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
    <owl:Class rdf:about="http://www.opengis.net/gml#row">
       <rdfs:subClassOf>
          <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasgeometricPositionListGroup"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#geometricPositionListGroup"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasgeometricPositionListGroup">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#PointGrid"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#geometricPositionListGroup"/>
-      </owl:ObjectProperty>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractParametricCurveSurfaceType">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfacePatchType"/>
@@ -922,10 +1020,16 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasPointGrid">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractGriddedSurfaceType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#PointGrid"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasPointGrid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#PointGrid"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractParametricCurveSurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:AbstractParametricCurveSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -1049,10 +1153,16 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#PolyhedralSurfaceType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:SurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -1102,10 +1212,16 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasStandardObjectProperties">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#TriangulatedSurfaceType"/>
-         <rdfs:range rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      </owl:ObjectProperty>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasStandardObjectProperties"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfaceType"/>
       <rdfs:comment>Warning: The parent class 'gml:SurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -1162,7 +1278,11 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
       <owl:disjointUnionOf rdf:parseType="Collection">
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasposList"/>
-            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#posList"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasgeometricPositionGroup"/>
+            <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#geometricPositionGroup"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -1245,11 +1365,6 @@ NOTE: Even though each Ring is simple, the boundary need not be simple. The easi
       <rdfs:range rdf:resource="http://www.opengis.net/gml#geometricPositionGroup"/>
    </owl:ObjectProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#PointGrid">
-      <rdfs:subClassOf>
-         <owl:Class>
-            <owl:intersectionOf rdf:parseType="Collection"/>
-         </owl:Class>
-      </rdfs:subClassOf>
       <rdfs:subClassOf>
          <owl:Class>
             <owl:intersectionOf rdf:parseType="Collection">
