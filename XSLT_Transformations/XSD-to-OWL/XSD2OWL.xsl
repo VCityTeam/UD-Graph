@@ -359,16 +359,20 @@ datatype property. Note that 'ancestor::*[@name][last()]/@name' is used to deter
 original class. This is required because we cannot assume which parent node contains the @name attribute.
 It could be the parent xs:element or xs:complexType. -->
 <xsl:template name="simpleContent-property">
+  <xsl:variable name="thisBaseQName" select="resolve-QName( string(./*/@base), . )"/>
+  <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
+                                        then concat( 'xs:', local-name-from-QName($thisBaseQName) )
+                                        else ./*/@base"/>
   <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
-  <rdfs:range  rdf:resource="{if (contains( ./*/@base, ':' )) then ./*/@base else concat( $namespace, '#', ./*/@base )}"/>
+  <rdfs:range  rdf:resource="{if (contains( $thisBase, ':' )) then $thisBase else concat( $namespace, '#', $thisBase )}"/>
   <xsl:choose>
-    <xsl:when test="contains( ./*/@base, ':' ) and not(starts-with( ./*/@base, 'xs:' ))">
-      <xsl:variable name="thisBase" select="tokenize( ./*/@base, ':' )"/>
+    <xsl:when test="contains( $thisBase, ':' ) and not(starts-with( $thisBase, 'xs:' ))">
+      <xsl:variable name="thisBase" select="tokenize( $thisBase, ':' )"/>
       <rdfs:subPropertyOf rdf:resource="{concat( $thisBase[1], ':has', $thisBase[2] )}"/>
       <rdfs:comment>Warning: The parent property '<xsl:value-of select="concat( $thisBase[1], ':has', $thisBase[2] )"/>' is declared outside of this property's original schema. This property may be declared incorrectly.</rdfs:comment>
     </xsl:when>
-    <xsl:when test="not(contains( ./*/@base, ':' ))">
-      <rdfs:subPropertyOf rdf:resource="{concat( $namespace, '#', 'has', ./*/@base )}"/>
+    <xsl:when test="not(contains( $thisBase, ':' ))">
+      <rdfs:subPropertyOf rdf:resource="{concat( $namespace, '#', 'has', $thisBase )}"/>
     </xsl:when>
   </xsl:choose>
 </xsl:template>
@@ -747,7 +751,7 @@ unbounded, in which case it is ignored -->
         <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                               then concat( 'xs:', local-name-from-QName($thisTypeQName) )
                                               else ."/>
-        <owl:equivalentClass rdf:resource="{if (contains( . , ':' )) then . else concat( $namespace, '#', . )}"/>
+        <owl:equivalentClass rdf:resource="{if (contains( $thisType , ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
       </xsl:for-each>
     </xsl:when>
     <xsl:when test="./xs:simpleType">
@@ -771,8 +775,13 @@ unbounded, in which case it is ignored -->
   <owl:equivalentClass>
     <rdfs:Datatype>
       <owl:oneOf>
+        <xsl:variable name="thisBaseQName" select="resolve-QName( string(@base), . )"/>
+        <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
+                                              then concat( 'xs:', local-name-from-QName($thisBaseQName) )
+                                              else @base"/>
         <xsl:call-template name="enumeration">
           <xsl:with-param name="pos" select="1"/>
+          <xsl:with-param name="base" select="$thisBase"/>
         </xsl:call-template>
       </owl:oneOf>
     </rdfs:Datatype>
@@ -781,8 +790,9 @@ unbounded, in which case it is ignored -->
 
 <xsl:template name="enumeration">
   <xsl:param name="pos"/>
+  <xsl:param name="base"/>
   <rdf:Description rdf:type="rdf:List">
-    <rdf:first rdf:datatype="{@base}"><xsl:value-of select="./xs:enumeration[position() = $pos]/@value"/></rdf:first>
+    <rdf:first rdf:datatype="{$base}"><xsl:value-of select="./xs:enumeration[position() = $pos]/@value"/></rdf:first>
     <xsl:choose>
       <xsl:when test="$pos = count(./xs:enumeration)">
         <rdf:rest rdf:resource="rdf:nil"/>
@@ -791,6 +801,7 @@ unbounded, in which case it is ignored -->
         <rdf:rest>
           <xsl:call-template name="enumeration">
             <xsl:with-param name="pos" select="$pos + 1"/>
+            <xsl:with-param name="base" select="$base"/>
           </xsl:call-template>
         </rdf:rest>
       </xsl:otherwise>
