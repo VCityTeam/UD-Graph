@@ -2,7 +2,7 @@ import sys
 from lxml import etree
 
 if len(sys.argv) != 2:
-   sys.exit('Incorrect number of arguments. Usage: postXSLT.py [xsd file]')
+   sys.exit('Incorrect number of arguments. Usage: postXSLT.py [original xsd file]')
 
 
 # initialize variables
