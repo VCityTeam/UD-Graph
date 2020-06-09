@@ -30,6 +30,8 @@ def main():
       ontology_root.insert(0, child)
    for child in etree.parse('../../Ontologies/GML/feature.rdf').getroot():
       ontology_root.insert(0, child)
+   for child in etree.parse('../../Ontologies/GML/gmlBase.rdf').getroot():
+      ontology_root.insert(0, child)
    for child in etree.parse('../../Ontologies/GML/geometryPrimitives.rdf').getroot():
       ontology_root.insert(0, child)
    for child in etree.parse('../../Ontologies/GML/geometryBasic0d1d.rdf').getroot():
@@ -44,7 +46,7 @@ def main():
    # convert xml tree
    for input_node in input_root.iter():
       tag = qualifyTag(etree.QName(input_node))
-      input_description = getDescription(input_node)
+      input_description = getNodeDescription(input_node)
       output_node_id = generateID(tag.localname)
 
       # if input node has a class input_description create an output node
@@ -60,17 +62,17 @@ def main():
 
          # create corresponding property nodes 
          for input_child in input_node:
-            tag = qualifyTag(etree.QName(input_child))
-            if tag.localname in child_ids:
-               child_ids[tag.localname] = child_ids[tag.localname] + 1
+            child_tag = qualifyTag(etree.QName(input_child))
+            if child_tag.localname in child_ids:
+               child_ids[child_tag.localname] = child_ids[child_tag.localname] + 1
             else:
-               child_ids[tag.localname] = 0
-            child_definition = getDescription(input_child)
+               child_ids[child_tag.localname] = 0
+            child_definition = getNodeDescription(input_child)
 
             if child_definition is None:
                output_child = etree.SubElement( output_node, 'UNKNOWN_PROPERTY' )
-               output_child.attrib[ '{}type'.format( ns['rdf'] ) ] = '{}{}'.format( tag.namespace, tag.localname )
-               output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( tag.localname, child_ids[tag.localname] )
+               output_child.attrib[ '{}type'.format( ns['rdf'] ) ] = '{}{}'.format( child_tag.namespace, child_tag.localname )
+               output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
 
             elif child_definition.tag == '{}ObjectProperty'.format( ns['owl'] ):
                # if child node description is an object property, create an object property between the node and its grandchildren
@@ -81,14 +83,13 @@ def main():
                      child_ids[grandchild_tag.localname] = child_ids[grandchild_tag.localname] + 1
                   else:
                      child_ids[grandchild_tag.localname] = 0
-                  output_child = etree.SubElement(output_node, '{%s}%s' % ( tag.namespace, tag.localname ))
+                  output_child = etree.SubElement(output_node, '{%s}%s' % ( child_tag.namespace, child_tag.localname ))
                   output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( grandchild_tag.localname, child_ids[grandchild_tag.localname] )
 
             elif child_definition.tag == '{}DatatypeProperty'.format( ns['owl'] ):
                # if child node description is a datatype property, create an datatype property between the node and its grandchildren
 
-               # if input_child.text() is not None:
-               output_child = etree.SubElement(output_node, '{%s}%s' % ( tag.namespace, tag.localname ))
+               output_child = etree.SubElement(output_node, '{%s}%s' % ( child_tag.namespace, child_tag.localname ))
                output_child.attrib[ '{}datatype'.format( ns['rdf'] ) ] = '{}'.format(
                   child_definition.find('.//{}range'.format( ns['rdfs'] )).attrib['{}resource'.format( ns['rdf'] )] )
                output_child.text = input_child.text
@@ -98,19 +99,25 @@ def main():
 
                # get all restrictions from input description
                for restriction in input_description.findall( './/{}Restriction'.format( ns['owl'] )):
-                  if restriction.find( './*[@{}resource = "{}{}"]'.format( ns['rdf'], tag.namespace, tag.localname ) ) is not None:
-                     output_child_uri = restriction.find( '{}onProperty'.format(ns['owl']) ).attrib[ '{}resource'.format(ns['rdf']) ].split('#')
-                     output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
-                     output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( tag.localname, child_ids[tag.localname] )
-                     break
+                  if restriction.find( './*[@{}resource = "{}{}"]'.format( ns['rdf'], child_tag.namespace, child_tag.localname ) ) is not None:
+                     on_property = restriction.find( '{}onProperty'.format(ns['owl']) )
+                     property_definition = getURIDescription( on_property.attrib[ '{}resource'.format(ns['rdf']) ] )
+                     if property_definition.find( './/{}range[@{}resource = "{}{}"]'.format( ns['rdfs'], ns['rdf'], child_tag.namespace, child_tag.localname ) ) is not None:
+                        output_child_uri = on_property.attrib[ '{}resource'.format(ns['rdf']) ].split('#')
+                        output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
+                        output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
+                        break
                   else:
+                     # if no corresponding property exists for this class, check parent classes 
                      for subClass in child_definition.findall( './/{}subClassOf[@{}resource]'.format( ns['rdfs'], ns['rdf'] ) ):
                         if restriction.find( './*[@{}resource = "{}"]'.format( ns['rdf'], subClass.attrib['{}resource'.format(ns['rdf'])] ) ) is not None:
-                           output_child_uri = restriction.find( '{}onProperty'.format(ns['owl']) ).attrib[ '{}resource'.format(ns['rdf']) ].split('#')
-                           output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
-                           output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( tag.localname, child_ids[tag.localname] )
-                           break
-
+                           on_property = restriction.find( '{}onProperty'.format(ns['owl']) )
+                           property_definition = getURIDescription( on_property.attrib[ '{}resource'.format(ns['rdf']) ] )
+                           if property_definition.find( './/{}range[@{}resource = "{}{}"]'.format( ns['rdfs'], ns['rdf'], child_tag.namespace, child_tag.localname ) ) is not None:
+                              output_child_uri = restriction.find( '{}onProperty'.format(ns['owl']) ).attrib[ '{}resource'.format(ns['rdf']) ].split('#')
+                              output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
+                              output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
+                              break
 
    with open('Results/{}.rdf'.format( sys.argv[1].split('/')[-1].split('.')[0] ), 'w') as file:
       file.write(etree.tostring( output_root, pretty_print=True ))
@@ -134,24 +141,24 @@ def generateID( name ):
       id_dictionary[name] = 0
       return '#{}_0'.format( name )
 
-# get rdf:about attribute of an element as a QName
-def getRDFAboutOf( element ):
-   if element is not None:
-      about = element.attrib[ '{}about'.format(ns['rdf']) ].split('#')
+# get rdf:about attribute of an node as a QName
+def getNodeRDFAbout( node ):
+   if node is not None:
+      about = node.attrib[ '{}about'.format(ns['rdf']) ].split('#')
       if len(about) < 2:
          return None
       return etree.QName( about[0], about[1] )
    return None
 
-# get rdf:resource attribute of an element as a string
-def getRDFResourceOf( element ):
-   if element is not None and '{}resource'.format(ns['rdf']) in element.attrib:
-      return element.attrib[ '{}resource'.format(ns['rdf']) ]
+# get rdf:resource attribute of a node as a string
+def getNodeRDFResource( node ):
+   if node is not None and '{}resource'.format(ns['rdf']) in node.attrib:
+      return node.attrib[ '{}resource'.format(ns['rdf']) ]
    return ''
 
-# get element description from ontology with inherited axioms
-def getDescription( element ):
-   tag = qualifyTag(etree.QName(element))
+# get node description from ontology with inherited axioms
+def getNodeDescription( node ):
+   tag = qualifyTag(etree.QName(node))
    description = deepcopy( ontology_root.find( './/*[@{}about = "{}{}"]'.format( ns['rdf'], tag.namespace, tag.localname ) ) )
    if description is None:
       return None
@@ -161,6 +168,22 @@ def getDescription( element ):
             parent_description = ontology_root.find( './/{}Class[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], class_uri ) )
             for child in parent_description:
                description.append( deepcopy(child) )
+   # TODO add subproperty support
+   etree.indent(description)
+   return description
+
+# get node description from ontology with inherited axioms
+def getURIDescription( uri ):
+   description = deepcopy( ontology_root.find( './/*[@{}about = "{}"]'.format( ns['rdf'], uri ) ) )
+   if description is None:
+      return None
+   if description.tag == '{}Class'.format( ns['owl'] ):
+      for class_uri in listClasses( description ):
+         if class_uri != uri:
+            parent_description = ontology_root.find( './/{}Class[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], class_uri ) )
+            for child in parent_description:
+               description.append( deepcopy(child) )
+   # TODO add subproperty support
    etree.indent(description)
    return description
 
@@ -169,7 +192,7 @@ def listClasses( thisClass ):
    if thisClass is None:
       return []
 
-   tag = getRDFAboutOf( thisClass )
+   tag = getNodeRDFAbout( thisClass )
    classes = []
    # search for parent classes
    for parent_resource in ontology_root.findall( './/{}Class[@{}about = "{}#{}"]/{}subClassOf'.format(
