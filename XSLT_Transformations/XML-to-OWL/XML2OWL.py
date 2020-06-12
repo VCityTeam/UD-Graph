@@ -181,6 +181,7 @@ def main():
                               output_child.text = input_child.text
                               break
 
+   etree.indent(output_root)
    with open('Results/{}.rdf'.format( sys.argv[1].split('/')[-1].split('.')[0] ), 'w') as file:
       file.write(etree.tostring( output_root, pretty_print=True ))
 

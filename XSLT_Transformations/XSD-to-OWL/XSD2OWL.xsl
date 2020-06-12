@@ -265,7 +265,8 @@ the contents of the type.-->
     </xsl:if>
     <!-- If the class is an extension of a complexType, this class is a subclass of that class -->
     <!-- ======================================== # 9,12,13,14 ======================================== -->
-    <xsl:if test="descendant::*[@base][position() = 1]/@base">
+    <xsl:if test="./xs:simpleContent/xs:restriction[@base]|./xs:complexContent/xs:restriction[@base]|
+                  ./xs:simpleContent/xs:extension[@base]|./xs:complexContent/xs:extension[@base]">
       <xsl:variable name="thisBaseQName" select="resolve-QName( string(descendant::*[@base][position() = 1]/@base), . )"/>
       <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
                                             then concat( 'xs:', local-name-from-QName($thisBaseQName) )
@@ -280,10 +281,18 @@ the contents of the type.-->
             <rdfs:subClassOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
           </xsl:if>
         </xsl:when>
-        <xsl:when test="starts-with( $thisBase, 'xs:' ) and $thisBase != 'xs:anyType'">
+        <xsl:when test="./*/xs:restriction and starts-with( $thisBase, 'xs:' ) and $thisBase != 'xs:anyType'">
           <owl:subClassOf>
             <owl:Restriction>
-              <owl:onProperty     rdf:resource="{concat( $namespace, '#', 'has', local-name-from-QName($thisBaseQName) )}"/>
+              <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', $thisName, 'Datatype' )}"/>
+              <owl:someValueFrom rdf:resource="{concat( $namespace, '#', $thisName, 'Datatype' )}"/>
+            </owl:Restriction>
+          </owl:subClassOf>
+        </xsl:when>
+        <xsl:when test="./*/xs:extension and starts-with( $thisBase, 'xs:' ) and $thisBase != 'xs:anyType'">
+          <owl:subClassOf>
+            <owl:Restriction>
+              <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', local-name-from-QName($thisBaseQName) )}"/>
               <owl:someValueFrom rdf:resource="{$thisBase}"/>
             </owl:Restriction>
           </owl:subClassOf>
@@ -345,30 +354,35 @@ of the property name to avoid conflicting intersection with it's parent complexT
 a child xs:restriction a datatype property will also be created with 'Datatype' appended to the name to avoid
 conflicting intersections with it's parent complexType. If a @base attribute is declared the resulting
 Datatypes and DatatypePropreties will inherit it as a superclass or superproperty. -->
-<!-- ============================================ # 6,8,9 ============================================ -->
-<xsl:template match="xs:simpleContent">
-  <xsl:call-template name="simpleContent-property"/>
-  <!-- ========================================== # 10,11,12 ========================================== -->
-  <xsl:if test="./xs:restriction">
-    <rdfs:Datatype rdf:about="{concat( $namespace, '#', ancestor::*[@name][last()]/@name, 'Datatype' )}">
-      <xsl:apply-templates select="xs:restriction"/>
-    </rdfs:Datatype>
-  </xsl:if>
-</xsl:template>
-
 <!-- xs:extensions are transformed into datatype properties with 'has' appended to
 the name. The extension is declared as a datatype property as well and as the superclass of the initial
 datatype property. Note that 'ancestor::*[@name][last()]/@name' is used to determine the name of the
 original class. This is required because we cannot assume which parent node contains the @name attribute.
 It could be the parent xs:element or xs:complexType. -->
-<xsl:template name="simpleContent-property">
-  <xsl:variable name="thisBaseQName" select="resolve-QName( string(./*/@base), . )"/>
+<!-- ============================================ # 6,8,9 ============================================ -->
+<xsl:template match="xs:simpleContent[xs:extension]">
+  <xsl:variable name="thisBaseQName" select="resolve-QName( string(./xs:extension/@base), . )"/>
   <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisBaseQName) )
-                                        else ./*/@base"/>
+                                        else ./xs:extension/@base"/>
   <owl:DatatypeProperty rdf:about="{concat( $namespace, '#', 'has', local-name-from-QName($thisBaseQName) )}">
     <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range  rdf:resource="{if (contains( $thisBase, ':' )) then $thisBase else concat( $namespace, '#', $thisBase )}"/>
+  </owl:DatatypeProperty>
+</xsl:template>
+
+<!-- ========================================== # 10,11,12 ========================================== -->
+<xsl:template match="xs:simpleContent[xs:restriction]">
+  <rdfs:Datatype rdf:about="{concat( $namespace, '#', ancestor::*[@name][last()]/@name, 'Datatype' )}">
+    <xsl:apply-templates select="xs:restriction"/>
+  </rdfs:Datatype>
+  <xsl:variable name="thisBaseQName" select="resolve-QName( string(./xs:restriction/@base), . )"/>
+  <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
+                                        then concat( 'xs:', local-name-from-QName($thisBaseQName) )
+                                        else ./xs:restriction/@base"/>
+  <owl:DatatypeProperty rdf:about="{concat( $namespace, '#', 'has', ancestor::*[@name][last()]/@name, 'Datatype' )}">
+    <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
+    <rdfs:range  rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name, 'Datatype' )}"/>
   </owl:DatatypeProperty>
 </xsl:template>
 
