@@ -22,7 +22,7 @@ for 1st depth elements, complex types, and simple types. -->
   <rdf:RDF>
     <owl:Ontology rdf:about="{$namespace}">
       <xsl:apply-templates select="//xs:import"/>
-      <xsl:apply-templates select="//xs:include"/>
+      <!-- <xsl:apply-templates select="//xs:include"/> -->
       <xsl:apply-templates select="/xs:schema/xs:annotation"/>
     </owl:Ontology>
     <xsl:apply-templates select="//xs:complexType[@name or ../@name]"/>
@@ -37,7 +37,8 @@ for 1st depth elements, complex types, and simple types. -->
 
 <!-- Imports are not handled in this stylesheet (yet). If one is declared, transform it into a warning. -->
 <!-- TODO: test document() function for resolving imports? -->
-<xsl:template match="xs:import|xs:include">
+<xsl:template match="xs:import">
+<!-- <xsl:template match="xs:import|xs:include"> -->
   <owl:imports rdf:resource="{@schemaLocation}"/>
 </xsl:template>
 
@@ -62,11 +63,13 @@ transformation. -->
   <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
   <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                        else @type"/>
+                                        else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                             then local-name-from-QName($thisTypeQName)
+                                             else @type"/>
   <xsl:choose>
     <xsl:when test="starts-with( $thisType, 'xs:' ) and $thisType != 'xs:anyType'
                     or //xs:simpleType[@name = $thisType] or //xs:element[xs:simpleType and @name = $thisType]">
-      <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+      <rdfs:Datatype rdf:about="{concat( $namespace, '#', @name )}">
         <owl:equivalentClass rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
       </rdfs:Datatype>
     </xsl:when>
@@ -102,7 +105,9 @@ rdfs:range axioms are set by the type attribute -->
   <xsl:variable name="thisTypeQName" select="if (@type) then resolve-QName( string(@type), . ) else ''"/>
   <xsl:variable name="thisType" select="if (@type and namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                        else @type"/>
+                                        else if (@type and namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                             then local-name-from-QName($thisTypeQName)
+                                             else @type"/>
   <xsl:choose>
     <xsl:when test="$thisType = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisType]">
       <owl:ObjectProperty rdf:about="{concat( $namespace, '#', @name )}">
@@ -153,6 +158,7 @@ rdfs:range axioms are set by the type attribute -->
     The referenced element is either a complex or simple type -->
       <xsl:variable name="thisReference" select="@ref"/>
       <xsl:variable name="thisType" select="//xs:element[@name = $thisReference]/@type"/>
+      <!-- TODO: check if this type is instatiated correctly. Do we have to qualify the namespace? -->
       <xsl:element name="{if ( $thisType = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisReference] )
                           then 'owl:ObjectProperty'
                           else 'owl:DatatypeProperty'}">
@@ -167,9 +173,11 @@ rdfs:range axioms are set by the type attribute -->
 <!-- ============================================== # 30 ============================================== -->
 <xsl:template match="xs:element[parent::xs:all]">
   <xsl:variable name="thisTypeQName" select="if (@type) then resolve-QName( string(@type), . ) else ''"/>
-  <xsl:variable name="thisType" select="if (@type and namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
+  <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                        else @type"/>
+                                        else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                             then local-name-from-QName($thisTypeQName)
+                                             else @type"/>
   <xsl:choose>
     <xsl:when test="$thisType = 'xs:anyType' or //xs:complexType[@name = $thisType] or //xs:element[xs:complexType and @name = $thisType]">
       <owl:ObjectProperty rdf:about="{concat( $namespace, '#', @name )}">
@@ -263,45 +271,13 @@ the contents of the type.-->
       |./xs:simpleContent/xs:extension/xs:attribute|./xs:simpleContent/xs:extension/xs:attribute">
       <xsl:call-template name="complextype-attributes"/>
     </xsl:if>
-    <!-- If the class is an extension of a complexType, this class is a subclass of that class -->
-    <!-- ======================================== # 9,12,13,14 ======================================== -->
+    <!-- If the class is an extension or restriction, this class is a subclass of or has properties for that class -->
+    <!-- =================================== # 6,8,9,10,11,12,13,14 =================================== -->
     <xsl:if test="./xs:simpleContent/xs:restriction[@base]|./xs:complexContent/xs:restriction[@base]|
                   ./xs:simpleContent/xs:extension[@base]|./xs:complexContent/xs:extension[@base]">
-      <xsl:variable name="thisBaseQName" select="resolve-QName( string(descendant::*[@base][position() = 1]/@base), . )"/>
-      <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
-                                            then concat( 'xs:', local-name-from-QName($thisBaseQName) )
-                                            else descendant::*[@base][position() = 1]/@base"/>
-      <xsl:choose>
-        <xsl:when test="//xs:complexType[@name = $thisBase] or //xs:element[@name = @thisBase and xs:complexType]">
-          <rdfs:subClassOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
-        </xsl:when>
-        <xsl:when test="//xs:element[@name = $thisBase and @type]">
-          <xsl:variable name="thisType" select="//xs:element[@name = $thisBase]/@type"/>
-          <xsl:if test="//xs:complexType[$thisName = $thisType]">
-            <rdfs:subClassOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
-          </xsl:if>
-        </xsl:when>
-        <xsl:when test="./*/xs:restriction and starts-with( $thisBase, 'xs:' ) and $thisBase != 'xs:anyType'">
-          <owl:subClassOf>
-            <owl:Restriction>
-              <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', $thisName, 'Datatype' )}"/>
-              <owl:someValueFrom rdf:resource="{concat( $namespace, '#', $thisName, 'Datatype' )}"/>
-            </owl:Restriction>
-          </owl:subClassOf>
-        </xsl:when>
-        <xsl:when test="./*/xs:extension and starts-with( $thisBase, 'xs:' ) and $thisBase != 'xs:anyType'">
-          <owl:subClassOf>
-            <owl:Restriction>
-              <owl:onProperty    rdf:resource="{concat( $namespace, '#', 'has', local-name-from-QName($thisBaseQName) )}"/>
-              <owl:someValueFrom rdf:resource="{$thisBase}"/>
-            </owl:Restriction>
-          </owl:subClassOf>
-        </xsl:when>
-        <xsl:when test="contains( $thisBase, ':') and not(starts-with( $thisBase, 'xs:' )) or $thisBase = 'xs:anyType'">
-          <rdfs:subClassOf rdf:resource="{$thisBase}"/>
-          <rdfs:comment>Warning: The parent class '<xsl:value-of select="$thisBase"/>' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
-        </xsl:when>
-      </xsl:choose>
+      <xsl:call-template name="content-properties">
+        <xsl:with-param name="thisName" select="$thisName"/>
+      </xsl:call-template>
     </xsl:if>
   </owl:Class>
   <xsl:apply-templates select="./xs:simpleContent"/>
@@ -310,6 +286,52 @@ the contents of the type.-->
 <!-- Abstract classes are denoted by an rdfs:comment -->
 <xsl:template match="@abstract">
   <rdfs:comment>This is an abstract class</rdfs:comment>
+</xsl:template>
+
+
+<!-- ===================================== # 6,8,9,10,11,12,13,14 ===================================== -->
+<xsl:template name="content-properties">
+  <xsl:param name="thisName"/>
+  <xsl:variable name="thisBaseQName" select="resolve-QName( string(descendant::*[@base][position() = 1]/@base), . )"/>
+  <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
+                                        then concat( 'xs:', local-name-from-QName($thisBaseQName) )
+                                        else if (namespace-uri-from-QName($thisBaseQName) = $namespace)
+                                             then local-name-from-QName($thisBaseQName)
+                                             else descendant::*[@base][position() = 1]/@base"/>
+  <xsl:choose>
+    <xsl:when test="./xs:simpleContent/xs:extension and $thisBase != 'xs:anyType'">
+      <rdfs:subClassOf>
+        <owl:Restriction>
+          <owl:onProperty     rdf:resource="{concat( $namespace, '#', 'has', local-name-from-QName($thisBaseQName) )}"/>
+          <owl:someValuesFrom rdf:resource="{$thisBase}"/>
+        </owl:Restriction>
+      </rdfs:subClassOf>
+    </xsl:when>
+    <xsl:when test="./xs:simpleContent/xs:restriction and $thisBase != 'xs:anyType'">
+      <rdfs:subClassOf>
+        <owl:Restriction>
+          <owl:onProperty     rdf:resource="{concat( $namespace, '#', 'has', $thisName, 'Datatype' )}"/>
+          <owl:someValuesFrom rdf:resource="{concat( $namespace, '#', $thisName, 'Datatype' )}"/>
+        </owl:Restriction>
+      </rdfs:subClassOf>
+    </xsl:when>
+  </xsl:choose>
+  <xsl:choose>
+    <xsl:when test="//xs:complexType[@name = $thisBase] or //xs:element[@name = $thisBase and xs:complexType]">
+      <rdfs:subClassOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
+    </xsl:when>
+    <xsl:when test="//xs:element[@name = $thisBase and @type]">
+      <xsl:variable name="thisType" select="//xs:element[@name = $thisBase]/@type"/>
+      <xsl:if test="//xs:complexType[@name = $thisType]">
+        <rdfs:subClassOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
+      </xsl:if>
+    </xsl:when>
+    <xsl:when test="contains( $thisBase, ':') and not(starts-with( $thisBase, 'xs:' )) and
+                    namespace-uri-from-QName($thisBaseQName) != $namespace or $thisBase = 'xs:anyType'">
+      <rdfs:subClassOf rdf:resource="{$thisBase}"/>
+      <rdfs:comment>Warning: The parent class '<xsl:value-of select="$thisBase"/>' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+    </xsl:when>
+  </xsl:choose>
 </xsl:template>
 
 <xsl:template name="complextype-attributes">
@@ -324,7 +346,9 @@ the contents of the type.-->
                 <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
                 <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                                       then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                      else @type"/>
+                                                      else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                           then local-name-from-QName($thisTypeQName)
+                                                           else @type"/>
                 <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
                 <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
               </xsl:when>
@@ -364,7 +388,9 @@ It could be the parent xs:element or xs:complexType. -->
   <xsl:variable name="thisBaseQName" select="resolve-QName( string(./xs:extension/@base), . )"/>
   <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisBaseQName) )
-                                        else ./xs:extension/@base"/>
+                                        else if (namespace-uri-from-QName($thisBaseQName) = $namespace)
+                                             then local-name-from-QName($thisBaseQName)
+                                             else ./xs:extension/@base"/>
   <owl:DatatypeProperty rdf:about="{concat( $namespace, '#', 'has', local-name-from-QName($thisBaseQName) )}">
     <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range  rdf:resource="{if (contains( $thisBase, ':' )) then $thisBase else concat( $namespace, '#', $thisBase )}"/>
@@ -374,18 +400,30 @@ It could be the parent xs:element or xs:complexType. -->
 <!-- ========================================== # 10,11,12 ========================================== -->
 <xsl:template match="xs:simpleContent[xs:restriction]">
   <rdfs:Datatype rdf:about="{concat( $namespace, '#', ancestor::*[@name][last()]/@name, 'Datatype' )}">
-    <xsl:apply-templates select="xs:restriction"/>
+    <xsl:apply-templates select="./xs:restriction"/>
   </rdfs:Datatype>
   <xsl:variable name="thisBaseQName" select="resolve-QName( string(./xs:restriction/@base), . )"/>
   <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisBaseQName) )
-                                        else ./xs:restriction/@base"/>
+                                        else if (namespace-uri-from-QName($thisBaseQName) = $namespace)
+                                             then local-name-from-QName($thisBaseQName)
+                                             else ./xs:restriction/@base"/>
   <owl:DatatypeProperty rdf:about="{concat( $namespace, '#', 'has', ancestor::*[@name][last()]/@name, 'Datatype' )}">
+    <xsl:choose>
+      <xsl:when test="//xs:simpleType[@name = $thisBase] or //xs:element[@name = $thisBase and xs:simpleType]">
+        <rdfs:subPropertyOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
+      </xsl:when>
+      <xsl:when test="//xs:element[@name = $thisBase and @type]">
+        <xsl:variable name="thisType" select="//xs:element[@name = $thisBase]/@type"/>
+        <xsl:if test="//xs:simpleType[@name = $thisType]">
+          <rdfs:subPropertyOf rdf:resource="{concat( $namespace, '#', $thisBase )}"/>
+        </xsl:if>
+      </xsl:when>
+    </xsl:choose>
     <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
     <rdfs:range  rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name, 'Datatype' )}"/>
   </owl:DatatypeProperty>
 </xsl:template>
-
 
 
 <!-- ================================================================================================== -->
@@ -405,7 +443,9 @@ It could be the parent xs:element or xs:complexType. -->
                 <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
                 <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                                       then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                      else @type"/>
+                                                      else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                           then local-name-from-QName($thisTypeQName)
+                                                           else @type"/>
                 <owl:onProperty rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
                 <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
               </xsl:when>
@@ -453,7 +493,9 @@ It could be the parent xs:element or xs:complexType. -->
           <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
           <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                                 then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                else @type"/>
+                                                else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                     then local-name-from-QName($thisTypeQName)
+                                                     else @type"/>
           <owl:onProperty     rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
           <owl:someValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
         </xsl:when>
@@ -486,7 +528,9 @@ It could be the parent xs:element or xs:complexType. -->
           <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
           <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                                 then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                else @type"/>
+                                                else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                     then local-name-from-QName($thisTypeQName)
+                                                     else @type"/>
           <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
           <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
         </xsl:when>
@@ -516,7 +560,9 @@ It could be the parent xs:element or xs:complexType. -->
                 <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
                 <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                                       then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                      else @type"/>
+                                                      else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                           then local-name-from-QName($thisTypeQName)
+                                                           else @type"/>
                 <owl:onProperty rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
                 <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
               </xsl:when>
@@ -571,7 +617,9 @@ It could be the parent xs:element or xs:complexType. -->
                 <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
                 <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                                       then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                                      else @type"/>
+                                                      else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                           then local-name-from-QName($thisTypeQName)
+                                                           else @type"/>
                 <owl:onProperty    rdf:resource="{if (contains( @name, ':' )) then @name else concat( $namespace, '#', @name )}"/>
                 <owl:allValuesFrom rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
               </xsl:when>
@@ -694,7 +742,9 @@ unbounded, in which case it is ignored -->
       <xsl:variable name="thisBaseQName" select="resolve-QName( string(./xs:restriction/@base), . )"/>
       <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
                                             then concat( 'xs:', local-name-from-QName($thisBaseQName) )
-                                            else ./xs:restriction/@base"/>
+                                            else if (namespace-uri-from-QName($thisBaseQName) = $namespace)
+                                                 then local-name-from-QName($thisBaseQName)
+                                                 else ./xs:restriction/@base"/>
       <xsl:choose>
         <xsl:when test="//xs:simpleType[../@name = $thisBase]">
           <rdfs:subPropertyOf rdf:resource="{concat( $namespace, '#', 'has', $thisBase )}"/>
@@ -718,7 +768,9 @@ unbounded, in which case it is ignored -->
         <xsl:variable name="thisTypeQName" select="resolve-QName( string(.), $context )"/>
         <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                               then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                              else ."/>
+                                              else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                                   then local-name-from-QName($thisTypeQName)
+                                                   else ."/>
         <owl:equivalentClass rdf:resource="{if (contains( $thisType , ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
       </xsl:for-each>
     </xsl:when>
@@ -746,7 +798,9 @@ unbounded, in which case it is ignored -->
         <xsl:variable name="thisBaseQName" select="resolve-QName( string(@base), . )"/>
         <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
                                               then concat( 'xs:', local-name-from-QName($thisBaseQName) )
-                                              else @base"/>
+                                              else if (namespace-uri-from-QName($thisBaseQName) = $namespace)
+                                                   then local-name-from-QName($thisBaseQName)
+                                                   else @base"/>
         <xsl:call-template name="enumeration">
           <xsl:with-param name="pos" select="1"/>
           <xsl:with-param name="base" select="$thisBase"/>
@@ -779,14 +833,20 @@ unbounded, in which case it is ignored -->
 
 <!-- ============================================= # 5,7 ============================================= -->
 <xsl:template match="xs:restriction[xs:minInclusive|xs:maxInclusive|xs:minExclusive|xs:maxExclusive]">
+  <xsl:variable name="thisBaseQName" select="resolve-QName( string(@base), . )"/>
+  <xsl:variable name="thisBase" select="if (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema')
+                                        then concat( 'xs:', local-name-from-QName($thisBaseQName) )
+                                        else if (namespace-uri-from-QName($thisBaseQName) = $namespace)
+                                             then local-name-from-QName($thisBaseQName)
+                                             else @base"/>
   <owl:equivalentClass>
     <rdfs:Datatype>
-      <owl:onDatatype rdf:resource="{@base}"/>
+      <owl:onDatatype rdf:resource="{$thisBase}"/>
       <owl:withRestrictions rdf:parseType="Collection">
         <xsl:for-each select="xs:minInclusive|xs:maxInclusive|xs:minExclusive|xs:maxExclusive">
           <rdf:Description>
             <xsl:element name="{concat( 'xs:', local-name())}">
-              <xsl:attribute name="rdf:datatype" select="../@base"/>
+              <xsl:attribute name="rdf:datatype" select="$thisBase"/>
               <xsl:value-of select="@value"/>
             </xsl:element>
           </rdf:Description>
@@ -796,7 +856,7 @@ unbounded, in which case it is ignored -->
   </owl:equivalentClass>
 </xsl:template>
 
-<xsl:template match="xs:restriction[count(child::*) = 0 and @base]">
+<xsl:template match="xs:restriction[not(xs:minInclusive|xs:maxInclusive|xs:minExclusive|xs:maxExclusive|xs:enumeration) and @base]">
   <owl:equivalentClass rdf:resource="{@base}"/>
 </xsl:template>
 
@@ -809,7 +869,9 @@ unbounded, in which case it is ignored -->
   <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
   <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                        else @type"/>
+                                        else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                             then local-name-from-QName($thisTypeQName)
+                                             else @type"/>
   <xsl:if test="starts-with( $thisType, 'xs:' )">
     <rdfs:Datatype rdf:about="{concat( $namespace, '#', @name )}">
       <xsl:apply-templates select="./xs:annotation"/>
@@ -823,7 +885,9 @@ unbounded, in which case it is ignored -->
   <xsl:variable name="thisTypeQName" select="resolve-QName( string(@type), . )"/>
   <xsl:variable name="thisType" select="if (namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema')
                                         then concat( 'xs:', local-name-from-QName($thisTypeQName) )
-                                        else @type"/>
+                                        else if (namespace-uri-from-QName($thisTypeQName) = $namespace)
+                                             then local-name-from-QName($thisTypeQName)
+                                             else @type"/>
   <owl:DatatypeProperty rdf:about="{concat( $namespace, '#', @name )}">
     <!-- <xsl:apply-templates select="./xs:annotation"/> -->
     <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>

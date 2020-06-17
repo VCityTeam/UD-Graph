@@ -1,7 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/measures">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/units"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-measures:3.1.1</rdfs:seeAlso>
       <rdfs:comment>Extends the units.xsd and basicTypes.xsd schemas with types for recording measures using specific types of units, especially the measures and units needed for coordinate reference systems and coordinate operations. The specific unit types encoded are length, angle, scale factor, time, area, volume, speed, and grid length. This schema allows angle values to be recorded as single numbers or in degree-minute-second format. 
 		Parts of this schema are based on Subclause 6.5.7 of ISO/CD 19103 Geographic information - Conceptual schema language, on Subclause A.5.2.2.3 of ISO/CD 19118 Geographic information - Encoding, and on Subclause 4.7 of OpenGIS Recommendation Paper OGC 02-007r4 Units of Measure Use and Definition Recommendations.
@@ -13,8 +11,12 @@
    </owl:Ontology>
    <owl:Class rdf:about="http://www.opengis.net/gml#LengthType">
       <rdfs:comment>Value of a length (or distance) quantity, with its units. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for a length, such as metres or feet.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasLengthTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#LengthTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#LengthTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -25,8 +27,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#ScaleType">
       <rdfs:comment>Value of a scale factor (or ratio) that has no physical unit. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for a scale factor, such as percent, permil, or parts-per-million.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasScaleTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#ScaleTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#ScaleTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -37,8 +43,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#TimeType">
       <rdfs:comment>Value of a time or temporal quantity, with its units. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for a time value, such as seconds or weeks.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimeTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimeTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#TimeTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -49,8 +59,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#GridLengthType">
       <rdfs:comment>Value of a length (or distance) quantity in a grid, where the grid spacing does not have any associated physical units, or does not have a constant physical spacing. This grid length will often be used in a digital image grid, where the base units are likely to be pixel spacings. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for length along the axes of a grid, such as pixel spacings or grid spacings.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasGridLengthTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#GridLengthTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#GridLengthTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -61,8 +75,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#AreaType">
       <rdfs:comment>Value of a spatial area quantity, with its units. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for an area, such as square metres or square miles.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasAreaTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#AreaTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AreaTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -73,8 +91,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#VolumeType">
       <rdfs:comment>Value of a spatial volume quantity, with its units. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for a volume, such as cubic metres or cubic feet.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasVolumeTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#VolumeTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#VolumeTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -85,8 +107,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#SpeedType">
       <rdfs:comment>Value of a speed, with its units. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for a velocity, such as metres per second or miles per hour.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasSpeedTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#SpeedTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SpeedTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -110,8 +136,12 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AngleType">
       <rdfs:comment>Value of an angle quantity recorded as a single number, with its units. Uses the MeasureType with the restriction that the unit of measure referenced by uom must be suitable for an angle, such as degrees or radians.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:MeasureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasAngleTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#AngleTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AngleTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
@@ -167,8 +197,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DegreeValueType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DegreeValueType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDegreeValueType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DegreeValueType"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasDegreeValueType">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#DegreesType"/>
@@ -206,10 +240,10 @@
       <rdfs:comment>Integer number of degrees in a degree-minute-second or degree-minute angular value, without indication of direction.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
-            <owl:onDatatype rdf:resource="nonNegativeInteger"/>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
             <owl:withRestrictions rdf:parseType="Collection">
                <rdf:Description>
-                  <xs:maxInclusive rdf:datatype="nonNegativeInteger">359</xs:maxInclusive>
+                  <xs:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">359</xs:maxInclusive>
                </rdf:Description>
             </owl:withRestrictions>
          </rdfs:Datatype>
@@ -219,13 +253,13 @@
       <rdfs:comment>Decimal number of arc-minutes in a degree-minute angular value.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
-            <owl:onDatatype rdf:resource="decimal"/>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
             <owl:withRestrictions rdf:parseType="Collection">
                <rdf:Description>
-                  <xs:minInclusive rdf:datatype="decimal">0.00</xs:minInclusive>
+                  <xs:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.00</xs:minInclusive>
                </rdf:Description>
                <rdf:Description>
-                  <xs:maxExclusive rdf:datatype="decimal">60.00</xs:maxExclusive>
+                  <xs:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.00</xs:maxExclusive>
                </rdf:Description>
             </owl:withRestrictions>
          </rdfs:Datatype>
@@ -235,10 +269,10 @@
       <rdfs:comment>Integer number of arc-minutes in a degree-minute-second angular value.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
-            <owl:onDatatype rdf:resource="nonNegativeInteger"/>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
             <owl:withRestrictions rdf:parseType="Collection">
                <rdf:Description>
-                  <xs:maxInclusive rdf:datatype="nonNegativeInteger">59</xs:maxInclusive>
+                  <xs:maxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">59</xs:maxInclusive>
                </rdf:Description>
             </owl:withRestrictions>
          </rdfs:Datatype>
@@ -248,13 +282,13 @@
       <rdfs:comment>Number of arc-seconds in a degree-minute-second angular value.</rdfs:comment>
       <owl:equivalentClass>
          <rdfs:Datatype>
-            <owl:onDatatype rdf:resource="decimal"/>
+            <owl:onDatatype rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
             <owl:withRestrictions rdf:parseType="Collection">
                <rdf:Description>
-                  <xs:minInclusive rdf:datatype="decimal">0.00</xs:minInclusive>
+                  <xs:minInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.00</xs:minInclusive>
                </rdf:Description>
                <rdf:Description>
-                  <xs:maxExclusive rdf:datatype="decimal">60.00</xs:maxExclusive>
+                  <xs:maxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.00</xs:maxExclusive>
                </rdf:Description>
             </owl:withRestrictions>
          </rdfs:Datatype>

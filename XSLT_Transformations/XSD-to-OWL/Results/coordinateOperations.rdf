@@ -1,8 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/coordinateOperations">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/referenceSystems"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/dataQuality"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:coordinateOperations:3.1.1</rdfs:seeAlso>
       <rdfs:comment>How to encode coordinate operation definitions. Builds on referenceSystems.xsd to encode the data needed to define coordinate operations, including Transformations, Conversions, and other specific subtypes of operations. 
 		
@@ -45,8 +42,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractCoordinateOperationType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -121,8 +116,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationBaseType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CoordinateOperationRefType">
       <rdfs:comment>Association to a coordinate operation, either referencing or containing the definition of that coordinate operation. </rdfs:comment>
@@ -153,8 +146,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ConcatenatedOperationRefType">
       <rdfs:comment>Association to a concatenated operation, either referencing or containing the definition of that concatenated operation. </rdfs:comment>
@@ -198,8 +189,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#PassThroughOperationRefType">
       <rdfs:comment>Association to a pass through operation, either referencing or containing the definition of that pass through operation. </rdfs:comment>
@@ -300,8 +289,6 @@ This abstract complexType is expected to be extended for well-known operation me
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeneralConversionRefType">
       <rdfs:comment>Association to a general conversion, either referencing or containing the definition of that conversion. </rdfs:comment>
@@ -338,8 +325,6 @@ This concrete complexType can be used with all operation methods, without using 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralConversionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralConversionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ConversionRefType">
       <rdfs:comment>Association to a concrete general-purpose conversion, either referencing or containing the definition of that conversion. </rdfs:comment>
@@ -439,8 +424,6 @@ This abstract complexType is expected to be extended for well-known operation me
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoordinateOperationType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoordinateOperationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeneralTransformationRefType">
       <rdfs:comment>Association to a general transformation, either referencing or containing the definition of that transformation. </rdfs:comment>
@@ -477,8 +460,6 @@ This concrete complexType can be used for all operation methods, without using a
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralTransformationType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralTransformationType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TransformationRefType">
       <rdfs:comment>Association to a transformation, either referencing or containing the definition of that transformation. </rdfs:comment>
@@ -545,8 +526,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#valueFile"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralParameterValueType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralParameterValueType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ParameterValueGroupType">
       <rdfs:comment>A group of related parameter values. The same group can be repeated more than once in a Conversion, Transformation, or higher level parameterValueGroup, if those instances contain different values of one or more parameterValues which suitably distinquish among those groups. This concrete complexType can be used for operation methods without using an Application Schema that defines operation-method-specialized element names and contents, especially for methods with only one instance. This complexType can be used, extended, or restricted for well-known operation methods, especially for methods with many instances. </rdfs:comment>
@@ -568,8 +547,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralParameterValueType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralParameterValueType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethodBaseType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -602,8 +579,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethodType">
       <rdfs:comment>Definition of an algorithm used to perform a coordinate operation. Most operation methods use a number of operation parameters, although some coordinate conversions use none. Each coordinate operation using the method assigns values to these parameters. </rdfs:comment>
@@ -649,8 +624,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationMethodBaseType"/>
-      <rdfs:comment>Warning: The parent class 'gml:OperationMethodBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationMethodRefType">
       <rdfs:comment>Association to a concrete general-purpose operation method, either referencing or containing the definition of that method. </rdfs:comment>
@@ -682,8 +655,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeneralOperationParameterRefType">
       <rdfs:comment>Association to an operation parameter or group, either referencing or containing the definition of that parameter or group. </rdfs:comment>
@@ -737,8 +708,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralOperationParameterType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterType">
       <rdfs:comment>The definition of a parameter used by an operation method. Most parameter values are numeric, but other types of parameter values are possible. This complexType is expected to be used or extended for all operation methods, without defining operation-method-specialized element names.  </rdfs:comment>
@@ -764,8 +733,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterBaseType"/>
-      <rdfs:comment>Warning: The parent class 'gml:OperationParameterBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterRefType">
       <rdfs:comment>Association to an operation parameter, either referencing or containing the definition of that parameter. </rdfs:comment>
@@ -819,8 +786,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralOperationParameterType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterGroupType">
       <rdfs:comment>The definition of a group of parameters used by an operation method. This complexType is expected to be used or extended for all applicable operation methods, without defining operation-method-specialized element names.  </rdfs:comment>
@@ -862,8 +827,6 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#OperationParameterGroupBaseType"/>
-      <rdfs:comment>Warning: The parent class 'gml:OperationParameterGroupBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#OperationParameterGroupRefType">
       <rdfs:comment>Association to an operation parameter, either referencing or containing the definition of that parameter. </rdfs:comment>
@@ -916,7 +879,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#operationVersion">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#sourceCRS">
@@ -958,7 +921,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PassThroughOperationType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#modifiedCoordinate">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesOperation">
@@ -1039,13 +1002,13 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DMSAngleType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#stringValue">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#integerValue">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#booleanValue">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#valueList">
@@ -1056,7 +1019,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#integerList"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#valueFile">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#valueOfParameter">
@@ -1095,10 +1058,10 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#sourceDimensions">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#targetDimensions">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesParameter">
@@ -1114,7 +1077,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralOperationParameterType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#minimumOccurs">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#nonNegativeInteger"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#abstractGeneralOperationParameterRef">
@@ -1153,7 +1116,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#maximumOccurs">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#positiveInteger"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#includesParameter">

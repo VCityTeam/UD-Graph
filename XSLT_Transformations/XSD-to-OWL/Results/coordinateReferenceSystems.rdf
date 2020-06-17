@@ -1,9 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/coordinateReferenceSystems">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/coordinateSystems"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/datums"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/coordinateOperations"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:coordinateReferenceSystems:3.1.1</rdfs:seeAlso>
       <rdfs:comment>How to encode coordinate reference system definitions. Builds on referenceSystems.xsd to encode the data needed to define coordinate reference systems, including the specific subtypes of coordinate reference systems. 
 		This schema encodes the Coordinate Reference System (SC_) package of the extended UML Model for OGC Abstract Specification Topic 2: Spatial Referencing by Coordinates, with the exception of the abstract "SC_CRS" class. The "SC_CRS" class is encoded in referenceSystems.xsd, to eliminate the (circular) references from coordinateOperations.xsd to coordinateReferenceSystems.xsd. That UML model is adapted from ISO 19111 - Spatial referencing by coordinates, as described in Annex C of Topic 2. 
@@ -43,8 +39,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CompoundCRSRefType">
       <rdfs:comment>Association to a compound coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -75,8 +69,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeographicCRSRefType">
       <rdfs:comment>Association to a geographic coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -107,8 +99,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#VerticalCRSRefType">
       <rdfs:comment>Association to a vertical coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -145,8 +135,6 @@
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#usesSphericalCS"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeocentricCRSRefType">
       <rdfs:comment>Association to a geocentric coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -178,8 +166,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ProjectedCRSType">
       <rdfs:comment>A 2D coordinate reference system used to approximate the shape of the earth on a planar surface, but in such a way that the distortion that is inherent to the approximation is carefully controlled and known. Distortion correction is commonly applied to calculated bearings and distances to produce values that are a close match to actual field values. </rdfs:comment>
@@ -193,8 +179,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralDerivedCRSType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralDerivedCRSType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ProjectedCRSRefType">
       <rdfs:comment>Association to a projected coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -225,19 +209,18 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralDerivedCRSType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeneralDerivedCRSType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DerivedCRSTypeType">
       <rdfs:comment>Type of a derived coordinate reference system. </rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
-      <rdfs:comment>Warning: The parent class 'gml:CodeType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDerivedCRSTypeTypeDatatype"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DerivedCRSTypeTypeDatatype"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#DerivedCRSTypeTypeDatatype">
-      <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#codeSpace">
-         <rdfs:domain rdf:resource="http://www.opengis.net/gml#DerivedCRSTypeType"/>
-         <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#anyURI"/>
-      </owl:DatatypeProperty>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasDerivedCRSTypeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#DerivedCRSTypeType"/>
@@ -275,8 +258,6 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EngineeringCRSRefType">
       <rdfs:comment>Association to an engineering coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -313,8 +294,6 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#usesObliqueCartesianCS"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ImageCRSRefType">
       <rdfs:comment>Association to an image coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -345,8 +324,6 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TemporalCRSRefType">
       <rdfs:comment>Association to a temporal coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>

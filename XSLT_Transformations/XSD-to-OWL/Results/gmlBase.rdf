@@ -1,8 +1,6 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/gmlBase">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/xlink"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/basicTypes"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:gmlBase:3.1.1</rdfs:seeAlso>
       <rdfs:comment>GML base schema for GML 3
 			Components to support the GML encoding model.
@@ -66,8 +64,6 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ArrayType">
       <rdfs:comment>A non-abstract generic collection type that can be used as a document element for a homogeneous collection of any GML types - Geometries, Topologies, Features ...</rdfs:comment>
@@ -85,8 +81,6 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractMetaDataType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -104,9 +98,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GenericMetaDataType">
       <rdfs:comment>Deprecated with GML version 3.1.0.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractMetaDataType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
-   </owl:Class>
+      </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AssociationType">
       <rdfs:comment>A pattern or base for derived types used to specify complex types corresponding to an  unspecified UML association - either composition or aggregation.  Restricts the cardinality of Objects contained in the association to a maximum of one.  An instance of this type can contain an element representing an Object, or serve as a pointer to a remote Object.  
 
@@ -171,7 +163,7 @@ However, this leads to a non-deterministic content model, since both the base an
       <owl:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstring"/>
-            <owl:someValueFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
          </owl:Restriction>
       </owl:subClassOf>
    </owl:Class>

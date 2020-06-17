@@ -1,10 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/coverage">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/feature"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/valueObjects"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/grids"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryAggregates"/>
       <rdfs:comment>coverage.xsd</rdfs:comment>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:coverage:3.1.1</rdfs:seeAlso>
       <rdfs:comment xml:lang="en">GML Coverage schema.
@@ -41,8 +36,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractFeatureType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractContinuousCoverageType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -61,8 +54,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractDiscreteCoverageType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -81,8 +72,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DomainSetType">
       <rdfs:comment>The spatiotemporal domain of a coverage.  
@@ -238,8 +227,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GridFunctionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:GridFunctionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#SequenceRuleType">
       <rdfs:subClassOf>
@@ -252,8 +239,12 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SequenceRuleNames"/>
-      <rdfs:comment>Warning: The parent class 'gml:SequenceRuleNames' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasSequenceRuleNames"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#SequenceRuleNames"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasSequenceRuleNames">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#SequenceRuleType"/>
@@ -292,8 +283,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiPointDomainType">
       <rdfs:subClassOf>
@@ -306,8 +295,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiCurveCoverageType">
       <rdfs:comment>A discrete coverage type whose domain is defined by a collection of curves.</rdfs:comment>
@@ -342,8 +329,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiCurveDomainType">
       <rdfs:subClassOf>
@@ -356,8 +341,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiSurfaceCoverageType">
       <rdfs:comment>A discrete coverage type whose domain is defined by a collection of surface patches (includes polygons, triangles, rectangles, etc).</rdfs:comment>
@@ -392,8 +375,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiSurfaceDomainType">
       <rdfs:subClassOf>
@@ -406,8 +387,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiSolidCoverageType">
       <rdfs:comment>A discrete coverage type whose domain is defined by a collection of Solids.</rdfs:comment>
@@ -442,8 +421,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#MultiSolidDomainType">
       <rdfs:subClassOf>
@@ -456,8 +433,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GridCoverageType">
       <rdfs:subClassOf>
@@ -491,8 +466,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GridDomainType">
       <rdfs:subClassOf>
@@ -505,8 +478,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGridCoverageType">
       <rdfs:subClassOf>
@@ -540,8 +511,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDiscreteCoverageType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractDiscreteCoverageType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#RectifiedGridDomainType">
       <rdfs:subClassOf>
@@ -554,8 +523,6 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DomainSetType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DomainSetType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#FileValueModelType">
       <rdfs:comment>List of codes that identifies the file structure model for records stored in files.</rdfs:comment>

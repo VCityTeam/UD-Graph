@@ -1,8 +1,6 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/defaultStyle">
       <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/smil20"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/measures"/>
       <rdfs:comment>defaultStyle.xsd</rdfs:comment>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-defaultStyle:v3.1.0</rdfs:seeAlso>
       <rdfs:comment>
@@ -43,8 +41,6 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractStyleType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>[complexType of] The value of the top-level property. It is an abstract element. Used as the head element of the substitution group for extensibility purposes.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#StyleType">
       <rdfs:comment>[complexType of] Predefined concrete value of the top-level property. Encapsulates all other styling information.</rdfs:comment>
@@ -66,8 +62,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractStyleType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractStyleType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#FeatureStylePropertyType">
       <rdfs:subClassOf>
@@ -153,8 +147,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#BaseStyleDescriptorType">
       <rdfs:comment>Base complex type for geometry, topology, label and graph styles.</rdfs:comment>
@@ -212,8 +204,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeometryStylePropertyType">
       <rdfs:subClassOf>
@@ -281,8 +271,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-      <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TopologyStylePropertyType">
       <rdfs:subClassOf>
@@ -350,8 +338,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-      <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#LabelStylePropertyType">
       <rdfs:subClassOf>
@@ -395,8 +381,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-      <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GraphStylePropertyType">
       <rdfs:subClassOf>
@@ -504,8 +488,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-      <rdfs:comment>Warning: The parent class 'gml:BaseStyleDescriptorType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#SymbolType">
       <rdfs:comment>[complexType of] The symbol property. Allows for remote referencing of symbols.</rdfs:comment>
@@ -574,7 +556,7 @@
       <owl:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstring"/>
-            <owl:someValueFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
          </owl:Restriction>
       </owl:subClassOf>
    </owl:Class>

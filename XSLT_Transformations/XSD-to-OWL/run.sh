@@ -119,7 +119,7 @@ elif [ $# -eq 0 ]; then
 else
    echo "Incorrect number of arguments: $#"
    echo "Usage: ./run.sh"
-   echo "       ./run.sh [path to xsl file] [output filename]"
+   echo "       ./run.sh [path to xsd file] [output filename]"
    exit 0
 fi
 echo "Done!"

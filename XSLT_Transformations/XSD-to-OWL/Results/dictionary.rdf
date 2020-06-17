@@ -1,7 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/dictionary">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gmlBase"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:dictionary:3.1.1</rdfs:seeAlso>
       <rdfs:comment>
 			Dictionary schema for GML 3.1.1 
@@ -51,8 +49,6 @@ The gml:id attribute is required - it must be possible to reference this definit
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DictionaryType">
       <rdfs:comment>A non-abstract bag that is specialized for use as a dictionary which contains a set of definitions. These definitions are referenced from other places, in the same and different XML documents. In this restricted type, the inherited optional "description" element can be used for a description of this dictionary. The inherited optional "name" element can be used for the name(s) of this dictionary. The inherited "metaDataProperty" elements can be used to reference or contain more information about this dictionary. The inherited required gml:id attribute allows the dictionary to be referenced using this handle. </rdfs:comment>
@@ -66,8 +62,6 @@ The gml:id attribute is required - it must be possible to reference this definit
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#indirectEntry"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DictionaryEntryType">
       <rdfs:comment>An entry in a dictionary of definitions. An instance of this type contains or refers to a definition object.  
@@ -109,8 +103,6 @@ The number of definitions contained in this dictionaryEntry is restricted to one
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#StandardDefinitionProperties">
       <rdfs:subClassOf>

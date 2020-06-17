@@ -333,6 +333,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hasdoubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
       <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -368,6 +374,12 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/appearance/2.0#AbstractTextureParameterizationType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/citygml/appearance/2.0#worldToTexture">
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/citygml/appearance/2.0#hasTransformationMatrix3x4Type"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
+         </owl:Restriction>
+      </owl:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/citygml/2.0#TransformationMatrix3x4Type"/>
       <rdfs:comment>Warning: The parent class 'core:TransformationMatrix3x4Type' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
@@ -522,10 +534,12 @@
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#Color">
       <rdfs:comment>List of three values (red, green, blue), separated by spaces. The values must be in the range between zero
 				and one. </rdfs:comment>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1List"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/citygml/appearance/2.0#ColorPlusOpacity">
       <rdfs:comment>List of three or four values (red, green, blue, opacity), separated by spaces. The values must be in the
 				range between zero and one. If no opacity is given, it is assumed as 1.0.</rdfs:comment>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/citygml/2.0#doubleBetween0and1List"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/citygml/appearance/2.0#uri">
       <rdfs:domain rdf:resource="http://www.opengis.net/citygml/appearance/2.0#TextureAssociationType"/>

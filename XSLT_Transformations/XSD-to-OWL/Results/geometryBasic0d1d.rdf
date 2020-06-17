@@ -1,7 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/geometryBasic0d1d">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/measures"/>
       <rdfs:comment>geometryBasic0d1d.xsd</rdfs:comment>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:geometryBasic0d1d:v3.1.1</rdfs:seeAlso>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:geometryBasic0d1d:v3.1.1</rdfs:seeAlso>
@@ -61,16 +59,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeometricPrimitiveType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>This is the abstract root type of the geometric primitives. A geometric primitive is a geometric object that is not 
 			decomposed further into other primitives in the system. All primitives are oriented in the direction implied by the sequence of their 
 			coordinate tuples.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometryType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeometryType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeometricPrimitivePropertyType">
       <rdfs:comment>A property that has a geometric primitive as its value domain can either be an appropriate geometry element 
@@ -104,8 +98,6 @@
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coord"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometricPrimitiveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#PointPropertyType">
       <rdfs:comment>A property that has a point as its value domain can either be an appropriate geometry element encapsulated in an 
@@ -144,8 +136,6 @@
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>An abstraction of a curve to support the different levels of complexity. The curve can always be viewed as a geometric 
 			primitive, i.e. is continuous.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometricPrimitiveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CurvePropertyType">
       <rdfs:comment>A property that has a curve as its value domain can either be an appropriate geometry element encapsulated in an 
@@ -210,16 +200,18 @@
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coord"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractCurveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractCurveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DirectPositionType">
       <rdfs:comment>DirectPosition instances hold the coordinates for a position within some coordinate reference system (CRS). Since 
 			DirectPositions, as data types, will often be included in larger objects (such as geometry elements) that have references to CRS, the 
 			"srsName" attribute will in general be missing, if this particular DirectPosition is included in a larger element with such a reference to a 
 			CRS. In this case, the CRS is implicitly assumed to take on the value of the containing object's CRS.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
-      <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasdoubleList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#DirectPositionType"/>
@@ -238,8 +230,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
-      <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasdoubleList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#DirectPositionListType"/>
@@ -251,8 +247,12 @@
 			In this case, the CRS is implicitly assumed to take on the value of the containing object's CRS.
 
 			Note that this content model is the same as DirectPositionType, but is defined separately to reflect the distinct semantics, and to avoid validation problems. SJDC 2004-12-02</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
-      <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasdoubleList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#VectorType"/>

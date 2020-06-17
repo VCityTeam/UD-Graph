@@ -1,7 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/temporal">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gmlBase"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:temporal:3.1.1</rdfs:seeAlso>
       <rdfs:comment xml:lang="en">The temporal schema for GML 3.1 provides constructs for handling time-varying spatial data. 
     This schema reflects a partial implementation of the model described in ISO 19108:2002.
@@ -14,8 +12,6 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractTimeObjectType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment xml:lang="en">The abstract supertype for temporal objects.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGMLType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractTimePrimitiveType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -34,8 +30,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeObjectType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractTimeObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TimePrimitivePropertyType">
       <rdfs:subClassOf>
@@ -60,14 +54,10 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimePrimitivePropertyType"/>
-      <rdfs:comment>Warning: The parent class 'gml:TimePrimitivePropertyType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractTimeComplexType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment xml:lang="en">The abstract supertype for temporal complexes.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeObjectType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractTimeObjectType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractTimeGeometricPrimitiveType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -86,8 +76,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimePrimitiveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractTimePrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TimeGeometricPrimitivePropertyType">
       <rdfs:subClassOf>
@@ -113,8 +101,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeGeometricPrimitiveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractTimeGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TimeInstantPropertyType">
       <rdfs:subClassOf>
@@ -150,8 +136,6 @@
          </owl:Restriction>
       </owl:disjointUnionOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#timeLength"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeGeometricPrimitiveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractTimeGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TimePeriodPropertyType">
       <rdfs:subClassOf>
@@ -193,7 +177,7 @@
       <owl:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdecimal"/>
-            <owl:someValueFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
          </owl:Restriction>
       </owl:subClassOf>
    </owl:Class>
@@ -226,8 +210,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimePositionUnion"/>
-      <rdfs:comment>Warning: The parent class 'gml:TimePositionUnion' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimePositionUnion"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimePositionUnion"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasTimePositionUnion">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimePositionType"/>
@@ -354,6 +342,7 @@
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
+      <owl:equivalentClass rdf:resource="string"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#TimePositionUnion">
       <rdfs:comment xml:lang="en">The ISO 19108:2002 hierarchy of subtypes for temporal position are collapsed 
@@ -476,7 +465,7 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TimePeriodType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#duration">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#duration"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#timeInterval">

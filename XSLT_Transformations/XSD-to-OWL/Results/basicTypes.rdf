@@ -1,6 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/basicTypes">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
       <rdfs:comment>basicTypes.xsd</rdfs:comment>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:basicTypes:3.1.1</rdfs:seeAlso>
       <rdfs:comment>
@@ -30,7 +29,7 @@
       <owl:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstring"/>
-            <owl:someValueFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
          </owl:Restriction>
       </owl:subClassOf>
    </owl:Class>
@@ -53,8 +52,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#NameList"/>
-      <rdfs:comment>Warning: The parent class 'gml:NameList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNameList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#NameList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasNameList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeListType"/>
@@ -76,8 +79,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#NameOrNullList"/>
-      <rdfs:comment>Warning: The parent class 'gml:NameOrNullList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNameOrNullList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#NameOrNullList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasNameOrNullList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
@@ -99,7 +106,7 @@
       <owl:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdouble"/>
-            <owl:someValueFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#double"/>
          </owl:Restriction>
       </owl:subClassOf>
    </owl:Class>
@@ -121,8 +128,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleList"/>
-      <rdfs:comment>Warning: The parent class 'gml:doubleList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasdoubleList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureListType"/>
@@ -143,8 +154,12 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#doubleOrNullList"/>
-      <rdfs:comment>Warning: The parent class 'gml:doubleOrNullList' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
+      <owl:subClassOf>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleOrNullList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleOrNullList"/>
+         </owl:Restriction>
+      </owl:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasdoubleOrNullList">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
@@ -180,7 +195,7 @@
       <owl:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstring"/>
-            <owl:someValueFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+            <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
          </owl:Restriction>
       </owl:subClassOf>
    </owl:Class>
@@ -233,6 +248,7 @@
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
+      <owl:equivalentClass rdf:resource="string"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NullType">
       <rdfs:comment>Utility type for null elements.  The value may be selected from one of the enumerated tokens, or may be a URI in which case this should identify a resource which describes the reason for the null. </rdfs:comment>

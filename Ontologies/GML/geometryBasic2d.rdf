@@ -1,7 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/geometryBasic2d">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic0d1d"/>
       <rdfs:comment>geometryBasic2d.xsd</rdfs:comment>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:geometryBasic2d:3.1.1</rdfs:seeAlso>
       <rdfs:comment>
@@ -12,8 +10,6 @@
    </owl:Ontology>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractSurfaceType">
       <rdfs:comment>An abstraction of a surface to support the different levels of complexity. A surface is always a continuous region of a plane.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometricPrimitiveType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeometricPrimitiveType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#SurfacePropertyType">
       <rdfs:comment>A property that has a surface as its value domain can either be an appropriate geometry element encapsulated in an element of this type or an XLink reference to a remote geometry element (where remote includes geometry elements located elsewhere in the same document). Either the reference or the contained element must be given, but neither both nor none.</rdfs:comment>
@@ -69,14 +65,10 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractSurfaceType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractSurfaceType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractRingType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
       <rdfs:comment>An abstraction of a ring to support surface boundaries of different complexity.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeometryType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractGeometryType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractRingPropertyType">
       <rdfs:comment>Encapsulates a ring to represent the surface boundary property of a surface.</rdfs:comment>
@@ -123,8 +115,6 @@
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pointRep"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractRingType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractRingType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#LinearRingPropertyType">
       <rdfs:comment>Encapsulates a ring to represent properties in features or geometry collections.</rdfs:comment>

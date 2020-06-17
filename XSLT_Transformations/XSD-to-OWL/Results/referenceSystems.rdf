@@ -1,8 +1,5 @@
 <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/referenceSystems">
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic2d"/>
-      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/temporal"/>
       <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:referenceSystems:3.1.1</rdfs:seeAlso>
       <rdfs:comment>How to encode reference system definitions. Builds on several other parts of GML 3 to encode the data needed to define reference systems.
 		This schema encodes the Reference System (RS_) package of the extended UML Model for OGC Abstract Specification Topic 2: Spatial Referencing by Coordinates. That UML model is adapted from ISO 19111 - Spatial referencing by coordinates, as described in Annex C of Topic 2. The SC_CRS class is also encoded here, to eliminate the (circular) references from coordinateOperations.xsd to coordinateReferenceSystems.xsd. The RS_SpatialReferenceSystemUsingGeographicIdentifier class is not encoded, since it is not applicable to coordinate positions. The CI_Citation class is not directly encoded, since such information can be included as metaDataProperty elements which are optionally allowed. A modified version of the EX_Extent (DataType) class from ISO 19115 is currently encoded here, using GML 3 schema types. (A more extensive version of the EX_Extent package might be XML encoded in the future, probably in a separate extent.xsd schema.)
@@ -44,8 +41,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: The parent class 'gml:DefinitionType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractReferenceSystemType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -88,8 +83,6 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemBaseType"/>
-      <rdfs:comment>Warning: The parent class 'gml:AbstractReferenceSystemBaseType' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ReferenceSystemRefType">
       <rdfs:comment>Association to a reference system, either referencing or containing the definition of that reference system.</rdfs:comment>
@@ -228,14 +221,14 @@
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CRSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#version">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#remarks">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <rdfs:Datatype rdf:about="concat( $namespace, '#', @name )">
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#scope">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#validArea">
