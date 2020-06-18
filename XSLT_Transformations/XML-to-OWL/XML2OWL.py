@@ -1,10 +1,11 @@
 import sys
+import time
 from lxml import etree
 from copy import deepcopy
 
 
 def main():
-
+   print('Initializing...')
    # initialize variables
    global ns
    global ontology_root
@@ -14,35 +15,31 @@ def main():
    global objectproperty_description_cache
    global datatypeproperty_description_cache
    template = ('<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ' +
-               '         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" ' + 
-               '         xmlns:owl="http://www.w3.org/2002/07/owl#" ' + 
-               '         xmlns:gml="http://www.opengis.net/gml#" ' + 
+               '         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" ' +
+               '         xmlns:xlink="http://www.w3.org/1999/xlink#" ' +
+               '         xmlns:owl="http://www.w3.org/2002/07/owl#" ' +
+               '         xmlns:gml="http://www.opengis.net/gml#" ' +
                '         xmlns:core="http://www.opengis.net/citygml/2.0#" ' + 
                '         xmlns:bldg="http://www.opengis.net/citygml/building/2.0#">' +
                '   <owl:Ontology rdf:about="{}">'.format( sys.argv[1].split('/')[-1].split('.')[0] ) +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>' +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/building"/>' +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/basicTypes"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gmlBase"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryPrimitives"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic0d1d"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryBasic2d"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryAggregates"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryComplexes"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/measures"/>' +
-               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/feature"/>' +
                '   </owl:Ontology>' +
                '</rdf:RDF>')
    input_root    = etree.parse(sys.argv[1]).getroot()
    output_root   = etree.fromstring(template)
    ontology_root = etree.fromstring(template)
+
    ns = { k: '{%s}' % v for k, v in output_root.nsmap.items() }
-   id_dictionary = {}
-   class_description_cache = {}
-   datatype_description_cache = {}
-   objectproperty_description_cache = {}
+   total_nodes  = 0
+   current_node = 0
+   id_dictionary                      = {}
+   class_description_cache            = {}
+   datatype_description_cache         = {}
+   objectproperty_description_cache   = {}
    datatypeproperty_description_cache = {}
+
 
    # compile ontology
    for child in etree.parse('../../Ontologies/cityGMLBase.rdf').getroot():
@@ -51,40 +48,30 @@ def main():
       ontology_root.insert(0, child)
    for child in etree.parse('../../Ontologies/compositegml.rdf').getroot():
       ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/gml.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/basicTypes.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/gmlBase.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/geometryPrimitives.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/geometryBasic0d1d.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/geometryBasic2d.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/geometryAggregates.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/geometryComplexes.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/measures.rdf').getroot():
-   #    ontology_root.insert(0, child)
-   # for child in etree.parse('../../Ontologies/GML/feature.rdf').getroot():
-   #    ontology_root.insert(0, child)
 
    # clean ontologies
    for node in input_root.iter():
+      total_nodes += 1
       if node.text is not None and not node.text.strip():
          node.text = None
    etree.indent(input_root)
-   
    for node in ontology_root.iter():
       if node.text is not None and not node.text.strip():
          node.text = None
    etree.indent(ontology_root)
 
+
+   print('Converting...')
+   updateProgressBar(current_node, total_nodes)
    # convert xml tree
    for input_node in input_root.iter():
+      current_node += 1
+      updateProgressBar(current_node, total_nodes, status=str(input_node.tag))
+
+      # add comment nodes directly
+      if not isinstance(input_node.tag, str):
+         output_root.append( deepcopy(input_node) )
+         continue
       tag = qualifyTag(etree.QName(input_node))
       input_class_description = getClassDescription('{}{}'.format( tag.namespace, tag.localname ))
 
@@ -119,10 +106,21 @@ def main():
                attribute_tag = etree.QName( '{%s}%s' % ( tag.namespace, input_attribute[0]))
             attribute_tag = qualifyTag( attribute_tag )
 
+            # also convert gml:id attributes to rdf:ID attributes
+            if attribute_tag == '{http://www.opengis.net/gml#}id':
+               output_node.attrib['{}ID'.format('rdf')] = input_attribute[1]
+
+
+            # if attribute is an xlink, create an object property between the subject and referenced object
+            if attribute_tag == '{http://www.w3.org/1999/xlink#}href':
+               output_child = etree.SubElement(output_node, '{%s}%s' % ( attribute_tag.namespace, attribute_tag.localname ))
+               output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = input_attribute[1]
+               continue
+
             # if attribute is a datatype property directly create property and object
             attribute_descriptions = getAllDescriptions('{}{}'.format( attribute_tag.namespace, attribute_tag.localname ))
             if attribute_descriptions['datatypeproperty'] is not None:
-               output_child = etree.SubElement(output_node, '{%s}%s' % ( attribute_tag.namespace, attribute_tag.localname ))
+               output_child = etree.SubElement( output_node, attribute_tag )
                output_child.attrib[ '{}datatype'.format( ns['rdf'] ) ] = getRDFResource(attribute_descriptions['datatypeproperty'].find( './/{}range'.format( ns['rdfs'] )))
                output_child.text = input_attribute[1]
             # if attribute is a datatype find the corresponding datatype property description, then create the property and object
@@ -143,6 +141,11 @@ def main():
 
          # create corresponding property nodes from input children
          for input_child in input_node:
+
+            # skip comment node children
+            if not isinstance(input_child.tag, str):
+               continue
+
             child_tag = qualifyTag(etree.QName(input_child))
             if child_tag.localname in child_ids:
                child_ids[child_tag.localname] = child_ids[child_tag.localname] + 1
@@ -229,7 +232,8 @@ def main():
                         if restriction.find( './*[@{}resource = "{}"]'.format( ns['rdf'], getRDFResource(subClass) ) ) is not None:
                            on_property = restriction.find( '{}onProperty'.format(ns['owl']) )
                            property_description = getObjectPropertyDescription( getRDFResource(on_property) )
-                           if property_description is not None and property_description.find( './/{}range[@{}resource = "{}{}"]'.format( ns['rdfs'], ns['rdf'], child_tag.namespace, child_tag.localname ) ) is not None:
+                           if property_description is not None and property_description.find( './/{}range[@{}resource = "{}"]'.format(
+                                 ns['rdfs'], ns['rdf'], getRDFResource(subClass) )) is not None:
                               output_child_uri = getRDFResource(restriction.find( '{}onProperty'.format(ns['owl']) )).split('#')
                               output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
                               output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
@@ -240,6 +244,31 @@ def main():
             output_node = etree.SubElement( output_root, 'UNKNOWN_TYPE' )
             output_node.attrib[ '{}type'.format( ns['rdf'] ) ] = '{}{}'.format( tag.namespace, tag.localname )
 
+   sys.stdout.write('                                                                                                               \r')
+   print('Removing duplicates...')
+   total_nodes = 0
+   # prune output individuals duplicate objectproperties
+   for individual in output_root:
+      for child_1 in individual:
+         if child_1 in individual and '{}resource'.format(ns['rdf']) in child_1.attrib:
+            resource = child_1.attrib['{}resource'.format(ns['rdf'])]
+            for child_2 in individual:
+               if child_2 in individual and '{}resource'.format(ns['rdf']) in child_2.attrib and child_2 is not child_1 and child_2.attrib['{}resource'.format(ns['rdf'])] == resource:
+                  child_1_tag = etree.QName(child_1)
+                  child_2_tag = etree.QName(child_2)
+                  objectIndividual = output_root.find( './/{}NamedIndividual[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], resource ))
+                  objectType = qualifyTag( getRDFType(objectIndividual) )
+                  description_1 = getObjectPropertyDescription( '{}{}'.format( child_1_tag.namespace, child_1_tag.localname ))
+                  description_2 = getObjectPropertyDescription( '{}{}'.format( child_2_tag.namespace, child_2_tag.localname ))
+                  if child_2 in individual and description_1.find( './/{}range[@{}resource = "{}{}"]'.format(
+                        ns['rdfs'], ns['rdf'], objectType.namespace, objectType.localname )) is not None:
+                     individual.remove(child_2)
+                  elif child_1 in individual and description_2.find( './/{}range[@{}resource = "{}{}"]'.format(
+                        ns['rdfs'], ns['rdf'], objectType.namespace, objectType.localname )) is not None:
+                     individual.remove(child_1)
+                  else:
+                     individual.remove(child_2)
+
    # prune output individuals duplicate datatypeproperties
    for individual in output_root:
       for child_1 in individual:
@@ -249,6 +278,8 @@ def main():
                   individual.remove(child_2)
 
    etree.indent(output_root)
+
+   print('Writing output to file...')
    with open('Results/{}.rdf'.format( sys.argv[1].split('/')[-1].split('.')[0] ), 'w') as file:
       file.write(etree.tostring( output_root, pretty_print=True ))
 
@@ -277,9 +308,20 @@ def generateID( name ):
 def getRDFAbout( node ):
    if node is not None:
       about = node.attrib[ '{}about'.format(ns['rdf']) ].split('#')
-      if len(about) < 2:
+      if len(about) == 2:
+         return etree.QName( about[0], about[1] )
+      elif len(about) == 1:
+         return etree.QName( node.attrib[ '{}about'.format(ns['rdf']) ])
+   return None
+
+
+# get rdf:type attribute of an node as a QName
+def getRDFType( node ):
+   if node is not None:
+      nodeType = node.attrib[ '{}type'.format(ns['rdf']) ].split('#')
+      if len(nodeType) < 2:
          return None
-      return etree.QName( about[0], about[1] )
+      return etree.QName( nodeType[0], nodeType[1] )
    return None
 
 
@@ -337,6 +379,7 @@ def getDatatypeDescription( uri ):
 def getObjectPropertyDescription( uri ):
    if uri in objectproperty_description_cache:
       return objectproperty_description_cache[uri]
+   # TODO: expand search to copy all descriptions
    description = deepcopy( ontology_root.find( './/{}ObjectProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )))
    # compile description of parent types to represent inherited axioms 
    if description is not None:
@@ -433,10 +476,21 @@ def listParentTypes( node ):
             parent_types.append( parent_uri )
    return set(parent_types)
 
+def updateProgressBar(count, total, status=''):
+   bar_len = 30
+   filled_len = int(round(bar_len * count / float(total)))
 
+   percents = round(100.0 * count / float(total), 1)
+   bar = '=' * filled_len + '-' * (bar_len - filled_len)
+
+   sys.stdout.write('                                                                                                               \r')
+   sys.stdout.write('[%s] %s%s ...%s\r' % (bar, percents, '%', status))
+   sys.stdout.flush()
 
 if __name__ == "__main__":
    if len(sys.argv) != 2:
       sys.exit('Incorrect number of arguments. Usage: XML2OWL.py [gml file to convert]')
 
+   start_time = time.clock()
    main()
+   print(time.clock() - start_time)
