@@ -99,6 +99,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumBaseType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DatumRefType">
       <rdfs:comment>Association to a datum, either referencing or containing the definition of that datum. </rdfs:comment>
@@ -115,6 +116,7 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EngineeringDatumType">
       <rdfs:comment>An engineering datum defines the origin of an engineering coordinate reference system, and is used in a region around that origin. This origin can be fixed with respect to the earth (such as a defined point at a construction site), or be a defined point on a moving vehicle (such as on a ship or satellite). </rdfs:comment>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EngineeringDatumRefType">
       <rdfs:comment>Association to an engineering datum, either referencing or containing the definition of that datum. </rdfs:comment>
@@ -141,15 +143,16 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#PixelInCellType">
       <rdfs:comment>Specification of the way an image grid is associated with the image data attributes. </rdfs:comment>
-      <owl:subClassOf>
+      <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasPixelInCellTypeDatatype"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#PixelInCellTypeDatatype"/>
          </owl:Restriction>
-      </owl:subClassOf>
+      </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#PixelInCellTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
@@ -187,15 +190,16 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#VerticalDatumTypeType">
       <rdfs:comment>Type of a vertical datum. </rdfs:comment>
-      <owl:subClassOf>
+      <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasVerticalDatumTypeTypeDatatype"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#VerticalDatumTypeTypeDatatype"/>
          </owl:Restriction>
-      </owl:subClassOf>
+      </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#VerticalDatumTypeTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
@@ -272,6 +276,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TemporalDatumType">
       <rdfs:comment>Defines the origin of a temporal coordinate reference system. This type extends the TemporalDatumRestrictionType to add the "origin" element with the dateTime type. </rdfs:comment>
@@ -285,6 +290,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalDatumBaseType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TemporalDatumRefType">
       <rdfs:comment>Association to a temporal datum, either referencing or containing the definition of that datum. </rdfs:comment>
@@ -315,6 +321,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeodeticDatumRefType">
       <rdfs:comment>Association to a geodetic datum, either referencing or containing the definition of that datum. </rdfs:comment>
@@ -389,6 +396,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PrimeMeridianBaseType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#PrimeMeridianRefType">
       <rdfs:comment>Association to a prime meridian, either referencing or containing the definition of that meridian. </rdfs:comment>
@@ -467,6 +475,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidBaseType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EllipsoidRefType">
       <rdfs:comment>Association to an ellipsoid, either referencing or containing the definition of that ellipsoid. </rdfs:comment>
@@ -540,19 +549,18 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#_Datum">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractDatumType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#datumName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#datumID">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:subClassOf rdf:resource="IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#anchorPoint">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#realizationEpoch">
@@ -560,126 +568,106 @@
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#datumRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DatumRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EngineeringDatum">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Datum"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EngineeringDatumType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#engineeringDatumRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EngineeringDatumRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ImageDatum">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Datum"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ImageDatumType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#pixelInCell">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PixelInCellType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#imageDatumRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ImageDatumRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#VerticalDatum">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Datum"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalDatumType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#verticalDatumType">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalDatumTypeType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#verticalDatumRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalDatumRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TemporalDatum">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Datum"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalDatumType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#origin">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#temporalDatumRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalDatumRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeodeticDatum">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Datum"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodeticDatumType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesPrimeMeridian">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PrimeMeridianRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesEllipsoid">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#geodeticDatumRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodeticDatumRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#PrimeMeridian">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PrimeMeridianType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#meridianName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#meridianID">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:subClassOf rdf:resource="IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#greenwichLongitude">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AngleChoiceType"/>
+      <rdfs:subClassOf rdf:resource="AngleChoiceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#primeMeridianRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PrimeMeridianRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Ellipsoid">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ellipsoidName">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#name"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ellipsoidID">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IdentifierType"/>
+      <rdfs:subClassOf rdf:resource="IdentifierType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#semiMajorAxis">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <rdfs:subClassOf rdf:resource="MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ellipsoidRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#secondDefiningParameter">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SecondDefiningParameterType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#inverseFlattening">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <rdfs:subClassOf rdf:resource="MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#semiMinorAxis">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <rdfs:subClassOf rdf:resource="MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">

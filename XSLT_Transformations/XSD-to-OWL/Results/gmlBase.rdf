@@ -64,6 +64,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ArrayType">
       <rdfs:comment>A non-abstract generic collection type that can be used as a document element for a homogeneous collection of any GML types - Geometries, Topologies, Features ...</rdfs:comment>
@@ -81,6 +82,7 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AbstractMetaDataType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -98,7 +100,8 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GenericMetaDataType">
       <rdfs:comment>Deprecated with GML version 3.1.0.</rdfs:comment>
-      </owl:Class>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
+   </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#AssociationType">
       <rdfs:comment>A pattern or base for derived types used to specify complex types corresponding to an  unspecified UML association - either composition or aggregation.  Restricts the cardinality of Objects contained in the association to a maximum of one.  An instance of this type can contain an element representing an Object, or serve as a pointer to a remote Object.  
 
@@ -160,12 +163,12 @@ However, this leads to a non-deterministic content model, since both the base an
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#StringOrRefType">
       <rdfs:comment>This type is available wherever there is a need for a "text" type property. It is of string type, so the text can be included inline, but the value can also be referenced remotely via xlinks from the AssociationAttributeGroup. If the remote reference is present, then the value obtained by traversing the link should be used, and the string content of the element can be used for an annotation.</rdfs:comment>
-      <owl:subClassOf>
+      <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstring"/>
             <owl:someValuesFrom rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
          </owl:Restriction>
-      </owl:subClassOf>
+      </rdfs:subClassOf>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasstring">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
@@ -246,59 +249,47 @@ However, this leads to a non-deterministic content model, since both the base an
    <owl:Class rdf:about="http://www.opengis.net/gml#_GML">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Object"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Bag">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BagType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Array">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArrayType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#_MetaData">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Object"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractMetaDataType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GenericMetaData">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_MetaData"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GenericMetaDataType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#_association">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AssociationType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#_strictAssociation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AssociationType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#member">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AssociationType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#_reference">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#members">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ArrayAssociationType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#metaDataProperty">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MetaDataPropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#name">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#description">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>

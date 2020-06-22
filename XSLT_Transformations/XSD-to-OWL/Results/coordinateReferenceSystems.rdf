@@ -179,6 +179,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralDerivedCRSType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ProjectedCRSRefType">
       <rdfs:comment>Association to a projected coordinate reference system, either referencing or containing the definition of that reference system. </rdfs:comment>
@@ -209,15 +210,16 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralDerivedCRSType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DerivedCRSTypeType">
       <rdfs:comment>Type of a derived coordinate reference system. </rdfs:comment>
-      <owl:subClassOf>
+      <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDerivedCRSTypeTypeDatatype"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DerivedCRSTypeTypeDatatype"/>
          </owl:Restriction>
-      </owl:subClassOf>
+      </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#DerivedCRSTypeTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
@@ -344,162 +346,139 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#_CoordinateReferenceSystem">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CRS"/>
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractReferenceSystemType"/>
+      <rdfs:subClassOf rdf:resource="AbstractReferenceSystemType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#coordinateReferenceSystemRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateReferenceSystemRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CompoundCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CRS"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompoundCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#includesCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateReferenceSystemRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#compoundCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompoundCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeographicCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeographicCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesEllipsoidalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EllipsoidalCSRefType"/>
+      <rdfs:subClassOf rdf:resource="EllipsoidalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesGeodeticDatum">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeodeticDatumRefType"/>
+      <rdfs:subClassOf rdf:resource="GeodeticDatumRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#geographicCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeographicCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#VerticalCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesVerticalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalCSRefType"/>
+      <rdfs:subClassOf rdf:resource="VerticalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesVerticalDatum">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalDatumRefType"/>
+      <rdfs:subClassOf rdf:resource="VerticalDatumRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#verticalCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#VerticalCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#GeocentricCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeocentricCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesCartesianCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CartesianCSRefType"/>
+      <rdfs:subClassOf rdf:resource="CartesianCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesSphericalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SphericalCSRefType"/>
+      <rdfs:subClassOf rdf:resource="SphericalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#geocentricCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeocentricCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#_GeneralDerivedCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGeneralDerivedCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#baseCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateReferenceSystemRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#definedByConversion">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeneralConversionRefType"/>
+      <rdfs:subClassOf rdf:resource="GeneralConversionRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ProjectedCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeneralDerivedCRS"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ProjectedCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#projectedCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ProjectedCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DerivedCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GeneralDerivedCRS"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DerivedCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#derivedCRSType">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DerivedCRSTypeType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CoordinateSystemRefType"/>
+      <rdfs:subClassOf rdf:resource="CoordinateSystemRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#derivedCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DerivedCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EngineeringCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EngineeringCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesEngineeringDatum">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EngineeringDatumRefType"/>
+      <rdfs:subClassOf rdf:resource="EngineeringDatumRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#engineeringCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EngineeringCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ImageCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ImageCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesObliqueCartesianCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ObliqueCartesianCSRefType"/>
+      <rdfs:subClassOf rdf:resource="ObliqueCartesianCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesImageDatum">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ImageDatumRefType"/>
+      <rdfs:subClassOf rdf:resource="ImageDatumRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#imageCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ImageCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#TemporalCRS">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_CoordinateReferenceSystem"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalCRSType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesTemporalCS">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalCSRefType"/>
+      <rdfs:subClassOf rdf:resource="TemporalCSRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#usesTemporalDatum">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalDatumRefType"/>
+      <rdfs:subClassOf rdf:resource="TemporalDatumRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#temporalCRSRef">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TemporalCRSRefType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_CoordinateReferenceSystem">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>

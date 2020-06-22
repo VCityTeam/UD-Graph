@@ -38,15 +38,16 @@
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ValueArrayType">
       <rdfs:comment>A Value Array is used for homogeneous arrays of primitive and aggregate values.  The member values may be scalars, composites, arrays or lists.  ValueArray has the same content model as CompositeValue, but the member values must be homogeneous.  The element declaration contains a Schematron constraint which expresses this restriction precisely.            Since the members are homogeneous, the referenceSystem (uom, codeSpace) may be specified on the ValueArray itself and implicitly inherited by all the members if desired.    Note that a_ScalarValueList is preferred for arrays of Scalar Values since this is a more efficient encoding.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeValueType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#QuantityExtentType">
       <rdfs:comment>Restriction of list type to store a 2-point range of numeric values. If one member is a null, then this is a single ended interval.</rdfs:comment>
-      <owl:subClassOf>
+      <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasQuantityExtentTypeDatatype"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#QuantityExtentTypeDatatype"/>
          </owl:Restriction>
-      </owl:subClassOf>
+      </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#QuantityExtentTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
@@ -57,12 +58,12 @@
    </owl:DatatypeProperty>
    <owl:Class rdf:about="http://www.opengis.net/gml#CategoryExtentType">
       <rdfs:comment>Restriction of list type to store a 2-point range of ordinal values. If one member is a null, then this is a single ended interval.</rdfs:comment>
-      <owl:subClassOf>
+      <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCategoryExtentTypeDatatype"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CategoryExtentTypeDatatype"/>
          </owl:Restriction>
-      </owl:subClassOf>
+      </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#CategoryExtentTypeDatatype">
       <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
@@ -82,6 +83,7 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#ScalarValuePropertyType">
       <rdfs:comment>Property whose content is a scalar value.</rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ScalarValue"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#BooleanPropertyType">
       <rdfs:comment>Property whose content is a Boolean value.</rdfs:comment>
@@ -95,6 +97,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CategoryPropertyType">
       <rdfs:comment>Property whose content is a Category.</rdfs:comment>
@@ -108,6 +111,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#QuantityPropertyType">
       <rdfs:comment>Property whose content is a Quantity.</rdfs:comment>
@@ -121,6 +125,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CountPropertyType">
       <rdfs:comment>Property whose content is a Count.</rdfs:comment>
@@ -134,6 +139,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Value">
       <owl:disjointUnionOf rdf:parseType="Collection">
@@ -262,64 +268,56 @@
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#BooleanList">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#booleanOrNullList"/>
+      <rdfs:subClassOf rdf:resource="booleanOrNullList"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Category">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CategoryList">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
+      <rdfs:subClassOf rdf:resource="CodeOrNullListType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Quantity">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <rdfs:subClassOf rdf:resource="MeasureType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#QuantityList">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
+      <rdfs:subClassOf rdf:resource="MeasureOrNullListType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#Count">
       <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
    </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#CountList">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#integerOrNullList"/>
+      <rdfs:subClassOf rdf:resource="integerOrNullList"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CompositeValue">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeValueType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#ValueArray">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeValue"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValueArrayType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#QuantityExtent">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#QuantityExtentType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#CategoryExtent">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CategoryExtentType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
-   <owl:Class rdf:about="http://www.opengis.net/gml#CountExtent">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CountExtentType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
-   </owl:Class>
+   <rdfs:Datatype rdf:about="http://www.opengis.net/gml#CountExtent">
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CountExtentType"/>
+   </rdfs:Datatype>
    <owl:Class rdf:about="http://www.opengis.net/gml#valueProperty">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#valueComponent">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValuePropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#valueComponents">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ValueArrayPropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_Object">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>

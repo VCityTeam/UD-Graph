@@ -129,9 +129,11 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#FeatureCollectionType">
       <rdfs:comment>Concrete generic feature collection.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureCollectionType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#BoundedFeatureType">
       <rdfs:comment>This is an abstract class</rdfs:comment>
@@ -155,6 +157,7 @@
          </owl:Class>
       </rdfs:subClassOf>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StandardObjectProperties"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#LocationPropertyType">
       <rdfs:comment>Convenience property for generalised location.  
@@ -193,6 +196,7 @@
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LocationPropertyType"/>
    </owl:Class>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#frame">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#EnvelopeWithTimePeriodType"/>
@@ -205,75 +209,65 @@
    <owl:Class rdf:about="http://www.opengis.net/gml#_Feature">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#boundedBy">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#BoundingShapeType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#EnvelopeWithTimePeriod">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Envelope"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#EnvelopeWithTimePeriodType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#featureMember">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeaturePropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#featureProperty">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeaturePropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#featureMembers">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeatureArrayPropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#_FeatureCollection">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractFeatureCollectionType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#FeatureCollection">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Feature"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#FeatureCollectionType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#LocationKeyWord">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <rdfs:subClassOf rdf:resource="CodeType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#LocationString">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#StringOrRefType"/>
+      <rdfs:subClassOf rdf:resource="StringOrRefType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#centerOf">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
+      <rdfs:subClassOf rdf:resource="PointPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#position">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PointPropertyType"/>
+      <rdfs:subClassOf rdf:resource="PointPropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#edgeOf">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CurvePropertyType"/>
+      <rdfs:subClassOf rdf:resource="CurvePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#centerLineOf">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CurvePropertyType"/>
+      <rdfs:subClassOf rdf:resource="CurvePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#extentOf">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#SurfacePropertyType"/>
+      <rdfs:subClassOf rdf:resource="SurfacePropertyType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#location">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#LocationPropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#priorityLocation">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#location"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#PriorityLocationPropertyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasboundedBy">
       <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>

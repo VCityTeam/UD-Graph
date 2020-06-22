@@ -62,6 +62,7 @@ The gml:id attribute is required - it must be possible to reference this definit
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#indirectEntry"/>
          </owl:Restriction>
       </owl:disjointUnionOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DictionaryEntryType">
       <rdfs:comment>An entry in a dictionary of definitions. An instance of this type contains or refers to a definition object.  
@@ -103,6 +104,7 @@ The number of definitions contained in this dictionaryEntry is restricted to one
             </owl:intersectionOf>
          </owl:Class>
       </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#StandardDefinitionProperties">
       <rdfs:subClassOf>
@@ -143,38 +145,31 @@ The number of definitions contained in this dictionaryEntry is restricted to one
    <owl:Class rdf:about="http://www.opengis.net/gml#Definition">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#Dictionary">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DictionaryType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DefinitionCollection">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DictionaryType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#dictionaryEntry">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DictionaryEntryType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#definitionMember">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#dictionaryEntry"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DictionaryEntryType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#indirectEntry">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#IndirectEntryType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#DefinitionProxy">
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#Definition"/>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#DefinitionProxyType"/>
-      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:Class rdf:about="http://www.opengis.net/gml#definitionRef">
-      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#ReferenceType"/>
+      <rdfs:subClassOf rdf:resource="ReferenceType"/>
       <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
    </owl:Class>
    <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasmetaDataProperty">
