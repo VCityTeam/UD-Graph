@@ -7,6 +7,7 @@ PREFIX owl:  <http://www.w3.org/2002/07/owl#>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 # CityGML module prefixes
 PREFIX gml:  <http://www.opengis.net/gml#>
+PREFIX xlink: <http://www.w3.org/1999/xlink#>
 PREFIX core: <http://www.opengis.net/citygml/2.0#>
 PREFIX bldg: <http://www.opengis.net/citygml/building/2.0#>
 PREFIX brid: <http://www.opengis.net/citygml/bridge/2.0#>
@@ -24,47 +25,53 @@ PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0#>
 
 #1 query all buildings
 
-SELECT *
-WHERE {
-   ?building rdf:type bldg:Building .
-}
+#SELECT ?building
+#WHERE {
+#?building rdf:type bldg:Building .
+#}
 
 
 #2 query all buildings and their properties
 
-SELECT ?building ?predicate ?object
-WHERE {
-   ?building rdf:type bldg:Building ;
-      ?predicate ?object .
-}
-
-
-#3 query "building_0" building boundary corners
-
-SELECT ?building ?lcorner ?ucorner
-WHERE {
-   ?building rdf:type bldg:Building ;
-      gml:hasboundedBy ?boundedby .
-   ?boundedby rdf:type gml:boundedBy  ;
-      gml:hasEnvelope ?envelope .
-   ?envelope rdf:type gml:Envelope ;
-      gml:lowerCorner ?lcorner ;
-      gml:upperCorner ?ucorner .
-
-   FILTER ( STR(?building) = "http://www.example.org/ontologies/CityGML#building_0" ) .
-}
-
-
-# Note: GeoSPARQL queries have not yet been tested but will likely be implemented
-# This is an example of what one may look like
-
-#PREFIX geo: <http://www.opengis.net/ont/geosparql#> 
-## query "building_0" building geometry with GeoSPARQL
-
-#SELECT ?building ?geometry
+#SELECT ?building ?predicate ?object
 #WHERE {
-#   ?building rdf:type bldg:Building ;
-#      geo:hasGeometry ?geometry .
-#
-#   FILTER regex( ?building, "Batiment_A" )
+#?building rdf:type bldg:Building ;
+#   ?predicate ?object .
 #}
+
+
+#3 query building boundary corner positions
+
+#SELECT ?building ?lowerCornerPosition ?upperCornerPosition
+#WHERE {
+#?building rdf:type bldg:Building ;
+#   gml:hasboundedBy ?boundedby .
+#?boundedby gml:hasEnvelope ?envelope .
+#?envelope rdf:type gml:Envelope ;
+#   gml:lowerCorner ?lcorner ;
+#   gml:upperCorner ?ucorner .
+#?lcorner gml:hasdoubleList ?lowerCornerPosition .
+#?ucorner gml:hasdoubleList ?upperCornerPosition .
+
+#FILTER ( STR(?building) = "file:///home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/XML-to-OWL/Results/LYON_1ER_BATI_2015(1711_bldg).rdf#BU_69381AB243" ) .
+#}
+
+
+#4 query buildingpart solid surface member polygons and positions
+
+SELECT ?building ?polygon ?positions
+WHERE {
+?building rdf:type bldg:BuildingPart ;
+   bldg:lod2Solid ?solid .
+?solid gml:exterior ?exterior .
+?exterior gml:hassurfaceMember ?surface .
+?surface xlink:href ?polygon .
+?polygon gml:hasexterior ?exterior2 .
+?exterior2 gml:has_Ring ?ring .
+?ring gml:hasposList ?posList .
+?posList gml:hasdoubleList ?positions .
+
+#FILTER ( STR(?building) = "file:///home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/XML-to-OWL/Results/LYON_1ER_BATI_2015(1711_bldg).rdf#BU_69381AB243_1" ) .
+}
+
+LIMIT 100 

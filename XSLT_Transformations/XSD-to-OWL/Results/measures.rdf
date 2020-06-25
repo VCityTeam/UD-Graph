@@ -19,7 +19,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#LengthTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasLengthTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#LengthType"/>
@@ -35,7 +35,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#ScaleTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasScaleTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#ScaleType"/>
@@ -51,7 +51,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#TimeTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasTimeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeType"/>
@@ -67,7 +67,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#GridLengthTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasGridLengthTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridLengthType"/>
@@ -83,7 +83,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AreaTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasAreaTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#AreaType"/>
@@ -99,7 +99,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#VolumeTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasVolumeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#VolumeType"/>
@@ -115,7 +115,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SpeedTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasSpeedTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#SpeedType"/>
@@ -144,7 +144,7 @@
       </rdfs:subClassOf>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AngleTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="MeasureType"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasAngleTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#AngleType"/>
@@ -177,10 +177,6 @@
                   <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasseconds"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#seconds"/>
                </owl:Restriction>
-               <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasseconds"/>
-                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-               </owl:Restriction>
             </owl:intersectionOf>
          </owl:Restriction>
       </owl:disjointUnionOf>
@@ -200,7 +196,7 @@
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDegreeValueType"/>
-            <owl:someValuesFrom rdf:resource="DegreeValueType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DegreeValueType"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -234,7 +230,7 @@
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#SignType"/>
+      <owl:equivalentClass rdf:resource="SignType"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#DegreeValueType">
       <rdfs:comment>Integer number of degrees in a degree-minute-second or degree-minute angular value, without indication of direction.</rdfs:comment>

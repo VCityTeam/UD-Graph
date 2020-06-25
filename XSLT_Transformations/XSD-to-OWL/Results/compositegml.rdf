@@ -652,10 +652,6 @@
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coord"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoord"/>
-            <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">4</owl:minCardinality>
-         </owl:Restriction>
-         <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
          </owl:Restriction>
@@ -898,7 +894,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
-            <owl:someValuesFrom rdf:resource="doubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -922,7 +918,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
-            <owl:someValuesFrom rdf:resource="doubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -939,7 +935,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
-            <owl:someValuesFrom rdf:resource="doubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -958,16 +954,8 @@ A property that has a polygon as its value domain can either be an appropriate g
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#coord"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoord"/>
-            <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:cardinality>
-         </owl:Restriction>
-         <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#pos"/>
-         </owl:Restriction>
-         <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#haspos"/>
-            <owl:cardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">2</owl:cardinality>
          </owl:Restriction>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascoordinates"/>
@@ -1044,7 +1032,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#LengthTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasLengthTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#LengthType"/>
@@ -1061,7 +1049,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#ScaleTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasScaleTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#ScaleType"/>
@@ -1078,7 +1066,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#TimeTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasTimeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#TimeType"/>
@@ -1095,7 +1083,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#GridLengthTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasGridLengthTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#GridLengthType"/>
@@ -1112,7 +1100,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AreaTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasAreaTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#AreaType"/>
@@ -1129,7 +1117,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#VolumeTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasVolumeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#VolumeType"/>
@@ -1146,7 +1134,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#SpeedTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasSpeedTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#SpeedType"/>
@@ -1176,7 +1164,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#AngleTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasAngleTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#AngleType"/>
@@ -1209,10 +1197,6 @@ A property that has a polygon as its value domain can either be an appropriate g
                   <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasseconds"/>
                   <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#seconds"/>
                </owl:Restriction>
-               <owl:Restriction>
-                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasseconds"/>
-                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-               </owl:Restriction>
             </owl:intersectionOf>
          </owl:Restriction>
       </owl:disjointUnionOf>
@@ -1232,7 +1216,7 @@ A property that has a polygon as its value domain can either be an appropriate g
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasDegreeValueType"/>
-            <owl:someValuesFrom rdf:resource="DegreeValueType"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#DegreeValueType"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -1697,7 +1681,7 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNameList"/>
-            <owl:someValuesFrom rdf:resource="NameList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#NameList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -1724,7 +1708,7 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasNameOrNullList"/>
-            <owl:someValuesFrom rdf:resource="NameOrNullList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#NameOrNullList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -1773,7 +1757,7 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleList"/>
-            <owl:someValuesFrom rdf:resource="doubleList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -1799,7 +1783,7 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdoubleOrNullList"/>
-            <owl:someValuesFrom rdf:resource="doubleOrNullList"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#doubleOrNullList"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -2056,7 +2040,7 @@ However, this leads to a non-deterministic content model, since both the base an
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasTimePositionUnion"/>
-            <owl:someValuesFrom rdf:resource="TimePositionUnion"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#TimePositionUnion"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -4453,7 +4437,7 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <rdfs:subClassOf>
          <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasSequenceRuleNames"/>
-            <owl:someValuesFrom rdf:resource="SequenceRuleNames"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#SequenceRuleNames"/>
          </owl:Restriction>
       </rdfs:subClassOf>
    </owl:Class>
@@ -4788,7 +4772,7 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#QuantityExtentTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureOrNullListType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#MeasureOrNullListTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasQuantityExtentTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#QuantityExtentType"/>
@@ -4805,7 +4789,7 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#CategoryExtentTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeOrNullListType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeOrNullListTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasCategoryExtentTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#CategoryExtentType"/>
@@ -5173,7 +5157,7 @@ N.B. Temporal geometric complexes and temporal grids are not yet implemented in 
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#DerivedCRSTypeTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasDerivedCRSTypeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#DerivedCRSTypeType"/>
@@ -5800,16 +5784,8 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#boundingBox"/>
          </owl:Restriction>
          <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundingBox"/>
-            <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
-         </owl:Restriction>
-         <owl:Restriction>
             <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundingPolygon"/>
             <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#boundingPolygon"/>
-         </owl:Restriction>
-         <owl:Restriction>
-            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasboundingPolygon"/>
-            <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
          </owl:Restriction>
       </owl:disjointUnionOf>
    </owl:Class>
@@ -5960,7 +5936,7 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#PixelInCellTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasPixelInCellTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#PixelInCellType"/>
@@ -6008,7 +5984,7 @@ For further information, see OGC Abstract Specification Topic 2. </rdfs:comment>
       <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CodeType"/>
    </owl:Class>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#VerticalDatumTypeTypeDatatype">
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeType"/>
+      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#CodeTypeDatatype"/>
    </rdfs:Datatype>
    <owl:DatatypeProperty rdf:about="http://www.opengis.net/gml#hasVerticalDatumTypeTypeDatatype">
       <rdfs:domain rdf:resource="http://www.opengis.net/gml#VerticalDatumTypeType"/>
@@ -8623,7 +8599,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#SignType"/>
+      <owl:equivalentClass rdf:resource="SignType"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#DegreeValueType">
       <rdfs:comment>Integer number of degrees in a degree-minute-second or degree-minute angular value, without indication of direction.</rdfs:comment>
@@ -8728,7 +8704,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
-      <owl:equivalentClass rdf:resource="string"/>
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#NullType">
       <rdfs:comment>Utility type for null elements.  The value may be selected from one of the enumerated tokens, or may be a URI in which case this should identify a resource which describes the reason for the null. </rdfs:comment>
@@ -8932,7 +8908,7 @@ This abstract complexType is expected to be extended and restricted for well-kno
             </owl:oneOf>
          </rdfs:Datatype>
       </owl:equivalentClass>
-      <owl:equivalentClass rdf:resource="string"/>
+      <owl:equivalentClass rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#TimePositionUnion">
       <rdfs:comment xml:lang="en">The ISO 19108:2002 hierarchy of subtypes for temporal position are collapsed 
@@ -9307,7 +9283,7 @@ application schema.</rdfs:comment>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#CountExtentType">
       <rdfs:comment>Restriction of list type to store a 2-point range of frequency values. If one member is a null, then this is a single ended interval.</rdfs:comment>
-      <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#integerOrNullList"/>
+      <owl:equivalentClass rdf:resource="integerOrNullList"/>
    </rdfs:Datatype>
    <rdfs:Datatype rdf:about="http://www.opengis.net/gml#isSphere">
       <owl:equivalentClass>

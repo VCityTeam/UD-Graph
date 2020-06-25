@@ -1,12 +1,13 @@
 import sys
 import time
-from lxml import etree
+from glob import glob
 from copy import deepcopy
+from lxml import etree
 
+def main( filename ):
 
-def main():
-   print('Initializing...')
    # initialize variables
+   print('Initializing...')
    global ns
    global ontology_root
    global id_dictionary
@@ -21,13 +22,13 @@ def main():
                '         xmlns:gml="http://www.opengis.net/gml#" ' +
                '         xmlns:core="http://www.opengis.net/citygml/2.0#" ' + 
                '         xmlns:bldg="http://www.opengis.net/citygml/building/2.0#">' +
-               '   <owl:Ontology rdf:about="{}">'.format( sys.argv[1].split('/')[-1].split('.')[0] ) +
+               '   <owl:Ontology rdf:about="#{}">'.format( filename.split('/')[-1].split('.')[0] ) +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>' +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/building"/>' +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>' +
                '   </owl:Ontology>' +
                '</rdf:RDF>')
-   input_root    = etree.parse(sys.argv[1]).getroot()
+   input_root    = etree.parse(filename).getroot()
    output_root   = etree.fromstring(template)
    ontology_root = etree.fromstring(template)
 
@@ -61,6 +62,8 @@ def main():
          node.text = None
    etree.indent(ontology_root)
 
+   # remove schemaLocation attribute
+   input_root.attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation', None)
 
    print('Converting...')
    updateProgressBar(current_node, input_node_count)
@@ -77,11 +80,14 @@ def main():
       input_class_description = getClassDescription('{}{}'.format( tag.namespace, tag.localname ))
 
       if input_class_description is not None:
-         # if node description is a class, create a named individual based on the description
+         # if node description is a class, create a named individual based on the description and a list of inherited classes
          output_node = etree.SubElement( output_root, '{}NamedIndividual'.format( ns['owl'] ) )
          output_node.attrib[ '{}type'.format( ns['rdf'] ) ]  = '{}{}'.format( tag.namespace, tag.localname )
          output_node.attrib[ '{}about'.format( ns['rdf'] ) ] = generateID(tag.localname)
          child_ids = dict(id_dictionary)
+         input_class_list = ['{}{}'.format( tag.namespace, tag.localname )]
+         for subclass_node in input_class_description.findall( './/{}subClassOf[@{}resource]'.format( ns['rdfs'], ns['rdf'] )):
+            input_class_list.append( getRDFResource(subclass_node) )
 
          # if node has text, create a datatype property and datatypes from the text and the node description
          if input_node.text is not None:
@@ -96,9 +102,11 @@ def main():
                      ns['rdfs'], ns['rdf'], restriction_datatype )) is not None:
                   output_child_uri = getRDFResource(restriction_property).split('#')
                   output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
-                  output_child.attrib[ '{}datatype'.format( ns['rdf'] ) ] = getRDFResource(property_description.find( './/{}range'.format( ns['rdfs'] )))
+                  output_child.attrib[ '{}datatype'.format( ns['rdf'] ) ] = getRDFResource(property_description.find(
+                     './/{}range'.format( ns['rdfs'] )))
                   output_child.text = input_node.text
                   break
+
 
          # if node has attributes, create datatype property and datatype from the attribute
          for input_attribute in input_node.attrib.items():
@@ -109,7 +117,8 @@ def main():
 
             # also convert gml:id attributes to rdf:ID attributes
             if attribute_tag == '{http://www.opengis.net/gml#}id':
-               output_node.attrib['{}ID'.format(ns['rdf'])] = input_attribute[1]
+               id_dictionary[tag.localname] -= 1
+               output_node.attrib['{}about'.format(ns['rdf'])] = '#{}'.format(input_attribute[1])
 
             # if attribute is an xlink, create an object property between the subject and referenced object
             if attribute_tag == '{http://www.w3.org/1999/xlink#}href':
@@ -125,7 +134,6 @@ def main():
                output_child.text = input_attribute[1]
             # if attribute is a datatype find the corresponding datatype property description, then create the property and object
             elif attribute_descriptions['datatype'] is not None:
-               # TODO: search class description instead of property description for datatype
                for property_description in ontology_root.findall( './/{}DatatypeProperty'.format( ns['owl'] )):
                   if property_description.find( './{}range[@{}resource = "{}{}"]'.format(
                         ns['rdfs'], ns['rdf'], attribute_tag.namespace, attribute_tag.localname )) is not None:
@@ -153,8 +161,23 @@ def main():
                child_ids[child_tag.localname] = 0
             child_descriptions = getAllDescriptions('{}{}'.format( child_tag.namespace, child_tag.localname ))
 
-            # if child node description is an object property, create an object property between the node and its grandchildren, attributes, and text
+            gml_id = input_child.attrib.get( '{http://www.opengis.net/gml}id' )
+
+            # if child description contains properties, check if a parent class is in the domain of the property
+            in_objectproperty_domain = False
+            in_datatypeproperty_domain = False
             if child_descriptions['objectproperty'] is not None:
+               for domain_node in child_descriptions['objectproperty'].findall( './/{}domain'.format(ns['rdfs']) ):
+                  if getRDFResource(domain_node) in input_class_list:
+                     in_objectproperty_domain = True
+            if child_descriptions['datatypeproperty'] is not None:
+               for domain_node in child_descriptions['datatypeproperty'].findall( './/{}domain'.format(ns['rdfs']) ):
+                  if getRDFResource(domain_node) in input_class_list:
+                     in_datatypeproperty_domain = True
+
+
+            # if child node description is an object property, create an object property between the node and its grandchildren, attributes, and text
+            if in_objectproperty_domain:
 
                # if child node has no children but has text or attributes, create property and grandchild object from the text or attributes
                if len(input_child) == 0 and ( input_child.text is not None or len(input_child.attrib) > 0 ):
@@ -200,11 +223,17 @@ def main():
                         child_ids[grandchild_tag.localname] = child_ids[grandchild_tag.localname] + 1
                      else:
                         child_ids[grandchild_tag.localname] = 0
+
+                     gml_id = grandchild_node.attrib.get( '{http://www.opengis.net/gml}id' )
+
                      output_child = etree.SubElement(output_node, '{%s}%s' % ( child_tag.namespace, child_tag.localname ))
-                     output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( grandchild_tag.localname, child_ids[grandchild_tag.localname] )
+                     if gml_id is not None:
+                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}'.format( gml_id )
+                     else:
+                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( grandchild_tag.localname, child_ids[grandchild_tag.localname] )
 
             # if child node description is a datatype property, create an datatype property between the node and its grandchildren
-            elif child_descriptions['datatypeproperty'] is not None:
+            elif in_datatypeproperty_domain:
 
                output_child = etree.SubElement(output_node, '{%s}%s' % ( child_tag.namespace, child_tag.localname ))
                output_child.attrib[ '{}datatype'.format( ns['rdf'] )] = '{}'.format( getRDFResource(
@@ -224,7 +253,10 @@ def main():
 
                         output_child_uri = getRDFResource(on_property).split('#')
                         output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
-                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
+                        if gml_id is not None:
+                           output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}'.format( gml_id )
+                        else:
+                           output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
                         break
                   else:
                      # if no corresponding property exists for this class, check parent classes 
@@ -236,7 +268,10 @@ def main():
                                  ns['rdfs'], ns['rdf'], getRDFResource(subClass) )) is not None:
                               output_child_uri = getRDFResource(restriction.find( '{}onProperty'.format(ns['owl']) )).split('#')
                               output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
-                              output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
+                              if gml_id is not None:
+                                 output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}'.format( gml_id )
+                              else:
+                                 output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
                               break
 
       # if input node has a no descriptions, create an unknown type
@@ -283,7 +318,7 @@ def main():
    etree.indent(output_root)
    sys.stdout.write('\033[K')
    print('Writing output to file...')
-   with open('Results/{}.rdf'.format( sys.argv[1].split('/')[-1].split('.')[0] ), 'w') as file:
+   with open('Results/{}.rdf'.format( filename.split('/')[-1].split('.')[0] ), 'w') as file:
       file.write(etree.tostring( output_root, pretty_print=True ))
    
    print('{} input nodes converted into {} RDF subjects'.format(input_node_count, output_node_count))
@@ -341,73 +376,107 @@ def getClassDescription( uri ):
    if uri in class_description_cache:
       return class_description_cache[uri]
 
-   description = deepcopy( ontology_root.find( './/{}Class[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )))
-   # compile description of parent types to represent inherited axioms 
-   if description is not None:
+   class_description = etree.Element( '{}Class'.format(ns['owl']), nsmap=ontology_root.nsmap )
+   class_description.attrib['{}about'.format(ns['rdf'])] = uri
+
+   for description in ontology_root.findall( './/{}Class[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )):
+   # compile description of parent types to represent inherited axioms
+      for node in description:
+         class_description.append( deepcopy(node) )
+
       for parent_uri in listParentTypes( description ):
          if parent_uri != uri:
-            parent_description = ontology_root.find( './/{}Class[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], parent_uri ) )
-            if parent_description is not None:
-               for child in parent_description:
-                  description.append( deepcopy(child) )
-      etree.indent(description)
-   class_description_cache[uri] = description
-   return description
+            for parent_description in ontology_root.findall( './/{}Class[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], parent_uri ) ):
+               for node in parent_description:
+                  class_description.append( deepcopy(node) )
+   
+   if len(class_description) != 0:
+      etree.indent(class_description)
+      class_description_cache[uri] = class_description
+      return class_description
+   else:
+      return None
 
 
 # get datatype description from ontology with inherited axioms and return them as a node
 def getDatatypeDescription( uri ):
    if uri in datatype_description_cache:
       return datatype_description_cache[uri]
-   description = deepcopy( ontology_root.find( './/{}Datatype[@{}about = "{}"]'.format( ns['rdfs'], ns['rdf'], uri )))
-   # compile description of parent types to represent inherited axioms 
-   if description is not None:
+
+   datatype_description = etree.Element( '{}Datatype'.format(ns['rdfs']), nsmap=ontology_root.nsmap )
+   datatype_description.attrib['{}about'.format(ns['rdf'])] = uri
+
+   for description in ontology_root.findall( './/{}Datatype[@{}about = "{}"]'.format( ns['rdfs'], ns['rdf'], uri )):
+   # compile description of parent types to represent inherited axioms
+      for node in description:
+         datatype_description.append( deepcopy(node) )
+
       for parent_uri in listParentTypes( description ):
          if parent_uri != uri:
-            parent_description = ontology_root.find( './/{}Datatype[@{}about = "{}"]'.format( ns['rdfs'], ns['rdf'], parent_uri ) )
-            if parent_description is not None:
-               for child in parent_description:
-                  description.append( deepcopy(child) )
-      etree.indent(description)
-   datatype_description_cache[uri] = description
-   return description
+            for parent_description in ontology_root.findall( './/{}Datatype[@{}about = "{}"]'.format( ns['rdfs'], ns['rdf'], parent_uri ) ):
+               for node in parent_description:
+                  datatype_description.append( deepcopy(node) )
+   
+   if len(datatype_description) != 0:
+      etree.indent(datatype_description)
+      datatype_description_cache[uri] = datatype_description
+      return datatype_description
+   else:
+      return None
 
 
 # get ObjectProperty description from ontology with inherited axioms and return them as a node
 def getObjectPropertyDescription( uri ):
    if uri in objectproperty_description_cache:
       return objectproperty_description_cache[uri]
-   # TODO: expand search to copy all descriptions
-   description = deepcopy( ontology_root.find( './/{}ObjectProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )))
-   # compile description of parent types to represent inherited axioms 
-   if description is not None:
+
+   objectproperty_description = etree.Element( '{}ObjectProperty'.format(ns['owl']), nsmap=ontology_root.nsmap )
+   objectproperty_description.attrib['{}about'.format(ns['rdf'])] = uri
+
+   for description in ontology_root.findall( './/{}ObjectProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )):
+   # compile description of parent types to represent inherited axioms
+      for node in description:
+         objectproperty_description.append( deepcopy(node) )
+
       for parent_uri in listParentTypes( description ):
          if parent_uri != uri:
-            parent_description = ontology_root.find( './/{}ObjectProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], parent_uri ) )
-            if parent_description is not None:
-               for child in parent_description:
-                  description.append( deepcopy(child) )
-      etree.indent(description)
-   objectproperty_description_cache[uri] = description
-   return description
+            for parent_description in ontology_root.findall( './/{}ObjectProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], parent_uri ) ):
+               for node in parent_description:
+                  objectproperty_description.append( deepcopy(node) )
+
+   if len(objectproperty_description) != 0:
+      etree.indent(objectproperty_description)
+      objectproperty_description_cache[uri] = objectproperty_description
+      return objectproperty_description
+   else:
+      return None
 
 
 # get DatatypeProperty description from ontology with inherited axioms and return them as a node
 def getDatatypePropertyDescription( uri ):
    if uri in datatypeproperty_description_cache:
       return datatypeproperty_description_cache[uri]
-   description = deepcopy( ontology_root.find( './/{}DatatypeProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )))
+
+   datatypeproperty_description = etree.Element( '{}DatatypeProperty'.format(ns['owl']), nsmap=ontology_root.nsmap )
+   datatypeproperty_description.attrib['{}about'.format(ns['rdf'])] = uri
+
+   for description in ontology_root.findall( './/{}DatatypeProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], uri )):
    # compile description of parent types to represent inherited axioms 
-   if description is not None:
+      for node in description:
+         datatypeproperty_description.append( deepcopy(node) )
+
       for parent_uri in listParentTypes( description ):
          if parent_uri != uri:
-            parent_description = ontology_root.find( './/{}DatatypeProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], parent_uri ) )
-            if parent_description is not None:
-               for child in parent_description:
-                  description.append( deepcopy(child) )
-      etree.indent(description)
-   datatypeproperty_description_cache[uri] = description
-   return description
+            for parent_description in ontology_root.findall( './/{}DatatypeProperty[@{}about = "{}"]'.format( ns['owl'], ns['rdf'], parent_uri ) ):
+               for node in parent_description:
+                  datatypeproperty_description.append( deepcopy(node) )
+
+   if len(datatypeproperty_description) != 0:
+      etree.indent(datatypeproperty_description)
+      datatypeproperty_description_cache[uri] = datatypeproperty_description
+      return datatypeproperty_description
+   else:
+      return None
 
 
 # list node parent types as uri strings
@@ -486,10 +555,19 @@ def updateProgressBar(count, total, status=''):
    sys.stdout.flush()
 
 if __name__ == "__main__":
-   if len(sys.argv) != 2:
-      sys.exit('Incorrect number of arguments. Usage: XML2OWL.py [gml file to convert]')
+   if len(sys.argv) == 1:
+      for file in glob('./input-data/*.gml'):
+         print( 'Converting "{}"...'.format(file) )
+         start_time = time.time()
+         main( file )
+         execution_time = time.gmtime( time.time() - start_time )
+         print('Execution time: {}'.format( time.strftime( '%H:%M:%S', execution_time )))
 
-   start_time = time.time()
-   main()
-   execution_time = time.gmtime( time.time() - start_time )
-   print('Execution time: {}'.format( time.strftime( '%H:%M:%S', execution_time )))
+
+   if len(sys.argv) == 2:
+      start_time = time.time()
+      main( sys.argv[1] )
+      execution_time = time.gmtime( time.time() - start_time )
+      print('Execution time: {}'.format( time.strftime( '%H:%M:%S', execution_time )))
+   else:
+      sys.exit('Incorrect number of arguments. Usage: XML2RDF.py [gml file to convert]')
