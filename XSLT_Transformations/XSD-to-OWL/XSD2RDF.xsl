@@ -126,11 +126,12 @@ rdfs:range axioms are set by the type attribute -->
         <rdfs:range rdf:resource="{concat( $namespace, '#', $thisType )}"/>
       </owl:DatatypeProperty>
     </xsl:when>
-    <xsl:when test="contains( $thisType, ':' )">
+    <!-- If the element has a type and it is not an XML primitive, we can assume it is an ObjectProperty -->
+    <xsl:when test="@type">
       <owl:ObjectProperty rdf:about="{concat( $namespace, '#', @name )}">
         <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
         <rdfs:domain rdf:resource="{concat( $namespace, '#', ancestor::*[@name][last()]/@name )}"/>
-        <rdfs:range  rdf:resource="{$thisType}"/>
+        <rdfs:range  rdf:resource="{if (contains( $thisType, ':' )) then $thisType else concat( $namespace, '#', $thisType )}"/>
       </owl:ObjectProperty>
     </xsl:when>
     <xsl:when test="contains( @ref, ':' )">
@@ -153,6 +154,7 @@ rdfs:range axioms are set by the type attribute -->
         <rdfs:range  rdf:resource="{concat( $namespace, '#', @name )}"/>
       </owl:DatatypeProperty>
     </xsl:when>
+    <!-- element has a name and type but the type is declared outside of the schema. -->
     <xsl:otherwise><!-- Otherwise this element has a reference to another element within the schema.
     The referenced element is either a complex or simple type -->
       <xsl:variable name="thisReference" select="@ref"/>
@@ -169,6 +171,7 @@ rdfs:range axioms are set by the type attribute -->
   </xsl:choose>
 </xsl:template>
 
+<!-- xs:all children should implement the owl:FunctionalProperty type -->
 <!-- ============================================== # 30 ============================================== -->
 <xsl:template match="xs:element[parent::xs:all]">
   <xsl:variable name="thisTypeQName" select="if (@type) then resolve-QName( string(@type), . ) else ''"/>
@@ -872,7 +875,7 @@ unbounded, in which case it is ignored -->
       </xsl:if>
     </xsl:when>
     <xsl:otherwise>
-      <owl:equivalentClass rdf:resource="{$thisBase}"/>
+      <owl:equivalentClass rdf:resource="{if (contains( $thisBase, ':' )) then $thisBase else concat( $namespace, '#', $thisBase )}"/>
     </xsl:otherwise>
   </xsl:choose>
 </xsl:template>

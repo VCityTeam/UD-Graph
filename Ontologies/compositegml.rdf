@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="http://liris.cnrs.fr/ontologies/gml#"
-     xml:base="http://liris.cnrs.fr/ontologies/gml"
+<rdf:RDF xmlns="http://liris.cnrs.fr/ontologies/compositegml#"
+     xml:base="http://liris.cnrs.fr/ontologies/compositegml"
      xmlns:dc="http://purl.org/dc/elements/1.1/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
@@ -11,7 +11,7 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:skos="http://www.w3.org/2004/02/skos/core#"
      xmlns:terms="http://purl.org/dc/terms/">
-    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/gml">
+    <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/compositegml">
         <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/smil20"/>
         <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/xlink"/>
         <owl:imports rdf:resource="http://www.opengis.net/ont/geosparql"/>
@@ -283,18 +283,6 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
-    
-
-
-    <!-- file:/home/diego/Documents/Repositories/UD-Graph/Ontologies/SignType -->
-
-    <rdfs:Datatype rdf:about="file:/home/diego/Documents/Repositories/UD-Graph/Ontologies/SignType"/>
-    
-
-
-    <!-- file:/home/diego/Documents/Repositories/UD-Graph/Ontologies/integerOrNullList -->
-
-    <rdfs:Datatype rdf:about="file:/home/diego/Documents/Repositories/UD-Graph/Ontologies/integerOrNullList"/>
     
 
 
@@ -615,7 +603,7 @@
 
     <rdfs:Datatype rdf:about="http://www.opengis.net/gml#CountExtentType">
         <rdfs:comment>Restriction of list type to store a 2-point range of frequency values. If one member is a null, then this is a single ended interval.</rdfs:comment>
-        <owl:equivalentClass rdf:resource="file:/home/diego/Documents/Repositories/UD-Graph/Ontologies/integerOrNullList"/>
+        <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#integerOrNullList"/>
     </rdfs:Datatype>
     
 
@@ -1536,7 +1524,7 @@ application schema.</rdfs:comment>
     <!-- http://www.opengis.net/gml#direction -->
 
     <rdfs:Datatype rdf:about="http://www.opengis.net/gml#direction">
-        <owl:equivalentClass rdf:resource="file:/home/diego/Documents/Repositories/UD-Graph/Ontologies/SignType"/>
+        <owl:equivalentClass rdf:resource="http://www.opengis.net/gml#SignType"/>
         <owl:equivalentClass>
             <rdfs:Datatype>
                 <owl:oneOf>
@@ -5926,41 +5914,41 @@ application schema.</rdfs:comment>
     
 
 
-    <!-- smil20:hasanimate -->
+    <!-- http://www.w3.org/2001/SMIL20#hasanimate -->
 
-    <owl:ObjectProperty rdf:about="smil20:hasanimate">
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20#hasanimate">
         <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-        <rdfs:range rdf:resource="smil20:animate"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20#animate"/>
         <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
     </owl:ObjectProperty>
     
 
 
-    <!-- smil20:hasanimateColor -->
+    <!-- http://www.w3.org/2001/SMIL20#hasanimateColor -->
 
-    <owl:ObjectProperty rdf:about="smil20:hasanimateColor">
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20#hasanimateColor">
         <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-        <rdfs:range rdf:resource="smil20:animateColor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20#animateColor"/>
         <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
     </owl:ObjectProperty>
     
 
 
-    <!-- smil20:hasanimateMotion -->
+    <!-- http://www.w3.org/2001/SMIL20#hasanimateMotion -->
 
-    <owl:ObjectProperty rdf:about="smil20:hasanimateMotion">
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20#hasanimateMotion">
         <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-        <rdfs:range rdf:resource="smil20:animateMotion"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20#animateMotion"/>
         <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
     </owl:ObjectProperty>
     
 
 
-    <!-- smil20:hasset -->
+    <!-- http://www.w3.org/2001/SMIL20#hasset -->
 
-    <owl:ObjectProperty rdf:about="smil20:hasset">
+    <owl:ObjectProperty rdf:about="http://www.w3.org/2001/SMIL20#hasset">
         <rdfs:domain rdf:resource="http://www.opengis.net/gml#BaseStyleDescriptorType"/>
-        <rdfs:range rdf:resource="smil20:set"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/SMIL20#set"/>
         <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
     </owl:ObjectProperty>
     
@@ -7834,6 +7822,7 @@ application schema.</rdfs:comment>
 
     <owl:Class rdf:about="http://www.opengis.net/gml#AbstractFeatureType">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/ont/geosparql#Feature"/>
         <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -8159,6 +8148,7 @@ This abstract complexType is expected to be extended for well-known operation me
 
     <owl:Class rdf:about="http://www.opengis.net/gml#AbstractGeometryType">
         <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractGMLType"/>
+        <rdfs:subClassOf rdf:resource="http://www.opengis.net/ont/geosparql#Geometry"/>
         <rdfs:subClassOf>
             <owl:Class>
                 <owl:intersectionOf rdf:parseType="Collection">
@@ -9295,20 +9285,20 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
                         <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#StyleVariationType"/>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasanimate"/>
-                        <owl:allValuesFrom rdf:resource="smil20:animate"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasanimate"/>
+                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/SMIL20#animate"/>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasanimateColor"/>
-                        <owl:allValuesFrom rdf:resource="smil20:animateColor"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasanimateColor"/>
+                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/SMIL20#animateColor"/>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasanimateMotion"/>
-                        <owl:allValuesFrom rdf:resource="smil20:animateMotion"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasanimateMotion"/>
+                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/SMIL20#animateMotion"/>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasset"/>
-                        <owl:allValuesFrom rdf:resource="smil20:set"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasset"/>
+                        <owl:allValuesFrom rdf:resource="http://www.w3.org/2001/SMIL20#set"/>
                     </owl:Restriction>
                     <owl:Restriction>
                         <owl:onProperty rdf:resource="http://www.opengis.net/gml#spatialResolution"/>
@@ -9319,19 +9309,19 @@ However, this is non-deterministic, thus prohibited by XSD.</rdfs:comment>
                         <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasanimate"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasanimate"/>
                         <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasanimateColor"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasanimateColor"/>
                         <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasanimateMotion"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasanimateMotion"/>
                         <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                     </owl:Restriction>
                     <owl:Restriction>
-                        <owl:onProperty rdf:resource="smil20:hasset"/>
+                        <owl:onProperty rdf:resource="http://www.w3.org/2001/SMIL20#hasset"/>
                         <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
                     </owl:Restriction>
                 </owl:intersectionOf>
@@ -21302,30 +21292,27 @@ This concrete complexType can be used for all operation methods, without using a
     
 
 
-    <!-- smil20:animate -->
+    <!-- http://www.w3.org/2001/SMIL20#animate -->
 
-    <owl:Class rdf:about="smil20:animate"/>
+    <owl:Class rdf:about="http://www.w3.org/2001/SMIL20#animate"/>
     
 
 
-    <!-- smil20:animateColor -->
+    <!-- http://www.w3.org/2001/SMIL20#animateColor -->
 
-    <owl:Class rdf:about="smil20:animateColor"/>
+    <owl:Class rdf:about="http://www.w3.org/2001/SMIL20#animateColor"/>
     
 
 
-    <!-- smil20:animateMotion -->
+    <!-- http://www.w3.org/2001/SMIL20#animateMotion -->
 
-    <owl:Class rdf:about="smil20:animateMotion"/>
+    <owl:Class rdf:about="http://www.w3.org/2001/SMIL20#animateMotion"/>
     
 
 
-    <!-- smil20:set -->
+    <!-- http://www.w3.org/2001/SMIL20#set -->
 
-    <owl:Class rdf:about="smil20:set"/>
-    <rdf:Description>
-        <www:XMLSchemaminInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.00</www:XMLSchemaminInclusive>
-    </rdf:Description>
+    <owl:Class rdf:about="http://www.w3.org/2001/SMIL20#set"/>
     <rdf:Description>
         <www:XMLSchemamaxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">359</www:XMLSchemamaxInclusive>
     </rdf:Description>
@@ -21333,10 +21320,13 @@ This concrete complexType can be used for all operation methods, without using a
         <www:XMLSchemamaxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.00</www:XMLSchemamaxExclusive>
     </rdf:Description>
     <rdf:Description>
-        <www:XMLSchemamaxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.00</www:XMLSchemamaxExclusive>
+        <www:XMLSchemaminInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.00</www:XMLSchemaminInclusive>
     </rdf:Description>
     <rdf:Description>
         <www:XMLSchemaminInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.00</www:XMLSchemaminInclusive>
+    </rdf:Description>
+    <rdf:Description>
+        <www:XMLSchemamaxExclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">60.00</www:XMLSchemamaxExclusive>
     </rdf:Description>
     <rdf:Description>
         <www:XMLSchemamaxInclusive rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">59</www:XMLSchemamaxInclusive>
