@@ -21,6 +21,8 @@ PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0#>
 PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0#>
 PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0#>
 PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0#>
+# GeoSPARQL prefix
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 
 
 #1 query all buildings
@@ -59,19 +61,26 @@ PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0#>
 
 #4 query buildingpart solid surface member polygons and positions
 
-SELECT ?building ?polygon ?positions
-WHERE {
-?building rdf:type bldg:BuildingPart ;
-   bldg:lod2Solid ?solid .
-?solid gml:exterior ?exterior .
-?exterior gml:hassurfaceMember ?surface .
-?surface xlink:href ?polygon .
-?polygon gml:hasexterior ?exterior2 .
-?exterior2 gml:has_Ring ?ring .
-?ring gml:hasposList ?posList .
-?posList gml:hasdoubleList ?positions .
+#SELECT ?building ?polygon ?positions
+#WHERE {
+#?building rdf:type bldg:BuildingPart ;
+#   bldg:lod2Solid ?solid .
+#?solid gml:exterior ?exterior .
+#?exterior gml:hassurfaceMember ?surface .
+#?surface xlink:href ?polygon .
+#?polygon gml:hasexterior ?exterior2 .
+#?exterior2 gml:has_Ring ?ring .
+#?ring gml:hasposList ?posList .
+#?posList gml:hasdoubleList ?positions .
 
 #FILTER ( STR(?building) = "file:///home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/XML-to-OWL/Results/LYON_1ER_BATI_2015(1711_bldg).rdf#BU_69381AB243_1" ) .
+#}
+
+#5 query all GeoSPARQL features with GML serializations
+
+SELECT ?feature ?geometry
+WHERE {
+?feature geo:asGML ?geometry .
 }
 
 LIMIT 100 

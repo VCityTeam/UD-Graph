@@ -1,0 +1,247 @@
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/dynamicFeature">
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/feature"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/direction"/>
+      <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:dynamicFeature:3.1.1</rdfs:seeAlso>
+      <rdfs:comment xml:lang="en">Basic support for tracking moving objects and objects with changing state.
+			
+			GML is an OGC Standard.
+			Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</rdfs:comment>
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/gml#AbstractTimeSliceType">
+      <rdfs:comment>This is an abstract class</rdfs:comment>
+      <rdfs:comment xml:lang="en">A timeslice encapsulates the time-varying properties of a dynamic feature--it 
+        must be extended to represent a timestamped projection of a feature. The dataSource 
+        property describes how the temporal data was acquired.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalidTime"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#validTime"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdataSource"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#dataSource"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdataSource"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MovingObjectStatusType">
+      <rdfs:comment xml:lang="en">This type encapsulates various dynamic properties of moving objects        
+             (points, lines, regions). It is useful for dealing with features whose        
+             geometry or topology changes over time.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#haslocation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#location"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#speed"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#speed"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#bearing"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#DirectionPropertyType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#bearing"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#acceleration"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#acceleration"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#elevation"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#elevation"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstatus"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#status"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasstatus"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeSliceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#HistoryPropertyType">
+      <rdfs:comment xml:lang="en">The history relationship associates a feature with a sequence of TimeSlice instances.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#has_TimeSlice"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#_TimeSlice"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#TrackType">
+      <rdfs:comment xml:lang="en">The track of a moving object is a sequence of specialized timeslices        that indicate the status of the object.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasMovingObjectStatus"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#MovingObjectStatus"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#HistoryPropertyType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#DynamicFeatureType">
+      <rdfs:comment>A dynamic feature may possess a history and/or a timestamp.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#DynamicFeatureCollectionType">
+      <rdfs:comment>A dynamic feature collection may possess a history and/or a timestamp.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#dynamicProperties">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalidTime"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#validTime"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasvalidTime"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hashistory"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#history"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hashistory"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdataSource"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#dataSource"/>
+               </owl:Restriction>
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasdataSource"/>
+                  <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">0</owl:minCardinality>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#dataSource">
+      <rdfs:subClassOf rdf:resource="StringOrRefType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#status">
+      <rdfs:subClassOf rdf:resource="StringOrRefType"/>
+      <rdfs:comment>Warning: This class type was declared outside of its original schema. This class may be declared incorrectly.</rdfs:comment>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#_TimeSlice">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_GML"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#AbstractTimeSliceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#MovingObjectStatus">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_TimeSlice"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#history">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#HistoryPropertyType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#track">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#history"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#TrackType"/>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalidTime">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractTimeSliceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#validTime"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdataSource">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#AbstractTimeSliceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#dataSource"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#haslocation">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#location"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#speed">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#bearing">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#DirectionPropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#acceleration">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#elevation">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MeasureType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasstatus">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#MovingObjectStatusType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#status"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#has_TimeSlice">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#HistoryPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#_TimeSlice"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasMovingObjectStatus">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#TrackType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#MovingObjectStatus"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasvalidTime">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#dynamicProperties"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#validTime"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hashistory">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#dynamicProperties"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#history"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasdataSource">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#dynamicProperties"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#dataSource"/>
+   </owl:ObjectProperty>
+</rdf:RDF>

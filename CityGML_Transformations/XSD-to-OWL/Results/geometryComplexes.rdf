@@ -1,0 +1,195 @@
+<rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   <owl:Ontology rdf:about="http://liris.cnrs.fr/ontologies/geometryComplexes">
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>
+      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/geometryAggregates"/>
+      <rdfs:comment>geometryComplexes.xsd</rdfs:comment>
+      <rdfs:seeAlso>urn:opengis:specification:gml:schema-xsd:geometryComplexes:v3.1.1</rdfs:seeAlso>
+      <rdfs:comment>
+			GML is an OGC Standard.
+			Copyright (c) 2001,2005,2010 Open Geospatial Consortium.
+			To obtain additional rights of use, visit http://www.opengeospatial.org/legal/ .
+		</rdfs:comment>
+   </owl:Ontology>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeCurveType">
+      <rdfs:comment>A CompositeCurve is defined by a sequence of (orientable) curves such that the each curve in the sequence terminates at the start point of the subsequent curve in the list.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hascurveMember"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#curveMember"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeCurvePropertyType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeCurve"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeCurve"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeSurfaceType">
+      <rdfs:comment>A CompositeSurface is defined by a set of orientable surfaces. A composite surface is geometry type with all the geometric properties of a (primitive) surface. Essentially, a composite surface is a collection of surfaces that join in pairs on common boundary curves and which, when considered as a whole, form a single surface.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassurfaceMember"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#surfaceMember"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeSurfacePropertyType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeSurface"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSurface"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeSolidType">
+      <rdfs:comment>A composite solid is a geometry type with all the geometric properties of a (primitive) solid. 
+				Essentially, a composite solid is a collection of solids that join in pairs on common boundary surfaces and which, when considered as a whole, form a single solid.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hassolidMember"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#solidMember"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeSolidPropertyType">
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeSolid"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSolid"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeometricComplexType">
+      <rdfs:comment>A geometric complex.</rdfs:comment>
+      <rdfs:subClassOf>
+         <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+               <owl:Restriction>
+                  <owl:onProperty rdf:resource="http://www.opengis.net/gml#element"/>
+                  <owl:allValuesFrom rdf:resource="http://www.opengis.net/gml#GeometricPrimitivePropertyType"/>
+               </owl:Restriction>
+            </owl:intersectionOf>
+         </owl:Class>
+      </rdfs:subClassOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeometricComplexPropertyType">
+      <rdfs:comment>A property that has a geometric complex as its value domain can either be an appropriate geometry element encapsulated in an element of this type or an XLink reference to a remote geometry element (where remote includes geometry elements located elsewhere in the same document). Either the reference or the contained element must be given, but neither both nor none.
+NOTE: The allowed geometry elements contained in such a property (or referenced by it) have to be modelled by an XML Schema choice element since the composites inherit both from geometric complex *and* geometric primitive and are already part of the _GeometricPrimitive substitution group.</rdfs:comment>
+      <owl:disjointUnionOf rdf:parseType="Collection">
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasGeometricComplex"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#GeometricComplex"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeCurve"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeCurve"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeSurface"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSurface"/>
+         </owl:Restriction>
+         <owl:Restriction>
+            <owl:onProperty rdf:resource="http://www.opengis.net/gml#hasCompositeSolid"/>
+            <owl:someValuesFrom rdf:resource="http://www.opengis.net/gml#CompositeSolid"/>
+         </owl:Restriction>
+      </owl:disjointUnionOf>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeCurve">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Curve"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeCurveType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeSurface">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Surface"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeSurfaceType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#CompositeSolid">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Solid"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#CompositeSolidType"/>
+   </owl:Class>
+   <owl:Class rdf:about="http://www.opengis.net/gml#GeometricComplex">
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#_Geometry"/>
+      <rdfs:subClassOf rdf:resource="http://www.opengis.net/gml#GeometricComplexType"/>
+   </owl:Class>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hascurveMember">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CompositeCurveType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#curveMember"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeCurve">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CompositeCurvePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeCurve"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassurfaceMember">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CompositeSurfaceType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#surfaceMember"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeSurface">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CompositeSurfacePropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hassolidMember">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CompositeSolidType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#solidMember"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeSolid">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#CompositeSolidPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeSolid"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#element">
+      <rdfs:comment>Warning: This ObjectProperty type was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometricComplexType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometricPrimitivePropertyType"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasGeometricComplex">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometricComplexPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#GeometricComplex"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeCurve">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometricComplexPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeCurve"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeSurface">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometricComplexPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeSurface"/>
+   </owl:ObjectProperty>
+   <owl:ObjectProperty rdf:about="http://www.opengis.net/gml#hasCompositeSolid">
+      <rdfs:comment>Warning: This ObjectProperty reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+      <rdfs:domain rdf:resource="http://www.opengis.net/gml#GeometricComplexPropertyType"/>
+      <rdfs:range rdf:resource="http://www.opengis.net/gml#CompositeSolid"/>
+   </owl:ObjectProperty>
+</rdf:RDF>
