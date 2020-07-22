@@ -58,17 +58,18 @@ def main( filepath='' ):
    print('done!')
 
 
-def updateProgressBar(count, total, status=''):
-   bar_length = 20
+def updateProgressBar( count, total, status='' ):
+   bar_length    = 20
+   buffer_size   = 127
    filled_length = int(round(bar_length * count / float(total)))
 
    percent = round(100.0 * count / float(total), 1)
    bar = '#' * filled_length + ' ' * (bar_length - filled_length)
+   output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
 
    sys.stdout.write('\033[K')
-   sys.stdout.write('|%s| %s%s,%i/%i ...%s\r' % (bar, percent, '%', count, total, status))
+   sys.stdout.write( output[0:buffer_size] + '\r' )
    sys.stdout.flush()
-
 
 
 if __name__ == "__main__":

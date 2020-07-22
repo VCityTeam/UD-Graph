@@ -15,6 +15,9 @@ def main( filename ):
    global datatype_description_cache
    global objectproperty_description_cache
    global datatypeproperty_description_cache
+   global local_namespace
+
+   local_namespace = 'http://liris.cnrs.fr/data/{}'.format( filename.split('/')[-1].split('.')[0] )
    template = ('<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ' +
                '         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" ' +
                '         xmlns:xlink="http://www.w3.org/1999/xlink#" ' +
@@ -23,7 +26,7 @@ def main( filename ):
                '         xmlns:core="http://www.opengis.net/citygml/2.0#" ' + 
                '         xmlns:bldg="http://www.opengis.net/citygml/building/2.0#" ' +
                '         xmlns:geo="http://www.opengis.net/ont/geosparql#">' +
-               '   <owl:Ontology rdf:about="#{}">'.format( filename.split('/')[-1].split('.')[0] ) +
+               '   <owl:Ontology rdf:about="{}">'.format( local_namespace ) +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>' +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/building"/>' +
                '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>' +
@@ -124,12 +127,12 @@ def main( filename ):
             # also convert gml:id attributes to rdf:ID attributes
             if attribute_tag == '{http://www.opengis.net/gml#}id':
                id_dictionary[tag.localname] -= 1
-               output_node.attrib['{}about'.format(ns['rdf'])] = '#{}'.format(input_attribute[1])
+               output_node.attrib['{}about'.format(ns['rdf'])] = '{}#{}'.format( local_namespace, input_attribute[1] )
 
             # if attribute is an xlink, create an object property between the subject and referenced object
             if attribute_tag == '{http://www.w3.org/1999/xlink#}href':
                output_child = etree.SubElement(output_node, '{%s}%s' % ( attribute_tag.namespace, attribute_tag.localname ))
-               output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = input_attribute[1]
+               output_child.attrib[ '{}resource'.format( ns['rdf'] ) ] = '{}{}'.format( local_namespace, input_attribute[1] )
                continue
 
             # if attribute is a datatype property directly create property and object
@@ -213,7 +216,7 @@ def main( filename ):
 
                   # create object property and grandchild
                   output_child = etree.SubElement(output_node, '{%s}%s' % ( child_tag.namespace, child_tag.localname ))
-                  output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( grandchild_tag.localname, child_ids[grandchild_tag.localname] )
+                  output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}_{}'.format( local_namespace, grandchild_tag.localname, child_ids[grandchild_tag.localname] )
                   output_grandchild = etree.SubElement(output_root, '{}NamedIndividual'.format( ns['owl'] ))
                   output_grandchild.attrib[ '{}type'.format( ns['rdf'] ) ]  = '{}{}'.format( grandchild_tag.namespace, grandchild_tag.localname )
                   output_grandchild.attrib[ '{}about'.format( ns['rdf'] ) ] = generateID(grandchild_tag.localname)
@@ -249,9 +252,9 @@ def main( filename ):
 
                      output_child = etree.SubElement(output_node, '{%s}%s' % ( child_tag.namespace, child_tag.localname ))
                      if gml_id is not None:
-                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}'.format( gml_id )
+                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}'.format( local_namespace, gml_id )
                      else:
-                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( grandchild_tag.localname, child_ids[grandchild_tag.localname] )
+                        output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}_{}'.format( local_namespace, grandchild_tag.localname, child_ids[grandchild_tag.localname] )
 
             # if child node description is a datatype property, create an datatype property between the node and its grandchildren
             elif in_datatypeproperty_domain:
@@ -275,9 +278,9 @@ def main( filename ):
                         output_child_uri = getRDFResource(on_property).split('#')
                         output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
                         if gml_id is not None:
-                           output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}'.format( gml_id )
+                           output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}'.format( local_namespace, gml_id )
                         else:
-                           output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
+                           output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}_{}'.format( local_namespace, child_tag.localname, child_ids[child_tag.localname] )
                         break
                   else:
                      # if no corresponding property exists for this class, check parent classes 
@@ -290,9 +293,9 @@ def main( filename ):
                               output_child_uri = getRDFResource(restriction.find( '{}onProperty'.format(ns['owl']) )).split('#')
                               output_child = etree.SubElement(output_node, '{%s#}%s' % ( output_child_uri[0], output_child_uri[1] ))
                               if gml_id is not None:
-                                 output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}'.format( gml_id )
+                                 output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}'.format( local_namespace, gml_id )
                               else:
-                                 output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '#{}_{}'.format( child_tag.localname, child_ids[child_tag.localname] )
+                                 output_child.attrib[ '{}resource'.format( ns['rdf'] )] = '{}#{}_{}'.format( local_namespace, child_tag.localname, child_ids[child_tag.localname] )
                               break
 
       # if input node has a no descriptions, create an unknown type
@@ -360,10 +363,10 @@ def qualifyTag( tag ):
 def generateID( name ):
    if name in id_dictionary:
       id_dictionary[name] = id_dictionary[name] + 1
-      return '#{}_{}'.format( name, id_dictionary[name] )
+      return '{}#{}_{}'.format( local_namespace, name, id_dictionary[name] )
    else:
       id_dictionary[name] = 0
-      return '#{}_0'.format( name )
+      return '{}#{}_0'.format( local_namespace, name )
 
 
 # get rdf:about attribute of an node as a string
@@ -581,14 +584,16 @@ def hasSerialization( node ):
 
 
 def updateProgressBar( count, total, status='' ):
-   bar_length = 20
+   bar_length    = 20
+   buffer_size   = 127
    filled_length = int(round(bar_length * count / float(total)))
 
    percent = round(100.0 * count / float(total), 1)
    bar = '#' * filled_length + '-' * (bar_length - filled_length)
+   output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
 
    sys.stdout.write('\033[K')
-   sys.stdout.write('[%s] %s%s,%i/%i ...%s\r' % (bar, percent, '%', count, total, status))
+   sys.stdout.write( output[0:buffer_size] + '\r' )
    sys.stdout.flush()
 
 if __name__ == "__main__":
