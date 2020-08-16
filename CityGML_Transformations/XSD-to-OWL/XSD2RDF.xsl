@@ -23,7 +23,6 @@ for 1st depth elements, complex types, and simple types. -->
     <owl:Ontology rdf:about="{$namespace}">
       <xsl:apply-templates select="//xs:include"/>
       <xsl:apply-templates select="//xs:import"/>
-      <!-- <xsl:apply-templates select="//xs:include"/> -->
       <xsl:apply-templates select="/xs:schema/xs:annotation"/>
     </owl:Ontology>
     <xsl:apply-templates select="//xs:complexType[@name or ../@name]"/>

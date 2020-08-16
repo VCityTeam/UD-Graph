@@ -21,7 +21,7 @@ PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0#>
 PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0#>
 PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0#>
 PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0#>
-# GeoSPARQL prefix
+# GeoSPARQL prefixes
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
@@ -77,11 +77,27 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 #FILTER ( STR(?building) = "file:///home/diego/Documents/Repositories/UD-Graph/XSLT_Transformations/XML-to-OWL/Results/LYON_1ER_BATI_2015(1711_bldg).rdf#BU_69381AB243_1" ) .
 #}
 
+
 #5 query all GeoSPARQL features with GML serializations
 
-SELECT ?feature ?geometry
+#SELECT ?feature ?serialization
+#WHERE {
+#?feature geo:hasGeometry ?geometry .
+
+#?geometry geo:asGML ?serialization .
+#}
+
+
+#6 query all GeoSPARQL features within 2 m of a point 
+
+SELECT ?feature
 WHERE {
-?feature geo:asGML ?geometry .
+?feature geo:hasGeometry ?geometry .
+   
+?geometry geo:asGML ?serialization
+
+FILTER (geof:distance("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"urn:ogc:def:crs:EPSG::2154\"><gml:pos>1841500.54989500 5175869.09632300</gml:pos></gml:Point>"^^geo:gmlLiteral,
+	?serialization , units:metre ) < 2)
 }
 
 LIMIT 100 
