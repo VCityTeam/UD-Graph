@@ -73,41 +73,31 @@
 <!-- =================================== Element Transformations ===================================== -->
 <!-- ================================================================================================= -->
 
-<xsl:template match="xs:schema/xs:element[@type]">
-  <xsl:variable name="thisName" select="@name"/>
+<xsl:template match="xs:schema/xs:element[@type]|xs:schema/xs:element/xs:complexType">
   <xsl:variable name="thisType" select="@type"/>
   <xsl:if test="//xs:complexType[@name = $thisType or ../@name = $thisType] or ./xs:complexType">
     <xsl:element name="xsl:template">
       <xsl:attribute name="match" select="concat( '//', @name)"/>
       <owl:NamedIndividual>
-        <xsl:attribute name="rdf:about">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
+        <xsl:attribute name="rdf:ID">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
         <rdf:type rdf:resource="{@name}"/>
         <xsl:element name="xsl:call-template">
-          <xsl:attribute name="name" select="concat( @name, '_Template' )"/>
+          <xsl:attribute name="name" select="concat( @type, '_Template' )"/>
         </xsl:element>
       </owl:NamedIndividual>
     </xsl:element>
-    <xsl:element name="xsl:template">
+<!--     <xsl:element name="xsl:template">
       <xsl:attribute name="name" select="concat( @name, '_Template' )"/>
       <xsl:if test="@type and not( namespace-uri-from-QName(resolve-QName( string(@type), . )) = 'http://www.w3.org/2001/XMLSchema' )">
         <xsl:element name="xsl:call-template">
           <xsl:attribute name="name" select="concat( @type, '_Template' )"/>
         </xsl:element>
       </xsl:if>
-    </xsl:element>
+    </xsl:element> -->
     <xsl:element name="xsl:template">
       <xsl:attribute name="name" select="concat( @name, '_Substitution' )"/>
-      <xsl:element name="{$thisName}">
-        <xsl:choose>
-          <xsl:when test="@type and namespace-uri-from-QName(resolve-QName( string(@type), . )) = 'http://www.w3.org/2001/XMLSchema' and not( local-name() = 'anyType' )">
-            <xsl:element name="xsl:value-of">
-              <xsl:attribute name="select">text()</xsl:attribute>
-            </xsl:element>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:attribute name="rdf:resource">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
-          </xsl:otherwise>
-        </xsl:choose>
+      <xsl:element name="{@name}">
+        <xsl:attribute name="rdf:resource">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
       </xsl:element>
     </xsl:element>
   </xsl:if>
@@ -195,32 +185,6 @@
 </xsl:template>
 
 
-<xsl:template match="xs:group[@name]">
-  <xsl:element name="xsl:template">
-    <xsl:attribute name="name" select="concat( @name, '_Template' )"/>
-    <xsl:for-each select="descendant::xs:element[count(ancestor::xs:group) = 1]">
-      <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
-      <xsl:element name="xsl:for-each">
-        <xsl:attribute name="select">./<xsl:value-of select="$thisName"/></xsl:attribute>
-        <xsl:element name="xsl:call-template">
-          <xsl:attribute name="name" select="concat($thisName, '_Property')"/>
-        </xsl:element>
-      </xsl:element>
-      <xsl:for-each select="//xs:element[@substitutionGroup = $thisName]">
-        <xsl:call-template name="substitutionGroup">
-          <xsl:with-param name="name" select="@name"/>
-        </xsl:call-template>
-      </xsl:for-each>
-    </xsl:for-each>
-    <xsl:for-each select="descendant::xs:group[count(ancestor::xs:group) = 1]">
-      <xsl:element name="xsl:call-template">
-        <xsl:attribute name="name" select="concat( if (@name) then @name else @ref, '_Template' )"/>
-      </xsl:element>
-    </xsl:for-each>
-  </xsl:element>
-</xsl:template>
-
-
 <xsl:template match="xs:simpleType">
   <xsl:element name="xsl:template">
     <xsl:attribute name="name" select="concat( if (@name) then @name else ../@name, '_Template' )"/>
@@ -285,7 +249,7 @@
     <xsl:element name="xsl:template">
       <xsl:attribute name="match" select="concat( '//', if (@name) then @name else @ref )"/>
       <owl:NamedIndividual>
-        <xsl:attribute name="rdf:about">{concat( '<xsl:value-of select="$thisType"/>', '_', generate-id() )}</xsl:attribute>
+        <xsl:attribute name="rdf:ID">{concat( '<xsl:value-of select="$thisType"/>', '_', generate-id() )}</xsl:attribute>
         <rdf:type rdf:resource="{@name}"/>
         <xsl:element name="xsl:call-template">
           <xsl:attribute name="name" select="concat( $thisType, '_Template' )"/>
@@ -293,6 +257,32 @@
       </owl:NamedIndividual>
     </xsl:element>
   </xsl:if>
+</xsl:template>
+
+
+<xsl:template match="xs:group[@name]">
+  <xsl:element name="xsl:template">
+    <xsl:attribute name="name" select="concat( @name, '_Template' )"/>
+    <xsl:for-each select="descendant::xs:element[count(ancestor::xs:group) = 1]">
+      <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
+      <xsl:element name="xsl:for-each">
+        <xsl:attribute name="select">./<xsl:value-of select="$thisName"/></xsl:attribute>
+        <xsl:element name="xsl:call-template">
+          <xsl:attribute name="name" select="concat($thisName, '_Property')"/>
+        </xsl:element>
+      </xsl:element>
+      <xsl:for-each select="//xs:element[@substitutionGroup = $thisName]">
+        <xsl:call-template name="substitutionGroup">
+          <xsl:with-param name="name" select="@name"/>
+        </xsl:call-template>
+      </xsl:for-each>
+    </xsl:for-each>
+    <xsl:for-each select="descendant::xs:group[count(ancestor::xs:group) = 1]">
+      <xsl:element name="xsl:call-template">
+        <xsl:attribute name="name" select="concat( if (@name) then @name else @ref, '_Template' )"/>
+      </xsl:element>
+    </xsl:for-each>
+  </xsl:element>
 </xsl:template>
 
 
