@@ -20,7 +20,7 @@ template = ('<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" ' 
 output = etree.fromstring(template)
 
 print('Creating XML to RDF transformation mapping...')
-system('java -jar ../saxon9he.jar -s:../XSD-to-OWL/Schema/compositebuilding.xsd -xsl:Generate_XML2RDF.xsl > CityGML2RDF.xsl')
+system('java -jar ../saxon9he.jar -s:input-data/compositebuilding.xsd -xsl:Generate_XML2RDF.xsl > CityGML2RDF.xsl')
 
 print('Cleaning mapping patterns...')
 root = etree.parse('CityGML2RDF.xsl').getroot()
@@ -69,12 +69,25 @@ system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1_bldg.gml -x
 print('Transforming XML to RDF... LYON_1ER_BATI_2015-1711_bldg.gml')
 system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1711_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2015-1711_bldg.rdf')
 
+def updateProgressBar( count, total, status='' ):
+   bar_length    = 20
+   buffer_size   = 127
+   filled_length = int(round(bar_length * count / float(total)))
+
+   percent = round(100.0 * count / float(total), 1)
+   bar = '#' * filled_length + '-' * (bar_length - filled_length)
+   output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
+
+   sys.stdout.write('\033[K')
+   sys.stdout.write( output[0:buffer_size] + '\r' )
+   sys.stdout.flush()
+
 def cleanRDF(filename):
 	print('Cleaning rdf duplicates... ' + filename)
 	root = etree.parse(filename).getroot()
 	for node_1 in root.findall('{http://www.w3.org/2002/07/owl#}NamedIndividual[{http://www.opengis.net/gml}id]'):
 		index = root.index(node_1)
-		print(str(index) + '/' + str(len(root)))
+		updateProgressBar( index, len(root), node_1.attrib.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}ID') )
 		if len(root) > index + 1 and root[index + 1].attrib == node_1.attrib:
 			root.remove(root[index])
 

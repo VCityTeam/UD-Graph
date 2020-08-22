@@ -1,9 +1,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:gml="http://www.opengis.net/gml" xmlns:base="http://www.opengis.net/citygml/base/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:smil20="http://www.w3.org/2001/SMIL20/" version="2.0"><xsl:output indent="yes"/>
    <xsl:strip-space elements="*"/>
-   <xsl:variable name="namespace" select="//@xmlns"/>
+   <xsl:variable name="namespace" select="'https://liris.cnrs.fr/ontologies#'"/>
    <xsl:template match="/">
-      <rdf:RDF xmlns:liris="https://liris.cnrs.fr/ontologies/">
-         <owl:Ontology rdf:about="{$namespace}"/>
+      <rdf:RDF xmlns:liris="https://liris.cnrs.fr/ontologies#">
+         <owl:Ontology rdf:about="https://liris.cnrs.fr/ontologies#"/>
          <xsl:apply-templates select="//*"/>
       </rdf:RDF>
    </xsl:template>
@@ -6642,8 +6642,7 @@
          <xsl:value-of select="text()"/>
       </xs:hasinteger>
    </xsl:template>
-   <xsl:template name="gml:direction_Template"><xsl:call-template name="gml:DirectionPropertyType_Template"/>
-   </xsl:template>
+   <xsl:template name="gml:direction_Template"/>
    <xsl:template name="_Template">
       <xs:hasstring>
          <xsl:value-of select="text()"/>
@@ -6824,5650 +6823,4240 @@
       </xs:hasstring>
    </xsl:template>
    <xsl:template match="//core:CityModel">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:CityModel"/>
-         <xsl:call-template name="core:CityModel_Template"/>
+         <xsl:call-template name="core:CityModelType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="core:CityModel_Template">
-      <xsl:call-template name="core:CityModelType_Template"/>
    </xsl:template>
    <xsl:template name="core:CityModel_Substitution">
       <core:CityModel rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:cityObjectMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:cityObjectMember"/>
-         <xsl:call-template name="core:cityObjectMember_Template"/>
+         <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="core:cityObjectMember_Template">
-      <xsl:call-template name="gml:FeaturePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="core:cityObjectMember_Substitution">
       <core:cityObjectMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:_CityObject">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:_CityObject"/>
-         <xsl:call-template name="core:_CityObject_Template"/>
+         <xsl:call-template name="core:AbstractCityObjectType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="core:_CityObject_Template">
-      <xsl:call-template name="core:AbstractCityObjectType_Template"/>
    </xsl:template>
    <xsl:template name="core:_CityObject_Substitution">
       <core:_CityObject rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:_Site">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:_Site"/>
-         <xsl:call-template name="core:_Site_Template"/>
+         <xsl:call-template name="core:AbstractSiteType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="core:_Site_Template">
-      <xsl:call-template name="core:AbstractSiteType_Template"/>
    </xsl:template>
    <xsl:template name="core:_Site_Substitution">
       <core:_Site rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:Address">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:Address"/>
-         <xsl:call-template name="core:Address_Template"/>
+         <xsl:call-template name="core:AddressType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="core:Address_Template">
-      <xsl:call-template name="core:AddressType_Template"/>
    </xsl:template>
    <xsl:template name="core:Address_Substitution">
       <core:Address rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:ImplicitGeometry">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:ImplicitGeometry"/>
-         <xsl:call-template name="core:ImplicitGeometry_Template"/>
+         <xsl:call-template name="core:ImplicitGeometryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="core:ImplicitGeometry_Template">
-      <xsl:call-template name="core:ImplicitGeometryType_Template"/>
    </xsl:template>
    <xsl:template name="core:ImplicitGeometry_Substitution">
       <core:ImplicitGeometry rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:_AbstractBuilding">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:_AbstractBuilding"/>
-         <xsl:call-template name="bldg:_AbstractBuilding_Template"/>
+         <xsl:call-template name="bldg:AbstractBuildingType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:_AbstractBuilding_Template">
-      <xsl:call-template name="bldg:AbstractBuildingType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:_AbstractBuilding_Substitution">
       <bldg:_AbstractBuilding rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:Building">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Building"/>
-         <xsl:call-template name="bldg:Building_Template"/>
+         <xsl:call-template name="bldg:BuildingType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:Building_Template">
-      <xsl:call-template name="bldg:BuildingType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:Building_Substitution">
       <bldg:Building rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:BuildingPart">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:BuildingPart"/>
-         <xsl:call-template name="bldg:BuildingPart_Template"/>
+         <xsl:call-template name="bldg:BuildingPartType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:BuildingPart_Template">
-      <xsl:call-template name="bldg:BuildingPartType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:BuildingPart_Substitution">
       <bldg:BuildingPart rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:BuildingInstallation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:BuildingInstallation"/>
-         <xsl:call-template name="bldg:BuildingInstallation_Template"/>
+         <xsl:call-template name="bldg:BuildingInstallationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:BuildingInstallation_Template">
-      <xsl:call-template name="bldg:BuildingInstallationType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:BuildingInstallation_Substitution">
       <bldg:BuildingInstallation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:IntBuildingInstallation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:IntBuildingInstallation"/>
-         <xsl:call-template name="bldg:IntBuildingInstallation_Template"/>
+         <xsl:call-template name="bldg:IntBuildingInstallationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:IntBuildingInstallation_Template">
-      <xsl:call-template name="bldg:IntBuildingInstallationType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:IntBuildingInstallation_Substitution">
       <bldg:IntBuildingInstallation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:_BoundarySurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:_BoundarySurface"/>
-         <xsl:call-template name="bldg:_BoundarySurface_Template"/>
+         <xsl:call-template name="bldg:AbstractBoundarySurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:_BoundarySurface_Template">
-      <xsl:call-template name="bldg:AbstractBoundarySurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:_BoundarySurface_Substitution">
       <bldg:_BoundarySurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:RoofSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:RoofSurface"/>
-         <xsl:call-template name="bldg:RoofSurface_Template"/>
+         <xsl:call-template name="bldg:RoofSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:RoofSurface_Template">
-      <xsl:call-template name="bldg:RoofSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:RoofSurface_Substitution">
       <bldg:RoofSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:WallSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:WallSurface"/>
-         <xsl:call-template name="bldg:WallSurface_Template"/>
+         <xsl:call-template name="bldg:WallSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:WallSurface_Template">
-      <xsl:call-template name="bldg:WallSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:WallSurface_Substitution">
       <bldg:WallSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:GroundSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:GroundSurface"/>
-         <xsl:call-template name="bldg:GroundSurface_Template"/>
+         <xsl:call-template name="bldg:GroundSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:GroundSurface_Template">
-      <xsl:call-template name="bldg:GroundSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:GroundSurface_Substitution">
       <bldg:GroundSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:ClosureSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:ClosureSurface"/>
-         <xsl:call-template name="bldg:ClosureSurface_Template"/>
+         <xsl:call-template name="bldg:ClosureSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:ClosureSurface_Template">
-      <xsl:call-template name="bldg:ClosureSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:ClosureSurface_Substitution">
       <bldg:ClosureSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:FloorSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:FloorSurface"/>
-         <xsl:call-template name="bldg:FloorSurface_Template"/>
+         <xsl:call-template name="bldg:FloorSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:FloorSurface_Template">
-      <xsl:call-template name="bldg:FloorSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:FloorSurface_Substitution">
       <bldg:FloorSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:OuterFloorSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:OuterFloorSurface"/>
-         <xsl:call-template name="bldg:OuterFloorSurface_Template"/>
+         <xsl:call-template name="bldg:OuterFloorSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:OuterFloorSurface_Template">
-      <xsl:call-template name="bldg:OuterFloorSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:OuterFloorSurface_Substitution">
       <bldg:OuterFloorSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:InteriorWallSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:InteriorWallSurface"/>
-         <xsl:call-template name="bldg:InteriorWallSurface_Template"/>
+         <xsl:call-template name="bldg:InteriorWallSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:InteriorWallSurface_Template">
-      <xsl:call-template name="bldg:InteriorWallSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:InteriorWallSurface_Substitution">
       <bldg:InteriorWallSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:CeilingSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:CeilingSurface"/>
-         <xsl:call-template name="bldg:CeilingSurface_Template"/>
+         <xsl:call-template name="bldg:CeilingSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:CeilingSurface_Template">
-      <xsl:call-template name="bldg:CeilingSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:CeilingSurface_Substitution">
       <bldg:CeilingSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:OuterCeilingSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:OuterCeilingSurface"/>
-         <xsl:call-template name="bldg:OuterCeilingSurface_Template"/>
+         <xsl:call-template name="bldg:OuterCeilingSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:OuterCeilingSurface_Template">
-      <xsl:call-template name="bldg:OuterCeilingSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:OuterCeilingSurface_Substitution">
       <bldg:OuterCeilingSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:_Opening">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:_Opening"/>
-         <xsl:call-template name="bldg:_Opening_Template"/>
+         <xsl:call-template name="bldg:AbstractOpeningType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:_Opening_Template">
-      <xsl:call-template name="bldg:AbstractOpeningType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:_Opening_Substitution">
       <bldg:_Opening rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:Window">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Window"/>
-         <xsl:call-template name="bldg:Window_Template"/>
+         <xsl:call-template name="bldg:WindowType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:Window_Template">
-      <xsl:call-template name="bldg:WindowType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:Window_Substitution">
       <bldg:Window rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:Door">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Door"/>
-         <xsl:call-template name="bldg:Door_Template"/>
+         <xsl:call-template name="bldg:DoorType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:Door_Template">
-      <xsl:call-template name="bldg:DoorType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:Door_Substitution">
       <bldg:Door rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:Room">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Room"/>
-         <xsl:call-template name="bldg:Room_Template"/>
+         <xsl:call-template name="bldg:RoomType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:Room_Template">
-      <xsl:call-template name="bldg:RoomType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:Room_Substitution">
       <bldg:Room rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:BuildingFurniture">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:BuildingFurniture"/>
-         <xsl:call-template name="bldg:BuildingFurniture_Template"/>
+         <xsl:call-template name="bldg:BuildingFurnitureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="bldg:BuildingFurniture_Template">
-      <xsl:call-template name="bldg:BuildingFurnitureType_Template"/>
    </xsl:template>
    <xsl:template name="bldg:BuildingFurniture_Substitution">
       <bldg:BuildingFurniture rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:dataSource">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dataSource"/>
-         <xsl:call-template name="gml:dataSource_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:dataSource_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:dataSource_Substitution">
       <gml:dataSource rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:status">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:status"/>
-         <xsl:call-template name="gml:status_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:status_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:status_Substitution">
       <gml:status rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimeSlice">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeSlice"/>
-         <xsl:call-template name="gml:_TimeSlice_Template"/>
+         <xsl:call-template name="gml:AbstractTimeSliceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimeSlice_Template">
-      <xsl:call-template name="gml:AbstractTimeSliceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimeSlice_Substitution">
       <gml:_TimeSlice rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MovingObjectStatus">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MovingObjectStatus"/>
-         <xsl:call-template name="gml:MovingObjectStatus_Template"/>
+         <xsl:call-template name="gml:MovingObjectStatusType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MovingObjectStatus_Template">
-      <xsl:call-template name="gml:MovingObjectStatusType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MovingObjectStatus_Substitution">
       <gml:MovingObjectStatus rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:history">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:history"/>
-         <xsl:call-template name="gml:history_Template"/>
+         <xsl:call-template name="gml:HistoryPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:history_Template">
-      <xsl:call-template name="gml:HistoryPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:history_Substitution">
       <gml:history rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:track">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:track"/>
-         <xsl:call-template name="gml:track_Template"/>
+         <xsl:call-template name="gml:TrackType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:track_Template">
-      <xsl:call-template name="gml:TrackType_Template"/>
    </xsl:template>
    <xsl:template name="gml:track_Substitution">
       <gml:track rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Feature">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Feature"/>
-         <xsl:call-template name="gml:_Feature_Template"/>
+         <xsl:call-template name="gml:AbstractFeatureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Feature_Template">
-      <xsl:call-template name="gml:AbstractFeatureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Feature_Substitution">
       <gml:_Feature rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:boundedBy">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:boundedBy"/>
-         <xsl:call-template name="gml:boundedBy_Template"/>
+         <xsl:call-template name="gml:BoundingShapeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:boundedBy_Template">
-      <xsl:call-template name="gml:BoundingShapeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:boundedBy_Substitution">
       <gml:boundedBy rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:EnvelopeWithTimePeriod">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EnvelopeWithTimePeriod"/>
-         <xsl:call-template name="gml:EnvelopeWithTimePeriod_Template"/>
+         <xsl:call-template name="gml:EnvelopeWithTimePeriodType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:EnvelopeWithTimePeriod_Template">
-      <xsl:call-template name="gml:EnvelopeWithTimePeriodType_Template"/>
    </xsl:template>
    <xsl:template name="gml:EnvelopeWithTimePeriod_Substitution">
       <gml:EnvelopeWithTimePeriod rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:featureMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureMember"/>
-         <xsl:call-template name="gml:featureMember_Template"/>
+         <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:featureMember_Template">
-      <xsl:call-template name="gml:FeaturePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:featureMember_Substitution">
       <gml:featureMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:featureProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureProperty"/>
-         <xsl:call-template name="gml:featureProperty_Template"/>
+         <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:featureProperty_Template">
-      <xsl:call-template name="gml:FeaturePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:featureProperty_Substitution">
       <gml:featureProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:featureMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureMembers"/>
-         <xsl:call-template name="gml:featureMembers_Template"/>
+         <xsl:call-template name="gml:FeatureArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:featureMembers_Template">
-      <xsl:call-template name="gml:FeatureArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:featureMembers_Substitution">
       <gml:featureMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_FeatureCollection">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_FeatureCollection"/>
-         <xsl:call-template name="gml:_FeatureCollection_Template"/>
+         <xsl:call-template name="gml:AbstractFeatureCollectionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_FeatureCollection_Template">
-      <xsl:call-template name="gml:AbstractFeatureCollectionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_FeatureCollection_Substitution">
       <gml:_FeatureCollection rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:FeatureCollection">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:FeatureCollection"/>
-         <xsl:call-template name="gml:FeatureCollection_Template"/>
+         <xsl:call-template name="gml:FeatureCollectionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:FeatureCollection_Template">
-      <xsl:call-template name="gml:FeatureCollectionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:FeatureCollection_Substitution">
       <gml:FeatureCollection rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LocationKeyWord">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LocationKeyWord"/>
-         <xsl:call-template name="gml:LocationKeyWord_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LocationKeyWord_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LocationKeyWord_Substitution">
       <gml:LocationKeyWord rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LocationString">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LocationString"/>
-         <xsl:call-template name="gml:LocationString_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LocationString_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LocationString_Substitution">
       <gml:LocationString rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:centerOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:centerOf"/>
-         <xsl:call-template name="gml:centerOf_Template"/>
+         <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:centerOf_Template">
-      <xsl:call-template name="gml:PointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:centerOf_Substitution">
       <gml:centerOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:position">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:position"/>
-         <xsl:call-template name="gml:position_Template"/>
+         <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:position_Template">
-      <xsl:call-template name="gml:PointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:position_Substitution">
       <gml:position rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:edgeOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:edgeOf"/>
-         <xsl:call-template name="gml:edgeOf_Template"/>
+         <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:edgeOf_Template">
-      <xsl:call-template name="gml:CurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:edgeOf_Substitution">
       <gml:edgeOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:centerLineOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:centerLineOf"/>
-         <xsl:call-template name="gml:centerLineOf_Template"/>
+         <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:centerLineOf_Template">
-      <xsl:call-template name="gml:CurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:centerLineOf_Substitution">
       <gml:centerLineOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:extentOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:extentOf"/>
-         <xsl:call-template name="gml:extentOf_Template"/>
+         <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:extentOf_Template">
-      <xsl:call-template name="gml:SurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:extentOf_Substitution">
       <gml:extentOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:location">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:location"/>
-         <xsl:call-template name="gml:location_Template"/>
+         <xsl:call-template name="gml:LocationPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:location_Template">
-      <xsl:call-template name="gml:LocationPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:location_Substitution">
       <gml:location rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:priorityLocation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:priorityLocation"/>
-         <xsl:call-template name="gml:priorityLocation_Template"/>
+         <xsl:call-template name="gml:PriorityLocationPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:priorityLocation_Template">
-      <xsl:call-template name="gml:PriorityLocationPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:priorityLocation_Substitution">
       <gml:priorityLocation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Surface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Surface"/>
-         <xsl:call-template name="gml:_Surface_Template"/>
+         <xsl:call-template name="gml:AbstractSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Surface_Template">
-      <xsl:call-template name="gml:AbstractSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Surface_Substitution">
       <gml:_Surface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:surfaceProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceProperty"/>
-         <xsl:call-template name="gml:surfaceProperty_Template"/>
+         <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:surfaceProperty_Template">
-      <xsl:call-template name="gml:SurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:surfaceProperty_Substitution">
       <gml:surfaceProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:surfaceArrayProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceArrayProperty"/>
-         <xsl:call-template name="gml:surfaceArrayProperty_Template"/>
+         <xsl:call-template name="gml:SurfaceArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:surfaceArrayProperty_Template">
-      <xsl:call-template name="gml:SurfaceArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:surfaceArrayProperty_Substitution">
       <gml:surfaceArrayProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Polygon">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Polygon"/>
-         <xsl:call-template name="gml:Polygon_Template"/>
+         <xsl:call-template name="gml:PolygonType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Polygon_Template">
-      <xsl:call-template name="gml:PolygonType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Polygon_Substitution">
       <gml:Polygon rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Ring">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Ring"/>
-         <xsl:call-template name="gml:_Ring_Template"/>
+         <xsl:call-template name="gml:AbstractRingType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Ring_Template">
-      <xsl:call-template name="gml:AbstractRingType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Ring_Substitution">
       <gml:_Ring rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:exterior">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:exterior"/>
-         <xsl:call-template name="gml:exterior_Template"/>
+         <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:exterior_Template">
-      <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:exterior_Substitution">
       <gml:exterior rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:interior">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:interior"/>
-         <xsl:call-template name="gml:interior_Template"/>
+         <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:interior_Template">
-      <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:interior_Substitution">
       <gml:interior rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:outerBoundaryIs">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:outerBoundaryIs"/>
-         <xsl:call-template name="gml:outerBoundaryIs_Template"/>
+         <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:outerBoundaryIs_Template">
-      <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:outerBoundaryIs_Substitution">
       <gml:outerBoundaryIs rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:innerBoundaryIs">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:innerBoundaryIs"/>
-         <xsl:call-template name="gml:innerBoundaryIs_Template"/>
+         <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:innerBoundaryIs_Template">
-      <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:innerBoundaryIs_Substitution">
       <gml:innerBoundaryIs rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LinearRing">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LinearRing"/>
-         <xsl:call-template name="gml:LinearRing_Template"/>
+         <xsl:call-template name="gml:LinearRingType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LinearRing_Template">
-      <xsl:call-template name="gml:LinearRingType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LinearRing_Substitution">
       <gml:LinearRing rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:polygonProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polygonProperty"/>
-         <xsl:call-template name="gml:polygonProperty_Template"/>
+         <xsl:call-template name="gml:PolygonPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:polygonProperty_Template">
-      <xsl:call-template name="gml:PolygonPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:polygonProperty_Substitution">
       <gml:polygonProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Geometry">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Geometry"/>
-         <xsl:call-template name="gml:_Geometry_Template"/>
+         <xsl:call-template name="gml:AbstractGeometryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Geometry_Template">
-      <xsl:call-template name="gml:AbstractGeometryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Geometry_Substitution">
       <gml:_Geometry rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GeometricPrimitive">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeometricPrimitive"/>
-         <xsl:call-template name="gml:_GeometricPrimitive_Template"/>
+         <xsl:call-template name="gml:AbstractGeometricPrimitiveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GeometricPrimitive_Template">
-      <xsl:call-template name="gml:AbstractGeometricPrimitiveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GeometricPrimitive_Substitution">
       <gml:_GeometricPrimitive rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Point">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Point"/>
-         <xsl:call-template name="gml:Point_Template"/>
+         <xsl:call-template name="gml:PointType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Point_Template">
-      <xsl:call-template name="gml:PointType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Point_Substitution">
       <gml:Point rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pointProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointProperty"/>
-         <xsl:call-template name="gml:pointProperty_Template"/>
+         <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pointProperty_Template">
-      <xsl:call-template name="gml:PointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pointProperty_Substitution">
       <gml:pointProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pointRep">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointRep"/>
-         <xsl:call-template name="gml:pointRep_Template"/>
+         <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pointRep_Template">
-      <xsl:call-template name="gml:PointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pointRep_Substitution">
       <gml:pointRep rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pointArrayProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointArrayProperty"/>
-         <xsl:call-template name="gml:pointArrayProperty_Template"/>
+         <xsl:call-template name="gml:PointArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pointArrayProperty_Template">
-      <xsl:call-template name="gml:PointArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pointArrayProperty_Substitution">
       <gml:pointArrayProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Curve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Curve"/>
-         <xsl:call-template name="gml:_Curve_Template"/>
+         <xsl:call-template name="gml:AbstractCurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Curve_Template">
-      <xsl:call-template name="gml:AbstractCurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Curve_Substitution">
       <gml:_Curve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:curveProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveProperty"/>
-         <xsl:call-template name="gml:curveProperty_Template"/>
+         <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:curveProperty_Template">
-      <xsl:call-template name="gml:CurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:curveProperty_Substitution">
       <gml:curveProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:curveArrayProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveArrayProperty"/>
-         <xsl:call-template name="gml:curveArrayProperty_Template"/>
+         <xsl:call-template name="gml:CurveArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:curveArrayProperty_Template">
-      <xsl:call-template name="gml:CurveArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:curveArrayProperty_Substitution">
       <gml:curveArrayProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LineString">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LineString"/>
-         <xsl:call-template name="gml:LineString_Template"/>
+         <xsl:call-template name="gml:LineStringType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LineString_Template">
-      <xsl:call-template name="gml:LineStringType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LineString_Substitution">
       <gml:LineString rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pos">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pos"/>
-         <xsl:call-template name="gml:pos_Template"/>
+         <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pos_Template">
-      <xsl:call-template name="gml:DirectPositionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pos_Substitution">
       <gml:pos rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:posList">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:posList"/>
-         <xsl:call-template name="gml:posList_Template"/>
+         <xsl:call-template name="gml:DirectPositionListType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:posList_Template">
-      <xsl:call-template name="gml:DirectPositionListType_Template"/>
    </xsl:template>
    <xsl:template name="gml:posList_Substitution">
       <gml:posList rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:vector">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:vector"/>
-         <xsl:call-template name="gml:vector_Template"/>
+         <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:vector_Template">
-      <xsl:call-template name="gml:VectorType_Template"/>
    </xsl:template>
    <xsl:template name="gml:vector_Substitution">
       <gml:vector rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinates">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinates"/>
-         <xsl:call-template name="gml:coordinates_Template"/>
+         <xsl:call-template name="gml:CoordinatesType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinates_Template">
-      <xsl:call-template name="gml:CoordinatesType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinates_Substitution">
       <gml:coordinates rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Envelope">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Envelope"/>
-         <xsl:call-template name="gml:Envelope_Template"/>
+         <xsl:call-template name="gml:EnvelopeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Envelope_Template">
-      <xsl:call-template name="gml:EnvelopeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Envelope_Substitution">
       <gml:Envelope rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coord">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coord"/>
-         <xsl:call-template name="gml:coord_Template"/>
+         <xsl:call-template name="gml:CoordType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coord_Template">
-      <xsl:call-template name="gml:CoordType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coord_Substitution">
       <gml:coord rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:lineStringProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:lineStringProperty"/>
-         <xsl:call-template name="gml:lineStringProperty_Template"/>
+         <xsl:call-template name="gml:LineStringPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:lineStringProperty_Template">
-      <xsl:call-template name="gml:LineStringPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:lineStringProperty_Substitution">
       <gml:lineStringProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:measure">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:measure"/>
-         <xsl:call-template name="gml:measure_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:measure_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:measure_Substitution">
       <gml:measure rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:angle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:angle"/>
-         <xsl:call-template name="gml:angle_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:angle_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:angle_Substitution">
       <gml:angle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:dmsAngle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dmsAngle"/>
-         <xsl:call-template name="gml:dmsAngle_Template"/>
+         <xsl:call-template name="gml:DMSAngleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:dmsAngle_Template">
-      <xsl:call-template name="gml:DMSAngleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:dmsAngle_Substitution">
       <gml:dmsAngle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:degrees">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:degrees"/>
-         <xsl:call-template name="gml:degrees_Template"/>
+         <xsl:call-template name="gml:DegreesType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:degrees_Template">
-      <xsl:call-template name="gml:DegreesType_Template"/>
    </xsl:template>
    <xsl:template name="gml:degrees_Substitution">
       <gml:degrees rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:unitOfMeasure">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:unitOfMeasure"/>
-         <xsl:call-template name="gml:unitOfMeasure_Template"/>
+         <xsl:call-template name="gml:UnitOfMeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:unitOfMeasure_Template">
-      <xsl:call-template name="gml:UnitOfMeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:unitOfMeasure_Substitution">
       <gml:unitOfMeasure rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:UnitDefinition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:UnitDefinition"/>
-         <xsl:call-template name="gml:UnitDefinition_Template"/>
+         <xsl:call-template name="gml:UnitDefinitionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:UnitDefinition_Template">
-      <xsl:call-template name="gml:UnitDefinitionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:UnitDefinition_Substitution">
       <gml:UnitDefinition rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:BaseUnit">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:BaseUnit"/>
-         <xsl:call-template name="gml:BaseUnit_Template"/>
+         <xsl:call-template name="gml:BaseUnitType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:BaseUnit_Template">
-      <xsl:call-template name="gml:BaseUnitType_Template"/>
    </xsl:template>
    <xsl:template name="gml:BaseUnit_Substitution">
       <gml:BaseUnit rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DerivedUnit">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DerivedUnit"/>
-         <xsl:call-template name="gml:DerivedUnit_Template"/>
+         <xsl:call-template name="gml:DerivedUnitType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DerivedUnit_Template">
-      <xsl:call-template name="gml:DerivedUnitType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DerivedUnit_Substitution">
       <gml:DerivedUnit rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ConventionalUnit">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ConventionalUnit"/>
-         <xsl:call-template name="gml:ConventionalUnit_Template"/>
+         <xsl:call-template name="gml:ConventionalUnitType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ConventionalUnit_Template">
-      <xsl:call-template name="gml:ConventionalUnitType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ConventionalUnit_Substitution">
       <gml:ConventionalUnit rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:quantityType">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:quantityType"/>
-         <xsl:call-template name="gml:quantityType_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:quantityType_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:quantityType_Substitution">
       <gml:quantityType rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:catalogSymbol">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:catalogSymbol"/>
-         <xsl:call-template name="gml:catalogSymbol_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:catalogSymbol_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:catalogSymbol_Substitution">
       <gml:catalogSymbol rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:derivationUnitTerm">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:derivationUnitTerm"/>
-         <xsl:call-template name="gml:derivationUnitTerm_Template"/>
+         <xsl:call-template name="gml:DerivationUnitTermType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:derivationUnitTerm_Template">
-      <xsl:call-template name="gml:DerivationUnitTermType_Template"/>
    </xsl:template>
    <xsl:template name="gml:derivationUnitTerm_Substitution">
       <gml:derivationUnitTerm rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:conversionToPreferredUnit">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:conversionToPreferredUnit"/>
-         <xsl:call-template name="gml:conversionToPreferredUnit_Template"/>
+         <xsl:call-template name="gml:ConversionToPreferredUnitType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:conversionToPreferredUnit_Template">
-      <xsl:call-template name="gml:ConversionToPreferredUnitType_Template"/>
    </xsl:template>
    <xsl:template name="gml:conversionToPreferredUnit_Substitution">
       <gml:conversionToPreferredUnit rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:roughConversionToPreferredUnit">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:roughConversionToPreferredUnit"/>
-         <xsl:call-template name="gml:roughConversionToPreferredUnit_Template"/>
+         <xsl:call-template name="gml:ConversionToPreferredUnitType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:roughConversionToPreferredUnit_Template">
-      <xsl:call-template name="gml:ConversionToPreferredUnitType_Template"/>
    </xsl:template>
    <xsl:template name="gml:roughConversionToPreferredUnit_Substitution">
       <gml:roughConversionToPreferredUnit rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Definition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Definition"/>
-         <xsl:call-template name="gml:Definition_Template"/>
+         <xsl:call-template name="gml:DefinitionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Definition_Template">
-      <xsl:call-template name="gml:DefinitionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Definition_Substitution">
       <gml:Definition rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Dictionary">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Dictionary"/>
-         <xsl:call-template name="gml:Dictionary_Template"/>
+         <xsl:call-template name="gml:DictionaryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Dictionary_Template">
-      <xsl:call-template name="gml:DictionaryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Dictionary_Substitution">
       <gml:Dictionary rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DefinitionCollection">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DefinitionCollection"/>
-         <xsl:call-template name="gml:DefinitionCollection_Template"/>
+         <xsl:call-template name="gml:DictionaryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DefinitionCollection_Template">
-      <xsl:call-template name="gml:DictionaryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DefinitionCollection_Substitution">
       <gml:DefinitionCollection rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:dictionaryEntry">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dictionaryEntry"/>
-         <xsl:call-template name="gml:dictionaryEntry_Template"/>
+         <xsl:call-template name="gml:DictionaryEntryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:dictionaryEntry_Template">
-      <xsl:call-template name="gml:DictionaryEntryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:dictionaryEntry_Substitution">
       <gml:dictionaryEntry rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:definitionMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:definitionMember"/>
-         <xsl:call-template name="gml:definitionMember_Template"/>
+         <xsl:call-template name="gml:DictionaryEntryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:definitionMember_Template">
-      <xsl:call-template name="gml:DictionaryEntryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:definitionMember_Substitution">
       <gml:definitionMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:indirectEntry">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:indirectEntry"/>
-         <xsl:call-template name="gml:indirectEntry_Template"/>
+         <xsl:call-template name="gml:IndirectEntryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:indirectEntry_Template">
-      <xsl:call-template name="gml:IndirectEntryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:indirectEntry_Substitution">
       <gml:indirectEntry rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DefinitionProxy">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DefinitionProxy"/>
-         <xsl:call-template name="gml:DefinitionProxy_Template"/>
+         <xsl:call-template name="gml:DefinitionProxyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DefinitionProxy_Template">
-      <xsl:call-template name="gml:DefinitionProxyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DefinitionProxy_Substitution">
       <gml:DefinitionProxy rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:definitionRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:definitionRef"/>
-         <xsl:call-template name="gml:definitionRef_Template"/>
+         <xsl:call-template name="gml:ReferenceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:definitionRef_Template">
-      <xsl:call-template name="gml:ReferenceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:definitionRef_Substitution">
       <gml:definitionRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GML">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GML"/>
-         <xsl:call-template name="gml:_GML_Template"/>
+         <xsl:call-template name="gml:AbstractGMLType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GML_Template">
-      <xsl:call-template name="gml:AbstractGMLType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GML_Substitution">
       <gml:_GML rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Bag">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Bag"/>
-         <xsl:call-template name="gml:Bag_Template"/>
+         <xsl:call-template name="gml:BagType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Bag_Template">
-      <xsl:call-template name="gml:BagType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Bag_Substitution">
       <gml:Bag rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Array">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Array"/>
-         <xsl:call-template name="gml:Array_Template"/>
+         <xsl:call-template name="gml:ArrayType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Array_Template">
-      <xsl:call-template name="gml:ArrayType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Array_Substitution">
       <gml:Array rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_MetaData">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_MetaData"/>
-         <xsl:call-template name="gml:_MetaData_Template"/>
+         <xsl:call-template name="gml:AbstractMetaDataType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_MetaData_Template">
-      <xsl:call-template name="gml:AbstractMetaDataType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_MetaData_Substitution">
       <gml:_MetaData rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GenericMetaData">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GenericMetaData"/>
-         <xsl:call-template name="gml:GenericMetaData_Template"/>
+         <xsl:call-template name="gml:GenericMetaDataType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GenericMetaData_Template">
-      <xsl:call-template name="gml:GenericMetaDataType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GenericMetaData_Substitution">
       <gml:GenericMetaData rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_association">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_association"/>
-         <xsl:call-template name="gml:_association_Template"/>
+         <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_association_Template">
-      <xsl:call-template name="gml:AssociationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_association_Substitution">
       <gml:_association rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_strictAssociation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_strictAssociation"/>
-         <xsl:call-template name="gml:_strictAssociation_Template"/>
+         <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_strictAssociation_Template">
-      <xsl:call-template name="gml:AssociationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_strictAssociation_Substitution">
       <gml:_strictAssociation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:member">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:member"/>
-         <xsl:call-template name="gml:member_Template"/>
+         <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:member_Template">
-      <xsl:call-template name="gml:AssociationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:member_Substitution">
       <gml:member rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_reference">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_reference"/>
-         <xsl:call-template name="gml:_reference_Template"/>
+         <xsl:call-template name="gml:ReferenceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_reference_Template">
-      <xsl:call-template name="gml:ReferenceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_reference_Substitution">
       <gml:_reference rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:members">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:members"/>
-         <xsl:call-template name="gml:members_Template"/>
+         <xsl:call-template name="gml:ArrayAssociationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:members_Template">
-      <xsl:call-template name="gml:ArrayAssociationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:members_Substitution">
       <gml:members rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:metaDataProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:metaDataProperty"/>
-         <xsl:call-template name="gml:metaDataProperty_Template"/>
+         <xsl:call-template name="gml:MetaDataPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:metaDataProperty_Template">
-      <xsl:call-template name="gml:MetaDataPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:metaDataProperty_Substitution">
       <gml:metaDataProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:name">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:name"/>
-         <xsl:call-template name="gml:name_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:name_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:name_Substitution">
       <gml:name rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:description">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:description"/>
-         <xsl:call-template name="gml:description_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:description_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:description_Substitution">
       <gml:description rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimeObject">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeObject"/>
-         <xsl:call-template name="gml:_TimeObject_Template"/>
+         <xsl:call-template name="gml:AbstractTimeObjectType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimeObject_Template">
-      <xsl:call-template name="gml:AbstractTimeObjectType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimeObject_Substitution">
       <gml:_TimeObject rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimePrimitive">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimePrimitive"/>
-         <xsl:call-template name="gml:_TimePrimitive_Template"/>
+         <xsl:call-template name="gml:AbstractTimePrimitiveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimePrimitive_Template">
-      <xsl:call-template name="gml:AbstractTimePrimitiveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimePrimitive_Substitution">
       <gml:_TimePrimitive rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimeComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeComplex"/>
-         <xsl:call-template name="gml:_TimeComplex_Template"/>
+         <xsl:call-template name="gml:AbstractTimeComplexType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimeComplex_Template">
-      <xsl:call-template name="gml:AbstractTimeComplexType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimeComplex_Substitution">
       <gml:_TimeComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimeGeometricPrimitive">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeGeometricPrimitive"/>
-         <xsl:call-template name="gml:_TimeGeometricPrimitive_Template"/>
+         <xsl:call-template name="gml:AbstractTimeGeometricPrimitiveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimeGeometricPrimitive_Template">
-      <xsl:call-template name="gml:AbstractTimeGeometricPrimitiveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimeGeometricPrimitive_Substitution">
       <gml:_TimeGeometricPrimitive rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeInstant">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeInstant"/>
-         <xsl:call-template name="gml:TimeInstant_Template"/>
+         <xsl:call-template name="gml:TimeInstantType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeInstant_Template">
-      <xsl:call-template name="gml:TimeInstantType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeInstant_Substitution">
       <gml:TimeInstant rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimePeriod">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimePeriod"/>
-         <xsl:call-template name="gml:TimePeriod_Template"/>
+         <xsl:call-template name="gml:TimePeriodType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimePeriod_Template">
-      <xsl:call-template name="gml:TimePeriodType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimePeriod_Substitution">
       <gml:TimePeriod rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:timeInterval">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:timeInterval"/>
-         <xsl:call-template name="gml:timeInterval_Template"/>
+         <xsl:call-template name="gml:TimeIntervalLengthType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:timeInterval_Template">
-      <xsl:call-template name="gml:TimeIntervalLengthType_Template"/>
    </xsl:template>
    <xsl:template name="gml:timeInterval_Substitution">
       <gml:timeInterval rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:timePosition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:timePosition"/>
-         <xsl:call-template name="gml:timePosition_Template"/>
+         <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:timePosition_Template">
-      <xsl:call-template name="gml:TimePositionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:timePosition_Substitution">
       <gml:timePosition rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:validTime">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:validTime"/>
-         <xsl:call-template name="gml:validTime_Template"/>
+         <xsl:call-template name="gml:TimePrimitivePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:validTime_Template">
-      <xsl:call-template name="gml:TimePrimitivePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:validTime_Substitution">
       <gml:validTime rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:direction">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:direction"/>
-         <xsl:call-template name="gml:direction_Template"/>
+         <xsl:call-template name="gml:DirectionPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="gml:direction_Substitution">
       <gml:direction rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectionVector">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectionVector"/>
-         <xsl:call-template name="gml:DirectionVector_Template"/>
+         <xsl:call-template name="gml:DirectionVectorType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DirectionVector_Template">
-      <xsl:call-template name="gml:DirectionVectorType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DirectionVector_Substitution">
       <gml:DirectionVector rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Topology">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Topology"/>
-         <xsl:call-template name="gml:_Topology_Template"/>
+         <xsl:call-template name="gml:AbstractTopologyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Topology_Template">
-      <xsl:call-template name="gml:AbstractTopologyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Topology_Substitution">
       <gml:_Topology rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TopoPrimitive">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TopoPrimitive"/>
-         <xsl:call-template name="gml:_TopoPrimitive_Template"/>
+         <xsl:call-template name="gml:AbstractTopoPrimitiveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TopoPrimitive_Template">
-      <xsl:call-template name="gml:AbstractTopoPrimitiveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TopoPrimitive_Substitution">
       <gml:_TopoPrimitive rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:isolated">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:isolated"/>
-         <xsl:call-template name="gml:isolated_Template"/>
+         <xsl:call-template name="gml:IsolatedPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:isolated_Template">
-      <xsl:call-template name="gml:IsolatedPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:isolated_Substitution">
       <gml:isolated rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:container">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:container"/>
-         <xsl:call-template name="gml:container_Template"/>
+         <xsl:call-template name="gml:ContainerPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:container_Template">
-      <xsl:call-template name="gml:ContainerPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:container_Substitution">
       <gml:container rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Node">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Node"/>
-         <xsl:call-template name="gml:Node_Template"/>
+         <xsl:call-template name="gml:NodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Node_Template">
-      <xsl:call-template name="gml:NodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Node_Substitution">
       <gml:Node rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:directedNode">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedNode"/>
-         <xsl:call-template name="gml:directedNode_Template"/>
+         <xsl:call-template name="gml:DirectedNodePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:directedNode_Template">
-      <xsl:call-template name="gml:DirectedNodePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:directedNode_Substitution">
       <gml:directedNode rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Edge">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Edge"/>
-         <xsl:call-template name="gml:Edge_Template"/>
+         <xsl:call-template name="gml:EdgeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Edge_Template">
-      <xsl:call-template name="gml:EdgeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Edge_Substitution">
       <gml:Edge rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:directedEdge">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedEdge"/>
-         <xsl:call-template name="gml:directedEdge_Template"/>
+         <xsl:call-template name="gml:DirectedEdgePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:directedEdge_Template">
-      <xsl:call-template name="gml:DirectedEdgePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:directedEdge_Substitution">
       <gml:directedEdge rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Face">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Face"/>
-         <xsl:call-template name="gml:Face_Template"/>
+         <xsl:call-template name="gml:FaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Face_Template">
-      <xsl:call-template name="gml:FaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Face_Substitution">
       <gml:Face rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:directedFace">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedFace"/>
-         <xsl:call-template name="gml:directedFace_Template"/>
+         <xsl:call-template name="gml:DirectedFacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:directedFace_Template">
-      <xsl:call-template name="gml:DirectedFacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:directedFace_Substitution">
       <gml:directedFace rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopoSolid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoSolid"/>
-         <xsl:call-template name="gml:TopoSolid_Template"/>
+         <xsl:call-template name="gml:TopoSolidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopoSolid_Template">
-      <xsl:call-template name="gml:TopoSolidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopoSolid_Substitution">
       <gml:TopoSolid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:directedTopoSolid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedTopoSolid"/>
-         <xsl:call-template name="gml:directedTopoSolid_Template"/>
+         <xsl:call-template name="gml:DirectedTopoSolidPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:directedTopoSolid_Template">
-      <xsl:call-template name="gml:DirectedTopoSolidPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:directedTopoSolid_Substitution">
       <gml:directedTopoSolid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopoPoint">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoPoint"/>
-         <xsl:call-template name="gml:TopoPoint_Template"/>
+         <xsl:call-template name="gml:TopoPointType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopoPoint_Template">
-      <xsl:call-template name="gml:TopoPointType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopoPoint_Substitution">
       <gml:TopoPoint rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoPointProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoPointProperty"/>
-         <xsl:call-template name="gml:topoPointProperty_Template"/>
+         <xsl:call-template name="gml:TopoPointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoPointProperty_Template">
-      <xsl:call-template name="gml:TopoPointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoPointProperty_Substitution">
       <gml:topoPointProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopoCurve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoCurve"/>
-         <xsl:call-template name="gml:TopoCurve_Template"/>
+         <xsl:call-template name="gml:TopoCurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopoCurve_Template">
-      <xsl:call-template name="gml:TopoCurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopoCurve_Substitution">
       <gml:TopoCurve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoCurveProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoCurveProperty"/>
-         <xsl:call-template name="gml:topoCurveProperty_Template"/>
+         <xsl:call-template name="gml:TopoCurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoCurveProperty_Template">
-      <xsl:call-template name="gml:TopoCurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoCurveProperty_Substitution">
       <gml:topoCurveProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopoSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoSurface"/>
-         <xsl:call-template name="gml:TopoSurface_Template"/>
+         <xsl:call-template name="gml:TopoSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopoSurface_Template">
-      <xsl:call-template name="gml:TopoSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopoSurface_Substitution">
       <gml:TopoSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoSurfaceProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoSurfaceProperty"/>
-         <xsl:call-template name="gml:topoSurfaceProperty_Template"/>
+         <xsl:call-template name="gml:TopoSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoSurfaceProperty_Template">
-      <xsl:call-template name="gml:TopoSurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoSurfaceProperty_Substitution">
       <gml:topoSurfaceProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopoVolume">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoVolume"/>
-         <xsl:call-template name="gml:TopoVolume_Template"/>
+         <xsl:call-template name="gml:TopoVolumeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopoVolume_Template">
-      <xsl:call-template name="gml:TopoVolumeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopoVolume_Substitution">
       <gml:TopoVolume rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoVolumeProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoVolumeProperty"/>
-         <xsl:call-template name="gml:topoVolumeProperty_Template"/>
+         <xsl:call-template name="gml:TopoVolumePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoVolumeProperty_Template">
-      <xsl:call-template name="gml:TopoVolumePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoVolumeProperty_Substitution">
       <gml:topoVolumeProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopoComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoComplex"/>
-         <xsl:call-template name="gml:TopoComplex_Template"/>
+         <xsl:call-template name="gml:TopoComplexType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopoComplex_Template">
-      <xsl:call-template name="gml:TopoComplexType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopoComplex_Substitution">
       <gml:TopoComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoComplexProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoComplexProperty"/>
-         <xsl:call-template name="gml:topoComplexProperty_Template"/>
+         <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoComplexProperty_Template">
-      <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoComplexProperty_Substitution">
       <gml:topoComplexProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:subComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:subComplex"/>
-         <xsl:call-template name="gml:subComplex_Template"/>
+         <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:subComplex_Template">
-      <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
    </xsl:template>
    <xsl:template name="gml:subComplex_Substitution">
       <gml:subComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:superComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:superComplex"/>
-         <xsl:call-template name="gml:superComplex_Template"/>
+         <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:superComplex_Template">
-      <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
    </xsl:template>
    <xsl:template name="gml:superComplex_Substitution">
       <gml:superComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:maximalComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:maximalComplex"/>
-         <xsl:call-template name="gml:maximalComplex_Template"/>
+         <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:maximalComplex_Template">
-      <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
    </xsl:template>
    <xsl:template name="gml:maximalComplex_Substitution">
       <gml:maximalComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoPrimitiveMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoPrimitiveMember"/>
-         <xsl:call-template name="gml:topoPrimitiveMember_Template"/>
+         <xsl:call-template name="gml:TopoPrimitiveMemberType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoPrimitiveMember_Template">
-      <xsl:call-template name="gml:TopoPrimitiveMemberType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoPrimitiveMember_Substitution">
       <gml:topoPrimitiveMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topoPrimitiveMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoPrimitiveMembers"/>
-         <xsl:call-template name="gml:topoPrimitiveMembers_Template"/>
+         <xsl:call-template name="gml:TopoPrimitiveArrayAssociationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topoPrimitiveMembers_Template">
-      <xsl:call-template name="gml:TopoPrimitiveArrayAssociationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topoPrimitiveMembers_Substitution">
       <gml:topoPrimitiveMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CompositeCurve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeCurve"/>
-         <xsl:call-template name="gml:CompositeCurve_Template"/>
+         <xsl:call-template name="gml:CompositeCurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CompositeCurve_Template">
-      <xsl:call-template name="gml:CompositeCurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CompositeCurve_Substitution">
       <gml:CompositeCurve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CompositeSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeSurface"/>
-         <xsl:call-template name="gml:CompositeSurface_Template"/>
+         <xsl:call-template name="gml:CompositeSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CompositeSurface_Template">
-      <xsl:call-template name="gml:CompositeSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CompositeSurface_Substitution">
       <gml:CompositeSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CompositeSolid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeSolid"/>
-         <xsl:call-template name="gml:CompositeSolid_Template"/>
+         <xsl:call-template name="gml:CompositeSolidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CompositeSolid_Template">
-      <xsl:call-template name="gml:CompositeSolidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CompositeSolid_Substitution">
       <gml:CompositeSolid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GeometricComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeometricComplex"/>
-         <xsl:call-template name="gml:GeometricComplex_Template"/>
+         <xsl:call-template name="gml:GeometricComplexType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GeometricComplex_Template">
-      <xsl:call-template name="gml:GeometricComplexType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GeometricComplex_Substitution">
       <gml:GeometricComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GeometricAggregate">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeometricAggregate"/>
-         <xsl:call-template name="gml:_GeometricAggregate_Template"/>
+         <xsl:call-template name="gml:AbstractGeometricAggregateType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GeometricAggregate_Template">
-      <xsl:call-template name="gml:AbstractGeometricAggregateType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GeometricAggregate_Substitution">
       <gml:_GeometricAggregate rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiGeometry">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiGeometry"/>
-         <xsl:call-template name="gml:MultiGeometry_Template"/>
+         <xsl:call-template name="gml:MultiGeometryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiGeometry_Template">
-      <xsl:call-template name="gml:MultiGeometryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiGeometry_Substitution">
       <gml:MultiGeometry rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiGeometryProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiGeometryProperty"/>
-         <xsl:call-template name="gml:multiGeometryProperty_Template"/>
+         <xsl:call-template name="gml:MultiGeometryPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiGeometryProperty_Template">
-      <xsl:call-template name="gml:MultiGeometryPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiGeometryProperty_Substitution">
       <gml:multiGeometryProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiPoint">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiPoint"/>
-         <xsl:call-template name="gml:MultiPoint_Template"/>
+         <xsl:call-template name="gml:MultiPointType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiPoint_Template">
-      <xsl:call-template name="gml:MultiPointType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiPoint_Substitution">
       <gml:MultiPoint rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiPointProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiPointProperty"/>
-         <xsl:call-template name="gml:multiPointProperty_Template"/>
+         <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiPointProperty_Template">
-      <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiPointProperty_Substitution">
       <gml:multiPointProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiCurve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiCurve"/>
-         <xsl:call-template name="gml:MultiCurve_Template"/>
+         <xsl:call-template name="gml:MultiCurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiCurve_Template">
-      <xsl:call-template name="gml:MultiCurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiCurve_Substitution">
       <gml:MultiCurve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiCurveProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCurveProperty"/>
-         <xsl:call-template name="gml:multiCurveProperty_Template"/>
+         <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiCurveProperty_Template">
-      <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiCurveProperty_Substitution">
       <gml:multiCurveProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSurface"/>
-         <xsl:call-template name="gml:MultiSurface_Template"/>
+         <xsl:call-template name="gml:MultiSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiSurface_Template">
-      <xsl:call-template name="gml:MultiSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiSurface_Substitution">
       <gml:MultiSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiSurfaceProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSurfaceProperty"/>
-         <xsl:call-template name="gml:multiSurfaceProperty_Template"/>
+         <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiSurfaceProperty_Template">
-      <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiSurfaceProperty_Substitution">
       <gml:multiSurfaceProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiSolid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSolid"/>
-         <xsl:call-template name="gml:MultiSolid_Template"/>
+         <xsl:call-template name="gml:MultiSolidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiSolid_Template">
-      <xsl:call-template name="gml:MultiSolidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiSolid_Substitution">
       <gml:MultiSolid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiSolidProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSolidProperty"/>
-         <xsl:call-template name="gml:multiSolidProperty_Template"/>
+         <xsl:call-template name="gml:MultiSolidPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiSolidProperty_Template">
-      <xsl:call-template name="gml:MultiSolidPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiSolidProperty_Substitution">
       <gml:multiSolidProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiPolygon">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiPolygon"/>
-         <xsl:call-template name="gml:MultiPolygon_Template"/>
+         <xsl:call-template name="gml:MultiPolygonType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiPolygon_Template">
-      <xsl:call-template name="gml:MultiPolygonType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiPolygon_Substitution">
       <gml:MultiPolygon rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiLineString">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiLineString"/>
-         <xsl:call-template name="gml:MultiLineString_Template"/>
+         <xsl:call-template name="gml:MultiLineStringType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiLineString_Template">
-      <xsl:call-template name="gml:MultiLineStringType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiLineString_Substitution">
       <gml:MultiLineString rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:geometryMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geometryMember"/>
-         <xsl:call-template name="gml:geometryMember_Template"/>
+         <xsl:call-template name="gml:GeometryPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:geometryMember_Template">
-      <xsl:call-template name="gml:GeometryPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:geometryMember_Substitution">
       <gml:geometryMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:geometryMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geometryMembers"/>
-         <xsl:call-template name="gml:geometryMembers_Template"/>
+         <xsl:call-template name="gml:GeometryArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:geometryMembers_Template">
-      <xsl:call-template name="gml:GeometryArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:geometryMembers_Substitution">
       <gml:geometryMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pointMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointMember"/>
-         <xsl:call-template name="gml:pointMember_Template"/>
+         <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pointMember_Template">
-      <xsl:call-template name="gml:PointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pointMember_Substitution">
       <gml:pointMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pointMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointMembers"/>
-         <xsl:call-template name="gml:pointMembers_Template"/>
+         <xsl:call-template name="gml:PointArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pointMembers_Template">
-      <xsl:call-template name="gml:PointArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pointMembers_Substitution">
       <gml:pointMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:curveMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveMembers"/>
-         <xsl:call-template name="gml:curveMembers_Template"/>
+         <xsl:call-template name="gml:CurveArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:curveMembers_Template">
-      <xsl:call-template name="gml:CurveArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:curveMembers_Substitution">
       <gml:curveMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:surfaceMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceMember"/>
-         <xsl:call-template name="gml:surfaceMember_Template"/>
+         <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:surfaceMember_Template">
-      <xsl:call-template name="gml:SurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:surfaceMember_Substitution">
       <gml:surfaceMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:surfaceMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceMembers"/>
-         <xsl:call-template name="gml:surfaceMembers_Template"/>
+         <xsl:call-template name="gml:SurfaceArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:surfaceMembers_Template">
-      <xsl:call-template name="gml:SurfaceArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:surfaceMembers_Substitution">
       <gml:surfaceMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:solidMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidMember"/>
-         <xsl:call-template name="gml:solidMember_Template"/>
+         <xsl:call-template name="gml:SolidPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:solidMember_Template">
-      <xsl:call-template name="gml:SolidPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:solidMember_Substitution">
       <gml:solidMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:solidMembers">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidMembers"/>
-         <xsl:call-template name="gml:solidMembers_Template"/>
+         <xsl:call-template name="gml:SolidArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:solidMembers_Template">
-      <xsl:call-template name="gml:SolidArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:solidMembers_Substitution">
       <gml:solidMembers rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiCenterOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCenterOf"/>
-         <xsl:call-template name="gml:multiCenterOf_Template"/>
+         <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiCenterOf_Template">
-      <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiCenterOf_Substitution">
       <gml:multiCenterOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiPosition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiPosition"/>
-         <xsl:call-template name="gml:multiPosition_Template"/>
+         <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiPosition_Template">
-      <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiPosition_Substitution">
       <gml:multiPosition rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiCenterLineOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCenterLineOf"/>
-         <xsl:call-template name="gml:multiCenterLineOf_Template"/>
+         <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiCenterLineOf_Template">
-      <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiCenterLineOf_Substitution">
       <gml:multiCenterLineOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiEdgeOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiEdgeOf"/>
-         <xsl:call-template name="gml:multiEdgeOf_Template"/>
+         <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiEdgeOf_Template">
-      <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiEdgeOf_Substitution">
       <gml:multiEdgeOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCoverage"/>
-         <xsl:call-template name="gml:multiCoverage_Template"/>
+         <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiCoverage_Template">
-      <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiCoverage_Substitution">
       <gml:multiCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiExtentOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiExtentOf"/>
-         <xsl:call-template name="gml:multiExtentOf_Template"/>
+         <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiExtentOf_Template">
-      <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiExtentOf_Substitution">
       <gml:multiExtentOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiLocation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiLocation"/>
-         <xsl:call-template name="gml:multiLocation_Template"/>
+         <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiLocation_Template">
-      <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiLocation_Substitution">
       <gml:multiLocation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:lineStringMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:lineStringMember"/>
-         <xsl:call-template name="gml:lineStringMember_Template"/>
+         <xsl:call-template name="gml:LineStringPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:lineStringMember_Template">
-      <xsl:call-template name="gml:LineStringPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:lineStringMember_Substitution">
       <gml:lineStringMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:polygonMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polygonMember"/>
-         <xsl:call-template name="gml:polygonMember_Template"/>
+         <xsl:call-template name="gml:PolygonPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:polygonMember_Template">
-      <xsl:call-template name="gml:PolygonPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:polygonMember_Substitution">
       <gml:polygonMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Curve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Curve"/>
-         <xsl:call-template name="gml:Curve_Template"/>
+         <xsl:call-template name="gml:CurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Curve_Template">
-      <xsl:call-template name="gml:CurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Curve_Substitution">
       <gml:Curve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:baseCurve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:baseCurve"/>
-         <xsl:call-template name="gml:baseCurve_Template"/>
+         <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:baseCurve_Template">
-      <xsl:call-template name="gml:CurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:baseCurve_Substitution">
       <gml:baseCurve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:OrientableCurve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OrientableCurve"/>
-         <xsl:call-template name="gml:OrientableCurve_Template"/>
+         <xsl:call-template name="gml:OrientableCurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:OrientableCurve_Template">
-      <xsl:call-template name="gml:OrientableCurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:OrientableCurve_Substitution">
       <gml:OrientableCurve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_CurveSegment">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CurveSegment"/>
-         <xsl:call-template name="gml:_CurveSegment_Template"/>
+         <xsl:call-template name="gml:AbstractCurveSegmentType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_CurveSegment_Template">
-      <xsl:call-template name="gml:AbstractCurveSegmentType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_CurveSegment_Substitution">
       <gml:_CurveSegment rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:segments">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:segments"/>
-         <xsl:call-template name="gml:segments_Template"/>
+         <xsl:call-template name="gml:CurveSegmentArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:segments_Template">
-      <xsl:call-template name="gml:CurveSegmentArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:segments_Substitution">
       <gml:segments rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LineStringSegment">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LineStringSegment"/>
-         <xsl:call-template name="gml:LineStringSegment_Template"/>
+         <xsl:call-template name="gml:LineStringSegmentType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LineStringSegment_Template">
-      <xsl:call-template name="gml:LineStringSegmentType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LineStringSegment_Substitution">
       <gml:LineStringSegment rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ArcString">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcString"/>
-         <xsl:call-template name="gml:ArcString_Template"/>
+         <xsl:call-template name="gml:ArcStringType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ArcString_Template">
-      <xsl:call-template name="gml:ArcStringType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ArcString_Substitution">
       <gml:ArcString rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Arc">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Arc"/>
-         <xsl:call-template name="gml:Arc_Template"/>
+         <xsl:call-template name="gml:ArcType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Arc_Template">
-      <xsl:call-template name="gml:ArcType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Arc_Substitution">
       <gml:Arc rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Circle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Circle"/>
-         <xsl:call-template name="gml:Circle_Template"/>
+         <xsl:call-template name="gml:CircleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Circle_Template">
-      <xsl:call-template name="gml:CircleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Circle_Substitution">
       <gml:Circle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ArcStringByBulge">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcStringByBulge"/>
-         <xsl:call-template name="gml:ArcStringByBulge_Template"/>
+         <xsl:call-template name="gml:ArcStringByBulgeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ArcStringByBulge_Template">
-      <xsl:call-template name="gml:ArcStringByBulgeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ArcStringByBulge_Substitution">
       <gml:ArcStringByBulge rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ArcByBulge">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcByBulge"/>
-         <xsl:call-template name="gml:ArcByBulge_Template"/>
+         <xsl:call-template name="gml:ArcByBulgeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ArcByBulge_Template">
-      <xsl:call-template name="gml:ArcByBulgeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ArcByBulge_Substitution">
       <gml:ArcByBulge rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ArcByCenterPoint">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcByCenterPoint"/>
-         <xsl:call-template name="gml:ArcByCenterPoint_Template"/>
+         <xsl:call-template name="gml:ArcByCenterPointType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ArcByCenterPoint_Template">
-      <xsl:call-template name="gml:ArcByCenterPointType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ArcByCenterPoint_Substitution">
       <gml:ArcByCenterPoint rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CircleByCenterPoint">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CircleByCenterPoint"/>
-         <xsl:call-template name="gml:CircleByCenterPoint_Template"/>
+         <xsl:call-template name="gml:CircleByCenterPointType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CircleByCenterPoint_Template">
-      <xsl:call-template name="gml:CircleByCenterPointType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CircleByCenterPoint_Substitution">
       <gml:CircleByCenterPoint rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:OffsetCurve">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OffsetCurve"/>
-         <xsl:call-template name="gml:OffsetCurve_Template"/>
+         <xsl:call-template name="gml:OffsetCurveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:OffsetCurve_Template">
-      <xsl:call-template name="gml:OffsetCurveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:OffsetCurve_Substitution">
       <gml:OffsetCurve rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:AffinePlacement">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:AffinePlacement"/>
-         <xsl:call-template name="gml:AffinePlacement_Template"/>
+         <xsl:call-template name="gml:AffinePlacementType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:AffinePlacement_Template">
-      <xsl:call-template name="gml:AffinePlacementType_Template"/>
    </xsl:template>
    <xsl:template name="gml:AffinePlacement_Substitution">
       <gml:AffinePlacement rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Clothoid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Clothoid"/>
-         <xsl:call-template name="gml:Clothoid_Template"/>
+         <xsl:call-template name="gml:ClothoidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Clothoid_Template">
-      <xsl:call-template name="gml:ClothoidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Clothoid_Substitution">
       <gml:Clothoid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GeodesicString">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeodesicString"/>
-         <xsl:call-template name="gml:GeodesicString_Template"/>
+         <xsl:call-template name="gml:GeodesicStringType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GeodesicString_Template">
-      <xsl:call-template name="gml:GeodesicStringType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GeodesicString_Substitution">
       <gml:GeodesicString rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Geodesic">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Geodesic"/>
-         <xsl:call-template name="gml:Geodesic_Template"/>
+         <xsl:call-template name="gml:GeodesicType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Geodesic_Template">
-      <xsl:call-template name="gml:GeodesicType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Geodesic_Substitution">
       <gml:Geodesic rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CubicSpline">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CubicSpline"/>
-         <xsl:call-template name="gml:CubicSpline_Template"/>
+         <xsl:call-template name="gml:CubicSplineType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CubicSpline_Template">
-      <xsl:call-template name="gml:CubicSplineType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CubicSpline_Substitution">
       <gml:CubicSpline rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:BSpline">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:BSpline"/>
-         <xsl:call-template name="gml:BSpline_Template"/>
+         <xsl:call-template name="gml:BSplineType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:BSpline_Template">
-      <xsl:call-template name="gml:BSplineType_Template"/>
    </xsl:template>
    <xsl:template name="gml:BSpline_Substitution">
       <gml:BSpline rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Bezier">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Bezier"/>
-         <xsl:call-template name="gml:Bezier_Template"/>
+         <xsl:call-template name="gml:BezierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Bezier_Template">
-      <xsl:call-template name="gml:BezierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Bezier_Substitution">
       <gml:Bezier rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Surface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Surface"/>
-         <xsl:call-template name="gml:Surface_Template"/>
+         <xsl:call-template name="gml:SurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Surface_Template">
-      <xsl:call-template name="gml:SurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Surface_Substitution">
       <gml:Surface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:baseSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:baseSurface"/>
-         <xsl:call-template name="gml:baseSurface_Template"/>
+         <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:baseSurface_Template">
-      <xsl:call-template name="gml:SurfacePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:baseSurface_Substitution">
       <gml:baseSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:OrientableSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OrientableSurface"/>
-         <xsl:call-template name="gml:OrientableSurface_Template"/>
+         <xsl:call-template name="gml:OrientableSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:OrientableSurface_Template">
-      <xsl:call-template name="gml:OrientableSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:OrientableSurface_Substitution">
       <gml:OrientableSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_SurfacePatch">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_SurfacePatch"/>
-         <xsl:call-template name="gml:_SurfacePatch_Template"/>
+         <xsl:call-template name="gml:AbstractSurfacePatchType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_SurfacePatch_Template">
-      <xsl:call-template name="gml:AbstractSurfacePatchType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_SurfacePatch_Substitution">
       <gml:_SurfacePatch rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:patches">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:patches"/>
-         <xsl:call-template name="gml:patches_Template"/>
+         <xsl:call-template name="gml:SurfacePatchArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:patches_Template">
-      <xsl:call-template name="gml:SurfacePatchArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:patches_Substitution">
       <gml:patches rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:PolygonPatch">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PolygonPatch"/>
-         <xsl:call-template name="gml:PolygonPatch_Template"/>
+         <xsl:call-template name="gml:PolygonPatchType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:PolygonPatch_Template">
-      <xsl:call-template name="gml:PolygonPatchType_Template"/>
    </xsl:template>
    <xsl:template name="gml:PolygonPatch_Substitution">
       <gml:PolygonPatch rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Triangle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Triangle"/>
-         <xsl:call-template name="gml:Triangle_Template"/>
+         <xsl:call-template name="gml:TriangleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Triangle_Template">
-      <xsl:call-template name="gml:TriangleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Triangle_Substitution">
       <gml:Triangle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Rectangle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Rectangle"/>
-         <xsl:call-template name="gml:Rectangle_Template"/>
+         <xsl:call-template name="gml:RectangleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Rectangle_Template">
-      <xsl:call-template name="gml:RectangleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Rectangle_Substitution">
       <gml:Rectangle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:curveMember">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveMember"/>
-         <xsl:call-template name="gml:curveMember_Template"/>
+         <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:curveMember_Template">
-      <xsl:call-template name="gml:CurvePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:curveMember_Substitution">
       <gml:curveMember rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Ring">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Ring"/>
-         <xsl:call-template name="gml:Ring_Template"/>
+         <xsl:call-template name="gml:RingType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Ring_Template">
-      <xsl:call-template name="gml:RingType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Ring_Substitution">
       <gml:Ring rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_ParametricCurveSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ParametricCurveSurface"/>
-         <xsl:call-template name="gml:_ParametricCurveSurface_Template"/>
+         <xsl:call-template name="gml:AbstractParametricCurveSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_ParametricCurveSurface_Template">
-      <xsl:call-template name="gml:AbstractParametricCurveSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_ParametricCurveSurface_Substitution">
       <gml:_ParametricCurveSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GriddedSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GriddedSurface"/>
-         <xsl:call-template name="gml:_GriddedSurface_Template"/>
+         <xsl:call-template name="gml:AbstractGriddedSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GriddedSurface_Template">
-      <xsl:call-template name="gml:AbstractGriddedSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GriddedSurface_Substitution">
       <gml:_GriddedSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Cone">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Cone"/>
-         <xsl:call-template name="gml:Cone_Template"/>
+         <xsl:call-template name="gml:ConeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Cone_Template">
-      <xsl:call-template name="gml:ConeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Cone_Substitution">
       <gml:Cone rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Cylinder">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Cylinder"/>
-         <xsl:call-template name="gml:Cylinder_Template"/>
+         <xsl:call-template name="gml:CylinderType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Cylinder_Template">
-      <xsl:call-template name="gml:CylinderType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Cylinder_Substitution">
       <gml:Cylinder rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Sphere">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Sphere"/>
-         <xsl:call-template name="gml:Sphere_Template"/>
+         <xsl:call-template name="gml:SphereType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Sphere_Template">
-      <xsl:call-template name="gml:SphereType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Sphere_Substitution">
       <gml:Sphere rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:PolyhedralSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PolyhedralSurface"/>
-         <xsl:call-template name="gml:PolyhedralSurface_Template"/>
+         <xsl:call-template name="gml:PolyhedralSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:PolyhedralSurface_Template">
-      <xsl:call-template name="gml:PolyhedralSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:PolyhedralSurface_Substitution">
       <gml:PolyhedralSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:polygonPatches">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polygonPatches"/>
-         <xsl:call-template name="gml:polygonPatches_Template"/>
+         <xsl:call-template name="gml:PolygonPatchArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:polygonPatches_Template">
-      <xsl:call-template name="gml:PolygonPatchArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:polygonPatches_Substitution">
       <gml:polygonPatches rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:trianglePatches">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:trianglePatches"/>
-         <xsl:call-template name="gml:trianglePatches_Template"/>
+         <xsl:call-template name="gml:TrianglePatchArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:trianglePatches_Template">
-      <xsl:call-template name="gml:TrianglePatchArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:trianglePatches_Substitution">
       <gml:trianglePatches rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TriangulatedSurface">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TriangulatedSurface"/>
-         <xsl:call-template name="gml:TriangulatedSurface_Template"/>
+         <xsl:call-template name="gml:TriangulatedSurfaceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TriangulatedSurface_Template">
-      <xsl:call-template name="gml:TriangulatedSurfaceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TriangulatedSurface_Substitution">
       <gml:TriangulatedSurface rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Tin">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Tin"/>
-         <xsl:call-template name="gml:Tin_Template"/>
+         <xsl:call-template name="gml:TinType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Tin_Template">
-      <xsl:call-template name="gml:TinType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Tin_Substitution">
       <gml:Tin rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Solid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Solid"/>
-         <xsl:call-template name="gml:_Solid_Template"/>
+         <xsl:call-template name="gml:AbstractSolidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Solid_Template">
-      <xsl:call-template name="gml:AbstractSolidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Solid_Substitution">
       <gml:_Solid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:solidProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidProperty"/>
-         <xsl:call-template name="gml:solidProperty_Template"/>
+         <xsl:call-template name="gml:SolidPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:solidProperty_Template">
-      <xsl:call-template name="gml:SolidPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:solidProperty_Substitution">
       <gml:solidProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:solidArrayProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidArrayProperty"/>
-         <xsl:call-template name="gml:solidArrayProperty_Template"/>
+         <xsl:call-template name="gml:SolidArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:solidArrayProperty_Template">
-      <xsl:call-template name="gml:SolidArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:solidArrayProperty_Substitution">
       <gml:solidArrayProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Solid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Solid"/>
-         <xsl:call-template name="gml:Solid_Template"/>
+         <xsl:call-template name="gml:SolidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Solid_Template">
-      <xsl:call-template name="gml:SolidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Solid_Substitution">
       <gml:Solid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Coverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Coverage"/>
-         <xsl:call-template name="gml:_Coverage_Template"/>
+         <xsl:call-template name="gml:AbstractCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Coverage_Template">
-      <xsl:call-template name="gml:AbstractCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Coverage_Substitution">
       <gml:_Coverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_ContinuousCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ContinuousCoverage"/>
-         <xsl:call-template name="gml:_ContinuousCoverage_Template"/>
+         <xsl:call-template name="gml:AbstractContinuousCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_ContinuousCoverage_Template">
-      <xsl:call-template name="gml:AbstractContinuousCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_ContinuousCoverage_Substitution">
       <gml:_ContinuousCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_DiscreteCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_DiscreteCoverage"/>
-         <xsl:call-template name="gml:_DiscreteCoverage_Template"/>
+         <xsl:call-template name="gml:AbstractDiscreteCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_DiscreteCoverage_Template">
-      <xsl:call-template name="gml:AbstractDiscreteCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_DiscreteCoverage_Substitution">
       <gml:_DiscreteCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:domainSet">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:domainSet"/>
-         <xsl:call-template name="gml:domainSet_Template"/>
+         <xsl:call-template name="gml:DomainSetType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:domainSet_Template">
-      <xsl:call-template name="gml:DomainSetType_Template"/>
    </xsl:template>
    <xsl:template name="gml:domainSet_Substitution">
       <gml:domainSet rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:rangeSet">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:rangeSet"/>
-         <xsl:call-template name="gml:rangeSet_Template"/>
+         <xsl:call-template name="gml:RangeSetType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:rangeSet_Template">
-      <xsl:call-template name="gml:RangeSetType_Template"/>
    </xsl:template>
    <xsl:template name="gml:rangeSet_Substitution">
       <gml:rangeSet rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coverageFunction">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coverageFunction"/>
-         <xsl:call-template name="gml:coverageFunction_Template"/>
+         <xsl:call-template name="gml:CoverageFunctionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coverageFunction_Template">
-      <xsl:call-template name="gml:CoverageFunctionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coverageFunction_Substitution">
       <gml:coverageFunction rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DataBlock">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DataBlock"/>
-         <xsl:call-template name="gml:DataBlock_Template"/>
+         <xsl:call-template name="gml:DataBlockType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DataBlock_Template">
-      <xsl:call-template name="gml:DataBlockType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DataBlock_Substitution">
       <gml:DataBlock rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:tupleList">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:tupleList"/>
-         <xsl:call-template name="gml:tupleList_Template"/>
+         <xsl:call-template name="gml:CoordinatesType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:tupleList_Template">
-      <xsl:call-template name="gml:CoordinatesType_Template"/>
    </xsl:template>
    <xsl:template name="gml:tupleList_Substitution">
       <gml:tupleList rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:File">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:File"/>
-         <xsl:call-template name="gml:File_Template"/>
+         <xsl:call-template name="gml:FileType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:File_Template">
-      <xsl:call-template name="gml:FileType_Template"/>
    </xsl:template>
    <xsl:template name="gml:File_Substitution">
       <gml:File rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:rangeParameters">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:rangeParameters"/>
-         <xsl:call-template name="gml:rangeParameters_Template"/>
+         <xsl:call-template name="gml:RangeParametersType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:rangeParameters_Template">
-      <xsl:call-template name="gml:RangeParametersType_Template"/>
    </xsl:template>
    <xsl:template name="gml:rangeParameters_Substitution">
       <gml:rangeParameters rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MappingRule">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MappingRule"/>
-         <xsl:call-template name="gml:MappingRule_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MappingRule_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MappingRule_Substitution">
       <gml:MappingRule rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GridFunction">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GridFunction"/>
-         <xsl:call-template name="gml:GridFunction_Template"/>
+         <xsl:call-template name="gml:GridFunctionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GridFunction_Template">
-      <xsl:call-template name="gml:GridFunctionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GridFunction_Substitution">
       <gml:GridFunction rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:IndexMap">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:IndexMap"/>
-         <xsl:call-template name="gml:IndexMap_Template"/>
+         <xsl:call-template name="gml:IndexMapType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:IndexMap_Template">
-      <xsl:call-template name="gml:IndexMapType_Template"/>
    </xsl:template>
    <xsl:template name="gml:IndexMap_Substitution">
       <gml:IndexMap rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiPointCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiPointCoverage"/>
-         <xsl:call-template name="gml:MultiPointCoverage_Template"/>
+         <xsl:call-template name="gml:MultiPointCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiPointCoverage_Template">
-      <xsl:call-template name="gml:MultiPointCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiPointCoverage_Substitution">
       <gml:MultiPointCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiPointDomain">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiPointDomain"/>
-         <xsl:call-template name="gml:multiPointDomain_Template"/>
+         <xsl:call-template name="gml:MultiPointDomainType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiPointDomain_Template">
-      <xsl:call-template name="gml:MultiPointDomainType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiPointDomain_Substitution">
       <gml:multiPointDomain rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiCurveCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiCurveCoverage"/>
-         <xsl:call-template name="gml:MultiCurveCoverage_Template"/>
+         <xsl:call-template name="gml:MultiCurveCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiCurveCoverage_Template">
-      <xsl:call-template name="gml:MultiCurveCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiCurveCoverage_Substitution">
       <gml:MultiCurveCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiCurveDomain">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCurveDomain"/>
-         <xsl:call-template name="gml:multiCurveDomain_Template"/>
+         <xsl:call-template name="gml:MultiCurveDomainType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiCurveDomain_Template">
-      <xsl:call-template name="gml:MultiCurveDomainType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiCurveDomain_Substitution">
       <gml:multiCurveDomain rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiSurfaceCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSurfaceCoverage"/>
-         <xsl:call-template name="gml:MultiSurfaceCoverage_Template"/>
+         <xsl:call-template name="gml:MultiSurfaceCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiSurfaceCoverage_Template">
-      <xsl:call-template name="gml:MultiSurfaceCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiSurfaceCoverage_Substitution">
       <gml:MultiSurfaceCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiSurfaceDomain">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSurfaceDomain"/>
-         <xsl:call-template name="gml:multiSurfaceDomain_Template"/>
+         <xsl:call-template name="gml:MultiSurfaceDomainType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiSurfaceDomain_Template">
-      <xsl:call-template name="gml:MultiSurfaceDomainType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiSurfaceDomain_Substitution">
       <gml:multiSurfaceDomain rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:MultiSolidCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSolidCoverage"/>
-         <xsl:call-template name="gml:MultiSolidCoverage_Template"/>
+         <xsl:call-template name="gml:MultiSolidCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:MultiSolidCoverage_Template">
-      <xsl:call-template name="gml:MultiSolidCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:MultiSolidCoverage_Substitution">
       <gml:MultiSolidCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:multiSolidDomain">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSolidDomain"/>
-         <xsl:call-template name="gml:multiSolidDomain_Template"/>
+         <xsl:call-template name="gml:MultiSolidDomainType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:multiSolidDomain_Template">
-      <xsl:call-template name="gml:MultiSolidDomainType_Template"/>
    </xsl:template>
    <xsl:template name="gml:multiSolidDomain_Substitution">
       <gml:multiSolidDomain rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GridCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GridCoverage"/>
-         <xsl:call-template name="gml:GridCoverage_Template"/>
+         <xsl:call-template name="gml:GridCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GridCoverage_Template">
-      <xsl:call-template name="gml:GridCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GridCoverage_Substitution">
       <gml:GridCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:gridDomain">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:gridDomain"/>
-         <xsl:call-template name="gml:gridDomain_Template"/>
+         <xsl:call-template name="gml:GridDomainType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:gridDomain_Template">
-      <xsl:call-template name="gml:GridDomainType_Template"/>
    </xsl:template>
    <xsl:template name="gml:gridDomain_Substitution">
       <gml:gridDomain rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:RectifiedGridCoverage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:RectifiedGridCoverage"/>
-         <xsl:call-template name="gml:RectifiedGridCoverage_Template"/>
+         <xsl:call-template name="gml:RectifiedGridCoverageType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:RectifiedGridCoverage_Template">
-      <xsl:call-template name="gml:RectifiedGridCoverageType_Template"/>
    </xsl:template>
    <xsl:template name="gml:RectifiedGridCoverage_Substitution">
       <gml:RectifiedGridCoverage rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:rectifiedGridDomain">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:rectifiedGridDomain"/>
-         <xsl:call-template name="gml:rectifiedGridDomain_Template"/>
+         <xsl:call-template name="gml:RectifiedGridDomainType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:rectifiedGridDomain_Template">
-      <xsl:call-template name="gml:RectifiedGridDomainType_Template"/>
    </xsl:template>
    <xsl:template name="gml:rectifiedGridDomain_Substitution">
       <gml:rectifiedGridDomain rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Category">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Category"/>
-         <xsl:call-template name="gml:Category_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Category_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Category_Substitution">
       <gml:Category rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CategoryList">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CategoryList"/>
-         <xsl:call-template name="gml:CategoryList_Template"/>
+         <xsl:call-template name="gml:CodeOrNullListType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CategoryList_Template">
-      <xsl:call-template name="gml:CodeOrNullListType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CategoryList_Substitution">
       <gml:CategoryList rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Quantity">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Quantity"/>
-         <xsl:call-template name="gml:Quantity_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Quantity_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Quantity_Substitution">
       <gml:Quantity rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:QuantityList">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:QuantityList"/>
-         <xsl:call-template name="gml:QuantityList_Template"/>
+         <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:QuantityList_Template">
-      <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
    </xsl:template>
    <xsl:template name="gml:QuantityList_Substitution">
       <gml:QuantityList rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CompositeValue">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeValue"/>
-         <xsl:call-template name="gml:CompositeValue_Template"/>
+         <xsl:call-template name="gml:CompositeValueType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CompositeValue_Template">
-      <xsl:call-template name="gml:CompositeValueType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CompositeValue_Substitution">
       <gml:CompositeValue rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ValueArray">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ValueArray"/>
-         <xsl:call-template name="gml:ValueArray_Template"/>
+         <xsl:call-template name="gml:ValueArrayType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ValueArray_Template">
-      <xsl:call-template name="gml:ValueArrayType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ValueArray_Substitution">
       <gml:ValueArray rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:QuantityExtent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:QuantityExtent"/>
-         <xsl:call-template name="gml:QuantityExtent_Template"/>
+         <xsl:call-template name="gml:QuantityExtentType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:QuantityExtent_Template">
-      <xsl:call-template name="gml:QuantityExtentType_Template"/>
    </xsl:template>
    <xsl:template name="gml:QuantityExtent_Substitution">
       <gml:QuantityExtent rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CategoryExtent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CategoryExtent"/>
-         <xsl:call-template name="gml:CategoryExtent_Template"/>
+         <xsl:call-template name="gml:CategoryExtentType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CategoryExtent_Template">
-      <xsl:call-template name="gml:CategoryExtentType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CategoryExtent_Substitution">
       <gml:CategoryExtent rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:valueProperty">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueProperty"/>
-         <xsl:call-template name="gml:valueProperty_Template"/>
+         <xsl:call-template name="gml:ValuePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:valueProperty_Template">
-      <xsl:call-template name="gml:ValuePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:valueProperty_Substitution">
       <gml:valueProperty rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:valueComponent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueComponent"/>
-         <xsl:call-template name="gml:valueComponent_Template"/>
+         <xsl:call-template name="gml:ValuePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:valueComponent_Template">
-      <xsl:call-template name="gml:ValuePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:valueComponent_Substitution">
       <gml:valueComponent rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:valueComponents">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueComponents"/>
-         <xsl:call-template name="gml:valueComponents_Template"/>
+         <xsl:call-template name="gml:ValueArrayPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:valueComponents_Template">
-      <xsl:call-template name="gml:ValueArrayPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:valueComponents_Substitution">
       <gml:valueComponents rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_ImplicitGeometry">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ImplicitGeometry"/>
-         <xsl:call-template name="gml:_ImplicitGeometry_Template"/>
+         <xsl:call-template name="gml:AbstractGeometryType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_ImplicitGeometry_Template">
-      <xsl:call-template name="gml:AbstractGeometryType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_ImplicitGeometry_Substitution">
       <gml:_ImplicitGeometry rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Grid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Grid"/>
-         <xsl:call-template name="gml:Grid_Template"/>
+         <xsl:call-template name="gml:GridType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Grid_Template">
-      <xsl:call-template name="gml:GridType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Grid_Substitution">
       <gml:Grid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:RectifiedGrid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:RectifiedGrid"/>
-         <xsl:call-template name="gml:RectifiedGrid_Template"/>
+         <xsl:call-template name="gml:RectifiedGridType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:RectifiedGrid_Template">
-      <xsl:call-template name="gml:RectifiedGridType_Template"/>
    </xsl:template>
    <xsl:template name="gml:RectifiedGrid_Substitution">
       <gml:RectifiedGrid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_CoordinateReferenceSystem">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CoordinateReferenceSystem"/>
-         <xsl:call-template name="gml:_CoordinateReferenceSystem_Template"/>
+         <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_CoordinateReferenceSystem_Template">
-      <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_CoordinateReferenceSystem_Substitution">
       <gml:_CoordinateReferenceSystem rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinateReferenceSystemRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateReferenceSystemRef"/>
-         <xsl:call-template name="gml:coordinateReferenceSystemRef_Template"/>
+         <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinateReferenceSystemRef_Template">
-      <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinateReferenceSystemRef_Substitution">
       <gml:coordinateReferenceSystemRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CompoundCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompoundCRS"/>
-         <xsl:call-template name="gml:CompoundCRS_Template"/>
+         <xsl:call-template name="gml:CompoundCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CompoundCRS_Template">
-      <xsl:call-template name="gml:CompoundCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CompoundCRS_Substitution">
       <gml:CompoundCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:includesCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesCRS"/>
-         <xsl:call-template name="gml:includesCRS_Template"/>
+         <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:includesCRS_Template">
-      <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:includesCRS_Substitution">
       <gml:includesCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:compoundCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:compoundCRSRef"/>
-         <xsl:call-template name="gml:compoundCRSRef_Template"/>
+         <xsl:call-template name="gml:CompoundCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:compoundCRSRef_Template">
-      <xsl:call-template name="gml:CompoundCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:compoundCRSRef_Substitution">
       <gml:compoundCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GeographicCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeographicCRS"/>
-         <xsl:call-template name="gml:GeographicCRS_Template"/>
+         <xsl:call-template name="gml:GeographicCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GeographicCRS_Template">
-      <xsl:call-template name="gml:GeographicCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GeographicCRS_Substitution">
       <gml:GeographicCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesEllipsoidalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesEllipsoidalCS"/>
-         <xsl:call-template name="gml:usesEllipsoidalCS_Template"/>
+         <xsl:call-template name="gml:EllipsoidalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesEllipsoidalCS_Template">
-      <xsl:call-template name="gml:EllipsoidalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesEllipsoidalCS_Substitution">
       <gml:usesEllipsoidalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesGeodeticDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesGeodeticDatum"/>
-         <xsl:call-template name="gml:usesGeodeticDatum_Template"/>
+         <xsl:call-template name="gml:GeodeticDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesGeodeticDatum_Template">
-      <xsl:call-template name="gml:GeodeticDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesGeodeticDatum_Substitution">
       <gml:usesGeodeticDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:geographicCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geographicCRSRef"/>
-         <xsl:call-template name="gml:geographicCRSRef_Template"/>
+         <xsl:call-template name="gml:GeographicCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:geographicCRSRef_Template">
-      <xsl:call-template name="gml:GeographicCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:geographicCRSRef_Substitution">
       <gml:geographicCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:VerticalCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:VerticalCRS"/>
-         <xsl:call-template name="gml:VerticalCRS_Template"/>
+         <xsl:call-template name="gml:VerticalCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:VerticalCRS_Template">
-      <xsl:call-template name="gml:VerticalCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:VerticalCRS_Substitution">
       <gml:VerticalCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesVerticalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesVerticalCS"/>
-         <xsl:call-template name="gml:usesVerticalCS_Template"/>
+         <xsl:call-template name="gml:VerticalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesVerticalCS_Template">
-      <xsl:call-template name="gml:VerticalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesVerticalCS_Substitution">
       <gml:usesVerticalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesVerticalDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesVerticalDatum"/>
-         <xsl:call-template name="gml:usesVerticalDatum_Template"/>
+         <xsl:call-template name="gml:VerticalDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesVerticalDatum_Template">
-      <xsl:call-template name="gml:VerticalDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesVerticalDatum_Substitution">
       <gml:usesVerticalDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalCRSRef"/>
-         <xsl:call-template name="gml:verticalCRSRef_Template"/>
+         <xsl:call-template name="gml:VerticalCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:verticalCRSRef_Template">
-      <xsl:call-template name="gml:VerticalCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:verticalCRSRef_Substitution">
       <gml:verticalCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GeocentricCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeocentricCRS"/>
-         <xsl:call-template name="gml:GeocentricCRS_Template"/>
+         <xsl:call-template name="gml:GeocentricCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GeocentricCRS_Template">
-      <xsl:call-template name="gml:GeocentricCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GeocentricCRS_Substitution">
       <gml:GeocentricCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesCartesianCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesCartesianCS"/>
-         <xsl:call-template name="gml:usesCartesianCS_Template"/>
+         <xsl:call-template name="gml:CartesianCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesCartesianCS_Template">
-      <xsl:call-template name="gml:CartesianCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesCartesianCS_Substitution">
       <gml:usesCartesianCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesSphericalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesSphericalCS"/>
-         <xsl:call-template name="gml:usesSphericalCS_Template"/>
+         <xsl:call-template name="gml:SphericalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesSphericalCS_Template">
-      <xsl:call-template name="gml:SphericalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesSphericalCS_Substitution">
       <gml:usesSphericalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:geocentricCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geocentricCRSRef"/>
-         <xsl:call-template name="gml:geocentricCRSRef_Template"/>
+         <xsl:call-template name="gml:GeocentricCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:geocentricCRSRef_Template">
-      <xsl:call-template name="gml:GeocentricCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:geocentricCRSRef_Substitution">
       <gml:geocentricCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GeneralDerivedCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralDerivedCRS"/>
-         <xsl:call-template name="gml:_GeneralDerivedCRS_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralDerivedCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GeneralDerivedCRS_Template">
-      <xsl:call-template name="gml:AbstractGeneralDerivedCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GeneralDerivedCRS_Substitution">
       <gml:_GeneralDerivedCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:baseCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:baseCRS"/>
-         <xsl:call-template name="gml:baseCRS_Template"/>
+         <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:baseCRS_Template">
-      <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:baseCRS_Substitution">
       <gml:baseCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:definedByConversion">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:definedByConversion"/>
-         <xsl:call-template name="gml:definedByConversion_Template"/>
+         <xsl:call-template name="gml:GeneralConversionRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:definedByConversion_Template">
-      <xsl:call-template name="gml:GeneralConversionRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:definedByConversion_Substitution">
       <gml:definedByConversion rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ProjectedCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ProjectedCRS"/>
-         <xsl:call-template name="gml:ProjectedCRS_Template"/>
+         <xsl:call-template name="gml:ProjectedCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ProjectedCRS_Template">
-      <xsl:call-template name="gml:ProjectedCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ProjectedCRS_Substitution">
       <gml:ProjectedCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:projectedCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:projectedCRSRef"/>
-         <xsl:call-template name="gml:projectedCRSRef_Template"/>
+         <xsl:call-template name="gml:ProjectedCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:projectedCRSRef_Template">
-      <xsl:call-template name="gml:ProjectedCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:projectedCRSRef_Substitution">
       <gml:projectedCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DerivedCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DerivedCRS"/>
-         <xsl:call-template name="gml:DerivedCRS_Template"/>
+         <xsl:call-template name="gml:DerivedCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DerivedCRS_Template">
-      <xsl:call-template name="gml:DerivedCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DerivedCRS_Substitution">
       <gml:DerivedCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:derivedCRSType">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:derivedCRSType"/>
-         <xsl:call-template name="gml:derivedCRSType_Template"/>
+         <xsl:call-template name="gml:DerivedCRSTypeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:derivedCRSType_Template">
-      <xsl:call-template name="gml:DerivedCRSTypeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:derivedCRSType_Substitution">
       <gml:derivedCRSType rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesCS"/>
-         <xsl:call-template name="gml:usesCS_Template"/>
+         <xsl:call-template name="gml:CoordinateSystemRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesCS_Template">
-      <xsl:call-template name="gml:CoordinateSystemRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesCS_Substitution">
       <gml:usesCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:derivedCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:derivedCRSRef"/>
-         <xsl:call-template name="gml:derivedCRSRef_Template"/>
+         <xsl:call-template name="gml:DerivedCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:derivedCRSRef_Template">
-      <xsl:call-template name="gml:DerivedCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:derivedCRSRef_Substitution">
       <gml:derivedCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:EngineeringCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EngineeringCRS"/>
-         <xsl:call-template name="gml:EngineeringCRS_Template"/>
+         <xsl:call-template name="gml:EngineeringCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:EngineeringCRS_Template">
-      <xsl:call-template name="gml:EngineeringCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:EngineeringCRS_Substitution">
       <gml:EngineeringCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesEngineeringDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesEngineeringDatum"/>
-         <xsl:call-template name="gml:usesEngineeringDatum_Template"/>
+         <xsl:call-template name="gml:EngineeringDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesEngineeringDatum_Template">
-      <xsl:call-template name="gml:EngineeringDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesEngineeringDatum_Substitution">
       <gml:usesEngineeringDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:engineeringCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:engineeringCRSRef"/>
-         <xsl:call-template name="gml:engineeringCRSRef_Template"/>
+         <xsl:call-template name="gml:EngineeringCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:engineeringCRSRef_Template">
-      <xsl:call-template name="gml:EngineeringCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:engineeringCRSRef_Substitution">
       <gml:engineeringCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ImageCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ImageCRS"/>
-         <xsl:call-template name="gml:ImageCRS_Template"/>
+         <xsl:call-template name="gml:ImageCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ImageCRS_Template">
-      <xsl:call-template name="gml:ImageCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ImageCRS_Substitution">
       <gml:ImageCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesObliqueCartesianCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesObliqueCartesianCS"/>
-         <xsl:call-template name="gml:usesObliqueCartesianCS_Template"/>
+         <xsl:call-template name="gml:ObliqueCartesianCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesObliqueCartesianCS_Template">
-      <xsl:call-template name="gml:ObliqueCartesianCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesObliqueCartesianCS_Substitution">
       <gml:usesObliqueCartesianCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesImageDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesImageDatum"/>
-         <xsl:call-template name="gml:usesImageDatum_Template"/>
+         <xsl:call-template name="gml:ImageDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesImageDatum_Template">
-      <xsl:call-template name="gml:ImageDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesImageDatum_Substitution">
       <gml:usesImageDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:imageCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:imageCRSRef"/>
-         <xsl:call-template name="gml:imageCRSRef_Template"/>
+         <xsl:call-template name="gml:ImageCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:imageCRSRef_Template">
-      <xsl:call-template name="gml:ImageCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:imageCRSRef_Substitution">
       <gml:imageCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TemporalCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TemporalCRS"/>
-         <xsl:call-template name="gml:TemporalCRS_Template"/>
+         <xsl:call-template name="gml:TemporalCRSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TemporalCRS_Template">
-      <xsl:call-template name="gml:TemporalCRSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TemporalCRS_Substitution">
       <gml:TemporalCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesTemporalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesTemporalCS"/>
-         <xsl:call-template name="gml:usesTemporalCS_Template"/>
+         <xsl:call-template name="gml:TemporalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesTemporalCS_Template">
-      <xsl:call-template name="gml:TemporalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesTemporalCS_Substitution">
       <gml:usesTemporalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesTemporalDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesTemporalDatum"/>
-         <xsl:call-template name="gml:usesTemporalDatum_Template"/>
+         <xsl:call-template name="gml:TemporalDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesTemporalDatum_Template">
-      <xsl:call-template name="gml:TemporalDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesTemporalDatum_Substitution">
       <gml:usesTemporalDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:temporalCRSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalCRSRef"/>
-         <xsl:call-template name="gml:temporalCRSRef_Template"/>
+         <xsl:call-template name="gml:TemporalCRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:temporalCRSRef_Template">
-      <xsl:call-template name="gml:TemporalCRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:temporalCRSRef_Substitution">
       <gml:temporalCRSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CoordinateSystemAxis">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CoordinateSystemAxis"/>
-         <xsl:call-template name="gml:CoordinateSystemAxis_Template"/>
+         <xsl:call-template name="gml:CoordinateSystemAxisType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CoordinateSystemAxis_Template">
-      <xsl:call-template name="gml:CoordinateSystemAxisType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CoordinateSystemAxis_Substitution">
       <gml:CoordinateSystemAxis rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:axisID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:axisID"/>
-         <xsl:call-template name="gml:axisID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:axisID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:axisID_Substitution">
       <gml:axisID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:axisAbbrev">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:axisAbbrev"/>
-         <xsl:call-template name="gml:axisAbbrev_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:axisAbbrev_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:axisAbbrev_Substitution">
       <gml:axisAbbrev rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:axisDirection">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:axisDirection"/>
-         <xsl:call-template name="gml:axisDirection_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:axisDirection_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:axisDirection_Substitution">
       <gml:axisDirection rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinateSystemAxisRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateSystemAxisRef"/>
-         <xsl:call-template name="gml:coordinateSystemAxisRef_Template"/>
+         <xsl:call-template name="gml:CoordinateSystemAxisRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinateSystemAxisRef_Template">
-      <xsl:call-template name="gml:CoordinateSystemAxisRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinateSystemAxisRef_Substitution">
       <gml:coordinateSystemAxisRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_CoordinateSystem">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CoordinateSystem"/>
-         <xsl:call-template name="gml:_CoordinateSystem_Template"/>
+         <xsl:call-template name="gml:AbstractCoordinateSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_CoordinateSystem_Template">
-      <xsl:call-template name="gml:AbstractCoordinateSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_CoordinateSystem_Substitution">
       <gml:_CoordinateSystem rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:csName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:csName"/>
-         <xsl:call-template name="gml:csName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:csName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:csName_Substitution">
       <gml:csName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:csID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:csID"/>
-         <xsl:call-template name="gml:csID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:csID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:csID_Substitution">
       <gml:csID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesAxis">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesAxis"/>
-         <xsl:call-template name="gml:usesAxis_Template"/>
+         <xsl:call-template name="gml:CoordinateSystemAxisRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesAxis_Template">
-      <xsl:call-template name="gml:CoordinateSystemAxisRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesAxis_Substitution">
       <gml:usesAxis rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinateSystemRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateSystemRef"/>
-         <xsl:call-template name="gml:coordinateSystemRef_Template"/>
+         <xsl:call-template name="gml:CoordinateSystemRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinateSystemRef_Template">
-      <xsl:call-template name="gml:CoordinateSystemRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinateSystemRef_Substitution">
       <gml:coordinateSystemRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:EllipsoidalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EllipsoidalCS"/>
-         <xsl:call-template name="gml:EllipsoidalCS_Template"/>
+         <xsl:call-template name="gml:EllipsoidalCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:EllipsoidalCS_Template">
-      <xsl:call-template name="gml:EllipsoidalCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:EllipsoidalCS_Substitution">
       <gml:EllipsoidalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidalCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidalCSRef"/>
-         <xsl:call-template name="gml:ellipsoidalCSRef_Template"/>
+         <xsl:call-template name="gml:EllipsoidalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ellipsoidalCSRef_Template">
-      <xsl:call-template name="gml:EllipsoidalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ellipsoidalCSRef_Substitution">
       <gml:ellipsoidalCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CartesianCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CartesianCS"/>
-         <xsl:call-template name="gml:CartesianCS_Template"/>
+         <xsl:call-template name="gml:CartesianCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CartesianCS_Template">
-      <xsl:call-template name="gml:CartesianCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CartesianCS_Substitution">
       <gml:CartesianCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:cartesianCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:cartesianCSRef"/>
-         <xsl:call-template name="gml:cartesianCSRef_Template"/>
+         <xsl:call-template name="gml:CartesianCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:cartesianCSRef_Template">
-      <xsl:call-template name="gml:CartesianCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:cartesianCSRef_Substitution">
       <gml:cartesianCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:VerticalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:VerticalCS"/>
-         <xsl:call-template name="gml:VerticalCS_Template"/>
+         <xsl:call-template name="gml:VerticalCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:VerticalCS_Template">
-      <xsl:call-template name="gml:VerticalCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:VerticalCS_Substitution">
       <gml:VerticalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalCSRef"/>
-         <xsl:call-template name="gml:verticalCSRef_Template"/>
+         <xsl:call-template name="gml:VerticalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:verticalCSRef_Template">
-      <xsl:call-template name="gml:VerticalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:verticalCSRef_Substitution">
       <gml:verticalCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TemporalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TemporalCS"/>
-         <xsl:call-template name="gml:TemporalCS_Template"/>
+         <xsl:call-template name="gml:TemporalCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TemporalCS_Template">
-      <xsl:call-template name="gml:TemporalCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TemporalCS_Substitution">
       <gml:TemporalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:temporalCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalCSRef"/>
-         <xsl:call-template name="gml:temporalCSRef_Template"/>
+         <xsl:call-template name="gml:TemporalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:temporalCSRef_Template">
-      <xsl:call-template name="gml:TemporalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:temporalCSRef_Substitution">
       <gml:temporalCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LinearCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LinearCS"/>
-         <xsl:call-template name="gml:LinearCS_Template"/>
+         <xsl:call-template name="gml:LinearCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LinearCS_Template">
-      <xsl:call-template name="gml:LinearCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LinearCS_Substitution">
       <gml:LinearCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:linearCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:linearCSRef"/>
-         <xsl:call-template name="gml:linearCSRef_Template"/>
+         <xsl:call-template name="gml:LinearCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:linearCSRef_Template">
-      <xsl:call-template name="gml:LinearCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:linearCSRef_Substitution">
       <gml:linearCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:UserDefinedCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:UserDefinedCS"/>
-         <xsl:call-template name="gml:UserDefinedCS_Template"/>
+         <xsl:call-template name="gml:UserDefinedCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:UserDefinedCS_Template">
-      <xsl:call-template name="gml:UserDefinedCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:UserDefinedCS_Substitution">
       <gml:UserDefinedCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:userDefinedCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:userDefinedCSRef"/>
-         <xsl:call-template name="gml:userDefinedCSRef_Template"/>
+         <xsl:call-template name="gml:UserDefinedCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:userDefinedCSRef_Template">
-      <xsl:call-template name="gml:UserDefinedCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:userDefinedCSRef_Substitution">
       <gml:userDefinedCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:SphericalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:SphericalCS"/>
-         <xsl:call-template name="gml:SphericalCS_Template"/>
+         <xsl:call-template name="gml:SphericalCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:SphericalCS_Template">
-      <xsl:call-template name="gml:SphericalCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:SphericalCS_Substitution">
       <gml:SphericalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:sphericalCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:sphericalCSRef"/>
-         <xsl:call-template name="gml:sphericalCSRef_Template"/>
+         <xsl:call-template name="gml:SphericalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:sphericalCSRef_Template">
-      <xsl:call-template name="gml:SphericalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:sphericalCSRef_Substitution">
       <gml:sphericalCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:PolarCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PolarCS"/>
-         <xsl:call-template name="gml:PolarCS_Template"/>
+         <xsl:call-template name="gml:PolarCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:PolarCS_Template">
-      <xsl:call-template name="gml:PolarCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:PolarCS_Substitution">
       <gml:PolarCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:polarCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polarCSRef"/>
-         <xsl:call-template name="gml:polarCSRef_Template"/>
+         <xsl:call-template name="gml:PolarCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:polarCSRef_Template">
-      <xsl:call-template name="gml:PolarCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:polarCSRef_Substitution">
       <gml:polarCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:CylindricalCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CylindricalCS"/>
-         <xsl:call-template name="gml:CylindricalCS_Template"/>
+         <xsl:call-template name="gml:CylindricalCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:CylindricalCS_Template">
-      <xsl:call-template name="gml:CylindricalCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:CylindricalCS_Substitution">
       <gml:CylindricalCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:cylindricalCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:cylindricalCSRef"/>
-         <xsl:call-template name="gml:cylindricalCSRef_Template"/>
+         <xsl:call-template name="gml:CylindricalCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:cylindricalCSRef_Template">
-      <xsl:call-template name="gml:CylindricalCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:cylindricalCSRef_Substitution">
       <gml:cylindricalCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ObliqueCartesianCS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ObliqueCartesianCS"/>
-         <xsl:call-template name="gml:ObliqueCartesianCS_Template"/>
+         <xsl:call-template name="gml:ObliqueCartesianCSType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ObliqueCartesianCS_Template">
-      <xsl:call-template name="gml:ObliqueCartesianCSType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ObliqueCartesianCS_Substitution">
       <gml:ObliqueCartesianCS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:obliqueCartesianCSRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:obliqueCartesianCSRef"/>
-         <xsl:call-template name="gml:obliqueCartesianCSRef_Template"/>
+         <xsl:call-template name="gml:ObliqueCartesianCSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:obliqueCartesianCSRef_Template">
-      <xsl:call-template name="gml:ObliqueCartesianCSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:obliqueCartesianCSRef_Substitution">
       <gml:obliqueCartesianCSRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_ReferenceSystem">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ReferenceSystem"/>
-         <xsl:call-template name="gml:_ReferenceSystem_Template"/>
+         <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_ReferenceSystem_Template">
-      <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_ReferenceSystem_Substitution">
       <gml:_ReferenceSystem rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:srsName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:srsName"/>
-         <xsl:call-template name="gml:srsName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:srsName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:srsName_Substitution">
       <gml:srsName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:srsID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:srsID"/>
-         <xsl:call-template name="gml:srsID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:srsID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:srsID_Substitution">
       <gml:srsID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:referenceSystemRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:referenceSystemRef"/>
-         <xsl:call-template name="gml:referenceSystemRef_Template"/>
+         <xsl:call-template name="gml:ReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:referenceSystemRef_Template">
-      <xsl:call-template name="gml:ReferenceSystemRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:referenceSystemRef_Substitution">
       <gml:referenceSystemRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_CRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CRS"/>
-         <xsl:call-template name="gml:_CRS_Template"/>
+         <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_CRS_Template">
-      <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_CRS_Substitution">
       <gml:_CRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:crsRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:crsRef"/>
-         <xsl:call-template name="gml:crsRef_Template"/>
+         <xsl:call-template name="gml:CRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:crsRef_Template">
-      <xsl:call-template name="gml:CRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:crsRef_Substitution">
       <gml:crsRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:remarks">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:remarks"/>
-         <xsl:call-template name="gml:remarks_Template"/>
+         <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:remarks_Template">
-      <xsl:call-template name="gml:StringOrRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:remarks_Substitution">
       <gml:remarks rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:validArea">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:validArea"/>
-         <xsl:call-template name="gml:validArea_Template"/>
+         <xsl:call-template name="gml:ExtentType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:validArea_Template">
-      <xsl:call-template name="gml:ExtentType_Template"/>
    </xsl:template>
    <xsl:template name="gml:validArea_Substitution">
       <gml:validArea rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:boundingBox">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:boundingBox"/>
-         <xsl:call-template name="gml:boundingBox_Template"/>
+         <xsl:call-template name="gml:EnvelopeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:boundingBox_Template">
-      <xsl:call-template name="gml:EnvelopeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:boundingBox_Substitution">
       <gml:boundingBox rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:boundingPolygon">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:boundingPolygon"/>
-         <xsl:call-template name="gml:boundingPolygon_Template"/>
+         <xsl:call-template name="gml:PolygonType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:boundingPolygon_Template">
-      <xsl:call-template name="gml:PolygonType_Template"/>
    </xsl:template>
    <xsl:template name="gml:boundingPolygon_Substitution">
       <gml:boundingPolygon rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalExtent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalExtent"/>
-         <xsl:call-template name="gml:verticalExtent_Template"/>
+         <xsl:call-template name="gml:EnvelopeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:verticalExtent_Template">
-      <xsl:call-template name="gml:EnvelopeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:verticalExtent_Substitution">
       <gml:verticalExtent rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:temporalExtent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalExtent"/>
-         <xsl:call-template name="gml:temporalExtent_Template"/>
+         <xsl:call-template name="gml:TimePeriodType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:temporalExtent_Template">
-      <xsl:call-template name="gml:TimePeriodType_Template"/>
    </xsl:template>
    <xsl:template name="gml:temporalExtent_Substitution">
       <gml:temporalExtent rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Datum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Datum"/>
-         <xsl:call-template name="gml:_Datum_Template"/>
+         <xsl:call-template name="gml:AbstractDatumType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Datum_Template">
-      <xsl:call-template name="gml:AbstractDatumType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Datum_Substitution">
       <gml:_Datum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:datumName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:datumName"/>
-         <xsl:call-template name="gml:datumName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:datumName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:datumName_Substitution">
       <gml:datumName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:datumID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:datumID"/>
-         <xsl:call-template name="gml:datumID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:datumID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:datumID_Substitution">
       <gml:datumID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:anchorPoint">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:anchorPoint"/>
-         <xsl:call-template name="gml:anchorPoint_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:anchorPoint_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:anchorPoint_Substitution">
       <gml:anchorPoint rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:datumRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:datumRef"/>
-         <xsl:call-template name="gml:datumRef_Template"/>
+         <xsl:call-template name="gml:DatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:datumRef_Template">
-      <xsl:call-template name="gml:DatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:datumRef_Substitution">
       <gml:datumRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:EngineeringDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EngineeringDatum"/>
-         <xsl:call-template name="gml:EngineeringDatum_Template"/>
+         <xsl:call-template name="gml:EngineeringDatumType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:EngineeringDatum_Template">
-      <xsl:call-template name="gml:EngineeringDatumType_Template"/>
    </xsl:template>
    <xsl:template name="gml:EngineeringDatum_Substitution">
       <gml:EngineeringDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:engineeringDatumRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:engineeringDatumRef"/>
-         <xsl:call-template name="gml:engineeringDatumRef_Template"/>
+         <xsl:call-template name="gml:EngineeringDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:engineeringDatumRef_Template">
-      <xsl:call-template name="gml:EngineeringDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:engineeringDatumRef_Substitution">
       <gml:engineeringDatumRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ImageDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ImageDatum"/>
-         <xsl:call-template name="gml:ImageDatum_Template"/>
+         <xsl:call-template name="gml:ImageDatumType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ImageDatum_Template">
-      <xsl:call-template name="gml:ImageDatumType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ImageDatum_Substitution">
       <gml:ImageDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:pixelInCell">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pixelInCell"/>
-         <xsl:call-template name="gml:pixelInCell_Template"/>
+         <xsl:call-template name="gml:PixelInCellType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:pixelInCell_Template">
-      <xsl:call-template name="gml:PixelInCellType_Template"/>
    </xsl:template>
    <xsl:template name="gml:pixelInCell_Substitution">
       <gml:pixelInCell rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:imageDatumRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:imageDatumRef"/>
-         <xsl:call-template name="gml:imageDatumRef_Template"/>
+         <xsl:call-template name="gml:ImageDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:imageDatumRef_Template">
-      <xsl:call-template name="gml:ImageDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:imageDatumRef_Substitution">
       <gml:imageDatumRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:VerticalDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:VerticalDatum"/>
-         <xsl:call-template name="gml:VerticalDatum_Template"/>
+         <xsl:call-template name="gml:VerticalDatumType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:VerticalDatum_Template">
-      <xsl:call-template name="gml:VerticalDatumType_Template"/>
    </xsl:template>
    <xsl:template name="gml:VerticalDatum_Substitution">
       <gml:VerticalDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalDatumType">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalDatumType"/>
-         <xsl:call-template name="gml:verticalDatumType_Template"/>
+         <xsl:call-template name="gml:VerticalDatumTypeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:verticalDatumType_Template">
-      <xsl:call-template name="gml:VerticalDatumTypeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:verticalDatumType_Substitution">
       <gml:verticalDatumType rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalDatumRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalDatumRef"/>
-         <xsl:call-template name="gml:verticalDatumRef_Template"/>
+         <xsl:call-template name="gml:VerticalDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:verticalDatumRef_Template">
-      <xsl:call-template name="gml:VerticalDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:verticalDatumRef_Substitution">
       <gml:verticalDatumRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TemporalDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TemporalDatum"/>
-         <xsl:call-template name="gml:TemporalDatum_Template"/>
+         <xsl:call-template name="gml:TemporalDatumType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TemporalDatum_Template">
-      <xsl:call-template name="gml:TemporalDatumType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TemporalDatum_Substitution">
       <gml:TemporalDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:temporalDatumRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalDatumRef"/>
-         <xsl:call-template name="gml:temporalDatumRef_Template"/>
+         <xsl:call-template name="gml:TemporalDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:temporalDatumRef_Template">
-      <xsl:call-template name="gml:TemporalDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:temporalDatumRef_Substitution">
       <gml:temporalDatumRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GeodeticDatum">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeodeticDatum"/>
-         <xsl:call-template name="gml:GeodeticDatum_Template"/>
+         <xsl:call-template name="gml:GeodeticDatumType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GeodeticDatum_Template">
-      <xsl:call-template name="gml:GeodeticDatumType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GeodeticDatum_Substitution">
       <gml:GeodeticDatum rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesPrimeMeridian">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesPrimeMeridian"/>
-         <xsl:call-template name="gml:usesPrimeMeridian_Template"/>
+         <xsl:call-template name="gml:PrimeMeridianRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesPrimeMeridian_Template">
-      <xsl:call-template name="gml:PrimeMeridianRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesPrimeMeridian_Substitution">
       <gml:usesPrimeMeridian rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesEllipsoid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesEllipsoid"/>
-         <xsl:call-template name="gml:usesEllipsoid_Template"/>
+         <xsl:call-template name="gml:EllipsoidRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesEllipsoid_Template">
-      <xsl:call-template name="gml:EllipsoidRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesEllipsoid_Substitution">
       <gml:usesEllipsoid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:geodeticDatumRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geodeticDatumRef"/>
-         <xsl:call-template name="gml:geodeticDatumRef_Template"/>
+         <xsl:call-template name="gml:GeodeticDatumRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:geodeticDatumRef_Template">
-      <xsl:call-template name="gml:GeodeticDatumRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:geodeticDatumRef_Substitution">
       <gml:geodeticDatumRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:PrimeMeridian">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PrimeMeridian"/>
-         <xsl:call-template name="gml:PrimeMeridian_Template"/>
+         <xsl:call-template name="gml:PrimeMeridianType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:PrimeMeridian_Template">
-      <xsl:call-template name="gml:PrimeMeridianType_Template"/>
    </xsl:template>
    <xsl:template name="gml:PrimeMeridian_Substitution">
       <gml:PrimeMeridian rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:meridianName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:meridianName"/>
-         <xsl:call-template name="gml:meridianName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:meridianName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:meridianName_Substitution">
       <gml:meridianName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:meridianID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:meridianID"/>
-         <xsl:call-template name="gml:meridianID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:meridianID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:meridianID_Substitution">
       <gml:meridianID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:greenwichLongitude">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:greenwichLongitude"/>
-         <xsl:call-template name="gml:greenwichLongitude_Template"/>
+         <xsl:call-template name="gml:AngleChoiceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:greenwichLongitude_Template">
-      <xsl:call-template name="gml:AngleChoiceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:greenwichLongitude_Substitution">
       <gml:greenwichLongitude rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:primeMeridianRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:primeMeridianRef"/>
-         <xsl:call-template name="gml:primeMeridianRef_Template"/>
+         <xsl:call-template name="gml:PrimeMeridianRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:primeMeridianRef_Template">
-      <xsl:call-template name="gml:PrimeMeridianRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:primeMeridianRef_Substitution">
       <gml:primeMeridianRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Ellipsoid">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Ellipsoid"/>
-         <xsl:call-template name="gml:Ellipsoid_Template"/>
+         <xsl:call-template name="gml:EllipsoidType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Ellipsoid_Template">
-      <xsl:call-template name="gml:EllipsoidType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Ellipsoid_Substitution">
       <gml:Ellipsoid rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidName"/>
-         <xsl:call-template name="gml:ellipsoidName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ellipsoidName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ellipsoidName_Substitution">
       <gml:ellipsoidName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidID"/>
-         <xsl:call-template name="gml:ellipsoidID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ellipsoidID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ellipsoidID_Substitution">
       <gml:ellipsoidID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:semiMajorAxis">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:semiMajorAxis"/>
-         <xsl:call-template name="gml:semiMajorAxis_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:semiMajorAxis_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:semiMajorAxis_Substitution">
       <gml:semiMajorAxis rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidRef"/>
-         <xsl:call-template name="gml:ellipsoidRef_Template"/>
+         <xsl:call-template name="gml:EllipsoidRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ellipsoidRef_Template">
-      <xsl:call-template name="gml:EllipsoidRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ellipsoidRef_Substitution">
       <gml:ellipsoidRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:secondDefiningParameter">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:secondDefiningParameter"/>
-         <xsl:call-template name="gml:secondDefiningParameter_Template"/>
+         <xsl:call-template name="gml:SecondDefiningParameterType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:secondDefiningParameter_Template">
-      <xsl:call-template name="gml:SecondDefiningParameterType_Template"/>
    </xsl:template>
    <xsl:template name="gml:secondDefiningParameter_Substitution">
       <gml:secondDefiningParameter rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:inverseFlattening">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:inverseFlattening"/>
-         <xsl:call-template name="gml:inverseFlattening_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:inverseFlattening_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:inverseFlattening_Substitution">
       <gml:inverseFlattening rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:semiMinorAxis">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:semiMinorAxis"/>
-         <xsl:call-template name="gml:semiMinorAxis_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:semiMinorAxis_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:semiMinorAxis_Substitution">
       <gml:semiMinorAxis rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_CoordinateOperation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CoordinateOperation"/>
-         <xsl:call-template name="gml:_CoordinateOperation_Template"/>
+         <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_CoordinateOperation_Template">
-      <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_CoordinateOperation_Substitution">
       <gml:_CoordinateOperation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinateOperationName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateOperationName"/>
-         <xsl:call-template name="gml:coordinateOperationName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinateOperationName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinateOperationName_Substitution">
       <gml:coordinateOperationName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinateOperationID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateOperationID"/>
-         <xsl:call-template name="gml:coordinateOperationID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinateOperationID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinateOperationID_Substitution">
       <gml:coordinateOperationID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:sourceCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:sourceCRS"/>
-         <xsl:call-template name="gml:sourceCRS_Template"/>
+         <xsl:call-template name="gml:CRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:sourceCRS_Template">
-      <xsl:call-template name="gml:CRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:sourceCRS_Substitution">
       <gml:sourceCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:targetCRS">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:targetCRS"/>
-         <xsl:call-template name="gml:targetCRS_Template"/>
+         <xsl:call-template name="gml:CRSRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:targetCRS_Template">
-      <xsl:call-template name="gml:CRSRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:targetCRS_Substitution">
       <gml:targetCRS rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:coordinateOperationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateOperationRef"/>
-         <xsl:call-template name="gml:coordinateOperationRef_Template"/>
+         <xsl:call-template name="gml:CoordinateOperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:coordinateOperationRef_Template">
-      <xsl:call-template name="gml:CoordinateOperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:coordinateOperationRef_Substitution">
       <gml:coordinateOperationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:ConcatenatedOperation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ConcatenatedOperation"/>
-         <xsl:call-template name="gml:ConcatenatedOperation_Template"/>
+         <xsl:call-template name="gml:ConcatenatedOperationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:ConcatenatedOperation_Template">
-      <xsl:call-template name="gml:ConcatenatedOperationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:ConcatenatedOperation_Substitution">
       <gml:ConcatenatedOperation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesSingleOperation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesSingleOperation"/>
-         <xsl:call-template name="gml:usesSingleOperation_Template"/>
+         <xsl:call-template name="gml:SingleOperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesSingleOperation_Template">
-      <xsl:call-template name="gml:SingleOperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesSingleOperation_Substitution">
       <gml:usesSingleOperation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:concatenatedOperationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:concatenatedOperationRef"/>
-         <xsl:call-template name="gml:concatenatedOperationRef_Template"/>
+         <xsl:call-template name="gml:ConcatenatedOperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:concatenatedOperationRef_Template">
-      <xsl:call-template name="gml:ConcatenatedOperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:concatenatedOperationRef_Substitution">
       <gml:concatenatedOperationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_SingleOperation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_SingleOperation"/>
-         <xsl:call-template name="gml:_SingleOperation_Template"/>
+         <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_SingleOperation_Template">
-      <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_SingleOperation_Substitution">
       <gml:_SingleOperation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:singleOperationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:singleOperationRef"/>
-         <xsl:call-template name="gml:singleOperationRef_Template"/>
+         <xsl:call-template name="gml:SingleOperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:singleOperationRef_Template">
-      <xsl:call-template name="gml:SingleOperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:singleOperationRef_Substitution">
       <gml:singleOperationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:PassThroughOperation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PassThroughOperation"/>
-         <xsl:call-template name="gml:PassThroughOperation_Template"/>
+         <xsl:call-template name="gml:PassThroughOperationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:PassThroughOperation_Template">
-      <xsl:call-template name="gml:PassThroughOperationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:PassThroughOperation_Substitution">
       <gml:PassThroughOperation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesOperation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesOperation"/>
-         <xsl:call-template name="gml:usesOperation_Template"/>
+         <xsl:call-template name="gml:OperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesOperation_Template">
-      <xsl:call-template name="gml:OperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesOperation_Substitution">
       <gml:usesOperation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:passThroughOperationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:passThroughOperationRef"/>
-         <xsl:call-template name="gml:passThroughOperationRef_Template"/>
+         <xsl:call-template name="gml:PassThroughOperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:passThroughOperationRef_Template">
-      <xsl:call-template name="gml:PassThroughOperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:passThroughOperationRef_Substitution">
       <gml:passThroughOperationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Operation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Operation"/>
-         <xsl:call-template name="gml:_Operation_Template"/>
+         <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Operation_Template">
-      <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Operation_Substitution">
       <gml:_Operation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:operationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationRef"/>
-         <xsl:call-template name="gml:operationRef_Template"/>
+         <xsl:call-template name="gml:OperationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:operationRef_Template">
-      <xsl:call-template name="gml:OperationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:operationRef_Substitution">
       <gml:operationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GeneralConversion">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralConversion"/>
-         <xsl:call-template name="gml:_GeneralConversion_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralConversionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GeneralConversion_Template">
-      <xsl:call-template name="gml:AbstractGeneralConversionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GeneralConversion_Substitution">
       <gml:_GeneralConversion rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:generalConversionRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:generalConversionRef"/>
-         <xsl:call-template name="gml:generalConversionRef_Template"/>
+         <xsl:call-template name="gml:GeneralConversionRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:generalConversionRef_Template">
-      <xsl:call-template name="gml:GeneralConversionRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:generalConversionRef_Substitution">
       <gml:generalConversionRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Conversion">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Conversion"/>
-         <xsl:call-template name="gml:Conversion_Template"/>
+         <xsl:call-template name="gml:ConversionType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Conversion_Template">
-      <xsl:call-template name="gml:ConversionType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Conversion_Substitution">
       <gml:Conversion rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesMethod">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesMethod"/>
-         <xsl:call-template name="gml:usesMethod_Template"/>
+         <xsl:call-template name="gml:OperationMethodRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesMethod_Template">
-      <xsl:call-template name="gml:OperationMethodRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesMethod_Substitution">
       <gml:usesMethod rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesValue">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesValue"/>
-         <xsl:call-template name="gml:usesValue_Template"/>
+         <xsl:call-template name="gml:ParameterValueType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesValue_Template">
-      <xsl:call-template name="gml:ParameterValueType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesValue_Substitution">
       <gml:usesValue rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:conversionRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:conversionRef"/>
-         <xsl:call-template name="gml:conversionRef_Template"/>
+         <xsl:call-template name="gml:ConversionRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:conversionRef_Template">
-      <xsl:call-template name="gml:ConversionRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:conversionRef_Substitution">
       <gml:conversionRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GeneralTransformation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralTransformation"/>
-         <xsl:call-template name="gml:_GeneralTransformation_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralTransformationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GeneralTransformation_Template">
-      <xsl:call-template name="gml:AbstractGeneralTransformationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GeneralTransformation_Substitution">
       <gml:_GeneralTransformation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:generalTransformationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:generalTransformationRef"/>
-         <xsl:call-template name="gml:generalTransformationRef_Template"/>
+         <xsl:call-template name="gml:GeneralTransformationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:generalTransformationRef_Template">
-      <xsl:call-template name="gml:GeneralTransformationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:generalTransformationRef_Substitution">
       <gml:generalTransformationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Transformation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Transformation"/>
-         <xsl:call-template name="gml:Transformation_Template"/>
+         <xsl:call-template name="gml:TransformationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Transformation_Template">
-      <xsl:call-template name="gml:TransformationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Transformation_Substitution">
       <gml:Transformation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:transformationRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:transformationRef"/>
-         <xsl:call-template name="gml:transformationRef_Template"/>
+         <xsl:call-template name="gml:TransformationRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:transformationRef_Template">
-      <xsl:call-template name="gml:TransformationRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:transformationRef_Substitution">
       <gml:transformationRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_generalParameterValue">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_generalParameterValue"/>
-         <xsl:call-template name="gml:_generalParameterValue_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralParameterValueType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_generalParameterValue_Template">
-      <xsl:call-template name="gml:AbstractGeneralParameterValueType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_generalParameterValue_Substitution">
       <gml:_generalParameterValue rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:parameterValue">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterValue"/>
-         <xsl:call-template name="gml:parameterValue_Template"/>
+         <xsl:call-template name="gml:ParameterValueType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:parameterValue_Template">
-      <xsl:call-template name="gml:ParameterValueType_Template"/>
    </xsl:template>
    <xsl:template name="gml:parameterValue_Substitution">
       <gml:parameterValue rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:value">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:value"/>
-         <xsl:call-template name="gml:value_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:value_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:value_Substitution">
       <gml:value rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:dmsAngleValue">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dmsAngleValue"/>
-         <xsl:call-template name="gml:dmsAngleValue_Template"/>
+         <xsl:call-template name="gml:DMSAngleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:dmsAngleValue_Template">
-      <xsl:call-template name="gml:DMSAngleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:dmsAngleValue_Substitution">
       <gml:dmsAngleValue rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:valueList">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueList"/>
-         <xsl:call-template name="gml:valueList_Template"/>
+         <xsl:call-template name="gml:MeasureListType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:valueList_Template">
-      <xsl:call-template name="gml:MeasureListType_Template"/>
    </xsl:template>
    <xsl:template name="gml:valueList_Substitution">
       <gml:valueList rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:valueOfParameter">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueOfParameter"/>
-         <xsl:call-template name="gml:valueOfParameter_Template"/>
+         <xsl:call-template name="gml:OperationParameterRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:valueOfParameter_Template">
-      <xsl:call-template name="gml:OperationParameterRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:valueOfParameter_Substitution">
       <gml:valueOfParameter rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:parameterValueGroup">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterValueGroup"/>
-         <xsl:call-template name="gml:parameterValueGroup_Template"/>
+         <xsl:call-template name="gml:ParameterValueGroupType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:parameterValueGroup_Template">
-      <xsl:call-template name="gml:ParameterValueGroupType_Template"/>
    </xsl:template>
    <xsl:template name="gml:parameterValueGroup_Substitution">
       <gml:parameterValueGroup rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:includesValue">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesValue"/>
-         <xsl:call-template name="gml:includesValue_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralParameterValueType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:includesValue_Template">
-      <xsl:call-template name="gml:AbstractGeneralParameterValueType_Template"/>
    </xsl:template>
    <xsl:template name="gml:includesValue_Substitution">
       <gml:includesValue rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:valuesOfGroup">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valuesOfGroup"/>
-         <xsl:call-template name="gml:valuesOfGroup_Template"/>
+         <xsl:call-template name="gml:OperationParameterGroupRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:valuesOfGroup_Template">
-      <xsl:call-template name="gml:OperationParameterGroupRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:valuesOfGroup_Substitution">
       <gml:valuesOfGroup rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:OperationMethod">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OperationMethod"/>
-         <xsl:call-template name="gml:OperationMethod_Template"/>
+         <xsl:call-template name="gml:OperationMethodType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:OperationMethod_Template">
-      <xsl:call-template name="gml:OperationMethodType_Template"/>
    </xsl:template>
    <xsl:template name="gml:OperationMethod_Substitution">
       <gml:OperationMethod rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:methodName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:methodName"/>
-         <xsl:call-template name="gml:methodName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:methodName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:methodName_Substitution">
       <gml:methodName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:methodID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:methodID"/>
-         <xsl:call-template name="gml:methodID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:methodID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:methodID_Substitution">
       <gml:methodID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:methodFormula">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:methodFormula"/>
-         <xsl:call-template name="gml:methodFormula_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:methodFormula_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:methodFormula_Substitution">
       <gml:methodFormula rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:usesParameter">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesParameter"/>
-         <xsl:call-template name="gml:usesParameter_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:usesParameter_Template">
-      <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:usesParameter_Substitution">
       <gml:usesParameter rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:operationMethodRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationMethodRef"/>
-         <xsl:call-template name="gml:operationMethodRef_Template"/>
+         <xsl:call-template name="gml:OperationMethodRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:operationMethodRef_Template">
-      <xsl:call-template name="gml:OperationMethodRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:operationMethodRef_Substitution">
       <gml:operationMethodRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_GeneralOperationParameter">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralOperationParameter"/>
-         <xsl:call-template name="gml:_GeneralOperationParameter_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralOperationParameterType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_GeneralOperationParameter_Template">
-      <xsl:call-template name="gml:AbstractGeneralOperationParameterType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_GeneralOperationParameter_Substitution">
       <gml:_GeneralOperationParameter rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:abstractGeneralOperationParameterRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:abstractGeneralOperationParameterRef"/>
-         <xsl:call-template name="gml:abstractGeneralOperationParameterRef_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:abstractGeneralOperationParameterRef_Template">
-      <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:abstractGeneralOperationParameterRef_Substitution">
       <gml:abstractGeneralOperationParameterRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:OperationParameter">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OperationParameter"/>
-         <xsl:call-template name="gml:OperationParameter_Template"/>
+         <xsl:call-template name="gml:OperationParameterType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:OperationParameter_Template">
-      <xsl:call-template name="gml:OperationParameterType_Template"/>
    </xsl:template>
    <xsl:template name="gml:OperationParameter_Substitution">
       <gml:OperationParameter rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:parameterName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterName"/>
-         <xsl:call-template name="gml:parameterName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:parameterName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:parameterName_Substitution">
       <gml:parameterName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:parameterID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterID"/>
-         <xsl:call-template name="gml:parameterID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:parameterID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:parameterID_Substitution">
       <gml:parameterID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:operationParameterRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationParameterRef"/>
-         <xsl:call-template name="gml:operationParameterRef_Template"/>
+         <xsl:call-template name="gml:OperationParameterRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:operationParameterRef_Template">
-      <xsl:call-template name="gml:OperationParameterRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:operationParameterRef_Substitution">
       <gml:operationParameterRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:OperationParameterGroup">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OperationParameterGroup"/>
-         <xsl:call-template name="gml:OperationParameterGroup_Template"/>
+         <xsl:call-template name="gml:OperationParameterGroupType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:OperationParameterGroup_Template">
-      <xsl:call-template name="gml:OperationParameterGroupType_Template"/>
    </xsl:template>
    <xsl:template name="gml:OperationParameterGroup_Substitution">
       <gml:OperationParameterGroup rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:groupName">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:groupName"/>
-         <xsl:call-template name="gml:groupName_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:groupName_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:groupName_Substitution">
       <gml:groupName rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:groupID">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:groupID"/>
-         <xsl:call-template name="gml:groupID_Template"/>
+         <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:groupID_Template">
-      <xsl:call-template name="gml:IdentifierType_Template"/>
    </xsl:template>
    <xsl:template name="gml:groupID_Substitution">
       <gml:groupID rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:includesParameter">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesParameter"/>
-         <xsl:call-template name="gml:includesParameter_Template"/>
+         <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:includesParameter_Template">
-      <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:includesParameter_Substitution">
       <gml:includesParameter rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:operationParameterGroupRef">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationParameterGroupRef"/>
-         <xsl:call-template name="gml:operationParameterGroupRef_Template"/>
+         <xsl:call-template name="gml:OperationParameterRefType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:operationParameterGroupRef_Template">
-      <xsl:call-template name="gml:OperationParameterRefType_Template"/>
    </xsl:template>
    <xsl:template name="gml:operationParameterGroupRef_Substitution">
       <gml:operationParameterGroupRef rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_positionalAccuracy">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_positionalAccuracy"/>
-         <xsl:call-template name="gml:_positionalAccuracy_Template"/>
+         <xsl:call-template name="gml:AbstractPositionalAccuracyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_positionalAccuracy_Template">
-      <xsl:call-template name="gml:AbstractPositionalAccuracyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_positionalAccuracy_Substitution">
       <gml:_positionalAccuracy rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:measureDescription">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:measureDescription"/>
-         <xsl:call-template name="gml:measureDescription_Template"/>
+         <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:measureDescription_Template">
-      <xsl:call-template name="gml:CodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:measureDescription_Substitution">
       <gml:measureDescription rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:absoluteExternalPositionalAccuracy">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:absoluteExternalPositionalAccuracy"/>
-         <xsl:call-template name="gml:absoluteExternalPositionalAccuracy_Template"/>
+         <xsl:call-template name="gml:AbsoluteExternalPositionalAccuracyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:absoluteExternalPositionalAccuracy_Template">
-      <xsl:call-template name="gml:AbsoluteExternalPositionalAccuracyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:absoluteExternalPositionalAccuracy_Substitution">
       <gml:absoluteExternalPositionalAccuracy rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:relativeInternalPositionalAccuracy">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:relativeInternalPositionalAccuracy"/>
-         <xsl:call-template name="gml:relativeInternalPositionalAccuracy_Template"/>
+         <xsl:call-template name="gml:RelativeInternalPositionalAccuracyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:relativeInternalPositionalAccuracy_Template">
-      <xsl:call-template name="gml:RelativeInternalPositionalAccuracyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:relativeInternalPositionalAccuracy_Substitution">
       <gml:relativeInternalPositionalAccuracy rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:result">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:result"/>
-         <xsl:call-template name="gml:result_Template"/>
+         <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:result_Template">
-      <xsl:call-template name="gml:MeasureType_Template"/>
    </xsl:template>
    <xsl:template name="gml:result_Substitution">
       <gml:result rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:covarianceMatrix">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:covarianceMatrix"/>
-         <xsl:call-template name="gml:covarianceMatrix_Template"/>
+         <xsl:call-template name="gml:CovarianceMatrixType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:covarianceMatrix_Template">
-      <xsl:call-template name="gml:CovarianceMatrixType_Template"/>
    </xsl:template>
    <xsl:template name="gml:covarianceMatrix_Substitution">
       <gml:covarianceMatrix rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:includesElement">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesElement"/>
-         <xsl:call-template name="gml:includesElement_Template"/>
+         <xsl:call-template name="gml:CovarianceElementType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:includesElement_Template">
-      <xsl:call-template name="gml:CovarianceElementType_Template"/>
    </xsl:template>
    <xsl:template name="gml:includesElement_Substitution">
       <gml:includesElement rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:using">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:using"/>
-         <xsl:call-template name="gml:using_Template"/>
+         <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:using_Template">
-      <xsl:call-template name="gml:FeaturePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:using_Substitution">
       <gml:using rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:target">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:target"/>
-         <xsl:call-template name="gml:target_Template"/>
+         <xsl:call-template name="gml:TargetPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:target_Template">
-      <xsl:call-template name="gml:TargetPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:target_Substitution">
       <gml:target rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:subject">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:subject"/>
-         <xsl:call-template name="gml:subject_Template"/>
+         <xsl:call-template name="gml:TargetPropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:subject_Template">
-      <xsl:call-template name="gml:TargetPropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:subject_Substitution">
       <gml:subject rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:resultOf">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:resultOf"/>
-         <xsl:call-template name="gml:resultOf_Template"/>
+         <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:resultOf_Template">
-      <xsl:call-template name="gml:AssociationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:resultOf_Substitution">
       <gml:resultOf rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Observation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Observation"/>
-         <xsl:call-template name="gml:Observation_Template"/>
+         <xsl:call-template name="gml:ObservationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Observation_Template">
-      <xsl:call-template name="gml:ObservationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Observation_Substitution">
       <gml:Observation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectedObservation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectedObservation"/>
-         <xsl:call-template name="gml:DirectedObservation_Template"/>
+         <xsl:call-template name="gml:DirectedObservationType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DirectedObservation_Template">
-      <xsl:call-template name="gml:DirectedObservationType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DirectedObservation_Substitution">
       <gml:DirectedObservation rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectedObservationAtDistance">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectedObservationAtDistance"/>
-         <xsl:call-template name="gml:DirectedObservationAtDistance_Template"/>
+         <xsl:call-template name="gml:DirectedObservationAtDistanceType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:DirectedObservationAtDistance_Template">
-      <xsl:call-template name="gml:DirectedObservationAtDistanceType_Template"/>
    </xsl:template>
    <xsl:template name="gml:DirectedObservationAtDistance_Substitution">
       <gml:DirectedObservationAtDistance rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:defaultStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:defaultStyle"/>
-         <xsl:call-template name="gml:defaultStyle_Template"/>
+         <xsl:call-template name="gml:DefaultStylePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:defaultStyle_Template">
-      <xsl:call-template name="gml:DefaultStylePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:defaultStyle_Substitution">
       <gml:defaultStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_Style">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Style"/>
-         <xsl:call-template name="gml:_Style_Template"/>
+         <xsl:call-template name="gml:AbstractStyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_Style_Template">
-      <xsl:call-template name="gml:AbstractStyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_Style_Substitution">
       <gml:_Style rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:Style">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Style"/>
-         <xsl:call-template name="gml:Style_Template"/>
+         <xsl:call-template name="gml:StyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:Style_Template">
-      <xsl:call-template name="gml:StyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:Style_Substitution">
       <gml:Style rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:featureStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureStyle"/>
-         <xsl:call-template name="gml:featureStyle_Template"/>
+         <xsl:call-template name="gml:FeatureStylePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:featureStyle_Template">
-      <xsl:call-template name="gml:FeatureStylePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:featureStyle_Substitution">
       <gml:featureStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:FeatureStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:FeatureStyle"/>
-         <xsl:call-template name="gml:FeatureStyle_Template"/>
+         <xsl:call-template name="gml:FeatureStyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:FeatureStyle_Template">
-      <xsl:call-template name="gml:FeatureStyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:FeatureStyle_Substitution">
       <gml:FeatureStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:geometryStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geometryStyle"/>
-         <xsl:call-template name="gml:geometryStyle_Template"/>
+         <xsl:call-template name="gml:GeometryStylePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:geometryStyle_Template">
-      <xsl:call-template name="gml:GeometryStylePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:geometryStyle_Substitution">
       <gml:geometryStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GeometryStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeometryStyle"/>
-         <xsl:call-template name="gml:GeometryStyle_Template"/>
+         <xsl:call-template name="gml:GeometryStyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GeometryStyle_Template">
-      <xsl:call-template name="gml:GeometryStyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GeometryStyle_Substitution">
       <gml:GeometryStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:topologyStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topologyStyle"/>
-         <xsl:call-template name="gml:topologyStyle_Template"/>
+         <xsl:call-template name="gml:TopologyStylePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:topologyStyle_Template">
-      <xsl:call-template name="gml:TopologyStylePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:topologyStyle_Substitution">
       <gml:topologyStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TopologyStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopologyStyle"/>
-         <xsl:call-template name="gml:TopologyStyle_Template"/>
+         <xsl:call-template name="gml:TopologyStyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TopologyStyle_Template">
-      <xsl:call-template name="gml:TopologyStyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TopologyStyle_Substitution">
       <gml:TopologyStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:labelStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:labelStyle"/>
-         <xsl:call-template name="gml:labelStyle_Template"/>
+         <xsl:call-template name="gml:LabelStylePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:labelStyle_Template">
-      <xsl:call-template name="gml:LabelStylePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:labelStyle_Substitution">
       <gml:labelStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:LabelStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LabelStyle"/>
-         <xsl:call-template name="gml:LabelStyle_Template"/>
+         <xsl:call-template name="gml:LabelStyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:LabelStyle_Template">
-      <xsl:call-template name="gml:LabelStyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:LabelStyle_Substitution">
       <gml:LabelStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:graphStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:graphStyle"/>
-         <xsl:call-template name="gml:graphStyle_Template"/>
+         <xsl:call-template name="gml:GraphStylePropertyType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:graphStyle_Template">
-      <xsl:call-template name="gml:GraphStylePropertyType_Template"/>
    </xsl:template>
    <xsl:template name="gml:graphStyle_Substitution">
       <gml:graphStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:GraphStyle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GraphStyle"/>
-         <xsl:call-template name="gml:GraphStyle_Template"/>
+         <xsl:call-template name="gml:GraphStyleType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:GraphStyle_Template">
-      <xsl:call-template name="gml:GraphStyleType_Template"/>
    </xsl:template>
    <xsl:template name="gml:GraphStyle_Substitution">
       <gml:GraphStyle rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:symbol">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:symbol"/>
-         <xsl:call-template name="gml:symbol_Template"/>
+         <xsl:call-template name="gml:SymbolType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:symbol_Template">
-      <xsl:call-template name="gml:SymbolType_Template"/>
    </xsl:template>
    <xsl:template name="gml:symbol_Substitution">
       <gml:symbol rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimeReferenceSystem">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeReferenceSystem"/>
-         <xsl:call-template name="gml:_TimeReferenceSystem_Template"/>
+         <xsl:call-template name="gml:AbstractTimeReferenceSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimeReferenceSystem_Template">
-      <xsl:call-template name="gml:AbstractTimeReferenceSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimeReferenceSystem_Substitution">
       <gml:_TimeReferenceSystem rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeCoordinateSystem">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeCoordinateSystem"/>
-         <xsl:call-template name="gml:TimeCoordinateSystem_Template"/>
+         <xsl:call-template name="gml:TimeCoordinateSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeCoordinateSystem_Template">
-      <xsl:call-template name="gml:TimeCoordinateSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeCoordinateSystem_Substitution">
       <gml:TimeCoordinateSystem rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeOrdinalReferenceSystem">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeOrdinalReferenceSystem"/>
-         <xsl:call-template name="gml:TimeOrdinalReferenceSystem_Template"/>
+         <xsl:call-template name="gml:TimeOrdinalReferenceSystemType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeOrdinalReferenceSystem_Template">
-      <xsl:call-template name="gml:TimeOrdinalReferenceSystemType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeOrdinalReferenceSystem_Substitution">
       <gml:TimeOrdinalReferenceSystem rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeOrdinalEra">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeOrdinalEra"/>
-         <xsl:call-template name="gml:TimeOrdinalEra_Template"/>
+         <xsl:call-template name="gml:TimeOrdinalEraType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeOrdinalEra_Template">
-      <xsl:call-template name="gml:TimeOrdinalEraType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeOrdinalEra_Substitution">
       <gml:TimeOrdinalEra rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeCalendar">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeCalendar"/>
-         <xsl:call-template name="gml:TimeCalendar_Template"/>
+         <xsl:call-template name="gml:TimeCalendarType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeCalendar_Template">
-      <xsl:call-template name="gml:TimeCalendarType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeCalendar_Substitution">
       <gml:TimeCalendar rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeCalendarEra">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeCalendarEra"/>
-         <xsl:call-template name="gml:TimeCalendarEra_Template"/>
+         <xsl:call-template name="gml:TimeCalendarEraType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeCalendarEra_Template">
-      <xsl:call-template name="gml:TimeCalendarEraType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeCalendarEra_Substitution">
       <gml:TimeCalendarEra rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeClock">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeClock"/>
-         <xsl:call-template name="gml:TimeClock_Template"/>
+         <xsl:call-template name="gml:TimeClockType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeClock_Template">
-      <xsl:call-template name="gml:TimeClockType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeClock_Substitution">
       <gml:TimeClock rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeTopologyComplex">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeTopologyComplex"/>
-         <xsl:call-template name="gml:TimeTopologyComplex_Template"/>
+         <xsl:call-template name="gml:TimeTopologyComplexType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeTopologyComplex_Template">
-      <xsl:call-template name="gml:TimeTopologyComplexType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeTopologyComplex_Substitution">
       <gml:TimeTopologyComplex rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:_TimeTopologyPrimitive">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeTopologyPrimitive"/>
-         <xsl:call-template name="gml:_TimeTopologyPrimitive_Template"/>
+         <xsl:call-template name="gml:AbstractTimeTopologyPrimitiveType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:_TimeTopologyPrimitive_Template">
-      <xsl:call-template name="gml:AbstractTimeTopologyPrimitiveType_Template"/>
    </xsl:template>
    <xsl:template name="gml:_TimeTopologyPrimitive_Substitution">
       <gml:_TimeTopologyPrimitive rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeNode">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeNode"/>
-         <xsl:call-template name="gml:TimeNode_Template"/>
+         <xsl:call-template name="gml:TimeNodeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeNode_Template">
-      <xsl:call-template name="gml:TimeNodeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeNode_Substitution">
       <gml:TimeNode rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:TimeEdge">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeEdge"/>
-         <xsl:call-template name="gml:TimeEdge_Template"/>
+         <xsl:call-template name="gml:TimeEdgeType_Template"/>
       </owl:NamedIndividual>
-   </xsl:template>
-   <xsl:template name="gml:TimeEdge_Template">
-      <xsl:call-template name="gml:TimeEdgeType_Template"/>
    </xsl:template>
    <xsl:template name="gml:TimeEdge_Substitution">
       <gml:TimeEdge rdf:resource="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
@@ -12543,7 +11132,7 @@
       <core:mimeType rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:mimeType">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="core:mimeType"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12569,7 +11158,7 @@
       <bldg:class rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:class">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12578,7 +11167,7 @@
       <bldg:function rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:function">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12587,7 +11176,7 @@
       <bldg:usage rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:usage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12606,7 +11195,7 @@
       <bldg:roofType rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:roofType">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:roofType"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12615,7 +11204,7 @@
       <bldg:measuredHeight rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:measuredHeight">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:measuredHeight"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -12634,7 +11223,7 @@
       <bldg:storeyHeightsAboveGround rdf:resource="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:storeyHeightsAboveGround">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:storeyHeightsAboveGround"/>
          <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
       </owl:NamedIndividual>
@@ -12643,7 +11232,7 @@
       <bldg:storeyHeightsBelowGround rdf:resource="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:storeyHeightsBelowGround">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:storeyHeightsBelowGround"/>
          <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
       </owl:NamedIndividual>
@@ -12730,19 +11319,19 @@
       <bldg:hasBuildingPart rdf:resource="{if (@gml:id) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:class">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:function">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:usage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12772,19 +11361,19 @@
       <bldg:hasBuildingInstallation rdf:resource="{if (@gml:id) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:class">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:function">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:usage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12844,19 +11433,19 @@
       <bldg:has_GenericApplicationPropertyOfDoor rdf:resource="{if (@gml:id) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:class">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:function">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:usage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12871,19 +11460,19 @@
       <bldg:has_GenericApplicationPropertyOfRoom rdf:resource="{if (@gml:id) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:class">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:function">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:usage">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12911,7 +11500,7 @@
       <gml:speed rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:speed">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:speed"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -12923,7 +11512,7 @@
       <gml:acceleration rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:acceleration">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:acceleration"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -12932,7 +11521,7 @@
       <gml:elevation rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:elevation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:elevation"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -13027,7 +11616,7 @@
       <gml:lowerCorner rdf:resource="{concat( 'gml:DirectPositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:lowerCorner">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:lowerCorner"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
@@ -13036,7 +11625,7 @@
       <gml:upperCorner rdf:resource="{concat( 'gml:DirectPositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:upperCorner">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:upperCorner"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
@@ -13173,7 +11762,7 @@
       <gml:beginPosition rdf:resource="{concat( 'gml:TimePositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:beginPosition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:TimePositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimePositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:beginPosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
@@ -13185,7 +11774,7 @@
       <gml:endPosition rdf:resource="{concat( 'gml:TimePositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:endPosition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:TimePositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimePositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:endPosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
@@ -13206,7 +11795,7 @@
       <gml:DirectionKeyword rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectionKeyword">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectionKeyword"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -13215,7 +11804,7 @@
       <gml:DirectionString rdf:resource="{concat( 'gml:StringOrRefType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectionString">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectionString"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
@@ -13227,7 +11816,7 @@
       <gml:horizontalAngle rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:horizontalAngle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:horizontalAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -13236,7 +11825,7 @@
       <gml:verticalAngle rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalAngle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -13400,13 +11989,13 @@
       <gml:normal rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:normal">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:normal"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:normal">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:normal"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -13415,7 +12004,7 @@
       <gml:radius rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:radius">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:radius"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -13424,7 +12013,7 @@
       <gml:startAngle rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:startAngle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:startAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -13433,7 +12022,7 @@
       <gml:endAngle rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:endAngle">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:endAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -13446,7 +12035,7 @@
    <gml:distance rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:distance">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:distance"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -13455,19 +12044,19 @@
       <gml:refDirection rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:refDirection">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:refDirection"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:location">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:location"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:refDirection">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:refDirection"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -13507,7 +12096,7 @@
       <gml:vectorAtStart rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:vectorAtStart">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:vectorAtStart"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -13516,7 +12105,7 @@
       <gml:vectorAtEnd rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:vectorAtEnd">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:vectorAtEnd"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -13592,7 +12181,7 @@
       <gml:maxLength rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:maxLength">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:maxLength"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -13664,7 +12253,7 @@
       <gml:sequenceRule rdf:resource="{concat( 'gml:SequenceRuleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:sequenceRule">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:SequenceRuleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:SequenceRuleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:sequenceRule"/>
          <xsl:call-template name="gml:SequenceRuleType_Template"/>
       </owl:NamedIndividual>
@@ -13742,7 +12331,7 @@
       <gml:offsetVector rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:offsetVector">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:offsetVector"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -14174,7 +12763,7 @@
       </gml:direction>
    </xsl:template>
    <xsl:template match="//gml:distance">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:distance"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -14209,7 +12798,7 @@
       <gml:spatialResolution rdf:resource="{concat( 'gml:ScaleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:spatialResolution">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:ScaleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:ScaleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:spatialResolution"/>
          <xsl:call-template name="gml:ScaleType_Template"/>
       </owl:NamedIndividual>
@@ -14218,7 +12807,7 @@
       <gml:styleVariation rdf:resource="{concat( 'gml:StyleVariationType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:styleVariation">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:StyleVariationType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StyleVariationType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:styleVariation"/>
          <xsl:call-template name="gml:StyleVariationType_Template"/>
       </owl:NamedIndividual>
@@ -14309,7 +12898,7 @@
       <gml:originPosition rdf:resource="{concat( 'gml:TimePositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:originPosition">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:TimePositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimePositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:originPosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
@@ -14318,7 +12907,7 @@
       <gml:interval rdf:resource="{concat( 'gml:TimeIntervalLengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:interval">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:TimeIntervalLengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimeIntervalLengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:interval"/>
          <xsl:call-template name="gml:TimeIntervalLengthType_Template"/>
       </owl:NamedIndividual>
@@ -14348,7 +12937,7 @@
       <gml:referenceEvent rdf:resource="{concat( 'gml:StringOrRefType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:referenceEvent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:referenceEvent"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
@@ -14370,7 +12959,7 @@
       <gml:hasTimeCalendarEra rdf:resource="{if (@gml:id) then @gml:id else concat( local-name(), '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:referenceEvent">
-      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies/" rdf:about="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:referenceEvent"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>

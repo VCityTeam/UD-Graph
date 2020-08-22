@@ -13,10 +13,9 @@
               xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
               xmlns:smil20="http://www.w3.org/2001/SMIL20/"
               xmlns:xlink="http://www.w3.org/1999/xlink"
-              xmlns:liris="https://liris.cnrs.fr/ontologies/">
+              xmlns:liris="https://liris.cnrs.fr/ontologies#">
 <xsl:output indent="yes"/>
 <xsl:strip-space elements="*"/>
-<xsl:variable name="namespace" select="//@targetNamespace"/>
 
 <!-- ================================================================================================= -->
 <!-- ==================================== Root Transformations ======================================= -->
@@ -33,16 +32,14 @@
       <xsl:attribute name="elements">*</xsl:attribute>
     </xsl:element>
     <xsl:element name="xsl:variable">
-      <xsl:attribute name="name">namespace</xsl:attribute>
-      <xsl:attribute name="select">//@xmlns</xsl:attribute>
+      <xsl:attribute name="name" select="'namespace'"/>
+      <xsl:attribute name="select">'https://liris.cnrs.fr/ontologies#'</xsl:attribute>
     </xsl:element>
 
     <xsl:element name="xsl:template">
       <xsl:attribute name="match">/</xsl:attribute>
       <rdf:RDF>
-        <owl:Ontology>
-          <xsl:attribute name="rdf:about">{$namespace}</xsl:attribute>
-        </owl:Ontology>
+        <owl:Ontology rdf:about="https://liris.cnrs.fr/ontologies#"/>
         <xsl:element name="xsl:apply-templates">
           <xsl:attribute name="select">//*</xsl:attribute>
         </xsl:element>
