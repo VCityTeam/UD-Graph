@@ -8,26 +8,26 @@ I would like to thank my internship supervisors, John Samuel, Gilles Gesquiére,
 
 1. **Foreword 1**
 2. **Introduction**
-  1. _General Context_
-  2. _Urban Data Within Graphs and Ontologies_
+   2.1. _General Context_
+   2.2. _Urban Data Within Graphs and Ontologies_
 3. **State of the Art**
-  1. _Data Conversion Techniques_
-  2. _Ontology Generation Approaches_
-  3. _Existing Ontologies and Query Frameworks_
-  4. _Synthesis of Works_
+   3.1. _Data Conversion Techniques_
+   3.2. _Ontology Generation Approaches_
+   3.3. _Existing Ontologies and Query Frameworks_
+   3.4. _Synthesis of Works_
 4. **From CityGML Urban Data to Linked Data: A Proposed Approach**
-  1. _Approach Structure and Design_
-  2. _Transforming CityGML Instances into RDF_
-  3. _Generating a CityGML Ontology from XML Schema_
-  4. _Integrating GeoSPARQL_
+   4.1. _Approach Structure and Design_
+   4.2. _Transforming CityGML Instances into RDF_
+   4.3. _Generating a CityGML Ontology from XML Schema_
+   4.4. _Integrating GeoSPARQL_
 5. **Results**
-  1. _"CityOWL" Ontology_
-  2. _Generated Dataset_
-  3. _Query Results_
+   5.1. _"CityOWL" Ontology_
+   5.2. _Generated Dataset_
+   5.3. _Query Results_
 6. **Conclusion and Future Work**
-  1. _Synthesis of Contribution_
-  2. _Perspectives_
-  3. _Professional and Personal Assessment_
+   6.1. _Synthesis of Contribution_
+   6.2. _Perspectives_
+   6.3. _Professional and Personal Assessment_
 7. **References**
 
 
