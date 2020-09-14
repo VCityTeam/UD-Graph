@@ -6,7 +6,7 @@ I would like to thank my internship supervisors, John Samuel, Gilles Gesquiére,
 
 ## Table of Contents
 
-1. **Foreword 1**
+1. **Foreword**
 2. **Introduction**
    1. _General Context_
    2. _Urban Data Within Graphs and Ontologies_
