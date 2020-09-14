@@ -54,13 +54,15 @@ A possible approach to this problem is to implement semantic web technologies an
 
 ### 2.2. Urban Data Within Graphs and Ontologies
 
- Resource Description Framework (RDF) is a standard model for linked data interchange information on the Web. Its structure consists of sets of assertions called triples. Triples are composed of subjects, predicates, and objects (fig. 1) where the subject is the topic of the assertion, the predicate describes the relationship between the subject and object, and the object is either another subject or a primitive datum such as a string or integer. With this structure, we can create a graph to describe the relationships between points of information by using the subjects and objects as nodes and the predicates as the edges between the nodes.
-![](figure1)
+Resource Description Framework (RDF) is a standard model for linked data interchange information on the Web. Its structure consists of sets of assertions called triples. Triples are composed of subjects, predicates, and objects (fig. 1) where the subject is the topic of the assertion, the predicate describes the relationship between the subject and object, and the object is either another subject or a primitive datum such as a string or integer. With this structure, we can create a graph to describe the relationships between points of information by using the subjects and objects as nodes and the predicates as the edges between the nodes.
+
+![](/figure1.png)
 
 The semantic web builds on the framework laid out with RDF. RDF Schema (RDFS) and the Web Ontology Language (OWL) allow us to add context to RDF triples. Categories or types of objects are described with _Classes_, their instances are called _Individuals_, their characteristics are called _Datatypes_, and the relationships between all these concepts are called _Properties_ (fig. 2). Although research in implementing this semantic web stack are still ongoing, several research efforts have already been made [1], [2], [4]–[7] in representing geospatial and urban data in linked data and ontological formats. Furthermore, there is an official semantic web resources proposed by the OGC for representing this data: GeoSPARQL – a geospatial ontology and a functional extension to the RDF query language SPARQL. However, none of these approaches provide a semantic representation of CityGML&#39;s features nor a method for converting CityGML features into RDF/OWL.
 
-![](figure2)
- The SPARQL Protocol and RDF Query Language (SPARQL) is one of, if not, the most common means of querying RDF data. Generally, queries are SQL-like as they utilize SELECT-WHERE statements to extract data from RDF. Queries are formulated in a triple structure - like RDF - with the intention of returning statements that match the patterns denoted in the query. The GeoSPARQL extension to these queries adds spatial functions, such as _geof:sfIntersects_, and _geof:sfOverlaps_, that return datum which satisfy the spatial relations described by these functions, giving us a powerful tool for retrieving and analyzing the CityGML data after conversion.
+![](/figure2.png)
+
+The SPARQL Protocol and RDF Query Language (SPARQL) is one of, if not, the most common means of querying RDF data. Generally, queries are SQL-like as they utilize SELECT-WHERE statements to extract data from RDF. Queries are formulated in a triple structure - like RDF - with the intention of returning statements that match the patterns denoted in the query. The GeoSPARQL extension to these queries adds spatial functions, such as _geof:sfIntersects_, and _geof:sfOverlaps_, that return datum which satisfy the spatial relations described by these functions, giving us a powerful tool for retrieving and analyzing the CityGML data after conversion.
 
 This report will enumerate the work done by exploring the previously mentioned proposal as follows: Section 3 will provide a description of the state of the art of converting geospatial – and specifically GML/CityGML – data into linked data, and how it can be queried. Section 4 proposes the conception and development of a proof of concept tool to convert CityGML information into linked data and its experimentation during the project. Section 5 will summarize the resulting semantic dataset produced by the tool and the queries utilized in the experimentation of the data. Finally, section 6 will conclude with a synthesis of the results and perspectives gained from the project.
 
@@ -72,8 +74,9 @@ In order to represent GML and CityGML as linked data, several approaches have be
 1. Direct conversion of GML/CityGML data into RDF.
 2. Generation of an RDF graph from CityGML data, based on the rules and structure of the CityGML "conceptual" model.
 
- In addition, several approaches exist for the generation of a supporting CityGML ontology. To explore these avenues, we will look at the differences in data generation with and without using the CityGML model, how existing ontologies could be used to enrich the resulting data, which approaches could be used for the creation of an ontology from GML/CityGML, and finally, what methods exist for the generation and application of spatial queries over the resulting multidimensional dataset.
-![](figure3)
+In addition, several approaches exist for the generation of a supporting CityGML ontology. To explore these avenues, we will look at the differences in data generation with and without using the CityGML model, how existing ontologies could be used to enrich the resulting data, which approaches could be used for the creation of an ontology from GML/CityGML, and finally, what methods exist for the generation and application of spatial queries over the resulting multidimensional dataset.
+
+![](/figure3.png)
 
 
 ### 3.1. Data Conversion Techniques
@@ -104,11 +107,12 @@ The assumed triple structure of GML is as follows:
 1. Each even depth XML element represents an RDF subject.
 2. Each odd depth element is a predicate that contains either datatype values or references to other RDF subjects.
 
- However, in CityGML, there are occasionally attributes at odd depths that denote important information. For example, in Fig. 4, an odd depth element has an attribute value _uom_. The transformation would result in two RDF subjects: one for the _bldg:BuildingPart_ and another for the _gml:Solid_. In Fig. 5, this transformation does preserve the _bldg:measuredHeight_ value but the &#39;_uom="#m"_&#39; attribute is lost since its parent element is at an uneven depth. Note that the depth of an element is measured from 0; first level elements are considered as depth 0. The proposal deals with these attributes by implementing hard coded mapping patterns for them, which could be done for CityGML instances such as this.
-![](figure4)
-![](figure5)
+However, in CityGML, there are occasionally attributes at odd depths that denote important information. For example, in Fig. 4, an odd depth element has an attribute value _uom_. The transformation would result in two RDF subjects: one for the _bldg:BuildingPart_ and another for the _gml:Solid_. In Fig. 5, this transformation does preserve the _bldg:measuredHeight_ value but the &#39;_uom="#m"_&#39; attribute is lost since its parent element is at an uneven depth. Note that the depth of an element is measured from 0; first level elements are considered as depth 0. The proposal deals with these attributes by implementing hard coded mapping patterns for them, which could be done for CityGML instances such as this.
 
- The fourth instance conversion approach was created in [13] by Marios Bekatoros utilizing [9]. The tool created has a user-friendly web Java EE webserver that extended the GML to RDF stylesheet with optional steps to convert GML into a serialization of GeoSPARQL&#39;s Well Known Text format and other RDF serializations such as N-Triples. This not only acts as a great proof of concept for GML to RDF tools, but also shows how interoperable geospatial data can be once in RDF form. Despite the fact that the tool does not directly support CityGML to RDF conversion, there are interesting elements in the optional RDF to RDF and RDF to GeoSPARQL XSLT transformations that could be useful once we can generate our own RDF data from CityGML.
+![](/figure4.png)
+![](/figure5.png)
+
+The fourth instance conversion approach was created in [13] by Marios Bekatoros utilizing [9]. The tool created has a user-friendly web Java EE webserver that extended the GML to RDF stylesheet with optional steps to convert GML into a serialization of GeoSPARQL&#39;s Well Known Text format and other RDF serializations such as N-Triples. This not only acts as a great proof of concept for GML to RDF tools, but also shows how interoperable geospatial data can be once in RDF form. Despite the fact that the tool does not directly support CityGML to RDF conversion, there are interesting elements in the optional RDF to RDF and RDF to GeoSPARQL XSLT transformations that could be useful once we can generate our own RDF data from CityGML.
 
 In addition to the data transformation in [8], [9], Brink et al. also suggest that, even if not used in the generation of RDF data, there is important contextual value added to RDF by implementing an ontology to model the semantic relationships instantiated by the RDF. The next section will cover these approaches, some of which incorporate or include the works mentioned in this section.
 
@@ -240,7 +244,9 @@ To create a proof of concept tool for the generation of geospatial data from Cit
 1. The generation of an intermediate XSLT to transform CityGML instances to RDF from the GML and CityGML application schema.
 2. Generation of CityGML RDF instances using the previously generated XSLT and CityGML data from the metropole of Lyon.
 3. The creation of an OWL ontology to describe the resulting CityGML instances from the GML and CityGML application schema.
-![](figure6)
+
+![](/figure6.png)
+
 During each transformation, conflicts must be auto resolved, and the resulting information must be logically consistent and maintain its interoperability from CityGML. To ensure this several challenges need to be overcome. For instance, the RDF structure and types generated from the GML instances must conform to the model described by the ontology. How can mappings be created to ensure this? CityGML application schema often implements elements that do not have a direct equivalent in OWL or RDF. How should these elements be represented to best describe CityGML as semantic data? In addition, CityGML schema often draws from elements, types, functionality from external schema such as GML, xLinks and xAL addresses. How should these imports be addressed to preserve their original functionality? The various approaches discussed in the previous sections provide different responses to these questions and thus the most appropriate choice must be utilized in the context of rendering CityGML as linked geospatial data.
 
 
@@ -248,14 +254,17 @@ During each transformation, conflicts must be auto resolved, and the resulting i
 
 The workflow of the processes in this report are broken up into two pipelines: an instance transformation pipeline and a model transformation pipeline. Both pipelines are treated as activities in a 3rd "complete" pipeline which illustrates the conversion process in its entirety and how the various application schema of GML, CityGML, and other imported schema are combined.
 
- Fig. 7 shows the activity diagram for the instance transformation pipeline. In this workflow, the CityGML schema is passed into an XSLT processor to extract the semantic metadata within and create a second XML to RDF XSLT stylesheet. This second stylesheet can be used to transform XML instance files – that conform to the CityGML application schema – into RDF. The stylesheet naturally implements the OWL vocabulary to produce OWL individuals and contains specialized transformations for GML elements to integrate GeoSPARQL vocabulary. The resulting RDF output file of the second transformation will contain import statements for the CityGML ontology as suggested in [10]. After the instance file is produced, a final "postprocessing" activity is performed to validate the generated RDF. This activity utilizes a Python script with the _lxml_ library to parse the RDF graph and primarily removes any duplicate instances or properties. Note that the output documents shown in Fig. 12, 13, and 14 are serialized in RDF and use the &#39;.rdf&#39; file suffix, but all outputs still implement the OWL vocabulary whenever necessary.
-![](figure7)
+Fig. 7 shows the activity diagram for the instance transformation pipeline. In this workflow, the CityGML schema is passed into an XSLT processor to extract the semantic metadata within and create a second XML to RDF XSLT stylesheet. This second stylesheet can be used to transform XML instance files – that conform to the CityGML application schema – into RDF. The stylesheet naturally implements the OWL vocabulary to produce OWL individuals and contains specialized transformations for GML elements to integrate GeoSPARQL vocabulary. The resulting RDF output file of the second transformation will contain import statements for the CityGML ontology as suggested in [10]. After the instance file is produced, a final "postprocessing" activity is performed to validate the generated RDF. This activity utilizes a Python script with the _lxml_ library to parse the RDF graph and primarily removes any duplicate instances or properties. Note that the output documents shown in Fig. 12, 13, and 14 are serialized in RDF and use the &#39;.rdf&#39; file suffix, but all outputs still implement the OWL vocabulary whenever necessary.
+
+![](/figure7.png)
 
 The process for converting the CityGML application schema into an OWL ontology is shown in Fig. 8. This process starts with a transformation activity where the XML Schema model to OWL mapping patterns and strategies proposed in [10]–[12], [14] will be implemented. In general, the mapping patterns of table 4 are implemented. Exceptions to this are described in detail in section 4.3. After the transformation activity, a postprocessing script is run on the ontology, like the one utilized in the instance conversion activity. This script imports and integrates the GeoSPARQL ontology, and fully qualifies any namespaces prefixes used in RDF attributes such as _rdf:resource_. This renders an OWL ontology constrained by the CityGML application schema, thus providing a model for the OWL individuals created in the instance transformation process.
 
-![](figure8)
- Due to the large number of schemas used to model GML and the modules of CityGML, these processes would have to be run several times per schema document to create a complete CityGML ontology. In addition, the elements in CityGML and GML often refer to and rely on information stored in each other and in external schema documents and thus the XSLT processor must have access to all referenced metadata at the same time. In the XML schema vocabulary, this external information is referenced through _xs:import_ and _xs:include_ statements that link to the external document. In order to solve this issue for CityGML and GML a "composite" schema made up of all the elements and type declarations of every required schema will be created. After a composite schema is created, it will be passed to both transformation activities as shown in Fig. 9 illustrates process in its entirety. The schema compilation activity must also normalize or fully qualify the namespace prefixes from each schema document to match. This is required to maintain consistent naming conventions and to simplify namespace resolution during transformations as prefixes may change between schema documents and RDF requires fully qualified namespaces anytime a URI is given. This activity will also remove leading and trailing whitespace between XML elements and from element text to provide the "cleanest" and most compact schema possible. Like the previous activities not powered by an XSLT processor, this XML schema compilation activity is manifested by a Python script using the _lxml_ library.
-![](figure9)
+![](/figure8.png)
+
+Due to the large number of schemas used to model GML and the modules of CityGML, these processes would have to be run several times per schema document to create a complete CityGML ontology. In addition, the elements in CityGML and GML often refer to and rely on information stored in each other and in external schema documents and thus the XSLT processor must have access to all referenced metadata at the same time. In the XML schema vocabulary, this external information is referenced through _xs:import_ and _xs:include_ statements that link to the external document. In order to solve this issue for CityGML and GML a "composite" schema made up of all the elements and type declarations of every required schema will be created. After a composite schema is created, it will be passed to both transformation activities as shown in Fig. 9 illustrates process in its entirety. The schema compilation activity must also normalize or fully qualify the namespace prefixes from each schema document to match. This is required to maintain consistent naming conventions and to simplify namespace resolution during transformations as prefixes may change between schema documents and RDF requires fully qualified namespaces anytime a URI is given. This activity will also remove leading and trailing whitespace between XML elements and from element text to provide the "cleanest" and most compact schema possible. Like the previous activities not powered by an XSLT processor, this XML schema compilation activity is manifested by a Python script using the _lxml_ library.
+
+![](/figure9.png)
 
 
 ### 4.2. Transforming CityGML Instances into RDF
@@ -269,10 +278,11 @@ In general, three types of mappings will be created from the schema:
 3. All _xs:_attributes or xs_:elements_ which are children of _xs:complexTypes_ or _xs:groups_ create templates for _owl:ObjectProperties_ and _owl:DatatypeProperties_.
 
  To illustrate how these mapping types work, we will use an example from the CityGML core module. Fig. 10 shows the schema for the _core:\_CityObject_ element and its type, _core:AbstractCityObjectType_. The initial transformation of these schema elements, as proposed in this report, would yield a transformation pattern as shown in Fig. 11.
-![](figure10)
 
-![](figure11)
- To generate this result, three transformations patterns are implemented. First, if a global _xs:element_ is found – such as _core:\_CityObject –_ and it has a type of an _xs:complexType_ or has a child _xs:complexType_, a template will be generated to create an individual. The template generated will use the _gml:id_ attribute of the element it matches as the _rdf:ID_ of the instance as proposed in [9]. If no _gml:id_ is available, a unique id will be generated and appended to the local name of the element. Also as suggested in [9] the _rdf:type_ of each individual should be generated from its local name and this is well implemented here. However, in this proposal the tertiary conversion to GeoSPARQL will be made based on this _rdf:type_ and thus the full name will be used to distinguish between a gml geometry element and a feature. After the individual is named and typed, the template will call a reusable template generated from the _xs:complexType_ type of the element. This template will contain the CityGML to RDF templates to generate the _owl:ObjectProperties_ and _owl:DatatypeProperties_ for the individual.
+![](/figure10.png)
+![](/figure11.png)
+
+To generate this result, three transformations patterns are implemented. First, if a global _xs:element_ is found – such as _core:\_CityObject –_ and it has a type of an _xs:complexType_ or has a child _xs:complexType_, a template will be generated to create an individual. The template generated will use the _gml:id_ attribute of the element it matches as the _rdf:ID_ of the instance as proposed in [9]. If no _gml:id_ is available, a unique id will be generated and appended to the local name of the element. Also as suggested in [9] the _rdf:type_ of each individual should be generated from its local name and this is well implemented here. However, in this proposal the tertiary conversion to GeoSPARQL will be made based on this _rdf:type_ and thus the full name will be used to distinguish between a gml geometry element and a feature. After the individual is named and typed, the template will call a reusable template generated from the _xs:complexType_ type of the element. This template will contain the CityGML to RDF templates to generate the _owl:ObjectProperties_ and _owl:DatatypeProperties_ for the individual.
 
 The second type of mapping concerns the transformation of the _xs:complexType_ element. It contains 4 sub-transformations that determine the elements and attributes the type could have and create a template that calls additional templates to create the appropriate _owl:ObjectProperty_ and _owl:DatatypeProperties_. The sub-transformations are as follows:
 
@@ -284,8 +294,9 @@ The second type of mapping concerns the transformation of the _xs:complexType_ e
 
 Normally the template for _core:\_CityObject_ will never be called as it is an abstract _xs:element_, however in the case of the _bldg:Building_ element – which is often used in CityGML instances – both elements are in the same _substitutionGroup_ and can be used interchangeably._bldg:Building_ also has the complex type _bldg:AbstractBuildingType_ which inherits the same complex type template as _core:AbstractCityObjectType_. Because of these relationships, whenever a _bldg:Building_ element is declared, its transformation pattern will call the template for _core:AbstractCityObjectType_.
 
- Another XML transformation proposed is the conversion of _xs:complexTypes_ with _xs:simpleContent._ Transformation mapping patterns of _xs:simpleContent_ and _xs:complexContent_ to OWL are proposed in [14] but without a transformations for XML instances of these types. _xs:simpleContent_ proved to be one of the more complicated instance transformations to RDF as _xs:complexTypes_ are always transformed into _owl:classes_ yet _xs:simpleContent_ constrains the type to only contain attributes and/or text with no child elements. This implies that these types can sometimes appear as _rdfs:Datatype_ elements. For example, Fig. 12 shows the schema for one such type, _gml:MeasureType_. In XML this type could be instantiated as an element with a text value of a double and an attribute of a URI.
-![](figure12)
+Another XML transformation proposed is the conversion of _xs:complexTypes_ with _xs:simpleContent._ Transformation mapping patterns of _xs:simpleContent_ and _xs:complexContent_ to OWL are proposed in [14] but without a transformations for XML instances of these types. _xs:simpleContent_ proved to be one of the more complicated instance transformations to RDF as _xs:complexTypes_ are always transformed into _owl:classes_ yet _xs:simpleContent_ constrains the type to only contain attributes and/or text with no child elements. This implies that these types can sometimes appear as _rdfs:Datatype_ elements. For example, Fig. 12 shows the schema for one such type, _gml:MeasureType_. In XML this type could be instantiated as an element with a text value of a double and an attribute of a URI.
+
+![](/figure12.png)
 
 This report bases the proposed instance transformation of these types off of the approach used in [14] with several transformation mappings listed in table 6. In the case that the complex type with a simple content has an _xs:restriction_ of a type, a new _rdfs:datatype_ and _owl:DatatypeProperty_ would be declared in the ontology according to these restrictions and should be used when transforming the instance data into RDF. Note, that when referencing the newly created datatype of an _xs:restriction_, &#39;Datatype&#39; is appended to the name of the type and the property to avoid overlapping identifiers . Otherwise when the simple content is based on an _xs:extension_ of datatype or simple type, there is only an _owl:DatatypeProperty_ created that links to the datatype value.
 
@@ -297,12 +308,14 @@ _Table 6. XML Schema to RDF intstance mapping patterns_
 | \&lt;xs:complexType name="TypeName"\&gt; \&lt;xs:simpleContent\&gt; \&lt;xs:extension base="simpleTypeName"\&gt; ...\&lt;/xs:extension\&gt;\&lt;/xs:simpleContent\&gt;\&lt;/xs:complexType\&gt; |\&lt;owl:NamedIndividual\&gt; \&lt;rdf:type rdf:resource="TypeName"/\&gt; \&lt;hasSimpleTypeName\&gt; someValue \&lt;/hasSimpleTypeName\&gt; ...\&lt;/owl:NamedIndividual\&gt; |
 | \&lt;xs:complexType name="TypeName"\&gt; \&lt;xs:simpleContent\&gt; \&lt;xs:restriction base="nativeOrSimpleDatatype"\&gt; ...\&lt;/xs:restriction\&gt;\&lt;/xs:simpleContent\&gt;\&lt;/xs:complexType\&gt; |\&lt;owl:NamedIndividual\&gt; \&lt;rdf:type rdf:resource="TypeName"/\&gt; \&lt;hasTypeNameDatatype\&gt; someValue \&lt;/hasTypeNameDatatype\&gt; ...\&lt;/owl:NamedIndividual\&gt; |
 
- One departure from the previous XML schema to OWL approaches is how _xs:group_ and _xs:attributeGroup_ are transformed. In [11], [14] both of these elements are converted into _owl:Classes_ as they contain elements and attributes like _xs:complexTypes_. However, in the context of CityGML and XML to RDF data generation these groups serve mostly utility and do not appear in XML instances as individual elements. For instance, Fig. 13 shows a GML group and a complex type which references this group and Fig. 14 shows a CityGML instance that implements them both.
-![](figure13)
-![](figure14)
+One departure from the previous XML schema to OWL approaches is how _xs:group_ and _xs:attributeGroup_ are transformed. In [11], [14] both of these elements are converted into _owl:Classes_ as they contain elements and attributes like _xs:complexTypes_. However, in the context of CityGML and XML to RDF data generation these groups serve mostly utility and do not appear in XML instances as individual elements. For instance, Fig. 13 shows a GML group and a complex type which references this group and Fig. 14 shows a CityGML instance that implements them both.
 
- In the instance, the _bldg:Building_ element of the complex type is clearly instantiating child elements from the _xs:group_ however there is no actual reference to the group itself. That is to say, the child elements of _gml:StandardObjectProperties_ are instantiated but the group itself is not formally instantiated. Functionally, _xs:groups_ and _xs:attributeGroups_ serve as a reusable collection elements and attributes. This report argues that because of this behavior, they do not represent _owl:Classes_ but are simply features of the XML schema vocabulary. Instead, in XML to RDF transformation, these groups can be transformed into templates that simply contain references to the templates of their properties (fig. 15).
-![](figure15)
+![](/figure13.png)
+![](/figure14.png)
+
+In the instance, the _bldg:Building_ element of the complex type is clearly instantiating child elements from the _xs:group_ however there is no actual reference to the group itself. That is to say, the child elements of _gml:StandardObjectProperties_ are instantiated but the group itself is not formally instantiated. Functionally, _xs:groups_ and _xs:attributeGroups_ serve as a reusable collection elements and attributes. This report argues that because of this behavior, they do not represent _owl:Classes_ but are simply features of the XML schema vocabulary. Instead, in XML to RDF transformation, these groups can be transformed into templates that simply contain references to the templates of their properties (fig. 15).
+
+![](/figure15.png)
 
 Transformations will also map the original GML literal values to an RDF triple using GeoSPARQL&#39;s _geo:asGML_ datatype property, if an instance&#39;s type is in the substitution group of _gml:\_Geometry_. This process is covered in detail in section 4.4.Once an instance document is transformed, it must be scanned for malformed RDF triples and fully qualifies any RDF attributes that contain prefixed URI strings such as _rdf:resources_, _rdf:type_, and _rdf:about_. These transformations follow the "garbage in, garbage out" concept that poorly formed data input into a program, will produce nonsensical results, and thus assume that the GML and CityGML instance documents provided are well structured and conform to their application schema. If this assumption is met, the resulting data should conform to the ontology transformation discussed in the following section.
 
@@ -316,8 +329,9 @@ The first of these choices that was made was regarding the transformation of sch
 _(A ∪ B) ∩ (A ∩ B)<sup>C</sup>_ (1)
 
 XOR can be described with the previously mentioned owl groups. For example, the _xs:complexType_ from CityGML in Fig. 16 can be represented in owl as the following RDF in Fig. 17.
-![](figure16)
-![](figure17)
+
+![](/figure16.png)
+![](/figure17.png)
 
  This approach, however, creates a very long and complex class description, which explodes when more than two _xs:choice_ children are transformed, especially in RDF. This is because the intersections of each statement must be pairwise disjoint as in (2).
 
@@ -326,17 +340,21 @@ _(A ∪ B ∪ C) ∩ ((A ∪ B) ∩ (A ∪ B) ∩ (A ∪ B))<sup>C</sup>_ (2)
 The resulting transformation in OWL of this increases in size exponentially with every child node of an _xs:choice_ with this approach.
 
 Another approach suggested in [14] is to create separate subclasses of the _xs:complexType_. These subclasses are disjoint and enumerate each possible _owl:restriction_ (fig. 18) created from the elements declared in the _xs:choice._ This approach is preferable to the first as it does not generate an exponential amount of _owl:restrictions_ to represent each _xs:choice_ element.
-![](figure18)
 
- While both of these approaches are logically valid for representing CityGML schema in OWL, an approach using OWL-2&#39;s _owl:disjointUnionOf_ was experimented with (fig. 19), which provides an even more concise transformation. The example in Fig. 16 could be converted into the RDF in Fig. 19. This result represents the disjoint union of the class that has either has the property _#name_ or _#uri_ but not both.
-![](figure19)
+![](/figure18.png)
+
+While both of these approaches are logically valid for representing CityGML schema in OWL, an approach using OWL-2&#39;s _owl:disjointUnionOf_ was experimented with (fig. 19), which provides an even more concise transformation. The example in Fig. 16 could be converted into the RDF in Fig. 19. This result represents the disjoint union of the class that has either has the property _#name_ or _#uri_ but not both.
+
+![](/figure19.png)
 
  This implementation was tested in Protégé with the HermiT reasoner. An individual &#39;someReference&#39; was instantiated with both _#name_ and _#uri_ datatype properties. The reasoner returned the following explanation in Fig. 20 and declared the ontology inconsistent, as intended.
 
-![](figure20)
- In addition to _xs:choice_ there is not a universally agreed upon OWL mapping for the _xs:list_ restriction of a datatype. Since most datatypes in GML can be represented in GeoSPARQL through a _geo:gmlLiteral_, this issue was ignored. For this XML schema to OWL transformation datatype lists are declared, but no restrictions or equivalent class axioms are generated. This is illustrated in Fig. 26 and 27.
-![](figure21)
-![](figure22)
+![](/figure20.png)
+
+In addition to _xs:choice_ there is not a universally agreed upon OWL mapping for the _xs:list_ restriction of a datatype. Since most datatypes in GML can be represented in GeoSPARQL through a _geo:gmlLiteral_, this issue was ignored. For this XML schema to OWL transformation datatype lists are declared, but no restrictions or equivalent class axioms are generated. This is illustrated in Fig. 26 and 27.
+
+![](/figure21.png)
+![](/figure22.png)
 
 Moreover, there a native XML Schema element that is problematic when creating OWL properties, _xs:anyType_. In the CityGML application schema this type is used to allow extensible CityGML types and functionality, such as the _bldg:\_GenericApplicationPropertyOfAbstractBuilding_ abstract element of type _xs:anyType_. Consequently, to allow these elements to exist, a _xs:anyType_ class is declared and any elements of this type are declared as a subclass of it. If an extension to CityGML schema was created, their classes could be mapped as the _owl:equivalentClasses_ of these proposed classes in order to integrate into the ontology. The usage of these classes is of course optional, as denoted in the application schema through the _minOccurs="0"_ attribute. When mapping axiom restrictions, all mappings use _owl:someValuesFrom_ which implies that the instance of the class contains at least one property of this type. These are paired with the mappings in [10], [14], to generate _owl:minCardinality_ and _owl:maxCardinality_ whenever the _minOccurs_ or _maxOccurs_ attribute is used to define a child element, allowing these instances to have an _owl:minCardinality_ of 0 and thus keeping the class description conformed to the application schema.
 
@@ -367,10 +385,12 @@ The official GeoSPARQL documentation states that:
 
 _Valid geo:gmlLiterals are formed by encoding geometry information as a valid element from the GML schema that implements a subtype of GM\_Object … In GML 3.1.1 and GML 2.1.2 this is every element directly or indirectly in the substitution group of the element {http://www.opengis.net/ont/gml}\_Geometry. [18]_
 
- According to the resulting CityGML ontology this implies the following classes are either "directly or indirectly" in the substitution group of _gml:\_Geometry_ as shown in Fig. 23. During CityGML instance to RDF transformation, any element that is one of these classes and contains only ancestors of these classes, will retain a copy of their GML instance as a _geo:gmlLiterals_ after transformation (fig. 24, 25).
-![](figure23)
-![](figure24)
-![](figure25)
+According to the resulting CityGML ontology this implies the following classes are either "directly or indirectly" in the substitution group of _gml:\_Geometry_ as shown in Fig. 23. During CityGML instance to RDF transformation, any element that is one of these classes and contains only ancestors of these classes, will retain a copy of their GML instance as a _geo:gmlLiterals_ after transformation (fig. 24, 25).
+
+![](/figure23.png)
+![](/figure24.png)
+![](/figure25.png)
+
 If a particular coordinate system is used, it must be declared in the literal value as a _gml:srsName_ attribute in order for GeoSPARQL endpoints to accurately parse the data. The default reference system is _\&lt;http://www.opengis.net/def/crs/OGC/1.3/CRS84\&gt;_, thus any GML data that uses a different reference system must include it in the GML instances themselves or manually add it to the output _gml:gmlLiterals_ after transformation.
 
 Through these processes a consistent strategy for generating geospatial linked data from CityGML instances can be implemented. In the next section this report will review the output of this approach when applied to real CityGML instances from the metropole of Lyon, France and the results using a GeoSPARQL endpoint to query the generated data.
@@ -383,9 +403,10 @@ Using the CityGML core and building modules&#39; application schema alongside th
 
 ### 5.1. "CityOWL" Ontology
 
- The CityOWL ontology is formed from a composite schema, made up of the 31 documents found in the GML 3.1.1 application schema, the CityGML core application schema, and the CityGML building application schema. The general contents of the ontology are shown in table 7. Creation of the composite schema was done using Python and the _lxml_ library. The transformations themselves were powered by the _Saxon HE_ XSLT processor. The creation of CityOWL, including post-processing, elapsed _3.635_ seconds using these tools. The structure of the _gml:\_Feature_ and _gml:\_Geometry_ classes are shown in Fig. 26 and 27.
-![](figure26)
-![](figure27)
+The CityOWL ontology is formed from a composite schema, made up of the 31 documents found in the GML 3.1.1 application schema, the CityGML core application schema, and the CityGML building application schema. The general contents of the ontology are shown in table 7. Creation of the composite schema was done using Python and the _lxml_ library. The transformations themselves were powered by the _Saxon HE_ XSLT processor. The creation of CityOWL, including post-processing, elapsed _3.635_ seconds using these tools. The structure of the _gml:\_Feature_ and _gml:\_Geometry_ classes are shown in Fig. 26 and 27.
+
+![](/figure26.png)
+![](/figure27.png)
 
 _Table 7. CityOWL metrics_
 
@@ -413,15 +434,17 @@ _Table 8. Data conversion statistics_
 | LYON\_1ER\_BATI\_2015 | 65.6 | 1711 | 524990 | 279.9 | 843223 | 20:48 |
 
 Fig. 28 shows an example of a generated building instance and its instance geometry when imported into Protégé at the same time as the CityOWL ontology. Each individual is automatically linked to its type through the naming conventions used in both transformations.
-![](figure28)
+
+![](/figure28.png)
 
 
 ### 5.3. Query Results
 
- Once the dataset was generated, a GeoSPARQL endpoint was installed to perform geospatial queries. The Parliament triple-store [19] was used for this purpose as proposed in [4] since it contains a SPARQL endpoint with GeoSPARQL support based on the Apache-Jena libraries. The following queries shown in Fig. 30, 31 and 32 demonstrate basic geospatial queries applied to the converted RDF individuals. Tables 9, 10, and 11 show their resulting output.
-![](figure29)
+Once the dataset was generated, a GeoSPARQL endpoint was installed to perform geospatial queries. The Parliament triple-store [19] was used for this purpose as proposed in [4] since it contains a SPARQL endpoint with GeoSPARQL support based on the Apache-Jena libraries. The following queries shown in Fig. 30, 31 and 32 demonstrate basic geospatial queries applied to the converted RDF individuals. Tables 9, 10, and 11 show their resulting output.
 
-![](figure30)
+![](/figure29.png)
+![](/figure30.png)
+
 _Table 9. Query #1 results_
 
 | building | predicate | object |
@@ -434,7 +457,7 @@ _Table 9. Query #1 results_
 | #BU\_69381AI48 | rdf:type | bldg:Building |
 | #BU\_69381AI48 | rdf:type | owl:NamedIndividual |
 
-![](figure31)
+![](/figure31.png)
 
 _Table 10. Query #2 results_
 
@@ -442,7 +465,7 @@ _Table 10. Query #2 results_
 | --- | --- |
 | #UUID\_17cb5011-6e9a-438f-b521-614bb261435b | "\&lt;gml:MultiSurface xmlns:gml=\"http://www.opengis.net/gml\" xmlns=\"http://www.opengis.net/citygml/2.0\" xmlns:bldg=\"http://www.opengis.net/citygml/building/2.0\" xmlns:core=\"http://www.opengis.net/citygml/base/2.0\" gml:id=\"UUID\_17cb5011-6e9a-438f-b521-614bb261435b\" srsDimension=\"3\"\&gt;\&lt;gml:surfaceMember\&gt;\&lt;gml:Polygon gml:id=\"UUID\_e7a262b8-319d-455d-8333-65cdcc932eee\"\&gt;\&lt;gml:exterior\&gt;\&lt;gml:LinearRing gml:id=\"UUID\_da55c6aa-0365-49e1-81ff-b319ef7e1223\"\&gt;\&lt;gml:posList\&gt;1842539.17326200 5175534.09319300 192.16285300 1842533.95778000 5175532.96066900 191.95614900 1842533.95778000 5175532.96066900 167.60000000 1842539.17326200 5175534.09319300 167.60000000 1842539.17326200 5175534.09319300 192.16285300 \&lt;/gml:posList\&gt;\&lt;/gml:LinearRing\&gt;\&lt;/gml:exterior\&gt;\&lt;/gml:Polygon\&gt;\&lt;/gml:surfaceMember\&gt;\&lt;/gml:MultiSurface\&gt;"^^geo:gmlLiteral |
 
-![](figure32)
+![](/figure32.png)
 _Table 11. Query #3 results_
 
 | geometry | type |
@@ -483,39 +506,21 @@ As an intern, working with the Virtual City team has been a wonderful and exciti
 ## References
 
 [1] L. Brink, "Geospatial Data on the Web," Oct. 2018. https://www.ncgeo.nl/index.php/en/publicatiesgb/publications-on-geodesy/item/2789-geospatial-data-on-the-web (accessed Jul. 23, 2020).
-
 [2] A.-H. Hor, M. Jadidi, and G. Sohn, "BIM-GIS INTEGRATED GEOSPATIAL INFORMATION MODEL USING SEMANTIC WEB AND RDF GRAPHS," Jul. 2016, vol. III–4, pp. 73–79, doi: 10.5194/isprs-annals-III-4-73-2016.
-
 [3] "About OGC | OGC." https://www.ogc.org/about (accessed Jul. 23, 2020).
-
 [4] R. Battle and D. Kolas, "Enabling the geospatial Semantic Web with Parliament and GeoSPARQL," _Semantic Web_, vol. 3, no. 4, pp. 355–370, Jan. 2012, doi: 10.3233/SW-2012-0065.
-
 [5] E. Hietanen, L. Lehto, and P. Latvala, "PROVIDING GEOGRAPHIC DATASETS AS LINKED DATA IN SDI," _ISPRS - Int. Arch. Photogramm. Remote Sens. Spat. Inf. Sci._, vol. XLI-B2, pp. 583–586, Jun. 2016, doi: 10.5194/isprs-archives-XLI-B2-583-2016.
-
 [6] R. L. G. Lemmens, G. Falquet, and C. Métral, "Towards Linked Data and ontology development for the semantic enrichment of volunteered geo-information.," _Proc. Link-VGI Link. Anal. Volunt. Geogr. Inf. VGI Differ. Platf. Workshop AGILE 2016 Conf._, 2016, Accessed: Jul. 23, 2020. [Online]. Available: https://research.utwente.nl/en/publications/towards-linked-data-and-ontology-development-for-the-semantic-enr.
-
 [7] O. Zalamea, J. Orshoven, and S. Thérèse, "From a CityGML to an ontology-based approach to support preventive conservation of built cultural heritage.," Jun. 2016.
-
 [8] L. Brink, P. Janssen, and W. Quak, "From Geo-data to Linked Data: Automated Transformation from GML to RDF," _Linked Open Data - Pilot Linked Open Data Ned. Deel 2 - Verdieping Geonovum 2013 Pp 249-261_, 2013, Accessed: Jul. 23, 2020. [Online]. Available: https://repository.tudelft.nl/islandora/object/uuid%3A8ec77e83-8406-47d3-8705-32633619ba1f.
-
 [9] L. Brink, P. Janssen, W. Quak, and J. Stoter, "Linking spatial data: automated conversion of geo-information models and GML data to RDF," _Int. J. Spat. Data Infrastruct. Res._, vol. 9, pp. 59–85, Oct. 2014, doi: 10.2902/1725-0463.2014.09.art3.
-
 [10] H. Bohring and S. Auer, "Mapping XML to OWL ontologies," Jan. 2005, pp. 147–156.
-
 [11] M. Ferdinand, C. Zirpins, and D. Trastour, "Lifting XML schema to OWL," Jul. 2004, vol. 3140, pp. 354–358, doi: 10.1007/978-3-540-27834-4\_44.
-
 [12] T. R. Kramer, B. H. Marks, C. I. Schlenoff, S. B. Balakirsky, Z. Kootbally, and A. Pietromartire, "Software Tools for XML to OWL Translation," Jul. 2015, Accessed: Jul. 23, 2020. [Online]. Available: https://www.nist.gov/publications/software-tools-xml-owl-translation.
-
 [13] M. S. Bekatoros and M. Koubarakis, "A web-based GML to stRDF / GeoSPARQL conversion tool," p. 99, Feb. 2015.
-
 [14] I. Bedini, C. Matheus, P. F. Patel-Schneider, A. Boran, and B. Nguyen, "Transforming XML Schema to OWL Using Patterns," in _2011 IEEE Fifth International Conference on Semantic Computing_, Sep. 2011, pp. 102–109, doi: 10.1109/ICSC.2011.77.
-
 [15] C. Tsinaraki and S. Christodoulakis, "XS2OWL: A Formal Model and a System for Enabling XML Schema Applications to Interoperate with OWL-DL Domain Knowledge and Semantic Web Tools," Jan. 2007, vol. 4877, pp. 124–136, doi: 10.1007/978-3-540-77088-6\_12.
-
 [16] C. Métral, G. Falquet, and A. F. Cutting-decelle, _Towards Semantically Enriched 3d City Models: An Ontology-Based Approach_. 2009.
-
 [17] C. Métral and G. Falquet, "EXTENSION AND CONTEXTUALISATION FOR LINKED SEMANTIC 3D GEODATA," in _ISPRS - International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences_, Sep. 2018, vol. XLII-4-W10, pp. 113–118, doi: https://doi.org/10.5194/isprs-archives-XLII-4-W10-113-2018.
-
 [18] M. Perry and J. Herring, "OGC GeoSPARQL - A Geographic Query Language for RDF Data," p. 75, 2012.
-
 [19] _SemWebCentral/parliament_. SemWebCentral, 2020.
