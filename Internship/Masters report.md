@@ -1,8 +1,11 @@
 # Geospatial urban data and the semantic web: From representation to proof of concept
 
+Submitted by: Diego Vinasco-Alvarez
+Tutors: John Samuel, Gilles Gesquiére, Sylvie Servigne
+
 ## Acknowledgements
 
-I, Diego Vinasco-Alvarez, thank LIRIS UMR 5205 for funding through the action transversale (LIRIS AT 2019-2021). In addition, I would like to thank my internship supervisors, John Samuel, Gilles Gesquiére, and Sylvie Servigne for their incredible direction and support throughout this project, as well as the Virtual City Team – especially Eric Boix and Vincent Jaillot – for their valued advice. I am also grateful to my professor, Ernesto Exposito, for his encouraging guidance. In addition, I would like to thank Jean-Michel Deleuil for introducing me to LIRIS and his family for their warm hospitality and care throughout the pandemic. And finally, my parents for their loving support.
+I would like to thank LIRIS UMR 5205 for funding through the action transversale (LIRIS AT 2019-2021). In addition, I thank my internship supervisors, John Samuel, Gilles Gesquiére, and Sylvie Servigne for their incredible direction and support throughout this project, as well as the Virtual City Team – especially Eric Boix and Vincent Jaillot – for their valued advice. I am also grateful to my professor, Ernesto Exposito, for his encouraging guidance. In addition, I would like to thank Jean-Michel Deleuil for introducing me to LIRIS and his family for their warm hospitality and care throughout the pandemic. And finally, my parents for their loving support.
 
 ## Table of Contents
 
