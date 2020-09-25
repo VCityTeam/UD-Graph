@@ -1,8 +1,8 @@
 # Geospatial urban data and the semantic web: From representation to proof of concept
 
-Submitted by: Diego Vinasco-Alvarez
+**Submitted by**: Diego Vinasco-Alvarez
 
-Tutors: John Samuel, Gilles Gesquière, Sylvie Servigne
+**Tutors**: John Samuel, Gilles Gesquière, Sylvie Servigne
 
 ## Acknowledgements
 
