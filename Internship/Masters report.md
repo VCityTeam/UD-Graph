@@ -506,21 +506,39 @@ As an intern, working with the Virtual City team has been a wonderful and exciti
 ## References
 
 [1] L. Brink, "Geospatial Data on the Web," Oct. 2018. https://www.ncgeo.nl/index.php/en/publicatiesgb/publications-on-geodesy/item/2789-geospatial-data-on-the-web (accessed Jul. 23, 2020).
+
 [2] A.-H. Hor, M. Jadidi, and G. Sohn, "BIM-GIS INTEGRATED GEOSPATIAL INFORMATION MODEL USING SEMANTIC WEB AND RDF GRAPHS," Jul. 2016, vol. III–4, pp. 73–79, doi: 10.5194/isprs-annals-III-4-73-2016.
+
 [3] "About OGC | OGC." https://www.ogc.org/about (accessed Jul. 23, 2020).
+
 [4] R. Battle and D. Kolas, "Enabling the geospatial Semantic Web with Parliament and GeoSPARQL," _Semantic Web_, vol. 3, no. 4, pp. 355–370, Jan. 2012, doi: 10.3233/SW-2012-0065.
+
 [5] E. Hietanen, L. Lehto, and P. Latvala, "PROVIDING GEOGRAPHIC DATASETS AS LINKED DATA IN SDI," _ISPRS - Int. Arch. Photogramm. Remote Sens. Spat. Inf. Sci._, vol. XLI-B2, pp. 583–586, Jun. 2016, doi: 10.5194/isprs-archives-XLI-B2-583-2016.
+
 [6] R. L. G. Lemmens, G. Falquet, and C. Métral, "Towards Linked Data and ontology development for the semantic enrichment of volunteered geo-information.," _Proc. Link-VGI Link. Anal. Volunt. Geogr. Inf. VGI Differ. Platf. Workshop AGILE 2016 Conf._, 2016, Accessed: Jul. 23, 2020. [Online]. Available: https://research.utwente.nl/en/publications/towards-linked-data-and-ontology-development-for-the-semantic-enr.
+
 [7] O. Zalamea, J. Orshoven, and S. Thérèse, "From a CityGML to an ontology-based approach to support preventive conservation of built cultural heritage.," Jun. 2016.
+
 [8] L. Brink, P. Janssen, and W. Quak, "From Geo-data to Linked Data: Automated Transformation from GML to RDF," _Linked Open Data - Pilot Linked Open Data Ned. Deel 2 - Verdieping Geonovum 2013 Pp 249-261_, 2013, Accessed: Jul. 23, 2020. [Online]. Available: https://repository.tudelft.nl/islandora/object/uuid%3A8ec77e83-8406-47d3-8705-32633619ba1f.
+
 [9] L. Brink, P. Janssen, W. Quak, and J. Stoter, "Linking spatial data: automated conversion of geo-information models and GML data to RDF," _Int. J. Spat. Data Infrastruct. Res._, vol. 9, pp. 59–85, Oct. 2014, doi: 10.2902/1725-0463.2014.09.art3.
+
 [10] H. Bohring and S. Auer, "Mapping XML to OWL ontologies," Jan. 2005, pp. 147–156.
+
 [11] M. Ferdinand, C. Zirpins, and D. Trastour, "Lifting XML schema to OWL," Jul. 2004, vol. 3140, pp. 354–358, doi: 10.1007/978-3-540-27834-4\_44.
+
 [12] T. R. Kramer, B. H. Marks, C. I. Schlenoff, S. B. Balakirsky, Z. Kootbally, and A. Pietromartire, "Software Tools for XML to OWL Translation," Jul. 2015, Accessed: Jul. 23, 2020. [Online]. Available: https://www.nist.gov/publications/software-tools-xml-owl-translation.
+
 [13] M. S. Bekatoros and M. Koubarakis, "A web-based GML to stRDF / GeoSPARQL conversion tool," p. 99, Feb. 2015.
+
 [14] I. Bedini, C. Matheus, P. F. Patel-Schneider, A. Boran, and B. Nguyen, "Transforming XML Schema to OWL Using Patterns," in _2011 IEEE Fifth International Conference on Semantic Computing_, Sep. 2011, pp. 102–109, doi: 10.1109/ICSC.2011.77.
+
 [15] C. Tsinaraki and S. Christodoulakis, "XS2OWL: A Formal Model and a System for Enabling XML Schema Applications to Interoperate with OWL-DL Domain Knowledge and Semantic Web Tools," Jan. 2007, vol. 4877, pp. 124–136, doi: 10.1007/978-3-540-77088-6\_12.
+
 [16] C. Métral, G. Falquet, and A. F. Cutting-decelle, _Towards Semantically Enriched 3d City Models: An Ontology-Based Approach_. 2009.
+
 [17] C. Métral and G. Falquet, "EXTENSION AND CONTEXTUALISATION FOR LINKED SEMANTIC 3D GEODATA," in _ISPRS - International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences_, Sep. 2018, vol. XLII-4-W10, pp. 113–118, doi: https://doi.org/10.5194/isprs-archives-XLII-4-W10-113-2018.
+
 [18] M. Perry and J. Herring, "OGC GeoSPARQL - A Geographic Query Language for RDF Data," p. 75, 2012.
+
 [19] _SemWebCentral/parliament_. SemWebCentral, 2020.
