@@ -1,8 +1,11 @@
 # UD-Graph
 Repository on graph models for Urban Data.
 
-Analysis on the content stored in this repository is covered in detail in the internship [report](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md).
 This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/wiki/doku.php) of LIRIS, Université de Lyon, France
+
+## Related Articles
+- [Technical report](https://hal.archives-ouvertes.fr/hal-02948955)
+- [Internship report](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md)
 
 ## CityGML Transformations
 Contains two implementations:
