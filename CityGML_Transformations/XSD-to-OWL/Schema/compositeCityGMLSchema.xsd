@@ -1,23 +1,4 @@
-<xs:schema xmlns:app="http://www.opengis.net/citygml/appearance/2.0"
-		   xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
-		   xmlns:brid="http://www.opengis.net/citygml/bridge/2.0"
-		   xmlns:core="http://www.opengis.net/citygml/2.0"
-		   xmlns:dem="http://www.opengis.net/citygml/relief/2.0"
-		   xmlns:frn="http://www.opengis.net/citygml/cityfurniture/2.0"
-		   xmlns:gen="http://www.opengis.net/citygml/generics/2.0"
-		   xmlns:gml="http://www.opengis.net/gml"
-		   xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/2.0"
-		   xmlns:luse="http://www.opengis.net/citygml/landuse/2.0"
-		   xmlns:sch="http://www.ascc.net/xml/schematron"
-		   xmlns:smil20="http://www.w3.org/2001/SMIL20/"
-		   xmlns:tex="http://www.opengis.net/citygml/texturedsurface/2.0"
-		   xmlns:tran="http://www.opengis.net/citygml/transportation/2.0"
-		   xmlns:tun="http://www.opengis.net/citygml/tunnel/2.0"
-		   xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0"
-		   xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0"
-		   xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
-		   xmlns:xs="http://www.w3.org/2001/XMLSchema">
-	<xs:annotation>
+<xs:schema xmlns:app="http://www.opengis.net/citygml/appearance/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:brid="http://www.opengis.net/citygml/bridge/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:dem="http://www.opengis.net/citygml/relief/2.0" xmlns:frn="http://www.opengis.net/citygml/cityfurniture/2.0" xmlns:gen="http://www.opengis.net/citygml/generics/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/2.0" xmlns:luse="http://www.opengis.net/citygml/landuse/2.0" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:smil20="http://www.w3.org/2001/SMIL20/" xmlns:tex="http://www.opengis.net/citygml/texturedsurface/2.0" xmlns:tran="http://www.opengis.net/citygml/transportation/2.0" xmlns:tun="http://www.opengis.net/citygml/tunnel/2.0" xmlns:veg="http://www.opengis.net/citygml/vegetation/2.0" xmlns:wtr="http://www.opengis.net/citygml/waterbody/2.0" xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"><xs:annotation>
 		<xs:appinfo source="urn:opengis:specification:gml:schema-xsd:coverage:3.1.1">coverage.xsd</xs:appinfo>
 		<xs:documentation xml:lang="en">GML Coverage schema.
 			
@@ -5243,7 +5224,7 @@ A simple link element can be used to implement pointer functionality, and this f
       
       A time coordinate value is indicated as a decimal (e.g. UNIX time, GPS calendar).</xs:documentation>
 		</xs:annotation>
-		<xs:union memberTypes="gml:CalDate time dateTime anyURI decimal"/>
+		<xs:union memberTypes="gml:CalDate xs:time xs:dateTime xs:anyURI xs:decimal"/>
 	</xs:simpleType>
 	<!-- ================================================================== -->
 	<xs:simpleType name="gml:CalDate">
@@ -5255,7 +5236,7 @@ A simple link element can be used to implement pointer functionality, and this f
       year value would otherwise have fewer than four digits.  
       time is used for a position that recurs daily (see clause 5.4.4.2 of ISO 19108:2002).</xs:documentation>
 		</xs:annotation>
-		<xs:union memberTypes="date gYearMonth gYear"/>
+		<xs:union memberTypes="xs:date xs:gYearMonth xs:gYear"/>
 	</xs:simpleType>
 	<!-- ================================================================== -->
 	<xs:simpleType name="gml:TimeIndeterminateValueType">
@@ -6157,7 +6138,7 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>Utility type for null elements.  The value may be selected from one of the enumerated tokens, or may be a URI in which case this should identify a resource which describes the reason for the null. </xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="gml:NullEnumeration anyURI"/>
+    <xs:union memberTypes="gml:NullEnumeration xs:anyURI"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:element name="gml:Null" type="gml:NullType"/>
@@ -6178,7 +6159,7 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>Union of the XML Schema boolean type and the GML Nulltype.  An element which uses this type may have content which is either a boolean {0,1,true,false} or a value from Nulltype</xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="gml:NullEnumeration boolean anyURI"/>
+    <xs:union memberTypes="gml:NullEnumeration xs:boolean xs:anyURI"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:booleanOrNullList">
@@ -6192,21 +6173,21 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>XML List based on XML Schema boolean type.  An element of this type contains a space-separated list of boolean values {0,1,true,false}</xs:documentation>
     </xs:annotation>
-    <xs:list itemType="boolean"/>
+    <xs:list itemType="xs:boolean"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:stringOrNull">
     <xs:annotation>
       <xs:documentation>Union of the XML Schema string type and the GML Nulltype.  An element which uses this type may have content which is either a string or a value from Nulltype.  Note that a "string" may contain whitespace.  </xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="gml:NullEnumeration string anyURI"/>
+    <xs:union memberTypes="gml:NullEnumeration xs:string xs:anyURI"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:NameOrNull">
     <xs:annotation>
       <xs:documentation>Union of the XML Schema Name type and the GML Nulltype.  An element which uses this type may have content which is either a Name or a value from Nulltype.  Note that a "Name" may not contain whitespace.  </xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="gml:NullEnumeration Name anyURI"/>
+    <xs:union memberTypes="gml:NullEnumeration xs:Name xs:anyURI"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:NameOrNullList">
@@ -6220,14 +6201,14 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>XML List based on XML Schema Name type.  An element of this type contains a space-separated list of Name values</xs:documentation>
     </xs:annotation>
-    <xs:list itemType="Name"/>
+    <xs:list itemType="xs:Name"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:doubleOrNull">
     <xs:annotation>
       <xs:documentation>Union of the XML Schema double type and the GML Nulltype.  An element which uses this type may have content which is either a double or a value from Nulltype</xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="gml:NullEnumeration double anyURI"/>
+    <xs:union memberTypes="gml:NullEnumeration xs:double xs:anyURI"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:doubleOrNullList">
@@ -6241,14 +6222,14 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>XML List based on XML Schema double type.  An element of this type contains a space-separated list of double values</xs:documentation>
     </xs:annotation>
-    <xs:list itemType="double"/>
+    <xs:list itemType="xs:double"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:integerOrNull">
     <xs:annotation>
       <xs:documentation>Union of the XML Schema integer type and the GML Nulltype.  An element which uses this type may have content which is either an integer or a value from Nulltype</xs:documentation>
     </xs:annotation>
-    <xs:union memberTypes="gml:NullEnumeration integer anyURI"/>
+    <xs:union memberTypes="gml:NullEnumeration xs:integer xs:anyURI"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:simpleType name="gml:integerOrNullList">
@@ -6262,7 +6243,7 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>XML List based on XML Schema integer type.  An element of this type contains a space-separated list of integer values</xs:documentation>
     </xs:annotation>
-    <xs:list itemType="integer"/>
+    <xs:list itemType="xs:integer"/>
   </xs:simpleType>
   <!-- =========================================================== -->
   <xs:complexType name="gml:CodeType">
@@ -6372,14 +6353,14 @@ This property element either references a polygon via the XLink-attributes or co
     <xs:annotation>
       <xs:documentation>A set of values, representing a list of token with the lexical value space of NCName. The tokens are seperated by whitespace.</xs:documentation>
     </xs:annotation>
-    <xs:list itemType="NCName"/>
+    <xs:list itemType="xs:NCName"/>
   </xs:simpleType>
   <!-- ============================================================== -->
   <xs:simpleType name="gml:QNameList">
     <xs:annotation>
       <xs:documentation>A set of values, representing a list of token with the lexical value space of QName. The tokens are seperated by whitespace.</xs:documentation>
     </xs:annotation>
-    <xs:list itemType="QName"/>
+    <xs:list itemType="xs:QName"/>
   </xs:simpleType>
   <!-- ============================================================== -->
 <xs:annotation>

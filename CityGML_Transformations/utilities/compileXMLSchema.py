@@ -58,10 +58,21 @@ def compileSchema(filepath):
    # add prefix to unqualified attribute values
    for node in input_root.iter():
       for attribute, value in node.attrib.items():
-         if not ':' in value:
+         if attribute == 'memberTypes':
+            type_list = []
+            for memberType in value.split(' '):
+               if ':' in memberType:
+                  type_list.append(memberType)
+               else:
+                  if local_namespace == 'http://www.w3.org/2001/XMLSchema':
+                     type_list.append( 'xs:{}'.format(memberType) )
+                  else:
+                     type_list.append( '{}:{}'.format(local_prefix, value) )
+            node.attrib[attribute] = ' '.join(type_list)
+         elif not ':' in value:
             if attribute == 'name':
                node.attrib['name'] = '{}:{}'.format(local_prefix, value)
-            if attribute in ('type', 'ref', 'substitutionGroup', 'base'):
+            if attribute in ('type', 'ref', 'substitutionGroup', 'base', 'itemType'):
                if local_namespace == 'http://www.w3.org/2001/XMLSchema':
                   node.attrib[attribute] = 'xs:{}'.format(value)
                else:

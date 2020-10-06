@@ -272,38 +272,36 @@ the contents of the type.-->
   <xsl:variable name="thisBaseQName" select="resolve-QName( string($thisBase), /xs:schema )"/>
   <xsl:choose>
     <xsl:when test="./xs:simpleContent/xs:extension
-                    and not (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema' and local-name-from-QName($thisBaseQName) != 'anyType')">
+                    and not (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema'
+                             and local-name-from-QName($thisBaseQName) != 'anyType')">
       <rdfs:subClassOf>
         <owl:Restriction>
-          <owl:onProperty     rdf:resource="{vcity:qualifyHasQName( $thisBaseQName )}"/>
-          <owl:someValuesFrom rdf:resource="{vcity:qualifyQName( $thisBaseQName )}"/>
+          <owl:onProperty    rdf:resource="{vcity:qualifyHasQName( $thisBaseQName )}"/>
+          <owl:allValuesFrom rdf:resource="{vcity:qualifyQName( $thisBaseQName )}"/>
         </owl:Restriction>
       </rdfs:subClassOf>
     </xsl:when>
     <xsl:when test="./xs:simpleContent/xs:restriction
-                    and not (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema' and local-name-from-QName($thisBaseQName) != 'anyType')">
+                    and not (namespace-uri-from-QName($thisBaseQName) = 'http://www.w3.org/2001/XMLSchema'
+                             and local-name-from-QName($thisBaseQName) != 'anyType')">
       <rdfs:subClassOf>
         <owl:Restriction>
-          <owl:onProperty     rdf:resource="{concat( vcity:qualifyHasQName( $thisNameQName ), 'Datatype' )}"/>
-          <owl:someValuesFrom rdf:resource="{concat( vcity:qualifyQName( $thisNameQName ), 'Datatype' )}"/>
+          <owl:onProperty    rdf:resource="{concat( vcity:qualifyHasQName( $thisNameQName ), 'Datatype' )}"/>
+          <owl:allValuesFrom rdf:resource="{concat( vcity:qualifyQName( $thisNameQName ), 'Datatype' )}"/>
         </owl:Restriction>
       </rdfs:subClassOf>
     </xsl:when>
   </xsl:choose>
   <xsl:choose>
-    <xsl:when test="//xs:complexType[@name = $thisBase] or //xs:element[@name = $thisBase and xs:complexType]">
+    <xsl:when test="./xs:complexContent and //xs:complexType[@name = $thisBase] or //xs:element[@name = $thisBase and xs:complexType]">
       <rdfs:subClassOf rdf:resource="{vcity:qualifyQName( $thisBaseQName )}"/>
     </xsl:when>
-    <xsl:when test="//xs:element[@name = $thisBase and @type]">
-      <xsl:variable name="thisType" select="//xs:element[@name = $thisBase]/@type"/>
+    <xsl:when test="./xs:complexContent and //xs:element[@name = $thisBase and @type]">
+      <xsl:variable name="thisType" select="//xs:element[@name = $thisBase and @type]/@type"/>
       <xsl:if test="//xs:complexType[@name = $thisType]">
         <rdfs:subClassOf rdf:resource="{vcity:qualifyQName( $thisBaseQName )}"/>
       </xsl:if>
     </xsl:when>
-    <xsl:otherwise>
-      <rdfs:subClassOf rdf:resource="{vcity:qualifyQName( $thisBaseQName )}"/>
-      <rdfs:comment>Warning: The parent class '<xsl:value-of select="$thisBase"/>' is declared outside of this class' original schema. This class may be declared incorrectly.</rdfs:comment>
-    </xsl:otherwise>
   </xsl:choose>
 </xsl:template>
 
@@ -665,7 +663,7 @@ unbounded, in which case it is ignored -->
 <xsl:template name="enumeration">
   <xsl:param name="pos"/>
   <xsl:param name="base"/>
-  <rdf:Description rdf:type="rdf:List">
+  <rdf:Description rdf:type="http://www.w3.org/1999/02/22-rdf-syntax-ns#List">
     <rdf:first rdf:datatype="{$base}"><xsl:value-of select="./xs:enumeration[position() = $pos]/@value"/></rdf:first>
     <xsl:choose>
       <xsl:when test="$pos = count(./xs:enumeration)">
@@ -756,7 +754,7 @@ unbounded, in which case it is ignored -->
   <owl:DatatypeProperty rdf:about="{vcity:qualifyQName(resolve-QName( string(@name), /xs:schema ))}">
     <xsl:apply-templates select="./xs:annotation"/>
     <rdfs:domain rdf:resource="{vcity:qualifyQName(resolve-QName( string(ancestor::*[@name][last()]/@name), /xs:schema ))}"/>
-    <rdfs:range rdf:resource="xs:string"/>
+    <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
   </owl:DatatypeProperty>
 </xsl:template>
 
