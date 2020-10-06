@@ -3,7 +3,6 @@ from os import system, walk
 from lxml import etree
 from copy import deepcopy
 
-input_file = '../XSD-to-OWL/Schema/CityGML/cityGMLBase.xsd'
 template = ('<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" ' +
 						   'xmlns:math="http://www.w3.org/2005/xpath-functions/math" ' +
 						   'xmlns:owl="http://www.w3.org/2002/07/owl#" ' +
@@ -20,7 +19,7 @@ template = ('<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" ' 
 output = etree.fromstring(template)
 
 print('Creating XML to RDF transformation mapping...')
-system('java -jar ../saxon9he.jar -s:input-data/compositebuilding.xsd -xsl:Generate_XML2RDF.xsl > CityGML2RDF.xsl')
+system('java -jar ../saxon9he.jar -s:../XMLSchema/compositeBuilding.xsd -xsl:Generate_XML2RDF.xsl > CityGML2RDF.xsl')
 
 print('Cleaning mapping patterns...')
 root = etree.parse('CityGML2RDF.xsl').getroot()
@@ -66,8 +65,8 @@ with open('CityGML2RDF.xsl', 'w') as file:
 # system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2012-153_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2012-153_bldg.rdf')
 print('Transforming XML to RDF... LYON_1ER_BATI_2015-1_bldg.gml')
 system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2015-1_bldg.rdf')
-print('Transforming XML to RDF... LYON_1ER_BATI_2015-1711_bldg.gml')
-system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1711_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2015-1711_bldg.rdf')
+# print('Transforming XML to RDF... LYON_1ER_BATI_2015-1711_bldg.gml')
+# system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1711_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2015-1711_bldg.rdf')
 
 def updateProgressBar( count, total, status='' ):
    bar_length    = 20
@@ -99,4 +98,4 @@ def cleanRDF(filename):
 # cleanRDF('Results/LYON_1ER_BATI_2012-1_bldg.rdf')
 # cleanRDF('Results/LYON_1ER_BATI_2012-153_bldg.rdf')
 cleanRDF('Results/LYON_1ER_BATI_2015-1_bldg.rdf')
-cleanRDF('Results/LYON_1ER_BATI_2015-1711_bldg.rdf')
+# cleanRDF('Results/LYON_1ER_BATI_2015-1711_bldg.rdf')

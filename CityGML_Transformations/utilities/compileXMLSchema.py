@@ -3,12 +3,26 @@ from copy import deepcopy
 from lxml import etree
 
 def main():
+   manifest = []
+   if len(sys.argv) == 1:
+      with open('manifest.txt', 'r') as file:
+         line = file.readline().strip()
+         while line is not '':
+            if line.endswith('*'):
+               for root, dirs, files in os.walk(line[:-1]):
+                  for filename in files:
+                     manifest.append(os.path.join(root, filename))
+            else:
+               manifest.append(line)
+            line = file.readline().strip()
+   elif len(sys.argv) == 2:
+      for root, dirs, files in os.walk(sys.argv[1]):
+         for file in files:
+            manifest.append(os.path.join(root, file))
+   else:
+      sys.exit('Incorrect number of arguments: {}\nUsage: compileXMLSchema.py [optional: path to input folder]'.format(len(sys.argv)))
 
-   if len(sys.argv) != 2:
-      sys.exit('Incorrect number of arguments: {}\nUsage: compileXMLSchema.py [path to input folder]'.format(len(sys.argv)))
-   
    # Initialize variables
-   FILEPATH = sys.argv[1]
    global output_root
    global target_namespaces
    # all recognized namespaces for CityGML 2.0
@@ -34,9 +48,8 @@ def main():
    output_root = etree.Element('{http://www.w3.org/2001/XMLSchema}schema', nsmap=target_namespaces)
 
    # walk through selected directories and add schema xml trees to output tree
-   for root, dirs, files in os.walk(FILEPATH):
-      for file in files:
-         compileSchema(os.path.join(root, file))
+   for filepath in manifest:
+      compileSchema(filepath)
 
    # write output tree to a file
    with open('compositeSchema.xsd', 'w') as file:

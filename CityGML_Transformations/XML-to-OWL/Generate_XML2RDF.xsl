@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
-              xmlns:math="http://www.w3.org/2005/xpath-functions/math"
-              xmlns:owl="http://www.w3.org/2002/07/owl#"
-              xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-              xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-              xmlns:xs="http://www.w3.org/2001/XMLSchema"
-              xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-              xmlns:gml="http://www.opengis.net/gml"
-              xmlns:core="http://www.opengis.net/citygml/2.0"
-              xmlns:base="http://www.opengis.net/citygml/base/2.0"
-              xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
-              xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
-              xmlns:smil20="http://www.w3.org/2001/SMIL20/"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              xmlns:liris="https://liris.cnrs.fr/ontologies#">
+  xmlns:math="http://www.w3.org/2005/xpath-functions/math"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+  xmlns:gml="http://www.opengis.net/gml"
+  xmlns:core="http://www.opengis.net/citygml/2.0"
+  xmlns:base="http://www.opengis.net/citygml/base/2.0"
+  xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
+  xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+  xmlns:smil20="http://www.w3.org/2001/SMIL20/"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  xmlns:liris="https://liris.cnrs.fr/ontologies#">
 <xsl:output indent="yes"/>
 <xsl:strip-space elements="*"/>
 
