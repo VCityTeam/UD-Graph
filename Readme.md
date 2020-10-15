@@ -4,8 +4,8 @@ Repository on graph models for Urban Data.
 This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/wiki/doku.php) of LIRIS, Université de Lyon, France
 
 ## Related Articles
-- [Technical report](https://hal.archives-ouvertes.fr/hal-02948955) (HAL)
-- [Internship report](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md) (markdown)
+- [From CityGML to OWL](https://hal.archives-ouvertes.fr/hal-02948955) (Technical report on HAL)
+- [Geospatial urban data and the semantic web: From representation to proof of concept](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md) (Internship report in markdown)
 
 ## CityGML Transformations
 Contains two implementations:
