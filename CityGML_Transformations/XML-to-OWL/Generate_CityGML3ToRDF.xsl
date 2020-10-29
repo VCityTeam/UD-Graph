@@ -6,12 +6,28 @@
   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-  xmlns:gml="http://www.opengis.net/gml"
-  xmlns:core="http://www.opengis.net/citygml/2.0"
-  xmlns:base="http://www.opengis.net/citygml/base/2.0"
-  xmlns:bldg="http://www.opengis.net/citygml/building/2.0"
-  xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+  xmlns:core="http://www.opengis.net/citygml/3.0"
+  xmlns:app="http://www.opengis.net/citygml/appearance/3.0"
+  xmlns:brid="http://www.opengis.net/citygml/bridge/3.0"
+  xmlns:bldg="http://www.opengis.net/citygml/building/3.0"
+  xmlns:pcl="http://www.opengis.net/citygml/pointcloud/3.0"
+  xmlns:frn="http://www.opengis.net/citygml/cityfurniture/3.0"
+  xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/3.0"
+  xmlns:con="http://www.opengis.net/citygml/construction/3.0"
+  xmlns:dyn="http://www.opengis.net/citygml/dynamizer/3.0"
+  xmlns:gen="http://www.opengis.net/citygml/generics/3.0"
+  xmlns:luse="http://www.opengis.net/citygml/landuse/3.0"
+  xmlns:dem="http://www.opengis.net/citygml/relief/3.0"
+  xmlns:tran="http://www.opengis.net/citygml/transportation/3.0"
+  xmlns:tun="http://www.opengis.net/citygml/tunnel/3.0"
+  xmlns:veg="http://www.opengis.net/citygml/vegetation/3.0"
+  xmlns:vers="http://www.opengis.net/citygml/versioning/3.0"
+  xmlns:wtr="http://www.opengis.net/citygml/waterbody/3.0"
+  xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:3.0"
+  xmlns:sch="http://www.ascc.net/xml/schematron"
   xmlns:smil20="http://www.w3.org/2001/SMIL20/"
+  xmlns:gml="http://www.opengis.net/gml/3.2"
+  xmlns:gmd="http://www.isotc211.org/2005/gmd"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:liris="https://liris.cnrs.fr/ontologies#">
 <xsl:output indent="yes"/>
@@ -70,8 +86,13 @@
 <!-- =================================== Element Transformations ===================================== -->
 <!-- ================================================================================================= -->
 
-<xsl:template match="xs:schema/xs:element[@type]|xs:schema/xs:element/xs:complexType">
+<xsl:template match="xs:schema/xs:element">
   <xsl:variable name="thisType" select="@type"/>
+  <xsl:if test="@type = 'xs:anyType'">
+    <xsl:element name="xsl:template">
+      <xsl:attribute name="name" select="concat( @name, '_Substitution' )"/>
+    </xsl:element>
+  </xsl:if>
   <xsl:if test="//xs:complexType[@name = $thisType or ../@name = $thisType] or ./xs:complexType">
     <xsl:element name="xsl:template">
       <xsl:attribute name="match" select="concat( '//', @name)"/>
@@ -91,10 +112,12 @@
         </xsl:element>
       </xsl:if>
     </xsl:element> -->
+  </xsl:if>
+  <xsl:if test="//xs:simpleType[@name = $thisType or ../@name = $thisType] or ./xs:simpleType">
     <xsl:element name="xsl:template">
       <xsl:attribute name="name" select="concat( @name, '_Substitution' )"/>
-      <xsl:element name="{@name}">
-        <xsl:attribute name="rdf:resource">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
+      <xsl:element name="xsl:call-template">
+        <xsl:attribute name="name" select="concat( @type, '_Template' )"/>
       </xsl:element>
     </xsl:element>
   </xsl:if>
@@ -103,12 +126,7 @@
 
 <xsl:template name="substitutionGroup">
   <xsl:param name="name"/>
-  <xsl:element name="xsl:for-each">
-    <xsl:attribute name="select">./<xsl:value-of select="$name"/></xsl:attribute>
-    <xsl:element name="xsl:call-template">
-      <xsl:attribute name="name" select="concat( $name, '_Substitution' )"/>
-    </xsl:element>
-  </xsl:element>
+  <xsl:value-of select="concat( '|./', $name )"/>
   <xsl:for-each select="//xs:element[@substitutionGroup = $name]">
     <xsl:call-template name="substitutionGroup">
       <xsl:with-param name="name" select="@name"/>
@@ -121,22 +139,24 @@
 <!-- ===================================== Type Transformations ====================================== -->
 <!-- ================================================================================================= -->
 
-<xsl:template match="xs:complexType">
+<xsl:template match="xs:complexType|xs:element/xs:complexType">
   <xsl:element name="xsl:template">
     <xsl:attribute name="name" select="concat( if (@name) then @name else ../@name, '_Template' )"/>
     <xsl:for-each select="descendant::xs:element[count(ancestor::xs:complexType) = 1 and count(ancestor::xs:simpleType) = 0]">
       <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
       <xsl:element name="xsl:for-each">
-        <xsl:attribute name="select">./<xsl:value-of select="$thisName"/></xsl:attribute>
+        <xsl:attribute name="select">
+          <xsl:value-of select="concat( './', $thisName )"/>
+          <xsl:for-each select="//xs:element[@substitutionGroup = $thisName]">
+            <xsl:call-template name="substitutionGroup">
+              <xsl:with-param name="name" select="@name"/>
+            </xsl:call-template>
+          </xsl:for-each>
+        </xsl:attribute>
         <xsl:element name="xsl:call-template">
           <xsl:attribute name="name" select="concat($thisName, '_Property')"/>
         </xsl:element>
       </xsl:element>
-      <xsl:for-each select="//xs:element[@substitutionGroup = $thisName]">
-        <xsl:call-template name="substitutionGroup">
-          <xsl:with-param name="name" select="@name"/>
-        </xsl:call-template>
-      </xsl:for-each>
     </xsl:for-each>
     <xsl:for-each select="descendant::xs:attribute[count(ancestor::xs:complexType) = 1 and count(ancestor::xs:simpleType) = 0]">
       <xsl:element name="xsl:if">
@@ -263,16 +283,18 @@
     <xsl:for-each select="descendant::xs:element[count(ancestor::xs:group) = 1]">
       <xsl:variable name="thisName" select="if (@name) then @name else @ref"/>
       <xsl:element name="xsl:for-each">
-        <xsl:attribute name="select">./<xsl:value-of select="$thisName"/></xsl:attribute>
+        <xsl:attribute name="select">
+          <xsl:value-of select="concat( './', $thisName )"/>
+          <xsl:for-each select="//xs:element[@substitutionGroup = $thisName]">
+            <xsl:call-template name="substitutionGroup">
+              <xsl:with-param name="name" select="@name"/>
+            </xsl:call-template>
+          </xsl:for-each>
+        </xsl:attribute>
         <xsl:element name="xsl:call-template">
           <xsl:attribute name="name" select="concat($thisName, '_Property')"/>
         </xsl:element>
       </xsl:element>
-      <xsl:for-each select="//xs:element[@substitutionGroup = $thisName]">
-        <xsl:call-template name="substitutionGroup">
-          <xsl:with-param name="name" select="@name"/>
-        </xsl:call-template>
-      </xsl:for-each>
     </xsl:for-each>
     <xsl:for-each select="descendant::xs:group[count(ancestor::xs:group) = 1]">
       <xsl:element name="xsl:call-template">
@@ -288,10 +310,11 @@
 <!-- ================================================================================================= -->
 
 <xsl:template match="xs:attribute">
+  <xsl:variable name="thisRef" select="tokenize( @ref,':' )"/>
   <xsl:variable name="thisType" select="@type"/>
   <xsl:element name="xsl:template">
     <xsl:attribute name="name" select="concat(if (@name) then @name else @ref, '_Property')"/>
-    <xsl:element name="{if (@name) then @name else @ref}">
+    <xsl:element name="{if (@name) then @name else concat( $thisRef[1],':has', $thisRef[2])}">
       <xsl:element name="xsl:value-of">
         <xsl:attribute name="select">./@<xsl:value-of select="if (@name) then @name else @ref"/></xsl:attribute>
       </xsl:element>

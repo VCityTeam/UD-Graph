@@ -1,72 +1,101 @@
 import sys
-from os import system, walk
+from os import system, walk, path
 from lxml import etree
 from copy import deepcopy
 
-template = ('<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" ' +
-						   'xmlns:math="http://www.w3.org/2005/xpath-functions/math" ' +
-						   'xmlns:owl="http://www.w3.org/2002/07/owl#" ' +
-						   'xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ' +
-						   'xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" ' +
-						   'xmlns:xs="http://www.w3.org/2001/XMLSchema" ' +
-						   'xmlns:gml="http://www.opengis.net/gml" ' +
-						   'xmlns:base="http://www.opengis.net/citygml/base/2.0" ' +
-						   'xmlns:bldg="http://www.opengis.net/citygml/building/2.0" ' +
-						   'xmlns:core="http://www.opengis.net/citygml/2.0" ' +
-						   'xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0" ' +
-						   'xmlns:xlink="http://www.w3.org/1999/xlink" ' +
-						   'xmlns:smil20="http://www.w3.org/2001/SMIL20/" version="2.0"/>')
-output = etree.fromstring(template)
+def main():
 
-print('Creating XML to RDF transformation mapping...')
-system('java -jar ../saxon9he.jar -s:../XMLSchema/compositeBuilding.xsd -xsl:Generate_XML2RDF.xsl > CityGML2RDF.xsl')
+  schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
+  generator_file       = 'Generate_CityGML2ToRDF.xsl'
+  transformation_file  = 'CityGML2ToRDF.xsl'
+  input_file           = 'LYON_1ER_BATI_2015-1_bldg.gml'
+  output_file          = 'LYON_1ER_BATI_2015-1_bldg.rdf'
 
-print('Cleaning mapping patterns...')
-root = etree.parse('CityGML2RDF.xsl').getroot()
-done_list = []
-for node_1 in root.findall('{http://www.w3.org/1999/XSL/Transform}template[@name]'):
-	name = node_1.attrib.get('name')
-	if name in done_list:
-		continue
-	for node_2 in root.findall('{http://www.w3.org/1999/XSL/Transform}template[@name = "%s"]' % name):
-		if node_1 is node_2:
-			continue
-		for child_2 in node_2:
-			isCopy = False
-			for child_1 in node_1:
-				if child_2.tag == child_1.tag and child_2.text == child_1.text and child_2.attrib == child_1.attrib:
-					isCopy = True
-			if isCopy:
-				continue
-			node_1.append(deepcopy(child_2))
-		root.remove(node_2)
-	done_list.append(name)
+  # schema_file          = '../XMLSchema/compositeCityGML3.0.xsd'
+  # generator_file       = 'Generate_CityGML3ToRDF.xsl'
+  # transformation_file  = 'CityGML3ToRDF.xsl'
+  # input_file           = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.gml'
+  # output_file          = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.rdf'
+
+  print('Creating XML to RDF transformation mapping...')
+  system('java -jar ../saxon9he.jar -s:{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
+
+  namespaces = dict(etree.parse(schema_file).getroot().nsmap)
+  namespaces.update( dict(etree.parse( 'input-data/{}'.format(input_file) ).getroot().nsmap) )
+
+  cleanXSLT(transformation_file, namespaces)
+  print('Transforming XML to RDF... {}'.format(input_file))
+  system('java -jar ../saxon9he.jar -s:input-data/{} -xsl:{} > Results/{}'.format(input_file, transformation_file, output_file))
+  cleanRDF('Results/{}'.format(output_file))
 
 
-for node in root:
-	output.append(deepcopy(node))
 
-element = etree.SubElement(output, '{http://www.w3.org/1999/XSL/Transform}template')
-element.attrib['name'] = 'gml:_Object_Template'
-element = etree.SubElement(output, '{http://www.w3.org/1999/XSL/Transform}template')
-element.attrib['name'] = 'xlink:simpleAttrs_Template'
+def cleanXSLT(filename, namespaces):
+  print('Cleaning mapping patterns...')
+  xsl_root = etree.Element('{http://www.w3.org/1999/XSL/Transform}stylesheet', nsmap=namespaces)
+  xsl_root.attrib.update({'version' : '2.0'})
+  root = etree.parse(filename).getroot()
+
+  done_list = []
+  for node_1 in root.findall('{http://www.w3.org/1999/XSL/Transform}template[@name]'):
+    name = node_1.attrib.get('name')
+    if name in done_list:
+      continue
+    for node_2 in root.findall('{http://www.w3.org/1999/XSL/Transform}template[@name = "%s"]' % name):
+      if node_1 is node_2:
+        continue
+      for child_2 in node_2:
+        isCopy = False
+        for child_1 in node_1:
+          if child_2.tag == child_1.tag and child_2.text == child_1.text and child_2.attrib == child_1.attrib:
+            isCopy = True
+        if isCopy:
+          continue
+        node_1.append(deepcopy(child_2))
+      root.remove(node_2)
+    done_list.append(name)
+  done_list = []
+  for node_1 in root.findall('{http://www.w3.org/1999/XSL/Transform}template[@match]'):
+    match = node_1.attrib.get('match')
+    if match in done_list:
+      continue
+    for node_2 in root.findall('{http://www.w3.org/1999/XSL/Transform}template[@match = "%s"]' % match):
+      if node_1 is node_2:
+        continue
+      for child_2 in node_2:
+        isCopy = False
+        for child_1 in node_1:
+          if child_2.tag == child_1.tag and child_2.text == child_1.text and child_2.attrib == child_1.attrib:
+            isCopy = True
+        if isCopy:
+          continue
+        node_1.append(deepcopy(child_2))
+      root.remove(node_2)
+    done_list.append(match)
+
+  for node in root:
+    xsl_root.append(deepcopy(node))
+
+  element = etree.SubElement(xsl_root, '{http://www.w3.org/1999/XSL/Transform}template')
+  element.attrib['name'] = 'gml:_Object_Template'
+  element = etree.SubElement(xsl_root, '{http://www.w3.org/1999/XSL/Transform}template')
+  element.attrib['name'] = 'xlink:simpleAttrs_Template'
+  with open(filename, 'wb') as file:
+    file.write(etree.tostring( xsl_root, pretty_print=True ))
 
 
-with open('CityGML2RDF.xsl', 'w') as file:
-   file.write(etree.tostring( output, pretty_print=True ))
+def cleanRDF(filename):
+  print('Cleaning rdf duplicates... ' + filename)
+  root = etree.parse(filename).getroot()
+  for node_1 in root.findall('{http://www.w3.org/2002/07/owl#}NamedIndividual[{http://www.opengis.net/gml}id]'):
+    index = root.index(node_1)
+    updateProgressBar( index, len(root), node_1.attrib.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}ID') )
+    if len(root) > index + 1 and root[index + 1].attrib == node_1.attrib:
+      root.remove(root[index])
 
-# print('Transforming XML to RDF... LYON_1ER_BATI_2009-1_bldg.gml')
-# system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2009-1_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2009-1_bldg.rdf')
-# print('Transforming XML to RDF... LYON_1ER_BATI_2009-153_bldg.gml')
-# system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2009-153_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2009-153_bldg.rdf')
-# print('Transforming XML to RDF... LYON_1ER_BATI_2012-1_bldg.gml')
-# system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2012-1_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2012-1_bldg.rdf')
-# print('Transforming XML to RDF... LYON_1ER_BATI_2012-153_bldg.gml')
-# system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2012-153_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2012-153_bldg.rdf')
-print('Transforming XML to RDF... LYON_1ER_BATI_2015-1_bldg.gml')
-system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2015-1_bldg.rdf')
-# print('Transforming XML to RDF... LYON_1ER_BATI_2015-1711_bldg.gml')
-# system('java -jar ../saxon9he.jar -s:input-data/LYON_1ER_BATI_2015-1711_bldg.gml -xsl:CityGML2RDF.xsl > Results/LYON_1ER_BATI_2015-1711_bldg.rdf')
+  with open(filename, 'wb') as file:
+     file.write(etree.tostring( root, pretty_print=True ))
+
 
 def updateProgressBar( count, total, status='' ):
    bar_length    = 20
@@ -81,21 +110,6 @@ def updateProgressBar( count, total, status='' ):
    sys.stdout.write( output[0:buffer_size] + '\r' )
    sys.stdout.flush()
 
-def cleanRDF(filename):
-	print('Cleaning rdf duplicates... ' + filename)
-	root = etree.parse(filename).getroot()
-	for node_1 in root.findall('{http://www.w3.org/2002/07/owl#}NamedIndividual[{http://www.opengis.net/gml}id]'):
-		index = root.index(node_1)
-		updateProgressBar( index, len(root), node_1.attrib.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}ID') )
-		if len(root) > index + 1 and root[index + 1].attrib == node_1.attrib:
-			root.remove(root[index])
 
-	with open(filename, 'w') as file:
-	   file.write(etree.tostring( root, pretty_print=True ))
-
-# cleanRDF('Results/LYON_1ER_BATI_2009-1_bldg.rdf')
-# cleanRDF('Results/LYON_1ER_BATI_2009-153_bldg.rdf')
-# cleanRDF('Results/LYON_1ER_BATI_2012-1_bldg.rdf')
-# cleanRDF('Results/LYON_1ER_BATI_2012-153_bldg.rdf')
-cleanRDF('Results/LYON_1ER_BATI_2015-1_bldg.rdf')
-# cleanRDF('Results/LYON_1ER_BATI_2015-1711_bldg.rdf')
+if __name__ == "__main__":
+  main()

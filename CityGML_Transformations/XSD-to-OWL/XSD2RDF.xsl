@@ -173,7 +173,36 @@ rdfs:range axioms are set by the type attribute -->
         <rdfs:range  rdf:resource="{vcity:qualifyQName( $thisRefQName )}"/>
       </owl:ObjectProperty>
     </xsl:when>
-    <xsl:when test="//xs:element[@name = $thisReference and @type]">
+    <xsl:when test="/xs:schema/xs:element[@name = $thisReference and @type]">
+      <xsl:variable name="thisType" select="/xs:schema/xs:element[@name = $thisReference and @type]/@type"/>
+      <xsl:variable name="thisTypeQName" select="resolve-QName( string($thisType), /xs:schema )"/>
+      <xsl:choose>
+        <xsl:when test="(namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema' and local-name-from-QName($thisTypeQName) != 'anyType')
+                        or //xs:simpleType[@name = $thisType]
+                        or //xs:element[xs:simpleType and @name = $thisType]">
+          <owl:DatatypeProperty rdf:about="{vcity:qualifyHasQName( $thisRefQName )}">
+            <rdfs:domain rdf:resource="{vcity:qualifyQName(resolve-QName( string( ancestor::*[@name][last()]/@name ), /xs:schema ))}"/>
+            <rdfs:range  rdf:resource="{vcity:qualifyQName( $thisRefQName )}"/>
+          </owl:DatatypeProperty>
+        </xsl:when>
+        <xsl:when test="(namespace-uri-from-QName($thisTypeQName) = 'http://www.w3.org/2001/XMLSchema' and local-name-from-QName($thisTypeQName) = 'anyType')
+                        or //xs:complexType[@name = $thisType]
+                        or //xs:element[xs:complexType and @name = $thisType]">
+          <owl:ObjectProperty rdf:about="{vcity:qualifyHasQName( $thisRefQName )}">
+            <rdfs:domain rdf:resource="{vcity:qualifyQName(resolve-QName( string( ancestor::*[@name][last()]/@name ), /xs:schema ))}"/>
+            <rdfs:range  rdf:resource="{vcity:qualifyQName( $thisRefQName )}"/>
+          </owl:ObjectProperty>
+        </xsl:when>
+        <xsl:otherwise>
+          <owl:ObjectProperty rdf:about="{vcity:qualifyHasQName( $thisRefQName )}">
+            <rdfs:comment>Warning: This ObjectProperty type reference was declared outside of its original schema. This ObjectProperty may be declared incorrectly.</rdfs:comment>
+            <rdfs:domain rdf:resource="{vcity:qualifyQName(resolve-QName( string( ancestor::*[@name][last()]/@name ), /xs:schema ))}"/>
+            <rdfs:range  rdf:resource="{vcity:qualifyQName( $thisRefQName )}"/>
+          </owl:ObjectProperty>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:when>
+    <xsl:when test="//xs:element[@name = $thisReference and @type and (xs:complexType or xs:simpleType)]">
       <xsl:variable name="thisType" select="/xs:schema/xs:element[@name = $thisReference and @type]/@type"/>
       <xsl:variable name="thisTypeQName" select="resolve-QName( string($thisType), /xs:schema )"/>
       <xsl:choose>

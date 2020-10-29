@@ -1,4 +1,5 @@
 import sys
+from os   import path
 from lxml import etree
 
 def main( FILEPATH = '' ):
@@ -8,10 +9,9 @@ def main( FILEPATH = '' ):
    
    # initialize variables
    FILEPATH        = sys.argv[1]
-   FILENAME        = FILEPATH.split('/')[-1].split('.')[0]
+   FILENAME        = path.split(FILEPATH)[1]
    ONTOLOGY_NAME   = 'http://liris.cnrs.fr/ontologies/' + FILENAME
    root            = etree.parse(FILEPATH).getroot()
-   
    # set ontology name
    root[0].set( '{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', ONTOLOGY_NAME )
 
@@ -36,7 +36,7 @@ def main( FILEPATH = '' ):
    #    if len(node) == 0:
    #       node.getparent().remove(node)
 
-   with open(FILEPATH, 'w') as file:
+   with open(FILEPATH, 'wb') as file:
       file.write(etree.tostring( root, pretty_print=True ))
 
 
