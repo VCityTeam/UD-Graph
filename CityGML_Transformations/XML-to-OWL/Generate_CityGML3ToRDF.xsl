@@ -40,7 +40,7 @@
 <xsl:template match="/">
   <xsl:element name="xsl:stylesheet">
 
-    <xsl:attribute name="version">2.0</xsl:attribute>
+    <xsl:attribute name="version">3.0</xsl:attribute>
     <xsl:element name="xsl:output">
       <xsl:attribute name="indent">yes</xsl:attribute>
     </xsl:element>
@@ -62,6 +62,8 @@
       </rdf:RDF>
     </xsl:element>
 
+    <xsl:call-template name="geometry-serialization"/>
+
     <xsl:apply-templates select="//xs:complexType"/>
     <xsl:apply-templates select="//xs:simpleType"/>
     <xsl:apply-templates select="/xs:schema/xs:element"/>
@@ -70,6 +72,7 @@
     <xsl:apply-templates select="//xs:attribute"/>
     <xsl:apply-templates select="/xs:schema/xs:group"/>
     <xsl:apply-templates select="/xs:schema/xs:attributeGroup"/>
+
 
     <xsl:element name="xsl:template">
       <xsl:attribute name="match">text()</xsl:attribute>
@@ -97,7 +100,7 @@
     <xsl:element name="xsl:template">
       <xsl:attribute name="match" select="concat( '//', @name)"/>
       <owl:NamedIndividual>
-        <xsl:attribute name="rdf:ID">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
+        <xsl:attribute name="rdf:about">{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}</xsl:attribute>
         <rdf:type rdf:resource="{@name}"/>
         <xsl:element name="xsl:call-template">
           <xsl:attribute name="name" select="concat( @type, '_Template' )"/>
@@ -198,6 +201,15 @@
         </xsl:when>
       </xsl:choose>
     </xsl:if>
+    <!-- add geosparql-template to _Geometry types if this node is the first in a subtree of all gml nodes -->
+    <xsl:if test="@name = 'gml:AbstractGeometryType'">
+      <xsl:element name="xsl:if">
+        <xsl:attribute name="test">not(parent::gml:*) and count(descendant::*) = count(descendant::gml:*)</xsl:attribute>
+        <xsl:element name="xsl:call-template">
+          <xsl:attribute name="name" select="'geometry-serialization-template'"/>
+        </xsl:element>
+      </xsl:element>
+    </xsl:if>
   </xsl:element>
 </xsl:template>
 
@@ -266,7 +278,7 @@
     <xsl:element name="xsl:template">
       <xsl:attribute name="match" select="concat( '//', if (@name) then @name else @ref )"/>
       <owl:NamedIndividual>
-        <xsl:attribute name="rdf:ID">{concat( '<xsl:value-of select="$thisType"/>', '_', generate-id() )}</xsl:attribute>
+        <xsl:attribute name="rdf:about">{concat( '<xsl:value-of select="if (contains( $thisType, ':' )) then tokenize( $thisType, ':' )[2] else $thisType"/>', '_', generate-id() )}</xsl:attribute>
         <rdf:type rdf:resource="{@name}"/>
         <xsl:element name="xsl:call-template">
           <xsl:attribute name="name" select="concat( $thisType, '_Template' )"/>
@@ -340,6 +352,22 @@
         <xsl:attribute name="name" select="concat( if (@name) then @name else @ref, '_Template' )"/>
       </xsl:element>
     </xsl:for-each>
+  </xsl:element>
+</xsl:template>
+
+
+<!-- ================================================================================================= -->
+<!-- ================================= GeoSPARQL Transformations ===================================== -->
+<!-- ================================================================================================= -->
+
+<xsl:template name="geometry-serialization">
+  <xsl:element name="xsl:template">
+    <xsl:attribute name="name" select="'geometry-serialization-template'"/>
+      <geo:asGML rdf:datatype="http://www.opengis.net/ont/geosparql#gmlLiteral">
+        <xsl:element name="xsl:value-of">
+          <xsl:attribute name="select" select="'serialize(.)'"/>
+        </xsl:element>
+      </geo:asGML>
   </xsl:element>
 </xsl:template>
 

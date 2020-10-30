@@ -2,10 +2,15 @@
    <xsl:strip-space elements="*"/>
    <xsl:variable name="namespace" select="'https://liris.cnrs.fr/ontologies#'"/>
    <xsl:template match="/">
-      <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#">
+      <rdf:RDF xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#">
          <owl:Ontology rdf:about="https://liris.cnrs.fr/ontologies#"/>
          <xsl:apply-templates select="//*"/>
       </rdf:RDF>
+   </xsl:template>
+   <xsl:template name="geometry-serialization-template">
+      <geo:asGML xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:datatype="http://www.opengis.net/ont/geosparql#gmlLiteral">
+         <xsl:value-of select="serialize(.)"/>
+      </geo:asGML>
    </xsl:template>
    <xsl:template name="gml:AbstractCoverageType_Template">
       <xsl:for-each select="./gml:domainSet|./gml:multiPointDomain|./gml:multiCurveDomain|./gml:multiSurfaceDomain|./gml:multiSolidDomain|./gml:gridDomain|./gml:rectifiedGridDomain">
@@ -1192,6 +1197,9 @@
       </xsl:if>
       <xsl:call-template name="gml:SRSReferenceGroup_Template"/>
       <xsl:call-template name="gml:AbstractGMLType_Template"/>
+      <xsl:if test="not(parent::gml:*) and count(descendant::*) = count(descendant::gml:*)">
+         <xsl:call-template name="geometry-serialization-template"/>
+      </xsl:if>
    </xsl:template>
    <xsl:template name="gml:AbstractGeometricPrimitiveType_Template">
       <xsl:call-template name="gml:AbstractGeometryType_Template"/>
@@ -5954,49 +5962,49 @@
       </xs:hasNMTOKEN>
    </xsl:template>
    <xsl:template match="//gml:_Coverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Coverage"/>
          <xsl:call-template name="gml:AbstractCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_ContinuousCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ContinuousCoverage"/>
          <xsl:call-template name="gml:AbstractContinuousCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_DiscreteCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_DiscreteCoverage"/>
          <xsl:call-template name="gml:AbstractDiscreteCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:domainSet">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:domainSet"/>
          <xsl:call-template name="gml:DomainSetType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:rangeSet">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:rangeSet"/>
          <xsl:call-template name="gml:RangeSetType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coverageFunction">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coverageFunction"/>
          <xsl:call-template name="gml:CoverageFunctionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DataBlock">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DataBlock"/>
          <xsl:call-template name="gml:DataBlockType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:tupleList">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:tupleList"/>
          <xsl:call-template name="gml:CoordinatesType_Template"/>
       </owl:NamedIndividual>
@@ -6005,647 +6013,647 @@
       <xsl:call-template name="gml:doubleOrNullList_Template"/>
    </xsl:template>
    <xsl:template match="//gml:File">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:File"/>
          <xsl:call-template name="gml:FileType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:rangeParameters">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:rangeParameters"/>
          <xsl:call-template name="gml:RangeParametersType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MappingRule">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MappingRule"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GridFunction">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GridFunction"/>
          <xsl:call-template name="gml:GridFunctionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:IndexMap">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:IndexMap"/>
          <xsl:call-template name="gml:IndexMapType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiPointCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiPointCoverage"/>
          <xsl:call-template name="gml:MultiPointCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiPointDomain">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiPointDomain"/>
          <xsl:call-template name="gml:MultiPointDomainType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiCurveCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiCurveCoverage"/>
          <xsl:call-template name="gml:MultiCurveCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiCurveDomain">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCurveDomain"/>
          <xsl:call-template name="gml:MultiCurveDomainType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiSurfaceCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSurfaceCoverage"/>
          <xsl:call-template name="gml:MultiSurfaceCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiSurfaceDomain">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSurfaceDomain"/>
          <xsl:call-template name="gml:MultiSurfaceDomainType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiSolidCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSolidCoverage"/>
          <xsl:call-template name="gml:MultiSolidCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiSolidDomain">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSolidDomain"/>
          <xsl:call-template name="gml:MultiSolidDomainType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GridCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GridCoverage"/>
          <xsl:call-template name="gml:GridCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:gridDomain">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:gridDomain"/>
          <xsl:call-template name="gml:GridDomainType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:RectifiedGridCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:RectifiedGridCoverage"/>
          <xsl:call-template name="gml:RectifiedGridCoverageType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:rectifiedGridDomain">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:rectifiedGridDomain"/>
          <xsl:call-template name="gml:RectifiedGridDomainType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Definition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Definition"/>
          <xsl:call-template name="gml:DefinitionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Dictionary">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Dictionary"/>
          <xsl:call-template name="gml:DictionaryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DefinitionCollection">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DefinitionCollection"/>
          <xsl:call-template name="gml:DictionaryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:dictionaryEntry">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dictionaryEntry"/>
          <xsl:call-template name="gml:DictionaryEntryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:definitionMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:definitionMember"/>
          <xsl:call-template name="gml:DictionaryEntryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:indirectEntry">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:indirectEntry"/>
          <xsl:call-template name="gml:IndirectEntryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DefinitionProxy">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DefinitionProxy"/>
          <xsl:call-template name="gml:DefinitionProxyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:definitionRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:definitionRef"/>
          <xsl:call-template name="gml:ReferenceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Feature">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Feature"/>
          <xsl:call-template name="gml:AbstractFeatureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:boundedBy">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:boundedBy"/>
          <xsl:call-template name="gml:BoundingShapeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:EnvelopeWithTimePeriod">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EnvelopeWithTimePeriod"/>
          <xsl:call-template name="gml:EnvelopeWithTimePeriodType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:featureMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureMember"/>
          <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:featureProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureProperty"/>
          <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:featureMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureMembers"/>
          <xsl:call-template name="gml:FeatureArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_FeatureCollection">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_FeatureCollection"/>
          <xsl:call-template name="gml:AbstractFeatureCollectionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:FeatureCollection">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:FeatureCollection"/>
          <xsl:call-template name="gml:FeatureCollectionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LocationKeyWord">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LocationKeyWord"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LocationString">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LocationString"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:centerOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:centerOf"/>
          <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:position">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:position"/>
          <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:edgeOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:edgeOf"/>
          <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:centerLineOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:centerLineOf"/>
          <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:extentOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:extentOf"/>
          <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:location">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:location"/>
          <xsl:call-template name="gml:LocationPropertyType_Template"/>
       </owl:NamedIndividual>
-   <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
+   <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'DirectPositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:location"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:priorityLocation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:priorityLocation"/>
          <xsl:call-template name="gml:PriorityLocationPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimeReferenceSystem">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeReferenceSystem"/>
          <xsl:call-template name="gml:AbstractTimeReferenceSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeCoordinateSystem">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeCoordinateSystem"/>
          <xsl:call-template name="gml:TimeCoordinateSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeOrdinalReferenceSystem">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeOrdinalReferenceSystem"/>
          <xsl:call-template name="gml:TimeOrdinalReferenceSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeOrdinalEra">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeOrdinalEra"/>
          <xsl:call-template name="gml:TimeOrdinalEraType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeCalendar">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeCalendar"/>
          <xsl:call-template name="gml:TimeCalendarType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeCalendarEra">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeCalendarEra"/>
          <xsl:call-template name="gml:TimeCalendarEraType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeClock">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeClock"/>
          <xsl:call-template name="gml:TimeClockType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Topology">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Topology"/>
          <xsl:call-template name="gml:AbstractTopologyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TopoPrimitive">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TopoPrimitive"/>
          <xsl:call-template name="gml:AbstractTopoPrimitiveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:isolated">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:isolated"/>
          <xsl:call-template name="gml:IsolatedPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:container">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:container"/>
          <xsl:call-template name="gml:ContainerPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Node">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Node"/>
          <xsl:call-template name="gml:NodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:directedNode">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedNode"/>
          <xsl:call-template name="gml:DirectedNodePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Edge">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Edge"/>
          <xsl:call-template name="gml:EdgeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:directedEdge">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedEdge"/>
          <xsl:call-template name="gml:DirectedEdgePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Face">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Face"/>
          <xsl:call-template name="gml:FaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:directedFace">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedFace"/>
          <xsl:call-template name="gml:DirectedFacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopoSolid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoSolid"/>
          <xsl:call-template name="gml:TopoSolidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:directedTopoSolid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:directedTopoSolid"/>
          <xsl:call-template name="gml:DirectedTopoSolidPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopoPoint">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoPoint"/>
          <xsl:call-template name="gml:TopoPointType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoPointProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoPointProperty"/>
          <xsl:call-template name="gml:TopoPointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopoCurve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoCurve"/>
          <xsl:call-template name="gml:TopoCurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoCurveProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoCurveProperty"/>
          <xsl:call-template name="gml:TopoCurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopoSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoSurface"/>
          <xsl:call-template name="gml:TopoSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoSurfaceProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoSurfaceProperty"/>
          <xsl:call-template name="gml:TopoSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopoVolume">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoVolume"/>
          <xsl:call-template name="gml:TopoVolumeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoVolumeProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoVolumeProperty"/>
          <xsl:call-template name="gml:TopoVolumePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopoComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopoComplex"/>
          <xsl:call-template name="gml:TopoComplexType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoComplexProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoComplexProperty"/>
          <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:subComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:subComplex"/>
          <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:superComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:superComplex"/>
          <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:maximalComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:maximalComplex"/>
          <xsl:call-template name="gml:TopoComplexMemberType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoPrimitiveMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoPrimitiveMember"/>
          <xsl:call-template name="gml:TopoPrimitiveMemberType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topoPrimitiveMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topoPrimitiveMembers"/>
          <xsl:call-template name="gml:TopoPrimitiveArrayAssociationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_CoordinateOperation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CoordinateOperation"/>
          <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinateOperationName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateOperationName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinateOperationID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateOperationID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:sourceCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:sourceCRS"/>
          <xsl:call-template name="gml:CRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:targetCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:targetCRS"/>
          <xsl:call-template name="gml:CRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinateOperationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateOperationRef"/>
          <xsl:call-template name="gml:CoordinateOperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ConcatenatedOperation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ConcatenatedOperation"/>
          <xsl:call-template name="gml:ConcatenatedOperationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesSingleOperation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesSingleOperation"/>
          <xsl:call-template name="gml:SingleOperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:concatenatedOperationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:concatenatedOperationRef"/>
          <xsl:call-template name="gml:ConcatenatedOperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_SingleOperation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_SingleOperation"/>
          <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:singleOperationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:singleOperationRef"/>
          <xsl:call-template name="gml:SingleOperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:PassThroughOperation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PassThroughOperation"/>
          <xsl:call-template name="gml:PassThroughOperationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesOperation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesOperation"/>
          <xsl:call-template name="gml:OperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:passThroughOperationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:passThroughOperationRef"/>
          <xsl:call-template name="gml:PassThroughOperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Operation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Operation"/>
          <xsl:call-template name="gml:AbstractCoordinateOperationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:operationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationRef"/>
          <xsl:call-template name="gml:OperationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GeneralConversion">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralConversion"/>
          <xsl:call-template name="gml:AbstractGeneralConversionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:generalConversionRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:generalConversionRef"/>
          <xsl:call-template name="gml:GeneralConversionRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Conversion">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Conversion"/>
          <xsl:call-template name="gml:ConversionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesMethod">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesMethod"/>
          <xsl:call-template name="gml:OperationMethodRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesValue">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesValue"/>
          <xsl:call-template name="gml:ParameterValueType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:conversionRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:conversionRef"/>
          <xsl:call-template name="gml:ConversionRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GeneralTransformation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralTransformation"/>
          <xsl:call-template name="gml:AbstractGeneralTransformationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:generalTransformationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:generalTransformationRef"/>
          <xsl:call-template name="gml:GeneralTransformationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Transformation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Transformation"/>
          <xsl:call-template name="gml:TransformationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:transformationRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:transformationRef"/>
          <xsl:call-template name="gml:TransformationRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_generalParameterValue">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_generalParameterValue"/>
          <xsl:call-template name="gml:AbstractGeneralParameterValueType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:parameterValue">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterValue"/>
          <xsl:call-template name="gml:ParameterValueType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:value">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:value"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:dmsAngleValue">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dmsAngleValue"/>
          <xsl:call-template name="gml:DMSAngleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:valueList">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueList"/>
          <xsl:call-template name="gml:MeasureListType_Template"/>
       </owl:NamedIndividual>
@@ -6654,229 +6662,229 @@
       <xsl:call-template name="gml:integerList_Template"/>
    </xsl:template>
    <xsl:template match="//gml:valueOfParameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueOfParameter"/>
          <xsl:call-template name="gml:OperationParameterRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:parameterValueGroup">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterValueGroup"/>
          <xsl:call-template name="gml:ParameterValueGroupType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:includesValue">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesValue"/>
          <xsl:call-template name="gml:AbstractGeneralParameterValueType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:valuesOfGroup">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valuesOfGroup"/>
          <xsl:call-template name="gml:OperationParameterGroupRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:OperationMethod">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OperationMethod"/>
          <xsl:call-template name="gml:OperationMethodType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:methodName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:methodName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:methodID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:methodID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:methodFormula">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:methodFormula"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesParameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesParameter"/>
          <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:operationMethodRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationMethodRef"/>
          <xsl:call-template name="gml:OperationMethodRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GeneralOperationParameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralOperationParameter"/>
          <xsl:call-template name="gml:AbstractGeneralOperationParameterType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:abstractGeneralOperationParameterRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:abstractGeneralOperationParameterRef"/>
          <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:OperationParameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OperationParameter"/>
          <xsl:call-template name="gml:OperationParameterType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:parameterName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:parameterID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:parameterID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:operationParameterRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationParameterRef"/>
          <xsl:call-template name="gml:OperationParameterRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:OperationParameterGroup">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OperationParameterGroup"/>
          <xsl:call-template name="gml:OperationParameterGroupType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:groupName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:groupName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:groupID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:groupID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:includesParameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesParameter"/>
          <xsl:call-template name="gml:AbstractGeneralOperationParameterRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:operationParameterGroupRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:operationParameterGroupRef"/>
          <xsl:call-template name="gml:OperationParameterRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CompositeCurve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeCurve"/>
          <xsl:call-template name="gml:CompositeCurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CompositeSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeSurface"/>
          <xsl:call-template name="gml:CompositeSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CompositeSolid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeSolid"/>
          <xsl:call-template name="gml:CompositeSolidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GeometricComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeometricComplex"/>
          <xsl:call-template name="gml:GeometricComplexType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GML">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GML"/>
          <xsl:call-template name="gml:AbstractGMLType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Bag">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Bag"/>
          <xsl:call-template name="gml:BagType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Array">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Array"/>
          <xsl:call-template name="gml:ArrayType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_MetaData">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_MetaData"/>
          <xsl:call-template name="gml:AbstractMetaDataType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GenericMetaData">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GenericMetaData"/>
          <xsl:call-template name="gml:GenericMetaDataType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_association">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_association"/>
          <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_strictAssociation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_strictAssociation"/>
          <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:member">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:member"/>
          <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_reference">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_reference"/>
          <xsl:call-template name="gml:ReferenceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:members">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:members"/>
          <xsl:call-template name="gml:ArrayAssociationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:metaDataProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:metaDataProperty"/>
          <xsl:call-template name="gml:MetaDataPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:name">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:name"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:description">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:description"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
@@ -6885,25 +6893,25 @@
       <xsl:call-template name="gml:booleanOrNullList_Template"/>
    </xsl:template>
    <xsl:template match="//gml:Category">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Category"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CategoryList">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CategoryList"/>
          <xsl:call-template name="gml:CodeOrNullListType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Quantity">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Quantity"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:QuantityList">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:QuantityList"/>
          <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
       </owl:NamedIndividual>
@@ -6912,25 +6920,25 @@
       <xsl:call-template name="gml:integerOrNullList_Template"/>
    </xsl:template>
    <xsl:template match="//gml:CompositeValue">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompositeValue"/>
          <xsl:call-template name="gml:CompositeValueType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ValueArray">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ValueArray"/>
          <xsl:call-template name="gml:ValueArrayType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:QuantityExtent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:QuantityExtent"/>
          <xsl:call-template name="gml:QuantityExtentType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CategoryExtent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CategoryExtent"/>
          <xsl:call-template name="gml:CategoryExtentType_Template"/>
       </owl:NamedIndividual>
@@ -6939,733 +6947,733 @@
       <xsl:call-template name="gml:CountExtentType_Template"/>
    </xsl:template>
    <xsl:template match="//gml:valueProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueProperty"/>
          <xsl:call-template name="gml:ValuePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:valueComponent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueComponent"/>
          <xsl:call-template name="gml:ValuePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:valueComponents">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:valueComponents"/>
          <xsl:call-template name="gml:ValueArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Geometry">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Geometry"/>
          <xsl:call-template name="gml:AbstractGeometryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GeometricPrimitive">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeometricPrimitive"/>
          <xsl:call-template name="gml:AbstractGeometricPrimitiveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Point">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Point"/>
          <xsl:call-template name="gml:PointType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pointProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointProperty"/>
          <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pointRep">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointRep"/>
          <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pointArrayProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointArrayProperty"/>
          <xsl:call-template name="gml:PointArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Curve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Curve"/>
          <xsl:call-template name="gml:AbstractCurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:curveProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveProperty"/>
          <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:curveArrayProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveArrayProperty"/>
          <xsl:call-template name="gml:CurveArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LineString">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LineString"/>
          <xsl:call-template name="gml:LineStringType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pos">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pos"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:posList">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:posList"/>
          <xsl:call-template name="gml:DirectPositionListType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:vector">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:vector"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinates">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinates"/>
          <xsl:call-template name="gml:CoordinatesType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Envelope">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Envelope"/>
          <xsl:call-template name="gml:EnvelopeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coord">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coord"/>
          <xsl:call-template name="gml:CoordType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:lineStringProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:lineStringProperty"/>
          <xsl:call-template name="gml:LineStringPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_CoordinateReferenceSystem">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CoordinateReferenceSystem"/>
          <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinateReferenceSystemRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateReferenceSystemRef"/>
          <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CompoundCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CompoundCRS"/>
          <xsl:call-template name="gml:CompoundCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:includesCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesCRS"/>
          <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:compoundCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:compoundCRSRef"/>
          <xsl:call-template name="gml:CompoundCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GeographicCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeographicCRS"/>
          <xsl:call-template name="gml:GeographicCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesEllipsoidalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesEllipsoidalCS"/>
          <xsl:call-template name="gml:EllipsoidalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesGeodeticDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesGeodeticDatum"/>
          <xsl:call-template name="gml:GeodeticDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:geographicCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geographicCRSRef"/>
          <xsl:call-template name="gml:GeographicCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:VerticalCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:VerticalCRS"/>
          <xsl:call-template name="gml:VerticalCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesVerticalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesVerticalCS"/>
          <xsl:call-template name="gml:VerticalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesVerticalDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesVerticalDatum"/>
          <xsl:call-template name="gml:VerticalDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:verticalCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalCRSRef"/>
          <xsl:call-template name="gml:VerticalCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GeocentricCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeocentricCRS"/>
          <xsl:call-template name="gml:GeocentricCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesCartesianCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesCartesianCS"/>
          <xsl:call-template name="gml:CartesianCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesSphericalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesSphericalCS"/>
          <xsl:call-template name="gml:SphericalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:geocentricCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geocentricCRSRef"/>
          <xsl:call-template name="gml:GeocentricCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GeneralDerivedCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeneralDerivedCRS"/>
          <xsl:call-template name="gml:AbstractGeneralDerivedCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:baseCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:baseCRS"/>
          <xsl:call-template name="gml:CoordinateReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:definedByConversion">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:definedByConversion"/>
          <xsl:call-template name="gml:GeneralConversionRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ProjectedCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ProjectedCRS"/>
          <xsl:call-template name="gml:ProjectedCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:projectedCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:projectedCRSRef"/>
          <xsl:call-template name="gml:ProjectedCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DerivedCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DerivedCRS"/>
          <xsl:call-template name="gml:DerivedCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:derivedCRSType">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:derivedCRSType"/>
          <xsl:call-template name="gml:DerivedCRSTypeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesCS"/>
          <xsl:call-template name="gml:CoordinateSystemRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:derivedCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:derivedCRSRef"/>
          <xsl:call-template name="gml:DerivedCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:EngineeringCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EngineeringCRS"/>
          <xsl:call-template name="gml:EngineeringCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesEngineeringDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesEngineeringDatum"/>
          <xsl:call-template name="gml:EngineeringDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:engineeringCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:engineeringCRSRef"/>
          <xsl:call-template name="gml:EngineeringCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ImageCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ImageCRS"/>
          <xsl:call-template name="gml:ImageCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesObliqueCartesianCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesObliqueCartesianCS"/>
          <xsl:call-template name="gml:ObliqueCartesianCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesImageDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesImageDatum"/>
          <xsl:call-template name="gml:ImageDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:imageCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:imageCRSRef"/>
          <xsl:call-template name="gml:ImageCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TemporalCRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TemporalCRS"/>
          <xsl:call-template name="gml:TemporalCRSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesTemporalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesTemporalCS"/>
          <xsl:call-template name="gml:TemporalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesTemporalDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesTemporalDatum"/>
          <xsl:call-template name="gml:TemporalDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:temporalCRSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalCRSRef"/>
          <xsl:call-template name="gml:TemporalCRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:using">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:using"/>
          <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:target">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:target"/>
          <xsl:call-template name="gml:TargetPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:subject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:subject"/>
          <xsl:call-template name="gml:TargetPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:resultOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:resultOf"/>
          <xsl:call-template name="gml:AssociationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Observation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Observation"/>
          <xsl:call-template name="gml:ObservationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DirectedObservation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectedObservation"/>
          <xsl:call-template name="gml:DirectedObservationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DirectedObservationAtDistance">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectedObservationAtDistance"/>
          <xsl:call-template name="gml:DirectedObservationAtDistanceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CoordinateSystemAxis">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CoordinateSystemAxis"/>
          <xsl:call-template name="gml:CoordinateSystemAxisType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:axisID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:axisID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:axisAbbrev">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:axisAbbrev"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:axisDirection">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:axisDirection"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinateSystemAxisRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateSystemAxisRef"/>
          <xsl:call-template name="gml:CoordinateSystemAxisRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_CoordinateSystem">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CoordinateSystem"/>
          <xsl:call-template name="gml:AbstractCoordinateSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:csName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:csName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:csID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:csID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesAxis">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesAxis"/>
          <xsl:call-template name="gml:CoordinateSystemAxisRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:coordinateSystemRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:coordinateSystemRef"/>
          <xsl:call-template name="gml:CoordinateSystemRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:EllipsoidalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EllipsoidalCS"/>
          <xsl:call-template name="gml:EllipsoidalCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidalCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidalCSRef"/>
          <xsl:call-template name="gml:EllipsoidalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CartesianCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CartesianCS"/>
          <xsl:call-template name="gml:CartesianCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:cartesianCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:cartesianCSRef"/>
          <xsl:call-template name="gml:CartesianCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:VerticalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:VerticalCS"/>
          <xsl:call-template name="gml:VerticalCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:verticalCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalCSRef"/>
          <xsl:call-template name="gml:VerticalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TemporalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TemporalCS"/>
          <xsl:call-template name="gml:TemporalCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:temporalCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalCSRef"/>
          <xsl:call-template name="gml:TemporalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LinearCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LinearCS"/>
          <xsl:call-template name="gml:LinearCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:linearCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:linearCSRef"/>
          <xsl:call-template name="gml:LinearCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:UserDefinedCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:UserDefinedCS"/>
          <xsl:call-template name="gml:UserDefinedCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:userDefinedCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:userDefinedCSRef"/>
          <xsl:call-template name="gml:UserDefinedCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:SphericalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:SphericalCS"/>
          <xsl:call-template name="gml:SphericalCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:sphericalCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:sphericalCSRef"/>
          <xsl:call-template name="gml:SphericalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:PolarCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PolarCS"/>
          <xsl:call-template name="gml:PolarCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:polarCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polarCSRef"/>
          <xsl:call-template name="gml:PolarCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CylindricalCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CylindricalCS"/>
          <xsl:call-template name="gml:CylindricalCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:cylindricalCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:cylindricalCSRef"/>
          <xsl:call-template name="gml:CylindricalCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ObliqueCartesianCS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ObliqueCartesianCS"/>
          <xsl:call-template name="gml:ObliqueCartesianCSType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:obliqueCartesianCSRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:obliqueCartesianCSRef"/>
          <xsl:call-template name="gml:ObliqueCartesianCSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Surface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Surface"/>
          <xsl:call-template name="gml:AbstractSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:surfaceProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceProperty"/>
          <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:surfaceArrayProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceArrayProperty"/>
          <xsl:call-template name="gml:SurfaceArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Polygon">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Polygon"/>
          <xsl:call-template name="gml:PolygonType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Ring">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Ring"/>
          <xsl:call-template name="gml:AbstractRingType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:exterior">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:exterior"/>
          <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:interior">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:interior"/>
          <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:outerBoundaryIs">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:outerBoundaryIs"/>
          <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:innerBoundaryIs">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:innerBoundaryIs"/>
          <xsl:call-template name="gml:AbstractRingPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LinearRing">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LinearRing"/>
          <xsl:call-template name="gml:LinearRingType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:polygonProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polygonProperty"/>
          <xsl:call-template name="gml:PolygonPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:dataSource">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dataSource"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:status">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:status"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimeSlice">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeSlice"/>
          <xsl:call-template name="gml:AbstractTimeSliceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MovingObjectStatus">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MovingObjectStatus"/>
          <xsl:call-template name="gml:MovingObjectStatusType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:history">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:history"/>
          <xsl:call-template name="gml:HistoryPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:track">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:track"/>
          <xsl:call-template name="gml:TrackType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimeObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeObject"/>
          <xsl:call-template name="gml:AbstractTimeObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimePrimitive">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimePrimitive"/>
          <xsl:call-template name="gml:AbstractTimePrimitiveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimeComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeComplex"/>
          <xsl:call-template name="gml:AbstractTimeComplexType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimeGeometricPrimitive">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeGeometricPrimitive"/>
          <xsl:call-template name="gml:AbstractTimeGeometricPrimitiveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeInstant">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeInstant"/>
          <xsl:call-template name="gml:TimeInstantType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimePeriod">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimePeriod"/>
          <xsl:call-template name="gml:TimePeriodType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:timeInterval">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:timeInterval"/>
          <xsl:call-template name="gml:TimeIntervalLengthType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:timePosition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:timePosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:validTime">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:validTime"/>
          <xsl:call-template name="gml:TimePrimitivePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:direction">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:direction"/>
          <xsl:call-template name="gml:DirectionPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DirectionVector">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectionVector"/>
          <xsl:call-template name="gml:DirectionVectorType_Template"/>
       </owl:NamedIndividual>
@@ -7674,301 +7682,301 @@
       <xsl:call-template name="gml:CompassPointEnumeration_Template"/>
    </xsl:template>
    <xsl:template match="//gml:_GeometricAggregate">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GeometricAggregate"/>
          <xsl:call-template name="gml:AbstractGeometricAggregateType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiGeometry">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiGeometry"/>
          <xsl:call-template name="gml:MultiGeometryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiGeometryProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiGeometryProperty"/>
          <xsl:call-template name="gml:MultiGeometryPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiPoint">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiPoint"/>
          <xsl:call-template name="gml:MultiPointType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiPointProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiPointProperty"/>
          <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiCurve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiCurve"/>
          <xsl:call-template name="gml:MultiCurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiCurveProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCurveProperty"/>
          <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSurface"/>
          <xsl:call-template name="gml:MultiSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiSurfaceProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSurfaceProperty"/>
          <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiSolid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiSolid"/>
          <xsl:call-template name="gml:MultiSolidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiSolidProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiSolidProperty"/>
          <xsl:call-template name="gml:MultiSolidPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiPolygon">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiPolygon"/>
          <xsl:call-template name="gml:MultiPolygonType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:MultiLineString">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:MultiLineString"/>
          <xsl:call-template name="gml:MultiLineStringType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:geometryMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geometryMember"/>
          <xsl:call-template name="gml:GeometryPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:geometryMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geometryMembers"/>
          <xsl:call-template name="gml:GeometryArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pointMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointMember"/>
          <xsl:call-template name="gml:PointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pointMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pointMembers"/>
          <xsl:call-template name="gml:PointArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:curveMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveMembers"/>
          <xsl:call-template name="gml:CurveArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:surfaceMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceMember"/>
          <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:surfaceMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:surfaceMembers"/>
          <xsl:call-template name="gml:SurfaceArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:solidMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidMember"/>
          <xsl:call-template name="gml:SolidPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:solidMembers">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidMembers"/>
          <xsl:call-template name="gml:SolidArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiCenterOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCenterOf"/>
          <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiPosition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiPosition"/>
          <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiCenterLineOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCenterLineOf"/>
          <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiEdgeOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiEdgeOf"/>
          <xsl:call-template name="gml:MultiCurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiCoverage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiCoverage"/>
          <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiExtentOf">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiExtentOf"/>
          <xsl:call-template name="gml:MultiSurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:multiLocation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:multiLocation"/>
          <xsl:call-template name="gml:MultiPointPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:lineStringMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:lineStringMember"/>
          <xsl:call-template name="gml:LineStringPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:polygonMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polygonMember"/>
          <xsl:call-template name="gml:PolygonPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_positionalAccuracy">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_positionalAccuracy"/>
          <xsl:call-template name="gml:AbstractPositionalAccuracyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:measureDescription">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:measureDescription"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:absoluteExternalPositionalAccuracy">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:absoluteExternalPositionalAccuracy"/>
          <xsl:call-template name="gml:AbsoluteExternalPositionalAccuracyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:relativeInternalPositionalAccuracy">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:relativeInternalPositionalAccuracy"/>
          <xsl:call-template name="gml:RelativeInternalPositionalAccuracyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:result">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:result"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:covarianceMatrix">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:covarianceMatrix"/>
          <xsl:call-template name="gml:CovarianceMatrixType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:includesElement">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:includesElement"/>
          <xsl:call-template name="gml:CovarianceElementType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_ReferenceSystem">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ReferenceSystem"/>
          <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:srsName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:srsName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:srsID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:srsID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:referenceSystemRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:referenceSystemRef"/>
          <xsl:call-template name="gml:ReferenceSystemRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_CRS">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CRS"/>
          <xsl:call-template name="gml:AbstractReferenceSystemType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:crsRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:crsRef"/>
          <xsl:call-template name="gml:CRSRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:remarks">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:remarks"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:validArea">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:validArea"/>
          <xsl:call-template name="gml:ExtentType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:boundingBox">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:boundingBox"/>
          <xsl:call-template name="gml:EnvelopeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:boundingPolygon">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:boundingPolygon"/>
          <xsl:call-template name="gml:PolygonType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:verticalExtent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalExtent"/>
          <xsl:call-template name="gml:EnvelopeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:temporalExtent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalExtent"/>
          <xsl:call-template name="gml:TimePeriodType_Template"/>
       </owl:NamedIndividual>
@@ -7977,193 +7985,193 @@
       <xsl:call-template name="gml:NullType_Template"/>
    </xsl:template>
    <xsl:template match="//gml:_Datum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Datum"/>
          <xsl:call-template name="gml:AbstractDatumType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:datumName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:datumName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:datumID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:datumID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:anchorPoint">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:anchorPoint"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:datumRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:datumRef"/>
          <xsl:call-template name="gml:DatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:EngineeringDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:EngineeringDatum"/>
          <xsl:call-template name="gml:EngineeringDatumType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:engineeringDatumRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:engineeringDatumRef"/>
          <xsl:call-template name="gml:EngineeringDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ImageDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ImageDatum"/>
          <xsl:call-template name="gml:ImageDatumType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:pixelInCell">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:pixelInCell"/>
          <xsl:call-template name="gml:PixelInCellType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:imageDatumRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:imageDatumRef"/>
          <xsl:call-template name="gml:ImageDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:VerticalDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:VerticalDatum"/>
          <xsl:call-template name="gml:VerticalDatumType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:verticalDatumType">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalDatumType"/>
          <xsl:call-template name="gml:VerticalDatumTypeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:verticalDatumRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalDatumRef"/>
          <xsl:call-template name="gml:VerticalDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TemporalDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TemporalDatum"/>
          <xsl:call-template name="gml:TemporalDatumType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:temporalDatumRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:temporalDatumRef"/>
          <xsl:call-template name="gml:TemporalDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GeodeticDatum">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeodeticDatum"/>
          <xsl:call-template name="gml:GeodeticDatumType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesPrimeMeridian">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesPrimeMeridian"/>
          <xsl:call-template name="gml:PrimeMeridianRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:usesEllipsoid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:usesEllipsoid"/>
          <xsl:call-template name="gml:EllipsoidRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:geodeticDatumRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geodeticDatumRef"/>
          <xsl:call-template name="gml:GeodeticDatumRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:PrimeMeridian">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PrimeMeridian"/>
          <xsl:call-template name="gml:PrimeMeridianType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:meridianName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:meridianName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:meridianID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:meridianID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:greenwichLongitude">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:greenwichLongitude"/>
          <xsl:call-template name="gml:AngleChoiceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:primeMeridianRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:primeMeridianRef"/>
          <xsl:call-template name="gml:PrimeMeridianRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Ellipsoid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Ellipsoid"/>
          <xsl:call-template name="gml:EllipsoidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidName"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidID">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidID"/>
          <xsl:call-template name="gml:IdentifierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:semiMajorAxis">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:semiMajorAxis"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ellipsoidRef">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ellipsoidRef"/>
          <xsl:call-template name="gml:EllipsoidRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:secondDefiningParameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:secondDefiningParameter"/>
          <xsl:call-template name="gml:SecondDefiningParameterType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:inverseFlattening">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:inverseFlattening"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:semiMinorAxis">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:semiMinorAxis"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -8172,49 +8180,49 @@
       <xsl:call-template name="_Template"/>
    </xsl:template>
    <xsl:template match="//gml:TimeTopologyComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeTopologyComplex"/>
          <xsl:call-template name="gml:TimeTopologyComplexType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_TimeTopologyPrimitive">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_TimeTopologyPrimitive"/>
          <xsl:call-template name="gml:AbstractTimeTopologyPrimitiveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeNode">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeNode"/>
          <xsl:call-template name="gml:TimeNodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TimeEdge">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TimeEdge"/>
          <xsl:call-template name="gml:TimeEdgeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:measure">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:measure"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:angle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:angle"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:dmsAngle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:dmsAngle"/>
          <xsl:call-template name="gml:DMSAngleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:degrees">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:degrees"/>
          <xsl:call-template name="gml:DegreesType_Template"/>
       </owl:NamedIndividual>
@@ -8229,1212 +8237,1212 @@
       <xsl:call-template name="gml:ArcSecondsType_Template"/>
    </xsl:template>
    <xsl:template match="//gml:defaultStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:defaultStyle"/>
          <xsl:call-template name="gml:DefaultStylePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Style">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Style"/>
          <xsl:call-template name="gml:AbstractStyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Style">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Style"/>
          <xsl:call-template name="gml:StyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:featureStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:featureStyle"/>
          <xsl:call-template name="gml:FeatureStylePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:FeatureStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:FeatureStyle"/>
          <xsl:call-template name="gml:FeatureStyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:geometryStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:geometryStyle"/>
          <xsl:call-template name="gml:GeometryStylePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GeometryStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeometryStyle"/>
          <xsl:call-template name="gml:GeometryStyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:topologyStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:topologyStyle"/>
          <xsl:call-template name="gml:TopologyStylePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TopologyStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TopologyStyle"/>
          <xsl:call-template name="gml:TopologyStyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:labelStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:labelStyle"/>
          <xsl:call-template name="gml:LabelStylePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LabelStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LabelStyle"/>
          <xsl:call-template name="gml:LabelStyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:graphStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:graphStyle"/>
          <xsl:call-template name="gml:GraphStylePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GraphStyle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GraphStyle"/>
          <xsl:call-template name="gml:GraphStyleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:symbol">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:symbol"/>
          <xsl:call-template name="gml:SymbolType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Curve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Curve"/>
          <xsl:call-template name="gml:CurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:baseCurve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:baseCurve"/>
          <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:OrientableCurve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OrientableCurve"/>
          <xsl:call-template name="gml:OrientableCurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_CurveSegment">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_CurveSegment"/>
          <xsl:call-template name="gml:AbstractCurveSegmentType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:segments">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:segments"/>
          <xsl:call-template name="gml:CurveSegmentArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:LineStringSegment">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:LineStringSegment"/>
          <xsl:call-template name="gml:LineStringSegmentType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ArcString">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcString"/>
          <xsl:call-template name="gml:ArcStringType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Arc">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Arc"/>
          <xsl:call-template name="gml:ArcType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Circle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Circle"/>
          <xsl:call-template name="gml:CircleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ArcStringByBulge">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcStringByBulge"/>
          <xsl:call-template name="gml:ArcStringByBulgeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ArcByBulge">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcByBulge"/>
          <xsl:call-template name="gml:ArcByBulgeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ArcByCenterPoint">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ArcByCenterPoint"/>
          <xsl:call-template name="gml:ArcByCenterPointType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CircleByCenterPoint">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CircleByCenterPoint"/>
          <xsl:call-template name="gml:CircleByCenterPointType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:OffsetCurve">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OffsetCurve"/>
          <xsl:call-template name="gml:OffsetCurveType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:AffinePlacement">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:AffinePlacement"/>
          <xsl:call-template name="gml:AffinePlacementType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Clothoid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Clothoid"/>
          <xsl:call-template name="gml:ClothoidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:GeodesicString">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:GeodesicString"/>
          <xsl:call-template name="gml:GeodesicStringType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Geodesic">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Geodesic"/>
          <xsl:call-template name="gml:GeodesicType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:CubicSpline">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:CubicSpline"/>
          <xsl:call-template name="gml:CubicSplineType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:BSpline">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:BSpline"/>
          <xsl:call-template name="gml:BSplineType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Bezier">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Bezier"/>
          <xsl:call-template name="gml:BezierType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Surface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Surface"/>
          <xsl:call-template name="gml:SurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:baseSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:baseSurface"/>
          <xsl:call-template name="gml:SurfacePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:OrientableSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:OrientableSurface"/>
          <xsl:call-template name="gml:OrientableSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_SurfacePatch">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_SurfacePatch"/>
          <xsl:call-template name="gml:AbstractSurfacePatchType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:patches">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:patches"/>
          <xsl:call-template name="gml:SurfacePatchArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:PolygonPatch">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PolygonPatch"/>
          <xsl:call-template name="gml:PolygonPatchType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Triangle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Triangle"/>
          <xsl:call-template name="gml:TriangleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Rectangle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Rectangle"/>
          <xsl:call-template name="gml:RectangleType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:curveMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:curveMember"/>
          <xsl:call-template name="gml:CurvePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Ring">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Ring"/>
          <xsl:call-template name="gml:RingType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_ParametricCurveSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ParametricCurveSurface"/>
          <xsl:call-template name="gml:AbstractParametricCurveSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_GriddedSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_GriddedSurface"/>
          <xsl:call-template name="gml:AbstractGriddedSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Cone">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Cone"/>
          <xsl:call-template name="gml:ConeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Cylinder">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Cylinder"/>
          <xsl:call-template name="gml:CylinderType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Sphere">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Sphere"/>
          <xsl:call-template name="gml:SphereType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:PolyhedralSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:PolyhedralSurface"/>
          <xsl:call-template name="gml:PolyhedralSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:polygonPatches">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:polygonPatches"/>
          <xsl:call-template name="gml:PolygonPatchArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:trianglePatches">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:trianglePatches"/>
          <xsl:call-template name="gml:TrianglePatchArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:TriangulatedSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:TriangulatedSurface"/>
          <xsl:call-template name="gml:TriangulatedSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Tin">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Tin"/>
          <xsl:call-template name="gml:TinType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_Solid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_Solid"/>
          <xsl:call-template name="gml:AbstractSolidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:solidProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidProperty"/>
          <xsl:call-template name="gml:SolidPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:solidArrayProperty">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:solidArrayProperty"/>
          <xsl:call-template name="gml:SolidArrayPropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Solid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Solid"/>
          <xsl:call-template name="gml:SolidType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:_ImplicitGeometry">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:_ImplicitGeometry"/>
          <xsl:call-template name="gml:AbstractGeometryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:Grid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:Grid"/>
          <xsl:call-template name="gml:GridType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:RectifiedGrid">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:RectifiedGrid"/>
          <xsl:call-template name="gml:RectifiedGridType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:unitOfMeasure">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:unitOfMeasure"/>
          <xsl:call-template name="gml:UnitOfMeasureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:UnitDefinition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:UnitDefinition"/>
          <xsl:call-template name="gml:UnitDefinitionType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:BaseUnit">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:BaseUnit"/>
          <xsl:call-template name="gml:BaseUnitType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:DerivedUnit">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DerivedUnit"/>
          <xsl:call-template name="gml:DerivedUnitType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:ConventionalUnit">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:ConventionalUnit"/>
          <xsl:call-template name="gml:ConventionalUnitType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:quantityType">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:quantityType"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:catalogSymbol">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:catalogSymbol"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:derivationUnitTerm">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:derivationUnitTerm"/>
          <xsl:call-template name="gml:DerivationUnitTermType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:conversionToPreferredUnit">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:conversionToPreferredUnit"/>
          <xsl:call-template name="gml:ConversionToPreferredUnitType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gml:roughConversionToPreferredUnit">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gml:roughConversionToPreferredUnit"/>
          <xsl:call-template name="gml:ConversionToPreferredUnitType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//app:Appearance">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:Appearance"/>
          <xsl:call-template name="app:AppearanceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfAppearance_Substitution"/>
    <xsl:template match="//app:appearanceMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:appearanceMember"/>
          <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//app:appearance">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:appearance"/>
          <xsl:call-template name="app:AppearancePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//app:_SurfaceData">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:_SurfaceData"/>
          <xsl:call-template name="app:AbstractSurfaceDataType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfSurfaceData_Substitution"/>
    <xsl:template match="//app:_Texture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:_Texture"/>
          <xsl:call-template name="app:AbstractTextureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfTexture_Substitution"/>
    <xsl:template match="//app:ParameterizedTexture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:ParameterizedTexture"/>
          <xsl:call-template name="app:ParameterizedTextureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfParameterizedTexture_Substitution"/>
    <xsl:template match="//app:GeoreferencedTexture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:GeoreferencedTexture"/>
          <xsl:call-template name="app:GeoreferencedTextureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfGeoreferencedTexture_Substitution"/>
    <xsl:template match="//app:_TextureParameterization">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:_TextureParameterization"/>
          <xsl:call-template name="app:AbstractTextureParameterizationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfTextureParameterization_Substitution"/>
    <xsl:template match="//app:TexCoordList">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:TexCoordList"/>
          <xsl:call-template name="app:TexCoordListType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfTexCoordList_Substitution"/>
    <xsl:template match="//app:TexCoordGen">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:TexCoordGen"/>
          <xsl:call-template name="app:TexCoordGenType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfTexCoordGen_Substitution"/>
    <xsl:template match="//app:X3DMaterial">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="app:X3DMaterial"/>
          <xsl:call-template name="app:X3DMaterialType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="app:_GenericApplicationPropertyOfX3DMaterial_Substitution"/>
    <xsl:template match="//frn:CityFurniture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="frn:CityFurniture"/>
          <xsl:call-template name="frn:CityFurnitureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="frn:_GenericApplicationPropertyOfCityFurniture_Substitution"/>
    <xsl:template match="//wtr:_WaterObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:_WaterObject"/>
          <xsl:call-template name="wtr:AbstractWaterObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="wtr:_GenericApplicationPropertyOfWaterObject_Substitution"/>
    <xsl:template match="//wtr:WaterBody">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:WaterBody"/>
          <xsl:call-template name="wtr:WaterBodyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="wtr:_GenericApplicationPropertyOfWaterBody_Substitution"/>
    <xsl:template match="//wtr:_WaterBoundarySurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:_WaterBoundarySurface"/>
          <xsl:call-template name="wtr:AbstractWaterBoundarySurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="wtr:_GenericApplicationPropertyOfWaterBoundarySurface_Substitution"/>
    <xsl:template match="//wtr:WaterSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:WaterSurface"/>
          <xsl:call-template name="wtr:WaterSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="wtr:_GenericApplicationPropertyOfWaterSurface_Substitution"/>
    <xsl:template match="//wtr:WaterGroundSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:WaterGroundSurface"/>
          <xsl:call-template name="wtr:WaterGroundSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="wtr:_GenericApplicationPropertyOfWaterGroundSurface_Substitution"/>
    <xsl:template match="//wtr:WaterClosureSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:WaterClosureSurface"/>
          <xsl:call-template name="wtr:WaterClosureSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="wtr:_GenericApplicationPropertyOfWaterClosureSurface_Substitution"/>
    <xsl:template match="//core:CityModel">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:CityModel"/>
          <xsl:call-template name="core:CityModelType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="core:_GenericApplicationPropertyOfCityModel_Substitution"/>
    <xsl:template match="//core:cityObjectMember">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:cityObjectMember"/>
          <xsl:call-template name="gml:FeaturePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//core:_CityObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:_CityObject"/>
          <xsl:call-template name="core:AbstractCityObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="core:_GenericApplicationPropertyOfCityObject_Substitution"/>
    <xsl:template match="//core:_Site">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:_Site"/>
          <xsl:call-template name="core:AbstractSiteType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="core:_GenericApplicationPropertyOfSite_Substitution"/>
    <xsl:template match="//core:Address">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:Address"/>
          <xsl:call-template name="core:AddressType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="core:_GenericApplicationPropertyOfAddress_Substitution"/>
    <xsl:template match="//core:ImplicitGeometry">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="core:ImplicitGeometry"/>
          <xsl:call-template name="core:ImplicitGeometryType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//veg:_VegetationObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="veg:_VegetationObject"/>
          <xsl:call-template name="veg:AbstractVegetationObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="veg:_GenericApplicationPropertyOfVegetationObject_Substitution"/>
    <xsl:template match="//veg:PlantCover">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="veg:PlantCover"/>
          <xsl:call-template name="veg:PlantCoverType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="veg:_GenericApplicationPropertyOfPlantCover_Substitution"/>
    <xsl:template match="//veg:SolitaryVegetationObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="veg:SolitaryVegetationObject"/>
          <xsl:call-template name="veg:SolitaryVegetationObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="veg:_GenericApplicationPropertyOfSolitaryVegetationObject_Substitution"/>
    <xsl:template match="//tran:_TransportationObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:_TransportationObject"/>
          <xsl:call-template name="tran:AbstractTransportationObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfTransportationObject_Substitution"/>
    <xsl:template match="//tran:TransportationComplex">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:TransportationComplex"/>
          <xsl:call-template name="tran:TransportationComplexType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfTransportationComplex_Substitution"/>
    <xsl:template match="//tran:TrafficArea">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:TrafficArea"/>
          <xsl:call-template name="tran:TrafficAreaType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfTrafficArea_Substitution"/>
    <xsl:template match="//tran:AuxiliaryTrafficArea">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:AuxiliaryTrafficArea"/>
          <xsl:call-template name="tran:AuxiliaryTrafficAreaType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfAuxiliaryTrafficArea_Substitution"/>
    <xsl:template match="//tran:Track">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:Track"/>
          <xsl:call-template name="tran:TrackType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfTrack_Substitution"/>
    <xsl:template match="//tran:Road">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:Road"/>
          <xsl:call-template name="tran:RoadType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfRoad_Substitution"/>
    <xsl:template match="//tran:Railway">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:Railway"/>
          <xsl:call-template name="tran:RailwayType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfRailway_Substitution"/>
    <xsl:template match="//tran:Square">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tran:Square"/>
          <xsl:call-template name="tran:SquareType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tran:_GenericApplicationPropertyOfSquare_Substitution"/>
    <xsl:template match="//tex:TexturedSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tex:TexturedSurface"/>
          <xsl:call-template name="tex:TexturedSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//tex:appearance">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tex:appearance"/>
          <xsl:call-template name="tex:AppearancePropertyType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//tex:_Appearance">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tex:_Appearance"/>
          <xsl:call-template name="tex:AbstractAppearanceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//tex:Material">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tex:Material"/>
          <xsl:call-template name="tex:MaterialType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//tex:SimpleTexture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tex:SimpleTexture"/>
          <xsl:call-template name="tex:SimpleTextureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//luse:LandUse">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="luse:LandUse"/>
          <xsl:call-template name="luse:LandUseType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="luse:_GenericApplicationPropertyOfLandUse_Substitution"/>
    <xsl:template match="//tun:_AbstractTunnel">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:_AbstractTunnel"/>
          <xsl:call-template name="tun:AbstractTunnelType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfAbstractTunnel_Substitution"/>
    <xsl:template match="//tun:Tunnel">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:Tunnel"/>
          <xsl:call-template name="tun:TunnelType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfTunnel_Substitution"/>
    <xsl:template match="//tun:TunnelPart">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:TunnelPart"/>
          <xsl:call-template name="tun:TunnelPartType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfTunnelPart_Substitution"/>
    <xsl:template match="//tun:TunnelInstallation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:TunnelInstallation"/>
          <xsl:call-template name="tun:TunnelInstallationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfTunnelInstallation_Substitution"/>
    <xsl:template match="//tun:IntTunnelInstallation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:IntTunnelInstallation"/>
          <xsl:call-template name="tun:IntTunnelInstallationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfIntTunnelInstallation_Substitution"/>
    <xsl:template match="//tun:_BoundarySurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:_BoundarySurface"/>
          <xsl:call-template name="tun:AbstractBoundarySurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfBoundarySurface_Substitution"/>
    <xsl:template match="//tun:RoofSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:RoofSurface"/>
          <xsl:call-template name="tun:RoofSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfRoofSurface_Substitution"/>
    <xsl:template match="//tun:WallSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:WallSurface"/>
          <xsl:call-template name="tun:WallSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfWallSurface_Substitution"/>
    <xsl:template match="//tun:GroundSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:GroundSurface"/>
          <xsl:call-template name="tun:GroundSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfGroundSurface_Substitution"/>
    <xsl:template match="//tun:ClosureSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:ClosureSurface"/>
          <xsl:call-template name="tun:ClosureSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfClosureSurface_Substitution"/>
    <xsl:template match="//tun:FloorSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:FloorSurface"/>
          <xsl:call-template name="tun:FloorSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfFloorSurface_Substitution"/>
    <xsl:template match="//tun:OuterFloorSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:OuterFloorSurface"/>
          <xsl:call-template name="tun:OuterFloorSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfOuterFloorSurface_Substitution"/>
    <xsl:template match="//tun:InteriorWallSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:InteriorWallSurface"/>
          <xsl:call-template name="tun:InteriorWallSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfInteriorWallSurface_Substitution"/>
    <xsl:template match="//tun:CeilingSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:CeilingSurface"/>
          <xsl:call-template name="tun:CeilingSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfCeilingSurface_Substitution"/>
    <xsl:template match="//tun:OuterCeilingSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:OuterCeilingSurface"/>
          <xsl:call-template name="tun:OuterCeilingSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfOuterCeilingSurface_Substitution"/>
    <xsl:template match="//tun:HollowSpace">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:HollowSpace"/>
          <xsl:call-template name="tun:HollowSpaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfHollowSpace_Substitution"/>
    <xsl:template match="//tun:TunnelFurniture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:TunnelFurniture"/>
          <xsl:call-template name="tun:TunnelFurnitureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfTunnelFurniture_Substitution"/>
    <xsl:template match="//tun:_Opening">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:_Opening"/>
          <xsl:call-template name="tun:AbstractOpeningType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfOpening_Substitution"/>
    <xsl:template match="//tun:Window">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:Window"/>
          <xsl:call-template name="tun:WindowType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfWindow_Substitution"/>
    <xsl:template match="//tun:Door">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="tun:Door"/>
          <xsl:call-template name="tun:DoorType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="tun:_GenericApplicationPropertyOfDoor_Substitution"/>
    <xsl:template match="//xAL:xAL">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:xAL"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:AddressDetails">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:AddressDetails"/>
          <xsl:call-template name="xAL:AddressDetails_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:AddressLine">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:AddressLine"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:Locality">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:Locality"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:Thoroughfare">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:Thoroughfare"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:AdministrativeArea">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:AdministrativeArea"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:PostOffice">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:PostOffice"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:PostalCode">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:PostalCode"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:PostBox">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:PostBox"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:Department">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:Department"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:Premise">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:Premise"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:ThoroughfareNumberPrefix">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:ThoroughfareNumberPrefix"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:ThoroughfareNumberSuffix">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:ThoroughfareNumberSuffix"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:ThoroughfareNumber">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:ThoroughfareNumber"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:PremiseNumber">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:PremiseNumber"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:PremiseNumberPrefix">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:PremiseNumberPrefix"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
-   <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'xAL:PremiseNumberPrefix', '_', generate-id() )}">
+   <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'PremiseNumberPrefix', '_', generate-id() )}">
          <rdf:type rdf:resource=""/>
          <xsl:call-template name="xAL:PremiseNumberPrefix_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:PremiseNumberSuffix">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:PremiseNumberSuffix"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//xAL:CountryName">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="xAL:CountryName"/>
          <xsl:call-template name="_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//grp:CityObjectGroup">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="grp:CityObjectGroup"/>
          <xsl:call-template name="grp:CityObjectGroupType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="grp:_GenericApplicationPropertyOfCityObjectGroup_Substitution"/>
    <xsl:template match="//dem:ReliefFeature">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:ReliefFeature"/>
          <xsl:call-template name="dem:ReliefFeatureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="dem:_GenericApplicationPropertyOfReliefFeature_Substitution"/>
    <xsl:template match="//dem:_ReliefComponent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:_ReliefComponent"/>
          <xsl:call-template name="dem:AbstractReliefComponentType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="dem:_GenericApplicationPropertyOfReliefComponent_Substitution"/>
    <xsl:template match="//dem:TINRelief">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:TINRelief"/>
          <xsl:call-template name="dem:TINReliefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="dem:_GenericApplicationPropertyOfTinRelief_Substitution"/>
    <xsl:template match="//dem:RasterRelief">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:RasterRelief"/>
          <xsl:call-template name="dem:RasterReliefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="dem:_GenericApplicationPropertyOfRasterRelief_Substitution"/>
    <xsl:template match="//dem:MassPointRelief">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:MassPointRelief"/>
          <xsl:call-template name="dem:MassPointReliefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="dem:_GenericApplicationPropertyOfMassPointRelief_Substitution"/>
    <xsl:template match="//dem:BreaklineRelief">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:BreaklineRelief"/>
          <xsl:call-template name="dem:BreaklineReliefType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="dem:_GenericApplicationPropertyOfBreaklineRelief_Substitution"/>
    <xsl:template match="//dem:Elevation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="dem:Elevation"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//bldg:_AbstractBuilding">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:_AbstractBuilding"/>
          <xsl:call-template name="bldg:AbstractBuildingType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfAbstractBuilding_Substitution"/>
    <xsl:template match="//bldg:Building">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Building"/>
          <xsl:call-template name="bldg:BuildingType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfBuilding_Substitution"/>
    <xsl:template match="//bldg:BuildingPart">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:BuildingPart"/>
          <xsl:call-template name="bldg:BuildingPartType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfBuildingPart_Substitution"/>
    <xsl:template match="//bldg:BuildingInstallation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:BuildingInstallation"/>
          <xsl:call-template name="bldg:BuildingInstallationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfBuildingInstallation_Substitution"/>
    <xsl:template match="//bldg:IntBuildingInstallation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:IntBuildingInstallation"/>
          <xsl:call-template name="bldg:IntBuildingInstallationType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfIntBuildingInstallation_Substitution"/>
    <xsl:template match="//bldg:_BoundarySurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:_BoundarySurface"/>
          <xsl:call-template name="bldg:AbstractBoundarySurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfBoundarySurface_Substitution"/>
    <xsl:template match="//bldg:RoofSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:RoofSurface"/>
          <xsl:call-template name="bldg:RoofSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfRoofSurface_Substitution"/>
    <xsl:template match="//bldg:WallSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:WallSurface"/>
          <xsl:call-template name="bldg:WallSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfWallSurface_Substitution"/>
    <xsl:template match="//bldg:GroundSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:GroundSurface"/>
          <xsl:call-template name="bldg:GroundSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfGroundSurface_Substitution"/>
    <xsl:template match="//bldg:ClosureSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:ClosureSurface"/>
          <xsl:call-template name="bldg:ClosureSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfClosureSurface_Substitution"/>
    <xsl:template match="//bldg:FloorSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:FloorSurface"/>
          <xsl:call-template name="bldg:FloorSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfFloorSurface_Substitution"/>
    <xsl:template match="//bldg:OuterFloorSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:OuterFloorSurface"/>
          <xsl:call-template name="bldg:OuterFloorSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfOuterFloorSurface_Substitution"/>
    <xsl:template match="//bldg:InteriorWallSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:InteriorWallSurface"/>
          <xsl:call-template name="bldg:InteriorWallSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfInteriorWallSurface_Substitution"/>
    <xsl:template match="//bldg:CeilingSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:CeilingSurface"/>
          <xsl:call-template name="bldg:CeilingSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfCeilingSurface_Substitution"/>
    <xsl:template match="//bldg:OuterCeilingSurface">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:OuterCeilingSurface"/>
          <xsl:call-template name="bldg:OuterCeilingSurfaceType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfOuterCeilingSurface_Substitution"/>
    <xsl:template match="//bldg:_Opening">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:_Opening"/>
          <xsl:call-template name="bldg:AbstractOpeningType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfOpening_Substitution"/>
    <xsl:template match="//bldg:Window">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Window"/>
          <xsl:call-template name="bldg:WindowType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfWindow_Substitution"/>
    <xsl:template match="//bldg:Door">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Door"/>
          <xsl:call-template name="bldg:DoorType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfDoor_Substitution"/>
    <xsl:template match="//bldg:Room">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:Room"/>
          <xsl:call-template name="bldg:RoomType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfRoom_Substitution"/>
    <xsl:template match="//bldg:BuildingFurniture">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:BuildingFurniture"/>
          <xsl:call-template name="bldg:BuildingFurnitureType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template name="bldg:_GenericApplicationPropertyOfBuildingFurniture_Substitution"/>
    <xsl:template match="//gen:GenericCityObject">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:GenericCityObject"/>
          <xsl:call-template name="gen:GenericCityObjectType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:_genericAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:_genericAttribute"/>
          <xsl:call-template name="gen:AbstractGenericAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:stringAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:stringAttribute"/>
          <xsl:call-template name="gen:StringAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:intAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:intAttribute"/>
          <xsl:call-template name="gen:IntAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:doubleAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:doubleAttribute"/>
          <xsl:call-template name="gen:DoubleAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:dateAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:dateAttribute"/>
          <xsl:call-template name="gen:DateAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:uriAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:uriAttribute"/>
          <xsl:call-template name="gen:UriAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:measureAttribute">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:measureAttribute"/>
          <xsl:call-template name="gen:MeasureAttributeType_Template"/>
       </owl:NamedIndividual>
    </xsl:template>
    <xsl:template match="//gen:genericAttributeSet">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{if ( @gml:id ) then @gml:id else concat( local-name(), '_', generate-id() )}">
          <rdf:type rdf:resource="gen:genericAttributeSet"/>
          <xsl:call-template name="gen:GenericAttributeSetType_Template"/>
       </owl:NamedIndividual>
@@ -9500,7 +9508,7 @@
       <gml:sequenceRule xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:SequenceRuleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:sequenceRule">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:SequenceRuleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'SequenceRuleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:sequenceRule"/>
          <xsl:call-template name="gml:SequenceRuleType_Template"/>
       </owl:NamedIndividual>
@@ -9611,7 +9619,7 @@
       <gml:originPosition xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:TimePositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:originPosition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimePositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'TimePositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:originPosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
@@ -9624,7 +9632,7 @@
       <gml:interval xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:TimeIntervalLengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:interval">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimeIntervalLengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'TimeIntervalLengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:interval"/>
          <xsl:call-template name="gml:TimeIntervalLengthType_Template"/>
       </owl:NamedIndividual>
@@ -9664,7 +9672,7 @@
       <gml:referenceEvent xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:StringOrRefType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:referenceEvent">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'StringOrRefType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:referenceEvent"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
@@ -10005,7 +10013,7 @@
       <gml:lowerCorner xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:DirectPositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:lowerCorner">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'DirectPositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:lowerCorner"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
@@ -10014,7 +10022,7 @@
       <gml:upperCorner xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:DirectPositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:upperCorner">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:DirectPositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'DirectPositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:upperCorner"/>
          <xsl:call-template name="gml:DirectPositionType_Template"/>
       </owl:NamedIndividual>
@@ -10138,11 +10146,11 @@
    <gml:distance xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:distance">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:distance"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
-   <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+   <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:distance"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -10228,7 +10236,7 @@
       <gml:speed xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:speed">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:speed"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -10240,7 +10248,7 @@
       <gml:acceleration xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:acceleration">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:acceleration"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -10249,7 +10257,7 @@
       <gml:elevation xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:elevation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:elevation"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
@@ -10276,7 +10284,7 @@
       <gml:beginPosition xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:TimePositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:beginPosition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimePositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'TimePositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:beginPosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
@@ -10288,7 +10296,7 @@
       <gml:endPosition xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:TimePositionType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:endPosition">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:TimePositionType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'TimePositionType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:endPosition"/>
          <xsl:call-template name="gml:TimePositionType_Template"/>
       </owl:NamedIndividual>
@@ -10306,7 +10314,7 @@
       <gml:DirectionKeyword xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectionKeyword">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectionKeyword"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -10315,7 +10323,7 @@
       <gml:DirectionString xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:StringOrRefType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:DirectionString">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StringOrRefType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'StringOrRefType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:DirectionString"/>
          <xsl:call-template name="gml:StringOrRefType_Template"/>
       </owl:NamedIndividual>
@@ -10327,7 +10335,7 @@
       <gml:horizontalAngle xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:horizontalAngle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:horizontalAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -10336,7 +10344,7 @@
       <gml:verticalAngle xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:verticalAngle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:verticalAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -10581,7 +10589,7 @@
       <gml:spatialResolution xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:ScaleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:spatialResolution">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:ScaleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'ScaleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:spatialResolution"/>
          <xsl:call-template name="gml:ScaleType_Template"/>
       </owl:NamedIndividual>
@@ -10590,7 +10598,7 @@
       <gml:styleVariation xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:StyleVariationType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:styleVariation">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:StyleVariationType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'StyleVariationType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:styleVariation"/>
          <xsl:call-template name="gml:StyleVariationType_Template"/>
       </owl:NamedIndividual>
@@ -10690,7 +10698,7 @@
       <gml:normal xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:normal">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:normal"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -10699,7 +10707,7 @@
       <gml:radius xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:radius">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:radius"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -10708,7 +10716,7 @@
       <gml:startAngle xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:startAngle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:startAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -10717,7 +10725,7 @@
       <gml:endAngle xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:AngleType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:endAngle">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:AngleType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'AngleType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:endAngle"/>
          <xsl:call-template name="gml:AngleType_Template"/>
       </owl:NamedIndividual>
@@ -10729,7 +10737,7 @@
       <gml:refDirection xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:refDirection">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:refDirection"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -10769,7 +10777,7 @@
       <gml:vectorAtStart xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:vectorAtStart">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:vectorAtStart"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -10778,7 +10786,7 @@
       <gml:vectorAtEnd xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:vectorAtEnd">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:vectorAtEnd"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -10848,7 +10856,7 @@
       <gml:maxLength xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:maxLength">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:maxLength"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -10883,7 +10891,7 @@
       <gml:offsetVector xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:VectorType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gml:offsetVector">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:VectorType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'VectorType', '_', generate-id() )}">
          <rdf:type rdf:resource="gml:offsetVector"/>
          <xsl:call-template name="gml:VectorType_Template"/>
       </owl:NamedIndividual>
@@ -10968,7 +10976,7 @@
       <app:mimeType xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//app:mimeType">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="app:mimeType"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11056,7 +11064,7 @@
       <frn:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//frn:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="frn:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11065,7 +11073,7 @@
       <frn:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//frn:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="frn:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11074,7 +11082,7 @@
       <frn:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//frn:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="frn:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11125,7 +11133,7 @@
       <wtr:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//wtr:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11134,7 +11142,7 @@
       <wtr:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//wtr:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11143,7 +11151,7 @@
       <wtr:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//wtr:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11197,7 +11205,7 @@
       <wtr:waterLevel xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//wtr:waterLevel">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="wtr:waterLevel"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11282,7 +11290,7 @@
       <core:mimeType xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//core:mimeType">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="core:mimeType"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11311,7 +11319,7 @@
       <veg:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11320,7 +11328,7 @@
       <veg:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11329,7 +11337,7 @@
       <veg:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11338,7 +11346,7 @@
       <veg:averageHeight xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:averageHeight">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:averageHeight"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -11374,7 +11382,7 @@
       <veg:species xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:species">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:species"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11383,7 +11391,7 @@
       <veg:height xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:height">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:height"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -11392,7 +11400,7 @@
       <veg:trunkDiameter xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:trunkDiameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:trunkDiameter"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -11401,7 +11409,7 @@
       <veg:crownDiameter xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//veg:crownDiameter">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="veg:crownDiameter"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -11440,7 +11448,7 @@
       <tran:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tran:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tran:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11449,7 +11457,7 @@
       <tran:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tran:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tran:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11458,7 +11466,7 @@
       <tran:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tran:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tran:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11491,7 +11499,7 @@
       <tran:surfaceMaterial xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tran:surfaceMaterial">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tran:surfaceMaterial"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11564,7 +11572,7 @@
       <luse:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//luse:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="luse:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11573,7 +11581,7 @@
       <luse:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//luse:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="luse:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11582,7 +11590,7 @@
       <luse:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//luse:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="luse:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11609,7 +11617,7 @@
       <tun:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tun:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tun:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11618,7 +11626,7 @@
       <tun:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tun:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tun:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -11627,7 +11635,7 @@
       <tun:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//tun:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="tun:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12060,7 +12068,7 @@
       <grp:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//grp:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="grp:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12069,7 +12077,7 @@
       <grp:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//grp:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="grp:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12078,7 +12086,7 @@
       <grp:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//grp:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="grp:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12150,7 +12158,7 @@
       <bldg:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12159,7 +12167,7 @@
       <bldg:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12168,7 +12176,7 @@
       <bldg:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12187,7 +12195,7 @@
       <bldg:roofType xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:roofType">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:roofType"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12196,7 +12204,7 @@
       <bldg:measuredHeight xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:LengthType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:measuredHeight">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:LengthType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'LengthType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:measuredHeight"/>
          <xsl:call-template name="gml:LengthType_Template"/>
       </owl:NamedIndividual>
@@ -12215,7 +12223,7 @@
       <bldg:storeyHeightsAboveGround xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:storeyHeightsAboveGround">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureOrNullListType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:storeyHeightsAboveGround"/>
          <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
       </owl:NamedIndividual>
@@ -12224,7 +12232,7 @@
       <bldg:storeyHeightsBelowGround xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//bldg:storeyHeightsBelowGround">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureOrNullListType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureOrNullListType', '_', generate-id() )}">
          <rdf:type rdf:resource="bldg:storeyHeightsBelowGround"/>
          <xsl:call-template name="gml:MeasureOrNullListType_Template"/>
       </owl:NamedIndividual>
@@ -12410,7 +12418,7 @@
       <gen:class xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gen:class">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="gen:class"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12419,7 +12427,7 @@
       <gen:function xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gen:function">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="gen:function"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12428,7 +12436,7 @@
       <gen:usage xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:CodeType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gen:usage">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:CodeType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'CodeType', '_', generate-id() )}">
          <rdf:type rdf:resource="gen:usage"/>
          <xsl:call-template name="gml:CodeType_Template"/>
       </owl:NamedIndividual>
@@ -12485,7 +12493,7 @@
    <gen:value xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" rdf:resource="{concat( 'gml:MeasureType', '_', generate-id() )}"/>
    </xsl:template>
    <xsl:template match="//gen:value">
-      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:ID="{concat( 'gml:MeasureType', '_', generate-id() )}">
+      <owl:NamedIndividual xmlns:math="http://www.w3.org/2005/xpath-functions/math" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:geo="http://www.opengis.net/ont/geosparql#" xmlns:liris="https://liris.cnrs.fr/ontologies#" rdf:about="{concat( 'MeasureType', '_', generate-id() )}">
          <rdf:type rdf:resource="gen:value"/>
          <xsl:call-template name="gml:MeasureType_Template"/>
       </owl:NamedIndividual>
