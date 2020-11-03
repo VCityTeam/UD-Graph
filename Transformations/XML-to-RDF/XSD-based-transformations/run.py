@@ -22,14 +22,14 @@ def main():
   convert3Dto2D        = True
 
   print('Creating XML to RDF transformation mapping...')
-  system('java -jar ../saxon9he.jar -s:../../Input-Models/XMLSchema/{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
+  system('java -jar ../../lib/saxon9he.jar -s:../../Input-Models/XMLSchema/{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
 
   namespaces = dict(etree.parse(schema_file).getroot().nsmap)
   namespaces.update( dict(etree.parse( 'input-data/{}'.format(input_file) ).getroot().nsmap) )
 
   cleanXSLT(transformation_file, namespaces)
   print('Transforming XML to RDF... {}'.format(input_file))
-  system('java -jar ../saxon9he.jar -s:input-data/{} -xsl:{} > Results/{}'.format(input_file, transformation_file, output_file))
+  system('java -jar ../../lib/saxon9he.jar -s:input-data/{} -xsl:{} > Results/{}'.format(input_file, transformation_file, output_file))
   cleanRDF('Results/{}'.format(output_file))
   system('python ../utilities/show_ns.py Results/{}'.format(output_file))
   if convert3Dto2D:

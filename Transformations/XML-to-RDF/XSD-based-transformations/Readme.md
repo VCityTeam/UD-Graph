@@ -10,8 +10,8 @@ GML files used for testing are located in the _../input-data_ folder. They consi
 This stylesheet is used to create an XML to RDF XSL stylesheet from an XML Schema document. Two stylesheets exist, each with the required namespaces for CityGML 3.0 and 2.0.
 
 
-## To run the XML Schema based approach
-To run the conversion pipeline an XML Schema and a XML file constrained by the schema is required. First the pipeline will transform the XML schema into a XML-to-RDF XSLT stylesheet, then the XML datafile will be transformed into RDF using this new stylesheet. The input files, output filenames, and coordinate referenes systems (for _geo:gmlLiteral_ transformations) can be set by modifying the following variables in _CityGML2RDF_XSLT.py_:
+## To run
+To run the conversion pipeline an XML Schema and a XML file constrained by the schema is required. First the pipeline will transform the XML schema into a XML-to-RDF XSLT stylesheet, then the XML datafile will be transformed into RDF using this new stylesheet. The input files, output filenames, and coordinate referenes systems (for _geo:gmlLiteral_ transformations) can be set by modifying the following variables in _run.py_:
 ```     
   CRS                  = 'http://www.opengis.net/def/crs/EPSG/0/4326'
   schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
@@ -25,7 +25,7 @@ In addition the variable `convert3Dto2D` can be set to false to disable GeoSPARQ
 
 Afterwards the script can be run using:
 ```
-python CityGML2RDF_XSLT.py
+python run.py
 ```
 
 Output will be written to the Results folder
