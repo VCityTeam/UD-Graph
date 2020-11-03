@@ -12,6 +12,3 @@
 4. building.rdf
    - results from XSD2OWL transformations of CityGML/building.xsd
    - dependant on cityGMLBase.rdf
-5. compositegml_3.1.rdf
-   - an ontology created from the transformation of an ensemble of the GML 3.1 schema
-

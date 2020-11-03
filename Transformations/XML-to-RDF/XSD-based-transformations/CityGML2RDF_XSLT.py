@@ -7,13 +7,13 @@ def main():
 
   global CRS       
   CRS                  = 'http://www.opengis.net/def/crs/EPSG/0/4326'
-  schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
+  schema_file          = 'compositeCityGML2.0.xsd'
   generator_file       = 'Generate_CityGML2ToRDF.xsl'
   transformation_file  = 'CityGML2ToRDF.xsl'
   input_file           = 'LYON_1ER_BATI_2015-1_bldg.gml'
   output_file          = 'LYON_1ER_BATI_2015-1_bldg.rdf'
 
-  # schema_file          = '../XMLSchema/compositeCityGML3.0.xsd'
+  # schema_file          = 'compositeCityGML3.0.xsd'
   # generator_file       = 'Generate_CityGML3ToRDF.xsl'
   # transformation_file  = 'CityGML3ToRDF.xsl'
   # input_file           = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.gml'
@@ -22,7 +22,7 @@ def main():
   convert3Dto2D        = True
 
   print('Creating XML to RDF transformation mapping...')
-  system('java -jar ../saxon9he.jar -s:{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
+  system('java -jar ../saxon9he.jar -s:../../Input-Models/XMLSchema/{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
 
   namespaces = dict(etree.parse(schema_file).getroot().nsmap)
   namespaces.update( dict(etree.parse( 'input-data/{}'.format(input_file) ).getroot().nsmap) )
