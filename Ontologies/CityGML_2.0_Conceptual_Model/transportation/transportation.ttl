@@ -1,0 +1,229 @@
+@prefix core:  <https://github.com/VCityTeam/UD-Graph/Ontologies/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tran:  <https://github.com/VCityTeam/UD-Graph/Ontologies/transportation#> .
+
+tran:TransportationComplex.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of TransportationComplex, Railway, Road, Square, or Track as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tran:TransportationComplex.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of TransportationComplex.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tran:TrafficArea.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of TrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+tran:TrafficArea.surfaceMaterial
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Surface material covering the TrafficArea as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "surfaceMaterial"@en .
+
+tran:AuxiliaryTrafficArea.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of AuxiliaryTrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+tran:TrafficArea.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of TrafficArea as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tran:TransportationComplex.lod0Network
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: gml:GeometricComplex to represent the 3D network of a TransportationComplex. The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod0Network"@en .
+
+tran:TransportationComplex
+        a                owl:Class ;
+        rdfs:subClassOf  tran:AbstractTransportationObject ;
+        skos:definition  "SIG3D: Aggregation of TrafficAreas and AuxiliaryTrafficAreas, e.g the different lanes of a multi-lane road."@en ;
+        skos:prefLabel   "TransportationComplex"@en .
+
+tran:Track  a            owl:Class ;
+        rdfs:subClassOf  tran:TransportationComplex ;
+        skos:definition  "SIG3D: Way mainly for pedestrians or bicycle rider"@en ;
+        skos:prefLabel   "Track"@en .
+
+tran:TransportationComplex.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of TransportationComplex.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+tran:TrafficArea.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of TrafficArea as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tran:AuxiliaryTrafficArea.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of AuxiliaryTrafficArea as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tran:AuxiliaryTrafficArea
+        a                owl:Class ;
+        rdfs:subClassOf  tran:AbstractTransportationObject ;
+        skos:definition  "SIG3D: Space within the transport area not intended for traffic purposes"@en ;
+        skos:prefLabel   "AuxiliaryTrafficArea"@en .
+
+tran:AuxiliaryTrafficArea.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of AuxiliaryTrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+tran:AbstractTransportationObject
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of AuxiliaryTrafficArea, TrafficArea, or TransportationComplex"@en ;
+        skos:prefLabel         "AbstractTransportationObject"@en .
+
+tran:AuxiliaryTrafficArea.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of AuxiliaryTrafficArea as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tran:TrafficArea.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of TrafficArea given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tran:AuxiliaryTrafficArea.surfaceMaterial
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Surface material covering the AuxiliaryTrafficArea as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "surfaceMaterial"@en .
+
+tran:TransportationComplex.auxiliaryTrafficArea
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       tran:AuxiliaryTrafficArea ;
+        skos:definition  "SIG3D: Relation between TransportationComplex and AuxiliaryTrafficArea"@en ;
+        skos:prefLabel   "auxiliaryTrafficArea"@en .
+
+<https://github.com/VCityTeam/UD-Graph/Ontologies/transportation>
+        a                owl:Ontology ;
+        owl:imports      <https://github.com/VCityTeam/UD-Graph/Ontologies/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:versionIRI   "https://github.com/VCityTeam/UD-Graph/Ontologies/transportation/1.0" ;
+        owl:versionInfo  "1.0" ;
+        skos:prefLabel   "Transportation"@en .
+
+tran:AuxiliaryTrafficArea.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of AuxiliaryTrafficArea given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tran:TrafficArea.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of TrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tran:TransportationComplex.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of TransportationComplex.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+tran:TrafficArea  a      owl:Class ;
+        rdfs:subClassOf  tran:AbstractTransportationObject ;
+        skos:definition  "SIG3D: Space of movement for either trains, vehicles or pedestrians"@en ;
+        skos:prefLabel   "TrafficArea"@en .
+
+tran:TransportationComplex.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of TransportationComplex, Railway, Road, Square, or Track given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tran:Railway  a          owl:Class ;
+        rdfs:subClassOf  tran:TransportationComplex ;
+        skos:definition  "ISO 6707-1: National or regional transport system for guided passage of wheeled vehicles on rails"@en ;
+        skos:prefLabel   "Railway"@en .
+
+tran:TrafficArea.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TrafficArea ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of TrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+tran:TransportationComplex.lod1MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 surface geometry of TransportationComplex.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1MultiSurface"@en .
+
+tran:AuxiliaryTrafficArea.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:AuxiliaryTrafficArea ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of AuxiliaryTrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tran:Square  a           owl:Class ;
+        rdfs:subClassOf  tran:TransportationComplex ;
+        skos:definition  "SIG3D: Accessible, paved open space in a built-up area"@en ;
+        skos:prefLabel   "Square"@en .
+
+tran:Road  a             owl:Class ;
+        rdfs:subClassOf  tran:TransportationComplex ;
+        skos:definition  "ISO 6707-1: Way mainly for vehicles"@en ;
+        skos:prefLabel   "Road"@en .
+
+tran:TransportationComplex.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of TransportationComplex, Railway, Road, Square or Track as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tran:TransportationComplex.trafficArea
+        a                owl:ObjectProperty ;
+        rdfs:domain      tran:TransportationComplex ;
+        rdfs:range       tran:TrafficArea ;
+        skos:definition  "SIG3D: Relation between TransportationComplex and TrafficArea"@en ;
+        skos:prefLabel   "trafficArea"@en .
