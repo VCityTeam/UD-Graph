@@ -21,7 +21,7 @@ To transform a specific schema to owl
 Transformation outputs are written to the Results folder. Note that when transforming all known schema, files to be preprocessed are listed manually in run.py. To include/exclude a file from preprocessing, modify the preprocess_list variable. Only schema that rely on `include` statements should be included in this list.
 
 ### postXSLT
-Takes a transformed schema and fully qualifies all namespaces mentioned in `rdf:type`, `rdf:about`, `rdf:resource`, and `rdf:datatype` attributes. Import statements and the ontology name are formated to match ontology naming conventions, which is 'http://liris.cnrs.fr/ontologies/' + filename. Finally any empty subclass declarations are removed from the tree.
+Takes a transformed OWL ontology and updates the ontology name to match proposed ontology naming conventions, which is 'http://liris.cnrs.fr/ontologies/' + filename. Also any empty subclass declarations and incorrectly generated comments are removed from the tree.
 
 Usage:
 ```
