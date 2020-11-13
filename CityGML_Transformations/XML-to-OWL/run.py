@@ -5,7 +5,7 @@ from copy import deepcopy
 
 def main():
 
-  global CRS       
+  global CRS
   CRS                  = 'http://www.opengis.net/def/crs/EPSG/0/4326'
   schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
   generator_file       = 'Generate_CityGML2ToRDF.xsl'
