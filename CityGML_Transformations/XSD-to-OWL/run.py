@@ -4,7 +4,7 @@ from os import system, path
 def main():
 
    if len(sys.argv) != 2:
-      sys.exit('Incorrect number of arguments: {}\nUsage: run.py [xsd to convert]'.format(len(sys.argv)))
+      sys.exit('Incorrect number of arguments: {}\nUsage: python run.py [xsd to convert]'.format(len(sys.argv)))
 
    FILEPATH = sys.argv[1]
    print('Transforming {} ...'.format(FILEPATH))
