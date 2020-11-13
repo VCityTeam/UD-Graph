@@ -10,8 +10,10 @@ def main():
   schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
   generator_file       = 'Generate_CityGML2ToRDF.xsl'
   transformation_file  = 'CityGML2ToRDF.xsl'
-  input_file           = 'LYON_1ER_BATI_2015-1_bldg.gml'
-  output_file          = 'LYON_1ER_BATI_2015-1_bldg.rdf'
+  # input_file           = 'LYON_1ER_BATI_2015-1_bldg.gml'
+  # output_file          = 'LYON_1ER_BATI_2015-1_bldg.rdf'
+  input_file           = 'LYON_1ER_BATI_2015-1711_bldg.gml'
+  output_file          = 'LYON_1ER_BATI_2015-1711_bldg.rdf'
 
   # schema_file          = '../XMLSchema/compositeCityGML3.0.xsd'
   # generator_file       = 'Generate_CityGML3ToRDF.xsl'
@@ -26,6 +28,7 @@ def main():
 
   namespaces = dict(etree.parse(schema_file).getroot().nsmap)
   namespaces.update( dict(etree.parse( 'input-data/{}'.format(input_file) ).getroot().nsmap) )
+  namespaces.pop(None)
 
   cleanXSLT(transformation_file, namespaces)
   print('Transforming XML to RDF... {}'.format(input_file))
