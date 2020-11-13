@@ -1,7 +1,7 @@
 # UD-Graph
 Repository on graph models for Urban Data.
 
-This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/wiki/doku.php) of LIRIS, Université de Lyon, France
+This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/) of LIRIS, Université de Lyon, France
 
 ## Related Articles
 - [From CityGML to OWL](https://hal.archives-ouvertes.fr/hal-02948955) (Technical report on HAL)
