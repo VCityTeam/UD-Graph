@@ -25,5 +25,5 @@ Takes a transformed OWL ontology and updates the ontology name to match proposed
 
 Usage:
 ```
-python postXSLT.py [original xsd file]
+python postXSLT.py [owl file to correct]
 ```
