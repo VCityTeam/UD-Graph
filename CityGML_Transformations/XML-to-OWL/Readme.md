@@ -2,7 +2,7 @@
 This folder contains sample data used to test XML to owl conversions via python and XSLT. XSLT transformations are done using [Saxon-HE](http://saxon.sourceforge.net/) which is dependent on Java.
 
 ### Input Data
-GML files used for testing are located in the _input-data_ folder. They consist of CityGML data from the metropole of Lyon. Generic and Appearance nodes have been removed from their XML trees. **Note that input files must use the exact same namespaces and namespace prefixes as the XML Schema they conform to.**
+GML files used for testing are located in the _input-data_ folder. They consist of CityGML data from the [metropole of Lyon](https://data.grandlyon.com/) and the [Open Geospatial Consortium github repository](https://github.com/opengeospatial/CityGML-3.0Encodings/tree/master/CityGML/Examples). Minor modifications have been made to these files such as namespace corrections inorder to work with the XML to RDF pipeline. **Note that input files must use the exact same namespaces and namespace prefixes as the XML Schema they conform to.**
 
 ##### Generate_CityGMLToRDF.xsl
 This stylesheet is used to create an XML to RDF XSL stylesheet from an XML Schema document. By default, the composite CityGML 2.0 schema from _../XMLSchema/compositeCityGML.xsd_ is taken as default to create the transformation stylesheet.
