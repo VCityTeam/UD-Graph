@@ -28,13 +28,13 @@ def main(filename):
 			node.attrib.pop('uom')
 			node.attrib['{http://www.opengis.net/gml}uom'] = uom
 		ID = node.attrib.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}ID', None)
-		if ID != None and ':' in ID:
+		if ID != None and ':' in ID and not 'http' in ID:
 			ID = ID.split(':')
 			node.attrib['{http://www.w3.org/1999/02/22-rdf-syntax-ns#}ID'] = root.nsmap.get(ID[0], '') + '#' + ID[1]
 		elif ID != None and not ':' in ID and not '#' in ID:
 			node.attrib['{http://www.w3.org/1999/02/22-rdf-syntax-ns#}ID'] = root.nsmap.get('liris', '') + ID
 		about = node.attrib.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about', None)
-		if about != None and ':' in about:
+		if about != None and ':' in about and not 'http' in about:
 			about = about.split(':')
 			node.attrib['{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about'] = root.nsmap.get(about[0], '') + '#' + about[1]
 		elif about != None and not ':' in about and not '#' in about:

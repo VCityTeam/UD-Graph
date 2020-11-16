@@ -6,7 +6,7 @@ from copy import deepcopy
 def main():
 
   global CRS
-  CRS                  = 'http://www.opengis.net/def/crs/EPSG/0/4326'
+  CRS                  = 'EPSG:3946'
   schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
   generator_file       = 'Generate_CityGML2ToRDF.xsl'
   transformation_file  = 'CityGML2ToRDF.xsl'
@@ -21,7 +21,7 @@ def main():
   # input_file           = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.gml'
   # output_file          = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.rdf'
   
-  convert3Dto2D        = True
+  cleanGeometry        = True
 
   print('Creating XML to RDF transformation mapping...')
   system('java -jar ../saxon9he.jar -s:{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
@@ -35,8 +35,8 @@ def main():
   system('java -jar ../saxon9he.jar -s:input-data/{} -xsl:{} > Results/{}'.format(input_file, transformation_file, output_file))
   cleanRDF('Results/{}'.format(output_file))
   system('python ../utilities/show_ns.py Results/{}'.format(output_file))
-  if convert3Dto2D:
-    convertGML3Dto2D('Results/{}'.format(output_file))
+  if cleanGeometry:
+    cleanGeometrySerializations('Results/{}'.format(output_file))
 
 
 def cleanXSLT(filename, namespaces):
@@ -101,22 +101,29 @@ def cleanRDF(filename):
     updateProgressBar( index, len(root), node.attrib.get('{http://www.w3.org/1999/02/22-rdf-syntax-ns#}about') )
     if len(root) > index + 1 and root[index + 1].attrib == node.attrib:
       root.remove(root[index])
-
   with open(filename, 'wb') as file:
      file.write(etree.tostring( root, pretty_print=True ))
 
 
-def convertGML3Dto2D(filename):
+def cleanGeometrySerializations(filename):
   sys.stdout.write('\033[K')
-  print('Converting 3D GML coordinates to 2D... ')
+  print('Cleaning gml serializations... ')
   root = etree.parse(filename).getroot()
-  for node in root.findall('{http://www.w3.org/2002/07/owl#}NamedIndividual/{http://www.opengis.net/ont/geosparql#}asGML'):    
-    gmlLiteral = node.text.replace('>', '> ').split(' ')
+  for node in root.findall('{http://www.w3.org/2002/07/owl#}NamedIndividual/{http://www.opengis.net/ont/geosparql#}asGML'):
+    if 'xlink:href' in node.text:
+      parent = node.getparent()
+      parent.remove(node)
+      continue
+    gmlLiteral = node.text.replace('\n', '').replace('>', '> ').split(' ')
+    gmlLiteral = list(filter(lambda a: a != '', gmlLiteral))
     count = 0
     for token in gmlLiteral:
       if token.startswith('srsD'):
         gmlLiteral[gmlLiteral.index(token)] = token.replace('3', '2')
+      elif token.startswith('xmlns') and not token.startswith('xmlns:gml') and not token.startswith('xmlns:xAL'):
+        gmlLiteral.pop(gmlLiteral.index(token))
       elif not token.replace('.', '', 1).isdigit():
+        count = 0
         continue
       else:
         count += 1
