@@ -12,8 +12,8 @@ Contains two implementations:
 1. XSD-to-OWL
    * Scripts for converting XML Schema into RDF/OWL ontologies
 2. XML-to-OWL
-   * Scripts for converting XML files into RDF/OWL individuals defined by ontologies
-   * Stores CityGML Lyon Metropole data from 2009, 2012, and 2015
+   * Scripts for converting XML files into RDF/OWL individuals
+   * Stores CityGML Lyon Metropole data from 2015
 3. XML Schema
    * Stores GML and CityGML Schema
    * Stores composite Schema for input into scripts
