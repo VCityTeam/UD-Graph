@@ -28,6 +28,7 @@
   xmlns:smil20="http://www.w3.org/2001/SMIL20/"
   xmlns:gml="http://www.opengis.net/gml/3.2"
   xmlns:gmd="http://www.isotc211.org/2005/gmd"
+  xmlns:geo="http://www.opengis.net/ont/geosparql#"
   xmlns:xlink="http://www.w3.org/1999/xlink"
   xmlns:liris="https://liris.cnrs.fr/ontologies#">
 <xsl:output indent="yes"/>
