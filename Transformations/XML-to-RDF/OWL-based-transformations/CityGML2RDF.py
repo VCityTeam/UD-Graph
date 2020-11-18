@@ -1,5 +1,6 @@
 import sys
 import time
+from os   import path
 from glob import glob
 from copy import deepcopy
 from lxml import etree
@@ -18,7 +19,7 @@ def main( filename ):
    global datatypeproperty_description_cache
    global local_namespace
 
-   local_namespace = 'http://liris.cnrs.fr/data/{}'.format( filename.split('/')[-1].split('.')[0] )
+   local_namespace = 'http://liris.cnrs.fr/data/{}'.format( path.split(filename)[-1].split('.')[0] )
    template = ('<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" ' +
                '         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" ' +
                '         xmlns:xlink="http://www.w3.org/1999/xlink#" ' +
@@ -28,14 +29,14 @@ def main( filename ):
                '         xmlns:bldg="http://www.opengis.net/citygml/building/2.0#" ' +
                '         xmlns:geo="http://www.opengis.net/ont/geosparql#">' +
                '   <owl:Ontology rdf:about="{}">'.format( local_namespace ) +
-               '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>' +
-               '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/building"/>' +
-               '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>' +
+               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/cityGMLBase"/>' +
+               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/building"/>' +
+               # '      <owl:imports rdf:resource="http://liris.cnrs.fr/ontologies/gml"/>' +
                '   </owl:Ontology>' +
                '</rdf:RDF>')
    input_root    = etree.parse(filename).getroot()
    output_root   = etree.fromstring(template)
-   ontology_root = etree.fromstring(template)
+   # ontology_root = etree.fromstring(template)
 
    ns = { k: '{%s}' % v for k, v in output_root.nsmap.items() }
    input_node_count  = 0
@@ -50,12 +51,16 @@ def main( filename ):
 
    # compile ontology
    ontology = rdflib.Graph()
-   ontology.parse('../Input-Models/OWL/CityGML_2.0_Conceptual_Model/TR1/building/building.ttl', format='turtle')
-   ontology.parse('../Input-Models/OWL/CityGML_2.0_Conceptual_Model/TR1/core/core.ttl', format='turtle')
-
+   ontology.parse('../../Input-Models/OWL/CityGML_2.0_Conceptual_Model/TR1/core/core.ttl', format='turtle')
+   ontology.parse('../../Input-Models/OWL/CityGML_2.0_Conceptual_Model/TR1/building/building.ttl', format='turtle')
+   ontology.bind('core', 'http://www.opengis.net/citygml/2.0#')
+   ontology_root = etree.fromstring(ontology.serialize(format='xml'))
+   print(input_root.nsmap)
+   print(ontology_root.nsmap)
+   # print(etree.tostring(ontology_root))
+   # print(ontology.serialize(format='xml').decode('utf-8'))
    # for child in etree.parse('../../Ontologies/compositegml.rdf').getroot():
-   for child in etree.fromstring(ontology.serialize(format='xml').decode('utf-8')).getroot():
-      ontology_root.insert(0, child)
+      # ontology_root.insert(0, child)
 
    # clean ontologies
    for node in input_root.iter():
@@ -344,7 +349,7 @@ def main( filename ):
    etree.indent(output_root)
    sys.stdout.write('\033[K')
    print('Writing output to file...')
-   with open('Results/{}.rdf'.format( filename.split('/')[-1].split('.')[0] ), 'w') as file:
+   with open('Results/{}.rdf'.format( path.split(filename)[-1].split('.')[0] ), 'wb') as file:
       file.write(etree.tostring( output_root, pretty_print=False ))
       # file.write(etree.tostring( output_root, pretty_print=True ))
    
