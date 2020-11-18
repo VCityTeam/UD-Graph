@@ -1,0 +1,111 @@
+@prefix core:  <https://github.com/VCityTeam/UD-Graph/Ontologies/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix iso19107: <http://def.isotc211.org/iso19107/2003/Geometry#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix iso19123: <http://def.isotc211.org/iso19123/2005/Coverages> .
+@prefix dem:   <https://github.com/VCityTeam/UD-Graph/Ontologies/relief#> .
+
+dem:ReliefFeature  a     owl:Class ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        skos:definition  "SIG3D: Feature aggregating the relief components which belong together."@en ;
+        skos:prefLabel   "ReliefFeature"@en .
+
+dem:ReliefFeature.reliefComponent
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:ReliefFeature ;
+        rdfs:range       dem:AbstractReliefComponent ;
+        skos:definition  "SIG3D: Relation of a ReliefFeature to its components."@en ;
+        skos:prefLabel   "reliefComponent"@en .
+
+dem:AbstractReliefComponent.extent
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:AbstractReliefComponent ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Polygon (optionally with holes) denoting the extent where the relief component is valid"@en ;
+        skos:prefLabel   "extent"@en .
+
+<https://github.com/VCityTeam/UD-Graph/Ontologies/relief>
+        a                owl:Ontology ;
+        owl:imports      <http://www.opengis.net/ont/geosparql> , <https://github.com/VCityTeam/UD-Graph/Ontologies/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:versionIRI   "https://github.com/VCityTeam/UD-Graph/Ontologies/relief/1.0" ;
+        owl:versionInfo  "1.0" ;
+        skos:prefLabel   "Relief"@en .
+
+dem:ReliefFeature.lod
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:ReliefFeature ;
+        rdfs:range       core:IntegerBetween0and4 ;
+        skos:definition  "SIG3D: Number denoting the LOD of the relief feature. The LOD concept for the relief is defined in chapter ..."@en ;
+        skos:prefLabel   "lod"@en .
+
+dem:AbstractReliefComponent.lod
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:AbstractReliefComponent ;
+        rdfs:range       core:IntegerBetween0and4 ;
+        skos:definition  "SIG3D: Number denoting the LOD of the relief component. The LOD concept for the relief is defined in chapter ..."@en ;
+        skos:prefLabel   "lod"@en .
+
+dem:RasterRelief.grid
+        a               owl:ObjectProperty ;
+        rdfs:domain     dem:RasterRelief ;
+        rdfs:range      iso19123:CV_DiscreteGridPointCoverage ;
+        skos:prefLabel  "grid"@en .
+
+dem:RasterRelief  a      owl:Class ;
+        rdfs:subClassOf  dem:AbstractReliefComponent ;
+        skos:definition  "SIG3D: Relief component represented by a (GML) raster/grid."@en ;
+        skos:prefLabel   "RasterRelief"@en .
+
+dem:MassPointRelief  a   owl:Class ;
+        rdfs:subClassOf  dem:AbstractReliefComponent ;
+        skos:definition  "SIG3D: Relief component represented by 3D points."@en ;
+        skos:prefLabel   "MassPointRelief"@en .
+
+dem:TINRelief  a         owl:Class ;
+        rdfs:subClassOf  dem:AbstractReliefComponent ;
+        skos:definition  "SIG3D: Relief component represented as triangulated irregular network."@en ;
+        skos:prefLabel   "TINRelief"@en .
+
+dem:BreaklineRelief  a   owl:Class ;
+        rdfs:subClassOf  dem:AbstractReliefComponent ;
+        skos:definition  "SIG3D: Relief component represented by 3D lines denoting break lines or ridge/valley lines"@en ;
+        skos:prefLabel   "BreaklineRelief"@en .
+
+dem:TINRelief.tin  a     owl:ObjectProperty ;
+        rdfs:domain      dem:TINRelief ;
+        rdfs:range       iso19107:GM_TriangulatedSurface ;
+        skos:definition  "SIG3D: Relation to a triangulated irregular network provided by GML (gml:TriangulatedSurface)."@en ;
+        skos:prefLabel   "tin"@en .
+
+dem:MassPointRelief.reliefPoints
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:MassPointRelief ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to 3D points (gml:MultiPoint)."@en ;
+        skos:prefLabel   "reliefPoints"@en .
+
+dem:BreaklineRelief.breaklines
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:BreaklineRelief ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to 3D lines (gml:MultiCurve) denoting break lines."@en ;
+        skos:prefLabel   "breaklines"@en .
+
+dem:AbstractReliefComponent
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of TINRelief, MassPointRelief, RasterRelief and BreaklineRelief"@en ;
+        skos:prefLabel         "AbstractReliefComponent"@en .
+
+dem:BreaklineRelief.ridgeOrValleyLines
+        a                owl:ObjectProperty ;
+        rdfs:domain      dem:BreaklineRelief ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to 3D lines (gml:MultiCurve) denoting ridge or valley lines"@en ;
+        skos:prefLabel   "ridgeOrValleyLines"@en .

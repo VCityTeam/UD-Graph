@@ -3,6 +3,7 @@ import time
 from glob import glob
 from copy import deepcopy
 from lxml import etree
+import rdflib
 
 def main( filename ):
 
@@ -48,11 +49,12 @@ def main( filename ):
 
 
    # compile ontology
-   for child in etree.parse('../../Ontologies/cityGMLBase.rdf').getroot():
-      ontology_root.insert(0, child)
-   for child in etree.parse('../../Ontologies/building.rdf').getroot():
-      ontology_root.insert(0, child)
-   for child in etree.parse('../../Ontologies/compositegml.rdf').getroot():
+   ontology = rdflib.Graph()
+   ontology.parse('../Input-Models/OWL/CityGML_2.0_Conceptual_Model/TR1/building/building.ttl', format='turtle')
+   ontology.parse('../Input-Models/OWL/CityGML_2.0_Conceptual_Model/TR1/core/core.ttl', format='turtle')
+
+   # for child in etree.parse('../../Ontologies/compositegml.rdf').getroot():
+   for child in etree.fromstring(ontology.serialize(format='xml').decode('utf-8')).getroot():
       ontology_root.insert(0, child)
 
    # clean ontologies
