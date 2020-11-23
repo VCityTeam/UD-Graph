@@ -1,5 +1,5 @@
 import sys
-from os import system, walk, path
+from os import system
 from lxml import etree
 from copy import deepcopy
 
