@@ -125,7 +125,7 @@ def findObjectProperty(uri_reference1, uri_reference2):
         ?objectproperty a owl:ObjectProperty ;
             rdfs:domain <%s> ;
             rdfs:range  <%s> .
-        }''' % str(uri_reference1), str(uri_reference2))
+        }''' % uri_reference1, uri_reference2)
 
     else:
         print('Error! No matching object property found between: {}, {}'.format(
@@ -177,7 +177,7 @@ def getClassDefinition(uri_reference):
       SELECT DISTINCT ?predicate ?object
       WHERE {
          <%s> ?predicate ?object .
-      }''' % URI)
+      }''' % uri_reference)
 
     class_definition_cache[URI] = definition
     return definition
@@ -197,7 +197,7 @@ def getObjectPropertyDefinition(uri_reference):
       SELECT DISTINCT ?predicate ?object
       WHERE {
          <%s> ?predicate ?object .
-      }''' % URI)
+      }''' % uri_reference)
 
     objectproperty_definition_cache[URI] = definition
     return definition
@@ -217,7 +217,7 @@ def getDatatypePropertyDefinition(uri_reference):
       SELECT DISTINCT ?predicate ?object
       WHERE {
          <%s> ?predicate ?object .
-      }''' % URI)
+      }''' % uri_reference)
 
     datatypeproperty_definition_cache[URI] = definition
     return definition
@@ -237,7 +237,7 @@ def getDatatypeDefinition(uri_reference):
       SELECT DISTINCT ?predicate ?object
       WHERE {
          <%s> ?predicate ?object .
-      }''' % URI)
+      }''' % uri_reference)
 
     datatype_definition_cache[URI] = definition
     return definition

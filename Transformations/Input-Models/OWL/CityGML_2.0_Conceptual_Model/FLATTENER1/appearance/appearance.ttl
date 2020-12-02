@@ -1,0 +1,283 @@
+@prefix app:   <http://www.opengis.net/citygml/appearance/2.0/appearance#> .
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+app:ParameterizedTexture.target
+        a               owl:ObjectProperty ;
+        rdfs:domain     app:ParameterizedTexture ;
+        rdfs:range      app:TextureAssociation ;
+        skos:prefLabel  "target"@en .
+
+app:X3DMaterial.transparency
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       core:DoubleBetween0and1 ;
+        skos:definition  "X3D: Degree of transparency of the surface. 0 means fully opaque. 1 means fully transparent."@en ;
+        skos:prefLabel   "transparency"@en .
+
+app:Appearance.theme  a  owl:DatatypeProperty ;
+        rdfs:domain      app:Appearance ;
+        rdfs:range       xsd:string ;
+        skos:definition  "SIG3D: Theme name for all surfaceDataMembers. A theme is a catagory defining the semantics of the referenced surfaceDataMembers (e.g. infrared radiation,"@en ;
+        skos:prefLabel   "theme"@en .
+
+app:X3DMaterial.isSmooth
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       xsd:boolean ;
+        skos:definition  "X3D: Hint for normal interpolation. If true vertex normals used for shading. Otherwise normals are constant for the patch."@en ;
+        skos:prefLabel   "isSmooth"@en .
+
+app:AbstractTexture.mimeType
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:AbstractTexture ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Mime type describing the data format of the image resource"@en ;
+        skos:prefLabel   "mimeType"@en .
+
+app:Appearance.surfaceDataMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:Appearance ;
+        rdfs:range       app:AbstractSurfaceData ;
+        skos:definition  "SIG3D: List of surface data properties for the current appearance theme"@en ;
+        skos:prefLabel   "surfaceDataMember"@en .
+
+app:GeoreferencedTexture.orientation
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:GeoreferencedTexture ;
+        rdfs:range       core:TransformationMatrix2x2 ;
+        skos:definition  "SIG3D: Defines the rotation and scaling of the image in form of a 2x2 matrix (a list of 4 doubles in row-major order)."@en ;
+        skos:prefLabel   "orientation"@en .
+
+app:X3DMaterial.emissiveColor
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       app:Color ;
+        skos:definition  "X3D: Color of the light emitted by the surface"@en ;
+        skos:prefLabel   "emissiveColor"@en .
+
+app:GeoreferencedTexture.referencePoint
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:GeoreferencedTexture ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Defines the location of the center of the upper left image pixel in world space."@en ;
+        skos:prefLabel   "referencePoint"@en .
+
+app:TexCoordGen  a        owl:Class ;
+        rdfs:subClassOf   app:AbstractTextureParameterization ;
+        owl:disjointWith  app:TexCoordList ;
+        skos:definition   "SIG3D: Texture parameterization using a transformation matrix."@en ;
+        skos:prefLabel    "TexCoordGen"@en .
+
+app:Color.list  a       owl:ObjectProperty ;
+        rdfs:domain     app:Color ;
+        rdfs:range      iso19136:doubleList ;
+        skos:prefLabel  "list"@en .
+
+app:ParameterizedTexture
+        a                owl:Class ;
+        rdfs:subClassOf  app:AbstractTexture ;
+        skos:definition  "SIG3D: Specialization of AbstractTexture to describe  textures with specified transformation or texture coordinates."@en ;
+        skos:prefLabel   "ParameterizedTexture"@en .
+
+app:GeoreferencedTexture
+        a                 owl:Class ;
+        rdfs:subClassOf   app:AbstractTexture ;
+        owl:disjointWith  app:ParameterizedTexture ;
+        skos:definition   "SIG3D: Specialized class for georeferenced textures containing an implicit parametrization that is either stored within the image file, an acompanying world file"@en ;
+        skos:prefLabel    "GeoreferencedTexture"@en .
+
+app:X3DMaterial.target
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "X3D: URI identifying the target surface geometry to apply the material properties"@en ;
+        skos:prefLabel   "target"@en .
+
+app:TexCoordList  a      owl:Class ;
+        rdfs:subClassOf  app:AbstractTextureParameterization ;
+        skos:definition  "SIG3D: Texture parameterization using explicit texture coordinates (a list of pairs of 2 double values). Each ring that is part of the surface requires a TexCoordList"@en ;
+        skos:prefLabel   "TexCoordList"@en .
+
+app:AbstractTexture.wrapMode
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:AbstractTexture ;
+        rdfs:range       app:WrapMode ;
+        skos:definition  "Collada: Definition of behavior when accessing the texture outside the underlying image raster"@en ;
+        skos:prefLabel   "wrapMode"@en .
+
+app:AbstractTexture.borderColor
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:AbstractTexture ;
+        rdfs:range       app:ColorPlusOpacity ;
+        skos:definition  "SIG3D: Color definition for texture borders."@en ;
+        skos:prefLabel   "borderColor"@en .
+
+app:X3DMaterial.specularColor
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       app:Color ;
+        skos:definition  "X3D: Color of the directly reflected light"@en ;
+        skos:prefLabel   "specularColor"@en .
+
+app:GeoreferencedTexture.preferWorldFile
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:GeoreferencedTexture ;
+        rdfs:range       xsd:boolean ;
+        skos:definition  "SIG3D: Flag for defining the precedence of an accompanying worldfile before the georeference included in the image source. If this value is false, the world file"@en ;
+        skos:prefLabel   "preferWorldFile"@en .
+
+app:WrapMode  a         rdfs:Datatype ;
+        owl:oneOf       ( "none" "wrap" "mirror" "clamp" "border" ) ;
+        skos:prefLabel  "WrapMode"@en .
+
+app:AbstractSurfaceData
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of X3DMaterial and AbstractTexture"@en ;
+        skos:prefLabel         "AbstractSurfaceData"@en .
+
+app:X3DMaterial.shininess
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       core:DoubleBetween0and1 ;
+        skos:definition  "X3D: Controls the sharpness of specular highlights. 0 produces a soft glow. 1 produces sharp highlights."@en ;
+        skos:prefLabel   "shininess"@en .
+
+app:AbstractTextureParameterization
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of TexCoordGen and TextCoordList"@en ;
+        skos:prefLabel         "AbstractTextureParameterization"@en .
+
+app:TexCoordList.ring
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:TexCoordList ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: gml:ids of the LinearRings that are parameterized using the given texture coordinates"@en ;
+        skos:prefLabel   "ring"@en .
+
+app:X3DMaterial.ambientIntensity
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       core:DoubleBetween0and1 ;
+        skos:definition  "X3D: Minimum percentage of diffuseColor that is visible regardless of light sources"@en ;
+        skos:prefLabel   "ambientIntensity"@en .
+
+<http://www.opengis.net/citygml/appearance/2.0/appearance>
+        a               owl:Ontology ;
+        owl:imports     <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "Appearance"@en .
+
+app:Appearance  a        owl:Class ;
+        rdfs:subClassOf  core:AbstractAppearance ;
+        skos:definition  "SIG3D: Named container for all AbstractSurfaceData"@en ;
+        skos:prefLabel   "Appearance"@en .
+
+app:AbstractTexture  a         owl:Class ;
+        rdfs:subClassOf        app:AbstractSurfaceData ;
+        iso19150-2:isAbstract  true ;
+        owl:disjointWith       app:X3DMaterial ;
+        skos:definition        "SIG3D: Abstract super class of ParameterizedTexture and GeoreferencedTexture"@en ;
+        skos:prefLabel         "AbstractTexture"@en .
+
+app:ColorPlusOpacity.list
+        a               owl:ObjectProperty ;
+        rdfs:domain     app:ColorPlusOpacity ;
+        rdfs:range      iso19136:doubleList ;
+        skos:prefLabel  "list"@en .
+
+app:Color  a            owl:Class ;
+        skos:prefLabel  "Color"@en .
+
+app:AbstractTexture.textureType
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:AbstractTexture ;
+        rdfs:range       app:TextureType ;
+        skos:definition  "\"SIG3D: Distinction between prototypical (value \"\"typical\"\"), object specific (value \"\"specific\"\") textures, and textures with unknown classification (value \"\"unknown\"\").\""@en ;
+        skos:prefLabel   "textureType"@en .
+
+app:TextureAssociation
+        a                owl:Class ;
+        skos:definition  "SIG3D: Connects a surface geometry with a parameterized texture."@en ;
+        skos:prefLabel   "TextureAssociation"@en .
+
+app:TexCoordList.textureCoordinates
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:TexCoordList ;
+        rdfs:range       iso19136:doubleList ;
+        skos:definition  "SIG3D: List of texture coordinates with two doubles per ring vertex"@en ;
+        skos:prefLabel   "textureCoordinates"@en .
+
+app:GeoreferencedTexture.target
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:GeoreferencedTexture ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: Geometry object which is associated with the texture."@en ;
+        skos:prefLabel   "target"@en .
+
+app:TexCoordGen.srsName
+        a               owl:DatatypeProperty ;
+        rdfs:domain     app:TexCoordGen ;
+        rdfs:range      xsd:anyURI ;
+        skos:prefLabel  "srsName"@en .
+
+app:X3DMaterial.diffuseColor
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:X3DMaterial ;
+        rdfs:range       app:Color ;
+        skos:definition  "X3D: Color of the diffusely reflected light"@en ;
+        skos:prefLabel   "diffuseColor"@en .
+
+app:AbstractSurfaceData.isFront
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:AbstractSurfaceData ;
+        rdfs:range       xsd:boolean ;
+        skos:definition  "SIG3D: Indicates whether the X3DMaterial, GeoreferencedTexture or, ParametrizedTexture is assigned to the front side or back side of the surface"@en ;
+        skos:prefLabel   "isFront"@en .
+
+app:TextureAssociation.uri
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:TextureAssociation ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: Link to the geometry object to be textured."@en ;
+        skos:prefLabel   "uri"@en .
+
+app:TexCoordGen.worldToTexture
+        a                owl:ObjectProperty ;
+        rdfs:domain      app:TexCoordGen ;
+        rdfs:range       core:TransformationMatrix3x4 ;
+        skos:definition  "SIG3D: 3x4 Matrix that defines the transformation between world coordinates and texture coordinates."@en ;
+        skos:prefLabel   "worldToTexture"@en .
+
+app:ColorPlusOpacity  a  owl:Class ;
+        skos:prefLabel  "ColorPlusOpacity"@en .
+
+app:AbstractTexture.imageURI
+        a                owl:DatatypeProperty ;
+        rdfs:domain      app:AbstractTexture ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: URI identifying the image data resource for the texture"@en ;
+        skos:prefLabel   "imageURI"@en .
+
+app:X3DMaterial  a       owl:Class ;
+        rdfs:subClassOf  app:AbstractSurfaceData ;
+        skos:definition  "SIG3D: Definition of material properties based on X3D standard."@en ;
+        skos:prefLabel   "X3DMaterial"@en .
+
+app:TextureAssociation.target
+        a               owl:ObjectProperty ;
+        rdfs:domain     app:TextureAssociation ;
+        rdfs:range      app:AbstractTextureParameterization ;
+        skos:prefLabel  "target"@en .
+
+app:TextureType  a      rdfs:Datatype ;
+        owl:oneOf       ( "specific" "typical" "unknown" ) ;
+        skos:prefLabel  "TextureType"@en .
