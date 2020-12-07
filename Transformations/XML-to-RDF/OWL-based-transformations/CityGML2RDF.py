@@ -58,17 +58,22 @@ def main():
         'http://www.opengis.net/citygml/tunnel/2.0': 'http://www.opengis.net/citygml/2.0/tunnel#',
         'http://www.opengis.net/citygml/cityfurniture/2.0': 'http://www.opengis.net/citygml/2.0/cityfurniture#',
         'http://www.opengis.net/citygml/vegetation/2.0': 'http://www.opengis.net/citygml/2.0/vegetation#',
-        'http://www.opengis.net/citygml/waterbody/2.0': 'http://www.opengis.net/citygml/2.0/waterbody#'
+        'http://www.opengis.net/citygml/waterbody/2.0': 'http://www.opengis.net/citygml/2.0/waterbody#',
+        'http://www.opengis.net/gml': 'http://www.opengis.net/ont/geosparql#'
     }
 
     # compile ontology
     print('Compiling Ontology...')
     ontology = Graph()
     for path in sys.argv[1].split(','):
+        if path.startswith('http://'):
+            print('  ' + path)
+            ontology.parse(path, format='xml')
+            continue
         for root, dirs, files in os.walk(path):
             for file in files:
                 if file.endswith('.rdf') or file.endswith('.owl') or file.endswith('.ttl'):
-                    print(file)
+                    print('  ' + file)
                     ontology.parse(os.path.join(root, file), format='turtle')
     # copy ontology namespace bindings to output graph namespace manager and add
     # default output namespace binding
