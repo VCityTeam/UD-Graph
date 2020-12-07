@@ -72,9 +72,12 @@ def main():
             continue
         for root, dirs, files in os.walk(path):
             for file in files:
-                if file.endswith('.rdf') or file.endswith('.owl') or file.endswith('.ttl'):
+                if file.endswith('.ttl'):
                     print('  ' + file)
                     ontology.parse(os.path.join(root, file), format='turtle')
+                if file.endswith('.rdf'):
+                    print('  ' + file)
+                    ontology.parse(os.path.join(root, file), format='xml')
     # copy ontology namespace bindings to output graph namespace manager and add
     # default output namespace binding
     output_graph.namespace_manager = NamespaceManager(ontology)
@@ -114,6 +117,8 @@ def main():
 # generate a new individual from an XML node and its children, then add the
 # node to the output graph. An id is passed 
 def generateIndividual(node):
+    if input_tree.getelementpath(node) in parsed_nodes:
+        return
     global log
     node_tag = normalizeXmlTag(node)
     node_id = URIRef(generateID(node_tag))
@@ -191,6 +196,8 @@ def generateDatatypeProperty(node, parent_id):
         else:
             log += 'Error! Datatype element for datatype property not found: {}\n'.format(
                 input_tree.getelementpath(child) )
+
+
 
 
 
@@ -284,7 +291,7 @@ def isClass(uri_reference):
 
 # return whether object property definition exists in ontology. Local property
 # names may require searching through the shapechange [[name]] descriptor target
-# (skos:prefLabel by default) depending on shapechange property encoding
+# (rdfs:label by default) depending on shapechange property encoding
 # configurations.
 def isObjectProperty(uri_reference):
     global log
@@ -296,7 +303,7 @@ def isObjectProperty(uri_reference):
         SELECT DISTINCT ?objectproperty
         WHERE {
             ?objectproperty rdf:type owl:ObjectProperty ;
-                skos:prefLabel "%s"@en .
+                rdfs:label "%s"@en .
         }''' % uri.split('#')[-1] )
     objectproperty_definition_cache[uri] = len(query) > 0
 
@@ -307,7 +314,7 @@ def isObjectProperty(uri_reference):
 
 # return whether datatype property definition exists in ontology. Local property
 # names may require searching through the shapechange [[name]] descriptor target
-# (skos:prefLabel by default) depending on shapechange property encoding
+# (rdfs:label by default) depending on shapechange property encoding
 # configurations.
 def isDatatypeProperty(uri_reference):
     global log
@@ -319,7 +326,7 @@ def isDatatypeProperty(uri_reference):
         SELECT DISTINCT ?datatypeproperty
         WHERE {
             ?datatypeproperty rdf:type owl:DatatypeProperty ;
-                skos:prefLabel "%s"@en .
+                rdfs:label "%s"@en .
         }''' % uri.split('#')[-1] )
     datatypeproperty_definition_cache[uri] = len(query) > 0
 
