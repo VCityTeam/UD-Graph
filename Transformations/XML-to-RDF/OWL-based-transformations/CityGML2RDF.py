@@ -1,20 +1,22 @@
 import os, sys
-from rdflib import Graph, URIRef
-from rdflib.namespace import RDF, RDFS, OWL
+from typing import Dict, Any, Union
+
+from rdflib import Graph, URIRef, Literal
+from rdflib.namespace import RDF, RDFS, OWL, NamespaceManager
 from lxml import etree
 
 
 def main():
     if len(sys.argv) != 3:
         sys.exit(
-            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology path] [input datafile]'.format(
+            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile]\n' +
+            'ontology input paths are separated by a ","'.format(
                 len(sys.argv)))
 
     ############################
     ##  Initialize variables  ##
     ############################
 
-    shapechange_input = True
     global input_tree
     global ontology
     global output_graph
@@ -26,12 +28,14 @@ def main():
     global datatypeproperty_definition_cache
     global namespace_mappings
     global parsed_nodes
+    global log
 
     filename = os.path.split(sys.argv[2])[-1].split('.')[0]
     input_tree = etree.parse(sys.argv[2])
     output_graph = Graph()
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
-
+    log = ''
+    
     # input_node_count  = 0
     # output_node_count = 0
     # current_node      = 0
@@ -42,29 +46,34 @@ def main():
     datatypeproperty_definition_cache = {}
     parsed_nodes = []
     namespace_mappings = {
-        'http://www.opengis.net/citygml/2.0': 'https://github.com/VCityTeam/UD-Graph/core#',
-        'http://www.opengis.net/citygml/appearance/2.0': 'https://github.com/VCityTeam/UD-Graph/appearance#',
-        'http://www.opengis.net/citygml/building/2.0': 'https://github.com/VCityTeam/UD-Graph/building#',
-        'http://www.opengis.net/citygml/bridge/2.0': 'https://github.com/VCityTeam/UD-Graph/bridge#',
-        'http://www.opengis.net/citygml/generics/2.0': 'https://github.com/VCityTeam/UD-Graph/generics#',
-        'http://www.opengis.net/citygml/relief/2.0': 'https://github.com/VCityTeam/UD-Graph/relief#',
-        'http://www.opengis.net/citygml/transportation/2.0': 'https://github.com/VCityTeam/UD-Graph/transportation#',
-        'http://www.opengis.net/citygml/cityobjectgroup/2.0': 'https://github.com/VCityTeam/UD-Graph/cityobjectgroup#',
-        'http://www.opengis.net/citygml/landuse/2.0': 'https://github.com/VCityTeam/UD-Graph/landuse#',
-        'http://www.opengis.net/citygml/tunnel/2.0': 'https://github.com/VCityTeam/UD-Graph/tunnel#',
-        'http://www.opengis.net/citygml/cityfurniture/2.0': 'https://github.com/VCityTeam/UD-Graph/cityfurniture#',
-        'http://www.opengis.net/citygml/vegetation/2.0': 'https://github.com/VCityTeam/UD-Graph/vegetation#',
-        'http://www.opengis.net/citygml/waterbody/2.0': 'https://github.com/VCityTeam/UD-Graph/waterbody#'
+        'http://www.opengis.net/citygml/2.0': 'http://www.opengis.net/citygml/2.0/core#',
+        'http://www.opengis.net/citygml/appearance/2.0': 'http://www.opengis.net/citygml/2.0/appearance#',
+        'http://www.opengis.net/citygml/building/2.0': 'http://www.opengis.net/citygml/2.0/building#',
+        'http://www.opengis.net/citygml/bridge/2.0': 'http://www.opengis.net/citygml/2.0/bridge#',
+        'http://www.opengis.net/citygml/generics/2.0': 'http://www.opengis.net/citygml/2.0/generics#',
+        'http://www.opengis.net/citygml/relief/2.0': 'http://www.opengis.net/citygml/2.0/relief#',
+        'http://www.opengis.net/citygml/transportation/2.0': 'http://www.opengis.net/citygml/2.0/transportation#',
+        'http://www.opengis.net/citygml/cityobjectgroup/2.0': 'http://www.opengis.net/citygml/2.0/cityobjectgroup#',
+        'http://www.opengis.net/citygml/landuse/2.0': 'http://www.opengis.net/citygml/2.0/landuse#',
+        'http://www.opengis.net/citygml/tunnel/2.0': 'http://www.opengis.net/citygml/2.0/tunnel#',
+        'http://www.opengis.net/citygml/cityfurniture/2.0': 'http://www.opengis.net/citygml/2.0/cityfurniture#',
+        'http://www.opengis.net/citygml/vegetation/2.0': 'http://www.opengis.net/citygml/2.0/vegetation#',
+        'http://www.opengis.net/citygml/waterbody/2.0': 'http://www.opengis.net/citygml/2.0/waterbody#'
     }
 
     # compile ontology
     print('Compiling Ontology...')
     ontology = Graph()
-    for root, dirs, files in os.walk(sys.argv[1]):
-        for file in files:
-            if file.endswith('.rdf') or file.endswith('.owl') or file.endswith('.ttl'):
-                print(file)
-                ontology.parse(os.path.join(root, file), format='turtle')
+    for path in sys.argv[1].split(','):
+        for root, dirs, files in os.walk(path):
+            for file in files:
+                if file.endswith('.rdf') or file.endswith('.owl') or file.endswith('.ttl'):
+                    print(file)
+                    ontology.parse(os.path.join(root, file), format='turtle')
+    # copy ontology namespace bindings to output graph namespace manager and add
+    # default output namespace binding
+    output_graph.namespace_manager = NamespaceManager(ontology)
+    output_graph.namespace_manager.bind('data', output_uri + '#')
 
     ###################################
     ##  Convert input file into rdf  ##
@@ -73,20 +82,24 @@ def main():
     print('Converting XML tree...')
     for input_node in input_tree.getroot().iter():
         # skip comment nodes
-        if not isinstance(input_node.tag, str): continue
+        if not isinstance(input_node.tag, str):
+            continue
         # skip already parsed nodes
-        if input_tree.getelementpath(input_node) in parsed_nodes: continue
+        if input_tree.getelementpath(input_node) in parsed_nodes:
+            continue
 
-        input_node_tag = normalizeXmlTag(input_node)
         # if the node is a class, generate an id and individual for it.
-        if getClassDefinition(input_node_tag) != None:
-            output_node_id = URIRef(generateID(input_node_tag))
-            generateIndividual(input_node, output_node_id)
+        if isClass( normalizeXmlTag(input_node) ):
+            generateIndividual(input_node)
 
     print('Writing graph to disk...')
     print('Results/{}.rdf'.format(filename))
     with open('Results/{}.rdf'.format(filename), 'wb') as file:
-        file.write(output_graph.serialize(format='xml'))
+        file.write(output_graph.serialize(format='turtle'))
+    print('Writing log to ./log.txt ...')
+    with open('log.txt', 'w') as file:
+        file.write(log)
+
 
 
 ######################################
@@ -95,30 +108,96 @@ def main():
 
 # generate a new individual from an XML node and its children, then add the
 # node to the output graph. An id is passed 
-def generateIndividual(node, node_id=None):
+def generateIndividual(node):
+    global log
     node_tag = normalizeXmlTag(node)
-    if node_id is None:
-        node_id = URIRef(generateID(node_tag))
-    output_graph.add((node_id, RDF.type, OWL.NamedIndividual))
+    node_id = URIRef(generateID(node_tag))
+    output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
+    output_graph.add( (node_id, RDF.type, node_tag) )
 
     for child in node:
-
-        # check if child node is a class. If so generate a new individual for the
-        # child and create an objectProperty linking the two individuals.
         child_tag = normalizeXmlTag(child)
-        if getClassDefinition(child_tag) is not None:
-            child_id = URIRef(generateID(child_tag))
+
+        # check if child node is a class. If so, generate a new individual for the
+        # child and create an object property linking the two individuals.
+        if isClass(child_tag):
+            child_id = generateIndividual(child)
             objectproperty = findObjectProperty(node_tag, child_tag)
-            output_graph.add((node_id, objectproperty, child_id))
-            generateIndividual(child, child_id)
+            output_graph.add( (node_id, objectproperty, child_id) )
+        # check if child node is an object property. If so, generate the object
+        # property nodes and their corresponding individuals by calling
+        # generateObjectProperties().
+        elif isObjectProperty(child_tag):
+            generateObjectProperties(child, node_id)
+        # check if child node is a datatype. If so, generate a datatype for the
+        # child and create a datatype property linking the individual and datatype.
+        elif isDatatype(child_tag):
+            child_text = Literal(child_tag, child.text)
+            datatypeproperty = findDatatypeProperty(node_tag, child_tag)
+            output_graph.add( (node_id, datatypeproperty, child_text) )
+        # check if child node is an datatype property. If so, generate the datatype
+        # property nodes and their corresponding individuals by calling
+        # generateDatatypeProperty().
+        elif isDatatypeProperty(child_tag):
+            generateDatatypeProperty(child, node_id)
+        else:
+            log += 'Error! Unknown XML element: {}\n'.format( input_tree.getelementpath(child) )
     # when complete, add node to parsed nodes list
     parsed_nodes.append(input_tree.getelementpath(node))
+    return node_id
 
 
-# find an object property which links (intersects) two given classes based its
-# domain and range.
+# Generate an individual for each child (which should all be classes if input
+# tree is well formed) and create an object property linking the parent
+# individual with each child individual.
+def generateObjectProperties(node, parent_id):
+    global log
+    node_tag = normalizeXmlTag(node)
+
+    for child in node:
+        child_tag = normalizeXmlTag(child)
+
+        # check if child node is a class. If so, generate a new individual for the
+        # child and create an object property linking the two individuals.
+        if isClass(child_tag):
+            child_id = generateIndividual(child)
+            output_graph.add( (parent_id, node_tag, child_id) )
+        else:
+            log += 'Error! Class element for object property not found: {}\n'.format(
+                input_tree.getelementpath(child) )
+
+
+# Generate a datatype for each child (which should all contain datatype literals
+# if well formed) and create a datatype property linking the parent individual
+# with each child datatype literal.
+def generateDatatypeProperty(node, parent_id):
+    global log
+    node_tag = normalizeXmlTag(node)
+
+    for child in node:
+        child_tag = normalizeXmlTag(child)
+
+        # check if child node is a datatype. If so, generate a new datatype literal
+        # for the child and create a datatype property linking the class with the
+        # datatype literal.
+        if isDatatype(child_tag):
+            child_text = Literal(child_tag, child.text)
+            output_graph.add( (parent_id, node_tag, child_text) )
+        else:
+            log += 'Error! Datatype element for datatype property not found: {}\n'.format(
+                input_tree.getelementpath(child) )
+
+
+
+#########################
+##  Utility functions  ##
+#########################
+
+# find an object property which links (intersects) two given classes based on the
+# domain and range of the property.
 def findObjectProperty(uri_reference1, uri_reference2):
-    if getClassDefinition(uri_reference1) is not None and getClassDefinition(uri_reference2) is not None:
+    global log
+    if isClass(uri_reference1) and isClass(uri_reference2):
         return ontology.query('''
         SELECT DISTINCT ?objectproperty
         WHERE {
@@ -128,17 +207,32 @@ def findObjectProperty(uri_reference1, uri_reference2):
         }''' % uri_reference1, uri_reference2)
 
     else:
-        print('Error! No matching object property found between: {}, {}'.format(
-            uri_reference1, uri_reference2))
+        log += 'Error! No matching object property found between: {}, {}\n'.format(
+            uri_reference1, uri_reference2)
         return None
 
 
-#########################
-##  Utility functions  ##
-#########################
+# find a datatype property which links (intersects) a given class and a datatype
+# based on the domain and range of the property.
+def findDatatypeProperty(uri_reference1, uri_reference2):
+    global log
+    if isClass(uri_reference1) and isDatatype(uri_reference2):
+        return ontology.query('''
+        SELECT DISTINCT ?datatypeproperty
+        WHERE {
+        ?datatypeproperty a owl:DatatypeProperty ;
+            rdfs:domain <%s> ;
+            rdfs:range  <%s> .
+        }''' % uri_reference1, uri_reference2)
 
-# normalize input tag. If input tag namespace is in namespace mappings, return
-# the target mapping namespace. Tags are returned as rdflib.URIRef objects.
+    else:
+        log += 'Error! No matching datatype property found between: {}, {}\n'.format(
+            uri_reference1, uri_reference2)
+        return None
+
+
+# normalize an XML tag namespace for OWL. If input tag namespace is in namespace mappings,
+# return the target mapping namespace. Tags are returned as rdflib.URIRef objects.
 def normalizeXmlTag(node):
     qname = etree.QName(node)
 
@@ -163,84 +257,90 @@ def generateID(tag):
         return '{}#{}_0'.format(output_uri, name)
 
 
-# get class definition from ontology return it as an rdf graph
-def getClassDefinition(uri_reference):
-    URI = str(uri_reference)
-    if URI in class_definition_cache.keys():
-        return class_definition_cache[URI]
+# return whether class definition exists in ontology
+def isClass(uri_reference):
+    global log
+    uri = str(uri_reference)
+    if uri in class_definition_cache.keys():
+        return class_definition_cache[uri]
 
-    if (uri_reference, RDF.type, OWL.Class) not in ontology:
-        print('Error! No class definition found: {}'.format(URI))
-        return None
+    query = ontology.query('''
+        SELECT DISTINCT ?class
+        WHERE {
+            ?class rdf:type owl:Class .
+            FILTER ( STR(?class) = "%s" )
+        }''' % uri_reference)
+    class_definition_cache[uri] = len(query) > 0
 
-    definition = ontology.query('''
-      SELECT DISTINCT ?predicate ?object
-      WHERE {
-         <%s> ?predicate ?object .
-      }''' % uri_reference)
-
-    class_definition_cache[URI] = definition
-    return definition
-
-
-# get objectProperty definition from ontology return it as an rdf graph
-def getObjectPropertyDefinition(uri_reference):
-    URI = str(uri_reference)
-    if URI in objectproperty_definition_cache.keys():
-        return objectproperty_definition_cache[URI]
-
-    if (uri_reference, RDF.type, OWL.ObjectProperty) not in ontology:
-        print('Error! No objectProperty definition found: {}'.format(URI))
-        return None
-
-    definition = ontology.query('''
-      SELECT DISTINCT ?predicate ?object
-      WHERE {
-         <%s> ?predicate ?object .
-      }''' % uri_reference)
-
-    objectproperty_definition_cache[URI] = definition
-    return definition
+    # if len(query) == 0:
+    #     log += 'Warning, no class definition found: {}\n'.format(uri)
+    return len(query) > 0
 
 
-# get datatypeProperty definition from ontology return it as an rdf graph
-def getDatatypePropertyDefinition(uri_reference):
-    URI = str(uri_reference)
-    if URI in datatypeproperty_definition_cache.keys():
-        return datatypeproperty_definition_cache[URI]
+# return whether object property definition exists in ontology. Local property
+# names may require searching through the shapechange [[name]] descriptor target
+# (skos:prefLabel by default) depending on shapechange property encoding
+# configurations.
+def isObjectProperty(uri_reference):
+    global log
+    uri = str(uri_reference)
+    if uri in objectproperty_definition_cache.keys():
+        return objectproperty_definition_cache[uri]
 
-    if (uri_reference, RDF.type, OWL.DatatypeProperty) not in ontology:
-        print('Error! No datatypeProperty definition found: {}'.format(URI))
-        return None
+    query = ontology.query('''
+        SELECT DISTINCT ?objectproperty
+        WHERE {
+            ?objectproperty rdf:type owl:ObjectProperty ;
+                skos:prefLabel "%s"@en .
+        }''' % uri.split('#')[-1] )
+    objectproperty_definition_cache[uri] = len(query) > 0
 
-    definition = ontology.query('''
-      SELECT DISTINCT ?predicate ?object
-      WHERE {
-         <%s> ?predicate ?object .
-      }''' % uri_reference)
-
-    datatypeproperty_definition_cache[URI] = definition
-    return definition
+    # if len(query) == 0:
+    #     log += 'Warning, no objectProperty definition found: {}\n'.format(uri)
+    return len(query) > 0
 
 
-# get datatype definition from ontology return it as an rdf graph
-def getDatatypeDefinition(uri_reference):
-    URI = str(uri_reference)
-    if URI in datatype_definition_cache.keys():
-        return datatype_definition_cache[URI]
+# return whether datatype property definition exists in ontology. Local property
+# names may require searching through the shapechange [[name]] descriptor target
+# (skos:prefLabel by default) depending on shapechange property encoding
+# configurations.
+def isDatatypeProperty(uri_reference):
+    global log
+    uri = str(uri_reference)
+    if uri in datatypeproperty_definition_cache.keys():
+        return datatypeproperty_definition_cache[uri]
 
-    if (uri_reference, RDF.type, RDFS.Datatype) not in ontology:
-        print('Error! No datatype definition found: {}'.format(URI))
-        return None
+    query = ontology.query('''
+        SELECT DISTINCT ?datatypeproperty
+        WHERE {
+            ?datatypeproperty rdf:type owl:DatatypeProperty ;
+                skos:prefLabel "%s"@en .
+        }''' % uri.split('#')[-1] )
+    datatypeproperty_definition_cache[uri] = len(query) > 0
 
-    definition = ontology.query('''
-      SELECT DISTINCT ?predicate ?object
-      WHERE {
-         <%s> ?predicate ?object .
-      }''' % uri_reference)
+    # if len(query) == 0:
+    #     log += 'Warning, no datatypeProperty definition found: {}\n'.format(uri)
+    return len(query) > 0
 
-    datatype_definition_cache[URI] = definition
-    return definition
+
+# return whether datatype definition exists in ontology
+def isDatatype(uri_reference):
+    global log
+    uri = str(uri_reference)
+    if uri in datatype_definition_cache.keys():
+        return datatype_definition_cache[uri]
+
+    query = ontology.query('''
+        SELECT DISTINCT ?datatype
+        WHERE {
+            ?datatype rdf:type rdfs:Datatype .
+            FILTER ( STR(?datatype) = "%s" )
+        }''' % uri_reference)
+    datatype_definition_cache[uri] = len(query) > 0
+
+    # if len(query) == 0:
+    #     log += 'Warning, no datatype definition found: {}\n'.format(uri)
+    return len(query) > 0
 
 
 if __name__ == "__main__":
