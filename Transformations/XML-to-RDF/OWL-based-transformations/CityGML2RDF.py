@@ -1,10 +1,8 @@
 import os, sys
-from typing import Dict, Any, Union
-
 from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import RDF, RDFS, OWL, NamespaceManager
+from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
 from lxml import etree
-
+from copy import deepcopy
 
 def main():
     if len(sys.argv) != 3:
@@ -28,6 +26,8 @@ def main():
     global datatypeproperty_definition_cache
     global namespace_mappings
     global parsed_nodes
+    global GML
+    global GeoSPARQL
     global log
 
     filename = os.path.split(sys.argv[2])[-1].split('.')[0]
@@ -35,7 +35,7 @@ def main():
     output_graph = Graph()
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
     log = ''
-    
+
     # input_node_count  = 0
     # output_node_count = 0
     # current_node      = 0
@@ -59,7 +59,7 @@ def main():
         'http://www.opengis.net/citygml/cityfurniture/2.0': 'http://www.opengis.net/citygml/2.0/cityfurniture#',
         'http://www.opengis.net/citygml/vegetation/2.0': 'http://www.opengis.net/citygml/2.0/vegetation#',
         'http://www.opengis.net/citygml/waterbody/2.0': 'http://www.opengis.net/citygml/2.0/waterbody#',
-        'http://www.opengis.net/gml': 'http://www.opengis.net/ont/geosparql#'
+        'http://www.opengis.net/gml': 'http://www.opengis.net/ont/gml#'
     }
 
     # compile ontology
@@ -78,10 +78,12 @@ def main():
                 if file.endswith('.rdf'):
                     print('  ' + file)
                     ontology.parse(os.path.join(root, file), format='xml')
-    # copy ontology namespace bindings to output graph namespace manager and add
-    # default output namespace binding
+    # copy ontology namespace bindings to output graph namespace manager, add
+    # default output namespace binding, and set geospatial namespaces
     output_graph.namespace_manager = NamespaceManager(ontology)
     output_graph.namespace_manager.bind('data', output_uri + '#')
+    GML = Namespace('http://www.opengis.net/ont/gml#')
+    GeoSPARQL = Namespace('http://www.opengis.net/ont/geosparql#')
 
     ###################################
     ##  Convert input file into rdf  ##
@@ -115,15 +117,24 @@ def main():
 ######################################
 
 # generate a new individual from an XML node and its children, then add the
-# node to the output graph. An id is passed 
+# node to the output graph. An id is returned for recursive calls
 def generateIndividual(node):
+    # skip node if already parsed
     if input_tree.getelementpath(node) in parsed_nodes:
         return
     global log
     node_tag = normalizeXmlTag(node)
-    node_id = URIRef(generateID(node_tag))
+    node_id = URIRef('{}#{}'.format(output_uri, node.attrib['{http://www.opengis.net/gml}id'])) if\
+        '{http://www.opengis.net/gml}id' in node.attrib else URIRef(generateID(node_tag))
     output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
     output_graph.add( (node_id, RDF.type, node_tag) )
+
+    # if the node is a geometry node, create a gml serialization and add
+    # descendant nodes to the parsed_nodes list
+    if isGeometry(node_tag):
+        generateGeometrySerialization(node, node_id)
+        parsed_nodes.append(input_tree.getelementpath(node))
+        return node_id
 
     for child in node:
         child_tag = normalizeXmlTag(child)
@@ -134,17 +145,19 @@ def generateIndividual(node):
             child_id = generateIndividual(child)
             objectproperty = findObjectProperty(node_tag, child_tag)
             output_graph.add( (node_id, objectproperty, child_id) )
+            if isGeometry(child_tag):
+                output_graph.add( (node_id, GeoSPARQL.hasGeometry, child_id) )
+        # check if child node is a datatype. If so, generate a datatype for the
+        # child and create a datatype property linking the individual and datatype.
+        elif isDatatype(child_tag):
+            child_text = Literal(child.text)
+            datatypeproperty = findDatatypeProperty(node_tag, child_tag)
+            output_graph.add( (node_id, datatypeproperty, child_text) )
         # check if child node is an object property. If so, generate the object
         # property nodes and their corresponding individuals by calling
         # generateObjectProperties().
         elif isObjectProperty(child_tag):
             generateObjectProperties(child, node_id)
-        # check if child node is a datatype. If so, generate a datatype for the
-        # child and create a datatype property linking the individual and datatype.
-        elif isDatatype(child_tag):
-            child_text = Literal(child_tag, child.text)
-            datatypeproperty = findDatatypeProperty(node_tag, child_tag)
-            output_graph.add( (node_id, datatypeproperty, child_text) )
         # check if child node is an datatype property. If so, generate the datatype
         # property nodes and their corresponding individuals by calling
         # generateDatatypeProperty().
@@ -152,6 +165,12 @@ def generateIndividual(node):
             generateDatatypeProperty(child, node_id)
         else:
             log += 'Error! Unknown XML element: {}\n'.format( input_tree.getelementpath(child) )
+
+    for attribute in node.attrib:
+        attribute_tag = normalizeXmlTag(attribute)
+        attribute_text = Literal(node.attrib[attribute])
+        output_graph.add( (node_id, attribute_tag, attribute_text) )
+
     # when complete, add node to parsed nodes list
     parsed_nodes.append(input_tree.getelementpath(node))
     return node_id
@@ -168,10 +187,15 @@ def generateObjectProperties(node, parent_id):
         child_tag = normalizeXmlTag(child)
 
         # check if child node is a class. If so, generate a new individual for the
-        # child and create an object property linking the two individuals.
+        # child and create an object property linking the two individuals. In the
+        # case the child is geometry, generate a geometry serialization.
         if isClass(child_tag):
             child_id = generateIndividual(child)
             output_graph.add( (parent_id, node_tag, child_id) )
+            # check if child is a gml geometry node. If so, generate the geometry
+            # property gsp:hasGeometry.
+            if isGeometry(child_tag):
+                output_graph.add( (parent_id, GeoSPARQL.hasGeometry, child_id) )
         else:
             log += 'Error! Class element for object property not found: {}\n'.format(
                 input_tree.getelementpath(child) )
@@ -183,21 +207,21 @@ def generateObjectProperties(node, parent_id):
 def generateDatatypeProperty(node, parent_id):
     global log
     node_tag = normalizeXmlTag(node)
-
-    for child in node:
-        child_tag = normalizeXmlTag(child)
-
-        # check if child node is a datatype. If so, generate a new datatype literal
-        # for the child and create a datatype property linking the class with the
-        # datatype literal.
-        if isDatatype(child_tag):
-            child_text = Literal(child_tag, child.text)
-            output_graph.add( (parent_id, node_tag, child_text) )
-        else:
-            log += 'Error! Datatype element for datatype property not found: {}\n'.format(
-                input_tree.getelementpath(child) )
+    # check if child node is a datatype. If so, generate a new datatype literal
+    # for the child and create a datatype property linking the class with the
+    # datatype literal.
+    if node.text is not None:
+        output_graph.add( (parent_id, node_tag, Literal(node.text)) )
+    else:
+        log += 'Error! Datatype text for datatype property not found: {}\n'.format(
+            input_tree.getelementpath(node) )
 
 
+# Generate the gml:gmlLiteral serialization of a geometry node
+def generateGeometrySerialization(node, node_id):
+    geometry = deepcopy(node)
+    serialization = Literal(etree.tostring(geometry, pretty_print=True), datatype=GML.gmlLiteral)
+    output_graph.add( (node_id, GeoSPARQL.asGML, serialization) )
 
 
 
@@ -213,11 +237,12 @@ def findObjectProperty(uri_reference1, uri_reference2):
         return ontology.query('''
         SELECT DISTINCT ?objectproperty
         WHERE {
-        ?objectproperty a owl:ObjectProperty ;
-            rdfs:domain <%s> ;
-            rdfs:range  <%s> .
+            ?objectproperty a owl:ObjectProperty ;
+                rdfs:domain ?domain ;
+                rdfs:range  ?range .
+            <%s> rdfs:subClassOf* ?domain .
+            <%s> rdfs:subClassOf* ?range .
         }''' % uri_reference1, uri_reference2)
-
     else:
         log += 'Error! No matching object property found between: {}, {}\n'.format(
             uri_reference1, uri_reference2)
@@ -232,11 +257,12 @@ def findDatatypeProperty(uri_reference1, uri_reference2):
         return ontology.query('''
         SELECT DISTINCT ?datatypeproperty
         WHERE {
-        ?datatypeproperty a owl:DatatypeProperty ;
-            rdfs:domain <%s> ;
-            rdfs:range  <%s> .
+            ?datatypeproperty a owl:DatatypeProperty ;
+                rdfs:domain ?domain ;
+                rdfs:range  ?range .
+            <%s> rdfs:subClassOf* ?domain .
+            <%s> rdfs:subClassOf* ?range .
         }''' % uri_reference1, uri_reference2)
-
     else:
         log += 'Error! No matching datatype property found between: {}, {}\n'.format(
             uri_reference1, uri_reference2)
@@ -260,6 +286,7 @@ def normalizeXmlTag(node):
 
 # create a new, unique id from a normalized XML node tag
 def generateID(tag):
+    # TODO: add gml:id
     name = str(tag).split('#')[-1]
     if name in id_count:
         id_count[name] += 1
@@ -271,7 +298,6 @@ def generateID(tag):
 
 # return whether class definition exists in ontology
 def isClass(uri_reference):
-    global log
     uri = str(uri_reference)
     if uri in class_definition_cache.keys():
         return class_definition_cache[uri]
@@ -283,9 +309,6 @@ def isClass(uri_reference):
             FILTER ( STR(?class) = "%s" )
         }''' % uri_reference)
     class_definition_cache[uri] = len(query) > 0
-
-    # if len(query) == 0:
-    #     log += 'Warning, no class definition found: {}\n'.format(uri)
     return len(query) > 0
 
 
@@ -294,7 +317,6 @@ def isClass(uri_reference):
 # (rdfs:label by default) depending on shapechange property encoding
 # configurations.
 def isObjectProperty(uri_reference):
-    global log
     uri = str(uri_reference)
     if uri in objectproperty_definition_cache.keys():
         return objectproperty_definition_cache[uri]
@@ -306,9 +328,6 @@ def isObjectProperty(uri_reference):
                 rdfs:label "%s"@en .
         }''' % uri.split('#')[-1] )
     objectproperty_definition_cache[uri] = len(query) > 0
-
-    # if len(query) == 0:
-    #     log += 'Warning, no objectProperty definition found: {}\n'.format(uri)
     return len(query) > 0
 
 
@@ -317,7 +336,6 @@ def isObjectProperty(uri_reference):
 # (rdfs:label by default) depending on shapechange property encoding
 # configurations.
 def isDatatypeProperty(uri_reference):
-    global log
     uri = str(uri_reference)
     if uri in datatypeproperty_definition_cache.keys():
         return datatypeproperty_definition_cache[uri]
@@ -329,15 +347,11 @@ def isDatatypeProperty(uri_reference):
                 rdfs:label "%s"@en .
         }''' % uri.split('#')[-1] )
     datatypeproperty_definition_cache[uri] = len(query) > 0
-
-    # if len(query) == 0:
-    #     log += 'Warning, no datatypeProperty definition found: {}\n'.format(uri)
     return len(query) > 0
 
 
 # return whether datatype definition exists in ontology
 def isDatatype(uri_reference):
-    global log
     uri = str(uri_reference)
     if uri in datatype_definition_cache.keys():
         return datatype_definition_cache[uri]
@@ -349,10 +363,14 @@ def isDatatype(uri_reference):
             FILTER ( STR(?datatype) = "%s" )
         }''' % uri_reference)
     datatype_definition_cache[uri] = len(query) > 0
-
-    # if len(query) == 0:
-    #     log += 'Warning, no datatype definition found: {}\n'.format(uri)
     return len(query) > 0
+
+
+# return whether node-tree is gml. Convert the uri into a qname
+# tuple of (prefix, namespace, localname) to extract the namespace
+def isGeometry(uri_reference):
+    qname = output_graph.namespace_manager.compute_qname(uri_reference)
+    return str(qname[1]) == str(GML) and isClass(uri_reference)
 
 
 if __name__ == "__main__":
