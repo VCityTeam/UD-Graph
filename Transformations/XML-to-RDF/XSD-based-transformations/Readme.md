@@ -29,5 +29,3 @@ python run.py
 ```
 
 Output will be written to the Results folder
-
-
