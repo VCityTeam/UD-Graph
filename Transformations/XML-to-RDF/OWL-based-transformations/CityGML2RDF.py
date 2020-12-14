@@ -34,7 +34,6 @@ def main():
     input_tree = etree.parse(sys.argv[2])
     output_graph = Graph()
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
-    CRS = 'EPSG:3946'
     log = ''
 
     # input_node_count  = 0
@@ -91,6 +90,8 @@ def main():
     ###################################
 
     print('Converting XML tree...')
+    if input_tree.getroot().attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
+        input_tree.getroot()[0].attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
     for input_node in input_tree.getroot().iter():
         # skip comment nodes
         if not isinstance(input_node.tag, str):
@@ -228,10 +229,6 @@ def generateGeometrySerialization(node, node_id):
     # xlinks are not yet supported by parliament for gsp:gmlLiterals
     if 'xlink:href' in geometry:
         return
-    # if a coordinate reference system is specified, add it to the geometry 
-    # serialization.
-    if CRS != '':
-        geometry = geometry.replace( ' ', ' srsName="{}" '.format(CRS), 1)
 
     serialization = Literal(geometry, datatype=GeoSPARQL.gmlLiteral)
     output_graph.add( (node_id, GeoSPARQL.asGML, serialization) )
