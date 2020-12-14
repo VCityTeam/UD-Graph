@@ -27,7 +27,6 @@ def main():
     global parsed_nodes
     global GML
     global GeoSPARQL
-    global CRS
     global log
 
     filename = os.path.split(sys.argv[2])[-1].split('.')[0]
@@ -91,7 +90,7 @@ def main():
 
     print('Converting XML tree...')
     if input_tree.getroot().attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
-        input_tree.getroot()[0].attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
+        input_tree.getroot().attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
     for input_node in input_tree.getroot().iter():
         # skip comment nodes
         if not isinstance(input_node.tag, str):
