@@ -4,7 +4,7 @@ import sys
 def main():
 
   if len(sys.argv) != 2:
-    sys.exit('Incorrect number of arguments: {}\nUsage: run.py [ShapeChange configuration file]'.format(len(sys.argv)))
+    sys.exit('Incorrect number of arguments: {}\nUsage: python run.py [ShapeChange configuration file]'.format(len(sys.argv)))
 
   config_file = sys.argv[1]
   # config_file = 'CityGML2.0_config.xml'

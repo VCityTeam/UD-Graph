@@ -5,7 +5,7 @@ from lxml import etree
 def main( FILEPATH = '' ):
 
    if len(sys.argv) != 2:
-      sys.exit('Incorrect number of arguments. Usage: postXSLT.py [original xsd file]')
+      sys.exit('Incorrect number of arguments. Usage: python postXSLT.py [original xsd file]')
    
    # initialize variables
    FILEPATH        = sys.argv[1]

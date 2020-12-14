@@ -1,7 +1,7 @@
 <ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
   <input>
     <parameter name="inputModelType" value="SCXML"/>
-    <parameter name="inputFile" value="../Input-Models/ShapeChange/CityGML_2.0_Conceptual_Model.xml"/>
+    <parameter name="inputFile" value="../Data-IO/UML/CityGML_2.0_Conceptual_Model.xml"/>
     <parameter name="appSchemaNamespaceRegex" value="^http://www.opengis.net/citygml/.*"/>
     <parameter name="checkingConstraints" value="disabled"/>
     <parameter name="addTaggedValues" value="itemType"/>
@@ -51,7 +51,7 @@
     <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled"> -->
     <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER1">
     <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER2"> -->
-      <targetParameter name="outputDirectory" value="../Input-Models/OWL/CityGML_2.0_Conceptual_Model"/>
+      <targetParameter name="outputDirectory" value="../Data-IO/OWL/CityGML_2.0_Conceptual_Model"/>
       <targetParameter name="defaultEncodingRule" value="CityGML_RDF_Encoding_Rules"/>
       <targetParameter name="URIbase" value="http://www.opengis.net/citygml/2.0"/>
       <targetParameter name="language" value="en"/>
@@ -71,12 +71,12 @@
         <Namespace nsabr="veg" ns="http://www.opengis.net/citygml/vegetation/2.0"/>
         <Namespace nsabr="wtr" ns="http://www.opengis.net/citygml/waterbody/2.0"/>
         <Namespace nsabr="xAL" ns="urn:oasis:names:tc:ciq:xal:2"/>
-        <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2007/CoordinateReferenceSystems#"/>
+        <!-- <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/BasicTypes#"/> -->
         <Namespace nsabr="iso19107" ns="http://def.isotc211.org/iso19107/2003/Geometry#"/>
-        <Namespace nsabr="iso19108" ns="http://def.isotc211.org/iso19108/2006/TemporalSchema#"/>
+        <!-- <Namespace nsabr="iso19108" ns="http://def.isotc211.org/iso19108/2006/TemporalSchema#"/> -->
         <Namespace nsabr="iso19109" ns="http://def.isotc211.org/iso19109/2015/RulesForApplicationSchema"/>
-        <Namespace nsabr="iso19111-2007" ns="http://def.isotc211.org/iso19111/2007/ReferencingByCoordinates#"/>
-        <Namespace nsabr="iso19111-2019" ns="http://def.isotc211.org/iso19111/2019/ReferencingByCoordinates#"/>
+        <!-- <Namespace nsabr="iso19111-2007" ns="http://def.isotc211.org/iso19111/2007/ReferencingByCoordinates#"/> -->
+        <!-- <Namespace nsabr="iso19111-2019" ns="http://def.isotc211.org/iso19111/2019/ReferencingByCoordinates#"/> -->
         <Namespace nsabr="iso19123" ns="http://def.isotc211.org/iso19123/2005/Coverages"/>
         <Namespace nsabr="iso19136" ns="http://def.isotc211.org/iso19136/2007/GML"/>
       </namespaces>
@@ -95,7 +95,6 @@
         <RdfTypeMapEntry type="CV_DiscreteGridPointCoverage" target="iso19123:CV_DiscreteGridPointCoverage"/>
         <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="iso19136:doubleList"/>
         <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="iso19136:doubleList"/>
-      </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">
           <rule name="rule-owl-pkg-ontologyName-iso191502"/>

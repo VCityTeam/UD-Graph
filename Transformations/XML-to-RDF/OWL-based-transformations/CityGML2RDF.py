@@ -7,8 +7,7 @@ from copy import deepcopy
 def main():
     if len(sys.argv) != 3:
         sys.exit(
-            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile]\n' +
-            'ontology input paths are separated by a ","'.format(
+            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile]\nontology input paths are separated by a ","'.format(
                 len(sys.argv)))
 
     ############################
@@ -28,12 +27,14 @@ def main():
     global parsed_nodes
     global GML
     global GeoSPARQL
+    global CRS
     global log
 
     filename = os.path.split(sys.argv[2])[-1].split('.')[0]
     input_tree = etree.parse(sys.argv[2])
     output_graph = Graph()
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
+    CRS = 'EPSG:3946'
     log = ''
 
     # input_node_count  = 0
@@ -103,8 +104,11 @@ def main():
             generateIndividual(input_node)
 
     print('Writing graph to disk...')
-    print('Results/{}.rdf'.format(filename))
-    with open('Results/{}.rdf'.format(filename), 'wb') as file:
+    # print('../../Data-IO/RDF/{}.rdf'.format(filename))
+    # with open('../../Data-IO/RDF/{}.rdf'.format(filename), 'wb') as file:
+    #     file.write(output_graph.serialize(format='xml'))
+    print('../../Data-IO/RDF/{}.ttl'.format(filename))
+    with open('../../Data-IO/RDF/{}.ttl'.format(filename), 'wb') as file:
         file.write(output_graph.serialize(format='turtle'))
     print('Writing log to ./log.txt ...')
     with open('log.txt', 'w') as file:
@@ -217,10 +221,19 @@ def generateDatatypeProperty(node, parent_id):
             input_tree.getelementpath(node) )
 
 
-# Generate the gml:gmlLiteral serialization of a geometry node
+# Generate the gsp:gmlLiteral serialization of a geometry node
 def generateGeometrySerialization(node, node_id):
-    geometry = deepcopy(node)
-    serialization = Literal(etree.tostring(geometry, pretty_print=True), datatype=GML.gmlLiteral)
+    geometry = str(etree.tostring(node, pretty_print=False))[2:-1].replace(
+        '\\n', '').replace('  ', '').strip()
+    # xlinks are not yet supported by parliament for gsp:gmlLiterals
+    if 'xlink:href' in geometry:
+        return
+    # if a coordinate reference system is specified, add it to the geometry 
+    # serialization.
+    if CRS != '':
+        geometry = geometry.replace( ' ', ' srsName="{}" '.format(CRS), 1)
+
+    serialization = Literal(geometry, datatype=GeoSPARQL.gmlLiteral)
     output_graph.add( (node_id, GeoSPARQL.asGML, serialization) )
 
 

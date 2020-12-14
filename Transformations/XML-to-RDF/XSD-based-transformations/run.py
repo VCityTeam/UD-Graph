@@ -5,38 +5,35 @@ from copy import deepcopy
 
 def main():
 
+  if len(sys.argv) != 4:
+      sys.exit(
+        'Incorrect number of arguments: {}\nUsage: python run.py [XSL stylesheet] [input XML Schema] [input datafile]'.format(
+          len(sys.argv)))
+
   global CRS
   CRS                  = 'EPSG:3946'
-  schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
-  generator_file       = 'Generate_CityGML2ToRDF.xsl'
-  transformation_file  = 'CityGML2ToRDF.xsl'
-  input_file           = 'LYON_1ER_BATI_2015-1_bldg.gml'
-  output_file          = 'LYON_1ER_BATI_2015-1_bldg.rdf'
-  # input_file           = 'LYON_1ER_BATI_2015-1711_bldg.gml'
-  # output_file          = 'LYON_1ER_BATI_2015-1711_bldg.rdf'
-
-  # schema_file          = 'compositeCityGML3.0.xsd'
-  # generator_file       = 'Generate_CityGML3ToRDF.xsl'
-  # transformation_file  = 'CityGML3ToRDF.xsl'
-  # input_file           = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.gml'
-  # output_file          = 'Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2.rdf'
-  
+  transformation_file  = 'XMLToRDF.xsl'
+  output_directory     = '../../Data-IO/RDF'
   cleanGeometry        = True
+  generator_file       = sys.argv[1]
+  schema_file          = sys.argv[2]
+  input_file           = sys.argv[3]
+  output_filename      = input_file.split('/')[-1].split('.')[0] + '.rdf'
 
   print('Creating XML to RDF transformation mapping...')
-  system('java -jar ../../lib/saxon9he.jar -s:../../Input-Models/XMLSchema/{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
+  system('java -jar ../../lib/saxon9he.jar -s:{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
 
   namespaces = dict(etree.parse(schema_file).getroot().nsmap)
-  namespaces.update( dict(etree.parse( 'input-data/{}'.format(input_file) ).getroot().nsmap) )
+  namespaces.update( dict(etree.parse( '{}'.format(input_file) ).getroot().nsmap) )
   namespaces.pop(None)
 
   cleanXSLT(transformation_file, namespaces)
   print('Transforming XML to RDF... {}'.format(input_file))
-  system('java -jar ../../lib/saxon9he.jar -s:input-data/{} -xsl:{} > Results/{}'.format(input_file, transformation_file, output_file))
-  cleanRDF('Results/{}'.format(output_file))
-  system('python ../utilities/show_ns.py Results/{}'.format(output_file))
+  system('java -jar ../../lib/saxon9he.jar -s:{} -xsl:{} > {}/{}'.format(input_file, transformation_file,output_directory, output_filename))
+  cleanRDF('{}/{}'.format(output_directory, output_filename))
+  system('python ../../utilities/show_ns.py {}/{}'.format(output_directory, output_filename))
   if cleanGeometry:
-    cleanGeometrySerializations('Results/{}'.format(output_file))
+    cleanGeometrySerializations('{}/{}'.format(output_directory, output_filename))
 
 
 def cleanXSLT(filename, namespaces):
