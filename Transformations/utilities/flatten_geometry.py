@@ -2,6 +2,10 @@ import sys
 from lxml import etree
 
 def main():
+    if len(sys.argv) != 3:
+        sys.exit(
+            'Incorrect number of arguments: {}\nUsage: python flatten_geometry.py [input datafile] [output datafile]'.format(
+                len(sys.argv)))
 
     root = etree.parse(sys.argv[1]).getroot()
     CRS = 'EPSG:3946'
@@ -21,7 +25,7 @@ def main():
                 del point_list[2::3]
                 node.text = ' '.join(point_list)
 
-    with open(sys.argv[1], 'wb') as file:
+    with open(sys.argv[2], 'wb') as file:
        file.write(etree.tostring( root, pretty_print=True ))
 
 if __name__ == "__main__":
