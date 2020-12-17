@@ -1,6 +1,7 @@
 import os, sys
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
+from io import StringIO
 from lxml import etree
 
 def main():
@@ -29,7 +30,7 @@ def main():
     global log
 
     filename = os.path.split(sys.argv[2])[-1].split('.')[0]
-    input_tree = etree.parse(sys.argv[2])
+    input_tree = etree.parse( StringIO(sys.argv[2]) )
     output_graph = Graph()
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
     log = ''
