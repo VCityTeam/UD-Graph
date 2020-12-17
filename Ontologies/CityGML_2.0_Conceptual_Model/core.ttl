@@ -1,13 +1,23 @@
+@prefix bldg:  <http://www.opengis.net/citygml/2.0/building#> .
+@prefix frn:   <http://www.opengis.net/citygml/2.0/cityfurniture#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix grp:   <http://www.opengis.net/citygml/2.0/cityobjectgroup#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix brid:  <http://www.opengis.net/citygml/2.0/bridge#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix luse:  <http://www.opengis.net/citygml/2.0/landuse#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tun:   <http://www.opengis.net/citygml/2.0/tunnel#> .
+@prefix dem:   <http://www.opengis.net/citygml/2.0/relief#> .
 @prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
 @prefix gen:   <http://www.opengis.net/citygml/2.0/generics#> .
-@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
-@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix wtr:   <http://www.opengis.net/citygml/2.0/waterbody#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML#> .
-@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix veg:   <http://www.opengis.net/citygml/2.0/vegetation#> .
+@prefix tran:  <http://www.opengis.net/citygml/2.0/transportation#> .
 
 core:TransformationMatrix2x2.list
         a                owl:ObjectProperty ;
@@ -66,16 +76,16 @@ core:ImplicitGeometry.relativeGMLGeometry
 
 core:AbstractCityObject
         a                      owl:Class ;
-        rdfs:subClassOf        gsp:Feature ;
-        rdfs:subClassOf        iso19136:AbstractFeature ;
+        rdfs:subClassOf        iso19136:AbstractFeature .
+        rdfs:subClassOf        gsp:Feature .
         rdfs:label             "AbstractCityObject"@en ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToTerrain ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
-                               ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:AbstractAppearance ;
                                  owl:onProperty     core:AbstractCityObject.appearance
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToWater ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToWater
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gen:AbstractGenericAttribute ;
@@ -86,20 +96,20 @@ core:AbstractCityObject
                                  owl:onProperty     core:AbstractCityObject.creationDate
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToWater ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToWater
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:AbstractCityObject ;
-                                 owl:onProperty     core:AbstractCityObject.generalizesTo
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.terminationDate
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:ExternalReference ;
                                  owl:onProperty     core:AbstractCityObject.externalReference
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     core:AbstractCityObject.terminationDate
+                                 owl:allValuesFrom  core:AbstractCityObject ;
+                                 owl:onProperty     core:AbstractCityObject.generalizesTo
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
@@ -108,7 +118,7 @@ core:AbstractCityObject
 <http://www.opengis.net/citygml/2.0/core>
         a               owl:Ontology ;
         rdfs:label      "Core"@en ;
-        owl:imports     <http://www.opengis.net/citygml/2.0/generics> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> , <http://def.isotc211.org/iso19136/2007/GML> ;
+        owl:imports     <http://www.opengis.net/citygml/2.0/landuse> , <http://www.opengis.net/citygml/2.0/building> , <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/2.0/bridge> , <http://www.opengis.net/citygml/2.0/tunnel> , <http://www.opengis.net/citygml/2.0/relief> , <http://def.isotc211.org/iso19150/-2/2012/base> , <http://www.opengis.net/citygml/2.0/transportation> , <http://www.opengis.net/citygml/2.0/cityfurniture> , <http://www.opengis.net/citygml/2.0/waterbody> , <http://www.opengis.net/citygml/2.0/generics> , <http://www.opengis.net/citygml/2.0/cityobjectgroup> , <http://www.opengis.net/citygml/2.0/vegetation> ;
         skos:prefLabel  "Core"@en .
 
 core:ImplicitGeometry.referencePoint
@@ -213,8 +223,8 @@ core:AbstractCityObject.abstractGenericAttribute
 
 core:Address  a          owl:Class ;
         rdfs:label       "Address"@en ;
-        rdfs:subClassOf  gsp:Feature ;
-        rdfs:subClassOf  iso19136:AbstractFeature ;
+        rdfs:subClassOf  iso19136:AbstractFeature .
+        rdfs:subClassOf  gsp:Feature .
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     core:Address.multiPoint
@@ -234,6 +244,10 @@ core:ExternalReference.externalObject_uri
         skos:definition  "SIG3D: URL or URN of the object."@en ;
         skos:prefLabel   "externalObject_uri"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
+] .
+
 core:ImplicitGeometry.transformationMatrix
         a                owl:ObjectProperty ;
         rdfs:domain      core:ImplicitGeometry ;
@@ -241,6 +255,10 @@ core:ImplicitGeometry.transformationMatrix
         rdfs:range       core:TransformationMatrix4x4 ;
         skos:definition  "SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object."@en ;
         skos:prefLabel   "transformationMatrix"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
+] .
 
 core:CityModel.cityObjectMember
         a                owl:ObjectProperty ;
@@ -377,8 +395,8 @@ core:ImplicitGeometry
 
 core:CityModel  a        owl:Class ;
         rdfs:label       "CityModel"@en ;
-        rdfs:subClassOf  gsp:Feature ;
-        rdfs:subClassOf  iso19136:AbstractFeature ;
+        rdfs:subClassOf  iso19136:AbstractFeature .
+        rdfs:subClassOf  gsp:Feature .
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:AbstractAppearance ;
                            owl:onProperty     core:CityModel.appearanceMember

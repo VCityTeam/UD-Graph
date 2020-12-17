@@ -15,8 +15,16 @@ bldg:BuildingFurniture
         rdfs:label       "BuildingFurniture"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     bldg:BuildingFurniture.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     bldg:BuildingFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     bldg:BuildingFurniture.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -26,14 +34,6 @@ bldg:BuildingFurniture
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     bldg:BuildingFurniture.usage
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     bldg:BuildingFurniture.lod4Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:BuildingFurniture.class
-                         ] ;
         skos:definition  "SIG3D: Equipment for occupant use, usually not fixed to the building (cf. ISO 6707-1) ."@en ;
         skos:prefLabel   "BuildingFurniture"@en .
 
@@ -41,12 +41,16 @@ bldg:Room  a             owl:Class ;
         rdfs:label       "Room"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  bldg:IntBuildingInstallation ;
-                           owl:onProperty     bldg:Room.roomInstallation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  bldg:AbstractBoundarySurface ;
                            owl:onProperty     bldg:Room.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  bldg:BuildingFurniture ;
+                           owl:onProperty     bldg:Room.interiorFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  bldg:IntBuildingInstallation ;
+                           owl:onProperty     bldg:Room.roomInstallation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -54,11 +58,11 @@ bldg:Room  a             owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:Room.class
+                           owl:onProperty     bldg:Room.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  bldg:BuildingFurniture ;
-                           owl:onProperty     bldg:Room.interiorFurniture
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     bldg:Room.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
@@ -67,10 +71,6 @@ bldg:Room  a             owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     bldg:Room.lod4Solid
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:Room.function
                          ] ;
         skos:definition  "SIG3D: A Room represents a volume bounded actually or theoretically. Rooms are volumes that provide for certain functions within a building (cf. bSI)."@en ;
         skos:prefLabel   "Room"@en .
@@ -89,95 +89,63 @@ bldg:AbstractBuilding
         rdfs:subClassOf        core:AbstractSite ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod4MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod1Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod3MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     bldg:AbstractBuilding.yearOfConstruction
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     bldg:AbstractBuilding.class
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod0RoofEdge
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod2TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
-                                 owl:onProperty     bldg:AbstractBuilding.storeyHeightsBelowGround
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
                                  owl:onProperty     bldg:AbstractBuilding.lod1MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod2Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod4MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod4Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  sc:Measure ;
-                                 owl:onProperty     bldg:AbstractBuilding.measuredHeight
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod2MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingPart ;
-                                 owl:onProperty     bldg:AbstractBuilding.consistsOfBuildingPart
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod0FootPrint
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:integer ;
-                                 owl:onProperty     bldg:AbstractBuilding.storeysAboveGround
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     bldg:AbstractBuilding.yearOfDemolition
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod1TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:integer ;
-                                 owl:onProperty     bldg:AbstractBuilding.storeysBelowGround
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     bldg:AbstractBuilding.function
+                                 owl:allValuesFrom  bldg:AbstractBoundarySurface ;
+                                 owl:onProperty     bldg:AbstractBuilding.boundedBy
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  bldg:IntBuildingInstallation ;
                                  owl:onProperty     bldg:AbstractBuilding.interiorBuildingInstallation
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:Address ;
+                                 owl:onProperty     bldg:AbstractBuilding.address
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     bldg:AbstractBuilding.roofType
+                                 owl:onProperty     bldg:AbstractBuilding.function
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod0FootPrint
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod1TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  sc:Measure ;
+                                 owl:onProperty     bldg:AbstractBuilding.measuredHeight
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:integer ;
+                                 owl:onProperty     bldg:AbstractBuilding.storeysBelowGround
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:Room ;
+                                 owl:onProperty     bldg:AbstractBuilding.interiorRoom
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:BuildingInstallation ;
+                                 owl:onProperty     bldg:AbstractBuilding.outerBuildingInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
+                                 owl:onProperty     bldg:AbstractBuilding.storeyHeightsBelowGround
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     bldg:AbstractBuilding.usage
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     bldg:AbstractBuilding.yearOfConstruction
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
@@ -185,43 +153,75 @@ bldg:AbstractBuilding
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod3Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:Address ;
-                                 owl:onProperty     bldg:AbstractBuilding.address
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
                                  owl:onProperty     bldg:AbstractBuilding.lod2MultiCurve
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod4TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:Room ;
-                                 owl:onProperty     bldg:AbstractBuilding.interiorRoom
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:AbstractBoundarySurface ;
-                                 owl:onProperty     bldg:AbstractBuilding.boundedBy
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingInstallation ;
-                                 owl:onProperty     bldg:AbstractBuilding.outerBuildingInstallation
+                                 owl:onProperty     bldg:AbstractBuilding.lod2MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
-                                 owl:onProperty     bldg:AbstractBuilding.lod3MultiCurve
+                                 owl:onProperty     bldg:AbstractBuilding.lod1Solid
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
                                  owl:onProperty     bldg:AbstractBuilding.lod3TerrainIntersection
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod2TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod3MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:BuildingPart ;
+                                 owl:onProperty     bldg:AbstractBuilding.consistsOfBuildingPart
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:integer ;
+                                 owl:onProperty     bldg:AbstractBuilding.storeysAboveGround
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod4TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     bldg:AbstractBuilding.yearOfDemolition
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     bldg:AbstractBuilding.usage
+                                 owl:onProperty     bldg:AbstractBuilding.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod4MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     bldg:AbstractBuilding.roofType
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     bldg:AbstractBuilding.lod0RoofEdge
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of Building and BuildingPart."@en ;
@@ -266,12 +266,6 @@ bldg:AbstractBuilding.storeysAboveGround
         skos:definition  "SIG3D: Number of storeys mainly above ground."@en ;
         skos:prefLabel   "storeysAboveGround"@en .
 
-bldg:Window  a           owl:Class ;
-        rdfs:label       "Window"@en ;
-        rdfs:subClassOf  bldg:AbstractOpening ;
-        skos:definition  "SIG3D: Construction for closing an opening in a wall or roof, primarily intended to admit light and/or provide ventilation (cf. ISO 6707)."@en ;
-        skos:prefLabel   "Window"@en .
-
 bldg:AbstractBoundarySurface.lod3MultiSurface
         a                owl:ObjectProperty ;
         rdfs:domain      bldg:AbstractBoundarySurface ;
@@ -279,6 +273,12 @@ bldg:AbstractBoundarySurface.lod3MultiSurface
         rdfs:range       gsp:Geometry ;
         skos:definition  "SIG3D: Relation to a LOD3 surface geometry of AbstractBoundarySurface."@en ;
         skos:prefLabel   "lod3MultiSurface"@en .
+
+bldg:Window  a           owl:Class ;
+        rdfs:label       "Window"@en ;
+        rdfs:subClassOf  bldg:AbstractOpening ;
+        skos:definition  "SIG3D: Construction for closing an opening in a wall or roof, primarily intended to admit light and/or provide ventilation (cf. ISO 6707)."@en ;
+        skos:prefLabel   "Window"@en .
 
 bldg:AbstractBuilding.yearOfConstruction
         a                owl:DatatypeProperty ;
@@ -326,11 +326,12 @@ bldg:AbstractOpening.lod3ImplicitRepresentation
         skos:definition  "SIG3D: Relation to LOD3 implicit geometry of Door and Window."@en ;
         skos:prefLabel   "lod3ImplicitRepresentation"@en .
 
-bldg:Building  a         owl:Class ;
-        rdfs:label       "Building"@en ;
-        rdfs:subClassOf  bldg:AbstractBuilding ;
-        skos:definition  "SIG3D: A free-standing, self-supporting construction that is roofed, usually walled, and can be entered by humans and is normally designed to stand permanently in one place. It is intended for human occupancy (for example: a place of work or recreation), habitation and/or shelter of humans, animals or things."@en ;
-        skos:prefLabel   "Building"@en .
+bldg:Building  a          owl:Class ;
+        rdfs:label        "Building"@en ;
+        rdfs:subClassOf   bldg:AbstractBuilding ;
+        owl:disjointWith  bldg:BuildingPart ;
+        skos:definition   "SIG3D: A free-standing, self-supporting construction that is roofed, usually walled, and can be entered by humans and is normally designed to stand permanently in one place. It is intended for human occupancy (for example: a place of work or recreation), habitation and/or shelter of humans, animals or things."@en ;
+        skos:prefLabel    "Building"@en .
 
 bldg:AbstractBuilding.address
         a                owl:ObjectProperty ;
@@ -439,6 +440,10 @@ bldg:BuildingFurniture.lod4Geometry
         skos:definition  "SIG3D: Relation to a LOD4 geometry of BuildingFurniture."@en ;
         skos:prefLabel   "lod4Geometry"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( bldg:CeilingSurface bldg:ClosureSurface bldg:FloorSurface bldg:GroundSurface bldg:InteriorWallSurface bldg:OuterCeilingSurface bldg:OuterFloorSurface bldg:RoofSurface bldg:WallSurface )
+] .
+
 bldg:BuildingInstallation.lod2Geometry
         a                owl:ObjectProperty ;
         rdfs:domain      bldg:BuildingInstallation ;
@@ -458,8 +463,20 @@ bldg:BuildingInstallation
         rdfs:label       "BuildingInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     bldg:BuildingInstallation.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  bldg:AbstractBoundarySurface ;
+                           owl:onProperty     bldg:BuildingInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     bldg:BuildingInstallation.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:BuildingInstallation.function
+                           owl:onProperty     bldg:BuildingInstallation.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -471,10 +488,6 @@ bldg:BuildingInstallation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     bldg:BuildingInstallation.lod2Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     bldg:BuildingInstallation.lod3Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
@@ -482,20 +495,12 @@ bldg:BuildingInstallation
                            owl:onProperty     bldg:BuildingInstallation.lod3ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  bldg:AbstractBoundarySurface ;
-                           owl:onProperty     bldg:BuildingInstallation.boundedBy
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     bldg:BuildingInstallation.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
                            owl:onProperty     bldg:BuildingInstallation.lod2ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:BuildingInstallation.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     bldg:BuildingInstallation.lod4Geometry
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the building's outer shell which are accessory for the building structure including loggia, dormer, etc. Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "BuildingInstallation"@en .
@@ -505,12 +510,12 @@ bldg:IntBuildingInstallation
         rdfs:label       "IntBuildingInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  bldg:AbstractBoundarySurface ;
-                           owl:onProperty     bldg:IntBuildingInstallation.boundedBy
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     bldg:IntBuildingInstallation.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     bldg:IntBuildingInstallation.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -518,11 +523,11 @@ bldg:IntBuildingInstallation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:IntBuildingInstallation.function
+                           owl:onProperty     bldg:IntBuildingInstallation.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     bldg:IntBuildingInstallation.usage
+                           owl:allValuesFrom  bldg:AbstractBoundarySurface ;
+                           owl:onProperty     bldg:IntBuildingInstallation.boundedBy
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
@@ -697,10 +702,6 @@ bldg:AbstractOpening  a        owl:Class ;
         rdfs:label             "AbstractOpening"@en ;
         rdfs:subClassOf        core:AbstractCityObject ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:ImplicitGeometry ;
-                                 owl:onProperty     bldg:AbstractOpening.lod3ImplicitRepresentation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
                                  owl:onProperty     bldg:AbstractOpening.lod3MultiSurface
                                ] ;
@@ -711,6 +712,10 @@ bldg:AbstractOpening  a        owl:Class ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gsp:Geometry ;
                                  owl:onProperty     bldg:AbstractOpening.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     bldg:AbstractOpening.lod3ImplicitRepresentation
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of Window and Door"@en ;
@@ -791,7 +796,7 @@ bldg:AbstractBuilding.lod4MultiSurface
 <http://www.opengis.net/citygml/2.0/building>
         a               owl:Ontology ;
         rdfs:label      "Building"@en ;
-        owl:imports     <http://shapechange.net/resources/ont/base> , <http://www.opengis.net/citygml/2.0/core#> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports     <http://shapechange.net/resources/ont/base> , <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:prefLabel  "Building"@en .
 
 bldg:BuildingInstallation.lod3ImplicitRepresentation
@@ -865,15 +870,16 @@ bldg:Room.boundedBy  a   owl:ObjectProperty ;
         skos:definition  "SIG3D: Relation between Room and BoundarySurface. The boundary surfaces are part of Room's exterior shell either oriented inwards or outwards."@en ;
         skos:prefLabel   "boundedBy"@en .
 
-bldg:Door  a             owl:Class ;
-        rdfs:label       "Door"@en ;
-        rdfs:subClassOf  bldg:AbstractOpening ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:Address ;
-                           owl:onProperty     bldg:Door.address
-                         ] ;
-        skos:definition  "ISO 6707-1: Construction for closing an opening intended primarily for access or egress or both."@en ;
-        skos:prefLabel   "Door"@en .
+bldg:Door  a              owl:Class ;
+        rdfs:label        "Door"@en ;
+        rdfs:subClassOf   bldg:AbstractOpening ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  core:Address ;
+                            owl:onProperty     bldg:Door.address
+                          ] ;
+        owl:disjointWith  bldg:Window ;
+        skos:definition   "ISO 6707-1: Construction for closing an opening intended primarily for access or egress or both."@en ;
+        skos:prefLabel    "Door"@en .
 
 bldg:AbstractOpening.lod3MultiSurface
         a                owl:ObjectProperty ;

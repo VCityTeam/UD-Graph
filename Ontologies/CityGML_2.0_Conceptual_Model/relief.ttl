@@ -7,7 +7,7 @@
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix iso19123: <http://def.isotc211.org/iso19123/2005/Coverages> .
+@prefix iso19123: <http://def.isotc211.org/iso19123/2005/Coverages#> .
 @prefix dem:   <http://www.opengis.net/citygml/2.0/relief#> .
 
 dem:RasterRelief  a      owl:Class ;
@@ -45,6 +45,10 @@ dem:TINRelief  a         owl:Class ;
                          ] ;
         skos:definition  "SIG3D: Relief component represented as triangulated irregular network."@en ;
         skos:prefLabel   "TINRelief"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
 
 dem:MassPointRelief.reliefPoints
         a                owl:ObjectProperty ;
