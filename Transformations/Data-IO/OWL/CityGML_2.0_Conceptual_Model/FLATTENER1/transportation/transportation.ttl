@@ -39,6 +39,10 @@ tran:AuxiliaryTrafficArea.usage
         skos:definition  "SIG3D: Actual usage of AuxiliaryTrafficArea as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( tran:AuxiliaryTrafficArea tran:TrafficArea tran:TransportationComplex )
+] .
+
 tran:TransportationComplex.trafficArea
         a                owl:ObjectProperty ;
         rdfs:domain      tran:TransportationComplex ;
@@ -125,6 +129,10 @@ tran:AuxiliaryTrafficArea.lod4MultiSurface
         skos:definition  "SIG3D: Relation to a LOD4 surface geometry of AuxiliaryTrafficArea.The LOD concept for transportation objects is defined in chapter ..."@en ;
         skos:prefLabel   "lod4MultiSurface"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( tran:Railway tran:Road tran:Square tran:Track )
+] .
+
 tran:TransportationComplex.function
         a                owl:ObjectProperty ;
         rdfs:domain      tran:TransportationComplex ;
@@ -166,20 +174,24 @@ tran:AuxiliaryTrafficArea
         rdfs:label       "AuxiliaryTrafficArea"@en ;
         rdfs:subClassOf  tran:AbstractTransportationObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tran:AuxiliaryTrafficArea.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tran:AuxiliaryTrafficArea.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     tran:AuxiliaryTrafficArea.lod2MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     tran:AuxiliaryTrafficArea.lod3MultiSurface
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tran:AuxiliaryTrafficArea.class
+                           owl:onProperty     tran:AuxiliaryTrafficArea.lod4MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     tran:AuxiliaryTrafficArea.lod4MultiSurface
+                           owl:onProperty     tran:AuxiliaryTrafficArea.lod3MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
@@ -189,10 +201,6 @@ tran:AuxiliaryTrafficArea
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     tran:AuxiliaryTrafficArea.usage
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tran:AuxiliaryTrafficArea.function
-                         ] ;
         skos:definition  "SIG3D: Space within the transport area not intended for traffic purposes"@en ;
         skos:prefLabel   "AuxiliaryTrafficArea"@en .
 
@@ -200,32 +208,32 @@ tran:TrafficArea  a      owl:Class ;
         rdfs:label       "TrafficArea"@en ;
         rdfs:subClassOf  tran:AbstractTransportationObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tran:TrafficArea.surfaceMaterial
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tran:TrafficArea.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tran:TrafficArea.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     tran:TrafficArea.lod4MultiSurface
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tran:TrafficArea.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     tran:TrafficArea.lod2MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tran:TrafficArea.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     tran:TrafficArea.lod3MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tran:TrafficArea.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tran:TrafficArea.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tran:TrafficArea.surfaceMaterial
                          ] ;
         skos:definition  "SIG3D: Space of movement for either trains, vehicles or pedestrians"@en ;
         skos:prefLabel   "TrafficArea"@en .
@@ -283,20 +291,16 @@ tran:TransportationComplex
                            owl:onProperty     tran:TransportationComplex.auxiliaryTrafficArea
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     tran:TransportationComplex.lod1MultiSurface
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     tran:TransportationComplex.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     tran:TransportationComplex.lod0Network
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     tran:TransportationComplex.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tran:TrafficArea ;
+                           owl:onProperty     tran:TransportationComplex.trafficArea
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -304,15 +308,19 @@ tran:TransportationComplex
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     tran:TransportationComplex.lod3MultiSurface
+                           owl:onProperty     tran:TransportationComplex.lod0Network
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  tran:TrafficArea ;
-                           owl:onProperty     tran:TransportationComplex.trafficArea
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tran:TransportationComplex.lod1MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     tran:TransportationComplex.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tran:TransportationComplex.lod3MultiSurface
                          ] ;
         skos:definition  "SIG3D: Aggregation of TrafficAreas and AuxiliaryTrafficAreas, e.g the different lanes of a multi-lane road."@en ;
         skos:prefLabel   "TransportationComplex"@en .

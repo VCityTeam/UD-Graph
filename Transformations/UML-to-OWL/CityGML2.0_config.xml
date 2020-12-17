@@ -70,6 +70,7 @@
         <Namespace nsabr="tun" ns="http://www.opengis.net/citygml/tunnel/2.0"/>
         <Namespace nsabr="veg" ns="http://www.opengis.net/citygml/vegetation/2.0"/>
         <Namespace nsabr="wtr" ns="http://www.opengis.net/citygml/waterbody/2.0"/>
+        <Namespace nsabr="noise" ns="http://www.citygml.org/ade/noise_de/2.0"/>
         <Namespace nsabr="xAL" ns="urn:oasis:names:tc:ciq:xal:2"/>
         <!-- <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/BasicTypes#"/> -->
         <Namespace nsabr="iso19107" ns="http://def.isotc211.org/iso19107/2003/Geometry#"/>
@@ -95,6 +96,10 @@
         <RdfTypeMapEntry type="CV_DiscreteGridPointCoverage" target="iso19123:CV_DiscreteGridPointCoverage"/>
         <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="iso19136:doubleList"/>
         <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="iso19136:doubleList"/>
+        <!-- <RdfTypeMapEntry type="NoiseCityFurnitureSegment" target="noise:NoiseCityFurnitureSegment"/> -->
+        <!-- <RdfTypeMapEntry type="NoiseRoadSegment" target="noise:NoiseRoadSegment"/> -->
+        <!-- <RdfTypeMapEntry type="NoiseRailwaySegment" target="noise:NoiseRailwaySegment"/> -->
+        <!-- <RdfTypeMapEntry type="AbstractBuilding" schema="http://www.citygml.org/ade/noise_de/2.0" target="noise:AbstractBuilding"/> -->
       </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">
@@ -111,7 +116,7 @@
           <rule name="rule-owl-cls-encode-basictypes"/>
           <rule name="rule-owl-cls-codelist-19150-2"/>
           <rule name="rule-owl-cls-generalization"/>
-          <!-- <rule name="rule-owl-cls-disjoint-classes"/> -->
+          <rule name="rule-owl-cls-disjoint-classes"/>
           <rule name="rule-owl-prop-general"/>
           <rule name="rule-owl-prop-iso191502-naming"/>
           <rule name="rule-owl-prop-localScopeAll"/>
