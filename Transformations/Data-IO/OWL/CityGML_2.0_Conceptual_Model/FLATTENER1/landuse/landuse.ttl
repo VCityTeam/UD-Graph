@@ -30,7 +30,7 @@ luse:LandUse  a          owl:Class ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     luse:LandUse.function
+                           owl:onProperty     luse:LandUse.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -38,7 +38,19 @@ luse:LandUse  a          owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     luse:LandUse.lod1MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     luse:LandUse.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     luse:LandUse.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     luse:LandUse.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -47,18 +59,6 @@ luse:LandUse  a          owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     luse:LandUse.lod3MultiSurface
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     luse:LandUse.lod1MultiSurface
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     luse:LandUse.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     luse:LandUse.usage
                          ] ;
         skos:definition  "SIG3D: Object describing an area of the earth's surface dedicated to a specific land use or having a specific land cover with or without vegetation, such as sand, rock, mud flats, forest, grasslands, etc (i.e. the physical appearance)."@en ;
         skos:prefLabel   "LandUse"@en .

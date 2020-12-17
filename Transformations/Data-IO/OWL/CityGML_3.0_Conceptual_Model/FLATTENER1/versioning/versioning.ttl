@@ -38,20 +38,24 @@ vers:VersionTransition
         a                owl:Class ;
         rdfs:subClassOf  core:AbstractVersionTransition ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:boolean ;
-                           owl:onProperty     vers:VersionTransition.clonePredecessor
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers:Transaction ;
-                           owl:onProperty     vers:VersionTransition.transaction
+                           owl:allValuesFrom  vers:Version ;
+                           owl:onProperty     vers:VersionTransition.from
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  vers:TransitionTypeValue ;
                            owl:onProperty     vers:VersionTransition.type
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers:Version ;
-                           owl:onProperty     vers:VersionTransition.from
+                           owl:allValuesFrom  vers:ADEOfVersionTransition ;
+                           owl:onProperty     vers:VersionTransition.adeOfVersionTransition
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Transaction ;
+                           owl:onProperty     vers:VersionTransition.transaction
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:boolean ;
+                           owl:onProperty     vers:VersionTransition.clonePredecessor
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
@@ -60,10 +64,6 @@ vers:VersionTransition
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  vers:Version ;
                            owl:onProperty     vers:VersionTransition.to
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers:ADEOfVersionTransition ;
-                           owl:onProperty     vers:VersionTransition.adeOfVersionTransition
                          ] ;
         skos:definition  "VersionTransition describes the change of the state of a city model from one version to another. Version transitions can have names, a description and can be further qualified by a type and a reason."@en ;
         skos:prefLabel   "VersionTransition"@en .

@@ -93,8 +93,8 @@ grp:CityObjectGroup  a   owl:Class ;
         rdfs:label       "CityObjectGroup"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     grp:CityObjectGroup.geometry
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     grp:CityObjectGroup.parent
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
@@ -109,12 +109,12 @@ grp:CityObjectGroup  a   owl:Class ;
                            owl:onProperty     grp:CityObjectGroup.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractCityObject ;
-                           owl:onProperty     grp:CityObjectGroup.parent
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     grp:CityObjectGroup.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     grp:CityObjectGroup.geometry
                          ] ;
         skos:definition  "SIG3D: Aggregation of city objects according to user defined criteria (e.g. grouping of rooms belonging to a certain storey)."@en ;
         skos:prefLabel   "CityObjectGroup"@en .

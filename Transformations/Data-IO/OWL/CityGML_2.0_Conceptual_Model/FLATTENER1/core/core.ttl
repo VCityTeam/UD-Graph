@@ -43,6 +43,10 @@ core:DoubleBetween0and1List
                          ] ;
         skos:prefLabel   "DoubleBetween0and1List"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
+] .
+
 core:CityModel.appearanceMember
         a               owl:ObjectProperty ;
         rdfs:domain     core:CityModel ;
@@ -76,28 +80,14 @@ core:ImplicitGeometry.relativeGMLGeometry
 
 core:AbstractCityObject
         a                      owl:Class ;
-        rdfs:subClassOf        iso19136:AbstractFeature .
-        rdfs:subClassOf        gsp:Feature .
         rdfs:label             "AbstractCityObject"@en ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:AbstractAppearance ;
-                                 owl:onProperty     core:AbstractCityObject.appearance
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:RelativeToWater ;
                                  owl:onProperty     core:AbstractCityObject.relativeToWater
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gen:AbstractGenericAttribute ;
-                                 owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     core:AbstractCityObject.creationDate
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     core:AbstractCityObject.terminationDate
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:ExternalReference ;
@@ -108,8 +98,20 @@ core:AbstractCityObject
                                  owl:onProperty     core:AbstractCityObject.generalizesTo
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToTerrain ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gen:AbstractGenericAttribute ;
+                                 owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.terminationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.creationDate
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
@@ -221,10 +223,12 @@ core:AbstractCityObject.abstractGenericAttribute
         rdfs:range      gen:AbstractGenericAttribute ;
         skos:prefLabel  "abstractGenericAttribute"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
+] .
+
 core:Address  a          owl:Class ;
         rdfs:label       "Address"@en ;
-        rdfs:subClassOf  iso19136:AbstractFeature .
-        rdfs:subClassOf  gsp:Feature .
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     core:Address.multiPoint
@@ -244,10 +248,6 @@ core:ExternalReference.externalObject_uri
         skos:definition  "SIG3D: URL or URN of the object."@en ;
         skos:prefLabel   "externalObject_uri"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
-] .
-
 core:ImplicitGeometry.transformationMatrix
         a                owl:ObjectProperty ;
         rdfs:domain      core:ImplicitGeometry ;
@@ -255,10 +255,6 @@ core:ImplicitGeometry.transformationMatrix
         rdfs:range       core:TransformationMatrix4x4 ;
         skos:definition  "SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object."@en ;
         skos:prefLabel   "transformationMatrix"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
-] .
 
 core:CityModel.cityObjectMember
         a                owl:ObjectProperty ;
@@ -395,8 +391,6 @@ core:ImplicitGeometry
 
 core:CityModel  a        owl:Class ;
         rdfs:label       "CityModel"@en ;
-        rdfs:subClassOf  iso19136:AbstractFeature .
-        rdfs:subClassOf  gsp:Feature .
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:AbstractAppearance ;
                            owl:onProperty     core:CityModel.appearanceMember

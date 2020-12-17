@@ -496,8 +496,8 @@ def isGeometry(tag):
     if qname[0] + '#' == str(GML) and isClass(tag):
         return ontology.query('''
                 ASK {
-                    <%s%s> rdfs:subClassOf* gml:AbstractGeometry .
-                }''' % (str(GML), qname[1]) )
+                    <%s%s> rdfs:subClassOf* <%sAbstractGeometry> .
+                }''' % (str(GML), qname[1], str(GML)) )
 
 
 if __name__ == "__main__":

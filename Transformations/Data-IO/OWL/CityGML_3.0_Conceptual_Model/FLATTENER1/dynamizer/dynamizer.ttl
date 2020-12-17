@@ -67,12 +67,24 @@ dyn:TimeValuePair.doubleValue
 
 dyn:TimeValuePair  a     owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:boolean ;
-                           owl:onProperty     dyn:TimeValuePair.boolValue
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     dyn:TimeValuePair.geometryValue
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractAppearance ;
+                           owl:onProperty     dyn:TimeValuePair.appearanceValue
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     dyn:TimeValuePair.intValue
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:double ;
+                           owl:onProperty     dyn:TimeValuePair.doubleValue
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     dyn:TimeValuePair.uriValue
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
@@ -87,20 +99,8 @@ dyn:TimeValuePair  a     owl:Class ;
                            owl:onProperty     dyn:TimeValuePair.timestamp
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     dyn:TimeValuePair.uriValue
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:double ;
-                           owl:onProperty     dyn:TimeValuePair.doubleValue
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractAppearance ;
-                           owl:onProperty     dyn:TimeValuePair.appearanceValue
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:integer ;
-                           owl:onProperty     dyn:TimeValuePair.intValue
+                           owl:allValuesFrom  xsd:boolean ;
+                           owl:onProperty     dyn:TimeValuePair.boolValue
                          ] ;
         skos:definition  "A TimeValuePair represents a value that is valid for a given timepoint. For each TimeValuePair only one of the value properties can be used mutually exclusive. Which value property has to be provided depends on the selected value type in the GenericTimeSeries feature, in which the TimeValuePair is included."@en ;
         skos:prefLabel   "TimeValuePair"@en .
@@ -158,20 +158,8 @@ dyn:TabulatedFileTimeseries
         a                owl:Class ;
         rdfs:subClassOf  dyn:AbstractAtomicTimeseries ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:integer ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.numberOfHeaderLines
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.idColumnName
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.mimeType
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.idValue
+                           owl:allValuesFrom  dyn:ADEOfTabulatedFileTimeseries ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.adeOfTabulatedFileTimeseries
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
@@ -179,15 +167,43 @@ dyn:TabulatedFileTimeseries
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:integer ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.timeColumnNo
+                           owl:onProperty     dyn:TabulatedFileTimeseries.numberOfHeaderLines
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:integer ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.valueColumnNo
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.fileLocation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     dyn:TabulatedFileTimeseries.timeColumnName
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.fieldSeparator
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.timeColumnNo
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.mimeType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.decimalSymbol
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.idValue
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.fileType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     dyn:TabulatedFileTimeseries.valueColumnNo
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:integer ;
@@ -199,23 +215,7 @@ dyn:TabulatedFileTimeseries
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.fieldSeparator
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  dyn:ADEOfTabulatedFileTimeseries ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.adeOfTabulatedFileTimeseries
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.decimalSymbol
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.fileLocation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     dyn:TabulatedFileTimeseries.fileType
+                           owl:onProperty     dyn:TabulatedFileTimeseries.idColumnName
                          ] ;
         skos:definition  "A TabulatedFileTimeseries represents time-varying data of a specific data type for a single contiguous time interval. The data is provided in an external file referenced in the TabulatedFileTimeseries. The file shall contain table structured data using an appropriate file format like comma separated values (CSV), Microsoft Excel (XLSX) or Google Spreadsheet. The timestamps and the values are given in specific columns of the table. Each row represents a single time-value-pair. A subset of rows can be selected using the idColumn and idValue attributes."@en ;
         skos:prefLabel   "TabulatedFileTimeseries"@en .
@@ -254,43 +254,11 @@ dyn:SensorConnection  a  owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.observationID
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.linkToSensorDescription
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractCityObject ;
-                           owl:onProperty     dyn:SensorConnection.sensorLocation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.mqttServer
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
                            owl:onProperty     dyn:SensorConnection.sensorName
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     dyn:SensorConnection.connectionType
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.datastreamID
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     dyn:SensorConnection.authType
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     dyn:SensorConnection.baseURL
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.linkToObservation
+                           owl:onProperty     dyn:SensorConnection.observationProperty
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
@@ -298,11 +266,43 @@ dyn:SensorConnection  a  owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.uom
+                           owl:onProperty     dyn:SensorConnection.linkToObservation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     dyn:SensorConnection.connectionType
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:SensorConnection.observationProperty
+                           owl:onProperty     dyn:SensorConnection.observationID
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     dyn:SensorConnection.authType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:SensorConnection.mqttServer
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:SensorConnection.uom
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     dyn:SensorConnection.sensorLocation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:SensorConnection.linkToSensorDescription
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     dyn:SensorConnection.baseURL
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:SensorConnection.datastreamID
                          ] ;
         skos:definition  "A SensorConnection provides all details that are required to retrieve a specific datastream from an external sensor web service. It comprises the service type (e.g. OGC SensorThings API, OGC Sensor Observation Services, MQTT, proprietary platforms), the URL of the sensor service, the identifier for the sensor or thing and its observed property as well as information about the required authentication method."@en ;
         skos:prefLabel   "SensorConnection"@en .
@@ -569,6 +569,10 @@ dyn:GenericTimeseries
         skos:definition  "A GenericTimeseries represents time-varying data in the form of embedded time-value-pairs of a specific data type for a single contiguous time interval."@en ;
         skos:prefLabel   "GenericTimeseries"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dyn:GenericTimeseries dyn:StandardFileTimeseries dyn:TabulatedFileTimeseries )
+] .
+
 dyn:SensorConnection.mqttTopic
         a                owl:DatatypeProperty ;
         rdfs:domain      dyn:SensorConnection ;
@@ -696,10 +700,6 @@ dyn:TimeValuePair.implicitGeometryValue
         skos:definition  "Specifies the \"ImplicitGeometry\" value of the TimeValuePair."@en ;
         skos:prefLabel   "implicitGeometryValue"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dyn:GenericTimeseries dyn:StandardFileTimeseries dyn:TabulatedFileTimeseries )
-] .
-
 dyn:GenericTimeseries.valueType
         a                owl:ObjectProperty ;
         rdfs:domain      dyn:GenericTimeseries ;
@@ -707,19 +707,19 @@ dyn:GenericTimeseries.valueType
         skos:definition  "Indicates the specific type of all time-value-pairs that are part of the GenericTimeseries."@en ;
         skos:prefLabel   "valueType"@en .
 
-dyn:AbstractAtomicTimeseries.observationProperty
-        a                owl:DatatypeProperty ;
-        rdfs:domain      dyn:AbstractAtomicTimeseries ;
-        rdfs:range       xsd:string ;
-        skos:definition  "Specifies the phenomenon for which the atomic timeseries provides observation values."@en ;
-        skos:prefLabel   "observationProperty"@en .
-
 dyn:SensorConnection.datastreamID
         a                owl:DatatypeProperty ;
         rdfs:domain      dyn:SensorConnection ;
         rdfs:range       xsd:string ;
         skos:definition  "Specifies the datastream that is retrieved by the SensorConnection."@en ;
         skos:prefLabel   "datastreamID"@en .
+
+dyn:AbstractAtomicTimeseries.observationProperty
+        a                owl:DatatypeProperty ;
+        rdfs:domain      dyn:AbstractAtomicTimeseries ;
+        rdfs:range       xsd:string ;
+        skos:definition  "Specifies the phenomenon for which the atomic timeseries provides observation values."@en ;
+        skos:prefLabel   "observationProperty"@en .
 
 dyn:GenericTimeseries.timeValuePair
         a                owl:ObjectProperty ;
@@ -731,12 +731,8 @@ dyn:GenericTimeseries.timeValuePair
 dyn:Dynamizer  a         owl:Class ;
         rdfs:subClassOf  core:AbstractDynamizer ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  dyn:AbstractTimeseries ;
-                           owl:onProperty     dyn:Dynamizer.dynamicData
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  dyn:SensorConnection ;
-                           owl:onProperty     dyn:Dynamizer.sensorConnection
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     dyn:Dynamizer.attributeRef
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19108:TM_Position ;
@@ -747,12 +743,16 @@ dyn:Dynamizer  a         owl:Class ;
                            owl:onProperty     dyn:Dynamizer.endTime
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     dyn:Dynamizer.attributeRef
+                           owl:allValuesFrom  dyn:SensorConnection ;
+                           owl:onProperty     dyn:Dynamizer.sensorConnection
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  dyn:ADEOfDynamizer ;
                            owl:onProperty     dyn:Dynamizer.adeOfDynamizer
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dyn:AbstractTimeseries ;
+                           owl:onProperty     dyn:Dynamizer.dynamicData
                          ] ;
         skos:definition  "A Dynamizer is an object that injects timeseries data for an individual attribute of the city object in which it is included. The timeseries data overrides the static value of the referenced city object attribute in order to represent dynamic, i.e. time-dependent, variations of its value."@en ;
         skos:prefLabel   "Dynamizer"@en .

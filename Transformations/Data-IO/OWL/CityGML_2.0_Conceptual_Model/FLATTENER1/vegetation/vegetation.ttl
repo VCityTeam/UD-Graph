@@ -15,28 +15,16 @@ veg:SolitaryVegetationObject
         rdfs:label       "SolitaryVegetationObject"@en ;
         rdfs:subClassOf  veg:AbstractVegetationObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod2ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  sc:Measure ;
                            owl:onProperty     veg:SolitaryVegetationObject.height
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  sc:Measure ;
-                           owl:onProperty     veg:SolitaryVegetationObject.crownDiameter
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     veg:SolitaryVegetationObject.species
+                           owl:onProperty     veg:SolitaryVegetationObject.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod4Geometry
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     veg:SolitaryVegetationObject.lod2ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -48,11 +36,23 @@ veg:SolitaryVegetationObject
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod1ImplicitRepresentation
+                           owl:onProperty     veg:SolitaryVegetationObject.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     veg:SolitaryVegetationObject.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     veg:SolitaryVegetationObject.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  sc:Measure ;
+                           owl:onProperty     veg:SolitaryVegetationObject.trunkDiameter
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod3ImplicitRepresentation
+                           owl:onProperty     veg:SolitaryVegetationObject.lod1ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
@@ -60,19 +60,19 @@ veg:SolitaryVegetationObject
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod3Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     veg:SolitaryVegetationObject.lod2Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     veg:SolitaryVegetationObject.usage
+                           owl:onProperty     veg:SolitaryVegetationObject.lod4Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  sc:Measure ;
-                           owl:onProperty     veg:SolitaryVegetationObject.trunkDiameter
+                           owl:onProperty     veg:SolitaryVegetationObject.crownDiameter
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     veg:SolitaryVegetationObject.species
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     veg:SolitaryVegetationObject.lod3ImplicitRepresentation
                          ] ;
         skos:definition  "SIG3D: Single vegetation object"@en ;
         skos:prefLabel   "SolitaryVegetationObject"@en .
@@ -81,16 +81,8 @@ veg:PlantCover  a         owl:Class ;
         rdfs:label        "PlantCover"@en ;
         rdfs:subClassOf   veg:AbstractVegetationObject ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  iso19136:Code ;
-                            owl:onProperty     veg:PlantCover.class
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  gsp:Geometry ;
-                            owl:onProperty     veg:PlantCover.lod3MultiSolid
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  gsp:Geometry ;
-                            owl:onProperty     veg:PlantCover.lod3MultiSurface
+                            owl:onProperty     veg:PlantCover.lod2MultiSolid
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  gsp:Geometry ;
@@ -101,32 +93,40 @@ veg:PlantCover  a         owl:Class ;
                             owl:onProperty     veg:PlantCover.lod1MultiSolid
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  gsp:Geometry ;
-                            owl:onProperty     veg:PlantCover.lod4MultiSurface
+                            owl:allValuesFrom  iso19136:Code ;
+                            owl:onProperty     veg:PlantCover.function
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  gsp:Geometry ;
                             owl:onProperty     veg:PlantCover.lod1MultiSurface
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  sc:Measure ;
+                            owl:onProperty     veg:PlantCover.averageHeight
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  gsp:Geometry ;
-                            owl:onProperty     veg:PlantCover.lod2MultiSolid
+                            owl:onProperty     veg:PlantCover.lod4MultiSolid
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  iso19136:Code ;
+                            owl:onProperty     veg:PlantCover.class
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  gsp:Geometry ;
+                            owl:onProperty     veg:PlantCover.lod4MultiSurface
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  iso19136:Code ;
                             owl:onProperty     veg:PlantCover.usage
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  sc:Measure ;
-                            owl:onProperty     veg:PlantCover.averageHeight
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  iso19136:Code ;
-                            owl:onProperty     veg:PlantCover.function
+                            owl:allValuesFrom  gsp:Geometry ;
+                            owl:onProperty     veg:PlantCover.lod3MultiSolid
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  gsp:Geometry ;
-                            owl:onProperty     veg:PlantCover.lod4MultiSolid
+                            owl:onProperty     veg:PlantCover.lod3MultiSurface
                           ] ;
         owl:disjointWith  veg:SolitaryVegetationObject ;
         skos:definition   "SIG3D: Area filled with a specific vegetation"@en ;

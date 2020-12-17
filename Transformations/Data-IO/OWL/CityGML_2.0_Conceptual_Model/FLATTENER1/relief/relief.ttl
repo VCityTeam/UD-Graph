@@ -46,10 +46,6 @@ dem:TINRelief  a         owl:Class ;
         skos:definition  "SIG3D: Relief component represented as triangulated irregular network."@en ;
         skos:prefLabel   "TINRelief"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
-
 dem:MassPointRelief.reliefPoints
         a                owl:ObjectProperty ;
         rdfs:domain      dem:MassPointRelief ;
@@ -73,6 +69,10 @@ dem:AbstractReliefComponent.extent
         rdfs:range       gsp:Geometry ;
         skos:definition  "SIG3D: Polygon (optionally with holes) denoting the extent where the relief component is valid"@en ;
         skos:prefLabel   "extent"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
 
 dem:AbstractReliefComponent
         a                      owl:Class ;

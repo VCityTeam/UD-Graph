@@ -186,15 +186,7 @@ wtr:WaterBody  a         owl:Class ;
         rdfs:subClassOf  wtr:AbstractWaterObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     wtr:WaterBody.lod1Solid
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  wtr:AbstractWaterBoundarySurface ;
-                           owl:onProperty     wtr:WaterBody.boundedBy
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     wtr:WaterBody.lod4Solid
+                           owl:onProperty     wtr:WaterBody.lod1MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -202,11 +194,27 @@ wtr:WaterBody  a         owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     wtr:WaterBody.lod3Solid
+                           owl:onProperty     wtr:WaterBody.lod1Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     wtr:WaterBody.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     wtr:WaterBody.lod2Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     wtr:WaterBody.lod3Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     wtr:WaterBody.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     wtr:WaterBody.lod4Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
@@ -217,20 +225,12 @@ wtr:WaterBody  a         owl:Class ;
                            owl:onProperty     wtr:WaterBody.lod0MultiCurve
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     wtr:WaterBody.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     wtr:WaterBody.lod1MultiSurface
+                           owl:allValuesFrom  wtr:AbstractWaterBoundarySurface ;
+                           owl:onProperty     wtr:WaterBody.boundedBy
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     wtr:WaterBody.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     wtr:WaterBody.lod2Solid
                          ] ;
         skos:definition  "SIG3D: Any significant accumulation of water, usually covering a part of the Earth"@en ;
         skos:prefLabel   "WaterBody"@en .

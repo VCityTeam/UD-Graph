@@ -188,6 +188,10 @@ dem:ReliefFeature.adeOfReliefFeature
         skos:definition  "Augments the ReliefFeature with properties defined in an ADE."@en ;
         skos:prefLabel   "adeOfReliefFeature"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
+
 dem:TINRelief  a         owl:Class ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
@@ -200,10 +204,6 @@ dem:TINRelief  a         owl:Class ;
                          ] ;
         skos:definition  "A TINRelief represents a terrain component as a triangulated irregular network."@en ;
         skos:prefLabel   "TINRelief"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
 
 dem:RasterRelief.adeOfRasterRelief
         a                owl:ObjectProperty ;
