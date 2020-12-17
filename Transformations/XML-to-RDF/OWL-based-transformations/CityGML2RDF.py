@@ -4,9 +4,9 @@ from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
 from lxml import etree
 
 def main():
-    if len(sys.argv) != 3:
+    if len(sys.argv) != 4:
         sys.exit(
-            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile]\nontology input paths are separated by a ","'.format(
+            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile] [output file]\nontology input paths are separated by a ","'.format(
                 len(sys.argv)))
 
     ############################
@@ -103,11 +103,11 @@ def main():
             generateIndividual(input_node)
 
     print('Writing graph to disk...')
-    # print('../../Data-IO/RDF/{}.rdf'.format(filename))
-    # with open('../../Data-IO/RDF/{}.rdf'.format(filename), 'wb') as file:
-    #     file.write(output_graph.serialize(format='xml'))
-    print('../../Data-IO/RDF/{}.ttl'.format(filename))
-    with open('../../Data-IO/RDF/{}.ttl'.format(filename), 'wb') as file:
+    # print('{}/{}.rdf'.format(sys.argv[3], filename))
+    # with open('{}/{}.rdf'.format(sys.argv[3], filename), 'wb') as file:
+    #     file.write(output_graph.serialize(format='turtle'))
+    print('{}/{}.ttl'.format(sys.argv[3], filename))
+    with open('{}/{}.ttl'.format(sys.argv[3], filename), 'wb') as file:
         file.write(output_graph.serialize(format='turtle'))
     print('Writing log to log.txt ...')
     with open('log.txt', 'w') as file:
