@@ -17,6 +17,6 @@ python scripts are dependent on the _lxml_ and _copy_ libraries.
 
 To transform a specific schema or 'composite' schema to owl
 ```
-python run.py [path to XML Schema]
+python run.py [path to XML Schema] [output folder]
 ```
 Transformation outputs are written to the _Results_ folder.

@@ -9,37 +9,43 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 PREFIX gml:  <http://www.opengis.net/gml#>
 PREFIX xlink: <http://www.w3.org/1999/xlink#>
 PREFIX core: <http://www.opengis.net/citygml/2.0#>
-PREFIX bldg: <http://www.opengis.net/citygml/building/2.0#>
-PREFIX brid: <http://www.opengis.net/citygml/bridge/2.0#>
-PREFIX luse: <http://www.opengis.net/citygml/landuse/2.0#>
-PREFIX app:  <http://www.opengis.net/citygml/appearance/2.0#>
-PREFIX dem:  <http://www.opengis.net/citygml/relief/2.0#>
-PREFIX frn:  <http://www.opengis.net/citygml/cityfurniture/2.0#>
-PREFIX gen:  <http://www.opengis.net/citygml/generics/2.0#>
-PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/2.0#>
-PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0#>
-PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0#>
-PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0#>
-PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0#>
+PREFIX bldg: <http://www.opengis.net/citygml/2.0/building#>
+PREFIX brid: <http://www.opengis.net/citygml/2.0/bridge#>
+PREFIX luse: <http://www.opengis.net/citygml/2.0/landuse#>
+PREFIX app:  <http://www.opengis.net/citygml/2.0/appearance#>
+PREFIX dem:  <http://www.opengis.net/citygml/2.0/relief#>
+PREFIX frn:  <http://www.opengis.net/citygml/2.0/cityfurniture#>
+PREFIX gen:  <http://www.opengis.net/citygml/2.0/generics#>
+PREFIX grp:  <http://www.opengis.net/citygml/2.0/cityobjectgroup#>
+PREFIX tex:  <http://www.opengis.net/citygml/2.0/texturedsurface#>
+PREFIX tun:  <http://www.opengis.net/citygml/2.0/tunnel#>
+PREFIX veg:  <http://www.opengis.net/citygml/2.0/vegetation#>
+PREFIX wtr:  <http://www.opengis.net/citygml/2.0/waterbody#>
 # GeoSPARQL prefixes
+PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+
+SELECT ?s ?p ?o
+WHERE {
+	?s ?p ?o .
+}
 
 
 #1 query all buildings
 
-#SELECT ?building
+#SELECT ?WallSurface
 #WHERE {
-#?building rdf:type bldg:Building .
+#	?WallSurface rdf:type bldg:WallSurface .
 #}
 
 
-#2 query all buildings and their properties
+#2 query a building and it's properties
 
 #SELECT ?building ?predicate ?object
 #WHERE {
-#?building rdf:type bldg:Building ;
-#   ?predicate ?object .
+#	?building rdf:type bldg:Building ;
+#		<wildcard>+ ?object .
 #}
 
 
@@ -88,16 +94,19 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 #}
 
 
-#6 query all GeoSPARQL features within 2 m of a point 
+#6 query all GeoSPARQL features within 10 m of a point 
 
-SELECT ?feature
-WHERE {
-?feature geo:hasGeometry ?geometry .
-   
-?geometry geo:asGML ?serialization
+#SELECT DISTINCT ?feature ?type
+#WHERE {
+#?feature geo:hasGeometry ?geometry ;
+#	rdf:type ?type .
+#   
+#?geometry geo:asGML ?serialization .
 
-FILTER (geof:distance("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"urn:ogc:def:crs:EPSG::2154\"><gml:pos>1841500.54989500 5175869.09632300</gml:pos></gml:Point>"^^geo:gmlLiteral,
-	?serialization , units:metre ) < 2)
-}
+#FILTER (geof:distance("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"EPSG:4326\">
+#							<gml:pos>45.854617529132426 4.797614456250814 404</gml:pos>
+#						</gml:Point>"^^geo:gmlLiteral,
+#	?serialization , units:metre ) < 10) .
+#}
 
-LIMIT 100 
+LIMIT 25

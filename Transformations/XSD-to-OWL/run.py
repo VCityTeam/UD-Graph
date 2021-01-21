@@ -3,10 +3,10 @@ from os import system, path
 
 def main():
 
-   if len(sys.argv) != 2:
-      sys.exit('Incorrect number of arguments: {}\nUsage: python run.py [xsd to convert]'.format(len(sys.argv)))
+   if len(sys.argv) != 3:
+      sys.exit('Incorrect number of arguments: {}\nUsage: python run.py [xsd to convert] [output folder]'.format(len(sys.argv)))
 
-   OUTPUT = '../Data-IO/OWL'
+   OUTPUT = sys.argv[2]
    FILEPATH = sys.argv[1]
    print('Transforming {} ...'.format(FILEPATH))
    FILENAME = '.'.join(path.split(FILEPATH)[1].split('.')[:-1])

@@ -1,4 +1,5 @@
 import os, sys
+from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
 from lxml import etree
@@ -6,7 +7,7 @@ from lxml import etree
 def main():
     if len(sys.argv) != 4:
         sys.exit(
-            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile] [output file]\nontology input paths are separated by a ","'.format(
+            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder]\nontology input paths are separated by a ","'.format(
                 len(sys.argv)))
 
     ############################
@@ -22,7 +23,10 @@ def main():
     global datatype_definition_cache
     global objectproperty_definition_cache
     global datatypeproperty_definition_cache
+    global input_node_count
+    global input_node_total
     global namespace_mappings
+    global gml_namespaces
     global parsed_nodes
     global GML
     global GeoSPARQL
@@ -34,9 +38,11 @@ def main():
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
     log = ''
 
-    # input_node_count  = 0
-    # output_node_count = 0
-    # current_node      = 0
+
+    input_node_count = 0
+    input_node_total = 0
+    for _ in input_tree.getroot().iter(): # get input node total
+        input_node_total += 1
     id_count = {}
     class_definition_cache = {}
     datatype_definition_cache = {}
@@ -58,6 +64,10 @@ def main():
         'http://www.opengis.net/citygml/vegetation/2.0': ['http://www.opengis.net/citygml/2.0/vegetation#'],
         'http://www.opengis.net/citygml/waterbody/2.0': ['http://www.opengis.net/citygml/2.0/waterbody#'],
         'http://www.opengis.net/gml': ['http://www.opengis.net/ont/gml#', 'http://def.isotc211.org/iso19136/2007/GML#']
+    }
+    gml_namespaces = {
+        'gml': 'http://www.opengis.net/gml',
+        'xAL': 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0'
     }
 
     # compile ontology
@@ -88,6 +98,7 @@ def main():
     ###################################
 
     print('Converting XML tree...')
+    updateProgressBar(input_node_count, input_node_total)
     if input_tree.getroot().attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
         input_tree.getroot().attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
     for input_node in input_tree.getroot().iter():
@@ -122,6 +133,9 @@ def main():
 # generate a new individual from an XML node and its children, then add the
 # node to the output graph. An id is returned for recursive calls
 def generateIndividual(node):
+    global input_node_count
+    global input_node_total
+
     # skip node if already parsed
     if input_tree.getelementpath(node) in parsed_nodes:
         return
@@ -137,6 +151,8 @@ def generateIndividual(node):
     if isGeometry(node.tag):
         generateGeometrySerialization(node, node_id)
         parsed_nodes.append(input_tree.getelementpath(node))
+        updateProgressBar(input_node_count, input_node_total, node.tag)
+        input_node_count += 1
         return node_id
 
     for child in node:
@@ -176,6 +192,8 @@ def generateIndividual(node):
 
     # when complete, add node to parsed nodes list
     parsed_nodes.append(input_tree.getelementpath(node))
+    updateProgressBar(input_node_count, input_node_total, node.tag)
+    input_node_count += 1
     return node_id
 
 
@@ -224,12 +242,17 @@ def generateDatatypeProperty(parent, parent_id, node):
         log += 'Error! Datatype text for datatype property not found: {}\n'.format(
             input_tree.getelementpath(node) )
 
+# helper function for filtering unwanted geometry namespaces
+def isGMLNamespace( string ):
+    return not string.startswith('xmlns') or string.startswith('xmlns:gml')
 
 # Generate the gsp:gmlLiteral serialization of a geometry node
 def generateGeometrySerialization(node, node_id):
-    geometry = str(etree.tostring(node, pretty_print=False))[2:-1].replace(
-        '\\n', '').replace('  ', '').strip()
-    # xlinks are not yet supported by parliament for gsp:gmlLiterals
+    geometry = str(etree.tostring(node, pretty_print=False)).split(' ')
+    geometry = ' '.join(filter( isGMLNamespace, geometry ))
+    geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip()
+
+    # xlinks are not yet supported by apache jena for gsp:gmlLiterals
     if 'xlink:href' in geometry:
         return
 
@@ -493,11 +516,25 @@ def getDatatype(tag):
 # tuple of (prefix, namespace, localname) to extract the namespace
 def isGeometry(tag):
     qname = mapNamespace(tag).split('#')
-    if qname[0] + '#' == str(GML) and isClass(tag):
+    if qname[0] + '#' == str(GML) and isClass(tag) and qname[1] != 'LinearRing':
         return ontology.query('''
                 ASK {
                     <%s%s> rdfs:subClassOf* <%sAbstractGeometry> .
                 }''' % (str(GML), qname[1], str(GML)) )
+
+def updateProgressBar( count, total, status='' ):
+   bar_length    = 20
+   buffer_size   = 127
+   filled_length = int(round(bar_length * count / float(total)))
+
+   percent = round(100.0 * count / float(total), 1)
+   bar = '#' * filled_length + '-' * (bar_length - filled_length)
+   output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
+
+   sys.stdout.write('\033[K')
+   sys.stdout.write( output[0:buffer_size] + '\r' )
+   sys.stdout.flush()
+
 
 
 if __name__ == "__main__":
