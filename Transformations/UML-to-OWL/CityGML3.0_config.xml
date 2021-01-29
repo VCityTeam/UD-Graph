@@ -7,6 +7,7 @@
     <parameter name="addTaggedValues" value="itemType"/>
     <xi:include href="http://shapechange.net/resources/config/StandardAliases.xml"/>
     <stereotypeAliases>
+      <StereotypeAlias wellknown="BasicType" alias="basictype"/>
       <StereotypeAlias wellknown="property" alias="Property"/>
       <StereotypeAlias wellknown="version" alias="Version"/>
       <StereotypeAlias wellknown="FeatureType" alias="TopLevelFeatureType"/>
@@ -23,7 +24,6 @@
     <Transformer id="FLATTENER1" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" mode="enabled">
       <parameters>
         <ProcessParameter name="includeUnionIdentifierTaggedValue" value="true"/>
-        <ProcessParameter name="mergeDescriptors" value="true"/>
         <ProcessParameter name="separatorForPropertyFromUnion" value="_"/>
         <ProcessParameter name="flattenObjectTypes" value="false"/>
         <ProcessParameter name="flattenDataTypesExcludeRegex" value=".*"/>
@@ -35,8 +35,7 @@
         </ProcessRuleSet>
       </rules>
     </Transformer>
-    <!-- Union alternative 2 transformer -->
-    <Transformer id="FLATTENER2" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" mode="disabled">
+    <Transformer class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" id="FLATTENER2" mode="enabled">
       <parameters>
         <ProcessParameter name="includeUnionIdentifierTaggedValue" value="true"/>
       </parameters>
@@ -49,8 +48,7 @@
   </transformers>
   <targets>
     <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled"> -->
-    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER1">
-    <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER2"> -->
+    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER2">
       <targetParameter name="outputDirectory" value="$output$"/>
       <!-- <targetParameter name="outputDirectory" value="../Data-IO/OWL/CityGML_3.0_Conceptual_Model"/> -->
       <targetParameter name="defaultEncodingRule" value="CityGML_RDF_Encoding_Rules"/>
@@ -120,6 +118,7 @@
           <!-- <rule name="rule-owl-cls-codelist-19150-2"/> -->
           <rule name="rule-owl-cls-generalization"/>
           <rule name="rule-owl-cls-disjoint-classes"/>
+          <!-- <rule name="rule-owl-cls-union"/> -->
           <rule name="rule-owl-prop-general"/>
           <rule name="rule-owl-prop-iso191502-naming"/>
           <rule name="rule-owl-prop-localScopeAll"/>
