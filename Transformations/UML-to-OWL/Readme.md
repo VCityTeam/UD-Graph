@@ -16,5 +16,5 @@ Example:
 ```
 java -jar ../lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 -c CityGML3.0_config.xml \
   -x '$input$' '../Data-IO/UML/CityGML_3.0_Conceptual_Model.xml' \
-  -x '$output$' '../Data-IO/OWL/CityGML_3.0_Conceptual_Model'
+  -x '$output$' '../Data-IO/OWL/CityGML_3.0_Conceptual_Model_Ontology'
 ```
