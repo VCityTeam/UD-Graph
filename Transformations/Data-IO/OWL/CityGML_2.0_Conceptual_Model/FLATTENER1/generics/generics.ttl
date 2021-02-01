@@ -165,10 +165,6 @@ gen:MeasureAttribute  a  owl:Class ;
         skos:definition  "SIG3D: Generic Attribute of type \"Measure\" (double-attribute with explicit specification of a unit-of-measurement)."@en ;
         skos:prefLabel   "MeasureAttribute"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( gen:DateAttribute gen:DoubleAttribute gen:GenericAttributeSet gen:IntAttribute gen:MeasureAttribute gen:StringAttribute gen:UriAttribute )
-] .
-
 gen:IntAttribute  a      owl:Class ;
         rdfs:label       "IntAttribute"@en ;
         rdfs:subClassOf  gen:AbstractGenericAttribute ;
@@ -201,55 +197,23 @@ gen:GenericCityObject
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod2TerrainIntersection
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     gen:GenericCityObject.lod1ImplicitRepresentation
+                           owl:onProperty     gen:GenericCityObject.lod3TerrainIntersection
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod4TerrainIntersection
+                           owl:onProperty     gen:GenericCityObject.lod2TerrainIntersection
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     gen:GenericCityObject.lod3Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod1TerrainIntersection
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod1Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod4Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod0TerrainIntersection
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     gen:GenericCityObject.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     gen:GenericCityObject.lod2ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     gen:GenericCityObject.lod3ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     gen:GenericCityObject.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     gen:GenericCityObject.lod0ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod2Geometry
+                           owl:onProperty     gen:GenericCityObject.lod1ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
@@ -257,19 +221,51 @@ gen:GenericCityObject
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     gen:GenericCityObject.lod3TerrainIntersection
+                           owl:onProperty     gen:GenericCityObject.lod0TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod0ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod1Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod1TerrainIntersection
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gsp:Geometry ;
                            owl:onProperty     gen:GenericCityObject.lod0Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     gen:GenericCityObject.class
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod2ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     gen:GenericCityObject.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod4TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod2Geometry
                          ] ;
         skos:definition  "SIG3D: Representation of a real wold city object which does not fit to any of the specific CityGML / ADE classes."@en ;
         skos:prefLabel   "GenericCityObject"@en .
@@ -338,6 +334,10 @@ gen:DoubleAttribute.value
         rdfs:range       xsd:double ;
         skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
         skos:prefLabel   "value"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( gen:DateAttribute gen:DoubleAttribute gen:GenericAttributeSet gen:IntAttribute gen:MeasureAttribute gen:StringAttribute gen:UriAttribute )
+] .
 
 gen:GenericAttributeSet
         a                owl:Class ;

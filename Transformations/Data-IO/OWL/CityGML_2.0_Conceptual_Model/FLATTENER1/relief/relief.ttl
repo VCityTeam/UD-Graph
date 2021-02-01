@@ -70,10 +70,6 @@ dem:AbstractReliefComponent.extent
         skos:definition  "SIG3D: Polygon (optionally with holes) denoting the extent where the relief component is valid"@en ;
         skos:prefLabel   "extent"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
-
 dem:AbstractReliefComponent
         a                      owl:Class ;
         rdfs:label             "AbstractReliefComponent"@en ;
@@ -89,6 +85,10 @@ dem:AbstractReliefComponent
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of TINRelief, MassPointRelief, RasterRelief and BreaklineRelief"@en ;
         skos:prefLabel         "AbstractReliefComponent"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
 
 dem:TINRelief.tin  a     owl:ObjectProperty ;
         rdfs:domain      dem:TINRelief ;
