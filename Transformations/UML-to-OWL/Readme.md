@@ -1,3 +1,5 @@
+# Readme
+
 This folder contains ShapeChange configuration files for effectuating UML to OWL transformations
 
 Currently there are two configuration files:
