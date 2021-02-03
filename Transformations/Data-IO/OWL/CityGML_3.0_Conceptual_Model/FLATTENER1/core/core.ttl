@@ -1,0 +1,1459 @@
+@prefix con:   <http://www.opengis.net/citygml/construction/3.0/construction#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix brid:  <http://www.opengis.net/citygml/bridge/3.0/bridge#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tun:   <http://www.opengis.net/citygml/tunnel/3.0/tunnel#> .
+@prefix dem:   <http://www.opengis.net/citygml/relief/3.0/relief#> .
+@prefix sc:    <http://shapechange.net/resources/ont/base#> .
+@prefix gen:   <http://www.opengis.net/citygml/generics/3.0/generics#> .
+@prefix iso19109: <http://def.isotc211.org/iso19109/2015/RulesForApplicationSchema> .
+@prefix iso19111-2019: <http://def.isotc211.org/iso19111/2019/ReferencingByCoordinates#> .
+@prefix veg:   <http://www.opengis.net/citygml/vegetation/3.0/vegetation#> .
+@prefix tran:  <http://www.opengis.net/citygml/transportation/3.0/transportation#> .
+@prefix app:   <http://www.opengis.net/citygml/appearance/3.0/appearance#> .
+@prefix bldg:  <http://www.opengis.net/citygml/building/3.0/building#> .
+@prefix frn:   <http://www.opengis.net/citygml/cityfurniture/3.0/cityfurniture#> .
+@prefix grp:   <http://www.opengis.net/citygml/cityobjectgroup/3.0/cityobjectgroup#> .
+@prefix luse:  <http://www.opengis.net/citygml/landuse/3.0/landuse#> .
+@prefix core:  <http://www.opengis.net/citygml/3.0/core#> .
+@prefix wtr:   <http://www.opengis.net/citygml/waterbody/3.0/waterbody#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix dyn:   <http://www.opengis.net/citygml/dynamizer/3.0/dynamizer#> .
+
+core:AbstractSpace.area
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       core:QualifiedArea ;
+        skos:definition  "Specifies qualified areas related to the space."@en ;
+        skos:prefLabel   "area"@en .
+
+core:AbstractPhysicalSpace.lod3TerrainIntersectionCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractPhysicalSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 3."@en ;
+        skos:prefLabel   "lod3TerrainIntersectionCurve"@en .
+
+core:AbstractCityObject.relativeToWater
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:RelativeToWater ;
+        skos:definition  "Describes the vertical position of the city object relative to the surrounding water surface."@en ;
+        skos:prefLabel   "relativeToWater"@en .
+
+core:ADEOfAbstractFeature
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractFeature acts as a hook to define properties within an ADE that are to be added to AbstractFeature."@en ;
+        skos:prefLabel         "ADEOfAbstractFeature"@en .
+
+core:AbstractPhysicalSpace.lod1TerrainIntersectionCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractPhysicalSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 1."@en ;
+        skos:prefLabel   "lod1TerrainIntersectionCurve"@en .
+
+core:ImplicitGeometry.transformationMatrix
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       core:TransformationMatrix4x4 ;
+        skos:definition  "Specifies the mathematical transformation (translation, rotation, and scaling) between the prototypical geometry and the actual spatial position of the object."@en ;
+        skos:prefLabel   "transformationMatrix"@en .
+
+core:QualifiedArea.typeOfArea
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:QualifiedArea ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the specific type of the QualifiedArea."@en ;
+        skos:prefLabel   "typeOfArea"@en .
+
+core:XALAddress  a       owl:Class ;
+        skos:definition  "XALAddress represents address details according to the OASIS xAL standard."@en ;
+        skos:prefLabel   "XALAddress"@en .
+
+core:AbstractDynamizer
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractDynamizer ;
+                                 owl:onProperty     core:AbstractDynamizer.adeOfAbstractDynamizer
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractDynamizer is the abstract superclass to represent Dynamizer objects."@en ;
+        skos:prefLabel         "AbstractDynamizer"@en .
+
+core:ADEOfAbstractVersionTransition
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractVersionTransition acts as a hook to define properties within an ADE that are to be added to AbstractVersionTransition."@en ;
+        skos:prefLabel         "ADEOfAbstractVersionTransition"@en .
+
+core:AbstractFeatureWithLifespan
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractFeature ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:dateTime ;
+                                 owl:onProperty     core:AbstractFeatureWithLifespan.validTo
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:dateTime ;
+                                 owl:onProperty     core:AbstractFeatureWithLifespan.validFrom
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:dateTime ;
+                                 owl:onProperty     core:AbstractFeatureWithLifespan.terminationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:dateTime ;
+                                 owl:onProperty     core:AbstractFeatureWithLifespan.creationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractFeatureWithLifespan ;
+                                 owl:onProperty     core:AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractFeatureWithLifespan is the base class for all CityGML features.  It allows the optional specification of the real-world and database times for the existence of each feature."@en ;
+        skos:prefLabel         "AbstractFeatureWithLifespan"@en .
+
+core:AbstractFeature.featureID
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractFeature ;
+        rdfs:range       core:ID ;
+        skos:definition  "Specifies the unique identifier of the feature that is valid in the instance document within which it occurs."@en ;
+        skos:prefLabel   "featureID"@en .
+
+core:ADEOfAbstractSpaceBoundary
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractSpaceBoundary acts as a hook to define properties within an ADE that are to be added to AbstractSpaceBoundary."@en ;
+        skos:prefLabel         "ADEOfAbstractSpaceBoundary"@en .
+
+core:CityModel.cityModelMember_versionTransitionMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:label       "cityModelMember_versionTransitionMember"@en ;
+        rdfs:range       core:AbstractVersionTransition ;
+        skos:definition  "Specifies the transitions between the different versions of the CityModel."@en ;
+        skos:prefLabel   "cityModelMember_versionTransitionMember"@en .
+
+core:AbstractVersion  a        owl:Class ;
+        rdfs:subClassOf        core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractVersion ;
+                                 owl:onProperty     core:AbstractVersion.adeOfAbstractVersion
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractVersion is the abstract superclass to represent Version objects."@en ;
+        skos:prefLabel         "AbstractVersion"@en .
+
+core:ExternalReference.targetResource
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ExternalReference ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Specifies the URI that points to the object in the external information system."@en ;
+        skos:prefLabel   "targetResource"@en .
+
+core:AbstractPointCloud
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractFeature ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractPointCloud ;
+                                 owl:onProperty     core:AbstractPointCloud.adeOfAbstractPointCloud
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractPointCloud is the abstract superclass to represent PointCloud objects."@en ;
+        skos:prefLabel         "AbstractPointCloud"@en .
+
+core:Occupancy.numberOfOccupants
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:Occupancy ;
+        rdfs:range       xsd:integer ;
+        skos:definition  "Indicates the number of occupants contained by a feature."@en ;
+        skos:prefLabel   "numberOfOccupants"@en .
+
+<http://www.opengis.net/citygml/3.0/core>
+        a                owl:Ontology ;
+        owl:imports      <http://www.opengis.net/citygml/cityfurniture/3.0/cityfurniture> , <http://www.opengis.net/citygml/construction/3.0/construction> , <http://www.opengis.net/citygml/transportation/3.0/transportation> , <http://www.opengis.net/citygml/building/3.0/building> , <http://www.opengis.net/citygml/vegetation/3.0/vegetation> , <http://www.opengis.net/citygml/dynamizer/3.0/dynamizer> , <http://www.opengis.net/citygml/bridge/3.0/bridge> , <http://www.opengis.net/citygml/generics/3.0/generics> , <http://www.opengis.net/citygml/cityobjectgroup/3.0/cityobjectgroup> , <http://shapechange.net/resources/ont/base> , <http://www.opengis.net/citygml/waterbody/3.0/waterbody> , <http://www.opengis.net/citygml/appearance/3.0/appearance> , <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/relief/3.0/relief> , <http://www.opengis.net/citygml/tunnel/3.0/tunnel> , <http://www.opengis.net/citygml/landuse/3.0/landuse> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "The Core module defines the basic components of the CityGML data model. The Core module defines abstract base classes that define the core properties of more specialized thematic classes defined in other modules. The Core module also defines concrete classes that are common to other modules, for example basic data types."@en ;
+        skos:prefLabel   "Core"@en .
+
+core:CityObjectRelation.genericAttribute
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityObjectRelation ;
+        rdfs:range       core:AbstractGenericAttribute ;
+        skos:definition  "Relates generic attributes to the CityObjectRelation."@en ;
+        skos:prefLabel   "genericAttribute"@en .
+
+core:AbstractSpace.lod3MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 3."@en ;
+        skos:prefLabel   "lod3MultiCurve"@en .
+
+core:AbstractCityObject.generalizesTo
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "Relates generalized representations of the same real-world object in different Levels of Detail to the city object. The direction of this relation is from the city object to the corresponding generalized city objects."@en ;
+        skos:prefLabel   "generalizesTo"@en .
+
+core:ImplicitGeometry
+        a                owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     core:ImplicitGeometry.relativeGeometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ID ;
+                           owl:onProperty     core:ImplicitGeometry.objectID
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:ImplicitGeometry.mimeType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractAppearance ;
+                           owl:onProperty     core:ImplicitGeometry.appearance
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ImplicitGeometry.libraryObject
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     core:ImplicitGeometry.referencePoint
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:TransformationMatrix4x4 ;
+                           owl:onProperty     core:ImplicitGeometry.transformationMatrix
+                         ] ;
+        skos:definition  "ImplicitGeometry is a geometry representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model."@en ;
+        skos:prefLabel   "ImplicitGeometry"@en .
+
+core:AbstractSpace.lod0MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 0."@en ;
+        skos:prefLabel   "lod0MultiSurface"@en .
+
+core:DoubleOrNilReasonList.list_nilReason_URI
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:DoubleOrNilReasonList ;
+        rdfs:label       "list_nilReason_URI"@en ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Specifies a URI that points to a resource that describes the nil reason."@en ;
+        skos:prefLabel   "list_nilReason_URI"@en .
+
+core:AbstractSpace.lod3Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D Solid geometry that represents the space in Level of Detail 3."@en ;
+        skos:prefLabel   "lod3Solid"@en .
+
+core:AbstractCityObject.relatedTo
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:CityObjectRelation ;
+        skos:definition  "Relates other city objects to the city object. It also describes how the city objects are related to each other."@en ;
+        skos:prefLabel   "relatedTo"@en .
+
+core:AbstractPhysicalSpace.lod2TerrainIntersectionCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractPhysicalSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 2."@en ;
+        skos:prefLabel   "lod2TerrainIntersectionCurve"@en .
+
+core:AbstractThematicSurface
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractSpaceBoundary ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractThematicSurface ;
+                                 owl:onProperty     core:AbstractThematicSurface.adeOfAbstractThematicSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractThematicSurface.lod1MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractThematicSurface.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:QualifiedArea ;
+                                 owl:onProperty     core:AbstractThematicSurface.area
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractThematicSurface.lod0MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractPointCloud ;
+                                 owl:onProperty     core:AbstractThematicSurface.pointCloud
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractThematicSurface.lod0MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractThematicSurface.lod3MultiSurface
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractThematicSurface is the abstract superclass for all types of thematic surfaces."@en ;
+        skos:prefLabel         "AbstractThematicSurface"@en .
+
+core:AbstractOccupiedSpace.lod2ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractOccupiedSpace ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "Relates to an implicit geometry that represents the occupied space in Level of Detail 2."@en ;
+        skos:prefLabel   "lod2ImplicitRepresentation"@en .
+
+core:ADEOfAbstractUnoccupiedSpace
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractUnoccupiedSpace acts as a hook to define properties within an ADE that are to be added to AbstractUnoccupiedSpace."@en ;
+        skos:prefLabel         "ADEOfAbstractUnoccupiedSpace"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( bldg:AbstractBuildingSubdivision grp:CityObjectGroup gen:GenericLogicalSpace )
+] .
+
+core:AbstractFeature.adeOfAbstractFeature
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractFeature ;
+        rdfs:range       core:ADEOfAbstractFeature ;
+        skos:definition  "Augments AbstractFeature with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractFeature"@en .
+
+core:ImplicitGeometry.objectID
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       core:ID ;
+        skos:definition  "Specifies the unique identifier of the ImplicitGeometry."@en ;
+        skos:prefLabel   "objectID"@en .
+
+core:DoubleList.list  a  owl:DatatypeProperty ;
+        rdfs:domain      core:DoubleList ;
+        rdfs:range       xsd:double ;
+        skos:definition  "Specifies the list of double values."@en ;
+        skos:prefLabel   "list"@en .
+
+core:Occupancy  a        owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:Occupancy.occupantType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:Occupancy.interval
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     core:Occupancy.numberOfOccupants
+                         ] ;
+        skos:definition  "Occupancy is an application-dependent indication of what is contained by a feature."@en ;
+        skos:prefLabel   "Occupancy"@en .
+
+core:DoubleBetween0and1
+        a                owl:Class ;
+        skos:definition  "DoubleBetween0and1 is a basic type for values, which are greater or equal than 0 and less or equal than 1. The type is used for color encoding, for example."@en ;
+        skos:prefLabel   "DoubleBetween0and1"@en .
+
+core:AbstractCityObject.adeOfAbstractCityObject
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:ADEOfAbstractCityObject ;
+        skos:definition  "Augments AbstractCityObject with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractCityObject"@en .
+
+core:ExternalReference
+        a                owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.relationType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.informationSystem
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.targetResource
+                         ] ;
+        skos:definition  "ExternalReference is a reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap®."@en ;
+        skos:prefLabel   "ExternalReference"@en .
+
+core:Address.xalAddress
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:Address ;
+        rdfs:range       core:XALAddress ;
+        skos:definition  "Relates an OASIS address object to the Address."@en ;
+        skos:prefLabel   "xalAddress"@en .
+
+core:AbstractVersionTransition.adeOfAbstractVersionTransition
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractVersionTransition ;
+        rdfs:range       core:ADEOfAbstractVersionTransition ;
+        skos:definition  "Augments AbstractVersionTransition with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractVersionTransition"@en .
+
+core:ADEOfAbstractCityObject
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractCityObject acts as a hook to define properties within an ADE that are to be added to AbstractCityObject."@en ;
+        skos:prefLabel         "ADEOfAbstractCityObject"@en .
+
+core:DoubleBetween0and1List
+        a                owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:DoubleBetween0and1 ;
+                           owl:onProperty     core:DoubleBetween0and1List.list
+                         ] ;
+        skos:definition  "DoubleBetween0and1List is a basic type that represents a list of double values greater or equal than 0 and less or equal than 1. The type is used for color encoding, for example."@en ;
+        skos:prefLabel   "DoubleBetween0and1List"@en .
+
+core:AbstractThematicSurface.area
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       core:QualifiedArea ;
+        skos:definition  "Specifies qualified areas related to the thematic surface."@en ;
+        skos:prefLabel   "area"@en .
+
+core:AbstractFeature.identifier
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractFeature ;
+        rdfs:range       rdfs:Resource ;
+        skos:definition  "Specifies the unique identifier of the feature that is valid globally."@en ;
+        skos:prefLabel   "identifier"@en .
+
+core:CityModel.cityModelMember_featureMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:label       "cityModelMember_featureMember"@en ;
+        rdfs:range       core:AbstractFeature ;
+        skos:definition  "Specifies the feature objects that are part of the CityModel. It allows to include objects that are not derived from a class defined in the CityGML data model, but from the ISO 19109 class AnyFeature."@en ;
+        skos:prefLabel   "cityModelMember_featureMember"@en .
+
+core:AbstractCityObject.externalReference
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:ExternalReference ;
+        skos:definition  "References external objects in other information systems that have a relation to the city object."@en ;
+        skos:prefLabel   "externalReference"@en .
+
+core:QualifiedVolume  a  owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:QualifiedVolume.typeOfVolume
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  sc:Measure ;
+                           owl:onProperty     core:QualifiedVolume.volume
+                         ] ;
+        skos:definition  "QualifiedVolume is an application-dependent measure of the volume of a space."@en ;
+        skos:prefLabel   "QualifiedVolume"@en .
+
+core:DoubleOrNilReasonList
+        a                owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:DoubleOrNilReasonList.list_nilReason_URI
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:double ;
+                           owl:onProperty     core:DoubleOrNilReasonList.list_value
+                         ] ;
+        skos:definition  "DoubleOrNilReasonList is a basic type that represents a list of double values and/or nil reasons."@en ;
+        skos:prefLabel   "DoubleOrNilReasonList"@en .
+
+core:AbstractCityObject.appearance
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:AbstractAppearance ;
+        skos:definition  "Relates appearances to the city object."@en ;
+        skos:prefLabel   "appearance"@en .
+
+core:AbstractFeatureWithLifespan.creationDate
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractFeatureWithLifespan ;
+        rdfs:range       xsd:dateTime ;
+        skos:definition  "Indicates the date at which a CityGML feature was added to the CityModel."@en ;
+        skos:prefLabel   "creationDate"@en .
+
+core:ADEOfCityModel  a         owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfCityModel acts as a hook to define properties within an ADE that are to be added to a CityModel."@en ;
+        skos:prefLabel         "ADEOfCityModel"@en .
+
+core:RelativeToWater  a  rdfs:Datatype ;
+        owl:oneOf        ( "entirelyAboveWaterSurface" "substantiallyAboveWaterSurface" "substantiallyAboveAndBelowWaterSurface" "substantiallyBelowWaterSurface" "entirelyBelowWaterSurface" "temporarilyAboveAndBelowWaterSurface" ) ;
+        skos:definition  "RelativeToWater enumerates the spatial relations of a city object relative to the water surface in a qualitative way."@en ;
+        skos:prefLabel   "RelativeToWater"@en .
+
+core:ADEOfAbstractAppearance
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractAppearance acts as a hook to define properties within an ADE that are to be added to AbstractAppearance."@en ;
+        skos:prefLabel         "ADEOfAbstractAppearance"@en .
+
+core:AbstractOccupiedSpace
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractPhysicalSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractOccupiedSpace ;
+                                 owl:onProperty     core:AbstractOccupiedSpace.adeOfAbstractOccupiedSpace
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     core:AbstractOccupiedSpace.lod1ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     core:AbstractOccupiedSpace.lod3ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     core:AbstractOccupiedSpace.lod2ImplicitRepresentation
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        owl:disjointWith       core:AbstractUnoccupiedSpace ;
+        skos:definition        "AbstractOccupiedSpace is the abstract superclass for all types of physically occupied spaces. Occupied space refers to spaces that are partially or entirely filled with matter."@en ;
+        skos:prefLabel         "AbstractOccupiedSpace"@en .
+
+core:DoubleBetween0and1List.list
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:DoubleBetween0and1List ;
+        rdfs:range       core:DoubleBetween0and1 ;
+        skos:definition  "Specifies the list of double values."@en ;
+        skos:prefLabel   "list"@en .
+
+core:CityModel.cityModelMember_cityObjectMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:label       "cityModelMember_cityObjectMember"@en ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "Specifies the city objects that are part of the CityModel."@en ;
+        skos:prefLabel   "cityModelMember_cityObjectMember"@en .
+
+core:AbstractThematicSurface.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 3."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+core:ADEOfAbstractLogicalSpace
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractLogicalSpace acts as a hook to define properties within an ADE that are to be added to AbstractLogicalSpace."@en ;
+        skos:prefLabel         "ADEOfAbstractLogicalSpace"@en .
+
+core:AbstractCityObject.dynamizer
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:AbstractDynamizer ;
+        skos:definition  "Relates Dynamizer objects to the city object. These allow timeseries data to override static attribute values of the city object."@en ;
+        skos:prefLabel   "dynamizer"@en .
+
+core:AbstractSpace.adeOfAbstractSpace
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       core:ADEOfAbstractSpace ;
+        skos:definition  "Augments AbstractSpace with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractSpace"@en .
+
+core:DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:DoubleOrNilReasonList ;
+        rdfs:label       "list_nilReason_nilReasonEnumeration"@en ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates a nil reason that is provided in a code list."@en ;
+        skos:prefLabel   "list_nilReason_nilReasonEnumeration"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( frn:CityFurniture con:AbstractConstruction con:AbstractConstructiveElement con:AbstractFillingElement con:AbstractFurniture con:AbstractInstallation gen:GenericOccupiedSpace veg:AbstractVegetationObject wtr:WaterBody )
+] .
+
+core:Occupancy.occupantType
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:Occupancy ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the specific type of the occupants that are contained by a feature."@en ;
+        skos:prefLabel   "occupantType"@en .
+
+core:ADEOfAbstractSpace
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractSpace acts as a hook to define properties within an ADE that are to be added to AbstractSpace."@en ;
+        skos:prefLabel         "ADEOfAbstractSpace"@en .
+
+core:TransformationMatrix4x4
+        a                owl:Class ;
+        rdfs:subClassOf  core:DoubleList ;
+        skos:definition  "TransformationMatrix4x4 is a 4 by 4 matrix represented as a list of sixteen double values in row major order."@en ;
+        skos:prefLabel   "TransformationMatrix4x4"@en .
+
+core:AbstractOccupiedSpace.lod1ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractOccupiedSpace ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "Relates to an implicit geometry that represents the occupied space in Level of Detail 1."@en ;
+        skos:prefLabel   "lod1ImplicitRepresentation"@en .
+
+core:AbstractThematicSurface.lod0MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the thematic surface in Level of Detail 0."@en ;
+        skos:prefLabel   "lod0MultiCurve"@en .
+
+core:ClosureSurface.adeOfClosureSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ClosureSurface ;
+        rdfs:range       core:ADEOfClosureSurface ;
+        skos:definition  "Augments the ClosureSurface with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfClosureSurface"@en .
+
+core:ADEOfAbstractVersion
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractVersion acts as a hook to define properties within an ADE that are to be added to AbstractVersion."@en ;
+        skos:prefLabel         "ADEOfAbstractVersion"@en .
+
+core:CityObjectRelation.relatedTo
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityObjectRelation ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "Relates other city objects to the city object. It also describes how the city objects are related to each other."@en ;
+        skos:prefLabel   "relatedTo"@en .
+
+core:ExternalReference.relationType
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ExternalReference ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Specifies an URI that additionally qualifies the ExternalReference. The URI can point to a definition from an external ontology (e.g. the sameAs relation from OWL) and allows for mapping the ExternalReference to RDF triples."@en ;
+        skos:prefLabel   "relationType"@en .
+
+core:ADEOfAbstractDynamizer
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractDynamizer acts as a hook to define properties within an ADE that are to be added to AbstractDynamizer."@en ;
+        skos:prefLabel         "ADEOfAbstractDynamizer"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:TransformationMatrix2x2 core:TransformationMatrix3x4 core:TransformationMatrix4x4 )
+] .
+
+core:AbstractDynamizer.adeOfAbstractDynamizer
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractDynamizer ;
+        rdfs:range       core:ADEOfAbstractDynamizer ;
+        skos:definition  "Augments AbstractDynamizer with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractDynamizer"@en .
+
+core:ADEOfAbstractOccupiedSpace
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractOccupiedSpace acts as a hook to define properties within an ADE that are to be added to AbstractOccupiedSpace."@en ;
+        skos:prefLabel         "ADEOfAbstractOccupiedSpace"@en .
+
+core:AbstractSpaceBoundary.adeOfAbstractSpaceBoundary
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpaceBoundary ;
+        rdfs:range       core:ADEOfAbstractSpaceBoundary ;
+        skos:definition  "Augments AbstractSpaceBoundary with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractSpaceBoundary"@en .
+
+core:ImplicitGeometry.mimeType
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Specifies the MIME type of the external file that stores the prototypical geometry."@en ;
+        skos:prefLabel   "mimeType"@en .
+
+core:AbstractUnoccupiedSpace
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractPhysicalSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractUnoccupiedSpace ;
+                                 owl:onProperty     core:AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractUnoccupiedSpace is the abstract superclass for all types of physically unoccupied spaces. Unoccupied space refers to spaces that are entirely or mostly free of matter."@en ;
+        skos:prefLabel         "AbstractUnoccupiedSpace"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:AbstractFeatureWithLifespan core:AbstractPointCloud core:Address app:AbstractSurfaceData dyn:AbstractTimeseries )
+] .
+
+core:AbstractCityObject.relativeToTerrain
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:RelativeToTerrain ;
+        skos:definition  "Describes the vertical position of the city object relative to the surrounding terrain."@en ;
+        skos:prefLabel   "relativeToTerrain"@en .
+
+core:ImplicitGeometry.libraryObject
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Specifies the URI that points to the prototypical geometry stored in an external file."@en ;
+        skos:prefLabel   "libraryObject"@en .
+
+core:AbstractFeature.name
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractFeature ;
+        rdfs:range       xsd:Name ;
+        skos:definition  "Specifies the name of the feature."@en ;
+        skos:prefLabel   "name"@en .
+
+core:QualifiedVolume.typeOfVolume
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:QualifiedVolume ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the specific type of the QualifiedVolume."@en ;
+        skos:prefLabel   "typeOfVolume"@en .
+
+core:AbstractFeature.description
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractFeature ;
+        rdfs:range       xsd:string ;
+        skos:definition  "Provides further information on the feature."@en ;
+        skos:prefLabel   "description"@en .
+
+core:DoubleOrNilReasonList.list_value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:DoubleOrNilReasonList ;
+        rdfs:label       "list_value"@en ;
+        rdfs:range       xsd:double ;
+        skos:definition  "Specifies the double value."@en ;
+        skos:prefLabel   "list_value"@en .
+
+core:AbstractThematicSurface.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 2."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+core:ID  a               owl:Class ;
+        skos:definition  "ID is a basic type that represents a unique identifier."@en ;
+        skos:prefLabel   "ID"@en .
+
+core:AbstractThematicSurface.adeOfAbstractThematicSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       core:ADEOfAbstractThematicSurface ;
+        skos:definition  "Augments AbstractThematicSurface with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractThematicSurface"@en .
+
+core:AbstractSpace.lod2MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 2."@en ;
+        skos:prefLabel   "lod2MultiCurve"@en .
+
+core:ClosureSurface  a   owl:Class ;
+        rdfs:subClassOf  core:AbstractThematicSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ADEOfClosureSurface ;
+                           owl:onProperty     core:ClosureSurface.adeOfClosureSurface
+                         ] ;
+        skos:definition  "ClosureSurface is a special type of thematic surface used to close holes in volumetric objects. Closure surfaces are virtual (non-physical) surfaces."@en ;
+        skos:prefLabel   "ClosureSurface"@en .
+
+core:AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractUnoccupiedSpace ;
+        rdfs:range       core:ADEOfAbstractUnoccupiedSpace ;
+        skos:definition  "Augments AbstractUnoccupiedSpace with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractUnoccupiedSpace"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:BridgeRoom bldg:BuildingRoom gen:GenericUnoccupiedSpace tran:AbstractTransportationSpace tran:AuxiliaryTrafficSpace tran:ClearanceSpace tran:Hole tran:TrafficSpace tun:HollowSpace )
+] .
+
+core:ExternalReference.informationSystem
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ExternalReference ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Specifies the URI that points to the external information system."@en ;
+        skos:prefLabel   "informationSystem"@en .
+
+core:AbstractAppearance.adeOfAbstractAppearance
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractAppearance ;
+        rdfs:range       core:ADEOfAbstractAppearance ;
+        skos:definition  "Augments AbstractAppearance with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractAppearance"@en .
+
+core:AbstractAppearance
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractAppearance ;
+                                 owl:onProperty     core:AbstractAppearance.adeOfAbstractAppearance
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractAppearance is the abstract superclass to represent any kind of appearance objects."@en ;
+        skos:prefLabel         "AbstractAppearance"@en .
+
+core:AbstractSpace.lod0MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 0."@en ;
+        skos:prefLabel   "lod0MultiCurve"@en .
+
+core:AbstractSpace.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 3."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+core:AbstractFeatureWithLifespan.terminationDate
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractFeatureWithLifespan ;
+        rdfs:range       xsd:dateTime ;
+        skos:definition  "Indicates the date at which a CityGML feature was removed from the CityModel."@en ;
+        skos:prefLabel   "terminationDate"@en .
+
+core:ADEOfAbstractPointCloud
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractPointCloud acts as a hook to define properties within an ADE that are to be added to AbstractPointCloud."@en ;
+        skos:prefLabel         "ADEOfAbstractPointCloud"@en .
+
+core:AbstractVersion.adeOfAbstractVersion
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractVersion ;
+        rdfs:range       core:ADEOfAbstractVersion ;
+        skos:definition  "Augments AbstractVersion with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractVersion"@en .
+
+core:ImplicitGeometry.appearance
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       core:AbstractAppearance ;
+        skos:definition  "Relates appearances to the ImplicitGeometry."@en ;
+        skos:prefLabel   "appearance"@en .
+
+core:AbstractFeatureWithLifespan.validFrom
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractFeatureWithLifespan ;
+        rdfs:range       xsd:dateTime ;
+        skos:definition  "Indicates the date at wich a CityGML feature started to exist in the real world."@en ;
+        skos:prefLabel   "validFrom"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:AbstractThematicSurface dem:AbstractReliefComponent dem:ReliefFeature )
+] .
+
+core:RelativeToTerrain
+        a                rdfs:Datatype ;
+        owl:oneOf        ( "entirelyAboveTerrain" "substantiallyAboveTerrain" "substantiallyAboveAndBelowTerrain" "substantiallyBelowTerrain" "entirelyBelowTerrain" ) ;
+        skos:definition  "RelativeToTerrain enumerates the spatial relations of a city object relative to terrain in a qualitative way."@en ;
+        skos:prefLabel   "RelativeToTerrain"@en .
+
+core:QualifiedVolume.volume
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:QualifiedVolume ;
+        rdfs:range       sc:Measure ;
+        skos:definition  "Specifies the value of the QualifiedVolume."@en ;
+        skos:prefLabel   "volume"@en .
+
+core:AbstractSpace.lod0Point
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D Point geometry that represents the space in Level of Detail 0."@en ;
+        skos:prefLabel   "lod0Point"@en .
+
+core:AbstractCityObject.genericAttribute
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:range       core:AbstractGenericAttribute ;
+        skos:definition  "Relates generic attributes to the city object."@en ;
+        skos:prefLabel   "genericAttribute"@en .
+
+core:Address  a          owl:Class ;
+        rdfs:subClassOf  core:AbstractFeature ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ADEOfAddress ;
+                           owl:onProperty     core:Address.adeOfAddress
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     core:Address.multiPoint
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:XALAddress ;
+                           owl:onProperty     core:Address.xalAddress
+                         ] ;
+        skos:definition  "Address represents an address of a city object."@en ;
+        skos:prefLabel   "Address"@en .
+
+core:AbstractGenericAttribute
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractGenericAttribute is the abstract superclass for all types of generic attributes."@en ;
+        skos:prefLabel         "AbstractGenericAttribute"@en .
+
+core:AbstractThematicSurface.lod1MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 1."@en ;
+        skos:prefLabel   "lod1MultiSurface"@en .
+
+core:SpaceType  a        rdfs:Datatype ;
+        owl:oneOf        ( "closed" "open" "semiOpen" ) ;
+        skos:definition  "SpaceType is an enumeration that characterises a space according to its closure properties."@en ;
+        skos:prefLabel   "SpaceType"@en .
+
+core:Address.multiPoint
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:Address ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to the MultiPoint geometry of the Address. The geometry relates the address spatially to a city object."@en ;
+        skos:prefLabel   "multiPoint"@en .
+
+core:ADEOfAddress  a           owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAddress acts as a hook to define properties within an ADE that are to be added to an Address."@en ;
+        skos:prefLabel         "ADEOfAddress"@en .
+
+core:QualifiedArea  a    owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:QualifiedArea.typeOfArea
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  sc:Measure ;
+                           owl:onProperty     core:QualifiedArea.area
+                         ] ;
+        skos:definition  "QualifiedArea is an application-dependent measure of the area of a space or of a thematic surface."@en ;
+        skos:prefLabel   "QualifiedArea"@en .
+
+core:CityModel.cityModelMember_versionMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:label       "cityModelMember_versionMember"@en ;
+        rdfs:range       core:AbstractVersion ;
+        skos:definition  "Specifies the different versions of the CityModel."@en ;
+        skos:prefLabel   "cityModelMember_versionMember"@en .
+
+core:AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractFeatureWithLifespan ;
+        rdfs:range       core:ADEOfAbstractFeatureWithLifespan ;
+        skos:definition  "Augments AbstractFeatureWithLifespan with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractFeatureWithLifespan"@en .
+
+core:DoubleList  a       owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:double ;
+                           owl:onProperty     core:DoubleList.list
+                         ] ;
+        skos:definition  "DoubleList is an ordered sequence of double values."@en ;
+        skos:prefLabel   "DoubleList"@en .
+
+core:AbstractVersionTransition
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractVersionTransition ;
+                                 owl:onProperty     core:AbstractVersionTransition.adeOfAbstractVersionTransition
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractVersionTransition is the abstract superclass to represent VersionTransition objects."@en ;
+        skos:prefLabel         "AbstractVersionTransition"@en .
+
+core:AbstractPhysicalSpace
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractPhysicalSpace.lod1TerrainIntersectionCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractPointCloud ;
+                                 owl:onProperty     core:AbstractPhysicalSpace.pointCloud
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractPhysicalSpace.lod3TerrainIntersectionCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractPhysicalSpace.lod2TerrainIntersectionCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractPhysicalSpace ;
+                                 owl:onProperty     core:AbstractPhysicalSpace.adeOfAbstractPhysicalSpace
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractPhysicalSpace is the abstract superclass for all types of physical spaces. Physical space refers to spaces that are fully or partially bounded by physical objects."@en ;
+        skos:prefLabel         "AbstractPhysicalSpace"@en .
+
+core:AbstractSpace.volume
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       core:QualifiedVolume ;
+        skos:definition  "Specifies qualified volumes related to the space."@en ;
+        skos:prefLabel   "volume"@en .
+
+core:AbstractCityObject
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ExternalReference ;
+                                 owl:onProperty     core:AbstractCityObject.externalReference
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractCityObject ;
+                                 owl:onProperty     core:AbstractCityObject.generalizesTo
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractDynamizer ;
+                                 owl:onProperty     core:AbstractCityObject.dynamizer
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractGenericAttribute ;
+                                 owl:onProperty     core:AbstractCityObject.genericAttribute
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractCityObject ;
+                                 owl:onProperty     core:AbstractCityObject.adeOfAbstractCityObject
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:CityObjectRelation ;
+                                 owl:onProperty     core:AbstractCityObject.relatedTo
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToWater ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToWater
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractCityObject is the abstract superclass of all thematic classes within the CityGML data model."@en ;
+        skos:prefLabel         "AbstractCityObject"@en .
+
+core:CityModel  a        owl:Class ;
+        rdfs:subClassOf  core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractVersion ;
+                           owl:onProperty     core:CityModel.cityModelMember_versionMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ADEOfCityModel ;
+                           owl:onProperty     core:CityModel.adeOfCityModel
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     core:CityModel.cityModelMember_cityObjectMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractVersionTransition ;
+                           owl:onProperty     core:CityModel.cityModelMember_versionTransitionMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractFeature ;
+                           owl:onProperty     core:CityModel.cityModelMember_featureMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19111-2019:EngineeringCRS ;
+                           owl:onProperty     core:CityModel.engineeringCRS
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractAppearance ;
+                           owl:onProperty     core:CityModel.cityModelMember_appearanceMember
+                         ] ;
+        skos:definition  "CityModel is the container for all objects belonging to a city model."@en ;
+        skos:prefLabel   "CityModel"@en .
+
+core:AbstractOccupiedSpace.adeOfAbstractOccupiedSpace
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractOccupiedSpace ;
+        rdfs:range       core:ADEOfAbstractOccupiedSpace ;
+        skos:definition  "Augments AbstractOccupiedSpace with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractOccupiedSpace"@en .
+
+core:AbstractSpace.spaceType
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       core:SpaceType ;
+        skos:definition  "Specifies the degree of openness of a space."@en ;
+        skos:prefLabel   "spaceType"@en .
+
+core:AbstractFeature  a        owl:Class ;
+        rdfs:subClassOf        iso19109:AnyFeature ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:Name ;
+                                 owl:onProperty     core:AbstractFeature.name
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:string ;
+                                 owl:onProperty     core:AbstractFeature.description
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractFeature ;
+                                 owl:onProperty     core:AbstractFeature.adeOfAbstractFeature
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ID ;
+                                 owl:onProperty     core:AbstractFeature.featureID
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  rdfs:Resource ;
+                                 owl:onProperty     core:AbstractFeature.identifier
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractFeature is the abstract superclass of all feature types within the CityGML data model."@en ;
+        skos:prefLabel         "AbstractFeature"@en .
+
+core:CityObjectRelation
+        a                owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     core:CityObjectRelation.relatedTo
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     core:CityObjectRelation.relationType
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractGenericAttribute ;
+                           owl:onProperty     core:CityObjectRelation.genericAttribute
+                         ] ;
+        skos:definition  "CityObjectRelation represents a specific relation from the city object in which it is included to another city object."@en ;
+        skos:prefLabel   "CityObjectRelation"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( gen:CodeAttribute gen:DateAttribute gen:DoubleAttribute gen:GenericAttributeSet gen:IntAttribute gen:MeasureAttribute gen:StringAttribute gen:UriAttribute )
+] .
+
+core:AbstractSpace.lod1Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D Solid geometry that represents the space in Level of Detail 1."@en ;
+        skos:prefLabel   "lod1Solid"@en .
+
+core:AbstractSpace.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 2."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+core:TransformationMatrix3x4
+        a                owl:Class ;
+        rdfs:subClassOf  core:DoubleList ;
+        skos:definition  "TransformationMatrix3x4 is a 3 by 4 matrix represented as a list of twelve double values in row major order."@en ;
+        skos:prefLabel   "TransformationMatrix3x4"@en .
+
+core:CityModel.adeOfCityModel
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:range       core:ADEOfCityModel ;
+        skos:definition  "Augments the CityModel with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfCityModel"@en .
+
+core:ADEOfAbstractFeatureWithLifespan
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractFeatureWithLifespan acts as a hook to define properties within an ADE that are to be added to AbstractFeatureWithLifespan."@en ;
+        skos:prefLabel         "ADEOfAbstractFeatureWithLifespan"@en .
+
+core:ADEOfClosureSurface
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfClosureSurface acts as a hook to define properties within an ADE that are to be added to a ClosureSurface."@en ;
+        skos:prefLabel         "ADEOfClosureSurface"@en .
+
+core:AbstractThematicSurface.pointCloud
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       core:AbstractPointCloud ;
+        skos:definition  "Relates to a 3D PointCloud that represents the thematic surface."@en ;
+        skos:prefLabel   "pointCloud"@en .
+
+core:AbstractSpace.lod2Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D Solid geometry that represents the space in Level of Detail 2."@en ;
+        skos:prefLabel   "lod2Solid"@en .
+
+core:TransformationMatrix2x2
+        a                owl:Class ;
+        rdfs:subClassOf  core:DoubleList ;
+        skos:definition  "TransformationMatrix2x2 is a 2 by 2 matrix represented as a list of four double values in row major order."@en ;
+        skos:prefLabel   "TransformationMatrix2x2"@en .
+
+core:ImplicitGeometry.referencePoint
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D Point geometry that represents the base point of the object in the world coordinate system."@en ;
+        skos:prefLabel   "referencePoint"@en .
+
+core:ADEOfAbstractPhysicalSpace
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractPhysicalSpace acts as a hook to define properties within an ADE that are to be added to AbstractPhysicalSpace."@en ;
+        skos:prefLabel         "ADEOfAbstractPhysicalSpace"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:AbstractAppearance core:AbstractCityObject core:AbstractDynamizer core:AbstractVersion core:AbstractVersionTransition core:CityModel )
+] .
+
+core:AbstractLogicalSpace
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractLogicalSpace ;
+                                 owl:onProperty     core:AbstractLogicalSpace.adeOfAbstractLogicalSpace
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        owl:disjointWith       core:AbstractPhysicalSpace ;
+        skos:definition        "AbstractLogicalSpace is the abstract superclass for all types of logical spaces. Logical space refers to spaces that are not bounded by physical surfaces but are defined according to thematic considerations."@en ;
+        skos:prefLabel         "AbstractLogicalSpace"@en .
+
+core:AbstractThematicSurface.lod0MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractThematicSurface ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 0."@en ;
+        skos:prefLabel   "lod0MultiSurface"@en .
+
+core:ADEOfAbstractThematicSurface
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfAbstractThematicSurface acts as a hook to define properties within an ADE that are to be added to AbstractThematicSurface."@en ;
+        skos:prefLabel         "ADEOfAbstractThematicSurface"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:ClosureSurface con:AbstractConstructionSurface con:AbstractFillingSurface gen:GenericThematicSurface luse:LandUse tran:AuxiliaryTrafficArea tran:HoleSurface tran:Marking tran:TrafficArea wtr:AbstractWaterBoundarySurface )
+] .
+
+core:AbstractPointCloud.adeOfAbstractPointCloud
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractPointCloud ;
+        rdfs:range       core:ADEOfAbstractPointCloud ;
+        skos:definition  "Augments AbstractPointCloud with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractPointCloud"@en .
+
+core:Occupancy.interval
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:Occupancy ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the time period the occupants are contained by a feature."@en ;
+        skos:prefLabel   "interval"@en .
+
+core:Address.adeOfAddress
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:Address ;
+        rdfs:range       core:ADEOfAddress ;
+        skos:definition  "Augments the Address with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAddress"@en .
+
+core:AbstractPhysicalSpace.adeOfAbstractPhysicalSpace
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractPhysicalSpace ;
+        rdfs:range       core:ADEOfAbstractPhysicalSpace ;
+        skos:definition  "Augments AbstractPhysicalSpace with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractPhysicalSpace"@en .
+
+core:AbstractSpace  a          owl:Class ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractSpace ;
+                                 owl:onProperty     core:AbstractSpace.adeOfAbstractSpace
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:QualifiedArea ;
+                                 owl:onProperty     core:AbstractSpace.area
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:SpaceType ;
+                                 owl:onProperty     core:AbstractSpace.spaceType
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod2MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:QualifiedVolume ;
+                                 owl:onProperty     core:AbstractSpace.volume
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod1Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod0Point
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractSpaceBoundary ;
+                                 owl:onProperty     core:AbstractSpace.boundary
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod3MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod0MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     core:AbstractSpace.lod0MultiCurve
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        owl:disjointWith       core:AbstractSpaceBoundary ;
+        skos:definition        "AbstractSpace is the abstract superclass for all types of spaces. A space is an entity of volumetric extent in the real world."@en ;
+        skos:prefLabel         "AbstractSpace"@en .
+
+core:AbstractPhysicalSpace.pointCloud
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractPhysicalSpace ;
+        rdfs:range       core:AbstractPointCloud ;
+        skos:definition  "Relates to a 3D PointCloud that represents the physical space."@en ;
+        skos:prefLabel   "pointCloud"@en .
+
+core:CityModel.engineeringCRS
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:range       iso19111-2019:EngineeringCRS ;
+        skos:definition  "Specifies the local coordinate reference system of the CityModel."@en ;
+        skos:prefLabel   "engineeringCRS"@en .
+
+core:IntegerBetween0and3
+        a                owl:Class ;
+        skos:definition  "IntegerBetween0and3 is a basic type for integer values, which are greater or equal than 0 and less or equal than 3. The type is used for encoding the LOD number."@en ;
+        skos:prefLabel   "IntegerBetween0and3"@en .
+
+core:ImplicitGeometry.relativeGeometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to a prototypical geometry in a local coordinate system stored inline with the city model."@en ;
+        skos:prefLabel   "relativeGeometry"@en .
+
+core:CityModel.cityModelMember_appearanceMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:label       "cityModelMember_appearanceMember"@en ;
+        rdfs:range       core:AbstractAppearance ;
+        skos:definition  "Specifies the appearances of the CityModel."@en ;
+        skos:prefLabel   "cityModelMember_appearanceMember"@en .
+
+core:CityObjectRelation.relationType
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityObjectRelation ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the specific type of the CityObjectRelation."@en ;
+        skos:prefLabel   "relationType"@en .
+
+core:QualifiedArea.area
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:QualifiedArea ;
+        rdfs:range       sc:Measure ;
+        skos:definition  "Specifies the value of the QualifiedArea."@en ;
+        skos:prefLabel   "area"@en .
+
+core:AbstractSpace.boundary
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractSpace ;
+        rdfs:range       core:AbstractSpaceBoundary ;
+        skos:definition  "Relates to surfaces that bound the space."@en ;
+        skos:prefLabel   "boundary"@en .
+
+core:AbstractSpaceBoundary
+        a                      owl:Class ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ADEOfAbstractSpaceBoundary ;
+                                 owl:onProperty     core:AbstractSpaceBoundary.adeOfAbstractSpaceBoundary
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "AbstractSpaceBoundary is the abstract superclass for all types of space boundaries. A space boundary is an entity with areal extent in the real world. Space boundaries are objects that bound a Space. They also realize the contact between adjacent spaces."@en ;
+        skos:prefLabel         "AbstractSpaceBoundary"@en .
+
+core:Code  a             owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:Code.codeSpace
+                         ] ;
+        skos:definition  "Code is a basic type for a String-based term, keyword, or name that can additionally have a code space."@en ;
+        skos:prefLabel   "Code"@en .
+
+core:AbstractOccupiedSpace.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractOccupiedSpace ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "Relates to an implicit geometry that represents the occupied space in Level of Detail 3."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+core:Code.codeSpace  a   owl:DatatypeProperty ;
+        rdfs:domain      core:Code ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Associates the Code with an authority that controls the term, keyword, or name."@en ;
+        skos:prefLabel   "codeSpace"@en .
+
+core:AbstractFeatureWithLifespan.validTo
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractFeatureWithLifespan ;
+        rdfs:range       xsd:dateTime ;
+        skos:definition  "Indicates the date at wich a CityGML feature ended to exist in the real world."@en ;
+        skos:prefLabel   "validTo"@en .
+
+core:AbstractLogicalSpace.adeOfAbstractLogicalSpace
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractLogicalSpace ;
+        rdfs:range       core:ADEOfAbstractLogicalSpace ;
+        skos:definition  "Augments AbstractLogicalSpace with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfAbstractLogicalSpace"@en .

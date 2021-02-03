@@ -1,23 +1,23 @@
-@prefix bldg:  <http://www.opengis.net/citygml/2.0/building#> .
-@prefix frn:   <http://www.opengis.net/citygml/2.0/cityfurniture#> .
+@prefix bldg:  <http://www.opengis.net/citygml/building/2.0/building#> .
+@prefix frn:   <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
-@prefix grp:   <http://www.opengis.net/citygml/2.0/cityobjectgroup#> .
+@prefix grp:   <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
-@prefix brid:  <http://www.opengis.net/citygml/2.0/bridge#> .
+@prefix brid:  <http://www.opengis.net/citygml/bridge/2.0/bridge#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
-@prefix luse:  <http://www.opengis.net/citygml/2.0/landuse#> .
+@prefix luse:  <http://www.opengis.net/citygml/landuse/2.0/landuse#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix tun:   <http://www.opengis.net/citygml/2.0/tunnel#> .
-@prefix dem:   <http://www.opengis.net/citygml/2.0/relief#> .
+@prefix tun:   <http://www.opengis.net/citygml/tunnel/2.0/tunnel#> .
+@prefix dem:   <http://www.opengis.net/citygml/relief/2.0/relief#> .
 @prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
-@prefix gen:   <http://www.opengis.net/citygml/2.0/generics#> .
-@prefix wtr:   <http://www.opengis.net/citygml/2.0/waterbody#> .
+@prefix gen:   <http://www.opengis.net/citygml/generics/2.0/generics#> .
+@prefix wtr:   <http://www.opengis.net/citygml/waterbody/2.0/waterbody#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
-@prefix veg:   <http://www.opengis.net/citygml/2.0/vegetation#> .
-@prefix tran:  <http://www.opengis.net/citygml/2.0/transportation#> .
+@prefix veg:   <http://www.opengis.net/citygml/vegetation/2.0/vegetation#> .
+@prefix tran:  <http://www.opengis.net/citygml/transportation/2.0/transportation#> .
 
 core:TransformationMatrix2x2.list
         a                owl:ObjectProperty ;
@@ -33,10 +33,6 @@ core:DoubleBetween0and1List.list
         rdfs:label      "list"@en ;
         rdfs:range      iso19136:doubleList ;
         skos:prefLabel  "list"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
-] .
 
 core:DoubleBetween0and1List
         a                owl:Class ;
@@ -90,8 +86,12 @@ core:AbstractCityObject
                                  owl:onProperty     core:AbstractCityObject.terminationDate
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToTerrain ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
+                                 owl:allValuesFrom  gen:AbstractGenericAttribute ;
+                                 owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:RelativeToWater ;
@@ -102,12 +102,8 @@ core:AbstractCityObject
                                  owl:onProperty     core:AbstractCityObject.externalReference
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gen:AbstractGenericAttribute ;
-                                 owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:AbstractAppearance ;
-                                 owl:onProperty     core:AbstractCityObject.appearance
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:AbstractCityObject ;
@@ -120,7 +116,7 @@ core:AbstractCityObject
 <http://www.opengis.net/citygml/2.0/core>
         a               owl:Ontology ;
         rdfs:label      "Core"@en ;
-        owl:imports     <http://www.opengis.net/citygml/2.0/landuse> , <http://www.opengis.net/citygml/2.0/building> , <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/2.0/bridge> , <http://www.opengis.net/citygml/2.0/tunnel> , <http://www.opengis.net/citygml/2.0/relief> , <http://def.isotc211.org/iso19150/-2/2012/base> , <http://www.opengis.net/citygml/2.0/transportation> , <http://www.opengis.net/citygml/2.0/cityfurniture> , <http://www.opengis.net/citygml/2.0/waterbody> , <http://www.opengis.net/citygml/2.0/generics> , <http://www.opengis.net/citygml/2.0/cityobjectgroup> , <http://www.opengis.net/citygml/2.0/vegetation> ;
+        owl:imports     <http://www.opengis.net/citygml/tunnel/2.0/tunnel> , <http://www.opengis.net/citygml/waterbody/2.0/waterbody> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> , <http://www.opengis.net/citygml/relief/2.0/relief> , <http://www.opengis.net/citygml/landuse/2.0/landuse> , <http://www.opengis.net/citygml/building/2.0/building> , <http://www.opengis.net/citygml/bridge/2.0/bridge> , <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture> , <http://www.opengis.net/citygml/generics/2.0/generics> , <http://www.opengis.net/citygml/transportation/2.0/transportation> , <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup> , <http://www.opengis.net/citygml/vegetation/2.0/vegetation> ;
         skos:prefLabel  "Core"@en .
 
 core:ImplicitGeometry.referencePoint
@@ -129,10 +125,6 @@ core:ImplicitGeometry.referencePoint
         rdfs:label      "referencePoint"@en ;
         rdfs:range      gsp:Geometry ;
         skos:prefLabel  "referencePoint"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
-] .
 
 core:RelativeToTerrain
         a               rdfs:Datatype ;
@@ -189,6 +181,10 @@ core:IntegerBetween0and4
         a               owl:Class ;
         rdfs:label      "IntegerBetween0and4"@en ;
         skos:prefLabel  "IntegerBetween0and4"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
+] .
 
 core:ExternalReference
         a                owl:Class ;
@@ -401,3 +397,7 @@ core:CityModel  a        owl:Class ;
                          ] ;
         skos:definition  "SIG3D: Collection of CityObjects with optional metadata."@en ;
         skos:prefLabel   "CityModel"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:AbstractSite brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
+] .

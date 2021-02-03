@@ -1,0 +1,115 @@
+@prefix core:  <http://www.opengis.net/citygml/3.0/core#> .
+@prefix grp:   <http://www.opengis.net/citygml/cityobjectgroup/3.0/cityobjectgroup#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+grp:Role.groupMember  a  owl:ObjectProperty ;
+        rdfs:domain      grp:Role ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "Relates to the city objects that are part of the CityObjectGroup."@en ;
+        skos:prefLabel   "groupMember"@en .
+
+grp:ADEOfCityObjectGroup
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfCityObjectGroup acts as a hook to define properties within an ADE that are to be added to a CityObjectGroup."@en ;
+        skos:prefLabel         "ADEOfCityObjectGroup"@en .
+
+grp:CityObjectGroup  a   owl:Class ;
+        rdfs:subClassOf  core:AbstractLogicalSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     grp:CityObjectGroup.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     grp:CityObjectGroup.parent
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  grp:Role ;
+                           owl:onProperty     grp:CityObjectGroup.groupMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     grp:CityObjectGroup.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     grp:CityObjectGroup.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  grp:ADEOfCityObjectGroup ;
+                           owl:onProperty     grp:CityObjectGroup.adeOfCityObjectGroup
+                         ] ;
+        skos:definition  "A CityObjectGroup represents an application-specific aggregation of city objects according to some user-defined criteria. Examples for groups are the buildings in a specific region, the result of a query, or objects put together for visualization purposes. Each member of a group may be qualified by a role name, reflecting the role each city object plays in the context of the group."@en ;
+        skos:prefLabel   "CityObjectGroup"@en .
+
+grp:CityObjectGroup.parent
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "Relates to a city object to which the CityObjectGroup belongs."@en ;
+        skos:prefLabel   "parent"@en .
+
+grp:CityObjectGroup.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Specifies the actual usages of the CityObjectGroup."@en ;
+        skos:prefLabel   "usage"@en .
+
+grp:CityObjectGroup.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Specifies the intended purposes of the CityObjectGroup."@en ;
+        skos:prefLabel   "function"@en .
+
+grp:CityObjectGroup.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the specific type of the CityObjectGroup."@en ;
+        skos:prefLabel   "class"@en .
+
+grp:Role.role  a         owl:DatatypeProperty ;
+        rdfs:domain      grp:Role ;
+        rdfs:range       xsd:string ;
+        skos:definition  "Describes the role the city object plays within the CityObjectGroup."@en ;
+        skos:prefLabel   "role"@en .
+
+grp:Role  a              owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     grp:Role.groupMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     grp:Role.role
+                         ] ;
+        skos:definition  "Role qualifies the function of a city object within the CityObjectGroup."@en ;
+        skos:prefLabel   "Role"@en .
+
+<http://www.opengis.net/citygml/cityobjectgroup/3.0/cityobjectgroup>
+        a                owl:Ontology ;
+        owl:imports      <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "The CityObjectGroup module supports grouping of city objects. Arbitrary city objects may be aggregated in groups according to user-defined criteria. A group may be further classified by application-specific attributes."@en ;
+        skos:prefLabel   "CityObjectGroup"@en .
+
+grp:CityObjectGroup.adeOfCityObjectGroup
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:range       grp:ADEOfCityObjectGroup ;
+        skos:definition  "Augments the CityObjectGroup with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfCityObjectGroup"@en .
+
+grp:CityObjectGroup.groupMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:range       grp:Role ;
+        skos:definition  "Relates to the city objects that are part of the CityObjectGroup."@en ;
+        skos:prefLabel   "groupMember"@en .

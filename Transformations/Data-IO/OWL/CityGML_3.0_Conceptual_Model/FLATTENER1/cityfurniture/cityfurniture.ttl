@@ -1,0 +1,69 @@
+@prefix core:  <http://www.opengis.net/citygml/3.0/core#> .
+@prefix frn:   <http://www.opengis.net/citygml/cityfurniture/3.0/cityfurniture#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+frn:CityFurniture.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Specifies the intended purposes of the CityFurniture."@en ;
+        skos:prefLabel   "function"@en .
+
+frn:CityFurniture.adeOfCityFurniture
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:range       frn:ADEOfCityFurniture ;
+        skos:definition  "Augments the CityFurniture with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfCityFurniture"@en .
+
+frn:ADEOfCityFurniture
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfCityFurniture acts as a hook to define properties within an ADE that are to be added to a CityFurniture."@en ;
+        skos:prefLabel         "ADEOfCityFurniture"@en .
+
+frn:CityFurniture.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Indicates the specific type of the CityFurniture."@en ;
+        skos:prefLabel   "class"@en .
+
+frn:CityFurniture  a     owl:Class ;
+        rdfs:subClassOf  core:AbstractOccupiedSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  frn:ADEOfCityFurniture ;
+                           owl:onProperty     frn:CityFurniture.adeOfCityFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     frn:CityFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     frn:CityFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     frn:CityFurniture.class
+                         ] ;
+        skos:definition  "CityFurniture is an object or piece of equipment installed in the outdoor environment for various purposes. Examples include street signs, traffic signals, street lamps, benches, fountains."@en ;
+        skos:prefLabel   "CityFurniture"@en .
+
+<http://www.opengis.net/citygml/cityfurniture/3.0/cityfurniture>
+        a                owl:Ontology ;
+        owl:imports      <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "The CityFurniture module supports representation of city furniture objects. City furniture objects are immovable objects like lanterns, traffic signs, advertising columns, benches, or bus stops that can be found in traffic areas, residential areas, on squares, or in built-up areas."@en ;
+        skos:prefLabel   "CityFurniture"@en .
+
+frn:CityFurniture.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Specifies the actual uses of the CityFurniture."@en ;
+        skos:prefLabel   "usage"@en .

@@ -1,0 +1,80 @@
+@prefix core:  <http://www.opengis.net/citygml/3.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix pcl:   <http://www.opengis.net/citygml/pointcloud/3.0/pointcloud#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+pcl:PointCloud.pointFile
+        a                owl:DatatypeProperty ;
+        rdfs:domain      pcl:PointCloud ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "Specifies the URI that points to the external point cloud file."@en ;
+        skos:prefLabel   "pointFile"@en .
+
+<http://www.opengis.net/citygml/pointcloud/3.0/pointcloud>
+        a                owl:Ontology ;
+        owl:imports      <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "The PointCloud module supports representation of CityGML features by a collection of points."@en ;
+        skos:prefLabel   "PointCloud"@en .
+
+pcl:PointCloud.points
+        a                owl:ObjectProperty ;
+        rdfs:domain      pcl:PointCloud ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "Relates to the 3D MultiPoint geometry of the PointCloud stored inline with the city model."@en ;
+        skos:prefLabel   "points"@en .
+
+pcl:PointCloud  a        owl:Class ;
+        rdfs:subClassOf  core:AbstractPointCloud ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  pcl:ADEOfPointCloud ;
+                           owl:onProperty     pcl:PointCloud.adeOfPointCloud
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     pcl:PointCloud.points
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     pcl:PointCloud.pointFileSrsName
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     pcl:PointCloud.pointFile
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     pcl:PointCloud.mimeType
+                         ] ;
+        skos:definition  "A PointCloud is an unordered collection of points that is a sampling of the geometry of a space or space boundary."@en ;
+        skos:prefLabel   "PointCloud"@en .
+
+pcl:PointCloud.pointFileSrsName
+        a                owl:DatatypeProperty ;
+        rdfs:domain      pcl:PointCloud ;
+        rdfs:range       xsd:string ;
+        skos:definition  "Indicates the coordinate reference system used by the external point cloud file."@en ;
+        skos:prefLabel   "pointFileSrsName"@en .
+
+pcl:PointCloud.mimeType
+        a                owl:ObjectProperty ;
+        rdfs:domain      pcl:PointCloud ;
+        rdfs:range       owl:Class ;
+        skos:definition  "Specifies the MIME type of the external point cloud file."@en ;
+        skos:prefLabel   "mimeType"@en .
+
+pcl:PointCloud.adeOfPointCloud
+        a                owl:ObjectProperty ;
+        rdfs:domain      pcl:PointCloud ;
+        rdfs:range       pcl:ADEOfPointCloud ;
+        skos:definition  "Augments the PointCloud with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfPointCloud"@en .
+
+pcl:ADEOfPointCloud  a         owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfPointCloud acts as a hook to define properties within an ADE that are to be added to a PointCloud."@en ;
+        skos:prefLabel         "ADEOfPointCloud"@en .

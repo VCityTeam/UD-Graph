@@ -1,4 +1,6 @@
-import os, sys
+import os
+import sys
+import json
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
@@ -32,7 +34,7 @@ def main():
     global GeoSPARQL
     global log
 
-    filename = os.path.split(sys.argv[2])[-1].split('.')[0]
+    filename = '.'.join(os.path.split(sys.argv[2])[-1].split('.')[:-1])
     input_tree = etree.parse(sys.argv[2])
     output_graph = Graph()
     output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
@@ -49,26 +51,12 @@ def main():
     objectproperty_definition_cache = {}
     datatypeproperty_definition_cache = {}
     parsed_nodes = []
-    namespace_mappings = {
-        'http://www.opengis.net/citygml/2.0': ['http://www.opengis.net/citygml/2.0/core#'],
-        'http://www.opengis.net/citygml/appearance/2.0': ['http://www.opengis.net/citygml/2.0/appearance#'],
-        'http://www.opengis.net/citygml/building/2.0': ['http://www.opengis.net/citygml/2.0/building#'],
-        'http://www.opengis.net/citygml/bridge/2.0': ['http://www.opengis.net/citygml/2.0/bridge#'],
-        'http://www.opengis.net/citygml/generics/2.0': ['http://www.opengis.net/citygml/2.0/generics#'],
-        'http://www.opengis.net/citygml/relief/2.0': ['http://www.opengis.net/citygml/2.0/relief#'],
-        'http://www.opengis.net/citygml/transportation/2.0': ['http://www.opengis.net/citygml/2.0/transportation#'],
-        'http://www.opengis.net/citygml/cityobjectgroup/2.0': ['http://www.opengis.net/citygml/2.0/cityobjectgroup#'],
-        'http://www.opengis.net/citygml/landuse/2.0': ['http://www.opengis.net/citygml/2.0/landuse#'],
-        'http://www.opengis.net/citygml/tunnel/2.0': ['http://www.opengis.net/citygml/2.0/tunnel#'],
-        'http://www.opengis.net/citygml/cityfurniture/2.0': ['http://www.opengis.net/citygml/2.0/cityfurniture#'],
-        'http://www.opengis.net/citygml/vegetation/2.0': ['http://www.opengis.net/citygml/2.0/vegetation#'],
-        'http://www.opengis.net/citygml/waterbody/2.0': ['http://www.opengis.net/citygml/2.0/waterbody#'],
-        'http://www.opengis.net/gml': ['http://www.opengis.net/ont/gml#', 'http://def.isotc211.org/iso19136/2007/GML#']
-    }
     gml_namespaces = {
         'gml': 'http://www.opengis.net/gml',
         'xAL': 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0'
     }
+    with open('namespace_mappings.json', 'r') as file:
+        namespace_mappings = json.loads(file.read())
 
     # compile ontology
     print('Compiling Ontology...')
@@ -93,6 +81,7 @@ def main():
     GML = Namespace('http://www.opengis.net/ont/gml#')
     GeoSPARQL = Namespace('http://www.opengis.net/ont/geosparql#')
 
+
     ###################################
     ##  Convert input file into rdf  ##
     ###################################
@@ -113,10 +102,9 @@ def main():
         if isClass( input_node.tag ):
             generateIndividual(input_node)
 
+
+    sys.stdout.write('\033[K')
     print('Writing graph to disk...')
-    # print('{}/{}.rdf'.format(sys.argv[3], filename))
-    # with open('{}/{}.rdf'.format(sys.argv[3], filename), 'wb') as file:
-    #     file.write(output_graph.serialize(format='turtle'))
     print('{}/{}.ttl'.format(sys.argv[3], filename))
     with open('{}/{}.ttl'.format(sys.argv[3], filename), 'wb') as file:
         file.write(output_graph.serialize(format='turtle'))
@@ -141,7 +129,7 @@ def generateIndividual(node):
         return
     global log
     node_tag = mapNamespace(node)
-    node_id = URIRef('{}#{}'.format(output_uri, node.attrib['{http://www.opengis.net/gml}id'])) if\
+    node_id = URIRef('{}#{}'.format(output_uri, node.attrib['{http://www.opengis.net/gml}id'])) if \
         '{http://www.opengis.net/gml}id' in node.attrib else URIRef(generateID(node_tag))
     output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
     output_graph.add( (node_id, RDF.type, node_tag) )
@@ -153,6 +141,10 @@ def generateIndividual(node):
         parsed_nodes.append(input_tree.getelementpath(node))
         updateProgressBar(input_node_count, input_node_total, node.tag)
         input_node_count += 1
+        for child in node.iter():
+            parsed_nodes.append(input_tree.getelementpath(child))
+            updateProgressBar(input_node_count, input_node_total, child.tag)
+            input_node_count += 1
         return node_id
 
     for child in node:
@@ -413,7 +405,7 @@ def isClass(tag):
         return len(class_definition_cache.get(tag)) > 0
     # TODO: optimize query
     query = []
-    for namespace in namespace_mappings[qname.namespace]:
+    for namespace in namespace_mappings.get(qname.namespace, [qname.namespace]):
         for line in ontology.query('''
                 SELECT DISTINCT ?class
                 WHERE {
@@ -523,17 +515,17 @@ def isGeometry(tag):
                 }''' % (str(GML), qname[1], str(GML)) )
 
 def updateProgressBar( count, total, status='' ):
-   bar_length    = 20
-   buffer_size   = 127
-   filled_length = int(round(bar_length * count / float(total)))
+    bar_length    = 20
+    buffer_size   = 127
+    filled_length = int(round(bar_length * count / float(total)))
 
-   percent = round(100.0 * count / float(total), 1)
-   bar = '#' * filled_length + '-' * (bar_length - filled_length)
-   output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
+    percent = round(100.0 * count / float(total), 1)
+    bar = '#' * filled_length + '-' * (bar_length - filled_length)
+    output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
 
-   sys.stdout.write('\033[K')
-   sys.stdout.write( output[0:buffer_size] + '\r' )
-   sys.stdout.flush()
+    sys.stdout.write('\033[K')
+    sys.stdout.write( output[0:buffer_size] + '\r' )
+    sys.stdout.flush()
 
 
 

@@ -35,7 +35,7 @@
         </ProcessRuleSet>
       </rules>
     </Transformer>
-    <Transformer class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" id="FLATTENER2" mode="enabled">
+    <Transformer class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" id="FLATTENER2" mode="disabled">
       <parameters>
         <ProcessParameter name="includeUnionIdentifierTaggedValue" value="true"/>
       </parameters>
@@ -48,7 +48,7 @@
   </transformers>
   <targets>
     <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled"> -->
-    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER2">
+    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER1">
       <targetParameter name="outputDirectory" value="$output$"/>
       <!-- <targetParameter name="outputDirectory" value="../Data-IO/OWL/CityGML_3.0_Conceptual_Model"/> -->
       <targetParameter name="defaultEncodingRule" value="CityGML_RDF_Encoding_Rules"/>
