@@ -7,9 +7,9 @@ from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
 from lxml import etree
 
 def main():
-    if len(sys.argv) != 4:
+    if len(sys.argv) != 5:
         sys.exit(
-            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder]\nontology input paths are separated by a ","'.format(
+            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mappings]\nontology input paths are separated by a ","'.format(
                 len(sys.argv)))
 
     ############################
@@ -55,7 +55,7 @@ def main():
         'gml': 'http://www.opengis.net/gml',
         'xAL': 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0'
     }
-    with open('namespace_mappings.json', 'r') as file:
+    with open(sys.argv[4], 'r') as file:
         namespace_mappings = json.loads(file.read())
 
     # compile ontology
