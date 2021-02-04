@@ -1,0 +1,194 @@
+@prefix core:  <http://www.opengis.net/citygml/3.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix vers:  <http://www.opengis.net/citygml/versioning/3.0/versioning#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+vers:VersionTransition.from
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       vers:Version ;
+        skos:definition  "Relates to the predecessor version of the VersionTransition."@en ;
+        skos:prefLabel   "from"@en .
+
+vers:VersionTransition.adeOfVersionTransition
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       vers:ADEOfVersionTransition ;
+        skos:definition  "Augments the VersionTransition with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfVersionTransition"@en .
+
+vers:Version.adeOfVersion
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:Version ;
+        rdfs:range       vers:ADEOfVersion ;
+        skos:definition  "Augments the Version with properties defined in an ADE."@en ;
+        skos:prefLabel   "adeOfVersion"@en .
+
+vers:Version.tag  a      owl:DatatypeProperty ;
+        rdfs:domain      vers:Version ;
+        rdfs:range       xsd:string ;
+        skos:definition  "Allows for adding keywords to the city model version."@en ;
+        skos:prefLabel   "tag"@en .
+
+vers:VersionTransition
+        a                owl:Class ;
+        rdfs:subClassOf  core:AbstractVersionTransition ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     vers:VersionTransition.reason
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Version ;
+                           owl:onProperty     vers:VersionTransition.to
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Version ;
+                           owl:onProperty     vers:VersionTransition.from
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Transaction ;
+                           owl:onProperty     vers:VersionTransition.transaction
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:ADEOfVersionTransition ;
+                           owl:onProperty     vers:VersionTransition.adeOfVersionTransition
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:boolean ;
+                           owl:onProperty     vers:VersionTransition.clonePredecessor
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:TransitionTypeValue ;
+                           owl:onProperty     vers:VersionTransition.type
+                         ] ;
+        skos:definition  "VersionTransition describes the change of the state of a city model from one version to another. Version transitions can have names, a description and can be further qualified by a type and a reason."@en ;
+        skos:prefLabel   "VersionTransition"@en .
+
+vers:ADEOfVersion  a           owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfVersion acts as a hook to define properties within an ADE that are to be added to a Version."@en ;
+        skos:prefLabel         "ADEOfVersion"@en .
+
+vers:VersionTransition.to
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       vers:Version ;
+        skos:definition  "Relates to the sucessor version of the VersionTransition."@en ;
+        skos:prefLabel   "to"@en .
+
+<http://www.opengis.net/citygml/versioning/3.0/versioning>
+        a                owl:Ontology ;
+        owl:imports      <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "The Versioning module supports representation of multiple versions of CityGML features within a single CityGML model. In addition, also the version transitions and transactions that lead to the different versions can be represented."@en ;
+        skos:prefLabel   "Versioning"@en .
+
+vers:Transaction  a      owl:Class ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractFeatureWithLifespan ;
+                           owl:onProperty     vers:Transaction.newFeature
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractFeatureWithLifespan ;
+                           owl:onProperty     vers:Transaction.oldFeature
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:TransactionTypeValue ;
+                           owl:onProperty     vers:Transaction.type
+                         ] ;
+        skos:definition  "Transaction represents a modification of the city model by the creation, termination, or replacement of a specific city object. While the creation of a city object also marks its first object version, the termination marks the end of existence of a real world object and, hence, also terminates the final version of a city object. The replacement of a city object means that a specific version of it is replaced by a new version."@en ;
+        skos:prefLabel   "Transaction"@en .
+
+vers:VersionTransition.transaction
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       vers:Transaction ;
+        skos:definition  "Relates to all transactions that have been applied as part of the VersionTransition."@en ;
+        skos:prefLabel   "transaction"@en .
+
+vers:Transaction.type
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:Transaction ;
+        rdfs:range       vers:TransactionTypeValue ;
+        skos:definition  "Indicates the specific type of the Transaction."@en ;
+        skos:prefLabel   "type"@en .
+
+vers:VersionTransition.type
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       vers:TransitionTypeValue ;
+        skos:definition  "Indicates the specific type of the VersionTransition."@en ;
+        skos:prefLabel   "type"@en .
+
+vers:VersionTransition.reason
+        a                owl:DatatypeProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       xsd:string ;
+        skos:definition  "Specifies why the VersionTransition has been carried out."@en ;
+        skos:prefLabel   "reason"@en .
+
+vers:ADEOfVersionTransition
+        a                      owl:Class ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "ADEOfVersionTransition acts as a hook to define properties within an ADE that are to be added to a VersionTransition."@en ;
+        skos:prefLabel         "ADEOfVersionTransition"@en .
+
+vers:VersionTransition.clonePredecessor
+        a                owl:DatatypeProperty ;
+        rdfs:domain      vers:VersionTransition ;
+        rdfs:range       xsd:boolean ;
+        skos:definition  "Indicates whether the set of city object instances belonging to the successor version of the city model is either explicitly enumerated within the successor version object (attribute clonePredecessor=false),  or has to be derived from the modifications of the city model provided as a list of transactions on the city object versions contained in the predecessor version (attribute clonePredecessor=true)."@en ;
+        skos:prefLabel   "clonePredecessor"@en .
+
+vers:Transaction.newFeature
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:Transaction ;
+        rdfs:range       core:AbstractFeatureWithLifespan ;
+        skos:definition  "Relates to the version of the city object subsequent to the Transaction."@en ;
+        skos:prefLabel   "newFeature"@en .
+
+vers:Version  a          owl:Class ;
+        rdfs:subClassOf  core:AbstractVersion ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:ADEOfVersion ;
+                           owl:onProperty     vers:Version.adeOfVersion
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractFeatureWithLifespan ;
+                           owl:onProperty     vers:Version.versionMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     vers:Version.tag
+                         ] ;
+        skos:definition  "Version represents a defined state of a city model consisting of the dedicated versions of all city object instances that belong to the respective city model version. Versions can have names, a description and can be labeled with an arbitrary number of user defined tags."@en ;
+        skos:prefLabel   "Version"@en .
+
+vers:TransactionTypeValue
+        a                rdfs:Datatype ;
+        owl:oneOf        ( "insert" "delete" "replace" ) ;
+        skos:definition  "TransactionTypeValue enumerates the three possible types of transactions: insert, delete, or replace."@en ;
+        skos:prefLabel   "TransactionTypeValue"@en .
+
+vers:TransitionTypeValue
+        a                rdfs:Datatype ;
+        owl:oneOf        ( "planned" "realized" "historicalSuccession" "fork" "merge" ) ;
+        skos:definition  "TransitionTypeValue enumerates the different kinds of version transitions. “planned” and “fork” should be used in cases when from one city model version multiple successor versions are being created. “realized” and “merge” should be used when different city model versions are converging into a common successor version."@en ;
+        skos:prefLabel   "TransitionTypeValue"@en .
+
+vers:Version.versionMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:Version ;
+        rdfs:range       core:AbstractFeatureWithLifespan ;
+        skos:definition  "Relates to all city objects that are part of the city model version."@en ;
+        skos:prefLabel   "versionMember"@en .
+
+vers:Transaction.oldFeature
+        a                owl:ObjectProperty ;
+        rdfs:domain      vers:Transaction ;
+        rdfs:range       core:AbstractFeatureWithLifespan ;
+        skos:definition  "Relates to the version of the city object prior to the Transaction."@en ;
+        skos:prefLabel   "oldFeature"@en .

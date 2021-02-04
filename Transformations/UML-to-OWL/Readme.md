@@ -6,6 +6,10 @@ Currently there are two configuration files:
 1. CityGML 3.0 to OWL
 2. CityGML 2.0 to OWL
 
+And two graphs of triples for ontology patching/modification using the _../utiliites/add_triples.py_ script
+1. citygml2_core_links.ttl
+2. citygml2_app_links.ttl
+
 ## To run
 Use the following command to run ShapeChange with the configuration files. Be sure to update the variables in '[]' brackets with their desired values.
 ```

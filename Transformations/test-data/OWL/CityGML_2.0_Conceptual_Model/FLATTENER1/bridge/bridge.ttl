@@ -1,0 +1,1139 @@
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix brid:  <http://www.opengis.net/citygml/bridge/2.0/bridge#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+brid:IntBridgeInstallation.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:IntBridgeInstallation ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of IntBridgeInstallation as given by the relevant national regulations, information communitie,s or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+brid:BridgeInstallation
+        a                owl:Class ;
+        rdfs:label       "BridgeInstallation"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeInstallation.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:BridgeInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod4Geometry
+                         ] ;
+        skos:definition  "SIG3D: Permanently installed parts of the bridge outer shell, which are accessory for the bridge structure. Doors and windows are modeled by the corresponding CityGML classes."@en ;
+        skos:prefLabel   "BridgeInstallation"@en .
+
+brid:AbstractBridge.lod1TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod1TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD1 Bridge or BridgePart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod1TerrainIntersection"@en .
+
+brid:BridgeInstallation.lod3Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "lod3Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD3 geometry of BridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Geometry"@en .
+
+brid:BridgeRoom.bridgeRoomInstallation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "bridgeRoomInstallation"@en ;
+        rdfs:range       brid:IntBridgeInstallation ;
+        skos:definition  "SIG3D: Relation between BridgeRoom and IntBridgegInstallation"@en ;
+        skos:prefLabel   "bridgeRoomInstallation"@en .
+
+brid:BridgeInstallation.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of BridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+brid:AbstractBoundarySurface.opening
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBoundarySurface ;
+        rdfs:label       "opening"@en ;
+        rdfs:range       brid:AbstractOpening ;
+        skos:definition  "Relation between AbstractBoundarySurface and AbstractOpening. The AbstractOpening object belongs to the AbstractBoundarySurface object."@en ;
+        skos:prefLabel   "opening"@en .
+
+brid:AbstractBridge  a         owl:Class ;
+        rdfs:label             "AbstractBridge"@en ;
+        rdfs:subClassOf        core:AbstractSite ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod3MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:IntBridgeInstallation ;
+                                 owl:onProperty     brid:AbstractBridge.interiorBridgeInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod1Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     brid:AbstractBridge.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     brid:AbstractBridge.yearOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgeInstallation ;
+                                 owl:onProperty     brid:AbstractBridge.outerBridgeInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgePart ;
+                                 owl:onProperty     brid:AbstractBridge.consistsOfBridgePart
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod3TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     brid:AbstractBridge.usage
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgeConstructionElement ;
+                                 owl:onProperty     brid:AbstractBridge.outerBridgeConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod1TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod2TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgeRoom ;
+                                 owl:onProperty     brid:AbstractBridge.interiorBridgeRoom
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod4TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     brid:AbstractBridge.yearOfDemolition
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     brid:AbstractBridge.function
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod4MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod2MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                                 owl:onProperty     brid:AbstractBridge.boundedBy
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:Address ;
+                                 owl:onProperty     brid:AbstractBridge.address
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBridge.lod1MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:boolean ;
+                                 owl:onProperty     brid:AbstractBridge.isMovable
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of Bridge and BridgePart"@en ;
+        skos:prefLabel         "AbstractBridge"@en .
+
+brid:BridgeConstructionElement.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of BridgeConstructionElement as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+brid:BridgeRoom.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between BridgeRoom and AbstractBoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+brid:BridgeFurniture.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeFurniture ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of BridgeFurniture.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+brid:BridgeRoom.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of BridgeRoom as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+brid:AbstractBridge.lod1MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod1MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 surface geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ... Geometrically, the LOD1 solid geometry and surface geometry are identical."@en ;
+        skos:prefLabel   "lod1MultiSurface"@en .
+
+brid:IntBridgeInstallation.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:IntBridgeInstallation ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of IntBridgeInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+brid:AbstractBridge.yearOfConstruction
+        a                owl:DatatypeProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "yearOfConstruction"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D: Year of completion of this Bridge or BridgePart."@en ;
+        skos:prefLabel   "yearOfConstruction"@en .
+
+brid:BridgeFurniture.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeFurniture ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of BridgeFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+brid:BridgeConstructionElement.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of BridgeConstructionElement as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+brid:BridgeInstallation.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between BridgeInstallation and AbstractBoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+brid:AbstractBridge.address
+        a               owl:ObjectProperty ;
+        rdfs:domain     brid:AbstractBridge ;
+        rdfs:label      "address"@en ;
+        rdfs:range      core:Address ;
+        skos:prefLabel  "address"@en .
+
+brid:AbstractBridge.lod3MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod3MultiCurve"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 curve geometry of Bridge or BridgePart, used to represent special objects like antennae, railings, .... The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiCurve"@en .
+
+brid:Door  a              owl:Class ;
+        rdfs:label        "Door"@en ;
+        rdfs:subClassOf   brid:AbstractOpening ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  core:Address ;
+                            owl:onProperty     brid:Door.address
+                          ] ;
+        owl:disjointWith  brid:Window ;
+        skos:definition   "SIG3D: Construction for closing an opening intended primarily for ingress or egress or both (cf. ISO 6707-1)"@en ;
+        skos:prefLabel    "Door"@en .
+
+brid:BridgeConstructionElement.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+brid:AbstractBridge.lod1Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod1Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 solid geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1Solid"@en .
+
+brid:AbstractBridge.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of Bridge or BridgePart as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+brid:InteriorWallSurface
+        a                owl:Class ;
+        rdfs:label       "InteriorWallSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Lateral boundary surface of a room, covering the lateral limit of a room."@en ;
+        skos:prefLabel   "InteriorWallSurface"@en .
+
+brid:BridgeRoom.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of BridgeRoom as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:CeilingSurface brid:ClosureSurface brid:FloorSurface brid:GroundSurface brid:InteriorWallSurface brid:OuterCeilingSurface brid:OuterFloorSurface brid:RoofSurface brid:WallSurface )
+] .
+
+brid:AbstractBridge.lod2Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod2Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 solid geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Solid"@en .
+
+brid:AbstractOpening  a        owl:Class ;
+        rdfs:label             "AbstractOpening"@en ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     brid:AbstractOpening.lod3ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractOpening.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     brid:AbstractOpening.lod4ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractOpening.lod4MultiSurface
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract super class of Window and Door"@en ;
+        skos:prefLabel         "AbstractOpening"@en .
+
+brid:BridgeConstructionElement.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD3 implicit geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+brid:IntBridgeInstallation
+        a                owl:Class ;
+        rdfs:label       "IntBridgeInstallation"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:IntBridgeInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:IntBridgeInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:IntBridgeInstallation.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:IntBridgeInstallation.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:IntBridgeInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:IntBridgeInstallation.lod4Geometry
+                         ] ;
+        skos:definition  "SIG3D: Permanently installed parts of the bridge interior which are accessories for the bridge and for bridge rooms.Doors and windows are modeled by the corresponding CityGML classes."@en ;
+        skos:prefLabel   "IntBridgeInstallation"@en .
+
+brid:AbstractBridge.lod4TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod4TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD4 Bridge or BridgePart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod4TerrainIntersection"@en .
+
+brid:BridgeConstructionElement
+        a                owl:Class ;
+        rdfs:label       "BridgeConstructionElement"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod1ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod4TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod1TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod3TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:BridgeConstructionElement.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod2TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeConstructionElement.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod1Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeConstructionElement.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeConstructionElement.usage
+                         ] ;
+        skos:definition  "SIG3D: Element of a bridge which is essential from a structural point of view."@en ;
+        skos:prefLabel   "BridgeConstructionElement"@en .
+
+brid:AbstractBridge.yearOfDemolition
+        a                owl:DatatypeProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "yearOfDemolition"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D: Year of demolition of this Bridge or BridgePart."@en ;
+        skos:prefLabel   "yearOfDemolition"@en .
+
+brid:AbstractBridge.outerBridgeInstallation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "outerBridgeInstallation"@en ;
+        rdfs:range       brid:BridgeInstallation ;
+        skos:definition  "SIG3D: Relation between Bridge or BridgePart and BridgeInstallation"@en ;
+        skos:prefLabel   "outerBridgeInstallation"@en .
+
+brid:AbstractBridge.lod2TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod2TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD2 Bridge or BridgePart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules"@en ;
+        skos:prefLabel   "lod2TerrainIntersection"@en .
+
+brid:BridgeInstallation.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of BridgeInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+brid:AbstractBridge.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between Bridge or BridgePart and AbstractBoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+brid:IntBridgeInstallation.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:IntBridgeInstallation ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of IntBridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+brid:AbstractBridge.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+brid:BridgeInstallation.lod2ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "lod2ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD2 implicit geometry of BridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2ImplicitRepresentation"@en .
+
+brid:BridgeRoom.interiorFurniture
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "interiorFurniture"@en ;
+        rdfs:range       brid:BridgeFurniture ;
+        skos:definition  "SIG3D: Relation between BridgeRoom and BridgeFurniture"@en ;
+        skos:prefLabel   "interiorFurniture"@en .
+
+brid:IntBridgeInstallation.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:IntBridgeInstallation ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of IntBridgeInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+brid:AbstractBridge.lod2MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod2MultiCurve"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 curve geometry of Bridge or BridgePart, used to represent special objects like antennae, railings, .... The LOD concept for the module"@en ;
+        skos:prefLabel   "lod2MultiCurve"@en .
+
+brid:GroundSurface  a    owl:Class ;
+        rdfs:label       "GroundSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, lower boundary surface of a bridge, bridge part, construction element or bridge installation bounded by soil or water."@en ;
+        skos:prefLabel   "GroundSurface"@en .
+
+<http://www.opengis.net/citygml/bridge/2.0/bridge>
+        a               owl:Ontology ;
+        rdfs:label      "Bridge"@en ;
+        owl:imports     <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "Bridge"@en .
+
+brid:BridgeRoom.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of BridgeRoom. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+brid:AbstractBridge.lod4MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod4MultiCurve"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D:  Relation to a  LOD4 curve geometry of Bridge or BridgePart, used to represent special objects like antennae, railings, .... The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiCurve"@en .
+
+brid:BridgePart  a       owl:Class ;
+        rdfs:label       "BridgePart"@en ;
+        rdfs:subClassOf  brid:AbstractBridge ;
+        skos:definition  "SIG3D: A bridge part is a sub-division of a Bridge that is homogeneous related to its physical, functional or temporal aspects and may be considered as a bridge."@en ;
+        skos:prefLabel   "BridgePart"@en .
+
+brid:Window  a           owl:Class ;
+        rdfs:label       "Window"@en ;
+        rdfs:subClassOf  brid:AbstractOpening ;
+        skos:definition  "SIG3D: Construction for closing an opening in a wall  or roof, primarily intended to admit light and/or provide ventilation (cf. ISO  6707-1)."@en ;
+        skos:prefLabel   "Window"@en .
+
+brid:CeilingSurface  a   owl:Class ;
+        rdfs:label       "CeilingSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Overhead boundary surface of a room, covering the upper limit of a room."@en ;
+        skos:prefLabel   "CeilingSurface"@en .
+
+brid:AbstractOpening.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractOpening ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of Door or Window.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+brid:BridgeConstructionElement.lod1ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod1ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD1 implicit geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1ImplicitRepresentation"@en .
+
+brid:BridgeConstructionElement.lod1Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod1Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD1 geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1Geometry"@en .
+
+brid:IntBridgeInstallation.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:IntBridgeInstallation ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of IntBridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+brid:AbstractBoundarySurface.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBoundarySurface ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of AbstractBoundarySurface. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+brid:BridgeRoom.lod4Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "lod4Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 solid geometry of BridgeRoom. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Solid"@en .
+
+brid:BridgeConstructionElement.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of BridgeConstructionElement as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+brid:AbstractBridge.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+brid:AbstractOpening.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractOpening ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD3 implicit geometry of Door and Window.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+brid:OuterFloorSurface
+        a                owl:Class ;
+        rdfs:label       "OuterFloorSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior boundary surface of a slab, used to describe parts of the outer shell of Bridge, BridgePart and BridgeInstallation. A slab is a thick, flat or shaped component, usually larger than 300 mm square, used to form a covering or projection from a building (cf. ISO 6707 5.5.15)."@en ;
+        skos:prefLabel   "OuterFloorSurface"@en .
+
+brid:BridgeFurniture.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeFurniture ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of BridgeFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+brid:Door.address  a    owl:ObjectProperty ;
+        rdfs:domain     brid:Door ;
+        rdfs:label      "address"@en ;
+        rdfs:range      core:Address ;
+        skos:prefLabel  "address"@en .
+
+brid:AbstractBoundarySurface.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBoundarySurface ;
+        rdfs:label       "lod2MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of AbstractBoundarySurface. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+brid:BridgeConstructionElement.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+brid:BridgeInstallation.lod2Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "lod2Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD2 geometry of BridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Geometry"@en .
+
+brid:Bridge  a            owl:Class ;
+        rdfs:label        "Bridge"@en ;
+        rdfs:subClassOf   brid:AbstractBridge ;
+        owl:disjointWith  brid:BridgePart ;
+        skos:definition   "SIG3D: Civil engineering works that affords passage to pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground (cf. ISO 6707-1)."@en ;
+        skos:prefLabel    "Bridge"@en .
+
+brid:AbstractBridge.interiorBridgeRoom
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "interiorBridgeRoom"@en ;
+        rdfs:range       brid:BridgeRoom ;
+        skos:definition  "SIG3D: Relation between Bridge or BridgePart and BridgeRoom"@en ;
+        skos:prefLabel   "interiorBridgeRoom"@en .
+
+brid:BridgeInstallation.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD3 implicit geometry of BridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+brid:BridgeFurniture.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeFurniture ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of BridgeFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+brid:AbstractBridge.lod3Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod3Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 solid geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Solid"@en .
+
+brid:BridgeConstructionElement.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between BridgeConstructionElement and AbstractBoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+brid:AbstractBridge.lod4Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod4Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 solid geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Solid"@en .
+
+brid:BridgeConstructionElement.lod4TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod4TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD4 BridgeConstructionElement and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod4TerrainIntersection"@en .
+
+brid:AbstractOpening.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractOpening ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of Door or Window.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+brid:BridgeConstructionElement.lod2TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod2TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD2 BridgeConstructionElement and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod2TerrainIntersection"@en .
+
+brid:BridgeConstructionElement.lod3Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod3Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD3 geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Geometry"@en .
+
+brid:AbstractBoundarySurface.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBoundarySurface ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of AbstractBoundarySurface. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+brid:BridgeFurniture.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeFurniture ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of BridgeFurniture.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+brid:BridgeInstallation.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of BridgeInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+brid:AbstractBridge.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of Bridge or BridgePart as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+brid:AbstractBridge.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod2MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of Bridge or BridgePart. The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+brid:AbstractBridge.consistsOfBridgePart
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "consistsOfBridgePart"@en ;
+        rdfs:range       brid:BridgePart ;
+        skos:definition  "SIG3D: Relation between Bridge having BridgePart respectively BridgePart having BridgePart"@en ;
+        skos:prefLabel   "consistsOfBridgePart"@en .
+
+brid:AbstractBridge.interiorBridgeInstallation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "interiorBridgeInstallation"@en ;
+        rdfs:range       brid:IntBridgeInstallation ;
+        skos:definition  "SIG3D: Relation between Bridge or BridgePart and IntBridgeInstallation"@en ;
+        skos:prefLabel   "interiorBridgeInstallation"@en .
+
+brid:OuterCeilingSurface
+        a                owl:Class ;
+        rdfs:label       "OuterCeilingSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, lower  boundary surface of a bridge, bridge part, bridge construction element, or building installation bounded by air."@en ;
+        skos:prefLabel   "OuterCeilingSurface"@en .
+
+brid:BridgeConstructionElement.lod2ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod2ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD2 implicit geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2ImplicitRepresentation"@en .
+
+brid:AbstractBridge.outerBridgeConstruction
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "outerBridgeConstruction"@en ;
+        rdfs:range       brid:BridgeConstructionElement ;
+        skos:definition  "SIG3D: Relation between Bridge or BridgePart and BridgeConstructionElement"@en ;
+        skos:prefLabel   "outerBridgeConstruction"@en .
+
+brid:AbstractBridge.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of the actual usage of Bridge or BridgePart as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+brid:BridgeInstallation.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of BridgeInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+brid:WallSurface  a      owl:Class ;
+        rdfs:label       "WallSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, lateral boundary surface of a bridge, bridge part, bridge construction element, or bridge installation."@en ;
+        skos:prefLabel   "WallSurface"@en .
+
+brid:IntBridgeInstallation.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:IntBridgeInstallation ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between IntBridgeInstallation and AbstractBoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+brid:BridgeConstructionElement.lod2Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod2Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD2 geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Geometry"@en .
+
+brid:BridgeInstallation.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeInstallation ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of BridgeInstallation.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+brid:ClosureSurface  a   owl:Class ;
+        rdfs:label       "ClosureSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior or interior boundary surface providing virtual boundaries, typically used to seal holes in volumetric objects."@en ;
+        skos:prefLabel   "ClosureSurface"@en .
+
+brid:AbstractBridge.isMovable
+        a                owl:DatatypeProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "isMovable"@en ;
+        rdfs:range       xsd:boolean ;
+        skos:definition  "SIG3D: Indicates wether a bridge is movable to allow passages for ships (e.g. turnable bridge, liftable bridge)"@en ;
+        skos:prefLabel   "isMovable"@en .
+
+brid:AbstractOpening.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractOpening ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of Door and Window.The LOD concept for the module Bridge is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+brid:BridgeRoom  a       owl:Class ;
+        rdfs:label       "BridgeRoom"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeRoom.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeRoom.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:BridgeRoom.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeRoom.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:IntBridgeInstallation ;
+                           owl:onProperty     brid:BridgeRoom.bridgeRoomInstallation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeRoom.lod4Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeRoom.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:BridgeFurniture ;
+                           owl:onProperty     brid:BridgeRoom.interiorFurniture
+                         ] ;
+        skos:definition  "SIG3D: A Room represents a volume bounded actually or theoretically. Rooms are volumes that provide for certain functions within a bridge."@en ;
+        skos:prefLabel   "BridgeRoom"@en .
+
+brid:FloorSurface  a     owl:Class ;
+        rdfs:label       "FloorSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Lower boundary surface of a room, covering the lower limit of a room."@en ;
+        skos:prefLabel   "FloorSurface"@en .
+
+brid:BridgeConstructionElement.lod3TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod3TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD3 BridgeConstructionElement and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod3TerrainIntersection"@en .
+
+brid:BridgeFurniture  a  owl:Class ;
+        rdfs:label       "BridgeFurniture"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeFurniture.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     brid:BridgeFurniture.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     brid:BridgeFurniture.class
+                         ] ;
+        skos:definition  "SIG3D: equipment for occupant use, not usually fixed to the bridge or bridge part (cf. ISO 6707-1)"@en ;
+        skos:prefLabel   "BridgeFurniture"@en .
+
+brid:RoofSurface  a      owl:Class ;
+        rdfs:label       "RoofSurface"@en ;
+        rdfs:subClassOf  brid:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, upper boundary surface of a bridge, bridge part, bridge construction element, or bridge installation, whose primary function is to protect from the effects of weather."@en ;
+        skos:prefLabel   "RoofSurface"@en .
+
+brid:BridgeConstructionElement.lod1TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeConstructionElement ;
+        rdfs:label       "lod1TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD1 BridgeConstructionElement and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod1TerrainIntersection"@en .
+
+brid:AbstractBoundarySurface
+        a                      owl:Class ;
+        rdfs:label             "AbstractBoundarySurface"@en ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBoundarySurface.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBoundarySurface.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:AbstractOpening ;
+                                 owl:onProperty     brid:AbstractBoundarySurface.opening
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     brid:AbstractBoundarySurface.lod3MultiSurface
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of boundary surfaces of Bridge, BridgePart and BridgeRoom"@en ;
+        skos:prefLabel         "AbstractBoundarySurface"@en .
+
+brid:BridgeRoom.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of BridgeRoom as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+brid:AbstractBridge.lod3TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:AbstractBridge ;
+        rdfs:label       "lod3TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD3 Bridge or BridgePart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
+        skos:prefLabel   "lod3TerrainIntersection"@en .

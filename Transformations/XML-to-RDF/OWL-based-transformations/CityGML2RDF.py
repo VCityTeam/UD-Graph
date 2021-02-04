@@ -148,6 +148,9 @@ def generateIndividual(node):
         return node_id
 
     for child in node:
+        # skip comment nodes
+        if not isinstance(child.tag, str):
+            continue
         # check if child node is a class. If so, generate a new individual for the
         # child and create an object property linking the two individuals.
         if isClass(child.tag):

@@ -1,0 +1,202 @@
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix frn:   <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+frn:CityFurniture.lod1TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod1TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD1 CityFurniture and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for city furniture are defined in chapter ..."@en ;
+        skos:prefLabel   "lod1TerrainIntersection"@en .
+
+<http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture>
+        a               owl:Ontology ;
+        rdfs:label      "CityFurniture"@en ;
+        owl:imports     <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "CityFurniture"@en .
+
+frn:CityFurniture.lod1Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod1Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 geometry of the CityFurniture. The LOD concept for city furniture is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1Geometry"@en .
+
+frn:CityFurniture.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 implicit geometry of a CityFurniture. The LOD concept for CityFurniture is defined in chapter ...In an implicit geometry, a prototypical city furniture is stored once in a local coordinate systems and transformed multiple times to its actual locations."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+frn:CityFurniture.lod3Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod3Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 geometry of the CityFurniture. The LOD concept for city furniture is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Geometry"@en .
+
+frn:CityFurniture.lod3TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod3TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD3 CityFurniture and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for city furniture are defined in chapter ..."@en ;
+        skos:prefLabel   "lod3TerrainIntersection"@en .
+
+frn:CityFurniture  a     owl:Class ;
+        rdfs:label       "CityFurniture"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod1TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     frn:CityFurniture.lod1ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     frn:CityFurniture.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     frn:CityFurniture.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     frn:CityFurniture.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     frn:CityFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     frn:CityFurniture.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod2TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod1Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     frn:CityFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod3TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     frn:CityFurniture.lod4TerrainIntersection
+                         ] ;
+        skos:definition  "Wikipedia: City furniture is a collective term for objects and pieces of equipment installed on streets and roads for various purposes. It includes benches, traffic barriers, bollards, post boxes, phone boxes, streetlamps, traffic lights, traffic signs, bus stops, tram stops, taxi stands, public lavatories, fountains, watering troughs, memorials, public sculptures, and waste receptacles."@en ;
+        skos:prefLabel   "CityFurniture"@en .
+
+frn:CityFurniture.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of CityFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+frn:CityFurniture.lod1ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod1ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 implicit geometry of a CityFurniture. The LOD concept for CityFurniture is defined in chapter ... In an implicit geometry, a prototypical city furniture is stored once in a local coordinate systems and transformed multiple times to its actual locations."@en ;
+        skos:prefLabel   "lod1ImplicitRepresentation"@en .
+
+frn:CityFurniture.lod2Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod2Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 geometry of the CityFurniture. The LOD concept forcity furniture is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Geometry"@en .
+
+frn:CityFurniture.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 geometry of the CityFurniture. The LOD concept for city furniture is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+frn:CityFurniture.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of CityFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+frn:CityFurniture.lod2TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod2TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD2 CityFurniture and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for city furniture are defined in chapter ..."@en ;
+        skos:prefLabel   "lod2TerrainIntersection"@en .
+
+frn:CityFurniture.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 implicit geometry of a CityFurniture. The LOD concept for CityFurniture is defined in chapter ...In an implicit geometry, a prototypical city furniture is stored once in a local coordinate systems and transformed multiple times to its actual locations."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+frn:CityFurniture.lod2ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod2ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 implicit geometry of a CityFurniture. The LOD concept for CityFurniture is defined in chapter ...In an implicit geometry, a prototypical city furniture is stored once in a local coordinate systems and transformed multiple times to its actual locations."@en ;
+        skos:prefLabel   "lod2ImplicitRepresentation"@en .
+
+frn:CityFurniture.lod4TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "lod4TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD4 CityFurniture and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for city furniture are defined in chapter ..."@en ;
+        skos:prefLabel   "lod4TerrainIntersection"@en .
+
+frn:CityFurniture.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      frn:CityFurniture ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of CityFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .

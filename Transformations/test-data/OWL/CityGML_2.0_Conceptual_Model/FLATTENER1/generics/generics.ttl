@@ -1,0 +1,403 @@
+@prefix sc:    <http://shapechange.net/resources/ont/base#> .
+@prefix gen:   <http://www.opengis.net/citygml/generics/2.0/generics#> .
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+gen:DateAttribute  a     owl:Class ;
+        rdfs:label       "DateAttribute"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:date ;
+                           owl:onProperty     gen:DateAttribute.value
+                         ] ;
+        skos:definition  "SIG3D: Generic Attribute of type \"date\"."@en ;
+        skos:prefLabel   "DateAttribute"@en .
+
+gen:GenericCityObject.lod2Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod2Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 geometry of a generic city object.The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Geometry"@en .
+
+gen:GenericCityObject.lod2TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod2TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD2 generic city object and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts forgeneric city objects and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod2TerrainIntersection"@en .
+
+gen:GenericCityObject.lod3TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod3TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD3 generic city object and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts forgeneric city objects and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod3TerrainIntersection"@en .
+
+gen:GenericCityObject.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of the actual usage of GenericCityObject as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+gen:MeasureAttribute  a  owl:Class ;
+        rdfs:label       "MeasureAttribute"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  sc:Measure ;
+                           owl:onProperty     gen:MeasureAttribute.value
+                         ] ;
+        skos:definition  "SIG3D: Generic Attribute of type \"Measure\" (double-attribute with explicit specification of a unit-of-measurement)."@en ;
+        skos:prefLabel   "MeasureAttribute"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( gen:DateAttribute gen:DoubleAttribute gen:GenericAttributeSet gen:IntAttribute gen:MeasureAttribute gen:StringAttribute gen:UriAttribute )
+] .
+
+gen:DoubleAttribute  a   owl:Class ;
+        rdfs:label       "DoubleAttribute"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:double ;
+                           owl:onProperty     gen:DoubleAttribute.value
+                         ] ;
+        skos:definition  "SIG3D: Generic Attribute of type \"double\"."@en ;
+        skos:prefLabel   "DoubleAttribute"@en .
+
+gen:MeasureAttribute.value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:MeasureAttribute ;
+        rdfs:label       "value"@en ;
+        rdfs:range       sc:Measure ;
+        skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
+        skos:prefLabel   "value"@en .
+
+gen:IntAttribute  a      owl:Class ;
+        rdfs:label       "IntAttribute"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     gen:IntAttribute.value
+                         ] ;
+        skos:definition  "SIG3D: Generic Attribute of type \"integer\"."@en ;
+        skos:prefLabel   "IntAttribute"@en .
+
+gen:GenericAttributeSet.codeSpace
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:GenericAttributeSet ;
+        rdfs:label       "codeSpace"@en ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: Codespace idcentifier of the Generic AttributeSet."@en ;
+        skos:prefLabel   "codeSpace"@en .
+
+gen:GenericCityObject.lod4TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod4TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD4 generic city object and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts forgeneric city objects and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod4TerrainIntersection"@en .
+
+gen:GenericCityObject
+        a                owl:Class ;
+        rdfs:label       "GenericCityObject"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     gen:GenericCityObject.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod1ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod1Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod0ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod3TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod4TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod1TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod2TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     gen:GenericCityObject.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod0TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     gen:GenericCityObject.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     gen:GenericCityObject.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     gen:GenericCityObject.lod0Geometry
+                         ] ;
+        skos:definition  "SIG3D: Representation of a real wold city object which does not fit to any of the specific CityGML / ADE classes."@en ;
+        skos:prefLabel   "GenericCityObject"@en .
+
+gen:DoubleAttribute.value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:DoubleAttribute ;
+        rdfs:label       "value"@en ;
+        rdfs:range       xsd:double ;
+        skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
+        skos:prefLabel   "value"@en .
+
+gen:GenericCityObject.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 geometry of a generic city object.The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+gen:GenericCityObject.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of GenericCityObject as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+<http://www.opengis.net/citygml/generics/2.0/generics>
+        a                owl:Ontology ;
+        rdfs:label       "Generics"@en ;
+        owl:imports      <http://shapechange.net/resources/ont/base> , <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "\"SIG3D: Generic Attribute of type \"\"date\"\".\""@en ;
+        skos:prefLabel   "Generics"@en .
+
+gen:StringAttribute.value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:StringAttribute ;
+        rdfs:label       "value"@en ;
+        rdfs:range       xsd:string ;
+        skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
+        skos:prefLabel   "value"@en .
+
+gen:DateAttribute.value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:DateAttribute ;
+        rdfs:label       "value"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
+        skos:prefLabel   "value"@en .
+
+gen:GenericCityObject.lod1Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod1Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 geometry of a generic city object.The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1Geometry"@en .
+
+gen:GenericCityObject.lod3Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod3Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 geometry of a generic city object.The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Geometry"@en .
+
+gen:StringAttribute  a   owl:Class ;
+        rdfs:label       "StringAttribute"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:StringAttribute.value
+                         ] ;
+        skos:definition  "SIG3D: Generic Attribute of type \"string\"."@en ;
+        skos:prefLabel   "StringAttribute"@en .
+
+gen:UriAttribute.value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:UriAttribute ;
+        rdfs:label       "value"@en ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
+        skos:prefLabel   "value"@en .
+
+gen:AbstractGenericAttribute.name
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:AbstractGenericAttribute ;
+        rdfs:label       "name"@en ;
+        rdfs:range       xsd:string ;
+        skos:definition  "SIG3D: Name of the Generic Attribute."@en ;
+        skos:prefLabel   "name"@en .
+
+gen:GenericCityObject.lod0Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod0Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD0 geometry of a generic city object.The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod0Geometry"@en .
+
+gen:UriAttribute  a      owl:Class ;
+        rdfs:label       "UriAttribute"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     gen:UriAttribute.value
+                         ] ;
+        skos:definition  "SIG3D: Generic Attribute of type \"URI\"."@en ;
+        skos:prefLabel   "UriAttribute"@en .
+
+gen:GenericCityObject.lod0ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod0ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D:Relation to an implicit representation (ImplictGeometry) of a generic city object's  LOD0 geometry. The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod0ImplicitRepresentation"@en .
+
+gen:GenericCityObject.lod1ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod1ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D:Relation to an implicit representation (ImplictGeometry) of a generic city object's  LOD1 geometry. The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1ImplicitRepresentation"@en .
+
+gen:GenericCityObject.lod2ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod2ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D:Relation to an implicit representation (ImplictGeometry) of a generic city object's LOD2 geometry. The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2ImplicitRepresentation"@en .
+
+gen:GenericCityObject.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D:Relation to an implicit representation (ImplictGeometry) of a generic city object's LOD3 geometry. The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+gen:GenericCityObject.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D:Relation to an implicit representation (ImplictGeometry) of a generic city object's LOD4 geometry. The LOD concept for generic city objects is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+gen:GenericCityObject.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of GenericCityObject as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+gen:GenericCityObject.lod0TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod0TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD0 generic city object and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts forgeneric city objects and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod0TerrainIntersection"@en .
+
+gen:GenericCityObject.lod1TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericCityObject ;
+        rdfs:label       "lod1TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to Intersection curve(s) between a LOD1 generic city object and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts forgeneric city objects and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod1TerrainIntersection"@en .
+
+gen:GenericAttributeSet
+        a                owl:Class ;
+        rdfs:label       "GenericAttributeSet"@en ;
+        rdfs:subClassOf  gen:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     gen:GenericAttributeSet.codeSpace
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gen:AbstractGenericAttribute ;
+                           owl:onProperty     gen:GenericAttributeSet.abstractGenericAttribute
+                         ] ;
+        skos:definition  "SIG3D: Set of Generic Attributes."@en ;
+        skos:prefLabel   "GenericAttributeSet"@en .
+
+gen:GenericAttributeSet.abstractGenericAttribute
+        a                owl:ObjectProperty ;
+        rdfs:domain      gen:GenericAttributeSet ;
+        rdfs:label       "abstractGenericAttribute"@en ;
+        rdfs:range       gen:AbstractGenericAttribute ;
+        skos:definition  "SIG3D: Aggregation of AbstractGenericAttributes by a GenericAttributeSet."@en ;
+        skos:prefLabel   "abstractGenericAttribute"@en .
+
+gen:AbstractGenericAttribute
+        a                      owl:Class ;
+        rdfs:label             "AbstractGenericAttribute"@en ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:string ;
+                                 owl:onProperty     gen:AbstractGenericAttribute.name
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass for all types of Generic Attributes. A Generic Attribute describes an additional property of an AbstractCityObject which cannot be expressed by a property provided by the schema."@en ;
+        skos:prefLabel         "AbstractGenericAttribute"@en .
+
+gen:IntAttribute.value
+        a                owl:DatatypeProperty ;
+        rdfs:domain      gen:IntAttribute ;
+        rdfs:label       "value"@en ;
+        rdfs:range       xsd:integer ;
+        skos:definition  "SIG3D: Value of the Generic Attribute."@en ;
+        skos:prefLabel   "value"@en .

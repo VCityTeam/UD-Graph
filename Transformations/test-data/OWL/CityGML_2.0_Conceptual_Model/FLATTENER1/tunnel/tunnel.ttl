@@ -1,0 +1,895 @@
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tun:   <http://www.opengis.net/citygml/tunnel/2.0/tunnel#> .
+
+tun:AbstractTunnel.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tun:TunnelPart  a        owl:Class ;
+        rdfs:label       "TunnelPart"@en ;
+        rdfs:subClassOf  tun:AbstractTunnel ;
+        skos:definition  "SIG3D: A tunnel part is a sub-division of a Tunnel that is homogeneous related to its physical, functional, or temporal aspects and may be considered as a Tunnel."@en ;
+        skos:prefLabel   "TunnelPart"@en .
+
+tun:TunnelFurniture.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelFurniture ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tun:AbstractBoundarySurface.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractBoundarySurface ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of AbstractBoundarySurface. The LOD concept for boundary surfaces of tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+tun:AbstractTunnel.lod3MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod3MultiCurve"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D:  Relation to a  LOD3 curve geometry of Tunnel or TunnelPart, used to represent special objects like antennae, railings, .... The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiCurve"@en .
+
+tun:AbstractTunnel  a          owl:Class ;
+        rdfs:label             "AbstractTunnel"@en ;
+        rdfs:subClassOf        core:AbstractSite ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelPart ;
+                                 owl:onProperty     tun:AbstractTunnel.consistsOfTunnelPart
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod1TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:HollowSpace ;
+                                 owl:onProperty     tun:AbstractTunnel.interiorHollowSpace
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.function
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.usage
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     tun:AbstractTunnel.yearOfDemolition
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:IntTunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.interiorTunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod1Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod1MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.outerTunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     tun:AbstractTunnel.yearOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                                 owl:onProperty     tun:AbstractTunnel.boundedBy
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2Solid
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of Tunnel and TunnelPart"@en ;
+        skos:prefLabel         "AbstractTunnel"@en .
+
+tun:TunnelInstallation.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of TunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+tun:HollowSpace.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between Room and BoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+tun:AbstractOpening  a         owl:Class ;
+        rdfs:label             "AbstractOpening"@en ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractOpening.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     tun:AbstractOpening.lod3ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     tun:AbstractOpening.lod4ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractOpening.lod4MultiSurface
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of Window and Door"@en ;
+        skos:prefLabel         "AbstractOpening"@en .
+
+tun:GroundSurface  a     owl:Class ;
+        rdfs:label       "GroundSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, lower boundary surface of a Tunnel , TunnelPart or Tunnelnstallation bounded by soil or water."@en ;
+        skos:prefLabel   "GroundSurface"@en .
+
+tun:TunnelInstallation
+        a                owl:Class ;
+        rdfs:label       "TunnelInstallation"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                           owl:onProperty     tun:TunnelInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:TunnelInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:TunnelInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:TunnelInstallation.function
+                         ] ;
+        skos:definition  "SIG3D: Permanently installed parts of the tunnel outer shell which are accessory for the tunnel structure. Doors and windows are modeled by the corresponding CityGML classes."@en ;
+        skos:prefLabel   "TunnelInstallation"@en .
+
+tun:AbstractTunnel.lod2Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod2Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 solid geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Solid"@en .
+
+tun:TunnelInstallation.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of TunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+tun:AbstractTunnel.lod3Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod3Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 solid geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Solid"@en .
+
+tun:InteriorWallSurface
+        a                owl:Class ;
+        rdfs:label       "InteriorWallSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between HollowSpace and TunnelFurniture"@en ;
+        skos:prefLabel   "InteriorWallSurface"@en .
+
+tun:AbstractTunnel.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+tun:AbstractTunnel.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between Tunnel or TunnelPart and BoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( tun:CeilingSurface tun:ClosureSurface tun:FloorSurface tun:GroundSurface tun:InteriorWallSurface tun:OuterCeilingSurface tun:OuterFloorSurface tun:RoofSurface tun:WallSurface )
+] .
+
+tun:HollowSpace.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of HollowSpace as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tun:AbstractBoundarySurface.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractBoundarySurface ;
+        rdfs:label       "lod2MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of AbstractBoundarySurface. The LOD concept for boundary surfaces of tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+tun:TunnelInstallation.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD3 implicit geometry of TunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+tun:AbstractTunnel.outerTunnelInstallation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "outerTunnelInstallation"@en ;
+        rdfs:range       tun:TunnelInstallation ;
+        skos:definition  "SIG3D: Relation between Tunnel or TunnelPart and TunnelInstallation"@en ;
+        skos:prefLabel   "outerTunnelInstallation"@en .
+
+tun:AbstractOpening.lod3ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractOpening ;
+        rdfs:label       "lod3ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD3 implicit geometry of Door and Window.The LOD concept for buildings or building parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3ImplicitRepresentation"@en .
+
+tun:IntTunnelInstallation.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:IntTunnelInstallation ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tun:IntTunnelInstallation.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:IntTunnelInstallation ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of IntTunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+tun:Tunnel  a             owl:Class ;
+        rdfs:label        "Tunnel"@en ;
+        rdfs:subClassOf   tun:AbstractTunnel ;
+        owl:disjointWith  tun:TunnelPart ;
+        skos:definition   "SIG3D: horizontal or sloping enclosed passage way of some length, mainly underground or underwater (cf. ISO 6707-1)."@en ;
+        skos:prefLabel    "Tunnel"@en .
+
+tun:FloorSurface  a      owl:Class ;
+        rdfs:label       "FloorSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Lower boundary surface of a hollow space, covering the lower limit of a hollow space."@en ;
+        skos:prefLabel   "FloorSurface"@en .
+
+tun:AbstractTunnel.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tun:ClosureSurface  a    owl:Class ;
+        rdfs:label       "ClosureSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior or interior boundary surface providing virtual boundaries, typically used to seal holes in volumetric objects."@en ;
+        skos:prefLabel   "ClosureSurface"@en .
+
+tun:AbstractTunnel.yearOfDemolition
+        a                owl:DatatypeProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "yearOfDemolition"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D: Year of demolition of this Tunnel or TunnelPart."@en ;
+        skos:prefLabel   "yearOfDemolition"@en .
+
+tun:TunnelFurniture.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelFurniture ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of TunnelFurniture. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+tun:Door  a               owl:Class ;
+        rdfs:label        "Door"@en ;
+        rdfs:subClassOf   tun:AbstractOpening ;
+        owl:disjointWith  tun:Window ;
+        skos:definition   "ISO 6707-1: Construction for closing an opening intended primarily for access or egress or both."@en ;
+        skos:prefLabel    "Door"@en .
+
+tun:TunnelInstallation.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tun:WallSurface  a       owl:Class ;
+        rdfs:label       "WallSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, lateral boundary surface of a Tunnel , TunnelPart, or TunnelInstallation."@en ;
+        skos:prefLabel   "WallSurface"@en .
+
+tun:TunnelInstallation.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tun:AbstractOpening.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractOpening ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of Door or Window.The LOD concept for doors and windows is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tun:TunnelInstallation.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between TunnelInstallation and BoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+tun:HollowSpace  a       owl:Class ;
+        rdfs:label       "HollowSpace"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                           owl:onProperty     tun:HollowSpace.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:HollowSpace.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:HollowSpace.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:HollowSpace.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:IntTunnelInstallation ;
+                           owl:onProperty     tun:HollowSpace.hollowSpaceInstallation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:HollowSpace.lod4Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:HollowSpace.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:TunnelFurniture ;
+                           owl:onProperty     tun:HollowSpace.interiorFurniture
+                         ] ;
+        skos:definition  "SIG3D: A HollowSpace represents a volume bounded actually or theoretically. HollowSpaces are volumes that provide for certain functions within a tunnel."@en ;
+        skos:prefLabel   "HollowSpace"@en .
+
+tun:AbstractTunnel.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod2MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 surface geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+tun:RoofSurface  a       owl:Class ;
+        rdfs:label       "RoofSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, upper boundary surface of a Tunnel , TunnelPart or Tunnelnstallation bounded by soil, water or air."@en ;
+        skos:prefLabel   "RoofSurface"@en .
+
+tun:AbstractTunnel.yearOfConstruction
+        a                owl:DatatypeProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "yearOfConstruction"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D: Year of completion of this Tunnel or TunnelPart."@en ;
+        skos:prefLabel   "yearOfConstruction"@en .
+
+tun:HollowSpace.lod4Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "lod4Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 solid geometry of HollowSpace. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Solid"@en .
+
+tun:AbstractTunnel.interiorTunnelInstallation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "interiorTunnelInstallation"@en ;
+        rdfs:range       tun:IntTunnelInstallation ;
+        skos:definition  "SIG3D: Relation between Tunnel or TunnelPart and IntTunnelInstallation"@en ;
+        skos:prefLabel   "interiorTunnelInstallation"@en .
+
+tun:HollowSpace.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of HollowSpace . The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tun:OuterFloorSurface
+        a                owl:Class ;
+        rdfs:label       "OuterFloorSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, upper boundary surface of a tunnel, tunnel part, or tunnel installation which is not a roof."@en ;
+        skos:prefLabel   "OuterFloorSurface"@en .
+
+tun:AbstractBoundarySurface.opening
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractBoundarySurface ;
+        rdfs:label       "opening"@en ;
+        rdfs:range       tun:AbstractOpening ;
+        skos:definition  "SIG3D: Relation between BoundarySurface and AbstractOpening. The AbstractOpening object belongs to the BoundarySurface object. The geometry of both objects must not overlap."@en ;
+        skos:prefLabel   "opening"@en .
+
+tun:AbstractOpening.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractOpening ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of Door and Window.The LOD concept for buildings or building parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+tun:AbstractTunnel.consistsOfTunnelPart
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "consistsOfTunnelPart"@en ;
+        rdfs:range       tun:TunnelPart ;
+        skos:definition  "SIG3D: Relation between Tunnel having TunnelPart respectively TunnelPart having TunnelPart"@en ;
+        skos:prefLabel   "consistsOfTunnelPart"@en .
+
+tun:AbstractTunnel.lod4Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod4Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 solid geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Solid"@en .
+
+tun:AbstractTunnel.lod1Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod1Solid"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 solid geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1Solid"@en .
+
+tun:AbstractTunnel.interiorHollowSpace
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "interiorHollowSpace"@en ;
+        rdfs:range       tun:HollowSpace ;
+        skos:definition  "SIG3D: Relation between Tunnel or TunnelPart and HollowSpace"@en ;
+        skos:prefLabel   "interiorHollowSpace"@en .
+
+tun:AbstractTunnel.lod3TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod3TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD3 Tunnel or TunnelPart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for tunnels, tunnel parts and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod3TerrainIntersection"@en .
+
+tun:AbstractOpening.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractOpening ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 surface geometry of Door or Window.The LOD concept for doors and windows is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
+
+tun:AbstractTunnel.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tun:AbstractBoundarySurface.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractBoundarySurface ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 surface geometry of AbstractBoundarySurface. The LOD concept for boundary surfaces of tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+tun:AbstractTunnel.lod1TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod1TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD1 Tunnel or TunnelPart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for tunnels, tunnel parts and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod1TerrainIntersection"@en .
+
+tun:AbstractBoundarySurface
+        a                      owl:Class ;
+        rdfs:label             "AbstractBoundarySurface"@en ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:AbstractOpening ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.opening
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.lod2MultiSurface
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of boundary surfaces of Tunnel, TunnelPart and HollowSpace"@en ;
+        skos:prefLabel         "AbstractBoundarySurface"@en .
+
+tun:AbstractTunnel.lod2MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod2MultiCurve"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 curve geometry of Tunnel or TunnelPart, used to represent special objects like antennae, railings, .... The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiCurve"@en .
+
+tun:TunnelFurniture.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelFurniture ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+tun:AbstractTunnel.lod1MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod1MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 surface geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ... Geometrically, the LOD1 solid geometry and surface geometry are identical."@en ;
+        skos:prefLabel   "lod1MultiSurface"@en .
+
+tun:TunnelInstallation.lod3Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "lod3Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD3 geometry of TunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3Geometry"@en .
+
+tun:AbstractTunnel.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of the actual usage of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tun:TunnelFurniture  a   owl:Class ;
+        rdfs:label       "TunnelFurniture"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:TunnelFurniture.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:TunnelFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:TunnelFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelFurniture.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:TunnelFurniture.class
+                         ] ;
+        skos:definition  "SIG3D: Equipment for occupant use, usually not fixed to the building (cf. ISO 6707-1) ."@en ;
+        skos:prefLabel   "TunnelFurniture"@en .
+
+tun:AbstractTunnel.lod4MultiCurve
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod4MultiCurve"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 curve geometry of Tunnel or TunnelPart, used to represent special objects like antennae, railings, .... The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiCurve"@en .
+
+tun:HollowSpace.interiorFurniture
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "interiorFurniture"@en ;
+        rdfs:range       tun:TunnelFurniture ;
+        skos:definition  "SIG3D: Relation between HollowSpace and TunnelFurniture"@en ;
+        skos:prefLabel   "interiorFurniture"@en .
+
+tun:IntTunnelInstallation.lod4Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:IntTunnelInstallation ;
+        rdfs:label       "lod4Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD4 geometry of IntTunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4Geometry"@en .
+
+tun:IntTunnelInstallation.boundedBy
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:IntTunnelInstallation ;
+        rdfs:label       "boundedBy"@en ;
+        rdfs:range       tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Relation between IntTunnelInstallation and BoundarySurface"@en ;
+        skos:prefLabel   "boundedBy"@en .
+
+tun:OuterCeilingSurface
+        a                owl:Class ;
+        rdfs:label       "OuterCeilingSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Exterior, lower boundary surface of a Tunnel , TunnelPart or TunnelInstallation bounded by air."@en ;
+        skos:prefLabel   "OuterCeilingSurface"@en .
+
+tun:IntTunnelInstallation.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:IntTunnelInstallation ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tun:HollowSpace.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of HollowSpace as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tun:TunnelFurniture.lod4ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelFurniture ;
+        rdfs:label       "lod4ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD4 implicit geometry of TunnelFurniture. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4ImplicitRepresentation"@en .
+
+tun:TunnelInstallation.lod2ImplicitRepresentation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "lod2ImplicitRepresentation"@en ;
+        rdfs:range       core:ImplicitGeometry ;
+        skos:definition  "SIG3D: Relation to LOD2 implicit geometry of TunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2ImplicitRepresentation"@en .
+
+<http://www.opengis.net/citygml/tunnel/2.0/tunnel>
+        a               owl:Ontology ;
+        rdfs:label      "Tunnel"@en ;
+        owl:imports     <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "Tunnel"@en .
+
+tun:CeilingSurface  a    owl:Class ;
+        rdfs:label       "CeilingSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Overhead boundary surface of a hollow space, covering the upper limit of a hollow space."@en ;
+        skos:prefLabel   "CeilingSurface"@en .
+
+tun:TunnelInstallation.lod2Geometry
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "lod2Geometry"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to LOD3 geometry of TunnelInstallation. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2Geometry"@en .
+
+tun:IntTunnelInstallation
+        a                owl:Class ;
+        rdfs:label       "IntTunnelInstallation"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     tun:IntTunnelInstallation.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                           owl:onProperty     tun:IntTunnelInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:IntTunnelInstallation.lod4ImplicitRepresentation
+                         ] ;
+        skos:definition  "SIG3D: Permanently installed parts of the tunnel interior which are accessory for the tunnel and for hollow spaces. Doors and windows are modeled by the corresponding CityGML classes."@en ;
+        skos:prefLabel   "IntTunnelInstallation"@en .
+
+tun:TunnelFurniture.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelFurniture ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+tun:AbstractTunnel.lod4TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod4TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD4 Tunnel or TunnelPart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for tunnels, tunnel parts and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod4TerrainIntersection"@en .
+
+tun:HollowSpace.hollowSpaceInstallation
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "hollowSpaceInstallation"@en ;
+        rdfs:range       tun:IntTunnelInstallation ;
+        skos:definition  "SIG3D: Relation between HollowSpace and IntTunnelInstallation"@en ;
+        skos:prefLabel   "hollowSpaceInstallation"@en .
+
+tun:IntTunnelInstallation.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:IntTunnelInstallation ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tun:HollowSpace.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:HollowSpace ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of HollowSpace as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tun:AbstractTunnel.lod2TerrainIntersection
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:AbstractTunnel ;
+        rdfs:label       "lod2TerrainIntersection"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D:  Relation to intersection curve(s) between a LOD2 Tunnel or TunnelPart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for tunnels, tunnel parts and terrain are defined in chapter ..."@en ;
+        skos:prefLabel   "lod2TerrainIntersection"@en .
+
+tun:TunnelInstallation.class
+        a                owl:ObjectProperty ;
+        rdfs:domain      tun:TunnelInstallation ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+tun:Window  a            owl:Class ;
+        rdfs:label       "Window"@en ;
+        rdfs:subClassOf  tun:AbstractOpening ;
+        skos:definition  "SIG3D: Construction for closing an opening in a wall or roof, primarily intended to admit light and/or provide ventilation (cf. ISO 6707)."@en ;
+        skos:prefLabel   "Window"@en .

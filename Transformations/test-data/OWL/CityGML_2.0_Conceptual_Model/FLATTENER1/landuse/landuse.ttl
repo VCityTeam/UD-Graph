@@ -1,0 +1,116 @@
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix luse:  <http://www.opengis.net/citygml/landuse/2.0/landuse#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+luse:LandUse.function
+        a                owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "function"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Specified function of LandUse as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "function"@en .
+
+luse:LandUse.usage  a    owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Actual usage of LandUse as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
+luse:LandUse.class  a    owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "class"@en ;
+        rdfs:range       iso19136:Code ;
+        skos:definition  "SIG3D: Classification of LandUse as given by the relevant national regulations, information communities or specific applications."@en ;
+        skos:prefLabel   "class"@en .
+
+<http://www.opengis.net/citygml/landuse/2.0/landuse>
+        a               owl:Ontology ;
+        rdfs:label      "LandUse"@en ;
+        owl:imports     <http://www.opengis.net/citygml/2.0/core> , <http://www.opengis.net/ont/geosparql> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "LandUse"@en .
+
+luse:LandUse.lod2MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "lod2MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD2 multi surface geometry representing the Land Use area. The LOD concept for LandUse is defined in chapter ..."@en ;
+        skos:prefLabel   "lod2MultiSurface"@en .
+
+luse:LandUse  a          owl:Class ;
+        rdfs:label       "LandUse"@en ;
+        rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     luse:LandUse.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     luse:LandUse.lod3MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     luse:LandUse.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     luse:LandUse.lod0MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     luse:LandUse.lod1MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:onProperty     luse:LandUse.lod2MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     luse:LandUse.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     luse:LandUse.usage
+                         ] ;
+        skos:definition  "SIG3D: Object describing an area of the earth's surface dedicated to a specific land use or having a specific land cover with or without vegetation, such as sand, rock, mud flats, forest, grasslands, etc (i.e. the physical appearance)."@en ;
+        skos:prefLabel   "LandUse"@en .
+
+luse:LandUse.lod4MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "lod4MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD4 multi surface geometry representing the Land Use area. The LOD concept for LandUse is defined in chapter ..."@en ;
+        skos:prefLabel   "lod4MultiSurface"@en .
+
+luse:LandUse.lod1MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "lod1MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD1 multi surface geometry representing the Land Use area. The LOD concept for LandUse is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1MultiSurface"@en .
+
+luse:LandUse.lod0MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "lod0MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD0 multi surface geometry representing the Land Use area. The LOD concept for LandUse is defined in chapter ..."@en ;
+        skos:prefLabel   "lod0MultiSurface"@en .
+
+luse:LandUse.lod3MultiSurface
+        a                owl:ObjectProperty ;
+        rdfs:domain      luse:LandUse ;
+        rdfs:label       "lod3MultiSurface"@en ;
+        rdfs:range       gsp:Geometry ;
+        skos:definition  "SIG3D: Relation to a LOD3 multi surface geometry representing the Land Use area. The LOD concept for LandUse is defined in chapter ..."@en ;
+        skos:prefLabel   "lod3MultiSurface"@en .
