@@ -45,7 +45,7 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 #    ?object a owl:NamedIndividual ;
 #        a ?type .
 #
-#    FILTER(STR(?type) != STR(owl:NamedIndividual))
+#    FILTER (STR(?type) != STR(owl:NamedIndividual))
 #}
 
 
@@ -61,7 +61,7 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 #
 #    ?geometry geo:asGML ?serialization .
 #
-#    FILTER(STR(?type) != STR(owl:NamedIndividual))
+#    FILTER (STR(?type) != STR(owl:NamedIndividual))
 #}
 
 
@@ -74,44 +74,26 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 #
 #    ?geometry geo:asGML ?serialization .
 #
-#    FILTER (geof:distance("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"EPSG:4326\">
-#                                <gml:pos>45.854617529132426 4.797614456250814 404</gml:pos>
-#                            </gml:Point>"^^geo:gmlLiteral,
-#        ?serialization , units:metre ) < 10) .
+#    BIND ("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"EPSG:3946\"><gml:pos>1842653.24996800 5175722.37503700</gml:pos></gml:Point>"^^geo:gmlLiteral
+#        as ?point)
+#
+#    FILTER (geof:distance(?point, ?serialization, units:metre ) < 10) .
 #}
 
 
-#4 query all geometry within a given bounding box
+#5 query all geometry within a given bounding box
 
 SELECT ?geometry ?type
 WHERE {
-    ?feature geo:hasGeometry ?geometry .
 
-    ?geometry geo:asGML ?serialization .
-    geof:sfWithin()
-    BIND(   "<gml:Polygon gml:id='UUID_73f267b7-a581-4424-bdc1-f85e8e428a01' srsName='EPSG:3946'>
-                <gml:exterior>
-                    <gml:LinearRing gml:id='UUID_fcc8119b-5eed-4c28-ace1-b1e3eb55e91c' srsName='EPSG:3946'>
-                        <gml:posList>
-                            1842653.24996800 5175722.37503700
-                            1842650.60813385 5175743.74572867
-                            1842649.16121000 5175755.45038600
-                            1842651.29653100 5175755.71438700
-                            1842651.57480703 5175755.74879174
-                            1842650.65410400 5175763.04476000
-                            1842648.90921870 5175762.75740677
-                            1842646.08273200 5175762.29193200
-                            1842651.89573100 5175713.96174500
-                            1842652.74446800 5175707.90168400
-                            1842657.43686700 5175703.52428300
-                            1842655.94297800 5175721.13389900
-                            1842655.74739142 5175722.68379451
-                            1842655.50339300 5175722.65362900
-                            1842653.24996800 5175722.37503700
-                        </gml:posList>
-                    </gml:LinearRing>
-                </gml:exterior>
-            </gml:Polygon>"^^gsp:gmlLiteral)
+    ?geometry geo:asGML ?serialization ;
+        a ?type .
+
+    BIND("<gml:LinearRing xmlns:gml='http://www.opengis.net/ont/gml' srsName='EPSG:3946'><gml:posList>1842640 5175720 1842640 5175750 1842660 5175750 1842660 5175720 1842640 5175720</gml:posList></gml:LinearRing>"^^geo:gmlLiteral
+        as ?bbox)
+
+    FILTER (geof:sfIntersects(?serialization, ?bbox)) .
+    FILTER(STR(?type) != STR(owl:NamedIndividual)) .
 }
 
 #LIMIT 25
