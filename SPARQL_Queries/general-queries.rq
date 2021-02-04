@@ -30,7 +30,7 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
 #1 query all buildings
 
-#SELECT ?building
+#SELECT DISTINCT ?building
 #WHERE {
 #    ?building a bldg:Building .
 #}
@@ -38,9 +38,9 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
 #2 query a building and it's properties
 
-#SELECT ?object ?type
+#SELECT DISTINCT ?object ?type
 #WHERE {
-#    data:BU_69381AT70 (<>|!<>)* ?object .
+#    data:BU_69381AT70 (!<>)* ?object .
 #
 #    ?object a owl:NamedIndividual ;
 #        a ?type .
@@ -62,6 +62,22 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 #    ?geometry geo:asGML ?serialization .
 #
 #    FILTER(STR(?type) != STR(owl:NamedIndividual))
+#}
+
+
+#4 query all GeoSPARQL features within 10 m of a point 
+
+#SELECT DISTINCT ?feature ?type
+#WHERE {
+#    ?feature geo:hasGeometry ?geometry ;
+#        rdf:type ?type .
+#
+#    ?geometry geo:asGML ?serialization .
+#
+#    FILTER (geof:distance("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"EPSG:4326\">
+#                                <gml:pos>45.854617529132426 4.797614456250814 404</gml:pos>
+#                            </gml:Point>"^^geo:gmlLiteral,
+#        ?serialization , units:metre ) < 10) .
 #}
 
 
@@ -97,21 +113,5 @@ WHERE {
                 </gml:exterior>
             </gml:Polygon>"^^gsp:gmlLiteral)
 }
-
-
-#5 query all GeoSPARQL features within 10 m of a point 
-
-#SELECT DISTINCT ?feature ?type
-#WHERE {
-#?feature geo:hasGeometry ?geometry ;
-#    rdf:type ?type .
-#   
-#?geometry geo:asGML ?serialization .
-
-#FILTER (geof:distance("<gml:Point xmlns:gml=\"http://www.opengis.net/ont/gml\" srsName=\"EPSG:4326\">
-#                            <gml:pos>45.854617529132426 4.797614456250814 404</gml:pos>
-#                        </gml:Point>"^^geo:gmlLiteral,
-#    ?serialization , units:metre ) < 10) .
-#}
 
 #LIMIT 25

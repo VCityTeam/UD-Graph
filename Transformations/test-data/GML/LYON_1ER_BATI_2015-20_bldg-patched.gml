@@ -20278,11 +20278,12 @@
                           <gml:posList>1842549.91599499 5176533.56469431 1842547.56426012 5176532.79213683 1842548.03814243 5176530.82875751 1842549.91599499 5176533.56469431</gml:posList>
                         </gml:LinearRing>
                       </gml:exterior>
-                      <gml:interior>
+                      <!-- This is not a valid linear ring -->
+<!--                       <gml:interior>
                         <gml:LinearRing gml:id="UUID_678b42ba-be23-40d7-9bab-7f23d1002721" srsName="EPSG:3946">
                           <gml:posList>1842548.03814243 5176530.82875751 1842548.03815081 5176530.82872280</gml:posList>
                         </gml:LinearRing>
-                      </gml:interior>
+                      </gml:interior> -->
                     </gml:Polygon>
                   </gml:surfaceMember>
                 </gml:MultiSurface>

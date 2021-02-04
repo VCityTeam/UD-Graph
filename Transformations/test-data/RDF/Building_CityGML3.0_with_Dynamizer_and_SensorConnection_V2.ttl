@@ -1,0 +1,173 @@
+@prefix bldg: <http://www.opengis.net/citygml/building/3.0/building#> .
+@prefix con: <http://www.opengis.net/citygml/construction/3.0/construction#> .
+@prefix core: <http://www.opengis.net/citygml/3.0/core#> .
+@prefix data: <https://github.com/VCityTeam/UD-Graph/Building_CityGML3.0_with_Dynamizer_and_SensorConnection_V2#> .
+@prefix dyn: <http://www.opengis.net/citygml/dynamizer/3.0/dynamizer#> .
+@prefix gen: <http://www.opengis.net/citygml/generics/3.0/generics#> .
+@prefix gml: <http://www.opengis.net/ont/gml#> .
+@prefix gsp: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+data:CityModel_0 a core:CityModel,
+        owl:NamedIndividual ;
+    core:CityModel.cityModelMember_cityObjectMember data:Building_0 ;
+    gml:id "cm1" .
+
+data:Address_0 a core:Address,
+        owl:NamedIndividual ;
+    gml:id "fme-gen-0355784d-2ffc-4c46-b812-c4d08d6a3f81" .
+
+data:BuildingRoom_0 a bldg:BuildingRoom,
+        owl:NamedIndividual ;
+    core:AbstractCityObject.genericAttribute data:DoubleAttribute_0 ;
+    gml:id "DEBY_LOD2_5744682_room1" .
+
+data:Building_0 a bldg:Building,
+        owl:NamedIndividual ;
+    core:AbstractCityObject.dynamizer data:Dynamizer_0 ;
+    core:AbstractFeatureWithLifespan.creationDate "2014-10-08T00:00:00" ;
+    core:AbstractSpace.boundary data:GroundSurface_0,
+        data:RoofSurface_0,
+        data:RoofSurface_1,
+        data:WallSurface_0,
+        data:WallSurface_1,
+        data:WallSurface_2,
+        data:WallSurface_3,
+        data:WallSurface_4,
+        data:WallSurface_5,
+        data:WallSurface_6,
+        data:WallSurface_7 ;
+    core:AbstractSpace.lod2Solid data:Solid_0 ;
+    bldg:AbstractBuilding.address data:Address_0 ;
+    bldg:AbstractBuilding.buildingRoom data:BuildingRoom_0 ;
+    gsp:hasGeometry data:Solid_0 ;
+    gml:id "DEBY_LOD2_5744682" .
+
+data:DoubleAttribute_0 a gen:DoubleAttribute,
+        owl:NamedIndividual ;
+    gen:DoubleAttribute.name "temperature" .
+
+data:Dynamizer_0 a dyn:Dynamizer,
+        owl:NamedIndividual ;
+    dyn:Dynamizer.attributeRef """
+            //bldg:BuildingRoom[@gml:id='DEBY_LOD2_5744682_room1']/genericAttribute/gen:DoubleAttribute[name='temperature']/gen:value
+          """ ;
+    dyn:Dynamizer.sensorConnection data:SensorConnection_0 ;
+    gml:id "room1_Dynamizer" .
+
+data:GroundSurface_0 a con:GroundSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_10 ;
+    gsp:hasGeometry data:MultiSurface_10 .
+
+data:RoofSurface_0 a con:RoofSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_0 ;
+    gsp:hasGeometry data:MultiSurface_0 ;
+    gml:id "DEBY_LOD2_5744682_roofsurface1" .
+
+data:RoofSurface_1 a con:RoofSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_8 ;
+    gsp:hasGeometry data:MultiSurface_8 .
+
+data:SensorConnection_0 a dyn:SensorConnection,
+        owl:NamedIndividual ;
+    dyn:SensorConnection.baseURL "http://127.0.0.1:8080/FROST-Server/v1.0" ;
+    dyn:SensorConnection.datastreamID "1" ;
+    dyn:SensorConnection.linkToObservation """
+                %baseURL%/Datastreams(%datastreamID%)/Observations?$filter=during(phenomenonTime, %startTime%/%endTime%)
+              """ ;
+    dyn:SensorConnection.linkToSensorDescription """
+                %baseURL%/Datastreams(%datastreamID%)/Sensor  
+              """ ;
+    dyn:SensorConnection.observationProperty "Temperature" ;
+    dyn:SensorConnection.uom "Celsius" .
+
+data:WallSurface_0 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_1 ;
+    gsp:hasGeometry data:MultiSurface_1 .
+
+data:WallSurface_1 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_2 ;
+    gsp:hasGeometry data:MultiSurface_2 .
+
+data:WallSurface_2 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_3 ;
+    gsp:hasGeometry data:MultiSurface_3 .
+
+data:WallSurface_3 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_4 ;
+    gsp:hasGeometry data:MultiSurface_4 .
+
+data:WallSurface_4 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_5 ;
+    gsp:hasGeometry data:MultiSurface_5 .
+
+data:WallSurface_5 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_6 ;
+    gsp:hasGeometry data:MultiSurface_6 .
+
+data:WallSurface_6 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_7 ;
+    gsp:hasGeometry data:MultiSurface_7 .
+
+data:WallSurface_7 a con:WallSurface,
+        owl:NamedIndividual ;
+    core:AbstractThematicSurface.lod2MultiSurface data:MultiSurface_9 ;
+    gsp:hasGeometry data:MultiSurface_9 .
+
+data:MultiSurface_0 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_5e13d1c8-7fb5-479f-9794-7b9e1f89ca1e_msl_N65598'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_5e13d1c8-7fb5-479f-9794-7b9e1f89ca1e_poly'><gml:exterior><gml:LinearRing><gml:posList>4490663.45 5322007.59 555.191 4490663.25 5322006.21 554.643 4490666.84 5322005.7 554.642 4490669.8 5322005.28 554.641 4490670.002 5322006.703 555.206 4490670.649 5322011.271 557.02 4490656.141 5322013.32 557.024490655.5 5322008.75 555.206 4490663.45 5322007.59 555.191</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_1 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_314d7d2e-1551-4946-80a4-12e463d59de5_msl_N65610'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_314d7d2e-1551-4946-80a4-12e463d59de5_poly'><gml:exterior><gml:LinearRing><gml:posList>4490664.85 5322016.66 548.47 4490664.85 5322016.66 555.241 4490664.85 5322016.7 555.226 4490664.85 5322016.7 548.47 4490664.85 5322016.66 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_10 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_58e93bde-fd64-4fec-9626-5824c2e94f0e_msl_N65718'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_58e93bde-fd64-4fec-9626-5824c2e94f0e_poly'><gml:exterior><gml:LinearRing><gml:posList>4490670.649 5322011.271 548.47 4490670.002 5322006.703 548.47 4490669.8 5322005.28 548.47 4490666.84 5322005.7 548.47 4490663.25 5322006.21 548.47 4490663.45 5322007.59 548.47 4490655.5 5322008.75 548.47 4490656.1415322013.32 548.47 4490656.77 5322017.8 548.47 4490664.85 5322016.66 548.47 4490664.85 5322016.7 548.47 4490671.29 5322015.79 548.47 4490670.649 5322011.271 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_2 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_6a1b5359-d4e4-4d80-aeb8-ad63625a56dc_msl_N65622'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_6a1b5359-d4e4-4d80-aeb8-ad63625a56dc_poly'><gml:exterior><gml:LinearRing><gml:posList>4490664.85 5322016.7 548.47 4490664.85 5322016.7 555.226 4490671.29 5322015.79 555.226 4490671.29 5322015.79 548.47 4490664.85 5322016.7 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_3 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_44e7c68d-da01-4f80-b1a4-9bbde8305c77_msl_N65634'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_44e7c68d-da01-4f80-b1a4-9bbde8305c77_poly'><gml:exterior><gml:LinearRing><gml:posList>4490656.77 5322017.8 548.47 4490656.77 5322017.8 555.242 4490664.85 5322016.66 555.241 4490664.85 5322016.66 548.47 4490656.77 5322017.8 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_4 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_1e36b54e-2518-4afe-a2b4-a59ddff93581_msl_N65646'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_1e36b54e-2518-4afe-a2b4-a59ddff93581_poly'><gml:exterior><gml:LinearRing><gml:posList>4490663.25 5322006.21 548.47 4490663.25 5322006.21 554.643 4490663.45 5322007.59 555.191 4490663.45 5322007.59 548.47 4490663.25 5322006.21 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_5 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_887068cb-0fcb-45f3-b436-d1a1bdef047f_msl_N65658'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_887068cb-0fcb-45f3-b436-d1a1bdef047f_poly'><gml:exterior><gml:LinearRing><gml:posList>4490663.45 5322007.59 548.47 4490663.45 5322007.59 555.191 4490655.5 5322008.75 555.206 4490655.5 5322008.75 548.47 4490663.45 5322007.59 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_6 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_80ce6c2a-8724-4a2a-89e4-881da9530ecc_msl_N65670'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_80ce6c2a-8724-4a2a-89e4-881da9530ecc_poly'><gml:exterior><gml:LinearRing><gml:posList>4490670.002 5322006.703 555.206 4490669.8 5322005.28 554.641 4490669.8 5322005.28 548.47 4490670.002 5322006.703 548.47 4490670.649 5322011.271 548.47 4490671.29 5322015.79 548.47 4490671.29 5322015.79 555.2264490670.649 5322011.271 557.02 4490670.002 5322006.703 555.206</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_7 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_392cb098-6e22-4334-9853-1e8225966156_msl_N65682'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_392cb098-6e22-4334-9853-1e8225966156_poly'><gml:exterior><gml:LinearRing><gml:posList>4490666.84 5322005.7 548.47 4490669.8 5322005.28 548.47 4490669.8 5322005.28 554.641 4490666.84 5322005.7 554.642 4490663.25 5322006.21 554.643 4490663.25 5322006.21 548.47 4490666.84 5322005.7 548.47</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_8 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_26de5877-57e7-429d-9b9a-274b8ed6aac5_msl_N65694'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_26de5877-57e7-429d-9b9a-274b8ed6aac5_poly'><gml:exterior><gml:LinearRing><gml:posList>4490670.649 5322011.271 557.02 4490671.29 5322015.79 555.226 4490664.85 5322016.7 555.226 4490664.85 5322016.66 555.241 4490656.77 5322017.8 555.242 4490656.141 5322013.32 557.02 4490670.649 5322011.271557.02</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:MultiSurface_9 a gml:MultiSurface,
+        owl:NamedIndividual ;
+    gsp:asGML "<gml:MultiSurface xmlns:gml='http://www.opengis.net/gml/3.2' gml:id='DEBY_LOD2_5744682_dd1b367c-c6d8-4eb2-abe6-0accb0fa91b8_msl_N65706'><gml:surfaceMember><gml:Polygon gml:id='DEBY_LOD2_5744682_dd1b367c-c6d8-4eb2-abe6-0accb0fa91b8_poly'><gml:exterior><gml:LinearRing><gml:posList>4490655.5 5322008.75 555.206 4490656.141 5322013.32 557.02 4490656.77 5322017.8 555.242 4490656.77 5322017.8 548.47 4490656.141 5322013.32 548.47 4490655.5 5322008.75 548.47 4490655.5 5322008.75555.206</gml:posList></gml:LinearRing></gml:exterior></gml:Polygon></gml:surfaceMember></gml:MultiSurface>"^^gsp:gmlLiteral .
+
+data:Solid_0 a gml:Solid,
+        owl:NamedIndividual .
+

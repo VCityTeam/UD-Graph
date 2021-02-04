@@ -121,6 +121,9 @@ def main():
 # generate a new individual from an XML node and its children, then add the
 # node to the output graph. An id is returned for recursive calls
 def generateIndividual(node):
+    # skip comment nodes
+    if not isinstance(node.tag, str):
+        return
     global input_node_count
     global input_node_total
 
@@ -142,6 +145,9 @@ def generateIndividual(node):
         updateProgressBar(input_node_count, input_node_total, node.tag)
         input_node_count += 1
         for child in node.iter():
+            # skip comment nodes
+            if not isinstance(child.tag, str):
+                continue
             parsed_nodes.append(input_tree.getelementpath(child))
             updateProgressBar(input_node_count, input_node_total, child.tag)
             input_node_count += 1
