@@ -83,17 +83,36 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
 #5 query all geometry within a given bounding box
 
-SELECT ?geometry ?type
+#SELECT DISTINCT ?geometry ?type
+#WHERE {
+#
+#    ?geometry geo:asGML ?serialization ;
+#        a ?type .
+#
+#    BIND("<gml:LinearRing xmlns:gml='http://www.opengis.net/ont/gml' srsName='EPSG:3946'><gml:posList>1842640 5175720 1842640 5175750 1842660 5175750 1842660 5175720 1842640 5175720</gml:posList></gml:LinearRing>"^^geo:gmlLiteral
+#        as ?bbox)
+#
+#    FILTER (geof:sfIntersects(?serialization, ?bbox)) .
+#    FILTER(STR(?type) != STR(owl:NamedIndividual)) .
+#}
+
+
+#6 query all cityobjects within a given bounding box
+
+SELECT DISTINCT ?cityobjectmember ?type
 WHERE {
 
-    ?geometry geo:asGML ?serialization ;
-        a ?type .
+    ?geometry geo:asGML ?serialization .
 
     BIND("<gml:LinearRing xmlns:gml='http://www.opengis.net/ont/gml' srsName='EPSG:3946'><gml:posList>1842640 5175720 1842640 5175750 1842660 5175750 1842660 5175720 1842640 5175720</gml:posList></gml:LinearRing>"^^geo:gmlLiteral
-        as ?bbox)
+        as ?bbox) .
 
     FILTER (geof:sfIntersects(?serialization, ?bbox)) .
-    FILTER(STR(?type) != STR(owl:NamedIndividual)) .
+
+    data:CityModel_0 core:CityModel.cityObjectMember ?cityobjectmember .
+
+    ?cityobjectmember a ?type ;
+        (!<>)* ?geometry .
 }
 
 #LIMIT 25
