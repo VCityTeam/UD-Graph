@@ -141,17 +141,17 @@ def generateIndividual(node):
     # descendant nodes to the parsed_nodes list
     if isGeometry(node.tag):
         generateGeometrySerialization(node, node_id)
-        parsed_nodes.append(input_tree.getelementpath(node))
-        updateProgressBar(input_node_count, input_node_total, node.tag)
-        input_node_count += 1
-        for child in node.iter():
-            # skip comment nodes
-            if not isinstance(child.tag, str):
-                continue
-            parsed_nodes.append(input_tree.getelementpath(child))
-            updateProgressBar(input_node_count, input_node_total, child.tag)
-            input_node_count += 1
-        return node_id
+        # parsed_nodes.append(input_tree.getelementpath(node))
+        # updateProgressBar(input_node_count, input_node_total, node.tag)
+        # input_node_count += 1
+        # for child in node.iter():
+        #     # skip comment nodes
+        #     if not isinstance(child.tag, str):
+        #         continue
+        #     parsed_nodes.append(input_tree.getelementpath(child))
+        #     updateProgressBar(input_node_count, input_node_total, child.tag)
+        #     input_node_count += 1
+        # return node_id
 
     for child in node:
         # skip comment nodes
@@ -517,11 +517,11 @@ def getDatatype(tag):
 # tuple of (prefix, namespace, localname) to extract the namespace
 def isGeometry(tag):
     qname = mapNamespace(tag).split('#')
-    if qname[0] + '#' == str(GML) and isClass(tag) and qname[1] != 'LinearRing':
-        return ontology.query('''
-                ASK {
-                    <%s%s> rdfs:subClassOf* <%sAbstractGeometry> .
-                }''' % (str(GML), qname[1], str(GML)) )
+    if qname[0] + '#' == str(GML) and isClass(tag):
+        return ontology.query(
+                'ASK {'
+                    f'<{str(GML)}{qname[1]}> rdfs:subClassOf* <{str(GML)}AbstractGeometry> .'
+                '}')
 
 def updateProgressBar( count, total, status='' ):
     bar_length    = 20
