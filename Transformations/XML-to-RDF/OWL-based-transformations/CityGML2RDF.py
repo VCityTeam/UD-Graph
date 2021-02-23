@@ -102,9 +102,7 @@ def main():
         if isClass( input_node.tag ):
             generateIndividual(input_node)
 
-
-    sys.stdout.write('\033[K')
-    print('Writing graph to disk...')
+    print('\nWriting graph to disk...')
     print('{}/{}.ttl'.format(sys.argv[3], filename))
     with open('{}/{}.ttl'.format(sys.argv[3], filename), 'wb') as file:
         file.write(output_graph.serialize(format='turtle'))
@@ -530,11 +528,9 @@ def updateProgressBar( count, total, status='' ):
 
     percent = round(100.0 * count / float(total), 1)
     bar = '#' * filled_length + '-' * (bar_length - filled_length)
-    output = '[%s] %s%s,%i/%i ...%s' % (bar, percent, '%', count, total, status)
+    output = f'[{bar}] {percent}%, {count}/{total} ...{status}'
 
-    sys.stdout.write('\033[K')
-    sys.stdout.write( output[0:buffer_size] + '\r' )
-    sys.stdout.flush()
+    print(output[0:buffer_size] + '\r', end='')
 
 
 
