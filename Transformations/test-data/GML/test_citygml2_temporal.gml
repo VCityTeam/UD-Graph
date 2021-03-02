@@ -1,4 +1,4 @@
-<CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/2.0 http://schemas.opengis.net/citygml/2.0/cityGMLBase.xsd                                http://www.opengis.net/citygml/building/2.0 http://schemas.opengis.net/citygml/building/2.0/building.xsd" srsName="EPSG:3946">
+<CityModel xmlns="http://www.opengis.net/citygml/2.0" xmlns:bldg="http://www.opengis.net/citygml/building/2.0" xmlns:core="http://www.opengis.net/citygml/2.0" xmlns:gml="http://www.opengis.net/gml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/2.0 http://schemas.opengis.net/citygml/2.0/cityGMLBase.xsd                                http://www.opengis.net/citygml/building/2.0 http://schemas.opengis.net/citygml/building/2.0/building.xsd">
   <cityObjectMember>
     <bldg:Building gml:id="BU_69381AL50">
       <gml:name>Building 69381AL50</gml:name>
@@ -488,9 +488,9 @@
         <bldg:BuildingPart gml:id="BU_69381AL49_2">
           <bldg:measuredHeight uom="#m">10.63</bldg:measuredHeight>
           <bldg:lod2Solid>
-            <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c5">
+            <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c6">
               <gml:exterior>
-                <gml:CompositeSurface gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4de">
+                <gml:CompositeSurface gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4df">
                   <gml:surfaceMember xlink:href="#UUID_53dfcc91-79ed-4dd0-a17d-62e788105a5a"/>
                   <gml:surfaceMember xlink:href="#UUID_0f4b2a31-bb91-4a95-99d3-de39818c2ce6"/>
                   <gml:surfaceMember xlink:href="#UUID_3000219a-8d84-4597-add2-54763e3a114c"/>
