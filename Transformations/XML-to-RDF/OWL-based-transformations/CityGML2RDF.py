@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import logging
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
@@ -8,13 +9,15 @@ from lxml import etree
 
 def main():
     if len(sys.argv) != 5:
-        sys.exit(
-            'Incorrect number of arguments: {}\nUsage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mappings]\nontology input paths are separated by a ","'.format(
-                len(sys.argv)))
+        sys.exit(f'Incorrect number of arguments: {len(sys.argv)}\n'
+                  'Usage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mappings]\n'
+                  'ontology input paths are separated by a ","')
 
     ############################
     ##  Initialize variables  ##
     ############################
+
+    logging.basicConfig(filename='output.log', level=logging.DEBUG)
 
     global input_tree
     global ontology
@@ -32,13 +35,11 @@ def main():
     global parsed_nodes
     global GML
     global GeoSPARQL
-    global log
 
     filename = '.'.join(os.path.split(sys.argv[2])[-1].split('.')[:-1])
     input_tree = etree.parse(sys.argv[2])
     output_graph = Graph()
-    output_uri = 'https://github.com/VCityTeam/UD-Graph/{}'.format(filename)
-    log = ''
+    output_uri = f'https://github.com/VCityTeam/UD-Graph/{filename}'
 
 
     input_node_count = 0
@@ -51,10 +52,7 @@ def main():
     objectproperty_definition_cache = {}
     datatypeproperty_definition_cache = {}
     parsed_nodes = []
-    gml_namespaces = {
-        'gml': 'http://www.opengis.net/gml',
-        'xAL': 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0'
-    }
+
     with open(sys.argv[4], 'r') as file:
         namespace_mappings = json.loads(file.read())
 
@@ -103,12 +101,9 @@ def main():
             generateIndividual(input_node)
 
     print('\nWriting graph to disk...')
-    print('{}/{}.ttl'.format(sys.argv[3], filename))
-    with open('{}/{}.ttl'.format(sys.argv[3], filename), 'wb') as file:
+    print(f'{sys.argv[3]}/{filename}.ttl')
+    with open(f'{sys.argv[3]}/{filename}.ttl', 'wb') as file:
         file.write(output_graph.serialize(format='turtle'))
-    print('Writing log to log.txt ...')
-    with open('log.txt', 'w') as file:
-        file.write(log)
 
 
 
@@ -130,26 +125,23 @@ def generateIndividual(node):
         return
     global log
     node_tag = mapNamespace(node)
-    node_id = URIRef('{}#{}'.format(output_uri, node.attrib['{http://www.opengis.net/gml}id'])) if \
-        '{http://www.opengis.net/gml}id' in node.attrib else URIRef(generateID(node_tag))
+    node_id = ''
+    if '{http://www.opengis.net/gml}id' in node.attrib:
+        node_id = URIRef(f'{output_uri}#{node.attrib["{http://www.opengis.net/gml}id"]}')
+    elif '{http://www.opengis.net/gml/3.2}id' in node.attrib:
+        node_id = URIRef(f'{output_uri}#{node.attrib["{http://www.opengis.net/gml/3.2}id"]}')
+    else:
+        node_id = URIRef(generateID(node_tag))
     output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
     output_graph.add( (node_id, RDF.type, node_tag) )
 
     # if the node is a geometry node, create a gml serialization and add
-    # descendant nodes to the parsed_nodes list
+    # it as a triple to the node
     if isGeometry(node.tag):
-        generateGeometrySerialization(node, node_id)
-        # parsed_nodes.append(input_tree.getelementpath(node))
-        # updateProgressBar(input_node_count, input_node_total, node.tag)
-        # input_node_count += 1
-        # for child in node.iter():
-        #     # skip comment nodes
-        #     if not isinstance(child.tag, str):
-        #         continue
-        #     parsed_nodes.append(input_tree.getelementpath(child))
-        #     updateProgressBar(input_node_count, input_node_total, child.tag)
-        #     input_node_count += 1
-        # return node_id
+        geometry_blob = generateGeometrySerialization(node, node_id)
+        geometry_node = Literal(geometry_blob, datatype=GeoSPARQL.gmlLiteral)
+        output_graph.add( (node_id, GeoSPARQL.asGML, geometry_node) )
+        
 
     for child in node:
         # skip comment nodes
@@ -182,7 +174,7 @@ def generateIndividual(node):
         elif isDatatypeProperty(child.tag):
             generateDatatypeProperty(node, node_id, child)
         else:
-            log += 'Error! Unknown XML element: {}\n'.format( input_tree.getelementpath(child) )
+            logging.warning(f'Unknown XML element: {input_tree.getelementpath(child)}')
 
     for attribute in node.attrib:
         attribute_tag = mapNamespace(attribute)
@@ -211,15 +203,13 @@ def generateObjectProperties(parent, parent_id, node):
             if property is not None:
                 output_graph.add((parent_id, property, child_id))
             else:
-                log += 'Error! Object property not found: {}\n'.format(
-                    input_tree.getelementpath(node) )
+                loggging.warning(f'Object property not found: {input_tree.getelementpath(node)}')
             # check if child is a gml geometry node. If so, generate the geometry
             # property gsp:hasGeometry.
             if isGeometry(child.tag):
                 output_graph.add( (parent_id, GeoSPARQL.hasGeometry, child_id) )
         else:
-            log += 'Error! Class element for object property not found: {}\n'.format(
-                input_tree.getelementpath(child) )
+            logging.warning(f'Class element for object property not found: {input_tree.getelementpath(child)}')
 
 
 # Generate a datatype for each child (which should all contain datatype literals
@@ -235,28 +225,27 @@ def generateDatatypeProperty(parent, parent_id, node):
         if property is not None:
             output_graph.add((parent_id, property, Literal(node.text)))
         else:
-            log += 'Error! Datatype property not found: {}\n'.format(
-                input_tree.getelementpath(node) )
+            logging.warning(f'Datatype property not found: {input_tree.getelementpath(node)}')
     else:
-        log += 'Error! Datatype text for datatype property not found: {}\n'.format(
-            input_tree.getelementpath(node) )
+        logging.warning(f'Datatype text for datatype property not found: {input_tree.getelementpath(node)}')
 
 # helper function for filtering unwanted geometry namespaces
-def isGMLNamespace( string ):
+def isGMLTag( string ):
     return not string.startswith('xmlns') or string.startswith('xmlns:gml')
 
 # Generate the gsp:gmlLiteral serialization of a geometry node
 def generateGeometrySerialization(node, node_id):
+    for xlink in node.findall('.//*[@{http://www.w3.org/1999/xlink}:href]'):
+        print(xlink)
     geometry = str(etree.tostring(node, pretty_print=False)).split(' ')
-    geometry = ' '.join(filter( isGMLNamespace, geometry ))
+    geometry = ' '.join(filter( isGMLTag, geometry ))
     geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip()
 
     # xlinks are not yet supported by apache jena for gsp:gmlLiterals
     if 'xlink:href' in geometry:
         return
 
-    serialization = Literal(geometry, datatype=GeoSPARQL.gmlLiteral)
-    output_graph.add( (node_id, GeoSPARQL.asGML, serialization) )
+    return geometry
 
 
 
@@ -318,8 +307,7 @@ def findObjectProperty(tag1, tag2, property_tag=None):
                         property[0]) )
             if bool(query):
                 return property[0]
-    log += 'Error! No matching object property found between: {}, {}\n'.format(
-        tag1, tag2)
+    logging.warning(f'No matching object property found between: {tag1}, {tag2}')
     return None
 
 
@@ -368,8 +356,7 @@ def findDatatypeProperty(tag1, property_tag=None):
                             property[0]) )
                 if bool(query):
                     return property[0]
-    log += 'Error! No matching datatype property found between: {}, {}\n'.format(
-        tag1, property_tag)
+    logging.warning(f'No matching datatype property found between: {tag1}, {property_tag}')
     return None
 
 
@@ -399,10 +386,10 @@ def generateID(tag):
     name = str(tag).split('#')[-1]
     if name in id_count:
         id_count[name] += 1
-        return '{}#{}_{}'.format(output_uri, name, id_count[name])
+        return f'{output_uri}#{name}_{id_count[name]}'
     else:
         id_count[name] = 0
-        return '{}#{}_0'.format(output_uri, name)
+        return f'{output_uri}#{name}_0'
 
 
 # return whether class definition exists in ontology
@@ -511,7 +498,7 @@ def getDatatype(tag):
         return datatype_definition_cache.get( str(tag) )
 
 
-# return whether node-tree is gml. Convert the uri into a qname
+# return whether tag is a valid gml element. Convert the uri into a qname
 # tuple of (prefix, namespace, localname) to extract the namespace
 def isGeometry(tag):
     qname = mapNamespace(tag).split('#')
