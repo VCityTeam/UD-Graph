@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!--
-  Example file containing a building with thematic surfaces plus geometries in LOD2. 
-  The Building feature contains a BuildingRoom feature without geometry. 
-  The room has a generic attribute storing its current air temperature value.
-  A Dynamizer feature is included (on the level of  the Building feature) establishing
-  an explicit link to an external sensor service that measures the room's temperature. 
-  The external sensor service is connected via the OGC SensorThings API. 
-  The Dynamizer links one specific datastream of the sensor node (the one with the 
-  temperature readings) to the temperature property of the room.
+  Example file containing a building with thematic surfaces plus geometries in LOD2.
+  The building has the attributes <name>, <creationDate>, <externalReference>, <height>, <function>, <roofType>, <address> as well as two generic attributes.
+  The file validates against release 3.0.0-draft.2020.09.17.1
 -->
-<CityModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.opengis.net/citygml/3.0 ../Schema/cityGMLBase.xsd http://www.opengis.net/citygml/generics/3.0 ../Schema/generics.xsd http://www.opengis.net/citygml/construction/3.0 ../Schema/construction.xsd http://www.opengis.net/citygml/building/3.0 ../Schema/building.xsd http://www.opengis.net/citygml/dynamizer/3.0 ../Schema/dynamizer.xsd"
- xmlns="http://www.opengis.net/citygml/3.0"
- xmlns:gen="http://www.opengis.net/citygml/generics/3.0"
- xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:3.0"
- xmlns:con="http://www.opengis.net/citygml/construction/3.0"
- xmlns:bldg="http://www.opengis.net/citygml/building/3.0"
- xmlns:dyn="http://www.opengis.net/citygml/dynamizer/3.0"
- xmlns:gml="http://www.opengis.net/gml/3.2"
- xmlns:xlink="http://www.w3.org/1999/xlink"
+<CityModel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xsi:schemaLocation="http://www.opengis.net/citygml/3.0 ../Schema/cityGMLBase.xsd http://www.opengis.net/citygml/generics/3.0 ../Schema/generics.xsd http://www.opengis.net/citygml/construction/3.0 ../Schema/construction.xsd http://www.opengis.net/citygml/building/3.0 ../Schema/building.xsd http://www.opengis.net/citygml/dynamizer/3.0 ../Schema/dynamizer.xsd" 
+ xmlns="http://www.opengis.net/citygml/3.0" 
+ xmlns:gen="http://www.opengis.net/citygml/generics/3.0" 
+ xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" 
+ xmlns:con="http://www.opengis.net/citygml/construction/3.0" 
+ xmlns:bldg="http://www.opengis.net/citygml/building/3.0" 
+ xmlns:gml="http://www.opengis.net/gml/3.2" 
+ xmlns:xlink="http://www.w3.org/1999/xlink" 
  gml:id="cm1">
   <gml:name>LoD2_4490_5322_1_BY</gml:name>
   <gml:boundedBy>
@@ -31,36 +25,28 @@
     <bldg:Building gml:id="DEBY_LOD2_5744682">
       <gml:name>DEBY_LOD2_5744682</gml:name>
       <creationDate>2014-10-08T00:00:00</creationDate>
-      <dynamizer>
-        <dyn:Dynamizer gml:id="room1_Dynamizer">
-          <dyn:attributeRef>
-            //bldg:BuildingRoom[@gml:id='DEBY_LOD2_5744682_room1']/genericAttribute/gen:DoubleAttribute[name='temperature']/gen:value
-          </dyn:attributeRef> 
-          <dyn:startTime>2019-01-01T00:00:00Z</dyn:startTime>
-          <dyn:endTime>2020-01-01T00:00:00Z</dyn:endTime>
-          <dyn:sensorConnection>
-            <dyn:SensorConnection> 
-              <dyn:connectionType>ogc_sta_1.0</dyn:connectionType>
-              <dyn:observationProperty>Temperature</dyn:observationProperty>
-              <dyn:uom>Celsius</dyn:uom>
-              <dyn:datastreamID>1</dyn:datastreamID>
-              <dyn:baseURL>http://127.0.0.1:8080/FROST-Server/v1.0</dyn:baseURL>
-              <dyn:authType>none</dyn:authType>
-              <dyn:linkToObservation>
-                %baseURL%/Datastreams(%datastreamID%)/Observations?$filter=during(phenomenonTime, %startTime%/%endTime%)
-              </dyn:linkToObservation>
-              <dyn:linkToSensorDescription>
-                %baseURL%/Datastreams(%datastreamID%)/Sensor  
-              </dyn:linkToSensorDescription>
-              <dyn:sensorLocation xlink:href="#DEBY_LOD2_5744682_room1"></dyn:sensorLocation>
-            </dyn:SensorConnection> 
-          </dyn:sensorConnection>
-        </dyn:Dynamizer>
-      </dynamizer>
+      <externalReference>
+        <ExternalReference>
+          <targetResource>urn:adv:oid:DEBYvAAAAAAS3QeS</targetResource>
+          <informationSystem>http://repository.gdi-de.org/schemas/adv/citygml/fdv/art.htm#_9100</informationSystem>
+        </ExternalReference>
+      </externalReference>
+      <genericAttribute>
+        <gen:StringAttribute>
+          <gen:name>StandLK</gen:name>
+          <gen:value>2014-07-28</gen:value>
+        </gen:StringAttribute>
+      </genericAttribute>
+      <genericAttribute>
+        <gen:StringAttribute>
+          <gen:name>Gemeindeschluessel</gen:name>
+          <gen:value>09175128</gen:value>
+        </gen:StringAttribute>
+      </genericAttribute>
       <boundary>
-        <con:RoofSurface gml:id="DEBY_LOD2_5744682_roofsurface1">
+        <con:RoofSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_5e13d1c8-7fb5-479f-9794-7b9e1f89ca1e_msl_N65598">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_5e13d1c8-7fb5-479f-9794-7b9e1f89ca1e_msl_N65615">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_5e13d1c8-7fb5-479f-9794-7b9e1f89ca1e_poly">
                   <gml:exterior>
@@ -78,7 +64,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_314d7d2e-1551-4946-80a4-12e463d59de5_msl_N65610">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_314d7d2e-1551-4946-80a4-12e463d59de5_msl_N65627">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_314d7d2e-1551-4946-80a4-12e463d59de5_poly">
                   <gml:exterior>
@@ -95,7 +81,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_6a1b5359-d4e4-4d80-aeb8-ad63625a56dc_msl_N65622">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_6a1b5359-d4e4-4d80-aeb8-ad63625a56dc_msl_N65639">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_6a1b5359-d4e4-4d80-aeb8-ad63625a56dc_poly">
                   <gml:exterior>
@@ -112,7 +98,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_44e7c68d-da01-4f80-b1a4-9bbde8305c77_msl_N65634">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_44e7c68d-da01-4f80-b1a4-9bbde8305c77_msl_N65651">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_44e7c68d-da01-4f80-b1a4-9bbde8305c77_poly">
                   <gml:exterior>
@@ -129,7 +115,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_1e36b54e-2518-4afe-a2b4-a59ddff93581_msl_N65646">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_1e36b54e-2518-4afe-a2b4-a59ddff93581_msl_N65663">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_1e36b54e-2518-4afe-a2b4-a59ddff93581_poly">
                   <gml:exterior>
@@ -146,7 +132,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_887068cb-0fcb-45f3-b436-d1a1bdef047f_msl_N65658">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_887068cb-0fcb-45f3-b436-d1a1bdef047f_msl_N65675">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_887068cb-0fcb-45f3-b436-d1a1bdef047f_poly">
                   <gml:exterior>
@@ -163,7 +149,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_80ce6c2a-8724-4a2a-89e4-881da9530ecc_msl_N65670">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_80ce6c2a-8724-4a2a-89e4-881da9530ecc_msl_N65687">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_80ce6c2a-8724-4a2a-89e4-881da9530ecc_poly">
                   <gml:exterior>
@@ -181,7 +167,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_392cb098-6e22-4334-9853-1e8225966156_msl_N65682">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_392cb098-6e22-4334-9853-1e8225966156_msl_N65699">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_392cb098-6e22-4334-9853-1e8225966156_poly">
                   <gml:exterior>
@@ -198,7 +184,7 @@
       <boundary>
         <con:RoofSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_26de5877-57e7-429d-9b9a-274b8ed6aac5_msl_N65694">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_26de5877-57e7-429d-9b9a-274b8ed6aac5_msl_N65711">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_26de5877-57e7-429d-9b9a-274b8ed6aac5_poly">
                   <gml:exterior>
@@ -216,7 +202,7 @@
       <boundary>
         <con:WallSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_dd1b367c-c6d8-4eb2-abe6-0accb0fa91b8_msl_N65706">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_dd1b367c-c6d8-4eb2-abe6-0accb0fa91b8_msl_N65723">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_dd1b367c-c6d8-4eb2-abe6-0accb0fa91b8_poly">
                   <gml:exterior>
@@ -234,7 +220,7 @@
       <boundary>
         <con:GroundSurface>
           <lod2MultiSurface>
-            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_58e93bde-fd64-4fec-9626-5824c2e94f0e_msl_N65718">
+            <gml:MultiSurface gml:id="DEBY_LOD2_5744682_58e93bde-fd64-4fec-9626-5824c2e94f0e_msl_N65735">
               <gml:surfaceMember>
                 <gml:Polygon gml:id="DEBY_LOD2_5744682_58e93bde-fd64-4fec-9626-5824c2e94f0e_poly">
                   <gml:exterior>
@@ -250,7 +236,7 @@
         </con:GroundSurface>
       </boundary>
       <lod2Solid>
-        <gml:Solid gml:id="DEBY_LOD2_5744682_sl_N65569">
+        <gml:Solid gml:id="DEBY_LOD2_5744682_sl_N65586">
           <gml:exterior>
             <gml:Shell>
               <gml:surfaceMember xlink:href="#DEBY_LOD2_5744682_1e36b54e-2518-4afe-a2b4-a59ddff93581_poly"/>
@@ -268,33 +254,34 @@
           </gml:exterior>
         </gml:Solid>
       </lod2Solid>
+      <con:height>
+        <con:Height>
+          <con:highReference>highestRoofEdge</con:highReference>
+          <con:lowReference>lowestGroundPoint</con:lowReference>
+          <con:status>measured</con:status>
+          <con:value uom="urn:adv:uom:m">8.55</con:value>
+        </con:Height>
+      </con:height>
       <bldg:function>31001_9998</bldg:function>
       <bldg:roofType>3100</bldg:roofType>
-      <bldg:buildingRoom>
-        <bldg:BuildingRoom gml:id="DEBY_LOD2_5744682_room1">
-          <gml:name>Living Room</gml:name>
-          <genericAttribute>
-            <gen:DoubleAttribute>
-              <gen:name>temperature</gen:name>
-              <gen:value>20.2</gen:value>
-            </gen:DoubleAttribute>
-           </genericAttribute>
-        </bldg:BuildingRoom>
-      </bldg:buildingRoom>     
       <bldg:address>
         <Address gml:id="fme-gen-0355784d-2ffc-4c46-b812-c4d08d6a3f81">
           <xalAddress>
-            <xAL:AddressDetails>
+            <xAL:Address>
               <xAL:Country>
-                <xAL:CountryName>Germany</xAL:CountryName>
-                <xAL:Locality Type="Town">
-                  <xAL:LocalityName>Moosach</xAL:LocalityName>
-                  <xAL:Thoroughfare Type="Street">
-                    <xAL:ThoroughfareName>Am Hang 15</xAL:ThoroughfareName>
-                  </xAL:Thoroughfare>
-                </xAL:Locality>
+                <xAL:NameElement xAL:NameType="Name">Germany</xAL:NameElement>
               </xAL:Country>
-            </xAL:AddressDetails>
+              <xAL:Locality xAL:Type="Town">
+                <xAL:NameElement xAL:NameType="Name">Moosach</xAL:NameElement>
+              </xAL:Locality>
+              <xAL:Thoroughfare xAL:Type="Street">
+                <xAL:NameElement xAL:NameType="NameAndType">Am Hang</xAL:NameElement>
+                <xAL:Number xAL:Type="Number">15</xAL:Number>
+              </xAL:Thoroughfare>
+              <xAL:PostCode>
+                <xAL:Identifier>85665</xAL:Identifier>
+              </xAL:PostCode>
+            </xAL:Address>
           </xalAddress>
         </Address>
       </bldg:address>

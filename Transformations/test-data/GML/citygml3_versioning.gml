@@ -6,58 +6,23 @@ and open the template in the editor.
 -->
 
 
-<core:CityModel
-    xmlns:app="http://www.opengis.net/citygml/appearance/3.0"
-    xmlns:brid="http://www.opengis.net/citygml/bridge/3.0"
+<core:CityModel xmlns="http://www.opengis.net/citygml/3.0"
     xmlns:bldg="http://www.opengis.net/citygml/building/3.0"
-    xmlns:frn="http://www.opengis.net/citygml/cityfurniture/3.0"
-    xmlns:grp="http://www.opengis.net/citygml/cityobjectgroup/3.0"
     xmlns:con="http://www.opengis.net/citygml/construction/3.0"
-    xmlns:pcl="http://www.opengis.net/citygml/pointcloud/3.0"
     xmlns:core="http://www.opengis.net/citygml/3.0"
-    xmlns:dyn="http://www.opengis.net/citygml/dynamizer/3.0"
-    xmlns:gen="http://www.opengis.net/citygml/generics/3.0"
-    xmlns:luse="http://www.opengis.net/citygml/landuse/3.0"
-    xmlns:dem="http://www.opengis.net/citygml/relief/3.0"
-    xmlns:tran="http://www.opengis.net/citygml/transportation/3.0"
-    xmlns:tun="http://www.opengis.net/citygml/tunnel/3.0"
-    xmlns:veg="http://www.opengis.net/citygml/vegetation/3.0"
     xmlns:vers="http://www.opengis.net/citygml/versioning/3.0"
-    xmlns:wtr="http://www.opengis.net/citygml/waterbody/3.0"
-    xmlns:tsml="http://www.opengis.net/tsml/1.0"
-    xmlns:sos="http://www.opengis.net/sos/2.0"
-    xmlns:xAL="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+    xmlns:xAL="urn:oasis:names:tc:ciq:xal:3"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:gml="http://www.opengis.net/gml/3.2"
-    xmlns:ade="http://www.3dcitydb.org/citygml-ade/3.0/citygml/1.0"
-    xmlns="http://www.opengis.net/citygml/3.0"
-    xsi:schemaLocation="http://www.opengis.net/citygml/appearance/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/appearance.xsd
-        http://www.opengis.net/citygml/bridge/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/bridge.xsd
-        http://www.opengis.net/citygml/building/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/building.xsd
-        http://www.opengis.net/citygml/cityfurniture/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/cityFurniture.xsd
-        http://www.opengis.net/citygml/cityobjectgroup/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/cityObjectGroup.xsd
-        http://www.opengis.net/citygml/construction/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/construction.xsd
-        http://www.opengis.net/citygml/pointcloud/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/pointCloud.xsd
-        http://www.opengis.net/citygml/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/cityGMLBase.xsd
-        http://www.opengis.net/citygml/dynamizer/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/dynamizer.xsd
-        http://www.opengis.net/citygml/generics/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/generics.xsd
-        http://www.opengis.net/citygml/landuse/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/landUse.xsd
-        http://www.opengis.net/citygml/relief/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/relief.xsd
-        http://www.opengis.net/citygml/transportation/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/transportation.xsd
-        http://www.opengis.net/citygml/tunnel/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/tunnel.xsd
-        http://www.opengis.net/citygml/vegetation/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/vegetation.xsd
-        http://www.opengis.net/citygml/versioning/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/versioning.xsd
-        http://www.opengis.net/citygml/waterbody/3.0 http://www.3dcitydb.org/citygml3/2019-06-05/xsds/waterBody.xsd
-        http://www.opengis.net/tsml/1.0 http://schemas.opengis.net/tsml/1.0/timeseriesML.xsd
-        http://www.opengis.net/sos/2.0 http://schemas.opengis.net/sos/2.0/sosGetObservation.xsd
-        urn:oasis:names:tc:ciq:xsdschema:xAL:2.0 http://schemas.opengis.net/citygml/xAL/xAL.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.opengis.net/citygml/building/3.0 ../XMLSchema/CityGML3_2019-06-05/building.xsd
+        http://www.opengis.net/citygml/construction/3.0 ../XMLSchema/CityGML3_2019-06-05/construction.xsd
+        http://www.opengis.net/citygml/3.0 ../XMLSchema/CityGML3_2019-06-05/cityGMLBase.xsd
+        http://www.opengis.net/citygml/versioning/3.0 ../XMLSchema/CityGML3_2019-06-05/versioning.xsd"
     gml:id="cm1">
     <core:versionMember>
         <vers:Version gml:id="version_1">
             <vers:tag>v1.0</vers:tag>
-            <core:validFrom>2000-01-01T00:00:00</core:validFrom>
-            <core:validTo>2015-01-01T00:00:00</core:validTo>
             <vers:versionMember xlink:href="BU_69381AL50"/>
             <vers:versionMember xlink:href="BU_69381AL49_v1"/>
         </vers:Version>
@@ -65,7 +30,6 @@ and open the template in the editor.
     <core:versionMember>
         <vers:Version gml:id="version_2">
             <vers:tag>v2.0</vers:tag>
-            <core:validFrom>2015-01-01T00:00:00</core:validFrom>
             <vers:versionMember xlink:href="BU_69381AL49_v2"/>
             <vers:versionMember xlink:href="BU_69381AL47"/>
         </vers:Version>
@@ -91,8 +55,8 @@ and open the template in the editor.
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>replace</vers:type>
-                    <vers:newFeature xlink:href="BU_69381AL49_v1"/>
-                    <vers:oldFeature xlink:href="BU_69381AL49_v2"/>
+                    <vers:oldFeature xlink:href="BU_69381AL49_v1"/>
+                    <vers:newFeature xlink:href="BU_69381AL49_v2"/>
                 </vers:Transaction>
             </vers:transaction>
         </vers:VersionTransition>
@@ -106,35 +70,10 @@ and open the template in the editor.
                     <gml:upperCorner>1842428.125000 5176419.000000 260.914978</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
-            <core:validFrom>2000-01-01T00:00:00</core:validFrom>
-            <core:validTo>2015-01-01T00:00:00</core:validTo>
+            <core:creationDate>2000-01-01T00:00:00</core:creationDate>
+            <core:terminationDate>2015-01-01T00:00:00</core:terminationDate>
             <bldg:buildingPart>
                 <bldg:BuildingPart gml:id="BU_69381AL50_1">
-                    <core:lod2Solid>
-                        <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c5">
-                            <gml:exterior>
-                                <gml:Shell gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4de">
-                                    <gml:surfaceMember xlink:href="#UUID_ef323e54-9171-42b9-9100-7dd7f2cd44fe"/>
-                                    <gml:surfaceMember xlink:href="#UUID_1062d6e8-8eea-48cd-8ff2-da507e96675a"/>
-                                    <gml:surfaceMember xlink:href="#UUID_ec7f43d9-743c-498a-bd7b-d6e4367891e4"/>
-                                    <gml:surfaceMember xlink:href="#UUID_201aba1f-b2ce-4213-ab48-4752042780b5"/>
-                                    <gml:surfaceMember xlink:href="#UUID_e5c6247c-739d-426a-b7e2-fbcd80a39e5b"/>
-                                    <gml:surfaceMember xlink:href="#UUID_b6262539-a3b5-44ec-bc36-9e10d06df0f3"/>
-                                    <gml:surfaceMember xlink:href="#UUID_bbeadf15-0e22-46e2-8686-70d7b64692ef"/>
-                                    <gml:surfaceMember xlink:href="#UUID_6f2b09ac-956f-4971-b08c-a1e0f4ad34da"/>
-                                    <gml:surfaceMember xlink:href="#UUID_af66f716-f2e5-4d88-a158-e9faca60c6d8"/>
-                                    <gml:surfaceMember xlink:href="#UUID_1e42dfdf-5fce-4eec-98b7-d6e6e8742ab1"/>
-                                    <gml:surfaceMember xlink:href="#UUID_a36845e0-bf72-494c-ae85-9faf2df0bf71"/>
-                                    <gml:surfaceMember xlink:href="#UUID_ef90cf2a-2c47-44b0-a169-baf8871014bf"/>
-                                    <gml:surfaceMember xlink:href="#UUID_d853063a-d0fa-4bb5-af0e-9fb14a6dc3f5"/>
-                                    <gml:surfaceMember xlink:href="#UUID_8f7135d8-53d1-4930-80ef-dd417df16792"/>
-                                    <gml:surfaceMember xlink:href="#UUID_03f2eb1b-8764-4a7d-9174-ae821a7c7b9f"/>
-                                    <gml:surfaceMember xlink:href="#UUID_73f4dd2b-a0d1-4aad-99eb-caa572164aa7"/>
-                                    <gml:surfaceMember xlink:href="#UUID_c30f4b10-5577-4db0-9f55-f169d69d4f34"/>
-                                </gml:Shell>
-                            </gml:exterior>
-                        </gml:Solid>
-                    </core:lod2Solid>
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -429,6 +368,31 @@ and open the template in the editor.
                             </core:lod2MultiSurface>
                         </con:GroundSurface>
                     </core:boundary>
+                    <core:lod2Solid>
+                        <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c5">
+                            <gml:exterior>
+                                <gml:Shell gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4de">
+                                    <gml:surfaceMember xlink:href="#UUID_ef323e54-9171-42b9-9100-7dd7f2cd44fe"/>
+                                    <gml:surfaceMember xlink:href="#UUID_1062d6e8-8eea-48cd-8ff2-da507e96675a"/>
+                                    <gml:surfaceMember xlink:href="#UUID_ec7f43d9-743c-498a-bd7b-d6e4367891e4"/>
+                                    <gml:surfaceMember xlink:href="#UUID_201aba1f-b2ce-4213-ab48-4752042780b5"/>
+                                    <gml:surfaceMember xlink:href="#UUID_e5c6247c-739d-426a-b7e2-fbcd80a39e5b"/>
+                                    <gml:surfaceMember xlink:href="#UUID_b6262539-a3b5-44ec-bc36-9e10d06df0f3"/>
+                                    <gml:surfaceMember xlink:href="#UUID_bbeadf15-0e22-46e2-8686-70d7b64692ef"/>
+                                    <gml:surfaceMember xlink:href="#UUID_6f2b09ac-956f-4971-b08c-a1e0f4ad34da"/>
+                                    <gml:surfaceMember xlink:href="#UUID_af66f716-f2e5-4d88-a158-e9faca60c6d8"/>
+                                    <gml:surfaceMember xlink:href="#UUID_1e42dfdf-5fce-4eec-98b7-d6e6e8742ab1"/>
+                                    <gml:surfaceMember xlink:href="#UUID_a36845e0-bf72-494c-ae85-9faf2df0bf71"/>
+                                    <gml:surfaceMember xlink:href="#UUID_ef90cf2a-2c47-44b0-a169-baf8871014bf"/>
+                                    <gml:surfaceMember xlink:href="#UUID_d853063a-d0fa-4bb5-af0e-9fb14a6dc3f5"/>
+                                    <gml:surfaceMember xlink:href="#UUID_8f7135d8-53d1-4930-80ef-dd417df16792"/>
+                                    <gml:surfaceMember xlink:href="#UUID_03f2eb1b-8764-4a7d-9174-ae821a7c7b9f"/>
+                                    <gml:surfaceMember xlink:href="#UUID_73f4dd2b-a0d1-4aad-99eb-caa572164aa7"/>
+                                    <gml:surfaceMember xlink:href="#UUID_c30f4b10-5577-4db0-9f55-f169d69d4f34"/>
+                                </gml:Shell>
+                            </gml:exterior>
+                        </gml:Solid>
+                    </core:lod2Solid>
                     <con:height>
                         <con:Height>
                             <con:highReference>highestRoofEdge</con:highReference>
@@ -450,27 +414,10 @@ and open the template in the editor.
                     <gml:upperCorner>1842412.000000 5176400.500000 251.943008</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
-            <core:validFrom>2000-01-01T00:00:00</core:validFrom>
-            <core:validTo>2015-01-01T00:00:00</core:validTo>
+            <core:creationDate>2000-01-01T00:00:00</core:creationDate>
+            <core:terminationDate>2015-01-01T00:00:00</core:terminationDate>
             <bldg:buildingPart>
-                <bldg:BuildingPart gml:id="BU_69381AL49_1">
-                    <core:lod2Solid>
-                        <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c6">
-                            <gml:exterior>
-                                <gml:Shell gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4df">
-                                    <gml:surfaceMember xlink:href="#UUID_53dfcc91-79ed-4dd0-a17d-62e788105a5a"/>
-                                    <gml:surfaceMember xlink:href="#UUID_0f4b2a31-bb91-4a95-99d3-de39818c2ce6"/>
-                                    <gml:surfaceMember xlink:href="#UUID_3000219a-8d84-4597-add2-54763e3a114c"/>
-                                    <gml:surfaceMember xlink:href="#UUID_ad9f20b0-7f84-4c58-92a9-baf1943120fd"/>
-                                    <gml:surfaceMember xlink:href="#UUID_fd40093d-d200-4b61-aaa3-676ca000abb9"/>
-                                    <gml:surfaceMember xlink:href="#UUID_9b58ef62-3a07-458f-8273-3b9eef0ef288"/>
-                                    <gml:surfaceMember xlink:href="#UUID_9354cd24-06db-4520-8d62-8779d4a23184"/>
-                                    <gml:surfaceMember xlink:href="#UUID_0ff9b86b-b049-450c-ba1f-43c036f56e6e"/>
-                                    <gml:surfaceMember xlink:href="#UUID_c58fc8da-4ee9-43c5-81ba-bb064bb52e9e"/>
-                                </gml:Shell>
-                            </gml:exterior>
-                        </gml:Solid>
-                    </core:lod2Solid>
+                <bldg:BuildingPart gml:id="BU_69381AL49_v1_1">
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -512,7 +459,7 @@ and open the template in the editor.
                                     <gml:surfaceMember>
                                         <gml:Polygon gml:id="UUID_c58fc8da-4ee9-43c5-81ba-bb064bb52e9e">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_63349355-099e-4381-945e-b655a70a60b6">
+                                                <gml:LinearRing gml:id="UUID_1988e9a0-80c5-11eb-9439-0242ac130002">
                                                     <gml:posList>1842411.92729415 5176398.59356639 242.70000000 1842411.75490314 5176399.37123515 242.70000000 1842411.58251212 5176400.14890391 242.70000000 1842411.52049514 5176400.38449044 242.70000000 1842411.45847816 5176400.62007696 242.70000000 1842411.06669741 5176402.10835099 242.70000000 1842410.67491666 5176403.59662502 242.70000000 1842410.85150440 5176403.64696607 242.70000000 1842421.92622520 5176406.80411077 242.70000000 1842422.54639425 5176405.33297213 242.70000000 1842423.12653602 5176403.95678450 242.70000000 1842417.50065850 5176400.04744055 242.70000000 1842411.87478097 5176396.13809660 242.70000000 1842411.92729415 5176398.59356639 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -610,11 +557,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:WallSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_56cd7801-f964-4289-b530-e28a6856007e" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_1988ec16-80c5-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
                                         <gml:Polygon gml:id="UUID_0ff9b86b-b049-450c-ba1f-43c036f56e6e">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_14ad8a5e-bf50-4bb5-8a57-fdfb528a2ba1">
+                                                <gml:LinearRing gml:id="UUID_1988ed24-80c5-11eb-9439-0242ac130002">
                                                     <gml:posList>1842411.92729415 5176398.59356639 242.70000000 1842411.87478097 5176396.13809660 242.70000000 1842411.87478097 5176396.13809660 251.64314924 1842411.92729415 5176398.59356639 252.53290408 1842411.92729415 5176398.59356639 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -624,6 +571,23 @@ and open the template in the editor.
                             </core:lod2MultiSurface>
                         </con:WallSurface>
                     </core:boundary>
+                    <core:lod2Solid>
+                        <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c6">
+                            <gml:exterior>
+                                <gml:Shell gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4df">
+                                    <gml:surfaceMember xlink:href="#UUID_53dfcc91-79ed-4dd0-a17d-62e788105a5a"/>
+                                    <gml:surfaceMember xlink:href="#UUID_0f4b2a31-bb91-4a95-99d3-de39818c2ce6"/>
+                                    <gml:surfaceMember xlink:href="#UUID_3000219a-8d84-4597-add2-54763e3a114c"/>
+                                    <gml:surfaceMember xlink:href="#UUID_ad9f20b0-7f84-4c58-92a9-baf1943120fd"/>
+                                    <gml:surfaceMember xlink:href="#UUID_fd40093d-d200-4b61-aaa3-676ca000abb9"/>
+                                    <gml:surfaceMember xlink:href="#UUID_9b58ef62-3a07-458f-8273-3b9eef0ef288"/>
+                                    <gml:surfaceMember xlink:href="#UUID_9354cd24-06db-4520-8d62-8779d4a23184"/>
+                                    <gml:surfaceMember xlink:href="#UUID_0ff9b86b-b049-450c-ba1f-43c036f56e6e"/>
+                                    <gml:surfaceMember xlink:href="#UUID_c58fc8da-4ee9-43c5-81ba-bb064bb52e9e"/>
+                                </gml:Shell>
+                            </gml:exterior>
+                        </gml:Solid>
+                    </core:lod2Solid>
                     <con:height>
                         <con:Height>
                             <con:highReference>highestRoofEdge</con:highReference>
@@ -645,34 +609,17 @@ and open the template in the editor.
                     <gml:upperCorner>1842412.000000 5176400.500000 251.943008</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
-            <core:validFrom>2015-01-01T00:00:00</core:validFrom>
+            <core:creationDate>2015-01-01T00:00:00</core:creationDate>
             <bldg:buildingPart>
-                <bldg:BuildingPart gml:id="BU_69381AL49_1">
-                    <core:lod2Solid>
-                        <gml:Solid gml:id="UUID_c9075a6f-7ea3-4763-8caa-7733ed0ef5c6">
-                            <gml:exterior>
-                                <gml:Shell gml:id="UUID_726489ae-35c0-41b3-a795-0f116695c4df">
-                                    <gml:surfaceMember xlink:href="#UUID_53dfcc91-79ed-4dd0-a17d-62e788105a5a"/>
-                                    <gml:surfaceMember xlink:href="#UUID_0f4b2a31-bb91-4a95-99d3-de39818c2ce6"/>
-                                    <gml:surfaceMember xlink:href="#UUID_3000219a-8d84-4597-add2-54763e3a114c"/>
-                                    <gml:surfaceMember xlink:href="#UUID_ad9f20b0-7f84-4c58-92a9-baf1943120fd"/>
-                                    <gml:surfaceMember xlink:href="#UUID_fd40093d-d200-4b61-aaa3-676ca000abb9"/>
-                                    <gml:surfaceMember xlink:href="#UUID_9b58ef62-3a07-458f-8273-3b9eef0ef288"/>
-                                    <gml:surfaceMember xlink:href="#UUID_9354cd24-06db-4520-8d62-8779d4a23184"/>
-                                    <gml:surfaceMember xlink:href="#UUID_0ff9b86b-b049-450c-ba1f-43c036f56e6e"/>
-                                    <gml:surfaceMember xlink:href="#UUID_c58fc8da-4ee9-43c5-81ba-bb064bb52e9e"/>
-                                </gml:Shell>
-                            </gml:exterior>
-                        </gml:Solid>
-                    </core:lod2Solid>
+                <bldg:BuildingPart gml:id="BU_69381AL49_v2_1">
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_56029fb4-0431-4e89-9486-c1dc7f6ba3a4" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fba3e-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_53dfcc91-79ed-4dd0-a17d-62e788105a5a">
+                                        <gml:Polygon gml:id="UUID_617fbb06-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_67e50fbd-81d4-4bcd-887a-6ecc4073f14b">
+                                                <gml:LinearRing gml:id="UUID_617fbbc4-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842423.12653602 5176403.95678450 251.48404126 1842422.54639425 5176405.33297213 252.08137190 1842411.45847816 5176400.62007696 253.33435847 1842411.58251212 5176400.14890391 253.14567728 1842411.92729415 5176398.59356639 252.53290408 1842411.87478097 5176396.13809660 251.64314924 1842423.12653602 5176403.95678450 251.48404126 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -685,11 +632,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_9a87f697-8df8-4fb5-a6e1-35050907ccfb" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fbd36-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_0f4b2a31-bb91-4a95-99d3-de39818c2ce6">
+                                        <gml:Polygon gml:id="UUID_617fc07e-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_97d7ede6-e0d2-4e47-8e91-7603c17ba77b">
+                                                <gml:LinearRing gml:id="UUID_617fc8c6-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842422.54639425 5176405.33297213 252.08137190 1842421.92622520 5176406.80411077 251.13404126 1842410.85150440 5176403.64696607 251.47854805 1842410.67491666 5176403.59662502 251.48404126 1842411.45847816 5176400.62007696 253.33435847 1842422.54639425 5176405.33297213 252.08137190 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -702,9 +649,9 @@ and open the template in the editor.
                     <core:boundary>
                         <con:GroundSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_d8de8fc5-1dda-47c1-8631-10acb2cf616e" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fc97a-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_c58fc8da-4ee9-43c5-81ba-bb064bb52e9e">
+                                        <gml:Polygon gml:id="UUID_617fc808-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
                                                 <gml:LinearRing gml:id="UUID_63349355-099e-4381-945e-b655a70a60b6">
                                                     <gml:posList>1842411.92729415 5176398.59356639 242.70000000 1842411.75490314 5176399.37123515 242.70000000 1842411.58251212 5176400.14890391 242.70000000 1842411.52049514 5176400.38449044 242.70000000 1842411.45847816 5176400.62007696 242.70000000 1842411.06669741 5176402.10835099 242.70000000 1842410.67491666 5176403.59662502 242.70000000 1842410.85150440 5176403.64696607 242.70000000 1842421.92622520 5176406.80411077 242.70000000 1842422.54639425 5176405.33297213 242.70000000 1842423.12653602 5176403.95678450 242.70000000 1842417.50065850 5176400.04744055 242.70000000 1842411.87478097 5176396.13809660 242.70000000 1842411.92729415 5176398.59356639 242.70000000 </gml:posList>
@@ -719,11 +666,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:WallSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_3034e626-1ad2-4206-b1af-e405b5310db6" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fca2e-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_ad9f20b0-7f84-4c58-92a9-baf1943120fd">
+                                        <gml:Polygon gml:id="UUID_617fc1fa-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_a96ac878-6562-40d4-af0d-7c8b99451aa4">
+                                                <gml:LinearRing gml:id="UUID_617fcaec-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842423.12653602 5176403.95678450 242.70000000 1842422.54639425 5176405.33297213 242.70000000 1842421.92622520 5176406.80411077 242.70000000 1842421.92622520 5176406.80411077 251.13404126 1842422.54639425 5176405.33297213 252.08137190 1842423.12653602 5176403.95678450 251.48404126 1842423.12653602 5176403.95678450 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -736,11 +683,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:WallSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_938d1233-8ec5-4bd2-9f76-f13f29864f72" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fcba0-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_3000219a-8d84-4597-add2-54763e3a114c">
+                                        <gml:Polygon gml:id="UUID_617fc146-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_580a5659-0277-44d9-a646-56bb9d474942">
+                                                <gml:LinearRing gml:id="UUID_617fce0c-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842423.12653602 5176403.95678450 242.70000000 1842423.12653602 5176403.95678450 251.48404126 1842411.87478097 5176396.13809660 251.64314924 1842411.87478097 5176396.13809660 242.70000000 1842417.50065850 5176400.04744055 242.70000000 1842423.12653602 5176403.95678450 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -753,11 +700,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:WallSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_70762306-a0e0-4d21-830b-14870e520777" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fceca-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_fd40093d-d200-4b61-aaa3-676ca000abb9">
+                                        <gml:Polygon gml:id="UUID_617fc2b8-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_092ebaed-a1a7-497b-bc37-f1f9c8ce0229">
+                                                <gml:LinearRing gml:id="UUID_617fcf88-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842421.92622520 5176406.80411077 242.70000000 1842410.85150440 5176403.64696607 242.70000000 1842410.67491666 5176403.59662502 242.70000000 1842410.67491666 5176403.59662502 251.48404126 1842410.85150440 5176403.64696607 251.47854805 1842421.92622520 5176406.80411077 251.13404126 1842421.92622520 5176406.80411077 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -770,11 +717,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:WallSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_faa6c8b7-47f2-4a76-b8b9-938ef594269e" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fd03c-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_9b58ef62-3a07-458f-8273-3b9eef0ef288">
+                                        <gml:Polygon gml:id="UUID_617fc36c-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_db5a0eef-8b55-4bf4-b296-8c539cb25ade">
+                                                <gml:LinearRing gml:id="UUID_617fd0f0-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842411.58251212 5176400.14890391 242.70000000 1842411.58251212 5176400.14890391 253.14567728 1842411.45847816 5176400.62007696 253.33435847 1842410.67491666 5176403.59662502 251.48404126 1842410.67491666 5176403.59662502 242.70000000 1842411.06669741 5176402.10835099 242.70000000 1842411.45847816 5176400.62007696 242.70000000 1842411.52049514 5176400.38449044 242.70000000 1842411.58251212 5176400.14890391 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -787,11 +734,11 @@ and open the template in the editor.
                     <core:boundary>
                         <con:WallSurface>
                             <core:lod2MultiSurface>
-                                <gml:MultiSurface gml:id="UUID_22cf7d5d-049c-4521-8893-c54b1350d009" srsDimension="3">
+                                <gml:MultiSurface gml:id="UUID_617fd1a4-80c2-11eb-9439-0242ac130002" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_9354cd24-06db-4520-8d62-8779d4a23184">
+                                        <gml:Polygon gml:id="UUID_617fc420-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
-                                                <gml:LinearRing gml:id="UUID_e40e8d49-8745-4980-8f37-2571583d48de">
+                                                <gml:LinearRing gml:id="UUID_617fd262-80c2-11eb-9439-0242ac130002">
                                                     <gml:posList>1842411.92729415 5176398.59356639 242.70000000 1842411.92729415 5176398.59356639 252.53290408 1842411.58251212 5176400.14890391 253.14567728 1842411.58251212 5176400.14890391 242.70000000 1842411.75490314 5176399.37123515 242.70000000 1842411.92729415 5176398.59356639 242.70000000 </gml:posList>
                                                 </gml:LinearRing>
                                             </gml:exterior>
@@ -806,7 +753,7 @@ and open the template in the editor.
                             <core:lod2MultiSurface>
                                 <gml:MultiSurface gml:id="UUID_56cd7801-f964-4289-b530-e28a6856007e" srsDimension="3">
                                     <gml:surfaceMember>
-                                        <gml:Polygon gml:id="UUID_0ff9b86b-b049-450c-ba1f-43c036f56e6e">
+                                        <gml:Polygon gml:id="UUID_617fc4d4-80c2-11eb-9439-0242ac130002">
                                             <gml:exterior>
                                                 <gml:LinearRing gml:id="UUID_14ad8a5e-bf50-4bb5-8a57-fdfb528a2ba1">
                                                     <gml:posList>1842411.92729415 5176398.59356639 242.70000000 1842411.87478097 5176396.13809660 242.70000000 1842411.87478097 5176396.13809660 251.64314924 1842411.92729415 5176398.59356639 252.53290408 1842411.92729415 5176398.59356639 242.70000000 </gml:posList>
@@ -818,6 +765,23 @@ and open the template in the editor.
                             </core:lod2MultiSurface>
                         </con:WallSurface>
                     </core:boundary>
+                    <core:lod2Solid>
+                        <gml:Solid gml:id="UUID_3b645ce2-80c2-11eb-9439-0242ac130002">
+                            <gml:exterior>
+                                <gml:Shell gml:id="UUID_617fb958-80c2-11eb-9439-0242ac130002">
+                                    <gml:surfaceMember xlink:href="#UUID_617fbb06-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc07e-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc146-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc1fa-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc2b8-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc36c-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc420-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc4d4-80c2-11eb-9439-0242ac130002"/>
+                                    <gml:surfaceMember xlink:href="#UUID_617fc808-80c2-11eb-9439-0242ac130002"/>
+                                </gml:Shell>
+                            </gml:exterior>
+                        </gml:Solid>
+                    </core:lod2Solid>
                     <con:height>
                         <con:Height>
                             <con:highReference>highestRoofEdge</con:highReference>
@@ -830,21 +794,6 @@ and open the template in the editor.
             </bldg:buildingPart>
             <bldg:buildingPart>
                 <bldg:BuildingPart gml:id="BU_69381AL49_2">
-                    <core:lod2Solid>
-                        <gml:Solid gml:id="UUID_062c219f-3de4-4e4b-b040-62d0add7da40">
-                            <gml:exterior>
-                                <gml:Shell gml:id="UUID_27bd5ec3-d0eb-4ceb-99db-a5552a6db391">
-                                    <gml:surfaceMember xlink:href="#UUID_fa062056-d387-4525-9541-8a7fb6380b85"/>
-                                    <gml:surfaceMember xlink:href="#UUID_372d7afb-4fe5-4fde-abe3-29fadf474e65"/>
-                                    <gml:surfaceMember xlink:href="#UUID_dfc5c02d-1716-4378-be66-e25f228b50a6"/>
-                                    <gml:surfaceMember xlink:href="#UUID_c4936c24-0c93-4a6b-89a4-c3879a90fa40"/>
-                                    <gml:surfaceMember xlink:href="#UUID_f8162c61-5b53-4c6d-9b48-0e84a5a4d937"/>
-                                    <gml:surfaceMember xlink:href="#UUID_3fc80ba6-8953-4cbd-9f5e-5d946329f2e7"/>
-                                    <gml:surfaceMember xlink:href="#UUID_be66a910-f380-45c5-8f56-07e6a08ea737"/>
-                                </gml:Shell>
-                            </gml:exterior>
-                        </gml:Solid>
-                    </core:lod2Solid>
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -964,6 +913,21 @@ and open the template in the editor.
                             </core:lod2MultiSurface>
                         </con:GroundSurface>
                     </core:boundary>
+                    <core:lod2Solid>
+                        <gml:Solid gml:id="UUID_062c219f-3de4-4e4b-b040-62d0add7da40">
+                            <gml:exterior>
+                                <gml:Shell gml:id="UUID_27bd5ec3-d0eb-4ceb-99db-a5552a6db391">
+                                    <gml:surfaceMember xlink:href="#UUID_fa062056-d387-4525-9541-8a7fb6380b85"/>
+                                    <gml:surfaceMember xlink:href="#UUID_372d7afb-4fe5-4fde-abe3-29fadf474e65"/>
+                                    <gml:surfaceMember xlink:href="#UUID_dfc5c02d-1716-4378-be66-e25f228b50a6"/>
+                                    <gml:surfaceMember xlink:href="#UUID_c4936c24-0c93-4a6b-89a4-c3879a90fa40"/>
+                                    <gml:surfaceMember xlink:href="#UUID_f8162c61-5b53-4c6d-9b48-0e84a5a4d937"/>
+                                    <gml:surfaceMember xlink:href="#UUID_3fc80ba6-8953-4cbd-9f5e-5d946329f2e7"/>
+                                    <gml:surfaceMember xlink:href="#UUID_be66a910-f380-45c5-8f56-07e6a08ea737"/>
+                                </gml:Shell>
+                            </gml:exterior>
+                        </gml:Solid>
+                    </core:lod2Solid>
                     <con:height>
                         <con:Height>
                             <con:highReference>highestRoofEdge</con:highReference>
@@ -985,25 +949,9 @@ and open the template in the editor.
                     <gml:upperCorner>1842411.000000 5176417.000000 259.714539</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
-            <core:validFrom>2015-01-01T00:00:00</core:validFrom>
+            <core:creationDate>2015-01-01T00:00:00</core:creationDate>
             <bldg:buildingPart>
                 <bldg:BuildingPart gml:id="BU_69381AL47_1">
-                    <core:lod2Solid>
-                        <gml:Solid gml:id="UUID_400c9646-6910-468e-a150-69359e29fc30">
-                            <gml:exterior>
-                                <gml:Shell gml:id="UUID_cdd02799-4b2a-43b8-ab44-21702f122b4d">
-                                    <gml:surfaceMember xlink:href="#UUID_66713753-09f1-4a87-940d-0c4169b59ced"/>
-                                    <gml:surfaceMember xlink:href="#UUID_52a9e282-bb4c-4412-b726-6b3a84dfca46"/>
-                                    <gml:surfaceMember xlink:href="#UUID_d3f647a8-7bdf-4d8a-ae38-72a8698fd4e6"/>
-                                    <gml:surfaceMember xlink:href="#UUID_17b96f6d-145a-4b07-a7a9-26d31675c30c"/>
-                                    <gml:surfaceMember xlink:href="#UUID_0bc69996-b750-4358-897a-5e5b20313909"/>
-                                    <gml:surfaceMember xlink:href="#UUID_abcf2a6d-f523-48d6-ba6c-7bd0754841ad"/>
-                                    <gml:surfaceMember xlink:href="#UUID_1dec8228-bf35-4d14-9e1c-0dabb0c63365"/>
-                                    <gml:surfaceMember xlink:href="#UUID_ee41fae1-6b0e-4047-82a6-c88261019103"/>
-                                </gml:Shell>
-                            </gml:exterior>
-                        </gml:Solid>
-                    </core:lod2Solid>
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -1140,6 +1088,22 @@ and open the template in the editor.
                             </core:lod2MultiSurface>
                         </con:GroundSurface>
                     </core:boundary>
+                    <core:lod2Solid>
+                        <gml:Solid gml:id="UUID_400c9646-6910-468e-a150-69359e29fc30">
+                            <gml:exterior>
+                                <gml:Shell gml:id="UUID_cdd02799-4b2a-43b8-ab44-21702f122b4d">
+                                    <gml:surfaceMember xlink:href="#UUID_66713753-09f1-4a87-940d-0c4169b59ced"/>
+                                    <gml:surfaceMember xlink:href="#UUID_52a9e282-bb4c-4412-b726-6b3a84dfca46"/>
+                                    <gml:surfaceMember xlink:href="#UUID_d3f647a8-7bdf-4d8a-ae38-72a8698fd4e6"/>
+                                    <gml:surfaceMember xlink:href="#UUID_17b96f6d-145a-4b07-a7a9-26d31675c30c"/>
+                                    <gml:surfaceMember xlink:href="#UUID_0bc69996-b750-4358-897a-5e5b20313909"/>
+                                    <gml:surfaceMember xlink:href="#UUID_abcf2a6d-f523-48d6-ba6c-7bd0754841ad"/>
+                                    <gml:surfaceMember xlink:href="#UUID_1dec8228-bf35-4d14-9e1c-0dabb0c63365"/>
+                                    <gml:surfaceMember xlink:href="#UUID_ee41fae1-6b0e-4047-82a6-c88261019103"/>
+                                </gml:Shell>
+                            </gml:exterior>
+                        </gml:Solid>
+                    </core:lod2Solid>
                     <con:height>
                         <con:Height>
                             <con:highReference>highestRoofEdge</con:highReference>
