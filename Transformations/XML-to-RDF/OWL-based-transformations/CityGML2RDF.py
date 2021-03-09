@@ -20,6 +20,7 @@ def main():
     logging.basicConfig(filename='output.log', level=logging.DEBUG)
 
     global input_tree
+    global input_root
     global ontology
     global output_graph
     global output_uri
@@ -33,18 +34,20 @@ def main():
     global namespace_mappings
     global gml_namespaces
     global parsed_nodes
-    global GML
-    global GeoSPARQL
+    global GML_NAMESPACE
+    global GML_ONT_NAMESPACE
+    global GeoSPARQL_NAMESPACE
 
     filename = '.'.join(os.path.split(sys.argv[2])[-1].split('.')[:-1])
     input_tree = etree.parse(sys.argv[2])
+    input_root = input_tree.getroot()
     output_graph = Graph()
     output_uri = f'https://github.com/VCityTeam/UD-Graph/{filename}'
 
 
     input_node_count = 0
     input_node_total = 0
-    for _ in input_tree.getroot().iter(): # get input node total
+    for _ in input_root.iter(): # get input node total
         input_node_total += 1
     id_count = {}
     class_definition_cache = {}
@@ -76,8 +79,11 @@ def main():
     # default output namespace binding, and set geospatial namespaces
     output_graph.namespace_manager = NamespaceManager(ontology)
     output_graph.namespace_manager.bind('data', output_uri + '#')
-    GML = Namespace('http://www.opengis.net/ont/gml#')
-    GeoSPARQL = Namespace('http://www.opengis.net/ont/geosparql#')
+
+    GML_NAMESPACE = Namespace(input_root.nsmap.get('gml'))
+    GML_ONT_NAMESPACE = Namespace('http://www.opengis.net/ont/gml#')
+    GeoSPARQL_NAMESPACE = Namespace('http://www.opengis.net/ont/geosparql#')
+
 
 
     ###################################
@@ -86,9 +92,9 @@ def main():
 
     print('Converting XML tree...')
     updateProgressBar(input_node_count, input_node_total)
-    if input_tree.getroot().attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
-        input_tree.getroot().attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
-    for input_node in input_tree.getroot().iter():
+    if input_root.attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
+        input_root.attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
+    for input_node in input_root.iter():
         # skip comment nodes
         if not isinstance(input_node.tag, str):
             continue
@@ -126,10 +132,8 @@ def generateIndividual(node):
     global log
     node_tag = mapNamespace(node)
     node_id = ''
-    if '{http://www.opengis.net/gml}id' in node.attrib:
-        node_id = URIRef(f'{output_uri}#{node.attrib["{http://www.opengis.net/gml}id"]}')
-    elif '{http://www.opengis.net/gml/3.2}id' in node.attrib:
-        node_id = URIRef(f'{output_uri}#{node.attrib["{http://www.opengis.net/gml/3.2}id"]}')
+    if '{%s}id' % GML_NAMESPACE in node.attrib:
+        node_id = URIRef(f'{output_uri}#' + node.attrib.get('{%s}id' % GML_NAMESPACE))
     else:
         node_id = URIRef(generateID(node_tag))
     output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
@@ -139,8 +143,8 @@ def generateIndividual(node):
     # it as a triple to the node
     if isGeometry(node.tag):
         geometry_blob = generateGeometrySerialization(node, node_id)
-        geometry_node = Literal(geometry_blob, datatype=GeoSPARQL.gmlLiteral)
-        output_graph.add( (node_id, GeoSPARQL.asGML, geometry_node) )
+        geometry_node = Literal(geometry_blob, datatype=GeoSPARQL_NAMESPACE.gmlLiteral)
+        output_graph.add( (node_id, GeoSPARQL_NAMESPACE.asGML, geometry_node) )
         
 
     for child in node:
@@ -155,7 +159,7 @@ def generateIndividual(node):
             for objectproperty in objectproperties:
                 output_graph.add( (node_id, objectproperty, child_id) )
             if isGeometry(child.tag):
-                output_graph.add( (node_id, GeoSPARQL.hasGeometry, child_id) )
+                output_graph.add( (node_id, GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
         # check if child node is a datatype. If so, generate a datatype for the
         # child and create a datatype property linking the individual and datatype.
         elif isDatatype(child.tag):
@@ -207,7 +211,7 @@ def generateObjectProperties(parent, parent_id, node):
             # check if child is a gml geometry node. If so, generate the geometry
             # property gsp:hasGeometry.
             if isGeometry(child.tag):
-                output_graph.add( (parent_id, GeoSPARQL.hasGeometry, child_id) )
+                output_graph.add( (parent_id, GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
         else:
             logging.warning(f'Class element for object property not found: {input_tree.getelementpath(child)}')
 
@@ -235,15 +239,23 @@ def isGMLTag( string ):
 
 # Generate the gsp:gmlLiteral serialization of a geometry node
 def generateGeometrySerialization(node, node_id):
-    for xlink in node.findall('.//*[@{http://www.w3.org/1999/xlink}:href]'):
-        print(xlink)
-    geometry = str(etree.tostring(node, pretty_print=False)).split(' ')
+    node_copy = deepcopy(node)
+    # gather geometry referenced though xlinks 
+    for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
+        reference = xlink.attrib.get('{http://www.w3.org/1999/xlink}href').split('#')[-1]
+        reference_node = input_root.find('.//*[@{%s}id = "%s"]' % (GML_NAMESPACE, reference))
+        if reference_node is not None:
+            logging.info(f'Compiling geometry for xlink reference to: {reference}')
+            new_element = etree.Element(xlink.tag)
+            new_element.append(deepcopy(reference_node))
+            parent = xlink.getparent()
+            parent.append(new_element)
+            parent.remove(xlink)
+
+    geometry = str(etree.tostring(node_copy, pretty_print=False)).split(' ')
     geometry = ' '.join(filter( isGMLTag, geometry ))
     geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip()
 
-    # xlinks are not yet supported by apache jena for gsp:gmlLiterals
-    if 'xlink:href' in geometry:
-        return
 
     return geometry
 
@@ -502,10 +514,10 @@ def getDatatype(tag):
 # tuple of (prefix, namespace, localname) to extract the namespace
 def isGeometry(tag):
     qname = mapNamespace(tag).split('#')
-    if qname[0] + '#' == str(GML) and isClass(tag):
+    if qname[0] + '#' == str(GML_ONT_NAMESPACE) and isClass(tag):
         return ontology.query(
                 'ASK {'
-                    f'<{str(GML)}{qname[1]}> rdfs:subClassOf* <{str(GML)}AbstractGeometry> .'
+                    f'<{str(GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(GML_ONT_NAMESPACE)}AbstractGeometry> .'
                 '}')
 
 def updateProgressBar( count, total, status='' ):
@@ -517,6 +529,7 @@ def updateProgressBar( count, total, status='' ):
     bar = '#' * filled_length + '-' * (bar_length - filled_length)
     output = f'[{bar}] {percent}%, {count}/{total} ...{status}'
 
+    print(' ' * buffer_size + '\r', end='')
     print(output[0:buffer_size] + '\r', end='')
 
 
