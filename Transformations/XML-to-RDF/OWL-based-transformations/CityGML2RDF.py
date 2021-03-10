@@ -10,8 +10,8 @@ from lxml import etree
 def main():
     if len(sys.argv) != 5:
         sys.exit(f'Incorrect number of arguments: {len(sys.argv)}\n'
-                  'Usage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mappings]\n'
-                  'ontology input paths are separated by a ","')
+                 'Usage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mappings]\n'
+                 'ontology input paths are separated by a ","')
 
     ############################
     ##  Initialize variables  ##
@@ -90,6 +90,13 @@ def main():
     ##  Convert input file into rdf  ##
     ###################################
 
+    print('Declaring ontology imports...')
+    output_graph.add( (URIRef(output_uri), RDF.type, OWL.Ontology) )
+    for ontology_uri in ontology.query('''
+            SELECT DISTINCT ?ontology
+            WHERE { ?ontology a owl:Ontology . }'''):
+        output_graph.add( (URIRef(output_uri), OWL.imports, ontology_uri[0]) )
+
     print('Converting XML tree...')
     updateProgressBar(input_node_count, input_node_total)
     if input_root.attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
@@ -129,7 +136,6 @@ def generateIndividual(node):
     # skip node if already parsed
     if input_tree.getelementpath(node) in parsed_nodes:
         return
-    global log
     node_tag = mapNamespace(node)
     node_id = ''
     if '{%s}id' % GML_NAMESPACE in node.attrib:
@@ -142,7 +148,7 @@ def generateIndividual(node):
     # if the node is a geometry node, create a gml serialization and add
     # it as a triple to the node
     if isGeometry(node.tag):
-        geometry_blob = generateGeometrySerialization(node, node_id)
+        geometry_blob = generateGeometrySerialization(node)
         geometry_node = Literal(geometry_blob, datatype=GeoSPARQL_NAMESPACE.gmlLiteral)
         output_graph.add( (node_id, GeoSPARQL_NAMESPACE.asGML, geometry_node) )
         
@@ -178,7 +184,7 @@ def generateIndividual(node):
         elif isDatatypeProperty(child.tag):
             generateDatatypeProperty(node, node_id, child)
         else:
-            logging.warning(f'Unknown XML element: {input_tree.getelementpath(child)}')
+            logging.warning(f'Unknown XML element, {child.tag}, at: {input_tree.getelementpath(child)}')
 
     for attribute in node.attrib:
         attribute_tag = mapNamespace(attribute)
@@ -196,7 +202,6 @@ def generateIndividual(node):
 # tree is well formed) and create an object property linking the parent
 # individual with each child individual.
 def generateObjectProperties(parent, parent_id, node):
-    global log
     for child in node:
         # check if child node is a class. If so, generate a new individual for the
         # child and create an object property linking the two individuals. In the
@@ -207,20 +212,19 @@ def generateObjectProperties(parent, parent_id, node):
             if property is not None:
                 output_graph.add((parent_id, property, child_id))
             else:
-                loggging.warning(f'Object property not found: {input_tree.getelementpath(node)}')
+                logging.warning(f'Object property not found: {input_tree.getelementpath(node)}')
             # check if child is a gml geometry node. If so, generate the geometry
             # property gsp:hasGeometry.
             if isGeometry(child.tag):
                 output_graph.add( (parent_id, GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
         else:
-            logging.warning(f'Class element for object property not found: {input_tree.getelementpath(child)}')
+            logging.warning(f'Class element, {child.tag}, for object property generation not found at: {input_tree.getelementpath(child)}')
 
 
 # Generate a datatype for each child (which should all contain datatype literals
 # if well formed) and create a datatype property linking the parent individual
 # with each child datatype literal.
 def generateDatatypeProperty(parent, parent_id, node):
-    global log
     # check if child node is a datatype. If so, generate a new datatype literal
     # for the child and create a datatype property linking the class with the
     # datatype literal.
@@ -238,7 +242,7 @@ def isGMLTag( string ):
     return not string.startswith('xmlns') or string.startswith('xmlns:gml')
 
 # Generate the gsp:gmlLiteral serialization of a geometry node
-def generateGeometrySerialization(node, node_id):
+def generateGeometrySerialization(node):
     node_copy = deepcopy(node)
     # gather geometry referenced though xlinks 
     for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
@@ -256,7 +260,6 @@ def generateGeometrySerialization(node, node_id):
     geometry = ' '.join(filter( isGMLTag, geometry ))
     geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip()
 
-
     return geometry
 
 
@@ -266,11 +269,14 @@ def generateGeometrySerialization(node, node_id):
 #########################
 
 # find an object property which links (intersects) two given classes based on the
-# domain and range of the property.
+# domain and range of the property. A property tag hint may be supplied.
 def findObjectProperty(tag1, tag2, property_tag=None):
-    global log
     qname1 = etree.QName(tag1)
     qname2 = etree.QName(tag2)
+    if not isClass(qname1) or not isClass(qname2):
+        logging.warning(f'Cannot find object property between {tag1} or {tag2}. One or both are not classes')
+        return None
+
     if property_tag is None:
         query = ontology.query('''
             SELECT DISTINCT ?objectproperty
@@ -327,7 +333,6 @@ def findObjectProperty(tag1, tag2, property_tag=None):
 # based on the domain and range of the property or which a given class contains
 # a universal restriction of the property.
 def findDatatypeProperty(tag1, property_tag=None):
-    global log
     qname1 = etree.QName(tag1)
     if isClass(tag1):
         if property_tag is None:
@@ -371,26 +376,38 @@ def findDatatypeProperty(tag1, property_tag=None):
     logging.warning(f'No matching datatype property found between: {tag1}, {property_tag}')
     return None
 
+# normalize an namespace for OWL
+def normalizeNamespace(namespace):
+    namespace = str(namespace)
+    if namespace[-1] == '#':
+        return namespace
+    elif namespace[-1] == '/':
+        return namespace[:-1] + '#'
+    else:
+        return namespace + '#'
 
-# normalize an XML tag namespace for OWL. If input tag namespace is in namespace mappings,
-# return the target mapping namespace. Tags are returned as rdflib.URIRef objects.
-def mapNamespace(node):
-    if str(node) == 'srsName' or str(node) == 'srsDimension' or str(node) == 'uom':
-        node = '{http://www.opengis.net/gml}' + str(node)
-    qname = etree.QName(node)
+
+# map an XML tag namespace for based on the ontology. If input tag namespace is
+# in namespace mappings, return the target mapping namespace. Tags are returned
+# as rdflib.URIRef objects.
+def mapNamespace(node_or_tag):
+    if str(node_or_tag) in ('srsName', 'srsDimension' , 'uom'):
+        node_or_tag = '{%s}%s' % (GML_NAMESPACE, node_or_tag)
+    qname = etree.QName(node_or_tag)
 
     if qname.namespace in namespace_mappings.keys():
         if len(namespace_mappings[qname.namespace]) == 1:
             return URIRef(namespace_mappings[qname.namespace][0] + qname.localname)
         else:
             # TODO: implement dynamic namespace resolution for multiple mappings
-            return URIRef(namespace_mappings[qname.namespace][0] + qname.localname)
-    elif qname.namespace[-1] == '#':
-        return URIRef(qname.namespace + qname.localname)
-    elif qname.namespace[-1] == '/':
-        return URIRef(qname.namespace[:-1] + '#' + qname.localname)
+            for namespace in namespace_mappings[qname.namespace]:
+                if ontology.query('''
+                        ASK { <%s%s> ?predicate ?object }''' % (namespace, qname.localname)):
+                    return URIRef(namespace + qname.localname)
+            logging.warning(f'Unable to map qname, {qname}, to a namespace')
+            return URIRef(normalizeNamespace(qname.namespace) + qname.localname)
     else:
-        return URIRef(qname.namespace + '#' + qname.localname)
+        return URIRef(normalizeNamespace(qname.namespace) + qname.localname)
 
 
 # create a new, unique id from a normalized XML node tag
@@ -402,6 +419,13 @@ def generateID(tag):
     else:
         id_count[name] = 0
         return f'{output_uri}#{name}_0'
+
+
+# return all definitions of a tag in the ontology
+def getDefinitions(tag):
+    definitions = []
+    for class_definition in getClasses(tag):
+        definitions.append(class_definition)
 
 
 # return whether class definition exists in ontology
