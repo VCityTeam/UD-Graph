@@ -17,12 +17,15 @@
         <vers:Version gml:id="version_1">
             <vers:tag>v1.0</vers:tag>
             <vers:versionMember xlink:href="#BU_69381AL49_v1"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_v1_1"/>
         </vers:Version>
     </core:versionMember>
     <core:versionMember>
         <vers:Version gml:id="version_2">
             <vers:tag>v2.0</vers:tag>
             <vers:versionMember xlink:href="#BU_69381AL49_v2"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_v1_1"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_v2_1"/>
         </vers:Version>
     </core:versionMember>
     <core:versionTransitionMember>
