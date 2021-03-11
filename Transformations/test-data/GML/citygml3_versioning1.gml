@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-
 <core:CityModel xmlns="http://www.opengis.net/citygml/3.0"
     xmlns:bldg="http://www.opengis.net/citygml/building/3.0"
     xmlns:con="http://www.opengis.net/citygml/construction/3.0"
@@ -23,40 +16,40 @@ and open the template in the editor.
     <core:versionMember>
         <vers:Version gml:id="version_1">
             <vers:tag>v1.0</vers:tag>
-            <vers:versionMember xlink:href="BU_69381AL50"/>
-            <vers:versionMember xlink:href="BU_69381AL49_v1"/>
+            <vers:versionMember xlink:href="#BU_69381AL50"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_v1"/>
         </vers:Version>
     </core:versionMember>
     <core:versionMember>
         <vers:Version gml:id="version_2">
             <vers:tag>v2.0</vers:tag>
-            <vers:versionMember xlink:href="BU_69381AL49_v2"/>
-            <vers:versionMember xlink:href="BU_69381AL47"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_v2"/>
+            <vers:versionMember xlink:href="#BU_69381AL47"/>
         </vers:Version>
     </core:versionMember>
     <core:versionTransitionMember>
         <vers:VersionTransition>
             <vers:reason>To exemplify a version transition</vers:reason>
             <vers:clonePredecessor>false</vers:clonePredecessor>
-            <vers:from xlink:href="version_1"/>
-            <vers:to   xlink:href="version_2"/>
+            <vers:from xlink:href="#version_1"/>
+            <vers:to   xlink:href="#version_2"/>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>delete</vers:type>
-                    <vers:oldFeature xlink:href="BU_69381AL50"/>
+                    <vers:oldFeature xlink:href="#BU_69381AL50"/>
                 </vers:Transaction>
             </vers:transaction>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>insert</vers:type>
-                    <vers:newFeature xlink:href="BU_69381AL47"/>
+                    <vers:newFeature xlink:href="#BU_69381AL47"/>
                 </vers:Transaction>
             </vers:transaction>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>replace</vers:type>
-                    <vers:oldFeature xlink:href="BU_69381AL49_v1"/>
-                    <vers:newFeature xlink:href="BU_69381AL49_v2"/>
+                    <vers:oldFeature xlink:href="#BU_69381AL49_v1"/>
+                    <vers:newFeature xlink:href="#BU_69381AL49_v2"/>
                 </vers:Transaction>
             </vers:transaction>
         </vers:VersionTransition>
@@ -407,7 +400,7 @@ and open the template in the editor.
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_v1">
-            <gml:name>Building B</gml:name>
+            <gml:name>Building B v1</gml:name>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842408.000000 5176394.500000 243.199982</gml:lowerCorner>
@@ -602,7 +595,7 @@ and open the template in the editor.
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_v2">
-            <gml:name>Building B</gml:name>
+            <gml:name>Building B v2</gml:name>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842408.000000 5176394.500000 243.199982</gml:lowerCorner>
@@ -793,7 +786,7 @@ and open the template in the editor.
                 </bldg:BuildingPart>
             </bldg:buildingPart>
             <bldg:buildingPart>
-                <bldg:BuildingPart gml:id="BU_69381AL49_2">
+                <bldg:BuildingPart gml:id="BU_69381AL49_v2_2">
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
