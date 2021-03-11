@@ -22,7 +22,7 @@ Made using [CityGML4j](https://github.com/citygml4j/citygml4j) library and sampl
 ### To use
 General usage with logging
 ```
-java -jar citygml_validator.jar [file to validate] > output.txt
+java -jar citygml_validator.jar [file to validate] > output.log
 ```
 
 ## show_ns.py
