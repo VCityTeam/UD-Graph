@@ -8,20 +8,16 @@
     xmlns:xlink="http://www.w3.org/1999/xlink"
     xmlns:gml="http://www.opengis.net/gml/3.2"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.opengis.net/citygml/building/3.0 ../XMLSchema/CityGML3_2019-06-05/building.xsd
-        http://www.opengis.net/citygml/construction/3.0 ../XMLSchema/CityGML3_2019-06-05/construction.xsd
-        http://www.opengis.net/citygml/3.0 ../XMLSchema/CityGML3_2019-06-05/cityGMLBase.xsd
-        http://www.opengis.net/citygml/versioning/3.0 ../XMLSchema/CityGML3_2019-06-05/versioning.xsd"
     gml:id="cm1">
     <core:versionMember>
-        <vers:Version gml:id="version_1">
+        <vers:Version gml:id="snapshot-2000_01_01">
             <vers:tag>v1.0</vers:tag>
             <vers:versionMember xlink:href="#BU_69381AL50_2000-01-01"/>
             <vers:versionMember xlink:href="#BU_69381AL49_2000-01-01"/>
         </vers:Version>
     </core:versionMember>
     <core:versionMember>
-        <vers:Version gml:id="version_2">
+        <vers:Version gml:id="snapshot-2015-01-01">
             <vers:tag>v2.0</vers:tag>
             <vers:versionMember xlink:href="#BU_69381AL49_2015-01-01"/>
             <vers:versionMember xlink:href="#BU_69381AL47_2015-01-01"/>
@@ -32,8 +28,8 @@
             <vers:reason>To exemplify a version transition</vers:reason>
             <vers:clonePredecessor>false</vers:clonePredecessor>
             <vers:type>historicalSuccession</vers:type>
-            <vers:from xlink:href="#version_1"/>
-            <vers:to   xlink:href="#version_2"/>
+            <vers:from xlink:href="#snapshot-2000_01_01"/>
+            <vers:to   xlink:href="#snapshot-2015-01-01"/>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>delete</vers:type>
@@ -57,11 +53,11 @@
     </core:versionTransitionMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL50_2000-01-01">
-            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL50</gml:identifier>
+            <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL50</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3" srsName="EPSG:3946">
-                    <gml:lowerCorner>1842408.500000 5176396.000000 242.699982</gml:lowerCorner>
-                    <gml:upperCorner>1842428.125000 5176419.000000 260.914978</gml:upperCorner>
+                    <gml:lowerCorner>1842408.64259517 5176406.47754247 242.70000000</gml:lowerCorner>
+                    <gml:upperCorner>1842428.06794829 5176418.87066966 260.91496008</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
             <core:creationDate>2000-01-01T00:00:00</core:creationDate>
@@ -401,17 +397,17 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_2000-01-01">
-            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL49</gml:identifier>
+            <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL49</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
-                    <gml:lowerCorner>1842408.000000 5176394.500000 243.199982</gml:lowerCorner>
-                    <gml:upperCorner>1842412.000000 5176400.500000 251.943008</gml:upperCorner>
+                    <gml:lowerCorner>1842410.67491666 5176396.1380966 242.70000000</gml:lowerCorner>
+                    <gml:upperCorner>1842423.12653602 5176406.80411077 253.33435847</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
             <core:creationDate>2000-01-01T00:00:00</core:creationDate>
             <core:terminationDate>2015-01-01T00:00:00</core:terminationDate>
             <bldg:buildingPart>
-                <bldg:BuildingPart gml:id="BU_69381AL49_v1_1">
+                <bldg:BuildingPart gml:id="BU_69381AL49_1_2000-01-01">
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -596,16 +592,16 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_2015-01-01">
-            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL49</gml:identifier>
+            <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL49</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
-                    <gml:lowerCorner>1842408.000000 5176394.500000 243.199982</gml:lowerCorner>
-                    <gml:upperCorner>1842412.000000 5176400.500000 251.943008</gml:upperCorner>
+                    <gml:lowerCorner>1842408.10590869 5176394.85900992 242.70000000</gml:lowerCorner>
+                    <gml:upperCorner>1842423.12653602 5176406.80411077 253.33435847</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
             <core:creationDate>2015-01-01T00:00:00</core:creationDate>
             <bldg:buildingPart>
-                <bldg:BuildingPart gml:id="BU_69381AL49_v2_1">
+                <bldg:BuildingPart gml:id="BU_69381AL49_1_2015-01-01">
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -787,7 +783,7 @@
                 </bldg:BuildingPart>
             </bldg:buildingPart>
             <bldg:buildingPart>
-                <bldg:BuildingPart gml:id="BU_69381AL49_v2_2">
+                <bldg:BuildingPart gml:id="BU_69381AL49_2_2015-01-01">
                     <core:boundary>
                         <con:RoofSurface>
                             <core:lod2MultiSurface>
@@ -936,11 +932,11 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL47_2015-01-01">
-            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL47</gml:identifier>
+            <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL47</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
-                    <gml:lowerCorner>1842403.375000 5176404.000000 246.699982</gml:lowerCorner>
-                    <gml:upperCorner>1842411.000000 5176417.000000 259.714539</gml:upperCorner>
+                    <gml:lowerCorner>1842403.47341026 5176404.41428747 246.70000000</gml:lowerCorner>
+                    <gml:upperCorner>1842410.90475008 5176416.63537436 259.71453549</gml:upperCorner>
                 </gml:Envelope>
             </gml:boundedBy>
             <core:creationDate>2015-01-01T00:00:00</core:creationDate>

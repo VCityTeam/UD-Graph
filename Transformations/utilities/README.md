@@ -24,6 +24,14 @@ General usage with logging
 ```
 java -jar citygml_validator.jar [file to validate] > output.log
 ```
+## getBoundingBox.py
+Get the bounding box of building geometry in a CityGML 3.0 file
+
+### To use
+General usage
+```
+python getBoundingBox.py [CityGML document]
+```
 
 ## show_ns.py
 Add prefixes to local predetermined XML element tags with no prefix and rdf identifiers.
