@@ -200,8 +200,15 @@ def generateIndividual(node):
 
 # Generate an individual for each child (which should all be classes if input
 # tree is well formed) and create an object property linking the parent
-# individual with each child individual.
+# individual with each child individual. Also check for xlinks.
 def generateObjectProperties(parent, parent_id, node):
+    if node.attrib.get('{http://www.w3.org/1999/xlink}href') is not None:
+        # Check if an xlink is present. If so create a triple referencing the resource
+        property = findObjectProperty(parent.tag, None, node.tag)
+        if property is not None:
+            reference = URIRef(f'{output_uri}#' +
+                node.attrib['{http://www.w3.org/1999/xlink}href'].split('#')[-1])
+            output_graph.add( (parent_id, property, reference) )
     for child in node:
         # check if child node is a class. If so, generate a new individual for the
         # child and create an object property linking the two individuals. In the
@@ -212,13 +219,15 @@ def generateObjectProperties(parent, parent_id, node):
             if property is not None:
                 output_graph.add((parent_id, property, child_id))
             else:
-                logging.warning(f'Object property not found: {input_tree.getelementpath(node)}')
+                logging.warning(f'Object property, {node.tag}, not found for child, {child.tag}, '
+                    f'at: {input_tree.getelementpath(node)}')
             # check if child is a gml geometry node. If so, generate the geometry
             # property gsp:hasGeometry.
             if isGeometry(child.tag):
                 output_graph.add( (parent_id, GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
         else:
-            logging.warning(f'Class element, {child.tag}, for object property generation not found at: {input_tree.getelementpath(child)}')
+            logging.warning(f'Child class element, {child.tag}, for object property, {node.tag}, '
+                f'generation not found at: {input_tree.getelementpath(child)}')
 
 
 # Generate a datatype for each child (which should all contain datatype literals
@@ -269,12 +278,57 @@ def generateGeometrySerialization(node):
 #########################
 
 # find an object property which links (intersects) two given classes based on the
-# domain and range of the property. A property tag hint may be supplied.
-def findObjectProperty(tag1, tag2, property_tag=None):
+# domain and range of the property. The second class can be omitted in the case of
+# an xlink object property. A property tag hint may also be supplied.
+def findObjectProperty(tag1, tag2=None, property_tag=None):
+    #TODO: Break this function into multiple functions
     qname1 = etree.QName(tag1)
+    if tag2 is None and isClass(qname1):
+        if property_tag is None:
+            query = ontology.query('''
+                SELECT DISTINCT ?objectproperty
+                WHERE {
+                    {   ?objectproperty a owl:ObjectProperty ;
+                            rdfs:domain ?domain .
+                        <%s> rdfs:subClassOf* ?domain .
+                    }
+                    UNION
+                    {   <%s> a owl:Class ;
+                            rdfs:subClassOf [ a owl:Restriction ;
+                                              owl:allValuesFrom ?someClass ;
+                                              owl:onProperty    ?objectproperty 
+                                            ] .
+                    }
+                }''' % (mapNamespace(qname1),
+                        mapNamespace(qname1)))
+            if len(query) > 0:
+                return query
+        else:
+            for property in getObjectProperties(property_tag):
+                query = ontology.query('''
+                    ASK   {
+                        { <%s> a owl:ObjectProperty ;
+                                rdfs:domain ?domain .
+                            <%s> rdfs:subClassOf* ?domain .
+                        }
+                        UNION
+                        { <%s> a owl:Class ;
+                            rdfs:subClassOf [ a owl:Restriction ;
+                                              owl:allValuesFrom ?someClass ;
+                                              owl:onProperty    <%s> 
+                                            ] .
+                        }
+                    }''' % (property[0],
+                            mapNamespace(qname1),
+                            mapNamespace(qname1),
+                            property[0]) )
+                if bool(query):
+                    return property[0]
+
     qname2 = etree.QName(tag2)
     if not isClass(qname1) or not isClass(qname2):
-        logging.warning(f'Cannot find object property between {tag1} or {tag2}. One or both are not classes')
+        logging.warning(f'Cannot find object property between {tag1} or {tag2} '
+            f'for property {property_tag}. One or both are not classes')
         return None
 
     if property_tag is None:

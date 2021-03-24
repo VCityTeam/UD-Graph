@@ -9,19 +9,19 @@ PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
 PREFIX data: <https://github.com/VCityTeam/UD-Graph/LYON_1ER_BATI_2015-20_bldg-patched#>
 PREFIX gml:  <http://www.opengis.net/gml#>
 PREFIX xlink: <http://www.w3.org/1999/xlink#>
-PREFIX core: <http://www.opengis.net/citygml/2.0/core#>
-PREFIX bldg: <http://www.opengis.net/citygml/building/2.0/building#>
-PREFIX brid: <http://www.opengis.net/citygml/bridge/2.0/bridge#>
-PREFIX luse: <http://www.opengis.net/citygml/landuse/2.0/landuse#>
-PREFIX app:  <http://www.opengis.net/citygml/appearance/2.0/appearance#>
-PREFIX dem:  <http://www.opengis.net/citygml/relief/2.0/relief#>
-PREFIX frn:  <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#>
-PREFIX gen:  <http://www.opengis.net/citygml/generics/2.0/generics#>
-PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#>
-PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0/texturedsurface#>
-PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0/tunnel#>
-PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0/vegetation#>
-PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0/waterbody#>
+PREFIX core: <http://www.opengis.net/citygml/3.0/core#>
+PREFIX bldg: <http://www.opengis.net/citygml/building/3.0/building#>
+PREFIX brid: <http://www.opengis.net/citygml/bridge/3.0/bridge#>
+PREFIX luse: <http://www.opengis.net/citygml/landuse/3.0/landuse#>
+PREFIX app:  <http://www.opengis.net/citygml/appearance/3.0/appearance#>
+PREFIX dem:  <http://www.opengis.net/citygml/relief/3.0/relief#>
+PREFIX frn:  <http://www.opengis.net/citygml/cityfurniture/3.0/cityfurniture#>
+PREFIX gen:  <http://www.opengis.net/citygml/generics/3.0/generics#>
+PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/3.0/cityobjectgroup#>
+PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/3.0/texturedsurface#>
+PREFIX tun:  <http://www.opengis.net/citygml/tunnel/3.0/tunnel#>
+PREFIX veg:  <http://www.opengis.net/citygml/vegetation/3.0/vegetation#>
+PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/3.0/waterbody#>
 # GeoSPARQL prefixes
 PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
@@ -99,20 +99,32 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 
 #6 query all cityobjects within a given bounding box
 
+#SELECT DISTINCT ?cityobjectmember ?type
+#WHERE {
+
+#    ?geometry geo:asGML ?serialization .
+
+#    BIND("<gml:LinearRing xmlns:gml='http://www.opengis.net/ont/gml' srsName='EPSG:3946'><gml:posList>1842640 5175720 1842640 5175750 1842660 5175750 1842660 5175720 1842640 5175720</gml:posList></gml:LinearRing>"^^geo:gmlLiteral
+#        as ?bbox) .
+
+#    FILTER (geof:sfIntersects(?serialization, ?bbox)) .
+
+#    data:CityModel_0 core:CityModel.cityObjectMember ?cityobjectmember .
+
+#    ?cityobjectmember a ?type ;
+#        (!<>)* ?geometry .
+#}
+
+
+#7 query all cityobjects within a version
+
 SELECT DISTINCT ?cityobjectmember ?type
 WHERE {
 
-    ?geometry geo:asGML ?serialization .
+    data:version_1 a vers:Version ;
+        vers:Version.versionMember ?cityobjectmember .
 
-    BIND("<gml:LinearRing xmlns:gml='http://www.opengis.net/ont/gml' srsName='EPSG:3946'><gml:posList>1842640 5175720 1842640 5175750 1842660 5175750 1842660 5175720 1842640 5175720</gml:posList></gml:LinearRing>"^^geo:gmlLiteral
-        as ?bbox) .
-
-    FILTER (geof:sfIntersects(?serialization, ?bbox)) .
-
-    data:CityModel_0 core:CityModel.cityObjectMember ?cityobjectmember .
-
-    ?cityobjectmember a ?type ;
-        (!<>)* ?geometry .
+    ?cityobjectmember a ?type .
 }
 
 #LIMIT 100

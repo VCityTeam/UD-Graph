@@ -16,47 +16,48 @@
     <core:versionMember>
         <vers:Version gml:id="version_1">
             <vers:tag>v1.0</vers:tag>
-            <vers:versionMember xlink:href="#BU_69381AL50"/>
-            <vers:versionMember xlink:href="#BU_69381AL49_v1"/>
+            <vers:versionMember xlink:href="#BU_69381AL50_2000-01-01"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_2000-01-01"/>
         </vers:Version>
     </core:versionMember>
     <core:versionMember>
         <vers:Version gml:id="version_2">
             <vers:tag>v2.0</vers:tag>
-            <vers:versionMember xlink:href="#BU_69381AL49_v2"/>
-            <vers:versionMember xlink:href="#BU_69381AL47"/>
+            <vers:versionMember xlink:href="#BU_69381AL49_2015-01-01"/>
+            <vers:versionMember xlink:href="#BU_69381AL47_2015-01-01"/>
         </vers:Version>
     </core:versionMember>
     <core:versionTransitionMember>
         <vers:VersionTransition>
             <vers:reason>To exemplify a version transition</vers:reason>
             <vers:clonePredecessor>false</vers:clonePredecessor>
+            <vers:type>historicalSuccession</vers:type>
             <vers:from xlink:href="#version_1"/>
             <vers:to   xlink:href="#version_2"/>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>delete</vers:type>
-                    <vers:oldFeature xlink:href="#BU_69381AL50"/>
+                    <vers:oldFeature xlink:href="#BU_69381AL50_2000-01-01"/>
                 </vers:Transaction>
             </vers:transaction>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>insert</vers:type>
-                    <vers:newFeature xlink:href="#BU_69381AL47"/>
+                    <vers:newFeature xlink:href="#BU_69381AL47_2015-01-01"/>
                 </vers:Transaction>
             </vers:transaction>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>replace</vers:type>
-                    <vers:oldFeature xlink:href="#BU_69381AL49_v1"/>
-                    <vers:newFeature xlink:href="#BU_69381AL49_v2"/>
+                    <vers:oldFeature xlink:href="#BU_69381AL49_2000-01-01"/>
+                    <vers:newFeature xlink:href="#BU_69381AL49_2015-01-01"/>
                 </vers:Transaction>
             </vers:transaction>
         </vers:VersionTransition>
     </core:versionTransitionMember>
     <core:cityObjectMember>
-        <bldg:Building gml:id="BU_69381AL50">
-            <gml:name>Building A</gml:name>
+        <bldg:Building gml:id="BU_69381AL50_2000-01-01">
+            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL50</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3" srsName="EPSG:3946">
                     <gml:lowerCorner>1842408.500000 5176396.000000 242.699982</gml:lowerCorner>
@@ -399,8 +400,8 @@
         </bldg:Building>
     </core:cityObjectMember>
     <core:cityObjectMember>
-        <bldg:Building gml:id="BU_69381AL49_v1">
-            <gml:name>Building B v1</gml:name>
+        <bldg:Building gml:id="BU_69381AL49_2000-01-01">
+            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL49</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842408.000000 5176394.500000 243.199982</gml:lowerCorner>
@@ -594,8 +595,8 @@
         </bldg:Building>
     </core:cityObjectMember>
     <core:cityObjectMember>
-        <bldg:Building gml:id="BU_69381AL49_v2">
-            <gml:name>Building B v2</gml:name>
+        <bldg:Building gml:id="BU_69381AL49_2015-01-01">
+            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL49</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842408.000000 5176394.500000 243.199982</gml:lowerCorner>
@@ -934,8 +935,8 @@
         </bldg:Building>
     </core:cityObjectMember>
     <core:cityObjectMember>
-        <bldg:Building gml:id="BU_69381AL47">
-            <gml:name>Building C</gml:name>
+        <bldg:Building gml:id="BU_69381AL47_2015-01-01">
+            <gml:identifier codeSpace="http://mydomain.org/">BU_69381AL47</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842403.375000 5176404.000000 246.699982</gml:lowerCorner>
