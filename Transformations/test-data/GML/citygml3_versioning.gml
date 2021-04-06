@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<core:CityModel xmlns="http://www.opengis.net/citygml/3.0"
-    xmlns:bldg="http://www.opengis.net/citygml/building/3.0"
-    xmlns:con="http://www.opengis.net/citygml/construction/3.0"
-    xmlns:core="http://www.opengis.net/citygml/3.0"
-    xmlns:vers="http://www.opengis.net/citygml/versioning/3.0"
-    xmlns:xAL="urn:oasis:names:tc:ciq:xal:3"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:gml="http://www.opengis.net/gml/3.2"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<!--
+  Example file containing 4 buildings represented accross 2 versions and a versionTransition.
+  Versions contain the attributes <tag> and <versionMember>.
+  The versionTransition contains the attributes <reason>, <clonePredecessor>, <type>, <from>, <to>, and 3 transactions.
+  Buildings utilize the <identifier> attribute as global identifiers between versions.
+  This document uses xlinks to reference buildings from versions.
+  The file validates against release 3.0.0-draft.2020.09.17.1
+-->
+<core:CityModel xmlns="http://www.opengis.net/citygml/3.0" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/3.0 ../Schema/cityGMLBase.xsd http://www.opengis.net/citygml/construction/3.0 ../Schema/construction.xsd http://www.opengis.net/citygml/building/3.0 ../Schema/building.xsd http://www.opengis.net/citygml/versioning/3.0 ../Schema/versioning.xsd"
     gml:id="cm1">
     <core:versionMember>
-        <vers:Version gml:id="snapshot-2000_01_01">
+        <vers:Version gml:id="LYON_1ER_snapshot-2000_01_01">
             <vers:tag>v1.0</vers:tag>
             <vers:versionMember xlink:href="#BU_69381AL50_2000-01-01"/>
             <vers:versionMember xlink:href="#BU_69381AL49_2000-01-01"/>
         </vers:Version>
     </core:versionMember>
     <core:versionMember>
-        <vers:Version gml:id="snapshot-2015-01-01">
+        <vers:Version gml:id="LYON_1ER_snapshot-2015-01-01">
             <vers:tag>v2.0</vers:tag>
             <vers:versionMember xlink:href="#BU_69381AL49_2015-01-01"/>
             <vers:versionMember xlink:href="#BU_69381AL47_2015-01-01"/>
@@ -25,11 +25,11 @@
     </core:versionMember>
     <core:versionTransitionMember>
         <vers:VersionTransition>
-            <vers:reason>To exemplify a version transition</vers:reason>
+            <vers:reason>To exemplify a version transition between two city snapshots</vers:reason>
             <vers:clonePredecessor>false</vers:clonePredecessor>
             <vers:type>historicalSuccession</vers:type>
-            <vers:from xlink:href="#snapshot-2000_01_01"/>
-            <vers:to   xlink:href="#snapshot-2015-01-01"/>
+            <vers:from xlink:href="#LYON_1ER_snapshot-2000_01_01"/>
+            <vers:to   xlink:href="#LYON_1ER_snapshot-2015-01-01"/>
             <vers:transaction>
                 <vers:Transaction>
                     <vers:type>delete</vers:type>
@@ -53,6 +53,7 @@
     </core:versionTransitionMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL50_2000-01-01">
+            <gml:name>Building A</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL50</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3" srsName="EPSG:3946">
@@ -397,6 +398,7 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_2000-01-01">
+            <gml:name>Building B</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL49</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
@@ -592,6 +594,7 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_2015-01-01">
+            <gml:name>Building B</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL49</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
@@ -932,6 +935,7 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL47_2015-01-01">
+            <gml:name>Building C</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL47</gml:identifier>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
