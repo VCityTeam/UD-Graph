@@ -9,29 +9,30 @@
 
 <http://www.opengis.net/citygml/landuse/3.0/landuse>
         a                owl:Ontology ;
+        rdfs:label       "LandUse"@en ;
         owl:imports      <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
-        skos:definition  "The LandUse module supports representation of areas of the earth’s surface dedicated to a specific land use."@en ;
-        skos:prefLabel   "LandUse"@en .
+        skos:definition  "The LandUse module supports representation of areas of the earth’s surface dedicated to a specific land use."@en .
 
 luse:LandUse.function
         a                owl:ObjectProperty ;
         rdfs:domain      luse:LandUse ;
+        rdfs:label       "function"@en ;
         rdfs:range       owl:Class ;
-        skos:definition  "Specifies the intended purposes of the LandUse."@en ;
-        skos:prefLabel   "function"@en .
+        skos:definition  "Specifies the intended purposes of the LandUse."@en .
 
 luse:LandUse.usage  a    owl:ObjectProperty ;
         rdfs:domain      luse:LandUse ;
+        rdfs:label       "usage"@en ;
         rdfs:range       owl:Class ;
-        skos:definition  "Specifies the actual uses of the LandUse."@en ;
-        skos:prefLabel   "usage"@en .
+        skos:definition  "Specifies the actual uses of the LandUse."@en .
 
 luse:ADEOfLandUse  a           owl:Class ;
+        rdfs:label             "ADEOfLandUse"@en ;
         iso19150-2:isAbstract  true ;
-        skos:definition        "ADEOfLandUse acts as a hook to define properties within an ADE that are to be added to a LandUse."@en ;
-        skos:prefLabel         "ADEOfLandUse"@en .
+        skos:definition        "ADEOfLandUse acts as a hook to define properties within an ADE that are to be added to a LandUse."@en .
 
 luse:LandUse  a          owl:Class ;
+        rdfs:label       "LandUse"@en ;
         rdfs:subClassOf  core:AbstractThematicSurface ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  luse:ADEOfLandUse ;
@@ -49,18 +50,17 @@ luse:LandUse  a          owl:Class ;
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     luse:LandUse.class
                          ] ;
-        skos:definition  "A LandUse object is an area of the earth's surface dedicated to a specific land use or having a specific land cover with or without vegetation, such as sand, rock, mud flats, forest, or grasslands."@en ;
-        skos:prefLabel   "LandUse"@en .
+        skos:definition  "A LandUse object is an area of the earth's surface dedicated to a specific land use or having a specific land cover with or without vegetation, such as sand, rock, mud flats, forest, or grasslands."@en .
 
 luse:LandUse.adeOfLandUse
         a                owl:ObjectProperty ;
         rdfs:domain      luse:LandUse ;
+        rdfs:label       "adeOfLandUse"@en ;
         rdfs:range       luse:ADEOfLandUse ;
-        skos:definition  "Augments the LandUse with properties defined in an ADE."@en ;
-        skos:prefLabel   "adeOfLandUse"@en .
+        skos:definition  "Augments the LandUse with properties defined in an ADE."@en .
 
 luse:LandUse.class  a    owl:ObjectProperty ;
         rdfs:domain      luse:LandUse ;
+        rdfs:label       "class"@en ;
         rdfs:range       owl:Class ;
-        skos:definition  "Indicates the specific type of the LandUse."@en ;
-        skos:prefLabel   "class"@en .
+        skos:definition  "Indicates the specific type of the LandUse."@en .

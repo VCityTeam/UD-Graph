@@ -176,12 +176,14 @@ def generateIndividual(node):
         # check if child node is an object property. If so, generate the object
         # property nodes and their corresponding individuals by calling
         # generateObjectProperties().
-        elif isObjectProperty(child.tag):
+        elif isObjectProperty(child.tag, node.tag):
             generateObjectProperties(node, node_id, child)
         # check if child node is an datatype property. If so, generate the datatype
         # property nodes and their corresponding individuals by calling
         # generateDatatypeProperty().
-        elif isDatatypeProperty(child.tag):
+        elif isDatatypeProperty(child.tag, node.tag):
+            # print('node:', node.tag)
+            # print('child:', child.tag)
             generateDatatypeProperty(node, node_id, child)
         else:
             logging.warning(f'Unknown XML element, {child.tag}, at: {input_tree.getelementpath(child)}')
@@ -510,14 +512,27 @@ def getClasses(tag):
 # return whether object property definition exists in ontology. Local property
 # names may require searching through the shapechange [[name]] descriptor target
 # (rdfs:label by default) depending on shapechange property encoding
-# configurations.
-def isObjectProperty(tag):
+# configurations. The node's parent tag may be provided to verify if the parent
+# class is within the domain of the property.
+def isObjectProperty(tag, parent_tag=None):
     qname = etree.QName(tag)
     if tag in objectproperty_definition_cache.keys():
-        return len(objectproperty_definition_cache.get(tag)) > 0
-    # TODO: optimize query
+        if parent_tag is None:
+            return len(objectproperty_definition_cache.get(tag)) > 0
+        else:
+            parent_qname = mapNamespace(etree.QName(parent_tag))
+            for objectproperty in objectproperty_definition_cache.get(tag):
+                if ontology.query('''
+                    ASK {
+                        <%s> rdf:type owl:ObjectProperty ;
+                            rdfs:domain ?domain .
+                         <%s> rdfs:subClassOf* ?domain .
+                    }''' % (objectproperty[0], parent_qname) ):
+                    return True
+            return False
     query = []
     for namespace in namespace_mappings[qname.namespace]:
+        # TODO: optimize queries
         for line in ontology.query('''
                 SELECT DISTINCT ?objectproperty
                 WHERE {
@@ -526,7 +541,20 @@ def isObjectProperty(tag):
                 }''' % (namespace, qname.localname) ):
             query.append(line)
     objectproperty_definition_cache[tag] = query
-    return len(objectproperty_definition_cache.get(tag)) > 0
+    if parent_tag is None:
+        return len(objectproperty_definition_cache.get(tag)) > 0
+    else:
+        parent_qname = mapNamespace(etree.QName(parent_tag))
+        for objectproperty in objectproperty_definition_cache.get(tag):
+            if ontology.query('''
+                ASK {
+                    <%s> rdf:type owl:ObjectProperty ;
+                        rdfs:domain ?domain .
+                     <%s> rdfs:subClassOf* ?domain .
+                }''' % (objectproperty[0], parent_qname)):
+                return True
+    return False
+
 
 
 # check if uri corresponds to an object property and return the possible properties
@@ -538,14 +566,27 @@ def getObjectProperties(tag):
 # return whether datatype property definition exists in ontology. Local property
 # names may require searching through the shapechange [[name]] descriptor target
 # (rdfs:label by default) depending on shapechange property encoding
-# configurations.
-def isDatatypeProperty(tag):
+# configurations. The node's parent tag may be provided to verify if the parent
+# class is within the domain of the property.
+def isDatatypeProperty(tag, parent_tag=None):
     qname = etree.QName(tag)
     if tag in datatypeproperty_definition_cache.keys():
-        return len(datatypeproperty_definition_cache.get(tag)) > 0
-    # TODO: optimize query
+        if parent_tag is None:
+            return len(datatypeproperty_definition_cache.get(tag)) > 0
+        else:
+            parent_qname = mapNamespace(etree.QName(parent_tag))
+            for datatypeproperty in datatypeproperty_definition_cache.get(tag):
+                if ontology.query('''
+                    ASK {
+                        <%s> rdf:type owl:DatatypeProperty ;
+                            rdfs:domain ?domain .
+                         <%s> rdfs:subClassOf* ?domain .
+                    }''' % (datatypeproperty[0], parent_qname) ):
+                    return True
+            return False
     query = []
     for namespace in namespace_mappings[qname.namespace]:
+        # TODO: optimize query
         for line in ontology.query('''
                 SELECT DISTINCT ?datatypeproperty
                 WHERE {
@@ -554,7 +595,19 @@ def isDatatypeProperty(tag):
                 }''' % (namespace, qname.localname) ):
             query.append(line)
     datatypeproperty_definition_cache[tag] = query
-    return len(datatypeproperty_definition_cache.get(tag)) > 0
+    if parent_tag is None:
+        return len(datatypeproperty_definition_cache.get(tag)) > 0
+    else:
+        parent_qname = mapNamespace(etree.QName(parent_tag))
+        for datatypeproperty in datatypeproperty_definition_cache.get(tag):
+            if ontology.query('''
+                ASK {
+                    <%s> rdf:type owl:DatatypeProperty ;
+                        rdfs:domain ?domain .
+                     <%s> rdfs:subClassOf* ?domain .
+                }''' % (datatypeproperty[0], parent_qname)):
+                return True
+    return False
 
 
 # check if uri corresponds to an datatype property and return the possible properties
