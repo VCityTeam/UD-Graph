@@ -14,7 +14,8 @@ import os
 
 ### test CityGML 3 ###
 command = (r'python ./CityGML2RDF.py '
-    r'../../test-data/OWL/CityGML_3.0_Conceptual_Model,'
+    r'../../UML-to-OWL/test,'
+    # r'../../test-data/OWL/CityGML_3.0_Conceptual_Model,'
     # r'../../test-data/OWL/compositeCityGML3.0.rdf,'
     r'../../test-data/OWL/TC_211,'
     r'../../test-data/OWL/GeoSPARQL '

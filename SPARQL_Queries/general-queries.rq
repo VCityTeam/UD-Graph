@@ -127,4 +127,19 @@ WHERE {
     ?cityobjectmember a ?type .
 }
 
+
+#8 query all buildings that intersect a point in time
+
+#SELECT DISTINCT ?building
+#WHERE {
+
+#    ?building a bldg:Building ;
+#        core:AbstractFeatureWithLifespan.creationDate ?point1 ;
+#        core:AbstractFeatureWithLifespan.terminationDate ?point2 .
+
+#    BIND("[2010-01-01T00:00:00,2011-01-01T00:00:00]" as ?period) .
+
+#    FILTER(strdf:PeriodOverlaps(strdf:Period(?point1, ?point2), ?period)) .
+#}
+
 #LIMIT 100

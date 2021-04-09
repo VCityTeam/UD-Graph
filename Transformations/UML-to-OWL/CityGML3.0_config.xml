@@ -56,6 +56,7 @@
       <targetParameter name="language" value="en"/>
       <xi:include href="https://shapechange.net/resources/config/StandardNamespaces-owl.xml"/>
       <namespaces>
+        <!-- CityGML 3.0 namespaces -->
         <Namespace nsabr="app" ns="http://www.opengis.net/citygml/appearance/3.0"/>
         <Namespace nsabr="brid" ns="http://www.opengis.net/citygml/bridge/3.0"/>
         <Namespace nsabr="bldg" ns="http://www.opengis.net/citygml/building/3.0"/>
@@ -74,6 +75,8 @@
         <Namespace nsabr="vers" ns="http://www.opengis.net/citygml/versioning/3.0"/>
         <Namespace nsabr="wtr" ns="http://www.opengis.net/citygml/waterbody/3.0"/>
         <Namespace nsabr="xAL" ns="urn:oasis:names:tc:ciq:xal:3"/>
+        <Namespace nsabr="gml" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
+        <!-- ISO TC211 namespaces -->
         <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#"/>
         <Namespace nsabr="iso19107" ns="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#"/>
         <Namespace nsabr="iso19108-trs" ns="http://def.isotc211.org/iso19108/2006/TemporalReferenceSystem#"/>
@@ -90,17 +93,19 @@
         <DescriptorTarget target="skos:definition" template="[[definition]]"/>
         <DescriptorTarget target="rdfs:comment" template="[[description]]"/>
       </descriptorTargets>
-      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries-owl.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19103-owl.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19107-owl-gml.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19108-owl.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19136_2007-owl.xml"/>
       <rdfMapEntries>
-        <RdfTypeMapEntry type="AnyFeature" target="iso19109:AnyFeature"/>
-        <RdfTypeMapEntry type="CV_DiscreteGridPointCoverage" target="iso19123:CV_DiscreteGridPointCoverage"/>
-        <RdfTypeMapEntry type="EngineeringCRS" target="iso19111-2019:EngineeringCRS"/>
-        <RdfTypeMapEntry type="MeasureOrNilReasonList" target="iso19136:MeasureOrNilReasonList"/>
-        <RdfTypeMapEntry type="SC_CRS" target="iso19111-2007:SC_CRS"/>
-        <RdfTypeMapEntry type="UnitOfMeasure" target="iso19103:UnitOfMeasure"/>
-        <RdfTypeMapEntry type="TM_Position" target="iso19108-trs:TM_Position"/>
-        <RdfTypeMapEntry type="TM_Duration" target="iso19108-obj:TM_Duration"/>
-        <RdfTypeMapEntry type="GM_TriangulatedSurface" target="iso19107:GM_TriangulatedSurface"/>
+        <RdfTypeMapEntry target="iso19109:AnyFeature" type="AnyFeature"/>
+        <RdfTypeMapEntry target="iso19123:CV_DiscreteGridPointCoverage" type="CV_DiscreteGridPointCoverage"/>
+        <RdfTypeMapEntry target="iso19111-2019:EngineeringCRS" type="EngineeringCRS"/>
+        <RdfTypeMapEntry target="iso19136:MeasureOrNilReasonList" type="MeasureOrNilReasonList"/>
+        <RdfTypeMapEntry target="iso19111-2007:SC_CRS" type="SC_CRS"/>
+        <RdfTypeMapEntry target="iso19103:UnitOfMeasure" type="UnitOfMeasure"/>
+        <RdfTypeMapEntry target="iso19108-obj:TM_Duration" type="TM_Duration"/>
+        <RdfTypeMapEntry target="iso19107:GM_TriangulatedSurface" type="GM_TriangulatedSurface"/>
       </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">
