@@ -162,6 +162,22 @@ bldg:BuildingRoom  a     owl:Class ;
         rdfs:label       "BuildingRoom"@en ;
         rdfs:subClassOf  core:AbstractUnoccupiedSpace ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractThematicSurface ;
+                           owl:onProperty     bldg:BuildingRoom.boundary
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     bldg:BuildingRoom.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     bldg:BuildingRoom.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     bldg:BuildingRoom.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  bldg:RoomHeight ;
                            owl:onProperty     bldg:BuildingRoom.roomHeight
                          ] ;
@@ -170,28 +186,12 @@ bldg:BuildingRoom  a     owl:Class ;
                            owl:onProperty     bldg:BuildingRoom.adeOfBuildingRoom
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  bldg:BuildingInstallation ;
-                           owl:onProperty     bldg:BuildingRoom.buildingInstallation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     bldg:BuildingRoom.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  bldg:BuildingFurniture ;
                            owl:onProperty     bldg:BuildingRoom.buildingFurniture
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     bldg:BuildingRoom.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     bldg:BuildingRoom.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractThematicSurface ;
-                           owl:onProperty     bldg:BuildingRoom.boundary
+                           owl:allValuesFrom  bldg:BuildingInstallation ;
+                           owl:onProperty     bldg:BuildingRoom.buildingInstallation
                          ] ;
         skos:definition  "A BuildingRoom is a space within a Building or BuildingPart intended for human occupancy (e.g. a place of work or recreation) and/or containment of animals or things. A BuildingRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces)."@en .
 
@@ -214,32 +214,16 @@ bldg:AbstractBuildingSubdivision
         rdfs:label             "AbstractBuildingSubdivision"@en ;
         rdfs:subClassOf        core:AbstractLogicalSpace ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:ADEOfAbstractBuildingSubdivision ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.adeOfAbstractBuildingSubdivision
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  con:Elevation ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.elevation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingRoom ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingRoom
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.usage
+                                 owl:allValuesFrom  bldg:BuildingFurniture ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingFurniture
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:double ;
                                  owl:onProperty     bldg:AbstractBuildingSubdivision.sortKey
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingInstallation ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingInstallation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingFurniture ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingFurniture
+                                 owl:allValuesFrom  bldg:BuildingConstructiveElement ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingConstructiveElement
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  owl:Class ;
@@ -250,8 +234,24 @@ bldg:AbstractBuildingSubdivision
                                  owl:onProperty     bldg:AbstractBuildingSubdivision.class
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingConstructiveElement ;
-                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingConstructiveElement
+                                 owl:allValuesFrom  con:Elevation ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.elevation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.usage
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:BuildingRoom ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingRoom
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:ADEOfAbstractBuildingSubdivision ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.adeOfAbstractBuildingSubdivision
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:BuildingInstallation ;
+                                 owl:onProperty     bldg:AbstractBuildingSubdivision.buildingInstallation
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractBuildingSubdivision is the abstract superclass for different kinds of logical building subdivisions."@en .
@@ -517,64 +517,64 @@ bldg:AbstractBuilding
         rdfs:label             "AbstractBuilding"@en ;
         rdfs:subClassOf        con:AbstractConstruction ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
-                                 owl:onProperty     bldg:AbstractBuilding.storeyHeightsBelowGround
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     bldg:AbstractBuilding.usage
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
-                                 owl:onProperty     bldg:AbstractBuilding.storeyHeightsAboveGround
+                                 owl:allValuesFrom  bldg:ADEOfAbstractBuilding ;
+                                 owl:onProperty     bldg:AbstractBuilding.adeOfAbstractBuilding
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:integer ;
                                  owl:onProperty     bldg:AbstractBuilding.storeysBelowGround
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:Address ;
-                                 owl:onProperty     bldg:AbstractBuilding.address
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:AbstractBuildingSubdivision ;
-                                 owl:onProperty     bldg:AbstractBuilding.buildingSubdivision
+                                 owl:allValuesFrom  bldg:BuildingFurniture ;
+                                 owl:onProperty     bldg:AbstractBuilding.buildingFurniture
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  bldg:BuildingInstallation ;
                                  owl:onProperty     bldg:AbstractBuilding.buildingInstallation
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     bldg:AbstractBuilding.function
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     bldg:AbstractBuilding.class
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingFurniture ;
-                                 owl:onProperty     bldg:AbstractBuilding.buildingFurniture
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:integer ;
-                                 owl:onProperty     bldg:AbstractBuilding.storeysAboveGround
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingRoom ;
-                                 owl:onProperty     bldg:AbstractBuilding.buildingRoom
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     bldg:AbstractBuilding.usage
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:BuildingConstructiveElement ;
-                                 owl:onProperty     bldg:AbstractBuilding.buildingConstructiveElement
+                                 owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
+                                 owl:onProperty     bldg:AbstractBuilding.storeyHeightsAboveGround
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  owl:Class ;
                                  owl:onProperty     bldg:AbstractBuilding.roofType
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  bldg:ADEOfAbstractBuilding ;
-                                 owl:onProperty     bldg:AbstractBuilding.adeOfAbstractBuilding
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     bldg:AbstractBuilding.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:integer ;
+                                 owl:onProperty     bldg:AbstractBuilding.storeysAboveGround
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:Address ;
+                                 owl:onProperty     bldg:AbstractBuilding.address
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:BuildingConstructiveElement ;
+                                 owl:onProperty     bldg:AbstractBuilding.buildingConstructiveElement
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:BuildingRoom ;
+                                 owl:onProperty     bldg:AbstractBuilding.buildingRoom
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136:MeasureOrNilReasonList ;
+                                 owl:onProperty     bldg:AbstractBuilding.storeyHeightsBelowGround
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     bldg:AbstractBuilding.function
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  bldg:AbstractBuildingSubdivision ;
+                                 owl:onProperty     bldg:AbstractBuilding.buildingSubdivision
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractBuilding is an abstract superclass representing the common attributes and associations of the classes Building and BuildingPart."@en .

@@ -3,22 +3,18 @@
 @prefix iso19107: <http://def.isotc211.org/iso19107/2003/CoordinateGeometry#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix iso19123: <http://def.isotc211.org/iso19123/2005/DiscreteCoverages#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 @prefix dem:   <http://www.opengis.net/citygml/relief/3.0/relief#> .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
 
 dem:MassPointRelief.reliefPoints
         a                owl:ObjectProperty ;
         rdfs:domain      dem:MassPointRelief ;
         rdfs:label       "reliefPoints"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiPoint ;
         skos:definition  "Relates to the 3D MultiPoint geometry of the MassPointRelief."@en .
 
 dem:AbstractReliefComponent
@@ -30,7 +26,7 @@ dem:AbstractReliefComponent
                                  owl:onProperty     dem:AbstractReliefComponent.adeOfAbstractReliefComponent
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:allValuesFrom  gmlowl:Surface ;
                                  owl:onProperty     dem:AbstractReliefComponent.extent
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
@@ -63,7 +59,7 @@ dem:BreaklineRelief.ridgeOrValleyLines
         a                owl:ObjectProperty ;
         rdfs:domain      dem:BreaklineRelief ;
         rdfs:label       "ridgeOrValleyLines"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiCurve ;
         skos:definition  "Relates to the 3D MultiCurve geometry of the MassPointRelief. This association role is used to represent ridge or valley lines."@en .
 
 dem:TINRelief.tin  a     owl:ObjectProperty ;
@@ -80,11 +76,11 @@ dem:BreaklineRelief  a   owl:Class ;
                            owl:onProperty     dem:BreaklineRelief.adeOfBreaklineRelief
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
                            owl:onProperty     dem:BreaklineRelief.breaklines
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
                            owl:onProperty     dem:BreaklineRelief.ridgeOrValleyLines
                          ] ;
         skos:definition  "A BreaklineRelief represents a terrain component with 3D lines. These lines denote break lines or ridge/valley lines."@en .
@@ -100,7 +96,7 @@ dem:AbstractReliefComponent.extent
         a                owl:ObjectProperty ;
         rdfs:domain      dem:AbstractReliefComponent ;
         rdfs:label       "extent"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:Surface ;
         skos:definition  "Indicates the geometrical extent of the terrain component. The geometrical extent is provided as a 2D Surface geometry."@en .
 
 dem:ADEOfAbstractReliefComponent
@@ -127,7 +123,7 @@ dem:MassPointRelief  a   owl:Class ;
                            owl:onProperty     dem:MassPointRelief.pointCloud
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiPoint ;
                            owl:onProperty     dem:MassPointRelief.reliefPoints
                          ] ;
         skos:definition  "A MassPointRelief represents a terrain component as a collection of 3D points."@en .
@@ -175,7 +171,7 @@ dem:ReliefFeature.reliefComponent
 <http://www.opengis.net/citygml/relief/3.0/relief>
         a                owl:Ontology ;
         rdfs:label       "Relief"@en ;
-        owl:imports      <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports      <http://www.opengis.net/ont/gml> , <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:definition  "The Relief module supports representation of the terrain. CityGML supports terrain representations at different levels of detail, reflecting different accuracies or resolutions. Terrain may be specified as a regular raster or grid, as a TIN, by break lines, and/or by mass points."@en .
 
 dem:ReliefFeature.lod
@@ -229,6 +225,10 @@ dem:ReliefFeature  a     owl:Class ;
                          ] ;
         skos:definition  "A ReliefFeature is a collection of terrain components representing the Earth's surface, a.k.a. the Digital Terrain Model."@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
+
 dem:ADEOfMassPointRelief
         a                      owl:Class ;
         rdfs:label             "ADEOfMassPointRelief"@en ;
@@ -239,7 +239,7 @@ dem:BreaklineRelief.breaklines
         a                owl:ObjectProperty ;
         rdfs:domain      dem:BreaklineRelief ;
         rdfs:label       "breaklines"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiCurve ;
         skos:definition  "Relates to the 3D MultiCurve geometry of the MassPointRelief. This association role is used to represent break lines."@en .
 
 dem:RasterRelief  a      owl:Class ;

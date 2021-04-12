@@ -2,11 +2,11 @@
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix pcl:   <http://www.opengis.net/citygml/pointcloud/3.0/pointcloud#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 
 pcl:PointCloud.pointFile
         a                owl:DatatypeProperty ;
@@ -18,14 +18,14 @@ pcl:PointCloud.pointFile
 <http://www.opengis.net/citygml/pointcloud/3.0/pointcloud>
         a                owl:Ontology ;
         rdfs:label       "PointCloud"@en ;
-        owl:imports      <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports      <http://www.opengis.net/ont/gml> , <http://www.opengis.net/citygml/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:definition  "The PointCloud module supports representation of CityGML features by a collection of points."@en .
 
 pcl:PointCloud.points
         a                owl:ObjectProperty ;
         rdfs:domain      pcl:PointCloud ;
         rdfs:label       "points"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiPoint ;
         skos:definition  "Relates to the 3D MultiPoint geometry of the PointCloud stored inline with the city model."@en .
 
 pcl:PointCloud  a        owl:Class ;
@@ -36,7 +36,7 @@ pcl:PointCloud  a        owl:Class ;
                            owl:onProperty     pcl:PointCloud.adeOfPointCloud
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiPoint ;
                            owl:onProperty     pcl:PointCloud.points
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;

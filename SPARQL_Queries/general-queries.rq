@@ -135,16 +135,18 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 
 #7 query all cityobjects within a version
 
-SELECT DISTINCT ?cityobjectmember ?type
-WHERE {
+#SELECT DISTINCT ?cityobjectmember ?type
+#WHERE {
 
-    data:LYON_1ER_snapshot-2000_01_01 a vers:Version ;
-        vers:Version.versionMember ?cityobjectmember .
+#    data:LYON_1ER_snapshot-2000_01_01 a vers:Version ;
+#        vers:Version.versionMember ?cityobjectmember .
 
-    ?cityobjectmember a ?type .
-}
+#    ?cityobjectmember a ?type .
+#}
 
-#8 Find all buildings which intersect a period in time
+
+#8 query all buildings that intersect a point in time
+
 SELECT DISTINCT ?building
 WHERE {
 	?building a bldg:Building ;
