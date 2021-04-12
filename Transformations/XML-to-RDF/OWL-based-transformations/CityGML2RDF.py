@@ -114,9 +114,12 @@ def main():
             generateIndividual(input_node)
 
     print('\nWriting graph to disk...')
-    print(f'{sys.argv[3]}/{filename}.ttl')
-    with open(f'{sys.argv[3]}/{filename}.ttl', 'wb') as file:
-        file.write(output_graph.serialize(format='turtle'))
+    # print(f'{sys.argv[3]}/{filename}.ttl')
+    # with open(f'{sys.argv[3]}/{filename}.ttl', 'wb') as file:
+    #     file.write(output_graph.serialize(format='turtle'))
+    print(f'{sys.argv[3]}/{filename}.rdf')
+    with open(f'{sys.argv[3]}/{filename}.rdf', 'wb') as file:
+        file.write(output_graph.serialize(format='xml'))
 
 
 

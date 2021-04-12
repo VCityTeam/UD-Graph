@@ -5,10 +5,28 @@ PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl:  <http://www.w3.org/2002/07/owl#>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
-# CityGML module prefixes
-PREFIX data: <https://github.com/VCityTeam/UD-Graph/LYON_1ER_BATI_2015-20_bldg-patched#>
 PREFIX gml:  <http://www.opengis.net/gml#>
+PREFIX gmlowl:  <http://www.opengis.net/ont/gml#>
+PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX strdf: <http://strdf.di.uoa.gr/ontology#>
 PREFIX xlink: <http://www.w3.org/1999/xlink#>
+# CityGML 2.0
+PREFIX core: <http://www.opengis.net/citygml/2.0/core#>
+PREFIX bldg: <http://www.opengis.net/citygml/building/2.0/building#>
+PREFIX brid: <http://www.opengis.net/citygml/bridge/2.0/bridge#>
+PREFIX luse: <http://www.opengis.net/citygml/landuse/2.0/landuse#>
+PREFIX app:  <http://www.opengis.net/citygml/appearance/2.0/appearance#>
+PREFIX dem:  <http://www.opengis.net/citygml/relief/2.0/relief#>
+PREFIX frn:  <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#>
+PREFIX gen:  <http://www.opengis.net/citygml/generics/2.0/generics#>
+PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#>
+PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0/texturedsurface#>
+PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0/tunnel#>
+PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0/vegetation#>
+PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0/waterbody#>
+# CityGML 3.0
 PREFIX core: <http://www.opengis.net/citygml/3.0/core#>
 PREFIX bldg: <http://www.opengis.net/citygml/building/3.0/building#>
 PREFIX brid: <http://www.opengis.net/citygml/bridge/3.0/bridge#>
@@ -21,12 +39,11 @@ PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/3.0/cityobjectgroup
 PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/3.0/texturedsurface#>
 PREFIX tun:  <http://www.opengis.net/citygml/tunnel/3.0/tunnel#>
 PREFIX veg:  <http://www.opengis.net/citygml/vegetation/3.0/vegetation#>
+PREFIX vers:  <http://www.opengis.net/citygml/versioning/3.0/versioning#>
 PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/3.0/waterbody#>
-# GeoSPARQL prefixes
-PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
-PREFIX geo: <http://www.opengis.net/ont/geosparql#>
-PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
-
+# Dataset prefixes
+PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
+#PREFIX data: <https://github.com/VCityTeam/UD-Graph/LYON_1ER_BATI_2015-20_bldg-patched#>
 
 #1 query all buildings
 
@@ -121,10 +138,19 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 SELECT DISTINCT ?cityobjectmember ?type
 WHERE {
 
-    data:version_1 a vers:Version ;
+    data:LYON_1ER_snapshot-2000_01_01 a vers:Version ;
         vers:Version.versionMember ?cityobjectmember .
 
     ?cityobjectmember a ?type .
+}
+
+#8 Find all buildings which intersect a period in time
+SELECT DISTINCT ?building
+WHERE {
+	?building a bldg:Building ;
+		core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
+		core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
+FILTER(strdf:PeriodContains(strdf:Period(?tp1, ?tp2), "2011-01-01T00:00:00"^^xsd:dataTime)) .
 }
 
 #LIMIT 100
