@@ -16,14 +16,27 @@ RUN apt-get update \
     git \
     mercurial \
     unzip \
+    gnupg \
     gcc \
     make \
+    libxml2-dev \
+    libgeos-dev \
+    libgdal-dev \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 
+# INSTALL Proj4
+RUN cd /usr/local/ \
+ && wget https://download.osgeo.org/proj/proj-4.6.1.tar.gz \
+ && tar xfz proj-4.6.1.tar.gz \
+ && rm proj-4.6.1.tar.gz \
+ && cd proj-4.6.1 \
+ && ./configure \
+ && make \
+ && make install \
+ && make check
 
 # DOWNLOAD AND INSTALL MAVEN 3.6
-
 ARG MAVEN_VERSION=3.6.3
 ARG USER_HOME_DIR="/root"
 ARG SHA=c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe726c17ef8dcca2dcaa9fca676987befeadc9b9f759967a8cb77181c0
@@ -50,9 +63,19 @@ RUN apt-get update \
  && apt-get install -y \
     postgresql-9.1 \
     postgresql-server-dev-9.1 \
-    postgresql-9.1-postgis \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+
+RUN cd /var/lib/ \
+ && wget http://download.osgeo.org/postgis/source/postgis-2.0.0.tar.gz \
+ && tar xfz postgis-2.0.0.tar.gz \
+ && cd postgis-2.0.0 \
+ && ./configure \
+ && make \
+ && make install \
+ && ldconfig \
+ && make comments-install \
+ && rm ../postgis-2.0.0.tar.gz
 
 RUN cd /var/lib/postgresql \
  && git clone http://github.com/jeff-davis/PostgreSQL-Temporal
@@ -63,7 +86,10 @@ RUN chmod -v +x /usr/local/bin/initdb.sh
 RUN chmod -v +x /usr/local/bin/enable_remote.sh
 RUN chown -v postgres:postgres /usr/local/bin/initdb.sh
 RUN chown -v -R postgres:postgres /var/lib/postgresql/PostgreSQL-Temporal
-
+RUN mkdir /usr/share/doc/postgresql-doc-9.1 \
+ && chown -v -R postgres:postgres /usr/share/doc/postgresql-doc-9.1
+RUN chown -v -R postgres:postgres /usr/share/postgresql/9.1/
+RUN chown -v -R postgres:postgres /usr/lib/postgresql/9.1/
 ## start postgres, add postgis, create template for strabon, enable temporal functionality in postgis, and stop postgis
 RUN enable_remote.sh
 
@@ -73,8 +99,12 @@ RUN initdb.sh
 
 RUN cd /var/lib/postgresql/PostgreSQL-Temporal \
  && make \
- && make install \
- && make installcheck
+ && make install 
+ # && make installcheck
+
+RUN service postgresql start \
+ && psql -c "CREATE EXTENSION temporal;" \
+ && service postgresql stop
 
 USER root
 
@@ -90,6 +120,8 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
 # DOWNLOAD AND BUILD strabon
 RUN hg clone http://hg.strabon.di.uoa.gr/Strabon/ \
  && cd Strabon \
+ && hg update temporals
+RUN cd /Strabon \
  && mvn clean package
 
 RUN cp /Strabon/endpoint/target/strabon-endpoint-3.3.2-SNAPSHOT.war /tomcat/webapps/Strabon.war \
@@ -105,4 +137,4 @@ RUN chmod -v +x /usr/local/bin/rocket.sh
 
 EXPOSE $PORT
 
-CMD su - postgres -c "/usr/lib/postgresql/9.4/bin/postgres -D /var/lib/postgresql/9.4/main -c config_file=/etc/postgresql/9.4/main/postgresql.conf"
+CMD su - postgres -c "/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf"
