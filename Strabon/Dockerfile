@@ -27,10 +27,10 @@ RUN apt-get update \
 
 # INSTALL Proj4
 RUN cd /usr/local/ \
- && wget https://download.osgeo.org/proj/proj-4.6.1.tar.gz \
- && tar xfz proj-4.6.1.tar.gz \
- && rm proj-4.6.1.tar.gz \
- && cd proj-4.6.1 \
+ && wget https://download.osgeo.org/proj/proj-4.8.0.tar.gz \
+ && tar xfz proj-4.8.0.tar.gz \
+ && rm proj-4.8.0.tar.gz \
+ && cd proj-4.8.0 \
  && ./configure \
  && make \
  && make install \
