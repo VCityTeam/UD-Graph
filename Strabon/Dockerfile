@@ -43,11 +43,11 @@ ARG SHA=c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe
 ARG BASE_URL=https://apache.osuosl.org/maven/maven-3/${MAVEN_VERSION}/binaries
 
 RUN mkdir -p /usr/share/maven /usr/share/maven/ref \
-  && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
-  && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
-  && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
-  && rm -f /tmp/apache-maven.tar.gz \
-  && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
+ && curl -fsSL -o /tmp/apache-maven.tar.gz ${BASE_URL}/apache-maven-${MAVEN_VERSION}-bin.tar.gz \
+ && echo "${SHA}  /tmp/apache-maven.tar.gz" | sha512sum -c - \
+ && tar -xzf /tmp/apache-maven.tar.gz -C /usr/share/maven --strip-components=1 \
+ && rm -f /tmp/apache-maven.tar.gz \
+ && ln -s /usr/share/maven/bin/mvn /usr/bin/mvn
 
 ENV MAVEN_HOME /usr/share/maven
 ENV MAVEN_CONFIG "$USER_HOME_DIR/.m2"
@@ -120,26 +120,20 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
 
 
 # DOWNLOAD AND BUILD strabon
-RUN git clone https://github.com/esarbanis/strabon.git \
- && cd strabon \
- && git checkout temporals
-
-ADD pom.xml /strabon
-
-RUN cd /strabon \
+RUN hg clone http://hg.strabon.di.uoa.gr/Strabon/ \
+ && cd Strabon \
+ && hg update temporals
+ADD pom.xml /Strabon
+RUN cd Strabon \
  && mvn clean package
-
-RUN cp /strabon/endpoint/target/strabon-endpoint-3.2.10-temporals-SNAPSHOT.war /tomcat/webapps/Strabon.war \
- && rm -rf /strabon
+RUN cp /Strabon/endpoint/target/strabon-endpoint-3.2.12-temporals-SNAPSHOT.war /tomcat/webapps/Strabon.war \
+ && rm -rf /Strabon
 
 
 # FINAL CONFIGURATIONS
 RUN mkdir /inout
-
 ADD rocket.sh /usr/local/bin/
-
 RUN chmod -v +x /usr/local/bin/rocket.sh
-
 EXPOSE $PORT
 
 CMD enable_remote.sh && su - postgres -c "/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf"

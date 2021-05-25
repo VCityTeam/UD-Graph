@@ -45,7 +45,7 @@ PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/3.0/waterbody#>
 PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #PREFIX data: <https://github.com/VCityTeam/UD-Graph/LYON_1ER_BATI_2015-20_bldg-patched#>
 
-#1 query all buildings
+#1 return all buildings
 
 #SELECT DISTINCT ?building
 #WHERE {
@@ -53,7 +53,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#2 query a building and it's linked individuals
+#2 return a building and it's linked individuals
 
 #SELECT DISTINCT ?object ?type
 #WHERE {
@@ -66,7 +66,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#3 query building geometry
+#3 return building geometry
 
 #SELECT ?geometry ?type ?serialization
 #WHERE {
@@ -82,7 +82,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#4 query all GeoSPARQL features within 10 m of a point 
+#4 return all GeoSPARQL features within 10 m of a point 
 
 #SELECT DISTINCT ?feature ?type
 #WHERE {
@@ -98,7 +98,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#5 query all geometry within a given bounding box
+#5 return all geometry within a given bounding box
 
 #SELECT DISTINCT ?geometry ?type
 #WHERE {
@@ -114,7 +114,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#6 query all cityobjects within a given bounding box
+#6 return all cityobjects within a given bounding box
 
 #SELECT DISTINCT ?cityobjectmember ?type
 #WHERE {
@@ -133,7 +133,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#7 query all cityobjects within a version
+#7 return all cityobjects within a version
 
 #SELECT DISTINCT ?cityobjectmember ?type
 #WHERE {
@@ -145,14 +145,28 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#8 query all buildings that intersect a point in time
+#8 return all buildings that intersect a point in time
 
-SELECT DISTINCT ?building
+SELECT DISTINCT ?building ?existence
 WHERE {
-	?building a bldg:Building ;
-		core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
-		core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
-FILTER(strdf:PeriodContains(strdf:period(?tp1, ?tp2), "2011-01-01T00:00:00"^^xsd:dateTime)) .
+    ?building a bldg:Building ;
+        core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
+        core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
+    BIND(strdf:period(?tp1, ?tp2) as ?existence)
+    BIND("2020-01-01T00:00:00"^^xsd:dateTime as ?point)
+    FILTER(?tp1 < ?point && ?point < ?tp2)
 }
+
+#9 return all buildings that intersect a point in time (with stSPARQL)
+
+#SELECT DISTINCT ?building ?existence ?target
+#WHERE {
+#    ?building a bldg:Building ;
+#        core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
+#        core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
+#    BIND(strdf:period(?tp1, ?tp2) as ?existence)
+#    BIND("[2011-01-01T00:00:00, 'UC')"^^strdf:period as ?target)
+#    FILTER(strdf:during(?target, ?existence))
+#}
 
 #LIMIT 100
