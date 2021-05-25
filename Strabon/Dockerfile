@@ -11,7 +11,7 @@ ENV TOMCAT_MINOR_VERSION 8.0.23
 RUN apt-get update \
  && apt-get install -y \
     wget \
-    default-jdk \
+    openjdk-8-jdk \
     curl \
     git \
     mercurial \
@@ -81,6 +81,8 @@ RUN cd /var/lib/postgresql \
  && git clone http://github.com/jeff-davis/PostgreSQL-Temporal
 
 ADD initdb.sh enable_remote.sh /usr/local/bin/
+ADD period.out /var/lib/postgresql/PostgreSQL-Temporal/test/expected/
+ADD period.sql /var/lib/postgresql/PostgreSQL-Temporal/test/sql/
 
 RUN chmod -v +x /usr/local/bin/initdb.sh
 RUN chmod -v +x /usr/local/bin/enable_remote.sh
@@ -91,7 +93,6 @@ RUN mkdir /usr/share/doc/postgresql-doc-9.1 \
 RUN chown -v -R postgres:postgres /usr/share/postgresql/9.1/
 RUN chown -v -R postgres:postgres /usr/lib/postgresql/9.1/
 ## start postgres, add postgis, create template for strabon, enable temporal functionality in postgis, and stop postgis
-RUN enable_remote.sh
 
 USER postgres
 
@@ -99,11 +100,12 @@ RUN initdb.sh
 
 RUN cd /var/lib/postgresql/PostgreSQL-Temporal \
  && make \
- && make install 
- # && make installcheck
+ && make install
 
 RUN service postgresql start \
- && psql -c "CREATE EXTENSION temporal;" \
+ && cd /var/lib/postgresql/PostgreSQL-Temporal \
+ && make installcheck \
+ && psql -d endpoint -c "CREATE EXTENSION temporal;" \
  && service postgresql stop
 
 USER root
@@ -118,14 +120,17 @@ RUN wget -q https://archive.apache.org/dist/tomcat/tomcat-${TOMCAT_MAJOR_VERSION
 
 
 # DOWNLOAD AND BUILD strabon
-RUN hg clone http://hg.strabon.di.uoa.gr/Strabon/ \
- && cd Strabon \
- && hg update temporals
-RUN cd /Strabon \
+RUN git clone https://github.com/esarbanis/strabon.git \
+ && cd strabon \
+ && git checkout temporals
+
+ADD pom.xml /strabon
+
+RUN cd /strabon \
  && mvn clean package
 
-RUN cp /Strabon/endpoint/target/strabon-endpoint-3.3.2-SNAPSHOT.war /tomcat/webapps/Strabon.war \
- && rm -rf /Strabon
+RUN cp /strabon/endpoint/target/strabon-endpoint-3.2.10-temporals-SNAPSHOT.war /tomcat/webapps/Strabon.war \
+ && rm -rf /strabon
 
 
 # FINAL CONFIGURATIONS
@@ -137,4 +142,4 @@ RUN chmod -v +x /usr/local/bin/rocket.sh
 
 EXPOSE $PORT
 
-CMD su - postgres -c "/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf"
+CMD enable_remote.sh && su - postgres -c "/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf"

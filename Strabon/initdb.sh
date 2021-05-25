@@ -6,7 +6,7 @@ service postgresql start
 #Provide a password for default user (postgres)
 psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
 
-#Set postgis-2.1 path
+#Set postgis-2.0 path
 POSTGIS_SQL_PATH=`pg_config --sharedir`/contrib/postgis-2.0
 
 #Create the spatial database that will be used as a template
