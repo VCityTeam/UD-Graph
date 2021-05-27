@@ -14,12 +14,11 @@ import os
 
 ### test CityGML 3 ###
 command = (r'python ./CityGML2RDF.py '
-    r'../../UML-to-OWL/test,'
-    # r'../../test-data/OWL/CityGML_3.0_Conceptual_Model,'
+    r'../../test-data/OWL/CityGML_3.0_Conceptual_Model,'
     # r'../../test-data/OWL/compositeCityGML3.0.rdf,'
     r'../../test-data/OWL/TC_211,'
     r'../../test-data/OWL/GeoSPARQL '
-    r'../../test-data/GML/citygml3_versioning.gml '
+    r'../../test-data/GML/citygml3_versioning_patched.gml '
     r'. '
     r'./citygml_3_namespace_mappings.json')
 
