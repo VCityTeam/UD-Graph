@@ -38,6 +38,7 @@ def main():
     global GML_ONT_NAMESPACE
     global GeoSPARQL_NAMESPACE
 
+    output_turtle = True
     filename = '.'.join(os.path.split(sys.argv[2])[-1].split('.')[:-1])
     input_tree = etree.parse(sys.argv[2])
     input_root = input_tree.getroot()
@@ -114,12 +115,14 @@ def main():
             generateIndividual(input_node)
 
     print('\nWriting graph to disk...')
-    # print(f'{sys.argv[3]}/{filename}.ttl')
-    # with open(f'{sys.argv[3]}/{filename}.ttl', 'wb') as file:
-    #     file.write(output_graph.serialize(format='turtle'))
-    print(f'{sys.argv[3]}/{filename}.rdf')
-    with open(f'{sys.argv[3]}/{filename}.rdf', 'wb') as file:
-        file.write(output_graph.serialize(format='xml'))
+    if output_turtle:
+        print(f'{sys.argv[3]}/{filename}.ttl')
+        with open(f'{sys.argv[3]}/{filename}.ttl', 'wb') as file:
+            file.write(output_graph.serialize(format='turtle'))
+    else:
+        print(f'{sys.argv[3]}/{filename}.rdf')
+        with open(f'{sys.argv[3]}/{filename}.rdf', 'wb') as file:
+            file.write(output_graph.serialize(format='xml'))
 
 
 
@@ -644,11 +647,13 @@ def getDatatype(tag):
         return datatype_definition_cache.get( str(tag) )
 
 
-# return whether tag is a valid gml element. Convert the uri into a qname
-# tuple of (prefix, namespace, localname) to extract the namespace
+# return whether tag is a valid gml element supported by Parliament. The uri is
+# converted into a qname tuple of (prefix, namespace, localname) to extract the
+# namespace. Note that solid geometry is not supported by Parliament but multisurface
+# geometry is.
 def isGeometry(tag):
     qname = mapNamespace(tag).split('#')
-    if qname[0] + '#' == str(GML_ONT_NAMESPACE) and isClass(tag):
+    if qname[0] + '#' == str(GML_ONT_NAMESPACE) and isClass(tag) and qname[1] != 'Solid' and qname[1] != 'Shell':
         return ontology.query(
                 'ASK {'
                     f'<{str(GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(GML_ONT_NAMESPACE)}AbstractGeometry> .'

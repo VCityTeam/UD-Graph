@@ -15,7 +15,9 @@ def main():
             continue
         if node.attrib.get('srsDimension') == '3':
             node.attrib['srsDimension'] = '2'
-        if etree.QName(node).namespace == 'http://www.opengis.net/gml' and node.text is not None:
+        if node.text is not None and \
+          (etree.QName(node).namespace == 'http://www.opengis.net/gml' or
+           etree.QName(node).namespace == 'http://www.opengis.net/gml/3.2'):
             # tokenize text and remove empty tokens
             point_list = list(filter( lambda a: a != '' and a != '\n', node.text.split(' ') ))
             # check if text is a point list and remove every 3rd element

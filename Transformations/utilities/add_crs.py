@@ -19,6 +19,10 @@ def main():
             # if a gml:id is specified, add the CRS to the geometry.
             if CRS != '':
                 node.attrib['srsName'] = CRS
+        if node.attrib.get('{http://www.opengis.net/gml/3.2}id') is not None:
+            # if a gml:id is specified, add the CRS to the geometry.
+            if CRS != '':
+                node.attrib['srsName'] = CRS
 
     with open(sys.argv[3], 'wb') as file:
        file.write(etree.tostring( root, pretty_print=True ))

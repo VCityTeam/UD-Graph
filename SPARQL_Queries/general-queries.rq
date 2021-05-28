@@ -13,19 +13,19 @@ PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
 PREFIX strdf: <http://strdf.di.uoa.gr/ontology#>
 PREFIX xlink: <http://www.w3.org/1999/xlink#>
 # CityGML 2.0
-PREFIX core: <http://www.opengis.net/citygml/2.0/core#>
-PREFIX bldg: <http://www.opengis.net/citygml/building/2.0/building#>
-PREFIX brid: <http://www.opengis.net/citygml/bridge/2.0/bridge#>
-PREFIX luse: <http://www.opengis.net/citygml/landuse/2.0/landuse#>
-PREFIX app:  <http://www.opengis.net/citygml/appearance/2.0/appearance#>
-PREFIX dem:  <http://www.opengis.net/citygml/relief/2.0/relief#>
-PREFIX frn:  <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#>
-PREFIX gen:  <http://www.opengis.net/citygml/generics/2.0/generics#>
-PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#>
-PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0/texturedsurface#>
-PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0/tunnel#>
-PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0/vegetation#>
-PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0/waterbody#>
+#PREFIX core: <http://www.opengis.net/citygml/2.0/core#>
+#PREFIX bldg: <http://www.opengis.net/citygml/building/2.0/building#>
+#PREFIX brid: <http://www.opengis.net/citygml/bridge/2.0/bridge#>
+#PREFIX luse: <http://www.opengis.net/citygml/landuse/2.0/landuse#>
+#PREFIX app:  <http://www.opengis.net/citygml/appearance/2.0/appearance#>
+#PREFIX dem:  <http://www.opengis.net/citygml/relief/2.0/relief#>
+#PREFIX frn:  <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#>
+#PREFIX gen:  <http://www.opengis.net/citygml/generics/2.0/generics#>
+#PREFIX grp:  <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#>
+#PREFIX tex:  <http://www.opengis.net/citygml/texturedsurface/2.0/texturedsurface#>
+#PREFIX tun:  <http://www.opengis.net/citygml/tunnel/2.0/tunnel#>
+#PREFIX veg:  <http://www.opengis.net/citygml/vegetation/2.0/vegetation#>
+#PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/2.0/waterbody#>
 # CityGML 3.0
 PREFIX core: <http://www.opengis.net/citygml/3.0/core#>
 PREFIX bldg: <http://www.opengis.net/citygml/building/3.0/building#>
@@ -45,7 +45,7 @@ PREFIX wtr:  <http://www.opengis.net/citygml/waterbody/3.0/waterbody#>
 PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #PREFIX data: <https://github.com/VCityTeam/UD-Graph/LYON_1ER_BATI_2015-20_bldg-patched#>
 
-#1 query all buildings
+#1 return all buildings
 
 #SELECT DISTINCT ?building
 #WHERE {
@@ -53,7 +53,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#2 query a building and it's linked individuals
+#2 return a building and it's linked individuals
 
 #SELECT DISTINCT ?object ?type
 #WHERE {
@@ -66,7 +66,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#3 query building geometry
+#3 return building geometry
 
 #SELECT ?geometry ?type ?serialization
 #WHERE {
@@ -82,7 +82,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#4 query all GeoSPARQL features within 10 m of a point 
+#4 return all GeoSPARQL features within 10 m of a point 
 
 #SELECT DISTINCT ?feature ?type
 #WHERE {
@@ -98,7 +98,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#5 query all geometry within a given bounding box
+#5 return all geometry within a given bounding box
 
 #SELECT DISTINCT ?geometry ?type
 #WHERE {
@@ -114,7 +114,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#6 query all cityobjects within a given bounding box
+#6 return all cityobjects within a given bounding box
 
 #SELECT DISTINCT ?cityobjectmember ?type
 #WHERE {
@@ -133,7 +133,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#7 query all cityobjects within a version
+#7 return all cityobjects within a version
 
 #SELECT DISTINCT ?cityobjectmember ?type
 #WHERE {
@@ -145,14 +145,28 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #}
 
 
-#8 query all buildings that intersect a point in time
+#8 return all buildings that intersect a point in time
 
-SELECT DISTINCT ?building
+SELECT DISTINCT ?building ?tp1 ?tp2
 WHERE {
-	?building a bldg:Building ;
-		core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
-		core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
-FILTER(strdf:PeriodContains(strdf:Period(?tp1, ?tp2), "2011-01-01T00:00:00"^^xsd:dataTime)) .
+    BIND("2010-01-01T00:00:00"^^xsd:dateTime as ?point)
+    ?building a bldg:Building ;
+        core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
+        core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
+    FILTER(?tp1 < ?point && ?point < ?tp2)
 }
+
+
+#9 return all buildings that intersect a point in time (with stSPARQL)
+
+#SELECT DISTINCT ?building ?existence ?target
+#WHERE {
+#    ?building a bldg:Building ;
+#        core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
+#        core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
+#    BIND(strdf:period(?tp1, ?tp2) as ?existence)
+#    BIND("[2011-01-01T00:00:00, 'UC')"^^strdf:period as ?target)
+#    FILTER(strdf:during(?target, ?existence))
+#}
 
 #LIMIT 100
