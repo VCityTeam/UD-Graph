@@ -6,15 +6,18 @@ This work is part of the larger [Virtual City Project](https://projet.liris.cnrs
 ## Related Articles
 - [From CityGML to OWL](https://hal.archives-ouvertes.fr/hal-02948955) (Technical report on HAL)
 - [Geospatial urban data and the semantic web: From representation to proof of concept](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md) (Internship report in markdown)
+- [Towards a semantic web representation from a 3D geospatial urban data model, Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021](https://apps.univ-lr.fr/actes/ged/colloques/docWeb/2105041945.0/SAGEO2021_Actes_de_la_conference_vff.pdf)
 
-## CityGML Transformations
-Contains two implementations:
-1. XSD-to-OWL
-   * Scripts for converting XML Schema into RDF/OWL ontologies
+## Transformations
+Contains the following implementations:
+1. UML-to-OWL
+   * ShapeChange configuration files for CityGML 2.0 and 3.0 UML models to RDF/OWL ontologies
 2. XML-to-OWL
-   * Scripts for converting XML files into RDF/OWL individuals
-   * Stores CityGML Lyon Metropole data from 2015
-3. XML Schema
+   * Scripts for converting XML files into RDF/OWL individuals based in Python
+   * Scripts for converting XML files into RDF/OWL individuals based in XSLT
+3. XSD-to-OWL
+   * Scripts for converting XML Schema into RDF/OWL ontologies
+4. test-data
    * Stores GML and CityGML Schema
    * Stores composite Schema for input into scripts
 
