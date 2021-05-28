@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Example file containing 4 buildings represented accross 2 versions and a versionTransition.
+  Example file containing 4 buildings represented across 2 versions and a versionTransition.
   Versions contain the attributes <tag> and <versionMember>.
   The versionTransition contains the attributes <reason>, <clonePredecessor>, <type>, <from>, <to>, and 3 transactions.
   Buildings utilize the <identifier> attribute as global identifiers between versions.
   This document uses xlinks to reference buildings from versions.
   The file validates against release 3.0.0-draft.2020.09.17.1
 -->
-<core:CityModel xmlns="http://www.opengis.net/citygml/3.0" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/3.0 ../Schema/cityGMLBase.xsd http://www.opengis.net/citygml/construction/3.0 ../Schema/construction.xsd http://www.opengis.net/citygml/building/3.0 ../Schema/building.xsd http://www.opengis.net/citygml/versioning/3.0 ../Schema/versioning.xsd"
+<core:CityModel xmlns="http://www.opengis.net/citygml/3.0" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/3.0 ../Schema/cityGMLBase.xsd http://www.opengis.net/citygml/construction/3.0 ../Schema/construction.xsd http://www.opengis.net/citygml/building/3.0 ../Schema/building.xsd http://www.opengis.net/citygml/versioning/3.0 ../Schema/versioning.xsd urn:oasis:names:tc:ciq:xal:3 ../Schema/xAL.xsd http://www.w3.org/1999/xlink ../Schema/xlink.xsd http://www.opengis.net/gml/3.2 ../Schema/gml.xsd"
     gml:id="cm1">
     <core:versionMember>
         <vers:Version gml:id="LYON_1ER_snapshot-2000_01_01">
@@ -53,8 +53,8 @@
     </core:versionTransitionMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL50_2000-01-01">
-            <gml:name>Building A</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL50</gml:identifier>
+            <gml:name>Building A</gml:name>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3" srsName="EPSG:3946">
                     <gml:lowerCorner>1842408.64259517 5176406.47754247 242.70000000</gml:lowerCorner>
@@ -398,8 +398,8 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_2000-01-01">
-            <gml:name>Building B</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL49</gml:identifier>
+            <gml:name>Building B</gml:name>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842410.67491666 5176396.1380966 242.70000000</gml:lowerCorner>
@@ -594,8 +594,8 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL49_2015-01-01">
-            <gml:name>Building B</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL49</gml:identifier>
+            <gml:name>Building B</gml:name>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842408.10590869 5176394.85900992 242.70000000</gml:lowerCorner>
@@ -935,8 +935,8 @@
     </core:cityObjectMember>
     <core:cityObjectMember>
         <bldg:Building gml:id="BU_69381AL47_2015-01-01">
-            <gml:name>Building C</gml:name>
             <gml:identifier codeSpace="https://data.grandlyon.com/">BU_69381AL47</gml:identifier>
+            <gml:name>Building C</gml:name>
             <gml:boundedBy>
                 <gml:Envelope srsDimension="3">
                     <gml:lowerCorner>1842403.47341026 5176404.41428747 246.70000000</gml:lowerCorner>
