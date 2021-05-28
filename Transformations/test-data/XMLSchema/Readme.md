@@ -1,5 +1,5 @@
 ## XML Schema
-This folder contains the CityGML 2.0 and 3.0 (as of 3/11/2020) application schema and its schema dependencies such as GML 3.1 and 3.2 and the xAL addressing schema. In addition, composite schema are also stored here to be consumed by XSLT transformation processes and a Python utility script for creating these composite schema.   
+This folder contains the CityGML 2.0 and 3.0 application schema and its schema dependencies such as GML 3.1 and 3.2, the xAL addressing schema, etc. In addition, composite schema are also stored here to be consumed by XSLT transformation processes and a Python utility script for creating these composite schema.   
 
 ### compileXMLSchema,py
 This is a utility script used to combine xml schema into a single file. The script also enforces all names to use their respective namespace prefixes and normalizes these prefixes according to predetermined naming conventions. To modify these naming conventions, the variable `target_namespaces` must be set to a dictionary containing the desired namespace prefixes. _The CityGML 3.0 namespaces are used by default._
