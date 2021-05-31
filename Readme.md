@@ -6,7 +6,7 @@ This work is part of the larger [Virtual City Project](https://projet.liris.cnrs
 ## Related Articles
 - [From CityGML to OWL](https://hal.archives-ouvertes.fr/hal-02948955) (Technical report on HAL)
 - [Geospatial urban data and the semantic web: From representation to proof of concept](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md) (Internship report in markdown)
-- [Towards a semantic web representation from a 3D geospatial urban data model, Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021](https://apps.univ-lr.fr/actes/ged/colloques/docWeb/2105041945.0/SAGEO2021_Actes_de_la_conference_vff.pdf)
+- [Towards a semantic web representation from a 3D geospatial urban data model](https://apps.univ-lr.fr/actes/ged/colloques/docWeb/2105041945.0/SAGEO2021_Actes_de_la_conference_vff.pdf) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021
 
 ## Transformations
 Contains the following implementations:

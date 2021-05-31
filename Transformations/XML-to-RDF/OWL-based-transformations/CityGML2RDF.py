@@ -2,22 +2,28 @@ import os
 import sys
 import json
 import logging
+import argparse
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, NamespaceManager, Namespace
 from lxml import etree
 
 def main():
-    if len(sys.argv) != 5:
-        sys.exit(f'Incorrect number of arguments: {len(sys.argv)}\n'
-                 'Usage: python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mappings]\n'
-                 'ontology input paths are separated by a ","')
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('input_file', help='specify the input CityGML datafile')
+    parser.add_argument('input_model', help='specify the ontology input path; for multiple ontologies, input paths are separated by a ","')
+    parser.add_argument('mapping_file', help='specify the namespace mapping file')
+    parser.add_argument('--output', default='.', help='specify the output directory')
+    parser.add_argument('--format', default='ttl', choices=['ttl', 'rdf'], help='specify the output data format [rdf, ttl]')
+    parser.add_argument('--log', default='output.log', help='specify the logging file')
+    args = parser.parse_args()
 
     ############################
     ##  Initialize variables  ##
     ############################
 
-    logging.basicConfig(filename='output.log', level=logging.DEBUG)
+    logging.basicConfig(filename=args.log, level=logging.DEBUG)
 
     global input_tree
     global input_root
@@ -32,19 +38,21 @@ def main():
     global input_node_count
     global input_node_total
     global namespace_mappings
+    global valid_geometry
     global gml_namespaces
     global parsed_nodes
     global GML_NAMESPACE
     global GML_ONT_NAMESPACE
     global GeoSPARQL_NAMESPACE
 
-    output_turtle = True
-    filename = '.'.join(os.path.split(sys.argv[2])[-1].split('.')[:-1])
-    input_tree = etree.parse(sys.argv[2])
+    filename = '.'.join(os.path.split(args.input_file)[-1].split('.')[:-1])
+    input_tree = etree.parse(args.input_file)
     input_root = input_tree.getroot()
     output_graph = Graph()
     output_uri = f'https://github.com/VCityTeam/UD-Graph/{filename}'
-
+    output_turtle = args.format
+    valid_geometry = {'MultiPoint', 'MultiCurve', 'MultiSurface', 'MultiGeometry',
+                      'Point', 'LineString', 'Curve', 'Polygon', 'Surface'}
 
     input_node_count = 0
     input_node_total = 0
@@ -57,13 +65,13 @@ def main():
     datatypeproperty_definition_cache = {}
     parsed_nodes = []
 
-    with open(sys.argv[4], 'r') as file:
+    with open(args.mapping_file, 'r') as file:
         namespace_mappings = json.loads(file.read())
 
     # compile ontology
     print('Compiling Ontology...')
     ontology = Graph()
-    for path in sys.argv[1].split(','):
+    for path in args.input_model.split(','):
         if path.startswith('http://'):
             print('  ' + path)
             ontology.parse(path, format='xml')
@@ -115,14 +123,14 @@ def main():
             generateIndividual(input_node)
 
     print('\nWriting graph to disk...')
-    if output_turtle:
-        print(f'{sys.argv[3]}/{filename}.ttl')
-        with open(f'{sys.argv[3]}/{filename}.ttl', 'wb') as file:
-            file.write(output_graph.serialize(format='turtle'))
-    else:
-        print(f'{sys.argv[3]}/{filename}.rdf')
-        with open(f'{sys.argv[3]}/{filename}.rdf', 'wb') as file:
+    if output_turtle == 'rdf':
+        print(f'{args.output}/{filename}.rdf')
+        with open(f'{args.output}/{filename}.rdf', 'wb') as file:
             file.write(output_graph.serialize(format='xml'))
+    else:
+        print(f'{args.output}/{filename}.ttl')
+        with open(f'{args.output}/{filename}.ttl', 'wb') as file:
+            file.write(output_graph.serialize(format='turtle'))
 
 
 
@@ -130,9 +138,10 @@ def main():
 ##  Graph transformation functions  ##
 ######################################
 
-# generate a new individual from an XML node and its children, then add the
-# node to the output graph. An id is returned for recursive calls
 def generateIndividual(node):
+    '''Generate a new individual from an XML node and its children, then add the
+    node to the output graph. An id is returned for recursive calls'''
+
     # skip comment nodes
     if not isinstance(node.tag, str):
         return
@@ -175,10 +184,10 @@ def generateIndividual(node):
         # check if child node is a datatype. If so, generate a datatype for the
         # child and create a datatype property linking the individual and datatype.
         elif isDatatype(child.tag):
-            child_text = Literal(child.text)
-            datatypeproperty = findDatatypeProperty(node.tag, child.tag)
-            for property in datatypeproperty:
-                output_graph.add( (node_id, property, child_text) )
+            for property in findDatatypeProperty(node.tag, child.tag):
+                for datatype in getDatatypePropertyRange(property):
+                    child_text = Literal(child.text, datatype=datatype[0])
+                    output_graph.add( (node_id, property, child_text) )
         # check if child node is an object property. If so, generate the object
         # property nodes and their corresponding individuals by calling
         # generateObjectProperties().
@@ -188,16 +197,30 @@ def generateIndividual(node):
         # property nodes and their corresponding individuals by calling
         # generateDatatypeProperty().
         elif isDatatypeProperty(child.tag, node.tag):
-            # print('node:', node.tag)
-            # print('child:', child.tag)
             generateDatatypeProperty(node, node_id, child)
         else:
             logging.warning(f'Unknown XML element, {child.tag}, at: {input_tree.getelementpath(child)}')
 
     for attribute in node.attrib:
-        attribute_tag = mapNamespace(attribute)
-        attribute_text = Literal(node.attrib[attribute])
-        output_graph.add( (node_id, attribute_tag, attribute_text) )
+        namespaced_attribute = addGMLAttributeNamespace(attribute)
+        if isDatatypeProperty(namespaced_attribute, node.tag):
+            for property in getDatatypeProperties(attribute):
+                for datatype in getDatatypePropertyRange(property):
+                    attribute_text = Literal(node.attrib[attribute],
+                                             datatype=datatype[0])
+                output_graph.add((node_id, property, attribute_text))
+        if isDatatype(namespaced_attribute):
+            for property in findDatatypeProperty(attribute, node.tag):
+                for datatype in getDatatypePropertyRange(property):
+                    attribute_text = Literal(node.attrib[attribute],
+                                             datatype=datatype[0])
+                output_graph.add((node_id, property, attribute_text))
+        else:
+            # TODO: add dynamic datatype detection
+            attribute_tag = mapNamespace(attribute)
+            attribute_text = Literal(node.attrib[attribute])
+            output_graph.add( (node_id, attribute_tag, attribute_text) )
+            logging.warning(f'No datatype found for attribute {attribute}, at {input_tree.getelementpath(node)}')
 
     # when complete, add node to parsed nodes list
     parsed_nodes.append(input_tree.getelementpath(node))
@@ -206,10 +229,11 @@ def generateIndividual(node):
     return node_id
 
 
-# Generate an individual for each child (which should all be classes if input
-# tree is well formed) and create an object property linking the parent
-# individual with each child individual. Also check for xlinks.
 def generateObjectProperties(parent, parent_id, node):
+    '''Generate an individual for each child (which should all be classes if input
+    tree is well formed) and create an object property linking the parent
+    individual with each child individual. Also check for xlinks.'''
+
     if node.attrib.get('{http://www.w3.org/1999/xlink}href') is not None:
         # Check if an xlink is present. If so create a triple referencing the resource
         property = findObjectProperty(parent.tag, None, node.tag)
@@ -238,35 +262,35 @@ def generateObjectProperties(parent, parent_id, node):
                 f'generation not found at: {input_tree.getelementpath(child)}')
 
 
-# Generate a datatype for each child (which should all contain datatype literals
-# if well formed) and create a datatype property linking the parent individual
-# with each child datatype literal.
 def generateDatatypeProperty(parent, parent_id, node):
+    '''Generate a datatype for each child (which should all contain datatype literals
+    if well formed) and create a datatype property linking the parent individual
+    with each child datatype literal.'''
+
     # check if child node is a datatype. If so, generate a new datatype literal
     # for the child and create a datatype property linking the class with the
     # datatype literal.
     if node.text is not None:
         property = findDatatypeProperty(parent.tag, node.tag)
         if property is not None:
-            output_graph.add((parent_id, property, Literal(node.text)))
+            for datatype in getDatatypePropertyRange(property):
+                output_graph.add((parent_id, property,
+                                  Literal(node.text, datatype=datatype[0])))
         else:
             logging.warning(f'Datatype property not found: {input_tree.getelementpath(node)}')
     else:
         logging.warning(f'Datatype text for datatype property not found: {input_tree.getelementpath(node)}')
 
-# helper function for filtering unwanted geometry namespaces
-def isGMLTag( string ):
-    return not string.startswith('xmlns') or string.startswith('xmlns:gml')
 
-# Generate the gsp:gmlLiteral serialization of a geometry node
 def generateGeometrySerialization(node):
+    '''Generate the gsp:gmlLiteral serialization of a geometry node'''
     node_copy = deepcopy(node)
     # gather geometry referenced though xlinks 
     for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
         reference = xlink.attrib.get('{http://www.w3.org/1999/xlink}href').split('#')[-1]
         reference_node = input_root.find('.//*[@{%s}id = "%s"]' % (GML_NAMESPACE, reference))
         if reference_node is not None:
-            logging.info(f'Compiling geometry for xlink reference to: {reference}')
+            # logging.info(f'Compiling geometry for xlink reference to: {reference}')
             new_element = etree.Element(xlink.tag)
             new_element.append(deepcopy(reference_node))
             parent = xlink.getparent()
@@ -274,8 +298,10 @@ def generateGeometrySerialization(node):
             parent.remove(xlink)
 
     geometry = str(etree.tostring(node_copy, pretty_print=False)).split(' ')
+    isGMLTag = lambda tag : not tag.startswith('xmlns') or tag.startswith('xmlns:gml')
     geometry = ' '.join(filter( isGMLTag, geometry ))
-    geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip()
+    geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip().replace(
+        "xmlns:gml='http://www.opengis.net/gml/3.2'", "xmlns:gml='http://www.opengis.net/gml'")
 
     return geometry
 
@@ -285,10 +311,10 @@ def generateGeometrySerialization(node):
 ##  Utility functions  ##
 #########################
 
-# find an object property which links (intersects) two given classes based on the
-# domain and range of the property. The second class can be omitted in the case of
-# an xlink object property. A property tag hint may also be supplied.
 def findObjectProperty(tag1, tag2=None, property_tag=None):
+    '''Find an object property which links (intersects) two given classes based on the
+    domain and range of the property. The second class can be omitted in the case of
+    an xlink object property. A property tag hint may also be supplied.'''
     #TODO: Break this function into multiple functions
     qname1 = etree.QName(tag1)
     if tag2 is None and isClass(qname1):
@@ -391,12 +417,12 @@ def findObjectProperty(tag1, tag2=None, property_tag=None):
     return None
 
 
-# find a datatype property which links (intersects) a given class and a datatype
-# based on the domain and range of the property or which a given class contains
-# a universal restriction of the property.
-def findDatatypeProperty(tag1, property_tag=None):
-    qname1 = etree.QName(tag1)
-    if isClass(tag1):
+def findDatatypeProperty(tag, property_tag=None):
+    '''Find a datatype property which links (intersects) a given class and a datatype
+    based on the domain and range of the property or which a given class contains
+    a universal restriction of the property.'''
+    qname1 = etree.QName(tag)
+    if isClass(tag):
         if property_tag is None:
             query = ontology.query('''
                 SELECT DISTINCT ?datatypeproperty
@@ -435,11 +461,20 @@ def findDatatypeProperty(tag1, property_tag=None):
                             property[0]) )
                 if bool(query):
                     return property[0]
-    logging.warning(f'No matching datatype property found between: {tag1}, {property_tag}')
+    logging.warning(f'No matching datatype property found between: {tag}, {property_tag}')
     return None
 
-# normalize an namespace for OWL
+
+def addGMLAttributeNamespace(tag):
+    '''Add GML namespace to certain attributes which do not list their namespace
+    by default in GML'''
+    if str(tag) in {'srsName', 'srsDimension', 'uom'}:
+        return '{%s}%s' % (GML_NAMESPACE, str(tag))
+    else:
+        return tag
+
 def normalizeNamespace(namespace):
+    '''normalize an namespace for OWL'''
     namespace = str(namespace)
     if namespace[-1] == '#':
         return namespace
@@ -449,13 +484,11 @@ def normalizeNamespace(namespace):
         return namespace + '#'
 
 
-# map an XML tag namespace for based on the ontology. If input tag namespace is
-# in namespace mappings, return the target mapping namespace. Tags are returned
-# as rdflib.URIRef objects.
 def mapNamespace(node_or_tag):
-    if str(node_or_tag) in ('srsName', 'srsDimension' , 'uom'):
-        node_or_tag = '{%s}%s' % (GML_NAMESPACE, node_or_tag)
-    qname = etree.QName(node_or_tag)
+    '''map an XML tag namespace for based on the ontology. If input tag namespace is
+    in namespace mappings, return the target mapping namespace. Tags are returned
+    as rdflib.URIRef objects.'''
+    qname = etree.QName(addGMLAttributeNamespace(node_or_tag))
 
     if qname.namespace in namespace_mappings.keys():
         if len(namespace_mappings[qname.namespace]) == 1:
@@ -472,8 +505,8 @@ def mapNamespace(node_or_tag):
         return URIRef(normalizeNamespace(qname.namespace) + qname.localname)
 
 
-# create a new, unique id from a normalized XML node tag
 def generateID(tag):
+    '''create a new, unique id from a normalized XML node tag'''
     name = str(tag).split('#')[-1]
     if name in id_count:
         id_count[name] += 1
@@ -483,15 +516,15 @@ def generateID(tag):
         return f'{output_uri}#{name}_0'
 
 
-# return all definitions of a tag in the ontology
 def getDefinitions(tag):
+    '''return all definitions of a tag in the ontology'''
     definitions = []
     for class_definition in getClasses(tag):
         definitions.append(class_definition)
 
 
-# return whether class definition exists in ontology
 def isClass(tag):
+    '''return whether class definition exists in ontology'''
     qname = etree.QName(tag)
     if tag in class_definition_cache.keys():
         return len(class_definition_cache.get(tag)) > 0
@@ -509,18 +542,20 @@ def isClass(tag):
     return len(class_definition_cache.get(tag)) > 0
 
 
-# check if uri corresponds to a class and return the possible classes
 def getClasses(tag):
+    '''check if uri corresponds to a class and return the possible classes'''
     if isClass(tag):
         return class_definition_cache.get( str(tag) )
+    else:
+        logging.warning(f'Unable to get Class: {tag}')
 
 
-# return whether object property definition exists in ontology. Local property
-# names may require searching through the shapechange [[name]] descriptor target
-# (rdfs:label by default) depending on shapechange property encoding
-# configurations. The node's parent tag may be provided to verify if the parent
-# class is within the domain of the property.
 def isObjectProperty(tag, parent_tag=None):
+    '''return whether object property definition exists in ontology. Local property
+    names may require searching through the shapechange [[name]] descriptor target
+    (rdfs:label by default) depending on shapechange property encoding
+    configurations. The node's parent tag may be provided to verify if the parent
+    class is within the domain of the property.'''
     qname = etree.QName(tag)
     if tag in objectproperty_definition_cache.keys():
         if parent_tag is None:
@@ -563,18 +598,22 @@ def isObjectProperty(tag, parent_tag=None):
 
 
 
-# check if uri corresponds to an object property and return the possible properties
 def getObjectProperties(tag):
+    '''check if uri corresponds to an object property and return the possible properties'''
     if isObjectProperty(tag):
         return objectproperty_definition_cache.get( str(tag) )
+    else:
+        logging.warning(f'Unable to get Object Property: {tag}')
 
 
-# return whether datatype property definition exists in ontology. Local property
-# names may require searching through the shapechange [[name]] descriptor target
-# (rdfs:label by default) depending on shapechange property encoding
-# configurations. The node's parent tag may be provided to verify if the parent
-# class is within the domain of the property.
 def isDatatypeProperty(tag, parent_tag=None):
+    '''return whether datatype property definition exists in ontology. Local property
+    names may require searching through the shapechange [[name]] descriptor target
+    (rdfs:label by default) depending on shapechange property encoding
+    configurations. The node's parent tag may be provided to verify if the parent
+    class is within the domain of the property.'''
+    print(tag)
+    print(parent_tag)
     qname = etree.QName(tag)
     if tag in datatypeproperty_definition_cache.keys():
         if parent_tag is None:
@@ -616,14 +655,25 @@ def isDatatypeProperty(tag, parent_tag=None):
     return False
 
 
-# check if uri corresponds to an datatype property and return the possible properties
 def getDatatypeProperties(tag):
+    '''check if uri corresponds to an datatype property and return the possible properties'''
     if isDatatypeProperty(tag):
         return datatypeproperty_definition_cache.get( str(tag) )
+    else:
+        logging.warning(f'Unable to get Datatype Property: {tag}')
 
 
-# return whether datatype definition exists in ontology
+def getDatatypePropertyRange(property):
+    '''Get the rdfs:range of a datatype property'''
+    return ontology.query('''
+        SELECT DISTINCT ?range
+        WHERE {
+            <%s> rdfs:range ?range .
+        }''' % property)
+
+
 def isDatatype(tag):
+    '''return whether datatype definition exists in ontology'''
     qname = etree.QName(tag)
     if tag in datatype_definition_cache.keys():
         return len(datatype_definition_cache.get(tag)) > 0
@@ -641,22 +691,27 @@ def isDatatype(tag):
     return len(datatype_definition_cache.get(tag)) > 0
 
 
-# check if uri corresponds to a datatype and return the possible datatypes
 def getDatatype(tag):
+    '''check if uri corresponds to a datatype and return the possible datatypes'''
     if isDatatype(tag):
         return datatype_definition_cache.get( str(tag) )
+    else:
+        logging.warning(f'Unable to get Datatype: {tag}')
 
 
-# return whether tag is a valid gml element supported by Parliament. The uri is
-# converted into a qname tuple of (prefix, namespace, localname) to extract the
-# namespace. Note that solid geometry is not supported by Parliament but multisurface
-# geometry is.
 def isGeometry(tag):
+    '''return whether tag is a valid gml element supported by Parliament. The uri is
+    converted into a qname tuple of (prefix, namespace, localname) to extract the
+    namespace. Note that solid geometry is not supported by Parliament but multisurface
+    geometry is.'''
     qname = mapNamespace(tag).split('#')
-    if qname[0] + '#' == str(GML_ONT_NAMESPACE) and isClass(tag) and qname[1] != 'Solid' and qname[1] != 'Shell':
-        return ontology.query(
+    if qname[0] + '#' == str(GML_ONT_NAMESPACE) and isClass(tag):
+        if 'valid_geometry' in globals():
+            return qname[1] in valid_geometry
+        else:
+            return ontology.query(
                 'ASK {'
-                    f'<{str(GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(GML_ONT_NAMESPACE)}AbstractGeometry> .'
+                f'<{str(GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(GML_ONT_NAMESPACE)}AbstractGeometry> .'
                 '}')
 
 def updateProgressBar( count, total, status='' ):
