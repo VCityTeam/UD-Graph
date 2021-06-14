@@ -17,8 +17,8 @@ def main():
     parser.add_argument('--output', default='.', help='specify the output directory')
     parser.add_argument('--format', default='ttl', choices=['ttl', 'rdf'], help='specify the output data format [rdf, ttl]')
     parser.add_argument('--log', default='output.log', help='specify the logging file')
+    parser.add_argument('-v', '--verbose', action='store_true', help='enable verbose console logging')
     args = parser.parse_args()
-
     ############################
     ##  Initialize variables  ##
     ############################
@@ -44,8 +44,10 @@ def main():
     global GML_NAMESPACE
     global GML_ONT_NAMESPACE
     global GeoSPARQL_NAMESPACE
+    global verbose
 
     filename = '.'.join(os.path.split(args.input_file)[-1].split('.')[:-1])
+    verbose = args.verbose
     input_tree = etree.parse(args.input_file)
     input_root = input_tree.getroot()
     output_graph = Graph()
@@ -73,16 +75,19 @@ def main():
     ontology = Graph()
     for path in args.input_model.split(','):
         if path.startswith('http://'):
-            print('  ' + path)
+            if verbose:
+                print('  ' + path)
             ontology.parse(path, format='xml')
             continue
         for root, dirs, files in os.walk(path):
             for file in files:
                 if file.endswith('.ttl'):
-                    print('  ' + file)
+                    if verbose:
+                        print('  ' + file)
                     ontology.parse(os.path.join(root, file), format='turtle')
                 if file.endswith('.rdf'):
-                    print('  ' + file)
+                    if verbose:
+                        print('  ' + file)
                     ontology.parse(os.path.join(root, file), format='xml')
     # copy ontology namespace bindings to output graph namespace manager, add
     # default output namespace binding, and set geospatial namespaces
@@ -107,7 +112,8 @@ def main():
         output_graph.add( (URIRef(output_uri), OWL.imports, ontology_uri[0]) )
 
     print('Converting XML tree...')
-    updateProgressBar(input_node_count, input_node_total)
+    if verbose:
+        updateProgressBar(input_node_count, input_node_total)
     if input_root.attrib.get('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation') is not None:
         input_root.attrib.pop('{http://www.w3.org/2001/XMLSchema-instance}schemaLocation')
     for input_node in input_root.iter():
@@ -224,7 +230,8 @@ def generateIndividual(node):
 
     # when complete, add node to parsed nodes list
     parsed_nodes.append(input_tree.getelementpath(node))
-    updateProgressBar(input_node_count, input_node_total, node.tag)
+    if verbose:
+        updateProgressBar(input_node_count, input_node_total, node.tag)
     input_node_count += 1
     return node_id
 
@@ -612,8 +619,8 @@ def isDatatypeProperty(tag, parent_tag=None):
     (rdfs:label by default) depending on shapechange property encoding
     configurations. The node's parent tag may be provided to verify if the parent
     class is within the domain of the property.'''
-    print(tag)
-    print(parent_tag)
+    # print(tag)
+    # print(parent_tag)
     qname = etree.QName(tag)
     if tag in datatypeproperty_definition_cache.keys():
         if parent_tag is None:
