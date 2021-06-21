@@ -25,3 +25,6 @@ Example
 ```
 python CityGML2RDF.py ../../test-data/OWL/CityGML_3.0_Conceptual_Model,../../test-data/OWL/TC_211,../../test-data/OWL/GeoSPARQL ../../test-data/GML/citygml3_versioning_patched.gml ./ ./citygml_3_namespace_mappings.json
 ```
+
+## XSLT-based-transformations
+This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd)

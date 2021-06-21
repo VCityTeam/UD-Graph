@@ -7,7 +7,7 @@ Test transformation data is stored in the test-data directory. Note that this da
 
 ## Transformation Pipelines
 For more information on each transformation can be found in each transformation sub-directory:
-1. UML-to-OWL (ShapeChange)
+1. ShapeChange (UML-to-OWL)
 2. XML-to-RDF
 3. XSD-to-OWL
 

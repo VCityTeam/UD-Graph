@@ -10,7 +10,7 @@ This work is part of the larger [Virtual City Project](https://projet.liris.cnrs
 
 ## Transformations
 Contains the following implementations:
-1. UML-to-OWL
+1. ShapeChange (UML-to-OWL)
    * ShapeChange configuration files for CityGML 2.0 and 3.0 UML models to RDF/OWL ontologies
 2. XML-to-OWL
    * Scripts for converting XML files into RDF/OWL individuals based in Python
