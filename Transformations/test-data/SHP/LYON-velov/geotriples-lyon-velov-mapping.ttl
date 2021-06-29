@@ -1,0 +1,139 @@
+@prefix geof: <http://www.opengis.net/def/function/geosparql/>.
+@prefix map: <#>.
+@prefix ogc: <http://www.opengis.net/ont/geosparql#>.
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix rr: <http://www.w3.org/ns/r2rml#>.
+@prefix rrx: <http://www.w3.org/ns/r2rml-ext#>.
+@prefix rrxf: <http://www.w3.org/ns/r2rml-ext/functions/def/>.
+@prefix strdf: <http://strdf.di.uoa.gr/ontology#>.
+@prefix vocab: <ontology#>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+
+map:velov.stations_geometry
+    rr:logicalTable [ rr:tableName "`velov.stations`"; ];
+    rr:subjectMap [ rr:class ogc:Geometry; rr:template "https://github.com/VCityTeam/UD-Graph/LYON-velov-stations#/velov.stations/Geometry/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:is3D;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:is3D;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:isEmpty;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isEmpty;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:asWKT;
+        rr:objectMap [
+            rr:datatype ogc:wktLiteral;
+            rrx:function rrxf:asWKT;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:isSimple;
+        rr:objectMap [
+            rr:datatype xsd:boolean;
+            rrx:function rrxf:isSimple;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:dimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:dimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:coordinateDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:coordinateDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:spatialDimension;
+        rr:objectMap [
+            rr:datatype xsd:integer;
+            rrx:function rrxf:spatialDimension;
+            rrx:argumentMap 
+            (
+                 [ rr:column "`the_geom`"; ]
+            )
+        ];
+    ];
+    .
+map:velov.stations
+    rr:logicalTable [ rr:tableName "`velov.stations`"; ];
+    rr:subjectMap [ rr:class vocab:velov.stations; rr:template "https://github.com/VCityTeam/UD-Graph/LYON-velov-stations#/velov.stations/id/{`gid`}"; ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_descriptio;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`descriptio`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_offering;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`offering`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_procedure;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`procedure`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_last_updat;
+        rr:objectMap [
+            rr:datatype xsd:date;
+            rr:column "`last_updat`";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate ogc:hasGeometry;
+        rr:objectMap [
+            rr:termType rr:IRI;
+            rr:template "https://github.com/VCityTeam/UD-Graph/LYON-velov-stations#/velov.stations/Geometry/{`gid`}";
+        ];
+    ];
+    rr:predicateObjectMap [
+        rr:predicate vocab:has_url_graph;
+        rr:objectMap [
+            rr:datatype xsd:string;
+            rr:column "`url_graph`";
+        ];
+    ];
+    .
