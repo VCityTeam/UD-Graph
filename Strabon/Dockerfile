@@ -1,14 +1,17 @@
+# Modified from the National and Kapodistrian UoA's KRR&A team's tools suite: https://github.com/gioargyr/docker-krrasuite
+
 FROM ubuntu:16.04
 
-ENV TIMEZONE=Europe/Paris
+ENV PORT 8080
+ENV TIMEZONE Europe/Paris
 ENV POSTGIS_VERSION 2.2.8
 ENV PROJ4_VERSION 4.6.1
 
 # INSTALL PREREQUISITES
 RUN ln -snf /usr/share/zoneinfo/$TIMEZONE /etc/localtime \
  && echo $TIMEZONE > /etc/timezone
-RUN apt-get update \
- && apt-get install -y \
+RUN apt update \
+ && apt install -y \
     wget \
     git \
     unzip \
@@ -18,7 +21,7 @@ RUN apt-get update \
     libxml2-dev \
     libgeos-dev \
     libgdal-dev \
- && apt-get clean \
+ && apt clean \
  && rm -rf /var/lib/apt/lists/*
 
 # DOWNLOAD AND INSTALL Proj4
@@ -37,8 +40,8 @@ RUN cd /usr/local/proj-${PROJ4_VERSION} \
 RUN touch /etc/apt/sources.list.d/pgdg.list \
  && echo "deb http://apt.postgresql.org/pub/repos/apt/ xenial-pgdg main" >> /etc/apt/sources.list.d/pgdg.list \
  && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN apt-get update \
- && apt-get install -y \
+RUN apt update \
+ && apt install -y \
     postgresql-9.1 \
     postgresql-server-dev-9.1
 
@@ -91,9 +94,14 @@ RUN service postgresql start \
  && createdb endpoint -T template_postgis \
  && psql -d endpoint -c "CREATE EXTENSION temporal;" \
  && service postgresql stop
+RUN echo -e "host \t all \t all \t 0.0.0.0/0 \t md5" >> /etc/postgresql/9.1/main/pg_hba.conf \
+ && echo "listen_addresses='*'" >> /etc/postgresql/9.1/main/postgresql.conf
 
 # LAUNCH postgres
 USER root
 
-ADD enable_remote.sh /usr/local/bin/
-RUN chmod -v +x /usr/local/bin/enable_remote.sh
+EXPOSE $PORT
+
+CMD cat /etc/postgresql/9.1/main/pg_hba.conf | grep host \
+ && cat /etc/postgresql/9.1/main/postgresql.conf | grep listen_addresses \
+ && su - postgres -c "/usr/lib/postgresql/9.1/bin/postgres -D /var/lib/postgresql/9.1/main -c config_file=/etc/postgresql/9.1/main/postgresql.conf"
