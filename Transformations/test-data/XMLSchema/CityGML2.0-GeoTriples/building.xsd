@@ -19,7 +19,7 @@
    <!-- ========================================================================================= -->
    <!-- ===================================CityGML Building module ================================== -->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:AbstractBuildingType" abstract="true">
+   <xs:complexType name="AbstractBuildingType" abstract="true">
       <xs:annotation>
          <xs:documentation>Type describing the thematic and geometric attributes and the associations of buildings. It is an abstract
             type, only its subclasses Building and BuildingPart can be instantiated. An _AbstractBuilding may consist of
@@ -41,92 +41,92 @@
                      collection of surfaces bounding a solid, but not a topologically clean solid boundary necessary for GML3 solid
                      boundaries. </xs:documentation>
                </xs:annotation>
-               <xs:element name="bldg:class" type="gml:CodeType" minOccurs="0"/>
-               <xs:element name="bldg:function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:yearOfConstruction" type="xs:gYear" minOccurs="0"/>
-               <xs:element name="bldg:yearOfDemolition" type="xs:gYear" minOccurs="0"/>
-               <xs:element name="bldg:roofType" type="gml:CodeType" minOccurs="0"/>
-               <xs:element name="bldg:measuredHeight" type="gml:LengthType" minOccurs="0"/>
-               <xs:element name="bldg:storeysAboveGround" type="xs:nonNegativeInteger" minOccurs="0"/>
-               <xs:element name="bldg:storeysBelowGround" type="xs:nonNegativeInteger" minOccurs="0"/>
-               <xs:element name="bldg:storeyHeightsAboveGround" type="gml:MeasureOrNullListType" minOccurs="0"/>
-               <xs:element name="bldg:storeyHeightsBelowGround" type="gml:MeasureOrNullListType" minOccurs="0"/>
-               <xs:element name="bldg:lod0FootPrint" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod0RoofEdge" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod1TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod2MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod2TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:outerBuildingInstallation" type="bldg:BuildingInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:interiorBuildingInstallation" type="bldg:IntBuildingInstallationPropertyType" minOccurs="0"
+               <xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+               <xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="yearOfConstruction" type="xs:gYear" minOccurs="0"/>
+               <xs:element name="yearOfDemolition" type="xs:gYear" minOccurs="0"/>
+               <xs:element name="roofType" type="gml:CodeType" minOccurs="0"/>
+               <xs:element name="measuredHeight" type="gml:LengthType" minOccurs="0"/>
+               <xs:element name="storeysAboveGround" type="xs:nonNegativeInteger" minOccurs="0"/>
+               <xs:element name="storeysBelowGround" type="xs:nonNegativeInteger" minOccurs="0"/>
+               <xs:element name="storeyHeightsAboveGround" type="gml:MeasureOrNullListType" minOccurs="0"/>
+               <xs:element name="storeyHeightsBelowGround" type="gml:MeasureOrNullListType" minOccurs="0"/>
+               <xs:element name="lod0FootPrint" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod0RoofEdge" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod1Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+               <xs:element name="lod1MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod1TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="lod2Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+               <xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod2MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="lod2TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="outerBuildingInstallation" type="BuildingInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="interiorBuildingInstallation" type="IntBuildingInstallationPropertyType" minOccurs="0"
                   maxOccurs="unbounded"/>
-               <xs:element name="bldg:boundedBy" type="bldg:BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:interiorRoom" type="bldg:InteriorRoomPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:consistsOfBuildingPart" type="bldg:BuildingPartPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:address" type="core:AddressPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfAbstractBuilding" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod3Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+               <xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod3MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="lod3TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+               <xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod4MultiCurve" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="lod4TerrainIntersection" type="gml:MultiCurvePropertyType" minOccurs="0"/>
+               <xs:element name="interiorRoom" type="InteriorRoomPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="consistsOfBuildingPart" type="BuildingPartPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="address" type="core:AddressPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfAbstractBuilding" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_AbstractBuilding" type="bldg:AbstractBuildingType" abstract="true" substitutionGroup="core:_Site"/>
+   <xs:element name="_AbstractBuilding" type="AbstractBuildingType" abstract="true" substitutionGroup="core:_Site"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfAbstractBuilding" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfAbstractBuilding" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BuildingType">
+   <xs:complexType name="BuildingType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBuildingType">
+         <xs:extension base="AbstractBuildingType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfBuilding" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfBuilding" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:Building" type="bldg:BuildingType" substitutionGroup="bldg:_AbstractBuilding"/>
+   <xs:element name="Building" type="BuildingType" substitutionGroup="_AbstractBuilding"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfBuilding" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfBuilding" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BuildingPartType">
+   <xs:complexType name="BuildingPartType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBuildingType">
+         <xs:extension base="AbstractBuildingType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfBuildingPart" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfBuildingPart" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:BuildingPart" type="bldg:BuildingPartType" substitutionGroup="bldg:_AbstractBuilding"/>
+   <xs:element name="BuildingPart" type="BuildingPartType" substitutionGroup="_AbstractBuilding"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfBuildingPart" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfBuildingPart" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BuildingPartPropertyType">
+   <xs:complexType name="BuildingPartPropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of an _AbstractBuilding to its building parts. The BuildingPartPropertyType element
             must either carry a reference to a BuildingPart object or contain a BuildingPart object inline, but neither both nor
             none.</xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:BuildingPart"/>
+         <xs:element ref="BuildingPart"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BuildingInstallationType">
+   <xs:complexType name="BuildingInstallationType">
       <xs:annotation>
          <xs:documentation>A BuildingInstallation is a part of a Building which has not the significance of a BuildingPart. Examples
             are stairs, antennas, balconies or small roofs. As subclass of _CityObject, a BuildingInstallation inherits all attributes
@@ -135,39 +135,39 @@
       <xs:complexContent>
          <xs:extension base="core:AbstractCityObjectType">
             <xs:sequence>
-               <xs:element name="bldg:class" type="gml:CodeType" minOccurs="0"/>
-               <xs:element name="bldg:function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod2ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:boundedBy" type="bldg:BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfBuildingInstallation" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+               <xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod2Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+               <xs:element name="lod3Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+               <xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+               <xs:element name="lod2ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfBuildingInstallation" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:BuildingInstallation" type="bldg:BuildingInstallationType" substitutionGroup="core:_CityObject"/>
+   <xs:element name="BuildingInstallation" type="BuildingInstallationType" substitutionGroup="core:_CityObject"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfBuildingInstallation" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfBuildingInstallation" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BuildingInstallationPropertyType">
+   <xs:complexType name="BuildingInstallationPropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of an _AbstractBuilding to its building installations. The
             BuildingInstallationPropertyType element must either carry a reference to a BuildingInstallation object or contain a
             BuildingInstallation object inline, but neither both nor none. </xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:BuildingInstallation"/>
+         <xs:element ref="BuildingInstallation"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:IntBuildingInstallationType">
+   <xs:complexType name="IntBuildingInstallationType">
       <xs:annotation>
          <xs:documentation>An IntBuildingInstallation is an interior part of a Building which has a specific function or semantical
             meaning. Examples are interior stairs, railings, radiators or pipes. As subclass of _CityObject, a
@@ -177,37 +177,37 @@
       <xs:complexContent>
          <xs:extension base="core:AbstractCityObjectType">
             <xs:sequence>
-               <xs:element name="bldg:class" type="gml:CodeType" minOccurs="0"/>
-               <xs:element name="bldg:function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:boundedBy" type="bldg:BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfIntBuildingInstallation" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+               <xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+               <xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfIntBuildingInstallation" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:IntBuildingInstallation" type="bldg:IntBuildingInstallationType" substitutionGroup="core:_CityObject"/>
+   <xs:element name="IntBuildingInstallation" type="IntBuildingInstallationType" substitutionGroup="core:_CityObject"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfIntBuildingInstallation" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfIntBuildingInstallation" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:IntBuildingInstallationPropertyType">
+   <xs:complexType name="IntBuildingInstallationPropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of an _AbstractBuilding to its interior building installations. The
             IntBuildingInstallationPropertyType element must either carry a reference to a IntBuildingInstallation object or contain a
             IntBuildingInstallation object inline, but neither both nor none. </xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:IntBuildingInstallation"/>
+         <xs:element ref="IntBuildingInstallation"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
    <!-- ========================================================================================= -->
    <!-- ========================SURFACES OF BUILDINGS AND ROOMS( LOD2 to LOD4)====================-->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:AbstractBoundarySurfaceType" abstract="true">
+   <xs:complexType name="AbstractBoundarySurfaceType" abstract="true">
       <xs:annotation>
          <xs:documentation>A BoundarySurface is a thematic object which classifies surfaces bounding an _AbstractBuilding, Room,
             BuildingInstallation, and IntBuildingInstallation. The geometry of a BoundarySurface is given by MultiSurfaces. As it is a
@@ -217,151 +217,151 @@
       <xs:complexContent>
          <xs:extension base="core:AbstractCityObjectType">
             <xs:sequence>
-               <xs:element name="bldg:lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:opening" type="bldg:OpeningPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfBoundarySurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod2MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="opening" type="OpeningPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfBoundarySurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:_BoundarySurface" type="bldg:AbstractBoundarySurfaceType" abstract="true" substitutionGroup="core:_CityObject"/>
+   <xs:element name="_BoundarySurface" type="AbstractBoundarySurfaceType" abstract="true" substitutionGroup="core:_CityObject"/>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfBoundarySurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfBoundarySurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================== -->
-   <xs:complexType name="bldg:RoofSurfaceType">
+   <xs:complexType name="RoofSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfRoofSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfRoofSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:RoofSurface" type="bldg:RoofSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="RoofSurface" type="RoofSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfRoofSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfRoofSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================== -->
-   <xs:complexType name="bldg:WallSurfaceType">
+   <xs:complexType name="WallSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfWallSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfWallSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:WallSurface" type="bldg:WallSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="WallSurface" type="WallSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfWallSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfWallSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:GroundSurfaceType">
+   <xs:complexType name="GroundSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfGroundSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfGroundSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:GroundSurface" type="bldg:GroundSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="GroundSurface" type="GroundSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfGroundSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfGroundSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:ClosureSurfaceType">
+   <xs:complexType name="ClosureSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfClosureSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfClosureSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:ClosureSurface" type="bldg:ClosureSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="ClosureSurface" type="ClosureSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfClosureSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfClosureSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
    <!-- ===================================LOD4 only Surfaces======================================= -->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:FloorSurfaceType">
+   <xs:complexType name="FloorSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:FloorSurface" type="bldg:FloorSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="FloorSurface" type="FloorSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfFloorSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfFloorSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:OuterFloorSurfaceType">
+   <xs:complexType name="OuterFloorSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfOuterFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfOuterFloorSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:OuterFloorSurface" type="bldg:OuterFloorSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="OuterFloorSurface" type="OuterFloorSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfOuterFloorSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfOuterFloorSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================== -->
-   <xs:complexType name="bldg:InteriorWallSurfaceType">
+   <xs:complexType name="InteriorWallSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfInteriorWallSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfInteriorWallSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:InteriorWallSurface" type="bldg:InteriorWallSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="InteriorWallSurface" type="InteriorWallSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfInteriorWallSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfInteriorWallSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:CeilingSurfaceType">
+   <xs:complexType name="CeilingSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:CeilingSurface" type="bldg:CeilingSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="CeilingSurface" type="CeilingSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfCeilingSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfCeilingSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:OuterCeilingSurfaceType">
+   <xs:complexType name="OuterCeilingSurfaceType">
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractBoundarySurfaceType">
+         <xs:extension base="AbstractBoundarySurfaceType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfOuterCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfOuterCeilingSurface" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:OuterCeilingSurface" type="bldg:OuterCeilingSurfaceType" substitutionGroup="bldg:_BoundarySurface"/>
+   <xs:element name="OuterCeilingSurface" type="OuterCeilingSurfaceType" substitutionGroup="_BoundarySurface"/>
    <!-- ========================================================================================== -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfOuterCeilingSurface" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfOuterCeilingSurface" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
    <!-- =============================Relation of Buildings/Rooms to its bounding Surfaces================== -->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BoundarySurfacePropertyType">
+   <xs:complexType name="BoundarySurfacePropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of an _AbstractBuilding to its bounding thematic surfaces (walls, roofs, ..). The
             BoundarySurfacePropertyType element must either carry a reference to a _BoundarySurface object or contain a
@@ -371,26 +371,26 @@
             RoofSurfaces. </xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:_BoundarySurface"/>
+         <xs:element ref="_BoundarySurface"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
    <!-- ========================================================================================= -->
    <!-- ================================Openings (LOD3 and LOD4 only)================================ -->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:OpeningPropertyType">
+   <xs:complexType name="OpeningPropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of an _BondarySurface to its openings (doors, windows). The OpeningPropertyType
             element must either carry a reference to an _Opening object or contain an _Opening object inline, but neither both nor
             none. </xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:_Opening"/>
+         <xs:element ref="_Opening"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:AbstractOpeningType" abstract="true">
+   <xs:complexType name="AbstractOpeningType" abstract="true">
       <xs:annotation>
          <xs:documentation> Type for openings (doors, windows) in boundary surfaces. Used in LOD3 and LOD4 only. As subclass of
             _CityObject, an _Opening inherits all attributes and relations, in particular an id, names, external references, and
@@ -399,62 +399,62 @@
       <xs:complexContent>
          <xs:extension base="core:AbstractCityObjectType">
             <xs:sequence>
-               <xs:element name="bldg:lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfOpening" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod3MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="lod3ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element ref="_GenericApplicationPropertyOfOpening" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_Opening" type="bldg:AbstractOpeningType" abstract="true" substitutionGroup="core:_CityObject"/>
+   <xs:element name="_Opening" type="AbstractOpeningType" abstract="true" substitutionGroup="core:_CityObject"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfOpening" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfOpening" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:WindowType">
+   <xs:complexType name="WindowType">
       <xs:annotation>
          <xs:documentation> Type for windows in boundary surfaces. Used in LOD3 and LOD4 only . As subclass of _CityObject, a window
             inherits all attributes and relations, in particular an id, names, external references, and generalization relations.
          </xs:documentation>
       </xs:annotation>
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractOpeningType">
+         <xs:extension base="AbstractOpeningType">
             <xs:sequence>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfWindow" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfWindow" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:Window" type="bldg:WindowType" substitutionGroup="bldg:_Opening"/>
+   <xs:element name="Window" type="WindowType" substitutionGroup="_Opening"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfWindow" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfWindow" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:DoorType">
+   <xs:complexType name="DoorType">
       <xs:annotation>
          <xs:documentation> Type for doors in boundary surfaces. Used in LOD3 and LOD4 only . As subclass of _CityObject, a Door
             inherits all attributes and relations, in particular an id, names, external references, and generalization relations.
          </xs:documentation>
       </xs:annotation>
       <xs:complexContent>
-         <xs:extension base="bldg:AbstractOpeningType">
+         <xs:extension base="AbstractOpeningType">
             <xs:sequence>
-               <xs:element name="bldg:address" type="core:AddressPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfDoor" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="address" type="core:AddressPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfDoor" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:Door" type="bldg:DoorType" substitutionGroup="bldg:_Opening"/>
+   <xs:element name="Door" type="DoorType" substitutionGroup="_Opening"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfDoor" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfDoor" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
    <!-- ====================================ROOMS (LOD4 only)===================================== -->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:RoomType">
+   <xs:complexType name="RoomType">
       <xs:annotation>
          <xs:documentation>A Room is a thematic object for modelling the closed parts inside a building. It has to be closed, if
             necessary by using closure surfaces. The geometry may be either a solid, or a MultiSurface if the boundary is not
@@ -466,25 +466,25 @@
       <xs:complexContent>
          <xs:extension base="core:AbstractCityObjectType">
             <xs:sequence>
-               <xs:element name="bldg:class" type="gml:CodeType" minOccurs="0"/>
-               <xs:element name="bldg:function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
-               <xs:element name="bldg:boundedBy" type="bldg:BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:interiorFurniture" type="bldg:InteriorFurniturePropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:roomInstallation" type="bldg:IntBuildingInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfRoom" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+               <xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod4Solid" type="gml:SolidPropertyType" minOccurs="0"/>
+               <xs:element name="lod4MultiSurface" type="gml:MultiSurfacePropertyType" minOccurs="0"/>
+               <xs:element name="boundedBy" type="BoundarySurfacePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="interiorFurniture" type="InteriorFurniturePropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="roomInstallation" type="IntBuildingInstallationPropertyType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element ref="_GenericApplicationPropertyOfRoom" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:Room" type="bldg:RoomType" substitutionGroup="core:_CityObject"/>
+   <xs:element name="Room" type="RoomType" substitutionGroup="core:_CityObject"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfRoom" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfRoom" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:BuildingFurnitureType">
+   <xs:complexType name="BuildingFurnitureType">
       <xs:annotation>
          <xs:documentation>Type for building furnitures. As subclass of _CityObject, a BuildingFurniture inherits all attributes and
             relations, in particular an id, names, external references, and generalization relations. </xs:documentation>
@@ -492,42 +492,42 @@
       <xs:complexContent>
          <xs:extension base="core:AbstractCityObjectType">
             <xs:sequence>
-               <xs:element name="bldg:class" type="gml:CodeType" minOccurs="0"/>
-               <xs:element name="bldg:function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
-               <xs:element name="bldg:lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
-               <xs:element name="bldg:lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
-               <xs:element ref="bldg:_GenericApplicationPropertyOfBuildingFurniture" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="class" type="gml:CodeType" minOccurs="0"/>
+               <xs:element name="function" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="usage" type="gml:CodeType" minOccurs="0" maxOccurs="unbounded"/>
+               <xs:element name="lod4Geometry" type="gml:GeometryPropertyType" minOccurs="0"/>
+               <xs:element name="lod4ImplicitRepresentation" type="core:ImplicitRepresentationPropertyType" minOccurs="0"/>
+               <xs:element ref="_GenericApplicationPropertyOfBuildingFurniture" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
          </xs:extension>
       </xs:complexContent>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:BuildingFurniture" type="bldg:BuildingFurnitureType" substitutionGroup="core:_CityObject"/>
+   <xs:element name="BuildingFurniture" type="BuildingFurnitureType" substitutionGroup="core:_CityObject"/>
    <!-- ========================================================================================= -->
-   <xs:element name="bldg:_GenericApplicationPropertyOfBuildingFurniture" type="xs:anyType" abstract="true"/>
+   <xs:element name="_GenericApplicationPropertyOfBuildingFurniture" type="xs:anyType" abstract="true"/>
    <!-- ========================================================================================= -->
    <!-- ============================Relation of Building to Rooms (LOD4 only)============================ -->
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:InteriorRoomPropertyType">
+   <xs:complexType name="InteriorRoomPropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of an _AbstractBuilding to its rooms. The InteriorRoomPropertyType element must
             either carry a reference to a Room object or contain a Room object inline, but neither both nor none. </xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:Room"/>
+         <xs:element ref="Room"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
    <!-- ========================================================================================= -->
-   <xs:complexType name="bldg:InteriorFurniturePropertyType">
+   <xs:complexType name="InteriorFurniturePropertyType">
       <xs:annotation>
          <xs:documentation>Denotes the relation of a Room to its interior furnitures (movable). The InteriorFurniturePropertyType
             element must either carry a reference to a BuildingFurniture object or contain a BuildingFurniture object inline, but
             neither both nor none. </xs:documentation>
       </xs:annotation>
       <xs:sequence minOccurs="0">
-         <xs:element ref="bldg:BuildingFurniture"/>
+         <xs:element ref="BuildingFurniture"/>
       </xs:sequence>
       <xs:attributeGroup ref="gml:AssociationAttributeGroup"/>
    </xs:complexType>
