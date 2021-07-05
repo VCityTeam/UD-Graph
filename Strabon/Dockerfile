@@ -33,8 +33,7 @@ RUN cd /usr/local/proj-${PROJ4_VERSION} \
  && ./configure \
  && make \
  && make install
- # this will fail; github issue: https://github.com/OSGeo/PROJ/issues/255
- # && make check
+ # && make check # this will fail; github issue: https://github.com/OSGeo/PROJ/issues/255
 
 # DOWNLOAD AND INSTALL postgres
 RUN touch /etc/apt/sources.list.d/pgdg.list \
