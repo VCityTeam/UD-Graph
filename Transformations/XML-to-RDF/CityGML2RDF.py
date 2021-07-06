@@ -68,7 +68,7 @@ def main():
     parsed_nodes = []
 
     with open(args.mapping_file, 'r') as file:
-        namespace_mappings = json.loads(file.read())
+        namespace_mappings = json.loads(file.read())['namespace-mappings']
 
     # compile ontology
     print('Compiling Ontology...')
@@ -172,7 +172,6 @@ def generateIndividual(node):
         geometry_blob = generateGeometrySerialization(node)
         geometry_node = Literal(geometry_blob, datatype=GeoSPARQL_NAMESPACE.gmlLiteral)
         output_graph.add( (node_id, GeoSPARQL_NAMESPACE.asGML, geometry_node) )
-        
 
     for child in node:
         # skip comment nodes
@@ -492,9 +491,12 @@ def normalizeNamespace(namespace):
 
 
 def mapNamespace(node_or_tag):
-    '''map an XML tag namespace for based on the ontology. If input tag namespace is
-    in namespace mappings, return the target mapping namespace. Tags are returned
-    as rdflib.URIRef objects.'''
+    '''map an XML tag namespace based based on the namespace mapping file. If an
+    input tag namespace is in namespace mappings, return the target namespace.
+    When a namespace is mapped to multiple namespaces, the ontology model is queried
+    to determine which namespace is appropriate. The first target namespace+localname
+    to appear in the ontology model, is selected as the target namespace. Namespaces
+    are returned as rdflib.URIRef objects.'''
     qname = etree.QName(addGMLAttributeNamespace(node_or_tag))
 
     if qname.namespace in namespace_mappings.keys():

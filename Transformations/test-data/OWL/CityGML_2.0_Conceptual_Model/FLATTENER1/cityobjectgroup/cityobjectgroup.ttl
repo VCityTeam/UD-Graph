@@ -3,11 +3,11 @@
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 
 grp:Role  a              owl:Class ;
         rdfs:label       "Role"@en ;
@@ -34,7 +34,7 @@ grp:CityObjectGroup.geometry
         a                owl:ObjectProperty ;
         rdfs:domain      grp:CityObjectGroup ;
         rdfs:label       "geometry"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:AbstractGeometry ;
         skos:definition  "SIG3D: Specific geometry assigned to the aggregation (e. g. the floor surface of a building storey represented by an aggregation of rooms)."@en ;
         skos:prefLabel   "geometry"@en .
 
@@ -49,7 +49,7 @@ grp:CityObjectGroup.function
 <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup>
         a               owl:Ontology ;
         rdfs:label      "CityObjectGroup"@en ;
-        owl:imports     <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports     <http://www.opengis.net/ont/gml> , <http://www.opengis.net/citygml/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:prefLabel  "CityObjectGroup"@en .
 
 grp:Role.groupMember  a  owl:ObjectProperty ;
@@ -93,16 +93,12 @@ grp:CityObjectGroup  a   owl:Class ;
         rdfs:label       "CityObjectGroup"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
-                           owl:onProperty     grp:CityObjectGroup.geometry
+                           owl:allValuesFrom  iso19136:Code ;
+                           owl:onProperty     grp:CityObjectGroup.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  grp:Role ;
                            owl:onProperty     grp:CityObjectGroup.groupMember
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     grp:CityObjectGroup.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:AbstractCityObject ;
@@ -111,6 +107,10 @@ grp:CityObjectGroup  a   owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;
                            owl:onProperty     grp:CityObjectGroup.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     grp:CityObjectGroup.geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136:Code ;

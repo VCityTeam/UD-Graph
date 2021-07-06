@@ -3,11 +3,11 @@
 @prefix iso19107: <http://def.isotc211.org/iso19107/2003/Geometry#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix gsp:   <http://www.opengis.net/ont/geosparql#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix iso19123: <http://def.isotc211.org/iso19123/2005/Coverages#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 @prefix dem:   <http://www.opengis.net/citygml/relief/2.0/relief#> .
 
 dem:TINRelief  a         owl:Class ;
@@ -32,11 +32,11 @@ dem:BreaklineRelief  a   owl:Class ;
         rdfs:label       "BreaklineRelief"@en ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
                            owl:onProperty     dem:BreaklineRelief.breaklines
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
                            owl:onProperty     dem:BreaklineRelief.ridgeOrValleyLines
                          ] ;
         skos:definition  "SIG3D: Relief component represented by 3D lines denoting break lines or ridge/valley lines"@en ;
@@ -46,7 +46,7 @@ dem:AbstractReliefComponent.extent
         a                owl:ObjectProperty ;
         rdfs:domain      dem:AbstractReliefComponent ;
         rdfs:label       "extent"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:Surface ;
         skos:definition  "SIG3D: Polygon (optionally with holes) denoting the extent where the relief component is valid"@en ;
         skos:prefLabel   "extent"@en .
 
@@ -61,7 +61,7 @@ dem:BreaklineRelief.ridgeOrValleyLines
         a                owl:ObjectProperty ;
         rdfs:domain      dem:BreaklineRelief ;
         rdfs:label       "ridgeOrValleyLines"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiCurve ;
         skos:definition  "SIG3D: Relation to 3D lines (gml:MultiCurve) denoting ridge or valley lines"@en ;
         skos:prefLabel   "ridgeOrValleyLines"@en .
 
@@ -94,13 +94,9 @@ dem:MassPointRelief.reliefPoints
         a                owl:ObjectProperty ;
         rdfs:domain      dem:MassPointRelief ;
         rdfs:label       "reliefPoints"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiPoint ;
         skos:definition  "SIG3D: Relation to 3D points (gml:MultiPoint)."@en ;
         skos:prefLabel   "reliefPoints"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
 
 dem:ReliefFeature  a     owl:Class ;
         rdfs:label       "ReliefFeature"@en ;
@@ -128,21 +124,25 @@ dem:BreaklineRelief.breaklines
         a                owl:ObjectProperty ;
         rdfs:domain      dem:BreaklineRelief ;
         rdfs:label       "breaklines"@en ;
-        rdfs:range       gsp:Geometry ;
+        rdfs:range       gmlowl:MultiCurve ;
         skos:definition  "SIG3D: Relation to 3D lines (gml:MultiCurve) denoting break lines."@en ;
         skos:prefLabel   "breaklines"@en .
 
 <http://www.opengis.net/citygml/relief/2.0/relief>
         a               owl:Ontology ;
         rdfs:label      "Relief"@en ;
-        owl:imports     <http://www.opengis.net/ont/geosparql> , <http://www.opengis.net/citygml/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports     <http://www.opengis.net/ont/gml> , <http://www.opengis.net/citygml/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:prefLabel  "Relief"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
 
 dem:MassPointRelief  a   owl:Class ;
         rdfs:label       "MassPointRelief"@en ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gsp:Geometry ;
+                           owl:allValuesFrom  gmlowl:MultiPoint ;
                            owl:onProperty     dem:MassPointRelief.reliefPoints
                          ] ;
         skos:definition  "SIG3D: Relief component represented by 3D points."@en ;
@@ -153,7 +153,7 @@ dem:AbstractReliefComponent
         rdfs:label             "AbstractReliefComponent"@en ;
         rdfs:subClassOf        core:AbstractCityObject ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gsp:Geometry ;
+                                 owl:allValuesFrom  gmlowl:Surface ;
                                  owl:onProperty     dem:AbstractReliefComponent.extent
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
