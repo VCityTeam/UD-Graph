@@ -124,6 +124,8 @@ def main():
     for input_node in input_root.iter():
         # skip comment nodes
         if not isinstance(input_node.tag, str):
+            parsed_nodes.append(input_tree.getelementpath(node))
+            input_node_count += 1
             continue
         # skip already parsed nodes
         if input_tree.getelementpath(input_node) in parsed_nodes:
@@ -153,11 +155,13 @@ def generateIndividual(node):
     '''Generate a new individual from an XML node and its children, then add the
     node to the output graph. An id is returned for recursive calls'''
     # TODO: implement rdf mappings for individual and children
-    # skip comment nodes
-    if not isinstance(node.tag, str):
-        return
     global input_node_count
     global input_node_total
+    # skip comment nodes
+    if not isinstance(node.tag, str):
+        parsed_nodes.append(input_tree.getelementpath(node))
+        input_node_count += 1
+        return
 
     # skip node if already parsed
     if input_tree.getelementpath(node) in parsed_nodes:
@@ -213,6 +217,8 @@ def generateIndividual(node):
     for child in node:
         # skip comment nodes
         if not isinstance(child.tag, str):
+            parsed_nodes.append(input_tree.getelementpath(node))
+            input_node_count += 1
             continue
         # if child.tag has an rdf mapping, replace the tag with the mapping.
         mapped_child_tag = child.tag
@@ -338,6 +344,10 @@ def generateGeometrySerialization(node):
         global input_node_count
         global input_node_total
         for descendant in node.iter():
+            if not isinstance(descendant.tag, str):
+                parsed_nodes.append(input_tree.getelementpath(node))
+                input_node_count += 1
+                continue
             parsed_nodes.append(input_tree.getelementpath(descendant))
             if verbose:
                 updateProgressBar(input_node_count, input_node_total, descendant.tag)
