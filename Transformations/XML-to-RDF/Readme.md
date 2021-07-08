@@ -1,4 +1,4 @@
-## XML to RDF Transformation
+## CityGML to RDF Transformation
 This approach requires an ontology to determine how to convert CityGML documents into RDF triples. Valid GML geometry is converted into GeoSPARQL's `gmlLiteral` values.
 
 ### Input Data
@@ -8,9 +8,9 @@ Example ontologies generated using the `UD-Graph/Transformations/UML-to-OWL` (Sh
 * `UD-Graph/Ontologies`
 * `UD-Graph/Transformations/test-data/OWL`
 
-Note that a namespace mapping file required to map namespaces from the XML document to namespaces in the ontologies. Two example namespace files are available for CityGML 2.0 and 3.0:
-* `citygml_2_namespace_mappings.json`
-* `citygml_3_namespace_mappings.json`
+Note that a namespace mapping file required to map namespaces from the XML document to namespaces in the ontologies and XML tags to RDF URIs. Two example namespace files are available for CityGML 2.0 and 3.0:
+* `citygml_2_mappings.json`
+* `citygml_3_mappings.json`
 
 Required Python libraries:
 * [RDFLib](https://rdflib.readthedocs.io/)
