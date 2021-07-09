@@ -8,7 +8,7 @@ Example ontologies generated using the `UD-Graph/Transformations/UML-to-OWL` (Sh
 * `UD-Graph/Ontologies`
 * `UD-Graph/Transformations/test-data/OWL`
 
-Note that a namespace mapping file required to map namespaces from the XML document to namespaces in the ontologies and XML tags to RDF URIs. Two example namespace files are available for CityGML 2.0 and 3.0:
+Note that a namespace mapping file required to map namespaces from the XML document to namespaces in the ontologies and XML tags to RDF URIs. Two example namespace files are available for CityGML 2.0 and 3.0. Note that the RDF mapping URIs are written with LXML syntax:
 * `citygml_2_mappings.json`
 * `citygml_3_mappings.json`
 
