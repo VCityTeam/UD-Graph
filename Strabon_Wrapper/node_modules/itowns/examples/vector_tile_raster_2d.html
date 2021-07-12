@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Itowns - Planar + vector-tiles</title>
+
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/example.css">
+        <link rel="stylesheet" type="text/css" href="css/noto.css">
+        <link rel="stylesheet" type="text/css" href="css/LoadingScreen.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+    </head>
+    <body>
+        <div id="viewerDiv"></div>
+        <div id="debug" width="400" height="300"></div>
+        <script src="js/GUI/GuiTools.js"></script>
+        <script src="../dist/itowns.js"></script>
+        <script src="../dist/debug.js"></script>
+        <script src="js/GUI/LoadingScreen.js"></script>
+        <script>
+            // # Planar view with one single layer of vector tile
+
+            // Define geographic extent: CRS, min/max X, min/max Y
+            var extent = new itowns.Extent(
+                'EPSG:3857',
+                -20037508.342789244, 20037508.342789244,
+                -20037508.342789255, 20037508.342789244);
+
+            // `viewerDiv` will contain iTowns' rendering area (`<canvas>`)
+            var viewerDiv = document.getElementById('viewerDiv');
+
+            // Instanciate PlanarView
+            var view = new itowns.PlanarView(viewerDiv, extent, {
+                maxSubdivisionLevel: 20,
+                controls: {
+                    // We do not want the user to zoom out too much
+                    maxAltitude: 40000000,
+                    // We want to keep the rotation disabled, to only have a view from the top
+                    enableRotation: false,
+                    // Don't zoom too much on smart zoom
+                    smartTravelHeightMax: 100000,
+                },
+            });
+            var menuGlobe = new GuiTools('menuDiv', view, 300);
+
+            setupLoadingScreen(viewerDiv, view);
+
+            var mvtSource = new itowns.VectorTilesSource({
+                style: 'https://raw.githubusercontent.com/Oslandia/postile-openmaptiles/master/style.json',
+                // eslint-disable-next-line no-template-curly-in-string
+                url: 'https://osm.oslandia.io/data/v3/${z}/${x}/${y}.pbf',
+                attribution: {
+                    name: 'OpenStreetMap',
+                    url: 'http://www.openstreetmap.org/',
+                },
+                zoom: {
+                    min: 2,
+                    max: 14,
+                },
+            });
+
+            var mvtLayer = new itowns.ColorLayer('MVT', {
+                source: mvtSource,
+                addLabelLayer: true,
+            });
+
+            view.addLayer(mvtLayer).then(menuGlobe.addLayerGUI.bind(menuGlobe));
+
+            // Request redraw
+            view.notifyChange(true);
+            debug.createTileDebugUI(menuGlobe.gui, view);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "app_name",
+  "version": "1.0.0",
+  "description": "udv game editor",
+  "main": "./src/bootstrap.js",
+  "scripts": {
+    "travis": "npm run eslint && npm run build",
+    "eslint": "./node_modules/.bin/eslint ./src",
+    "eslint-fix": "./node_modules/.bin/eslint ./src --fix",
+    "build": "cross-env NODE_ENV=production webpack",
+    "build-debug": "cross-env NODE_ENV=development webpack",
+    "debug": "cross-env NODE_ENV=development webpack serve"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@egjs/hammerjs": "^2.0.17",
+    "keycharm": "^0.4.0",
+    "timsort": "^0.3.0",
+    "ud-viz": "^2.31.0",
+    "uuid": "^8.3.2",
+    "vis-util": "^5.0.2"
+  },
+  "devDependencies": {
+    "child-process-promise": "^2.2.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^0.28.10",
+    "eslint": "^7.28.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^4.5.2",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.46.0",
+    "webpack-cli": "^4.5.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}

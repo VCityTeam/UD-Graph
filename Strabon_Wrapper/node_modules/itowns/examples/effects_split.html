@@ -1,0 +1,145 @@
+<html>
+    <head>
+        <title>Itowns - Split</title>
+
+        <style type="text/css">
+           #splitSlider {
+               position: absolute;
+               left: 50%;
+               top: 0px;
+               opacity: 0.7;
+               width: 6px;
+               height: 100%;
+               background-color: #667799;
+               z-index: 1000;
+               -moz-user-select: none;
+               -webkit-user-select: none;
+               -ms-user-select: none;
+               user-select: none;
+           }
+
+           #splitSlider:hover {
+               cursor: ew-resize;
+           }
+        </style>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/example.css">
+        <link rel="stylesheet" type="text/css" href="css/LoadingScreen.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+    </head>
+    <body>
+        <div id="viewerDiv"></div>
+        <div id="splitSlider"></div>
+        <script src="js/GUI/GuiTools.js"></script>
+        <script src="../dist/itowns.js"></script>
+        <script src="../dist/debug.js"></script>
+        <script src="js/GUI/LoadingScreen.js"></script>
+        <script type="text/javascript">
+            // # Simple Globe viewer
+
+            // Define initial camera position
+            var placement = {
+                coord: new itowns.Coordinates('EPSG:4326', 3.36, 51.22),
+                range: 480000,
+            }
+
+            // `viewerDiv` will contain iTowns' rendering area (`<canvas>`)
+            var viewerDiv = document.getElementById('viewerDiv');
+
+            // Instanciate iTowns GlobeView*
+            var view = new itowns.GlobeView(viewerDiv, placement);
+            var menuGlobe = new GuiTools('menuDiv', view);
+
+            var orthoLayer;
+            var osmLayer;
+            var splitSlider = document.getElementById('splitSlider');;
+            var splitPosition = 0.5 * window.innerWidth;
+            var xD = 0;
+            var s = 0.5;
+
+            setupLoadingScreen(viewerDiv, view);
+
+            // Add two imagery layers to the scene
+            // This layer is defined in a json file but it could be defined as a plain js
+            // object. See Layer* for more info.
+
+            const pOrtho = itowns.Fetcher.json('./layers/JSONLayers/Ortho.json').then(function _(config) {
+                config.source = new itowns.WMTSSource(config.source);
+                orthoLayer = new itowns.ColorLayer('Ortho', config);
+                view.addLayer(orthoLayer).then(menuGlobe.addLayerGUI.bind(menuGlobe));
+            });
+
+            const pOsm = itowns.Fetcher.json('./layers/JSONLayers/OPENSM.json').then(function _(config) {
+                config.source = new itowns.TMSSource(config.source);
+                osmLayer = new itowns.ColorLayer('OSM', config);
+                view.addLayer(osmLayer).then(menuGlobe.addLayerGUI.bind(menuGlobe));
+            });
+
+            // Add two elevation layers.
+            // These will deform iTowns globe geometry to represent terrain elevation.
+            function addElevationLayerFromConfig(config) {
+                config.source = new itowns.WMTSSource(config.source);
+                var layer = new itowns.ElevationLayer(config.id, config);
+                view.addLayer(layer);
+            }
+            itowns.Fetcher.json('./layers/JSONLayers/WORLD_DTM.json').then(addElevationLayerFromConfig);
+            itowns.Fetcher.json('./layers/JSONLayers/IGN_MNT_HIGHRES.json').then(addElevationLayerFromConfig);
+
+            // Slide handling
+            function splitSliderMove(evt) {
+                let posX = evt.clientX > 60000 ? 3 : evt.clientX;
+                posX = Math.max(3, posX);
+                posX = Math.min(posX, splitSlider.parentElement.offsetWidth - 3);
+                s = (posX - xD) / splitSlider.parentElement.offsetWidth;
+                splitSlider.style.left = (100.0 * s) + '%';
+                view.notifyChange();
+            }
+
+            function mouseDown(evt) {
+                xD = evt.clientX - splitSlider.offsetLeft;
+                window.addEventListener('mousemove', splitSliderMove, true);
+            }
+
+            function mouseUp() {
+                window.removeEventListener('mousemove', splitSliderMove, true);
+            }
+
+            splitSlider.addEventListener('mousedown', mouseDown, false);
+            window.addEventListener('mouseup', mouseUp, false);
+
+            // Rendering code
+            function splitRendering() {
+                const oldVisOrtho = orthoLayer.visible;
+                const oldVisOsm = osmLayer.visible;
+                var g = view.mainLoop.gfxEngine;
+                var r = g.renderer;
+                splitPosition = s * window.innerWidth;
+
+                r.setScissorTest(true);
+
+                // render ortho layer on the left
+                osmLayer.visible = false;
+                orthoLayer.visible = oldVisOrtho;
+
+                r.setScissor(0, 0, splitPosition + 2, window.innerHeight);
+                g.renderView(view);
+
+                // render osm layer on the right
+                orthoLayer.visible = false;
+                osmLayer.visible = oldVisOsm;
+
+                r.setScissor(splitPosition + 2, 0, window.innerWidth - splitPosition - 2, window.innerHeight);
+                g.renderView(view);
+
+                osmLayer.visible = oldVisOsm;
+                orthoLayer.visible = oldVisOrtho;
+            }
+
+            // Override default rendering method when color layers are ready
+            Promise.all([pOrtho, pOsm]).then(
+                function _() { view.render = splitRendering; }).catch(console.error);
+        </script>
+    </body>
+</html>

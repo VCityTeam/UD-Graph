@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <title>Itowns - Displaying Shapefile</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" type="text/css" href="css/example.css">
+        <link rel="stylesheet" type="text/css" href="css/LoadingScreen.css">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.6/dat.gui.min.js"></script>
+    </head>
+    <body>
+        <div id="viewerDiv"></div>
+        <script src="js/GUI/GuiTools.js"></script>
+        <script src="../dist/itowns.js"></script>
+        <script src="js/GUI/LoadingScreen.js"></script>
+        <script src="js/plugins/FeatureToolTip.js"></script>
+        <script src="../dist/debug.js"></script>
+        <script type="text/javascript">
+            // Define initial camera position
+            var placement = {
+                coord: new itowns.Coordinates('EPSG:4326', 2.351323, 48.856712),
+                range: 25000,
+            }
+
+            // `viewerDiv` will contain iTowns' rendering area (`<canvas>`)
+            var viewerDiv = document.getElementById('viewerDiv');
+
+            // Instanciate iTowns GlobeView*
+            var view = new itowns.GlobeView(viewerDiv, placement);
+            var menuGlobe = new GuiTools('menuDiv', view);
+
+            setupLoadingScreen(viewerDiv, view);
+            FeatureToolTip.init(viewerDiv, view);
+
+            // Add one imagery layer to the scene
+            // This layer is defined in a json file but it could be defined as a plain js
+            // object. See Layer* for more info.
+            itowns.Fetcher.json('./layers/JSONLayers/OPENSM.json').then(function _(config) {
+                config.source = new itowns.TMSSource(config.source);
+                var layer = new itowns.ColorLayer('OPENSM', config);
+                view.addLayer(layer).then(menuGlobe.addLayerGUI.bind(menuGlobe));
+            });
+
+            // Load all the necessary files for a shapefile, parse them and
+            // display them.
+            itowns.Fetcher.multiple('https://raw.githubusercontent.com/iTowns/iTowns2-sample-data/master/shapefile/velib-disponibilite-en-temps-reel', {
+                arrayBuffer: ['shp', 'dbf', 'shx'],
+                text: ['prj'],
+            }).then(function _(res) {
+                return itowns.ShapefileParser.parse(res, {
+                    out: {
+                        crs: view.tileLayer.extent.crs,
+                        buildExtent: true,
+                    }
+                });
+            }).then(function _(features) {
+                var velibSource = new itowns.FileSource({ features });
+
+                var velibStyle = new itowns.Style({
+                    zoom: { min: 10, max: 20 },
+                    point: {
+                        color: 'white',
+                        line: 'green',
+                    },
+                    text: {
+                        field: '{name}\n(id: {station_id})',
+                        size: 14,
+                        haloColor: 'white',
+                        haloWidth: 1,
+                        font: ['monospace'],
+                    },
+                });
+
+                var velibLayer = new itowns.ColorLayer('velib', {
+                    source: velibSource,
+                    style: velibStyle,
+                    addLabelLayer: true,
+                });
+
+                debug.createTileDebugUI(menuGlobe.gui, view);
+
+                return view.addLayer(velibLayer);
+            }).then(function _(layer) {
+                FeatureToolTip.addLayer(layer, { filterAllProperties: false });
+            });
+        </script>
+    </body>
+</html>
