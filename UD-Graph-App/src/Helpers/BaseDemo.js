@@ -2,7 +2,7 @@
 
 //Components
 import { Widgets, Components, itowns, proj4, THREE, jquery } from 'ud-viz';
-import { SparqlModule } from '../SparqlModule/SparqlModule'
+import { SparqlModuleView } from '../SparqlModule/SparqlModuleView'
 const ModuleView = Widgets.Components.ModuleView;
 const $3DTemporalBatchTable = Widgets.$3DTemporalBatchTable;
 const $3DTemporalBoundingVolume = Widgets.$3DTemporalBoundingVolume;
@@ -213,7 +213,7 @@ export class BaseDemo {
 
       ////// SPARQL MODULE
       if (_this.config.widgets.sparqlModule) {
-        const sparqlModule = new SparqlModuleView(_this.layerManager);
+        const sparqlModule = new SparqlModuleView();
         _this.addModuleView('sparqlModule', sparqlModule, {
           name: 'sparqlModule'
         });
