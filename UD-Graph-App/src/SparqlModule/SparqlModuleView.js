@@ -1,6 +1,6 @@
-import './SparqlModule.css';
 import { Widgets } from 'ud-viz'
 import { SparqlEndpointService } from './SparqlEndpointService';
+import { SparqlQueryWindow } from './SparqlQueryWindow';
 
 export class SparqlModuleView extends Widgets.Components.ModuleView {
     constructor() {
@@ -13,27 +13,22 @@ export class SparqlModuleView extends Widgets.Components.ModuleView {
          */
         this.config = {'url': 'http://localhost:9999/strabon/'};
         this.service = new SparqlEndpointService(this.config);
+    
+        /**
+         * Contains a SparqlQueryWindow for capturing user input.
+         *
+         * @type {SparqlQueryWindow}
+         */
+        this.view = new SparqlQueryWindow();
     }
 
     // Display the view
     enableView() {
-        this.appendTo(this.parentElement);
+        this.view.appendTo(this.parentElement);
     }
 
     // Close the view
     disableView() {
-        this.dispose();
-    }
-    
-    get html() {
-        return /*html*/ `
-        <div>
-            <label for="query_input">Query:</label><br>
-            <textarea id="query_input" rows="10" cols="50">SELECT
-WHERE {
-
-}</textarea>
-        </div>
-      `;
+        this.view.dispose();
     }
 }

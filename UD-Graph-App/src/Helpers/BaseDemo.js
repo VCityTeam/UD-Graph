@@ -215,7 +215,7 @@ export class BaseDemo {
       if (_this.config.widgets.sparqlModule) {
         const sparqlModule = new SparqlModuleView();
         _this.addModuleView('sparqlModule', sparqlModule, {
-          name: 'sparqlModule'
+          name: 'SPARQL Query'
         });
       }
     });
