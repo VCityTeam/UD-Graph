@@ -19,15 +19,19 @@ export class SparqlModuleView extends Widgets.Components.ModuleView {
          *
          * @type {SparqlQueryWindow}
          */
-        this.view = new SparqlQueryWindow();
+        this.view = new SparqlQueryWindow(this.service);
     }
 
-    // Display the view
+    /**
+     * Display the view
+     */
     enableView() {
         this.view.appendTo(this.parentElement);
     }
 
-    // Close the view
+    /**
+     *  Close the view
+     */
     disableView() {
         this.view.dispose();
     }
