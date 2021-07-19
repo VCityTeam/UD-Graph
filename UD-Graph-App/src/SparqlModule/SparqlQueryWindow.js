@@ -6,7 +6,7 @@ import { SparqlEndpointService } from './SparqlEndpointService';
     /**
      * Creates a SPARQL query window.
      */
-export class SparqlQueryWindow extends Widgets.Components.Window {
+export class SparqlQueryWindow extends Widgets.Components.GUI.Window {
     constructor(service) {
         super('sparqlQueryWindow', 'SPARQL Query');
 
@@ -23,7 +23,7 @@ export class SparqlQueryWindow extends Widgets.Components.Window {
          * @member {string}
          */
         this.default_query = `
-SELECT ?s ?o ?p
+SELECT *
 WHERE {
     ?s ?o ?p .
 }`
@@ -36,15 +36,15 @@ WHERE {
      * @param {SparqlEndpointService} service The SPARQL endpoint service.
      */
     windowCreated() {
-        this.button.onclick = () => {
-            // this.service.queryEndpoint(this.queryTextArea.innerText);
-            console.log('click!')
+        this.form.onsubmit = () => {
+            this.service.queryEndpoint(this.queryTextArea.innerText);
+            return false;
         }
 
-        // this.service.addEventListener(
-        //     SparqlEndpointService.EVENT_QUERY_RESPONSE,
-        //     (response) => this._onSparqlEndpointResponse(response)
-        // );
+        this.service.addEventListener(
+            SparqlEndpointService.EVENT_QUERY_RESPONSE,
+            (response) => this._onSparqlEndpointResponse(response)
+        );
     }
 
     /**
@@ -58,6 +58,7 @@ WHERE {
         //     return;
         // }
         console.log(response);
+        return false;
     }
 
     get innerContentHtml() {

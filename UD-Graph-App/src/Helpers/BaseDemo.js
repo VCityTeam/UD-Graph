@@ -213,7 +213,7 @@ export class BaseDemo {
 
       ////// SPARQL MODULE
       if (_this.config.widgets.sparqlModule) {
-        const sparqlModule = new SparqlModuleView();
+        const sparqlModule = new SparqlModuleView(_this.config);
         _this.addModuleView('sparqlModule', sparqlModule, {
           name: 'SPARQL Query'
         });

@@ -3,7 +3,14 @@ import { SparqlEndpointService } from './SparqlEndpointService';
 import { SparqlQueryWindow } from './SparqlQueryWindow';
 
 export class SparqlModuleView extends Widgets.Components.ModuleView {
-    constructor() {
+    /**
+     * Creates a new SparqlModuleView.
+     *
+     * @param {object} config The configuration of UD-Viz.
+     * @param {object} config.sparqlModule The sparqlModule configuration.
+     * @param {string} config.sparqlModule.url The SPARQL endpoint url.
+     */
+    constructor(config) {
         super()
     
         /**
@@ -11,28 +18,28 @@ export class SparqlModuleView extends Widgets.Components.ModuleView {
          *
          * @type {SparqlEndpointService}
          */
-        this.config = {'url': 'http://localhost:9999/strabon/'};
+        this.config = config;
         this.service = new SparqlEndpointService(this.config);
-    
+
         /**
          * Contains a SparqlQueryWindow for capturing user input.
          *
          * @type {SparqlQueryWindow}
          */
-        this.view = new SparqlQueryWindow(this.service);
+        this.window = new SparqlQueryWindow(this.service);
     }
 
     /**
      * Display the view
      */
     enableView() {
-        this.view.appendTo(this.parentElement);
+        this.window.appendTo(this.parentElement);
     }
 
     /**
      *  Close the view
      */
     disableView() {
-        this.view.dispose();
+        this.window.dispose();
     }
 }

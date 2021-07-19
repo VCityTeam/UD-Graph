@@ -7,12 +7,13 @@ export class SparqlEndpointService extends EventSender {
      * a specific SPARQL Endpoint.
      *
      * @param {object} config The configuration of UD-Viz.
-     * @param {string} config.url The server url.
+     * @param {object} config.sparqlModule The sparqlModule configuration.
+     * @param {string} config.sparqlModule.url The SPARQL endpoint url.
      */
     constructor(config) {
         super();
-        this.url = config.url;
-
+        this.url = config.sparqlModule.url;
+        
         this.registerEvent(SparqlEndpointService.EVENT_QUERY_SENT);
         this.registerEvent(SparqlEndpointService.EVENT_QUERY_RESPONSE);
     }
