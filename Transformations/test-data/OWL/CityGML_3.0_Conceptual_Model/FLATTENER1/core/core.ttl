@@ -495,7 +495,13 @@ core:ADEOfCityModel  a         owl:Class ;
 
 core:RelativeToWater  a  rdfs:Datatype ;
         rdfs:label       "RelativeToWater"@en ;
-        owl:oneOf        ( "entirelyAboveWaterSurface" "substantiallyAboveWaterSurface" "substantiallyAboveAndBelowWaterSurface" "substantiallyBelowWaterSurface" "entirelyBelowWaterSurface" "temporarilyAboveAndBelowWaterSurface" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "entirelyAboveWaterSurface"
+                                                "substantiallyAboveWaterSurface"
+                                                "substantiallyAboveAndBelowWaterSurface"
+                                                "substantiallyBelowWaterSurface"
+                                                "entirelyBelowWaterSurface"
+                                                "temporarilyAboveAndBelowWaterSurface" 
+                                )];
         skos:definition  "RelativeToWater enumerates the spatial relations of a city object relative to the water surface in a qualitative way."@en .
 
 core:ADEOfAbstractAppearance
@@ -859,7 +865,12 @@ core:AbstractFeatureWithLifespan.validFrom
 core:RelativeToTerrain
         a                rdfs:Datatype ;
         rdfs:label       "RelativeToTerrain"@en ;
-        owl:oneOf        ( "entirelyAboveTerrain" "substantiallyAboveTerrain" "substantiallyAboveAndBelowTerrain" "substantiallyBelowTerrain" "entirelyBelowTerrain" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "entirelyAboveTerrain"
+                                                "substantiallyAboveTerrain"
+                                                "substantiallyAboveAndBelowTerrain"
+                                                "substantiallyBelowTerrain"
+                                                "entirelyBelowTerrain"
+                                )];
         skos:definition  "RelativeToTerrain enumerates the spatial relations of a city object relative to terrain in a qualitative way."@en .
 
 core:QualifiedVolume.volume
@@ -915,7 +926,10 @@ core:AbstractThematicSurface.lod1MultiSurface
 
 core:SpaceType  a        rdfs:Datatype ;
         rdfs:label       "SpaceType"@en ;
-        owl:oneOf        ( "closed" "open" "semiOpen" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "closed"
+                                                "open"
+                                                "semiOpen" 
+                                )]; 
         skos:definition  "SpaceType is an enumeration that characterises a space according to its closure properties."@en .
 
 core:Address.multiPoint
