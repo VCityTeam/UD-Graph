@@ -128,7 +128,7 @@ dyn:StandardFileTimeseries.fileType
         skos:definition  "Specifies the format used to represent the timeseries data."@en .
 
 dyn:TabulatedFileTimeseries.valueType
-        a                owl:ObjectProperty ;
+        a                owl:DatatypeProperty ;
         rdfs:domain      dyn:TabulatedFileTimeseries ;
         rdfs:label       "valueType"@en ;
         rdfs:range       dyn:TimeseriesTypeValue ;
@@ -238,7 +238,15 @@ dyn:Dynamizer.sensorConnection
 dyn:TimeseriesTypeValue
         a                rdfs:Datatype ;
         rdfs:label       "TimeseriesTypeValue"@en ;
-        owl:oneOf        ( "integer" "double" "string" "geometry" "uri" "bool" "implicitGeometry" "appearance" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "integer"
+                                                "double"
+                                                "string"
+                                                "geometry"
+                                                "uri"
+                                                "bool"
+                                                "implicitGeometry"
+                                                "appearance"
+                                )];
         skos:definition  "TimeseriesTypeValue enumerates the possible value types for GenericTimeseries and TimeValuePair."@en .
 
 dyn:TimeseriesComponent.additionalGap
@@ -702,7 +710,7 @@ dyn:TimeValuePair.implicitGeometryValue
         skos:definition  "Specifies the \"ImplicitGeometry\" value of the TimeValuePair."@en .
 
 dyn:GenericTimeseries.valueType
-        a                owl:ObjectProperty ;
+        a                owl:DatatypeProperty ;
         rdfs:domain      dyn:GenericTimeseries ;
         rdfs:label       "valueType"@en ;
         rdfs:range       dyn:TimeseriesTypeValue ;

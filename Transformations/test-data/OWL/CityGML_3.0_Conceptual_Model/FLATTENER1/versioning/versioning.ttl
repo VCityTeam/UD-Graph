@@ -110,14 +110,14 @@ vers:VersionTransition.transaction
         skos:definition  "Relates to all transactions that have been applied as part of the VersionTransition."@en .
 
 vers:Transaction.type
-        a                owl:ObjectProperty ;
+        a                owl:DatatypeProperty ;
         rdfs:domain      vers:Transaction ;
         rdfs:label       "type"@en ;
         rdfs:range       vers:TransactionTypeValue ;
         skos:definition  "Indicates the specific type of the Transaction."@en .
 
 vers:VersionTransition.type
-        a                owl:ObjectProperty ;
+        a                owl:DatatypeProperty ;
         rdfs:domain      vers:VersionTransition ;
         rdfs:label       "type"@en ;
         rdfs:range       vers:TransitionTypeValue ;
@@ -170,13 +170,21 @@ vers:Version  a          owl:Class ;
 vers:TransactionTypeValue
         a                rdfs:Datatype ;
         rdfs:label       "TransactionTypeValue"@en ;
-        owl:oneOf        ( "insert" "delete" "replace" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "insert"
+                                                "delete"
+                                                "replace"
+                                )];
         skos:definition  "TransactionTypeValue enumerates the three possible types of transactions: insert, delete, or replace."@en .
 
 vers:TransitionTypeValue
         a                rdfs:Datatype ;
         rdfs:label       "TransitionTypeValue"@en ;
-        owl:oneOf        ( "planned" "realized" "historicalSuccession" "fork" "merge" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "planned"
+                                                "realized"
+                                                "historicalSuccession"
+                                                "fork"
+                                                "merge"
+                                )];
         skos:definition  "TransitionTypeValue enumerates the different kinds of version transitions. “planned” and “fork” should be used in cases when from one city model version multiple successor versions are being created. “realized” and “merge” should be used when different city model versions are converging into a common successor version."@en .
 
 vers:Version.versionMember

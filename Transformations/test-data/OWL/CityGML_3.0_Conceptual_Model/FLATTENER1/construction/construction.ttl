@@ -66,7 +66,10 @@ con:AbstractConstruction.adeOfAbstractConstruction
 con:RelationToConstruction
         a                rdfs:Datatype ;
         rdfs:label       "RelationToConstruction"@en ;
-        owl:oneOf        ( "inside" "outside" "bothInsideAndOutside" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "inside"
+                                                "outside"
+                                                "bothInsideAndOutside"
+                                )];
         skos:definition  "RelationToConstruction is an enumeration used to describe whether an installation is positioned inside and/or outside of a construction."@en .
 
 con:AbstractConstructiveElement
@@ -297,7 +300,9 @@ con:FloorSurface  a      owl:Class ;
 con:HeightStatusValue
         a                rdfs:Datatype ;
         rdfs:label       "HeightStatusValue"@en ;
-        owl:oneOf        ( "estimated" "measured" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "estimated"
+                                                "measured"
+                                )];
         skos:definition  "HeightStatusValue enumerates the different methods used to capture a height. [cf. INSPIRE]"@en .
 
 con:WallSurface  a       owl:Class ;
@@ -342,7 +347,13 @@ con:Window.function  a   owl:ObjectProperty ;
 con:ConditionOfConstructionValue
         a                rdfs:Datatype ;
         rdfs:label       "ConditionOfConstructionValue"@en ;
-        owl:oneOf        ( "declined" "demolished" "functional" "projected" "ruin" "underConstruction" ) ;
+        owl:equivalentClass     [ owl:oneOf (   "declined"
+                                                "demolished"
+                                                "functional"
+                                                "projected"
+                                                "ruin"
+                                                "underConstruction"
+                                )];
         skos:definition  "ConditionOfConstructionValue enumerates different conditions of a construction. [cf. INSPIRE]"@en .
 
 con:OtherConstruction.adeOfOtherConstruction
@@ -495,7 +506,7 @@ con:RoofSurface.adeOfRoofSurface
         skos:definition  "Augments the RoofSurface with properties defined in an ADE."@en .
 
 con:AbstractInstallation.relationToConstruction
-        a                owl:ObjectProperty ;
+        a                owl:DatatypeProperty ;
         rdfs:domain      con:AbstractInstallation ;
         rdfs:label       "relationToConstruction"@en ;
         rdfs:range       con:RelationToConstruction ;
@@ -851,7 +862,7 @@ con:RoofSurface  a       owl:Class ;
         skos:definition  "A RoofSurface is a surface that delimits major roof parts of a construction."@en .
 
 con:AbstractConstruction.conditionOfConstruction
-        a                owl:ObjectProperty ;
+        a                owl:DatatypeProperty ;
         rdfs:domain      con:AbstractConstruction ;
         rdfs:label       "conditionOfConstruction"@en ;
         rdfs:range       con:ConditionOfConstructionValue ;
