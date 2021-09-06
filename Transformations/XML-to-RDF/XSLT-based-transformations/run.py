@@ -21,7 +21,7 @@ def main():
   output_filename      = input_file.split('/')[-1].split('.')[0] + '.rdf'
 
   print('Creating XML to RDF transformation mapping...')
-  system('java -jar ../../lib/saxon9he.jar -s:{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
+  system('java -jar ../../Common/saxon9he.jar -s:{} -xsl:{} > {}'.format(schema_file, generator_file, transformation_file))
 
   namespaces = dict(etree.parse(schema_file).getroot().nsmap)
   namespaces.update( dict(etree.parse( '{}'.format(input_file) ).getroot().nsmap) )
@@ -29,7 +29,7 @@ def main():
 
   cleanXSLT(transformation_file, namespaces)
   print('Transforming XML to RDF... {}'.format(input_file))
-  system('java -jar ../../lib/saxon9he.jar -s:{} -xsl:{} > {}/{}'.format(input_file, transformation_file,output_directory, output_filename))
+  system('java -jar ../../Common/saxon9he.jar -s:{} -xsl:{} > {}/{}'.format(input_file, transformation_file,output_directory, output_filename))
   cleanRDF('{}/{}'.format(output_directory, output_filename))
   system('python ../../utilities/show_ns.py {}/{}'.format(output_directory, output_filename))
   if cleanGeometry:

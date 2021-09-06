@@ -585,54 +585,6 @@ def findDatatypeProperty(tag, property_tag=None):
     return None
 
 
-def findDatatypeProperty(tag, property_tag=None):
-    '''Find a datatype property which links (intersects) a given class and a datatype
-    based on the domain and range of the property or which a given class contains
-    a universal restriction of the property.'''
-    qname1 = etree.QName(tag)
-    if isClass(tag):
-        if property_tag is None:
-            query = ontology.query('''
-                SELECT DISTINCT ?datatypeproperty
-                WHERE {
-                    { ?datatypeproperty a owl:DatatypeProperty ;
-                            rdfs:domain ?domain .
-                        <%s> rdfs:subClassOf* ?domain .
-                    }
-                    UNION
-                    { <%s> a owl:Class ;
-                        rdfs:subClassOf [ a owl:Restriction ;
-                                          owl:onProperty    ?datatypeproperty 
-                                        ] .
-                    }
-                }''' % (mapNamespace(qname1),
-                        mapNamespace(qname1)) )
-            if len(query) > 0:
-                return query
-        else:
-            for property in getDatatypeProperties(property_tag):
-                query = ontology.query('''
-                    ASK   {
-                        { <%s> a owl:DatatypeProperty ;
-                                rdfs:domain ?domain .
-                            <%s> rdfs:subClassOf* ?domain .
-                        }
-                        UNION
-                        { <%s> a owl:Class ;
-                            rdfs:subClassOf [ a owl:Restriction ;
-                                              owl:onProperty <%s> 
-                                            ] .
-                        }
-                    }''' % (property[0],
-                            mapNamespace(qname1),
-                            mapNamespace(qname1),
-                            property[0]) )
-                if bool(query):
-                    return property[0]
-    logging.warning(f'No matching datatype property found between: {tag}, {property_tag}')
-    return None
-
-
 def isClass(tag):
     '''return whether class definition exists in ontology'''
     qname = etree.QName(tag)

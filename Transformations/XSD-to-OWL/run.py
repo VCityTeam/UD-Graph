@@ -10,7 +10,7 @@ def main():
    FILEPATH = sys.argv[1]
    print('Transforming {} ...'.format(FILEPATH))
    FILENAME = '.'.join(path.split(FILEPATH)[1].split('.')[:-1])
-   system('java -jar ../lib/saxon9he.jar -s:{} -xsl:XSD2RDF.xsl > {}/{}.rdf'.format( FILEPATH, OUTPUT, FILENAME ))
+   system('java -jar ../Common/saxon9he.jar -s:{} -xsl:XSD2RDF.xsl > {}/{}.rdf'.format( FILEPATH, OUTPUT, FILENAME ))
    print('Postprocessing {}/{}.rdf ...'.format(OUTPUT, FILENAME))
    system('python postXSLT.py {}/{}.rdf'.format(OUTPUT, FILENAME))
    print('done!')

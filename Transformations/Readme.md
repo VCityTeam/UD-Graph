@@ -11,4 +11,4 @@ For more information on each transformation can be found in each transformation 
 2. XML-to-RDF
 3. XSD-to-OWL
 
-These pipelines use utility scripts and libraries located in the utility and lib directories respectively.
+These pipelines use utility scripts and libraries located in the `utilites` and `Common` directories respectively.
