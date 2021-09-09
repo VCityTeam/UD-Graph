@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <CityModel xmlns="http://www.opengis.net/citygml/1.0" xmlns:app="http://www.opengis.net/citygml/appearance/1.0" xmlns:bldg="http://www.opengis.net/citygml/building/1.0" xmlns:core="http://www.opengis.net/citygml/base/1.0" xmlns:dem="http://www.opengis.net/citygml/relief/1.0" xmlns:gen="http://www.opengis.net/citygml/generics/1.0" xmlns:gml="http://www.opengis.net/gml" xmlns:tex="http://www.opengis.net/citygml/textures/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/building/1.0 http://schemas.opengis.net/citygml/building/1.0/building.xsd http://www.opengis.net/citygml/appearance/1.0 http://schemas.opengis.net/citygml/appearance/1.0/appearance.xsd http://www.opengis.net/citygml/relief/1.0 http://schemas.opengis.net/citygml/relief/1.0/relief.xsd">
   <!-- File Written  With RhinoCity Software  CopyRight Rhinoterraain 2012 -->
   <gml:name>LYON_1ER_BATI_2012</gml:name>
