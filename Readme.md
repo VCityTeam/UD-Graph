@@ -9,7 +9,7 @@ This work is part of the larger [Virtual City Project](https://projet.liris.cnrs
 - [Towards a semantic web representation from a 3D geospatial urban data model](https://apps.univ-lr.fr/actes/ged/colloques/docWeb/2105041945.0/SAGEO2021_Actes_de_la_conference_vff.pdf) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021
 
 ## Transformations
-Contains the following implementations:
+The `./Transformations` folder contains the following implementations:
 1. ShapeChange (UML-to-OWL)
    * ShapeChange configuration files for CityGML 2.0 and 3.0 UML models to RDF/OWL ontologies
 2. XML-to-OWL
