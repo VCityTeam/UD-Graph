@@ -4,7 +4,7 @@ This approach requires an ontology to determine how to convert CityGML documents
 ### Input Data
 GML files used for testing are located in the `UD-Graph/Transformations/test-data/GML` folder. They consist of cityGML data from the [Metropole of Lyon](https://data.grandlyon.com/accueil), the [Open Geospatial Consortium Github CityGML 3.0 Encoding Github](https://github.com/opengeospatial/CityGML-3.0Encodings/tree/master/CityGML/Examples), and other sources.
 
-Example ontologies generated using the `UD-Graph/Transformations/UML-to-OWL` (ShapeChange) and `UD-Graph/Transformations/XSD-to-OWL` transformation pipelines can be found in the folders:
+Example ontologies are generated using the `UD-Graph/Transformations/ShapeChange` and `UD-Graph/Transformations/XSD-to-OWL` transformation pipelines. Example data created with these pipelines can be found in the following folders:
 * `UD-Graph/Ontologies`
 * `UD-Graph/Transformations/test-data/OWL`
 
