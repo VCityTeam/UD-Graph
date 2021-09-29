@@ -7,6 +7,7 @@
     <parameter name="addTaggedValues" value="itemType"/>
     <xi:include href="http://shapechange.net/resources/config/StandardAliases.xml"/>
     <stereotypeAliases>
+      <StereotypeAlias wellknown="BasicType" alias="basictype"/>
       <StereotypeAlias wellknown="property" alias="Property"/>
       <StereotypeAlias wellknown="version" alias="Version"/>
       <StereotypeAlias wellknown="FeatureType" alias="TopLevelFeatureType"/>
@@ -79,6 +80,7 @@
         <!-- <Namespace nsabr="iso19111-2019" ns="http://def.isotc211.org/iso19111/2019/ReferencingByCoordinates#"/> -->
         <Namespace nsabr="iso19123" ns="http://def.isotc211.org/iso19123/2005/Coverages#"/>
         <Namespace nsabr="iso19136" ns="http://def.isotc211.org/iso19136/2007/GML"/>
+        <Namespace nsabr="iso19136-bt" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
       </namespaces>
       <descriptorTargets>
         <DescriptorTarget target="skos:prefLabel" template="[[name]]"/>
@@ -94,13 +96,13 @@
       <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19115-owl.xml"/>
       <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19156-owl.xml"/>
       <rdfMapEntries>
-        <RdfTypeMapEntry type="MeasureOrNilReasonList" target="iso19136:MeasureOrNilReasonList"/>
-        <RdfTypeMapEntry type="doubleList" target="iso19136:doubleList"/>
-        <RdfTypeMapEntry type="Code" target="iso19136:Code"/>
+        <!-- <RdfTypeMapEntry type="MeasureOrNilReasonList" target="iso19136:MeasureOrNilReasonList"/> -->
+        <RdfTypeMapEntry type="doubleList" target="iso19136-bt:doubleList"/>
+        <RdfTypeMapEntry type="Code" target="iso19136-bt:Code"/>
         <RdfTypeMapEntry type="GM_TriangulatedSurface" target="iso19107:GM_TriangulatedSurface"/>
         <RdfTypeMapEntry type="CV_DiscreteGridPointCoverage" target="iso19123:CV_DiscreteGridPointCoverage"/>
-        <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="iso19136:doubleList"/>
-        <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="iso19136:doubleList"/>
+        <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="iso19136-bt:doubleList"/>
+        <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="iso19136-bt:doubleList"/>
         <!-- <RdfTypeMapEntry type="NoiseCityFurnitureSegment" target="noise:NoiseCityFurnitureSegment"/> -->
         <!-- <RdfTypeMapEntry type="NoiseRoadSegment" target="noise:NoiseRoadSegment"/> -->
         <!-- <RdfTypeMapEntry type="NoiseRailwaySegment" target="noise:NoiseRailwaySegment"/> -->
