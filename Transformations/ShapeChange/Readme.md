@@ -11,6 +11,8 @@ And two test graphs for ontology patching/modification using the _../utiliites/a
 2. citygml2_app_links.ttl
 
 ## To run
+ShapeChange 2.10 requires at least Java 11 or later.
+
 Use the following command to run ShapeChange with the configuration files. Be sure to update the variables in '[]' brackets with their desired values.
 ```
 java -jar ../lib/ShapeChange-2.10.0.jar -Dfile.encoding=UTF-8 -c [CONFIGURATION FILE] -x '$input$' '[UML FILE]' -x '$output$' '[OUTPUT FOLDER]'
