@@ -1,13 +1,14 @@
 @prefix app:   <http://www.opengis.net/citygml/appearance/2.0/appearance#> .
+@prefix iso19136-bt: <http://def.isotc211.org/iso19136/2007/BasicTypes#> .
 @prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix gmlowl: <http://www.opengis.net/ont/gml#> .
+@prefix orph:  <http://def.isotc211.org/orphans/Orphans#> .
 
 app:ParameterizedTexture.target
         a               owl:ObjectProperty ;
@@ -43,7 +44,7 @@ app:AbstractTexture.mimeType
         a                owl:ObjectProperty ;
         rdfs:domain      app:AbstractTexture ;
         rdfs:label       "mimeType"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Mime type describing the data format of the image resource"@en ;
         skos:prefLabel   "mimeType"@en .
 
@@ -97,7 +98,7 @@ app:TexCoordGen  a        owl:Class ;
 app:Color.list  a       owl:ObjectProperty ;
         rdfs:domain     app:Color ;
         rdfs:label      "list"@en ;
-        rdfs:range      iso19136:doubleList ;
+        rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
         skos:prefLabel  "list"@en .
 
 app:ParameterizedTexture
@@ -116,20 +117,20 @@ app:GeoreferencedTexture
         rdfs:label        "GeoreferencedTexture"@en ;
         rdfs:subClassOf   app:AbstractTexture ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  gmlowl:Point ;
-                            owl:onProperty     app:GeoreferencedTexture.referencePoint
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  xsd:anyURI ;
-                            owl:onProperty     app:GeoreferencedTexture.target
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  xsd:boolean ;
                             owl:onProperty     app:GeoreferencedTexture.preferWorldFile
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  gmlowl:Point ;
+                            owl:onProperty     app:GeoreferencedTexture.referencePoint
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  core:TransformationMatrix2x2 ;
                             owl:onProperty     app:GeoreferencedTexture.orientation
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  xsd:anyURI ;
+                            owl:onProperty     app:GeoreferencedTexture.target
                           ] ;
         owl:disjointWith  app:ParameterizedTexture ;
         skos:definition   "SIG3D: Specialized class for georeferenced textures containing an implicit parametrization that is either stored within the image file, an acompanying world file"@en ;
@@ -151,7 +152,7 @@ app:TexCoordList  a      owl:Class ;
                            owl:onProperty     app:TexCoordList.ring
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  iso19136-bt:doubleList ;
                            owl:onProperty     app:TexCoordList.textureCoordinates
                          ] ;
         skos:definition  "SIG3D: Texture parameterization using explicit texture coordinates (a list of pairs of 2 double values). Each ring that is part of the surface requires a TexCoordList"@en ;
@@ -264,16 +265,16 @@ app:AbstractTexture  a         owl:Class ;
                                  owl:onProperty     app:AbstractTexture.textureType
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:Code ;
+                                 owl:allValuesFrom  app:WrapMode ;
+                                 owl:onProperty     app:AbstractTexture.wrapMode
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136-bt:Code ;
                                  owl:onProperty     app:AbstractTexture.mimeType
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:anyURI ;
                                  owl:onProperty     app:AbstractTexture.imageURI
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  app:WrapMode ;
-                                 owl:onProperty     app:AbstractTexture.wrapMode
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  app:ColorPlusOpacity ;
@@ -288,13 +289,13 @@ app:ColorPlusOpacity.list
         a               owl:ObjectProperty ;
         rdfs:domain     app:ColorPlusOpacity ;
         rdfs:label      "list"@en ;
-        rdfs:range      iso19136:doubleList ;
+        rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
         skos:prefLabel  "list"@en .
 
 app:Color  a             owl:Class ;
         rdfs:label       "Color"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
                            owl:onProperty     app:Color.list
                          ] ;
         skos:prefLabel   "Color"@en .
@@ -325,7 +326,7 @@ app:TexCoordList.textureCoordinates
         a                owl:ObjectProperty ;
         rdfs:domain      app:TexCoordList ;
         rdfs:label       "textureCoordinates"@en ;
-        rdfs:range       iso19136:doubleList ;
+        rdfs:range       iso19136-bt:doubleList ;
         skos:definition  "SIG3D: List of texture coordinates with two doubles per ring vertex"@en ;
         skos:prefLabel   "textureCoordinates"@en .
 
@@ -379,7 +380,7 @@ app:TexCoordGen.worldToTexture
 app:ColorPlusOpacity  a  owl:Class ;
         rdfs:label       "ColorPlusOpacity"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
                            owl:onProperty     app:ColorPlusOpacity.list
                          ] ;
         skos:prefLabel   "ColorPlusOpacity"@en .
@@ -404,24 +405,24 @@ app:X3DMaterial  a       owl:Class ;
                            owl:onProperty     app:X3DMaterial.ambientIntensity
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:boolean ;
-                           owl:onProperty     app:X3DMaterial.isSmooth
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  app:Color ;
-                           owl:onProperty     app:X3DMaterial.emissiveColor
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;
                            owl:onProperty     app:X3DMaterial.shininess
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     app:X3DMaterial.target
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  app:Color ;
                            owl:onProperty     app:X3DMaterial.diffuseColor
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     app:X3DMaterial.target
+                           owl:allValuesFrom  xsd:boolean ;
+                           owl:onProperty     app:X3DMaterial.isSmooth
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  app:Color ;
+                           owl:onProperty     app:X3DMaterial.emissiveColor
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;

@@ -1,9 +1,9 @@
+@prefix iso19136-bt: <http://def.isotc211.org/iso19136/2007/BasicTypes#> .
 @prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix gmlowl: <http://www.opengis.net/ont/gml#> .
@@ -27,7 +27,7 @@ tun:TunnelFurniture.class
         a                owl:ObjectProperty ;
         rdfs:domain      tun:TunnelFurniture ;
         rdfs:label       "class"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Classification of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "class"@en .
 
@@ -51,68 +51,40 @@ tun:AbstractTunnel  a          owl:Class ;
         rdfs:label             "AbstractTunnel"@en ;
         rdfs:subClassOf        core:AbstractSite ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.outerTunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
                                  owl:onProperty     tun:AbstractTunnel.lod2MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     tun:AbstractTunnel.lod4Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     tun:AbstractTunnel.usage
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractTunnel.lod2MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     tun:AbstractTunnel.lod2Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractTunnel.lod4MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod3MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:IntTunnelInstallation ;
-                                 owl:onProperty     tun:AbstractTunnel.interiorTunnelInstallation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod4TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:HollowSpace ;
-                                 owl:onProperty     tun:AbstractTunnel.interiorHollowSpace
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod1TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod3TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:TunnelPart ;
-                                 owl:onProperty     tun:AbstractTunnel.consistsOfTunnelPart
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:AbstractBoundarySurface ;
-                                 owl:onProperty     tun:AbstractTunnel.boundedBy
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
                                  owl:onProperty     tun:AbstractTunnel.lod4MultiCurve
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:TunnelInstallation ;
-                                 owl:onProperty     tun:AbstractTunnel.outerTunnelInstallation
+                                 owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                                 owl:onProperty     tun:AbstractTunnel.boundedBy
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     tun:AbstractTunnel.yearOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136-bt:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.function
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:HollowSpace ;
+                                 owl:onProperty     tun:AbstractTunnel.interiorHollowSpace
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:Solid ;
@@ -120,35 +92,63 @@ tun:AbstractTunnel  a          owl:Class ;
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     tun:AbstractTunnel.yearOfConstruction
+                                 owl:onProperty     tun:AbstractTunnel.yearOfDemolition
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     tun:AbstractTunnel.function
+                                 owl:allValuesFrom  tun:TunnelPart ;
+                                 owl:onProperty     tun:AbstractTunnel.consistsOfTunnelPart
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     tun:AbstractTunnel.lod3Solid
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod2TerrainIntersection
+                                 owl:allValuesFrom  iso19136-bt:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.class
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     tun:AbstractTunnel.lod1MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136:Code ;
-                                 owl:onProperty     tun:AbstractTunnel.class
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4TerrainIntersection
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     tun:AbstractTunnel.yearOfDemolition
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     tun:AbstractTunnel.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:IntTunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.interiorTunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136-bt:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.usage
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod1TerrainIntersection
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of Tunnel and TunnelPart"@en ;
@@ -182,12 +182,12 @@ tun:AbstractOpening  a         owl:Class ;
                                  owl:onProperty     tun:AbstractOpening.lod4ImplicitRepresentation
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractOpening.lod3MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:ImplicitGeometry ;
                                  owl:onProperty     tun:AbstractOpening.lod3ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractOpening.lod3MultiSurface
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of Window and Door"@en ;
@@ -208,20 +208,12 @@ tun:TunnelInstallation
                            owl:onProperty     tun:TunnelInstallation.lod3Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     tun:TunnelInstallation.lod2ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:TunnelInstallation.lod2Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:TunnelInstallation.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:TunnelInstallation.usage
+                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                           owl:onProperty     tun:TunnelInstallation.boundedBy
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -232,16 +224,24 @@ tun:TunnelInstallation
                            owl:onProperty     tun:TunnelInstallation.lod3ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:TunnelInstallation.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelInstallation.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:TunnelInstallation.lod4Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
-                           owl:onProperty     tun:TunnelInstallation.boundedBy
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the tunnel outer shell which are accessory for the tunnel structure. Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "TunnelInstallation"@en .
@@ -253,10 +253,6 @@ tun:AbstractTunnel.lod2Solid
         rdfs:range       gmlowl:Solid ;
         skos:definition  "SIG3D: Relation to a LOD2 solid geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
         skos:prefLabel   "lod2Solid"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( tun:CeilingSurface tun:ClosureSurface tun:FloorSurface tun:GroundSurface tun:InteriorWallSurface tun:OuterCeilingSurface tun:OuterFloorSurface tun:RoofSurface tun:WallSurface )
-] .
 
 tun:TunnelInstallation.lod4Geometry
         a                owl:ObjectProperty ;
@@ -301,7 +297,7 @@ tun:HollowSpace.function
         a                owl:ObjectProperty ;
         rdfs:domain      tun:HollowSpace ;
         rdfs:label       "function"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Specified function of HollowSpace as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "function"@en .
 
@@ -341,7 +337,7 @@ tun:IntTunnelInstallation.function
         a                owl:ObjectProperty ;
         rdfs:domain      tun:IntTunnelInstallation ;
         rdfs:label       "function"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Specified function of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "function"@en .
 
@@ -370,7 +366,7 @@ tun:AbstractTunnel.function
         a                owl:ObjectProperty ;
         rdfs:domain      tun:AbstractTunnel ;
         rdfs:label       "function"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Specified function of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "function"@en .
 
@@ -379,6 +375,10 @@ tun:ClosureSurface  a    owl:Class ;
         rdfs:subClassOf  tun:AbstractBoundarySurface ;
         skos:definition  "SIG3D: Exterior or interior boundary surface providing virtual boundaries, typically used to seal holes in volumetric objects."@en ;
         skos:prefLabel   "ClosureSurface"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( tun:CeilingSurface tun:ClosureSurface tun:FloorSurface tun:GroundSurface tun:InteriorWallSurface tun:OuterCeilingSurface tun:OuterFloorSurface tun:RoofSurface tun:WallSurface )
+] .
 
 tun:AbstractTunnel.yearOfDemolition
         a                owl:DatatypeProperty ;
@@ -407,7 +407,7 @@ tun:TunnelInstallation.function
         a                owl:ObjectProperty ;
         rdfs:domain      tun:TunnelInstallation ;
         rdfs:label       "function"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Specified function of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "function"@en .
 
@@ -421,7 +421,7 @@ tun:TunnelInstallation.usage
         a                owl:ObjectProperty ;
         rdfs:domain      tun:TunnelInstallation ;
         rdfs:label       "usage"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Actual usage of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
@@ -445,32 +445,32 @@ tun:HollowSpace  a       owl:Class ;
         rdfs:label       "HollowSpace"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiSurface ;
+                           owl:onProperty     tun:HollowSpace.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  tun:IntTunnelInstallation ;
                            owl:onProperty     tun:HollowSpace.hollowSpaceInstallation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:HollowSpace.class
+                           owl:allValuesFrom  gmlowl:Solid ;
+                           owl:onProperty     tun:HollowSpace.lod4Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  tun:TunnelFurniture ;
                            owl:onProperty     tun:HollowSpace.interiorFurniture
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:HollowSpace.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:HollowSpace.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:HollowSpace.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:MultiSurface ;
-                           owl:onProperty     tun:HollowSpace.lod4MultiSurface
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:Solid ;
-                           owl:onProperty     tun:HollowSpace.lod4Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  tun:AbstractBoundarySurface ;
@@ -600,7 +600,7 @@ tun:AbstractTunnel.usage
         a                owl:ObjectProperty ;
         rdfs:domain      tun:AbstractTunnel ;
         rdfs:label       "usage"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Actual usage of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
@@ -626,19 +626,19 @@ tun:AbstractBoundarySurface
         rdfs:subClassOf        core:AbstractCityObject ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractBoundarySurface.lod3MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     tun:AbstractBoundarySurface.lod2MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:AbstractOpening ;
-                                 owl:onProperty     tun:AbstractBoundarySurface.opening
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     tun:AbstractBoundarySurface.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:AbstractOpening ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.opening
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of boundary surfaces of Tunnel, TunnelPart and HollowSpace"@en ;
@@ -656,7 +656,7 @@ tun:TunnelFurniture.function
         a                owl:ObjectProperty ;
         rdfs:domain      tun:TunnelFurniture ;
         rdfs:label       "function"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Specified function of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "function"@en .
 
@@ -680,7 +680,7 @@ tun:AbstractTunnel.class
         a                owl:ObjectProperty ;
         rdfs:domain      tun:AbstractTunnel ;
         rdfs:label       "class"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Classification of the actual usage of Tunnel or TunnelPart as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "class"@en .
 
@@ -688,24 +688,24 @@ tun:TunnelFurniture  a   owl:Class ;
         rdfs:label       "TunnelFurniture"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:TunnelFurniture.usage
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelFurniture.lod4ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:TunnelFurniture.lod4Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     tun:TunnelFurniture.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:TunnelFurniture.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:TunnelFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelFurniture.class
                          ] ;
         skos:definition  "SIG3D: Equipment for occupant use, usually not fixed to the building (cf. ISO 6707-1) ."@en ;
         skos:prefLabel   "TunnelFurniture"@en .
@@ -753,7 +753,7 @@ tun:IntTunnelInstallation.usage
         a                owl:ObjectProperty ;
         rdfs:domain      tun:IntTunnelInstallation ;
         rdfs:label       "usage"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Actual usage of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
@@ -761,7 +761,7 @@ tun:HollowSpace.usage
         a                owl:ObjectProperty ;
         rdfs:domain      tun:HollowSpace ;
         rdfs:label       "usage"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Actual usage of HollowSpace as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
@@ -806,8 +806,8 @@ tun:IntTunnelInstallation
         rdfs:label       "IntTunnelInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:IntTunnelInstallation.class
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:IntTunnelInstallation.lod4ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  tun:AbstractBoundarySurface ;
@@ -818,16 +818,16 @@ tun:IntTunnelInstallation
                            owl:onProperty     tun:IntTunnelInstallation.lod4Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
-                           owl:onProperty     tun:IntTunnelInstallation.function
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:IntTunnelInstallation.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     tun:IntTunnelInstallation.lod4ImplicitRepresentation
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.function
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the tunnel interior which are accessory for the tunnel and for hollow spaces. Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "IntTunnelInstallation"@en .
@@ -836,7 +836,7 @@ tun:TunnelFurniture.usage
         a                owl:ObjectProperty ;
         rdfs:domain      tun:TunnelFurniture ;
         rdfs:label       "usage"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Actual usage of TunnelFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
@@ -860,7 +860,7 @@ tun:IntTunnelInstallation.class
         a                owl:ObjectProperty ;
         rdfs:domain      tun:IntTunnelInstallation ;
         rdfs:label       "class"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Classification of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "class"@en .
 
@@ -868,7 +868,7 @@ tun:HollowSpace.class
         a                owl:ObjectProperty ;
         rdfs:domain      tun:HollowSpace ;
         rdfs:label       "class"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Classification of HollowSpace as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "class"@en .
 
@@ -884,7 +884,7 @@ tun:TunnelInstallation.class
         a                owl:ObjectProperty ;
         rdfs:domain      tun:TunnelInstallation ;
         rdfs:label       "class"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Classification of TunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "class"@en .
 

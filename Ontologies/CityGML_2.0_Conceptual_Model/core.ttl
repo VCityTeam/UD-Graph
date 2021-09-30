@@ -1,579 +1,411 @@
-@prefix : <http://www.opengis.net/citygml/2.0/core#> .
-@prefix dem: <http://www.opengis.net/citygml/relief/2.0/relief#> .
-@prefix frn: <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#> .
-@prefix gen: <http://www.opengis.net/citygml/generics/2.0/generics#> .
-@prefix grp: <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#> .
-@prefix gsp: <http://www.opengis.net/ont/geosparql#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix tun: <http://www.opengis.net/citygml/tunnel/2.0/tunnel#> .
-@prefix veg: <http://www.opengis.net/citygml/vegetation/2.0/vegetation#> .
-@prefix wtr: <http://www.opengis.net/citygml/waterbody/2.0/waterbody#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix bldg: <http://www.opengis.net/citygml/building/2.0/building#> .
-@prefix brid: <http://www.opengis.net/citygml/bridge/2.0/bridge#> .
-@prefix core: <http://www.opengis.net/citygml/2.0/core#> .
-@prefix luse: <http://www.opengis.net/citygml/landuse/2.0/landuse#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
-@prefix tran: <http://www.opengis.net/citygml/transportation/2.0/transportation#> .
-@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
+@prefix iso19136-bt: <http://def.isotc211.org/iso19136/2007/BasicTypes#> .
+@prefix bldg:  <http://www.opengis.net/citygml/building/2.0/building#> .
+@prefix frn:   <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
-@base <http://www.opengis.net/citygml/2.0/core> .
-
-<http://www.opengis.net/citygml/2.0/core> rdf:type owl:Ontology ;
-                                           owl:imports <http://def.isotc211.org/iso19150/-2/2012/base> ,
-                                                       <http://www.opengis.net/citygml/bridge/2.0/bridge> ,
-                                                       <http://www.opengis.net/citygml/building/2.0/building> ,
-                                                       <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture> ,
-                                                       <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup> ,
-                                                       <http://www.opengis.net/citygml/generics/2.0/generics> ,
-                                                       <http://www.opengis.net/citygml/landuse/2.0/landuse> ,
-                                                       <http://www.opengis.net/citygml/relief/2.0/relief> ,
-                                                       <http://www.opengis.net/citygml/transportation/2.0/transportation> ,
-                                                       <http://www.opengis.net/citygml/tunnel/2.0/tunnel> ,
-                                                       <http://www.opengis.net/citygml/vegetation/2.0/vegetation> ,
-                                                       <http://www.opengis.net/citygml/waterbody/2.0/waterbody> ,
-                                                       <http://www.opengis.net/ont/geosparql> ;
-                                           rdfs:label "Core"@en ;
-                                           skos:prefLabel "Core"@en .
-
-#################################################################
-#    Annotation properties
-#################################################################
-
-###  http://def.isotc211.org/iso19150/-2/2012/base#isAbstract
-iso19150-2:isAbstract rdf:type owl:AnnotationProperty .
-
-
-#################################################################
-#    Datatypes
-#################################################################
-
-###  http://www.opengis.net/citygml/2.0/core#RelativeToTerrain
-core:RelativeToTerrain rdf:type rdfs:Datatype ;
-                       rdfs:label "RelativeToTerrain"@en ;
-                       skos:prefLabel "RelativeToTerrain"@en ;
-                       owl:equivalentClass [ rdf:type rdfs:Datatype ;
-                                             owl:oneOf [ rdf:type rdf:List ;
-                                                         rdf:first "entirelyAboveTerrain"^^xsd:string ;
-                                                         rdf:rest [ rdf:type rdf:List ;
-                                                                    rdf:first "entirelyBelowTerrain"^^xsd:string ;
-                                                                    rdf:rest [ rdf:type rdf:List ;
-                                                                               rdf:first "substantiallyAboveAndBelowTerrain"^^xsd:string ;
-                                                                               rdf:rest [ rdf:type rdf:List ;
-                                                                                          rdf:first "substantiallyAboveTerrain"^^xsd:string ;
-                                                                                          rdf:rest [ rdf:type rdf:List ;
-                                                                                                     rdf:first "substantiallyBelowTerrain"^^xsd:string ;
-                                                                                                     rdf:rest [ rdf:type rdf:List ;
-                                                                                                                rdf:first "temporarilyAboveAndBelowTerrain"^^xsd:string ;
-                                                                                                                rdf:rest rdf:nil
-                                                                                                              ]
-                                                                                                   ]
-                                                                                        ]
-                                                                             ]
-                                                                  ]
-                                                       ]
-                                           ] .
-
-
-###  http://www.opengis.net/citygml/2.0/core#RelativeToWater
-core:RelativeToWater rdf:type rdfs:Datatype ;
-                     rdfs:label "RelativeToWater"@en ;
-                     skos:prefLabel "RelativeToWater"@en ;
-                     owl:equivalentClass [ rdf:type rdfs:Datatype ;
-                                           owl:oneOf [ rdf:type rdf:List ;
-                                                       rdf:first "entirelyAboveWaterSurface"^^xsd:string ;
-                                                       rdf:rest [ rdf:type rdf:List ;
-                                                                  rdf:first "entirelyBelowWaterSurface"^^xsd:string ;
-                                                                  rdf:rest [ rdf:type rdf:List ;
-                                                                             rdf:first "substantiallyAboveAndBelowWaterSurface"^^xsd:string ;
-                                                                             rdf:rest [ rdf:type rdf:List ;
-                                                                                        rdf:first "substantiallyAboveWaterSurface"^^xsd:string ;
-                                                                                        rdf:rest [ rdf:type rdf:List ;
-                                                                                                   rdf:first "substantiallyBelowWaterSurface"^^xsd:string ;
-                                                                                                   rdf:rest [ rdf:type rdf:List ;
-                                                                                                              rdf:first "temporarilyAboveAndBelowWaterSurface" ;
-                                                                                                              rdf:rest rdf:nil
-                                                                                                            ]
-                                                                                                 ]
-                                                                                      ]
-                                                                           ]
-                                                                ]
-                                                     ]
-                                         ] .
-
-
-###  http://www.w3.org/2001/XMLSchema#date
-xsd:date rdf:type rdfs:Datatype .
-
-
-#################################################################
-#    Object Properties
-#################################################################
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.abstractGenericAttribute
-core:AbstractCityObject.abstractGenericAttribute rdf:type owl:ObjectProperty ;
-                                                 rdfs:domain core:AbstractCityObject ;
-                                                 rdfs:range gen:AbstractGenericAttribute ;
-                                                 rdfs:label "abstractGenericAttribute"@en ;
-                                                 skos:prefLabel "abstractGenericAttribute"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.appearance
-core:AbstractCityObject.appearance rdf:type owl:ObjectProperty ;
-                                   rdfs:domain core:AbstractCityObject ;
-                                   rdfs:range core:AbstractAppearance ;
-                                   rdfs:label "appearance"@en ;
-                                   skos:prefLabel "appearance"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.externalReference
-core:AbstractCityObject.externalReference rdf:type owl:ObjectProperty ;
-                                          rdfs:domain core:AbstractCityObject ;
-                                          rdfs:range core:ExternalReference ;
-                                          rdfs:label "externalReference"@en ;
-                                          skos:definition "SIG3D: Relation to an ExternalReference"@en ;
-                                          skos:prefLabel "externalReference"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.generalizesTo
-core:AbstractCityObject.generalizesTo rdf:type owl:ObjectProperty ;
-                                      rdfs:domain core:AbstractCityObject ;
-                                      rdfs:range core:AbstractCityObject ;
-                                      rdfs:label "generalizesTo"@en ;
-                                      skos:prefLabel "generalizesTo"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#Address.multiPoint
-core:Address.multiPoint rdf:type owl:ObjectProperty ;
-                        rdfs:domain core:Address ;
-                        rdfs:range gsp:Geometry ;
-                        rdfs:label "multiPoint"@en ;
-                        skos:prefLabel "multiPoint"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#Address.xalAddress
-core:Address.xalAddress rdf:type owl:ObjectProperty ;
-                        rdfs:domain core:Address ;
-                        rdfs:range core:XALAddressDetails ;
-                        rdfs:label "xalAddress"@en ;
-                        skos:prefLabel "xalAddress"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#CityModel.appearanceMember
-core:CityModel.appearanceMember rdf:type owl:ObjectProperty ;
-                                rdfs:domain core:CityModel ;
-                                rdfs:range core:AbstractAppearance ;
-                                rdfs:label "appearanceMember"@en ;
-                                skos:prefLabel "appearanceMember"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#CityModel.cityObjectMember
-core:CityModel.cityObjectMember rdf:type owl:ObjectProperty ;
-                                rdfs:domain core:CityModel ;
-                                rdfs:range core:AbstractCityObject ;
-                                rdfs:label "cityObjectMember"@en ;
-                                skos:definition "SIG3D: Relation of CityModel to AbstractCityObject."@en ;
-                                skos:prefLabel "cityObjectMember"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#DoubleBetween0and1List.list
-core:DoubleBetween0and1List.list rdf:type owl:ObjectProperty ;
-                                 rdfs:domain core:DoubleBetween0and1List ;
-                                 rdfs:range iso19136:doubleList ;
-                                 rdfs:label "list"@en ;
-                                 skos:prefLabel "list"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ImplicitGeometry.mimeType
-core:ImplicitGeometry.mimeType rdf:type owl:ObjectProperty ;
-                               rdfs:domain core:ImplicitGeometry ;
-                               rdfs:range iso19136:Code ;
-                               rdfs:label "mimeType"@en ;
-                               skos:definition "SIG3D: Mime type of the referenced external geometric object (attribute libraryObject)."@en ;
-                               skos:prefLabel "mimeType"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ImplicitGeometry.referencePoint
-core:ImplicitGeometry.referencePoint rdf:type owl:ObjectProperty ;
-                                     rdfs:domain core:ImplicitGeometry ;
-                                     rdfs:range gsp:Geometry ;
-                                     rdfs:label "referencePoint"@en ;
-                                     skos:prefLabel "referencePoint"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ImplicitGeometry.relativeGMLGeometry
-core:ImplicitGeometry.relativeGMLGeometry rdf:type owl:ObjectProperty ;
-                                          rdfs:domain core:ImplicitGeometry ;
-                                          rdfs:range gsp:Geometry ;
-                                          rdfs:label "relativeGMLGeometry"@en ;
-                                          skos:prefLabel "relativeGMLGeometry"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ImplicitGeometry.transformationMatrix
-core:ImplicitGeometry.transformationMatrix rdf:type owl:ObjectProperty ;
-                                           rdfs:domain core:ImplicitGeometry ;
-                                           rdfs:range core:TransformationMatrix4x4 ;
-                                           rdfs:label "transformationMatrix"@en ;
-                                           skos:definition "SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object."@en ;
-                                           skos:prefLabel "transformationMatrix"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#TransformationMatrix2x2.list
-core:TransformationMatrix2x2.list rdf:type owl:ObjectProperty ;
-                                  rdfs:domain core:TransformationMatrix2x2 ;
-                                  rdfs:range iso19136:doubleList ;
-                                  rdfs:label "list"@en ;
-                                  skos:definition "SIG3D: Elements of the matrix in row major order."@en ;
-                                  skos:prefLabel "list"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#TransformationMatrix3x4.list
-core:TransformationMatrix3x4.list rdf:type owl:ObjectProperty ;
-                                  rdfs:domain core:TransformationMatrix3x4 ;
-                                  rdfs:range iso19136:doubleList ;
-                                  rdfs:label "list"@en ;
-                                  skos:prefLabel "list"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#TransformationMatrix4x4.list
-core:TransformationMatrix4x4.list rdf:type owl:ObjectProperty ;
-                                  rdfs:domain core:TransformationMatrix4x4 ;
-                                  rdfs:range iso19136:doubleList ;
-                                  rdfs:label "list"@en ;
-                                  skos:definition "SIG3D: Elements of the transformation matrix in row major order."@en ;
-                                  skos:prefLabel "list"@en .
-
-
-#################################################################
-#    Data properties
-#################################################################
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.creationDate
-core:AbstractCityObject.creationDate rdf:type owl:DatatypeProperty ;
-                                     rdfs:domain core:AbstractCityObject ;
-                                     rdfs:range xsd:date ;
-                                     rdfs:label "creationDate"@en ;
-                                     skos:definition "SIG3D: Date the AbstractCityObject was generated."@en ;
-                                     skos:prefLabel "creationDate"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.relativeToTerrain
-core:AbstractCityObject.relativeToTerrain rdf:type owl:DatatypeProperty ;
-                                          rdfs:domain core:AbstractCityObject ;
-                                          rdfs:range core:RelativeToTerrain ;
-                                          rdfs:label "relativeToTerrain"@en ;
-                                          skos:definition """SIG3D: Vertical position of the 
-AbstractCityObject relative to the surrounding terrain."""@en ;
-                                          skos:prefLabel "relativeToTerrain"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.relativeToWater
-core:AbstractCityObject.relativeToWater rdf:type owl:DatatypeProperty ;
-                                        rdfs:domain core:AbstractCityObject ;
-                                        rdfs:range core:RelativeToWater ;
-                                        skos:definition "SIG3D: Vertical position of the AbstractCityObject relative to a surrounding water surface."@en ;
-                                        rdfs:label "relativeToWater"@en ;
-                                        skos:prefLabel "relativeToWater"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject.terminationDate
-core:AbstractCityObject.terminationDate rdf:type owl:DatatypeProperty ;
-                                        rdfs:domain core:AbstractCityObject ;
-                                        rdfs:range xsd:date ;
-                                        rdfs:label "terminationDate"@en ;
-                                        skos:definition "SIG3D:  Date the AbstractCityObject was removed"@en ;
-                                        skos:prefLabel "terminationDate"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ExternalReference.externalObject_name
-core:ExternalReference.externalObject_name rdf:type owl:DatatypeProperty ;
-                                           rdfs:domain core:ExternalReference ;
-                                           rdfs:range xsd:string ;
-                                           rdfs:label "externalObject_name"@en ;
-                                           skos:definition "SIG3D: Name of the object"@en ;
-                                           skos:prefLabel "externalObject_name"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ExternalReference.externalObject_uri
-core:ExternalReference.externalObject_uri rdf:type owl:DatatypeProperty ;
-                                          rdfs:domain core:ExternalReference ;
-                                          rdfs:range xsd:anyURI ;
-                                          rdfs:label "externalObject_uri"@en ;
-                                          skos:definition "SIG3D: URL or URN of the object."@en ;
-                                          skos:prefLabel "externalObject_uri"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ExternalReference.informationSystem
-core:ExternalReference.informationSystem rdf:type owl:DatatypeProperty ;
-                                         rdfs:domain core:ExternalReference ;
-                                         rdfs:range xsd:anyURI ;
-                                         rdfs:label "informationSystem"@en ;
-                                         skos:definition "SIG3D: URL or URN of the information system or data set."@en ;
-                                         skos:prefLabel "informationSystem"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ImplicitGeometry.libraryObject
-core:ImplicitGeometry.libraryObject rdf:type owl:DatatypeProperty ;
-                                    rdfs:domain core:ImplicitGeometry ;
-                                    rdfs:range xsd:anyURI ;
-                                    rdfs:label "libraryObject"@en ;
-                                    skos:definition "SIG3D: External link to a prototype geometry."@en ;
-                                    skos:prefLabel "libraryObject"@en .
-
-
-#################################################################
-#    Classes
-#################################################################
-
-###  http://def.isotc211.org/iso19136/2007/GMLCode
-iso19136:Code rdf:type owl:Class .
-
-
-###  http://def.isotc211.org/iso19136/2007/GMLdoubleList
-iso19136:doubleList rdf:type owl:Class .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractAppearance
-core:AbstractAppearance rdf:type owl:Class ;
-                        iso19150-2:isAbstract "true"^^xsd:boolean ;
-                        rdfs:label "AbstractAppearance"@en ;
-                        skos:prefLabel "AbstractAppearance"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractCityObject
-core:AbstractCityObject rdf:type owl:Class ;
-                        rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.abstractGenericAttribute ;
-                                          owl:allValuesFrom gen:AbstractGenericAttribute
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.appearance ;
-                                          owl:allValuesFrom core:AbstractAppearance
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.externalReference ;
-                                          owl:allValuesFrom core:ExternalReference
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.generalizesTo ;
-                                          owl:allValuesFrom core:AbstractCityObject
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.creationDate ;
-                                          owl:allValuesFrom xsd:date
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.relativeToTerrain ;
-                                          owl:allValuesFrom core:RelativeToTerrain
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.relativeToWater ;
-                                          owl:allValuesFrom core:RelativeToWater
-                                        ] ,
-                                        [ rdf:type owl:Restriction ;
-                                          owl:onProperty core:AbstractCityObject.terminationDate ;
-                                          owl:allValuesFrom xsd:date
-                                        ] ;
-                        iso19150-2:isAbstract "true"^^xsd:boolean ;
-                        rdfs:label "AbstractCityObject"@en ;
-                        skos:definition "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
-                        skos:prefLabel "AbstractCityObject"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#AbstractSite
-core:AbstractSite rdf:type owl:Class ;
-                  rdfs:subClassOf core:AbstractCityObject ;
-                  iso19150-2:isAbstract "true"^^xsd:boolean ;
-                  rdfs:label "AbstractSite"@en ;
-                  skos:definition "SIG3D: Abstract superclass of buildings,tunnels, bridges and other constructions."@en ;
-                  skos:prefLabel "AbstractSite"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#Address
-core:Address rdf:type owl:Class ;
-             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                               owl:onProperty core:Address.multiPoint ;
-                               owl:allValuesFrom gsp:Geometry
-                             ] ,
-                             [ rdf:type owl:Restriction ;
-                               owl:onProperty core:Address.xalAddress ;
-                               owl:allValuesFrom core:XALAddressDetails
-                             ] ;
-             rdfs:label "Address"@en ;
-             skos:definition "SIG3D: Proxy for the OASIS address schema"@en ;
-             skos:prefLabel "Address"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#CityModel
-core:CityModel rdf:type owl:Class ;
-               rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                 owl:onProperty core:CityModel.appearanceMember ;
-                                 owl:allValuesFrom core:AbstractAppearance
-                               ] ,
-                               [ rdf:type owl:Restriction ;
-                                 owl:onProperty core:CityModel.cityObjectMember ;
-                                 owl:allValuesFrom core:AbstractCityObject
+@prefix grp:   <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix brid:  <http://www.opengis.net/citygml/bridge/2.0/bridge#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix luse:  <http://www.opengis.net/citygml/landuse/2.0/landuse#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
+@prefix tun:   <http://www.opengis.net/citygml/tunnel/2.0/tunnel#> .
+@prefix dem:   <http://www.opengis.net/citygml/relief/2.0/relief#> .
+@prefix orph:  <http://def.isotc211.org/orphans/Orphans#> .
+@prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
+@prefix gen:   <http://www.opengis.net/citygml/generics/2.0/generics#> .
+@prefix wtr:   <http://www.opengis.net/citygml/waterbody/2.0/waterbody#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix veg:   <http://www.opengis.net/citygml/vegetation/2.0/vegetation#> .
+@prefix tran:  <http://www.opengis.net/citygml/transportation/2.0/transportation#> .
+
+core:TransformationMatrix2x2.list
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:TransformationMatrix2x2 ;
+        rdfs:label       "list"@en ;
+        rdfs:range       <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+        skos:definition  "SIG3D: Elements of the matrix in row major order."@en ;
+        skos:prefLabel   "list"@en .
+
+core:DoubleBetween0and1List.list
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:DoubleBetween0and1List ;
+        rdfs:label      "list"@en ;
+        rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
+        skos:prefLabel  "list"@en .
+
+core:DoubleBetween0and1List
+        a                owl:Class ;
+        rdfs:label       "DoubleBetween0and1List"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
+                           owl:onProperty     core:DoubleBetween0and1List.list
+                         ] ;
+        skos:prefLabel   "DoubleBetween0and1List"@en .
+
+core:CityModel.appearanceMember
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:CityModel ;
+        rdfs:label      "appearanceMember"@en ;
+        rdfs:range      core:AbstractAppearance ;
+        skos:prefLabel  "appearanceMember"@en .
+
+core:TransformationMatrix2x2
+        a                owl:Class ;
+        rdfs:label       "TransformationMatrix2x2"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+                           owl:onProperty     core:TransformationMatrix2x2.list
+                         ] ;
+        skos:definition  "SIG3D: 2x2 Transformation matrix (z-rotation and scaling)"@en ;
+        skos:prefLabel   "TransformationMatrix2x2"@en .
+
+core:Address.xalAddress
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:Address ;
+        rdfs:label      "xalAddress"@en ;
+        rdfs:range      core:XALAddressDetails ;
+        skos:prefLabel  "xalAddress"@en .
+
+core:ImplicitGeometry.relativeGMLGeometry
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:ImplicitGeometry ;
+        rdfs:label      "relativeGMLGeometry"@en ;
+        rdfs:range      gmlowl:AbstractGeometry ;
+        skos:prefLabel  "relativeGMLGeometry"@en .
+
+core:AbstractCityObject
+        a                      owl:Class ;
+        rdfs:label             "AbstractCityObject"@en ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ExternalReference ;
+                                 owl:onProperty     core:AbstractCityObject.externalReference
                                ] ;
-               rdfs:label "CityModel"@en ;
-               skos:definition "SIG3D: Collection of CityObjects with optional metadata."@en ;
-               skos:prefLabel "CityModel"@en .
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractCityObject ;
+                                 owl:onProperty     core:AbstractCityObject.generalizesTo
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gen:AbstractGenericAttribute ;
+                                 owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.terminationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.creationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToWater ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToWater
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
+                               ] ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
+        skos:prefLabel         "AbstractCityObject"@en .
 
+<http://www.opengis.net/citygml/2.0/core>
+        a               owl:Ontology ;
+        rdfs:label      "Core"@en ;
+        owl:imports     <http://def.isotc211.org/iso19150/-2/2012/base> , <http://www.opengis.net/ont/gml> ;
+#        owl:imports     <http://www.opengis.net/citygml/tunnel/2.0/tunnel> , <http://www.opengis.net/citygml/waterbody/2.0/waterbody> , <http://def.isotc211.org/iso19150/-2/2012/base> , <http://www.opengis.net/ont/gml> , <http://www.opengis.net/citygml/relief/2.0/relief> , <http://www.opengis.net/citygml/landuse/2.0/landuse> , <http://www.opengis.net/citygml/building/2.0/building> , <http://www.opengis.net/citygml/bridge/2.0/bridge> , <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture> , <http://www.opengis.net/citygml/generics/2.0/generics> , <http://www.opengis.net/citygml/transportation/2.0/transportation> , <http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup> , <http://www.opengis.net/citygml/vegetation/2.0/vegetation> ;
+        skos:prefLabel  "Core"@en .
 
-###  http://www.opengis.net/citygml/2.0/core#DoubleBetween0and1
-core:DoubleBetween0and1 rdf:type owl:Class ;
-                        rdfs:label "DoubleBetween0and1"@en ;
-                        skos:prefLabel "DoubleBetween0and1"@en .
+core:ImplicitGeometry.referencePoint
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:ImplicitGeometry ;
+        rdfs:label      "referencePoint"@en ;
+        rdfs:range      gmlowl:Point ;
+        skos:prefLabel  "referencePoint"@en .
 
+core:RelativeToTerrain
+        a               rdfs:Datatype ;
+        rdfs:label      "RelativeToTerrain"@en ;
+        owl:equivalentClass
+                        [ a             rdfs:Datatype ;
+                          owl:oneOf       ( "entirelyAboveTerrain" "substantiallyAboveTerrain" "substantiallyAboveAndBelowTerrain" "substantiallyBelowTerrain" "entirelyBelowTerrain" ) ;
+                        ] ;
+        skos:prefLabel  "RelativeToTerrain"@en .
 
-###  http://www.opengis.net/citygml/2.0/core#DoubleBetween0and1List
-core:DoubleBetween0and1List rdf:type owl:Class ;
-                            rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                              owl:onProperty core:DoubleBetween0and1List.list ;
-                                              owl:allValuesFrom iso19136:doubleList
-                                            ] ;
-                            rdfs:label "DoubleBetween0and1List"@en ;
-                            skos:prefLabel "DoubleBetween0and1List"@en .
+core:AbstractCityObject.generalizesTo
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:AbstractCityObject ;
+        rdfs:label      "generalizesTo"@en ;
+        rdfs:range      core:AbstractCityObject ;
+        skos:prefLabel  "generalizesTo"@en .
 
-
-###  http://www.opengis.net/citygml/2.0/core#ExternalReference
-core:ExternalReference rdf:type owl:Class ;
-                       rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                         owl:onProperty core:ExternalReference.externalObject_name ;
-                                         owl:allValuesFrom xsd:string
-                                       ] ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty core:ExternalReference.externalObject_uri ;
-                                         owl:allValuesFrom xsd:anyURI
-                                       ] ,
-                                       [ rdf:type owl:Restriction ;
-                                         owl:onProperty core:ExternalReference.informationSystem ;
-                                         owl:allValuesFrom xsd:anyURI
-                                       ] ;
-                       rdfs:label "ExternalReference"@en ;
-                       skos:definition "SIG3D: Reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap?."@en ;
-                       skos:prefLabel "ExternalReference"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#ImplicitGeometry
-core:ImplicitGeometry rdf:type owl:Class ;
-                      rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                        owl:onProperty core:ImplicitGeometry.mimeType ;
-                                        owl:allValuesFrom iso19136:Code
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty core:ImplicitGeometry.referencePoint ;
-                                        owl:allValuesFrom gsp:Geometry
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty core:ImplicitGeometry.relativeGMLGeometry ;
-                                        owl:allValuesFrom gsp:Geometry
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty core:ImplicitGeometry.transformationMatrix ;
-                                        owl:allValuesFrom core:TransformationMatrix4x4
-                                      ] ,
-                                      [ rdf:type owl:Restriction ;
-                                        owl:onProperty core:ImplicitGeometry.libraryObject ;
-                                        owl:allValuesFrom xsd:anyURI
-                                      ] ;
-                      rdfs:label "ImplicitGeometry"@en ;
-                      skos:definition "SIG3D: A  geometric representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model."@en ;
-                      skos:prefLabel "ImplicitGeometry"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#IntegerBetween0and4
-core:IntegerBetween0and4 rdf:type owl:Class ;
-                         rdfs:label "IntegerBetween0and4"@en ;
-                         skos:prefLabel "IntegerBetween0and4"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#TransformationMatrix2x2
-core:TransformationMatrix2x2 rdf:type owl:Class ;
-                             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                               owl:onProperty core:TransformationMatrix2x2.list ;
-                                               owl:allValuesFrom iso19136:doubleList
-                                             ] ;
-                             rdfs:label "TransformationMatrix2x2"@en ;
-                             skos:definition "SIG3D: 2x2 Transformation matrix (z-rotation and scaling)"@en ;
-                             skos:prefLabel "TransformationMatrix2x2"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#TransformationMatrix3x4
-core:TransformationMatrix3x4 rdf:type owl:Class ;
-                             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                               owl:onProperty core:TransformationMatrix3x4.list ;
-                                               owl:allValuesFrom iso19136:doubleList
-                                             ] ;
-                             rdfs:label "TransformationMatrix3x4"@en ;
-                             skos:definition "SIG3D: 3x4 transformation matrix, (arbitrary rotation and scaling and translation)."@en ;
-                             skos:prefLabel "TransformationMatrix3x4"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#TransformationMatrix4x4
-core:TransformationMatrix4x4 rdf:type owl:Class ;
-                             rdfs:subClassOf [ rdf:type owl:Restriction ;
-                                               owl:onProperty core:TransformationMatrix4x4.list ;
-                                               owl:allValuesFrom iso19136:doubleList
-                                             ] ;
-                             rdfs:label "TransformationMatrix4x4"@en ;
-                             skos:definition "SIG3D: Transformation matrix with 4 rows and columns, used for simultaneously specifying translation, rotation and scaling."@en ;
-                             skos:prefLabel "TransformationMatrix4x4"@en .
-
-
-###  http://www.opengis.net/citygml/2.0/core#XALAddressDetails
-core:XALAddressDetails rdf:type owl:Class ;
-                       rdfs:label "XALAddressDetails"@en ;
-                       skos:prefLabel "XALAddressDetails"@en .
-
-
-#################################################################
-#    General axioms
-#################################################################
-
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( core:AbstractSite
-                brid:AbstractBoundarySurface
-                brid:AbstractOpening
-                brid:BridgeConstructionElement
-                brid:BridgeFurniture
-                brid:BridgeInstallation
-                brid:BridgeRoom
-                brid:IntBridgeInstallation
-                bldg:AbstractBoundarySurface
-                bldg:AbstractOpening
-                bldg:BuildingFurniture
-                bldg:BuildingInstallation
-                bldg:IntBuildingInstallation
-                bldg:Room
-                frn:CityFurniture
-                grp:CityObjectGroup
-                gen:GenericCityObject
-                luse:LandUse
-                dem:AbstractReliefComponent
-                dem:ReliefFeature
-                tran:AbstractTransportationObject
-                tun:AbstractBoundarySurface
-                tun:AbstractOpening
-                tun:HollowSpace
-                tun:IntTunnelInstallation
-                tun:TunnelFurniture
-                tun:TunnelInstallation
-                veg:AbstractVegetationObject
-                wtr:AbstractWaterBoundarySurface
-                wtr:AbstractWaterObject
-              )
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
 ] .
 
+core:AbstractCityObject.terminationDate
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:label       "terminationDate"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D:  Date the AbstractCityObject was removed"@en ;
+        skos:prefLabel   "terminationDate"@en .
 
-[ rdf:type owl:AllDisjointClasses ;
-  owl:members ( brid:AbstractBridge
-                bldg:AbstractBuilding
-                tun:AbstractTunnel
-              )
+core:ImplicitGeometry.mimeType
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:label       "mimeType"@en ;
+        rdfs:range       iso19136-bt:Code ;
+        skos:definition  "SIG3D: Mime type of the referenced external geometric object (attribute libraryObject)."@en ;
+        skos:prefLabel   "mimeType"@en .
+
+core:AbstractSite  a           owl:Class ;
+        rdfs:label             "AbstractSite"@en ;
+        rdfs:subClassOf        core:AbstractCityObject ;
+        iso19150-2:isAbstract  true ;
+        skos:definition        "SIG3D: Abstract superclass of buildings,tunnels, bridges and other constructions."@en ;
+        skos:prefLabel         "AbstractSite"@en .
+
+core:ImplicitGeometry.libraryObject
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:label       "libraryObject"@en ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: External link to a prototype geometry."@en ;
+        skos:prefLabel   "libraryObject"@en .
+
+core:Address.multiPoint
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:Address ;
+        rdfs:label      "multiPoint"@en ;
+        rdfs:range      gmlowl:MultiPoint ;
+        skos:prefLabel  "multiPoint"@en .
+
+core:IntegerBetween0and4
+        a               owl:Class ;
+        rdfs:label      "IntegerBetween0and4"@en ;
+        skos:prefLabel  "IntegerBetween0and4"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:AbstractSite brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
 ] .
 
+core:ExternalReference
+        a                owl:Class ;
+        rdfs:label       "ExternalReference"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.externalObject_uri
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     core:ExternalReference.externalObject_name
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.informationSystem
+                         ] ;
+        skos:definition  "SIG3D: Reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap?."@en ;
+        skos:prefLabel   "ExternalReference"@en .
 
-###  Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi
+core:DoubleBetween0and1
+        a               owl:Class ;
+        rdfs:label      "DoubleBetween0and1"@en ;
+        skos:prefLabel  "DoubleBetween0and1"@en .
+
+core:TransformationMatrix3x4.list
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:TransformationMatrix3x4 ;
+        rdfs:label      "list"@en ;
+        rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+        skos:prefLabel  "list"@en .
+
+core:AbstractCityObject.abstractGenericAttribute
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:AbstractCityObject ;
+        rdfs:label      "abstractGenericAttribute"@en ;
+        rdfs:range      gen:AbstractGenericAttribute ;
+        skos:prefLabel  "abstractGenericAttribute"@en .
+
+core:Address  a          owl:Class ;
+        rdfs:label       "Address"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiPoint ;
+                           owl:onProperty     core:Address.multiPoint
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:XALAddressDetails ;
+                           owl:onProperty     core:Address.xalAddress
+                         ] ;
+        skos:definition  "SIG3D: Proxy for the OASIS address schema"@en ;
+        skos:prefLabel   "Address"@en .
+
+core:ExternalReference.externalObject_uri
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ExternalReference ;
+        rdfs:label       "externalObject_uri"@en ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: URL or URN of the object."@en ;
+        skos:prefLabel   "externalObject_uri"@en .
+
+core:ImplicitGeometry.transformationMatrix
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:ImplicitGeometry ;
+        rdfs:label       "transformationMatrix"@en ;
+        rdfs:range       core:TransformationMatrix4x4 ;
+        skos:definition  "SIG3D: Mathematical transformation (translation, rotation and scaling) between the prototype geometry and the actual spatial position of the object."@en ;
+        skos:prefLabel   "transformationMatrix"@en .
+
+core:CityModel.cityObjectMember
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:CityModel ;
+        rdfs:label       "cityObjectMember"@en ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "SIG3D: Relation of CityModel to AbstractCityObject."@en ;
+        skos:prefLabel   "cityObjectMember"@en .
+
+core:ExternalReference.externalObject_name
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ExternalReference ;
+        rdfs:label       "externalObject_name"@en ;
+        rdfs:range       xsd:string ;
+        skos:definition  "SIG3D: Name of the object"@en ;
+        skos:prefLabel   "externalObject_name"@en .
+
+core:TransformationMatrix4x4.list
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:TransformationMatrix4x4 ;
+        rdfs:label       "list"@en ;
+        rdfs:range       <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+        skos:definition  "SIG3D: Elements of the transformation matrix in row major order."@en ;
+        skos:prefLabel   "list"@en .
+
+core:XALAddressDetails
+        a               owl:Class ;
+        rdfs:label      "XALAddressDetails"@en ;
+        skos:prefLabel  "XALAddressDetails"@en .
+
+core:RelativeToWater    a  rdfs:Datatype ;
+        rdfs:label      "RelativeToWater"@en ;
+        owl:equivalentClass
+                        [ a             rdfs:Datatype ;
+                          owl:oneOf     ( "entirelyAboveWaterSurface" "substantiallyAboveWaterSurface" "substantiallyAboveAndBelowWaterSurface" "substantiallyBelowWaterSurface" "entirelyBelowWaterSurface" "temporarilyAboveAndBelowWaterSurface" )
+                        ] ;
+        skos:prefLabel  "RelativeToWater"@en .
+
+core:AbstractCityObject.creationDate
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:label       "creationDate"@en ;
+        rdfs:range       xsd:date ;
+        skos:definition  "SIG3D: Date the AbstractCityObject was generated."@en ;
+        skos:prefLabel   "creationDate"@en .
+
+core:AbstractAppearance
+        a                      owl:Class ;
+        rdfs:label             "AbstractAppearance"@en ;
+        iso19150-2:isAbstract  true ;
+        skos:prefLabel         "AbstractAppearance"@en .
+
+core:TransformationMatrix4x4
+        a                owl:Class ;
+        rdfs:label       "TransformationMatrix4x4"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+                           owl:onProperty     core:TransformationMatrix4x4.list
+                         ] ;
+        skos:definition  "SIG3D: Transformation matrix with 4 rows and columns, used for simultaneously specifying translation, rotation and scaling."@en ;
+        skos:prefLabel   "TransformationMatrix4x4"@en .
+
+core:TransformationMatrix3x4
+        a                owl:Class ;
+        rdfs:label       "TransformationMatrix3x4"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+                           owl:onProperty     core:TransformationMatrix3x4.list
+                         ] ;
+        skos:definition  "SIG3D: 3x4 transformation matrix, (arbitrary rotation and scaling and translation)."@en ;
+        skos:prefLabel   "TransformationMatrix3x4"@en .
+
+core:AbstractCityObject.relativeToTerrain
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:label       "relativeToTerrain"@en ;
+        rdfs:range       core:RelativeToTerrain ;
+        skos:definition  "SIG3D: Vertical position of the \r\nAbstractCityObject relative to the surrounding terrain."@en ;
+        skos:prefLabel   "relativeToTerrain"@en .
+
+core:AbstractCityObject.appearance
+        a               owl:ObjectProperty ;
+        rdfs:domain     core:AbstractCityObject ;
+        rdfs:label      "appearance"@en ;
+        rdfs:range      core:AbstractAppearance ;
+        skos:prefLabel  "appearance"@en .
+
+core:AbstractCityObject.relativeToWater
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:label       "relativeToWater"@en ;
+        rdfs:range       core:RelativeToWater ;
+        skos:definition  "SIG3D: Vertical position of the AbstractCityObject relative to a surrounding water surface."@en ;
+        skos:prefLabel   "relativeToWater"@en .
+
+core:ExternalReference.informationSystem
+        a                owl:DatatypeProperty ;
+        rdfs:domain      core:ExternalReference ;
+        rdfs:label       "informationSystem"@en ;
+        rdfs:range       xsd:anyURI ;
+        skos:definition  "SIG3D: URL or URN of the information system or data set."@en ;
+        skos:prefLabel   "informationSystem"@en .
+
+core:AbstractCityObject.externalReference
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:label       "externalReference"@en ;
+        rdfs:range       core:ExternalReference ;
+        skos:definition  "SIG3D: Relation to an ExternalReference"@en ;
+        skos:prefLabel   "externalReference"@en .
+
+core:ImplicitGeometry
+        a                owl:Class ;
+        rdfs:label       "ImplicitGeometry"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:Point ;
+                           owl:onProperty     core:ImplicitGeometry.referencePoint
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     core:ImplicitGeometry.relativeGMLGeometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ImplicitGeometry.libraryObject
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:TransformationMatrix4x4 ;
+                           owl:onProperty     core:ImplicitGeometry.transformationMatrix
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     core:ImplicitGeometry.mimeType
+                         ] ;
+        skos:definition  "SIG3D: A  geometric representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model."@en ;
+        skos:prefLabel   "ImplicitGeometry"@en .
+
+core:CityModel  a        owl:Class ;
+        rdfs:label       "CityModel"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractAppearance ;
+                           owl:onProperty     core:CityModel.appearanceMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     core:CityModel.cityObjectMember
+                         ] ;
+        skos:definition  "SIG3D: Collection of CityObjects with optional metadata."@en ;
+        skos:prefLabel   "CityModel"@en .

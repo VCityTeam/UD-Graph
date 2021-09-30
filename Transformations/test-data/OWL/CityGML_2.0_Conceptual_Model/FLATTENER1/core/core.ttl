@@ -1,3 +1,4 @@
+@prefix iso19136-bt: <http://def.isotc211.org/iso19136/2007/BasicTypes#> .
 @prefix bldg:  <http://www.opengis.net/citygml/building/2.0/building#> .
 @prefix frn:   <http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
@@ -11,11 +12,11 @@
 @prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 @prefix tun:   <http://www.opengis.net/citygml/tunnel/2.0/tunnel#> .
 @prefix dem:   <http://www.opengis.net/citygml/relief/2.0/relief#> .
+@prefix orph:  <http://def.isotc211.org/orphans/Orphans#> .
 @prefix core:  <http://www.opengis.net/citygml/2.0/core#> .
 @prefix gen:   <http://www.opengis.net/citygml/generics/2.0/generics#> .
 @prefix wtr:   <http://www.opengis.net/citygml/waterbody/2.0/waterbody#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix iso19136: <http://def.isotc211.org/iso19136/2007/GML> .
 @prefix veg:   <http://www.opengis.net/citygml/vegetation/2.0/vegetation#> .
 @prefix tran:  <http://www.opengis.net/citygml/transportation/2.0/transportation#> .
 
@@ -23,26 +24,22 @@ core:TransformationMatrix2x2.list
         a                owl:ObjectProperty ;
         rdfs:domain      core:TransformationMatrix2x2 ;
         rdfs:label       "list"@en ;
-        rdfs:range       iso19136:doubleList ;
+        rdfs:range       <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
         skos:definition  "SIG3D: Elements of the matrix in row major order."@en ;
         skos:prefLabel   "list"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
-] .
 
 core:DoubleBetween0and1List.list
         a               owl:ObjectProperty ;
         rdfs:domain     core:DoubleBetween0and1List ;
         rdfs:label      "list"@en ;
-        rdfs:range      iso19136:doubleList ;
+        rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
         skos:prefLabel  "list"@en .
 
 core:DoubleBetween0and1List
         a                owl:Class ;
         rdfs:label       "DoubleBetween0and1List"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
                            owl:onProperty     core:DoubleBetween0and1List.list
                          ] ;
         skos:prefLabel   "DoubleBetween0and1List"@en .
@@ -58,7 +55,7 @@ core:TransformationMatrix2x2
         a                owl:Class ;
         rdfs:label       "TransformationMatrix2x2"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
                            owl:onProperty     core:TransformationMatrix2x2.list
                          ] ;
         skos:definition  "SIG3D: 2x2 Transformation matrix (z-rotation and scaling)"@en ;
@@ -86,14 +83,6 @@ core:AbstractCityObject
                                  owl:onProperty     core:AbstractCityObject.externalReference
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     core:AbstractCityObject.terminationDate
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToWater ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToWater
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:AbstractCityObject ;
                                  owl:onProperty     core:AbstractCityObject.generalizesTo
                                ] ;
@@ -102,16 +91,24 @@ core:AbstractCityObject
                                  owl:onProperty     core:AbstractCityObject.relativeToTerrain
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:AbstractAppearance ;
-                                 owl:onProperty     core:AbstractCityObject.appearance
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gen:AbstractGenericAttribute ;
                                  owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.terminationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
                                  owl:onProperty     core:AbstractCityObject.creationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToWater ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToWater
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
@@ -143,6 +140,10 @@ core:AbstractCityObject.generalizesTo
         rdfs:range      core:AbstractCityObject ;
         skos:prefLabel  "generalizesTo"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
+] .
+
 core:AbstractCityObject.terminationDate
         a                owl:DatatypeProperty ;
         rdfs:domain      core:AbstractCityObject ;
@@ -155,7 +156,7 @@ core:ImplicitGeometry.mimeType
         a                owl:ObjectProperty ;
         rdfs:domain      core:ImplicitGeometry ;
         rdfs:label       "mimeType"@en ;
-        rdfs:range       iso19136:Code ;
+        rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Mime type of the referenced external geometric object (attribute libraryObject)."@en ;
         skos:prefLabel   "mimeType"@en .
 
@@ -174,10 +175,6 @@ core:ImplicitGeometry.libraryObject
         skos:definition  "SIG3D: External link to a prototype geometry."@en ;
         skos:prefLabel   "libraryObject"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( core:AbstractSite brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
-] .
-
 core:Address.multiPoint
         a               owl:ObjectProperty ;
         rdfs:domain     core:Address ;
@@ -189,6 +186,10 @@ core:IntegerBetween0and4
         a               owl:Class ;
         rdfs:label      "IntegerBetween0and4"@en ;
         skos:prefLabel  "IntegerBetween0and4"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( core:AbstractSite brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
+] .
 
 core:ExternalReference
         a                owl:Class ;
@@ -217,7 +218,7 @@ core:TransformationMatrix3x4.list
         a               owl:ObjectProperty ;
         rdfs:domain     core:TransformationMatrix3x4 ;
         rdfs:label      "list"@en ;
-        rdfs:range      iso19136:doubleList ;
+        rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
         skos:prefLabel  "list"@en .
 
 core:AbstractCityObject.abstractGenericAttribute
@@ -276,7 +277,7 @@ core:TransformationMatrix4x4.list
         a                owl:ObjectProperty ;
         rdfs:domain      core:TransformationMatrix4x4 ;
         rdfs:label       "list"@en ;
-        rdfs:range       iso19136:doubleList ;
+        rdfs:range       <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
         skos:definition  "SIG3D: Elements of the transformation matrix in row major order."@en ;
         skos:prefLabel   "list"@en .
 
@@ -308,7 +309,7 @@ core:TransformationMatrix4x4
         a                owl:Class ;
         rdfs:label       "TransformationMatrix4x4"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
                            owl:onProperty     core:TransformationMatrix4x4.list
                          ] ;
         skos:definition  "SIG3D: Transformation matrix with 4 rows and columns, used for simultaneously specifying translation, rotation and scaling."@en ;
@@ -318,7 +319,7 @@ core:TransformationMatrix3x4
         a                owl:Class ;
         rdfs:label       "TransformationMatrix3x4"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:doubleList ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
                            owl:onProperty     core:TransformationMatrix3x4.list
                          ] ;
         skos:definition  "SIG3D: 3x4 transformation matrix, (arbitrary rotation and scaling and translation)."@en ;
@@ -383,7 +384,7 @@ core:ImplicitGeometry
                            owl:onProperty     core:ImplicitGeometry.transformationMatrix
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136:Code ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     core:ImplicitGeometry.mimeType
                          ] ;
         skos:definition  "SIG3D: A  geometric representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model."@en ;
