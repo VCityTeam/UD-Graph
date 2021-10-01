@@ -1,6 +1,7 @@
 <ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
   <input>
-    <parameter name="inputModelType" value="SCXML"/>
+    <!-- <parameter name="inputModelType" value="SCXML"/> -->
+    <parameter name="inputModelType" value="EA7"/>
     <parameter name="inputFile" value="$input$"/>
     <parameter name="appSchemaNamespaceRegex" value="^http://www.opengis.net/citygml/.*"/>
     <parameter name="checkingConstraints" value="disabled"/>
@@ -103,10 +104,10 @@
         <RdfTypeMapEntry type="IntegerBetween0and4" target="xsd:int" targetType="datatype"/>
         <RdfTypeMapEntry type="ColorPlusOpacity" target="iso19136-bt:doubleList"/>
         <RdfTypeMapEntry type="Color" target="iso19136-bt:doubleList"/> -->
-        <!-- <RdfTypeMapEntry type="NoiseCityFurnitureSegment" target="noise:NoiseCityFurnitureSegment"/> -->
-        <!-- <RdfTypeMapEntry type="NoiseRoadSegment" target="noise:NoiseRoadSegment"/> -->
-        <!-- <RdfTypeMapEntry type="NoiseRailwaySegment" target="noise:NoiseRailwaySegment"/> -->
-        <!-- <RdfTypeMapEntry type="AbstractBuilding" schema="http://www.citygml.org/ade/noise_de/2.0" target="noise:AbstractBuilding"/> -->
+        <RdfTypeMapEntry type="NoiseCityFurnitureSegment" target="noise:NoiseCityFurnitureSegment"/>
+        <RdfTypeMapEntry type="NoiseRoadSegment" target="noise:NoiseRoadSegment"/>
+        <RdfTypeMapEntry type="NoiseRailwaySegment" target="noise:NoiseRailwaySegment"/>
+        <RdfTypeMapEntry type="AbstractBuilding" schema="http://www.citygml.org/ade/noise_de/2.0" target="noise:AbstractBuilding"/>
       </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">
@@ -115,6 +116,7 @@
           <!-- <rule name="rule-owl-pkg-singleOntologyPerSchema"/> -->
           <rule name="rule-owl-pkg-importISO191502Base"/>
           <rule name="rule-owl-cls-iso191502IsAbstract"/>
+          <!-- <rule name="rule-owl-cls-enumerationAsCodelist"/> -->
           <rule name="rule-owl-cls-iso191502Enumeration"/>
           <rule name="rule-owl-cls-encode-featuretypes"/>
           <rule name="rule-owl-cls-encode-objecttypes"/>
