@@ -74,18 +74,24 @@
         <Namespace nsabr="veg" ns="http://www.opengis.net/citygml/vegetation/3.0"/>
         <Namespace nsabr="vers" ns="http://www.opengis.net/citygml/versioning/3.0"/>
         <Namespace nsabr="wtr" ns="http://www.opengis.net/citygml/waterbody/3.0"/>
+        <Namespace nsabr="work" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0/"/>
         <Namespace nsabr="xAL" ns="urn:oasis:names:tc:ciq:xal:3"/>
         <Namespace nsabr="gml" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
         <!-- ISO TC211 namespaces -->
         <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#"/>
-        <Namespace nsabr="iso19107" ns="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#"/>
+        <Namespace nsabr="iso19107-cm" ns="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#"/>
+        <Namespace nsabr="iso19107-gc" ns="http://def.isotc211.org/iso19107/2003/GeometricComplex#"/>
         <Namespace nsabr="iso19108-trs" ns="http://def.isotc211.org/iso19108/2006/TemporalReferenceSystem#"/>
         <Namespace nsabr="iso19108-obj" ns="http://def.isotc211.org/iso19108/2006/TemporalObjects#"/>
         <Namespace nsabr="iso19109" ns="http://def.isotc211.org/iso19109/2015/GeneralFeatureModel#"/>
         <Namespace nsabr="iso19111-2007" ns="http://def.isotc211.org/iso19111/2007/CoordinateReferenceSystems#"/>
         <Namespace nsabr="iso19111-2019" ns="http://def.isotc211.org/iso19111/2019/CoordinateReferenceSystems#"/>
         <Namespace nsabr="iso19123" ns="http://def.isotc211.org/iso19123/2005/DiscreteCoverages#"/>
-        <Namespace nsabr="iso19136" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
+        <Namespace nsabr="iso19136-bt" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
+        <Namespace nsabr="orph" ns="http://def.isotc211.org/orphans/Orphans#"/>
+        <!-- OGC Standard namespaces -->
+        <Namespace nsabr="tsml" ns="http://www.opengis.net/tsml/1.0#"/>
+        <Namespace nsabr="sos" ns="http://www.opengis.net/sos/1.0#"/>
       </namespaces>
       <descriptorTargets>
         <!-- <DescriptorTarget target="skos:prefLabel" template="[[name]]"/> -->
@@ -101,11 +107,19 @@
         <RdfTypeMapEntry target="iso19109:AnyFeature" type="AnyFeature"/>
         <RdfTypeMapEntry target="iso19123:CV_DiscreteGridPointCoverage" type="CV_DiscreteGridPointCoverage"/>
         <RdfTypeMapEntry target="iso19111-2019:EngineeringCRS" type="EngineeringCRS"/>
-        <RdfTypeMapEntry target="iso19136:MeasureOrNilReasonList" type="MeasureOrNilReasonList"/>
+        <RdfTypeMapEntry target="iso19136-bt:MeasureOrNilReasonList" type="MeasureOrNilReasonList"/>
         <RdfTypeMapEntry target="iso19111-2007:SC_CRS" type="SC_CRS"/>
         <RdfTypeMapEntry target="iso19103:UnitOfMeasure" type="UnitOfMeasure"/>
         <RdfTypeMapEntry target="iso19108-obj:TM_Duration" type="TM_Duration"/>
-        <RdfTypeMapEntry target="iso19107:GM_TriangulatedSurface" type="GM_TriangulatedSurface"/>
+        <RdfTypeMapEntry target="iso19107-cm:GM_TriangulatedSurface" type="GM_TriangulatedSurface"/>
+        <RdfTypeMapEntry target="iso19107-gc:GM_Complex" type="GM_Complex"/>
+        <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="orph:Sequence.lt.Real.gt."/>
+        <RdfTypeMapEntry type="Code" target="iso19136-bt:Code"/>
+        <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="orph:Sequence.lt.MeasureOrNilReason.gt."/>
+        <RdfTypeMapEntry type="doubleList" target="iso19136-bt:doubleList"/>
+        <RdfTypeMapEntry type="TimeseriesDomainRange" target="tsml:TimeseriesDomainRange"/>
+        <RdfTypeMapEntry type="TimeseriesTVP" target="tsml:TimeseriesTVP"/>
+        <RdfTypeMapEntry type="GetObservationResponse" target="sos:GetObservationResponse"/>
       </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">
