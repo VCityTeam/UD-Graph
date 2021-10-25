@@ -1,7 +1,6 @@
 <ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
   <input>
-    <!-- <parameter name="inputModelType" value="SCXML"/> -->
-    <parameter name="inputModelType" value="EA7"/>
+    <parameter name="inputModelType" value="SCXML"/>
     <parameter name="inputFile" value="$input$"/>
     <parameter name="appSchemaNamespaceRegex" value="^http://www.opengis.net/citygml/.*"/>
     <parameter name="checkingConstraints" value="disabled"/>
@@ -54,23 +53,23 @@
     <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER2"> -->
       <targetParameter name="outputDirectory" value="$output$"/>
       <targetParameter name="defaultEncodingRule" value="CityGML_RDF_Encoding_Rules"/>
-      <!-- <targetParameter name="URIbase" value="http://www.opengis.net/citygml/2.0"/> -->
+      <targetParameter name="URIbase" value="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0"/>
       <targetParameter name="language" value="en"/>
       <xi:include href="https://shapechange.net/resources/config/StandardNamespaces-owl.xml"/>
       <namespaces>
-        <Namespace nsabr="app" ns="http://www.opengis.net/citygml/appearance/2.0/appearance#"/>
-        <Namespace nsabr="brid" ns="http://www.opengis.net/citygml/bridge/2.0/bridge#"/>
-        <Namespace nsabr="bldg" ns="http://www.opengis.net/citygml/building/2.0/building#"/>
-        <Namespace nsabr="frn" ns="http://www.opengis.net/citygml/cityfurniture/2.0/cityfurniture#"/>
-        <Namespace nsabr="grp" ns="http://www.opengis.net/citygml/cityobjectgroup/2.0/cityobjectgroup#"/>
-        <Namespace nsabr="core" ns="http://www.opengis.net/citygml/2.0/core#"/>
-        <Namespace nsabr="gen" ns="http://www.opengis.net/citygml/generics/2.0/generics#"/>
-        <Namespace nsabr="luse" ns="http://www.opengis.net/citygml/landuse/2.0/landuse#"/>
-        <Namespace nsabr="dem" ns="http://www.opengis.net/citygml/relief/2.0/relief#"/>
-        <Namespace nsabr="tran" ns="http://www.opengis.net/citygml/transportation/2.0/transportation#"/>
-        <Namespace nsabr="tun" ns="http://www.opengis.net/citygml/tunnel/2.0/tunnel#"/>
-        <Namespace nsabr="veg" ns="http://www.opengis.net/citygml/vegetation/2.0/vegetation#"/>
-        <Namespace nsabr="wtr" ns="http://www.opengis.net/citygml/waterbody/2.0/waterbody#"/>
+        <Namespace nsabr="app" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/appearance#"/>
+        <Namespace nsabr="brid" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/bridge#"/>
+        <Namespace nsabr="bldg" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/building#"/>
+        <Namespace nsabr="frn" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityfurniture#"/>
+        <Namespace nsabr="grp" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityobjectgroup#"/>
+        <Namespace nsabr="core" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core#"/>
+        <Namespace nsabr="gen" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/generics#"/>
+        <Namespace nsabr="luse" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/landuse#"/>
+        <Namespace nsabr="dem" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/relief#"/>
+        <Namespace nsabr="tran" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/transportation#"/>
+        <Namespace nsabr="tun" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/tunnel#"/>
+        <Namespace nsabr="veg" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/vegetation#"/>
+        <Namespace nsabr="wtr" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/waterbody#"/>
         <Namespace nsabr="noise" ns="http://www.citygml.org/ade/noise_de/2.0/noise_de#"/>
         <Namespace nsabr="iso19123-dc" ns="http://def.isotc211.org/iso19123/2005/DiscreteCoverages#"/>
         <Namespace nsabr="iso19136-bt" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
@@ -107,7 +106,7 @@
         <RdfTypeMapEntry type="NoiseCityFurnitureSegment" target="noise:NoiseCityFurnitureSegment"/>
         <RdfTypeMapEntry type="NoiseRoadSegment" target="noise:NoiseRoadSegment"/>
         <RdfTypeMapEntry type="NoiseRailwaySegment" target="noise:NoiseRailwaySegment"/>
-        <RdfTypeMapEntry type="AbstractBuilding" schema="http://www.citygml.org/ade/noise_de/2.0" target="noise:AbstractBuilding"/>
+        <RdfTypeMapEntry type="AbstractBuilding" schema="Noise" target="noise:AbstractBuilding"/>
       </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">
@@ -116,14 +115,15 @@
           <!-- <rule name="rule-owl-pkg-singleOntologyPerSchema"/> -->
           <rule name="rule-owl-pkg-importISO191502Base"/>
           <rule name="rule-owl-cls-iso191502IsAbstract"/>
-          <!-- <rule name="rule-owl-cls-enumerationAsCodelist"/> -->
-          <rule name="rule-owl-cls-iso191502Enumeration"/>
+          <rule name="rule-owl-cls-enumerationAsCodelist"/>
+          <!-- <rule name="rule-owl-cls-iso191502Enumeration"/> -->
           <rule name="rule-owl-cls-encode-featuretypes"/>
           <rule name="rule-owl-cls-encode-objecttypes"/>
           <rule name="rule-owl-cls-encode-mixintypes"/>
           <rule name="rule-owl-cls-encode-datatypes"/>
           <rule name="rule-owl-cls-encode-basictypes"/>
-          <rule name="rule-owl-cls-codelist-19150-2"/>
+          <rule name="rule-owl-cls-codelist-external"/>
+          <!-- <rule name="rule-owl-cls-codelist-19150-2"/> -->
           <rule name="rule-owl-cls-generalization"/>
           <rule name="rule-owl-cls-disjoint-classes"/>
           <rule name="rule-owl-prop-general"/>
