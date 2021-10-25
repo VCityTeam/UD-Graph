@@ -4,9 +4,10 @@ Repository on graph models for Urban Data.
 This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/) of LIRIS, Université de Lyon, France
 
 ## Related Articles
+- [Towards Limiting Semantic Data Loss In 4D Urban Data Semantic Graph Generation](https://hal.archives-ouvertes.fr/hal-03375084v1) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, 3D GeoInfo 2021
+- [Towards a semantic web representation from a 3D geospatial urban data model](https://hal.archives-ouvertes.fr/hal-03240567v1) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021
 - [From CityGML to OWL](https://hal.archives-ouvertes.fr/hal-02948955) (Technical report on HAL)
 - [Geospatial urban data and the semantic web: From representation to proof of concept](https://github.com/VCityTeam/UD-Graph/blob/master/Internship/Masters%20report.md) (Internship report in markdown)
-- [Towards a semantic web representation from a 3D geospatial urban data model](https://apps.univ-lr.fr/actes/ged/colloques/docWeb/2105041945.0/SAGEO2021_Actes_de_la_conference_vff.pdf) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021
 
 ## Transformations
 The `./Transformations` folder contains the following implementations:
