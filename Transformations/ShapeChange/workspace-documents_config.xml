@@ -56,32 +56,12 @@
       <targetParameter name="language" value="en"/>
       <xi:include href="https://shapechange.net/resources/config/StandardNamespaces-owl.xml"/>
       <namespaces>
-        <!-- CityGML 3.0 namespaces -->
-        <Namespace nsabr="app" ns="http://www.opengis.net/citygml/appearance/3.0"/>
-        <Namespace nsabr="brid" ns="http://www.opengis.net/citygml/bridge/3.0"/>
-        <Namespace nsabr="bldg" ns="http://www.opengis.net/citygml/building/3.0"/>
-        <Namespace nsabr="pcl" ns="http://www.opengis.net/citygml/pointcloud/3.0"/>
-        <Namespace nsabr="frn" ns="http://www.opengis.net/citygml/cityfurniture/3.0"/>
-        <Namespace nsabr="grp" ns="http://www.opengis.net/citygml/cityobjectgroup/3.0"/>
-        <Namespace nsabr="con" ns="http://www.opengis.net/citygml/construction/3.0"/>
-        <Namespace nsabr="core" ns="http://www.opengis.net/citygml/3.0"/>
-        <Namespace nsabr="dyn" ns="http://www.opengis.net/citygml/dynamizer/3.0"/>
-        <Namespace nsabr="gen" ns="http://www.opengis.net/citygml/generics/3.0"/>
-        <Namespace nsabr="luse" ns="http://www.opengis.net/citygml/landuse/3.0"/>
-        <Namespace nsabr="dem" ns="http://www.opengis.net/citygml/relief/3.0"/>
-        <Namespace nsabr="tran" ns="http://www.opengis.net/citygml/transportation/3.0"/>
-        <Namespace nsabr="tun" ns="http://www.opengis.net/citygml/tunnel/3.0"/>
-        <Namespace nsabr="veg" ns="http://www.opengis.net/citygml/vegetation/3.0"/>
-        <Namespace nsabr="vers" ns="http://www.opengis.net/citygml/versioning/3.0"/>
-        <Namespace nsabr="wtr" ns="http://www.opengis.net/citygml/waterbody/3.0"/>
-        <Namespace nsabr="xAL" ns="urn:oasis:names:tc:ciq:xal:3"/>
-        <Namespace nsabr="gml" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
         <!-- CityGML Ontology namespaces -->
-        <Namespace nsabr="core-owl" ns="http://www.opengis.net/citygml/3.0/core#"/>
-        <Namespace nsabr="vers-owl" ns="http://www.opengis.net/citygml/versioning/3.0/versioning#"/>
+        <Namespace nsabr="core-owl" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#"/>
+        <Namespace nsabr="vers-owl" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#"/>
         <!-- Document + Workspace namespace -->
-        <Namespace nsabr="doc" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Document/1.0/"/>
-        <Namespace nsabr="wksp" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0/"/>
+        <Namespace nsabr="doc" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Document/1.0#"/>
+        <Namespace nsabr="wksp" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0#"/>
         <!-- ISO TC211 namespaces -->
         <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#"/>
         <Namespace nsabr="iso19103-2015-col" ns="http://def.isotc211.org/iso19103/2015/Collections#"/>
@@ -117,7 +97,6 @@
         <RdfTypeMapEntry target="iso19108-obj:TM_Instant" type="TM_Instant"/>
         <RdfTypeMapEntry target="iso19107:GM_TriangulatedSurface" type="GM_TriangulatedSurface"/>
         <!-- CityGML 3.0 RDF Map Types -->
-        <RdfTypeMapEntry target="core-owl:AbstractTopLevelCityObject" type="AbstractTopLevelCityObject"/>
         <RdfTypeMapEntry target="core-owl:AbstractFeatureWithLifespan" type="AbstractFeatureWithLifespan"/>
         <RdfTypeMapEntry target="vers-owl:Version" type="Version"/>
         <RdfTypeMapEntry target="vers-owl:VersionTransition" type="VersionTransition"/>
@@ -129,14 +108,14 @@
           <!-- <rule name="rule-owl-pkg-singleOntologyPerSchema"/> -->
           <rule name="rule-owl-pkg-importISO191502Base"/>
           <rule name="rule-owl-cls-iso191502IsAbstract"/>
-          <!-- <rule name="rule-owl-cls-enumerationAsCodelist"/> -->
-          <rule name="rule-owl-cls-iso191502Enumeration"/>
+          <rule name="rule-owl-cls-enumerationAsCodelist"/>
+          <!-- <rule name="rule-owl-cls-iso191502Enumeration"/> -->
           <rule name="rule-owl-cls-encode-featuretypes"/>
           <rule name="rule-owl-cls-encode-objecttypes"/>
           <rule name="rule-owl-cls-encode-mixintypes"/>
           <rule name="rule-owl-cls-encode-datatypes"/>
           <rule name="rule-owl-cls-encode-basictypes"/>
-          <!-- This rule causes an error with transformers -->
+          <rule name="rule-owl-cls-codelist-external"/>
           <!-- <rule name="rule-owl-cls-codelist-19150-2"/> -->
           <rule name="rule-owl-cls-generalization"/>
           <rule name="rule-owl-cls-disjoint-classes"/>
