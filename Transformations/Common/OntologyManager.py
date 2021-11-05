@@ -16,7 +16,8 @@ class OntologyManager:
             'class_definitions': {},
             'datatype_definitions': {},
             'objectproperty_definitions': {},
-            'datatypeproperty_definitions': {}
+            'datatypeproperty_definitions': {},
+            'annotationproperty_definitions': {}
         }
 
         print('Loading configuration...')
@@ -36,14 +37,7 @@ class OntologyManager:
                     filepath = os.path.join(root, file)
                     self.ontology_network.parse(filepath)
                     logging.debug(f'ontology {filepath} added to ontology network')
-                    # if file.endswith('.ttl'):
-                    #     if verbose:
-                    #         print('  ' + file)
-                    #     self.ontology_network.parse(os.path.join(root, file), format='turtle')
-                    # if file.endswith('.rdf'):
-                    #     if verbose:
-                    #         print('  ' + file)
-                    #     self.ontology_network.parse(os.path.join(root, file), format='xml')
+
 
 
     #########################
@@ -64,7 +58,8 @@ class OntologyManager:
             if len(self.config.namespace_mappings[uri.namespace]) == 1:
                 return self.config.namespace_mappings[uri.namespace][0] + uri.localname
             else:
-                # TODO: implement better dynamic namespace resolution for multiple mappings
+                # WARNING: When namespace mappings are 1 to n, it is best to use an RDF
+                # mapping to ensure the datum is mapped correctly
                 for namespace in self.config.namespace_mappings[uri.namespace]:
                     if self.ontology_network.query('''
                             ASK { <%s%s> ?predicate ?object }''' % (namespace, uri.localname)):
@@ -124,7 +119,6 @@ class OntologyManager:
         """return whether a object property definition exists in ontology from a uri.
         The a class uri may be provided to verify if it is within the domain of the
         property."""
-        # TODO: enable searching through other annotation properties such as rdfs:label
         uri = URI(uri)
         if uri in self.definition_cache.objectproperty_definitions.keys():
             if class_uri is None:
@@ -299,7 +293,6 @@ class OntologyManager:
     def isDatatypeProperty(self, property_uri, parent_uri=None):
         """return whether datatype property definition exists in ontology. A class
         uri may be provided to verify if it is within the domain of the property."""
-        # TODO: enable searching through other annotation properties such as rdfs:label
         property_uri = URI(property_uri)
         if property_uri in self.definition_cache.datatypeproperty_definitions.keys():
             if parent_uri is None:
@@ -462,9 +455,21 @@ class OntologyManager:
 
     def isAnnotationProperty(self, uri):
         """return whether an annotation property definition exists in the ontology.
-        Local naming conventions are not used for this query."""
-        # TODO: add annotation definition cache
+        Local naming conventions are not used for this query. Several common annotation
+        properties are included."""
         uri = URI(uri)
+        if uri in ['http://www.w3.org/2000/01/rdf-schema#comment',
+                'http://www.w3.org/2000/01/rdf-schema#isDefinedBy',
+                'http://www.w3.org/2000/01/rdf-schema#label',
+                'http://www.w3.org/2000/01/rdf-schema#seeAlso',
+                'http://www.w3.org/2002/07/owl#backwardCompatibleWith',
+                'http://www.w3.org/2002/07/owl#deprecated',
+                'http://www.w3.org/2002/07/owl#incompatibleWith',
+                'http://www.w3.org/2002/07/owl#priorVersion',
+                'http://www.w3.org/2002/07/owl#versionInfo']:
+            return True
+        if uri in self.definition_cache.annotationproperty_definitions.keys():
+            return len(self.definition_cache.annotationproperty_definitions.get(uri)) > 0
         query = []
         uri_namespace_mappings = self.config.namespace_mappings.get(uri.namespace)
         if uri_namespace_mappings is None:
@@ -485,4 +490,5 @@ class OntologyManager:
                             FILTER regex(STR(?annotationproperty), "^%s%s")
                         }''' % (namespace, uri.localname) ):
                     query.append(line)
-        return len(query) > 0
+        self.definition_cache.annotationproperty_definitions[uri] = query
+        return len(self.definition_cache.annotationproperty_definitions.get(uri)) > 0
