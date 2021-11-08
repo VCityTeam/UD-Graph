@@ -19,6 +19,8 @@ class OntologyManager:
             'datatypeproperty_definitions': {},
             'annotationproperty_definitions': {}
         }
+        self.GML_ONT_NAMESPACE = Namespace('http://www.opengis.net/ont/gml#')
+        self.GeoSPARQL_NAMESPACE = Namespace('http://www.opengis.net/ont/geosparql#')
 
         print('Loading configuration...')
         with open(config, 'r') as file:
@@ -35,9 +37,11 @@ class OntologyManager:
             for root, dirs, files in os.walk(path):
                 for file in files:
                     filepath = os.path.join(root, file)
-                    self.ontology_network.parse(filepath)
+                    if file.endswith('.ttl'):
+                        self.ontology_network.parse(filepath, format='turtle')
+                    if file.endswith('.rdf'):
+                        self.ontology_network.parse(filepath, format='xml')
                     logging.debug(f'ontology {filepath} added to ontology network')
-
 
 
     #########################
@@ -49,21 +53,24 @@ class OntologyManager:
         mapping or namespace mapping exists return that mapping. If a namespace is
         mapped to multiple namespaces, the ontology model is queried to determine which
         namespace is appropriate. The first namespace+localname to appear in
-        the ontological model, is selected as the target namespace to map.'''
-        uri = URI(uri)
+        the ontological model, is selected as the target namespace to map. Always
+        returns uri as a URI()'''
         if uri in self.config.rdf_mappings:
-            return self.config.rdf_mappings[uri]
+            return URI(self.config.rdf_mappings[uri])
+        uri = URI(uri)
 
         if uri.namespace in self.config.namespace_mappings.keys():
             if len(self.config.namespace_mappings[uri.namespace]) == 1:
-                return self.config.namespace_mappings[uri.namespace][0] + uri.localname
+                uri.namespace = self.config.namespace_mappings[uri.namespace][0]
+                return uri
             else:
                 # WARNING: When namespace mappings are 1 to n, it is best to use an RDF
                 # mapping to ensure the datum is mapped correctly
                 for namespace in self.config.namespace_mappings[uri.namespace]:
                     if self.ontology_network.query('''
                             ASK { <%s%s> ?predicate ?object }''' % (namespace, uri.localname)):
-                        return namespace + uri.localname
+                        uri.namespace = namespace
+                        return uri
                 logging.error(f'Unable to map uri, {uri}, to a namespace')
                 return uri
         else:
@@ -363,7 +370,7 @@ class OntologyManager:
 
     def getDatatypePropertyOfClass(self, class_uri, property_uri=None):
         """Find a datatype property which links (intersects) a given class and a datatype
-        based on the domain and range of the property or which a given class contains
+        based on the domain and range of the property or which the given class contains
         a universal restriction of the property."""
         if self.isClass(class_uri):
             if property_uri is None:
@@ -415,6 +422,8 @@ class OntologyManager:
     def isDatatype(self, uri):
         """return whether datatype definition exists in ontological model"""
         uri = URI(uri)
+        if uri.namespace == 'http://www.w3.org/2001/XMLSchema#':
+            return True
         if uri in self.definition_cache.datatype_definitions.keys():
             return len(self.definition_cache.datatype_definitions.get(uri)) > 0
         # TODO: optimize query
@@ -492,3 +501,27 @@ class OntologyManager:
                     query.append(line)
         self.definition_cache.annotationproperty_definitions[uri] = query
         return len(self.definition_cache.annotationproperty_definitions.get(uri)) > 0
+
+    ###########################
+    ### GeoSPARQL Functions ###
+    ###########################
+
+    def isGeometry(self, uri):
+        """return whether a uri is mapped to a valid GeoSPARQL geometry class using the
+        GeoSPARQL ontology."""
+        uri = mapNamespace(uri)
+        if uri.namespace == str(GeoSPARQL_NAMESPACE) and isClass(uri):
+            return ontology.query(
+                'ASK {'
+                    f'<{uri}> rdfs:subClassOf* <{str(GeoSPARQL_NAMESPACE)}AbstractGeometry> .'
+                '}')
+
+    def isGML(self, uri):
+        """return whether a uri is mapped to a valid GML geometry class using the
+        GML OWL ontology."""
+        uri = mapNamespace(uri)
+        if uri.namespace == str(GML_ONT_NAMESPACE) and isClass(uri):
+            return ontology.query(
+                'ASK {'
+                    f'<{uri}> rdfs:subClassOf* <{str(GML_ONT_NAMESPACE)}AbstractGeometry> .'
+                '}')

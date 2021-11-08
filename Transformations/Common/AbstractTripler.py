@@ -8,49 +8,60 @@ from OntologyManager import OntologyManager
 
 class AbstractTripler:
 
-    def __init__(self, args):
-        logging.basicConfig(filename=args.log, level=logging.DEBUG)
-
-        self.args = args
+    def __init__(self, input_file, input_model, config_file, output_dir, output_uri, output_format, log, debug):
+        logging.basicConfig(filename=log, level=logging.DEBUG if debug else logging.WARNING)
+        self.input_file = input_file
+        self.input_model = input_model
+        self.config_file = config_file
+        self.output_dir = output_dir
+        self.output_uri = output_uri
+        self.format = output_format
         self.id_count = {}
         self.parsed_nodes = []
-        self.filename = '.'.join(os.path.split(args.input_file)[-1].split('.')[:-1])
+        self.filename = '.'.join(os.path.split(self.input_file)[-1].split('.')[:-1])
+        self.input_data = None
         self.output_graph = Graph()
-        self.output_uri = f'{args.output_uri}{self.filename}'
-        self.ontology_manager = OntologyManager(args.input_model, args.config_file, args.log)
+        self.output_uri = f'{self.output_uri}{self.filename}'
+        self.ontology_manager = OntologyManager(input_model=self.input_model, config=self.config_file, log=log, debug=debug)
         self.output_graph.namespace_manager = NamespaceManager(self.ontology_manager.ontology_network)
-        self.output_graph.namespace_manager.bind('data', f'{args.output_uri}{self.filename}#')
+        self.output_graph.namespace_manager.bind('data', f'{self.output_uri}{self.filename}#')
 
-        self.output_graph.add( (URIRef(args.output_uri), RDF.type, OWL.Ontology) )
+        self.output_graph.add( (URIRef(self.output_uri), RDF.type, OWL.Ontology) )
         for ontology_uri in self.ontology_manager.ontology_network.query('''
                 SELECT DISTINCT ?ontology
                 WHERE { ?ontology a owl:Ontology . }'''):
-            self.output_graph.add( (URIRef(args.output_uri), OWL.imports, ontology_uri[0]) )
-
+            self.output_graph.add( (URIRef(self.output_uri), OWL.imports, ontology_uri[0]) )
 
     ##########################
     ##  File I/O Functions  ##
     ##########################
 
-    def parseInput(self):
-        """Parse input file"""
+    def readInput(self, input_file):
+        """Parse input file into self.input_data"""
         pass
 
-    def generateRDFTree(self):
-        """Generate an RDF graph from input file"""
-        pass
-
-    def writeOutput(self):
+    def writeOutput(self, output_file):
         """Write the output graph to a file"""
-
+        logging.debug(f'Writing graph to {output_file}')
+        if self.output_format == 'xml':
+            with open(self.output_file, 'wb') as file:
+                file.write(self.output_graph.serialize(format='xml'))
+        else:
+            with open(self.output_file, 'wb') as file:
+                file.write(self.output_graph.serialize(format='turtle'))
 
     ###################################
     ###  Graph Generation Functions  ##
     ###################################
 
+    def generateTriplesFromDataset(self):
+        """Triplify an input file"""
+        pass
+
+
     def generateIndividual(self):
         """Generate a new individual from a datum, then add it to the
-        output graph. An id is returned for recursive calls."""
+        output graph."""
         pass
 
 
@@ -84,19 +95,3 @@ class AbstractTripler:
         else:
             self.id_count[id] = 0
             return f'{self.output_uri}#{id}_0'
-
-
-if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
-    parser.add_argument('input_file', help='specify the input CityGML datafile')
-    parser.add_argument('input_model', help='specify the ontology input path; for multiple ontologies, input paths are separated by a ","')
-    parser.add_argument('config_file', help='specify the configuration file')
-    parser.add_argument('--output', default='.', help='specify the output directory')
-    parser.add_argument('--output_uri', default='https://github.com/VCityTeam/UD-Graph/', help='specify the output uri')
-    parser.add_argument('--format', default='ttl', choices=['ttl', 'rdf'], help='specify the output data format [rdf, ttl]')
-    parser.add_argument('--log', default='output.log', help='specify the logging file')
-    parser.add_argument('-v', '--verbose', action='store_true', help='enable verbose console logging')
-    args = parser.parse_args()
-
-    tripler = AbstractTripler(args)
-    tripler.generateRDFGraph()
