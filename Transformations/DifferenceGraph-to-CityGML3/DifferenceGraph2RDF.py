@@ -63,7 +63,7 @@ def main():
         node_uri = URIRef( args.uri + node_gid )
         if node_gid.startswith(args.time_stamps[0]):
             output_graph.add( (source_version_uri, VERS.versionMember, node_uri) )
-        if node_gid.startswith(args.time_stamps[1]):
+        elif node_gid.startswith(args.time_stamps[1]):
             output_graph.add( (target_version_uri, VERS.versionMember, node_uri) )
         else:
             logging.error(f'could not determine parent version of node: {node_gid}')
