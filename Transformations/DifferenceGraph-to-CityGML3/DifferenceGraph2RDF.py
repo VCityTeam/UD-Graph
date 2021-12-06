@@ -3,7 +3,7 @@ import json
 import logging
 import argparse
 from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import RDF, RDFS, XSD, Namespace
+from rdflib.namespace import XSD, RDF, RDFS, OWL, Namespace
 
 def main():
     # initialize command line arguments
@@ -28,10 +28,6 @@ def main():
                             level=logging.WARNING,
                             format='%(asctime)s %(levelname)-8s %(message)s')
 
-    # init
-    input_filename_base = ".".join( os.path.basename( args.input_file ).split(".")[:-1] )
-    VERS = Namespace('http://www.opengis.net/citygml/versioning/3.0/versioning#')
-
     # read input file
     logging.info(f'loading input file: {args.input_file}...')
     with open(args.input_file, "r") as file:
@@ -39,18 +35,22 @@ def main():
 
     # create output version graph and set namespaces
     output_graph = Graph()
+    VERS = Namespace('https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#')
     output_graph.namespace_manager.bind( 'vers', VERS )
     output_graph.namespace_manager.bind( args.prefix, URIRef(args.uri) )
 
 
     # add VersionTransition and Version
-    source_version_uri = URIRef( f'{args.uri}{input_filename_base}_version_{args.time_stamps[0]}' )
-    target_version_uri = URIRef( f'{args.uri}{input_filename_base}_version_{args.time_stamps[1]}' )
-    versiontransaction_uri = URIRef( f'{args.uri}{input_filename_base}_{args.time_stamps[0]}_{args.time_stamps[1]}_versiontransition' )
+    source_version_uri = URIRef( f'{args.uri}version_{args.time_stamps[0]}' )
+    target_version_uri = URIRef( f'{args.uri}version_{args.time_stamps[1]}' )
+    versiontransaction_uri = URIRef( f'{args.uri}_versiontransition_{args.time_stamps[0]}_{args.time_stamps[1]}' )
 
     output_graph.add( (source_version_uri, RDF.type, VERS.Version) )
+    output_graph.add( (source_version_uri, RDF.type, OWL.NamedIndividual) )
     output_graph.add( (target_version_uri, RDF.type, VERS.Version) )
+    output_graph.add( (target_version_uri, RDF.type, OWL.NamedIndividual) )
     output_graph.add( (versiontransaction_uri, RDF.type, VERS.VersionTransition) )
+    output_graph.add( (versiontransaction_uri, RDF.type, OWL.NamedIndividual) )
     from_uri = URIRef( VERS + 'from' )
     output_graph.add( (versiontransaction_uri, from_uri, source_version_uri) )
     # VERS.from causes a syntax error since the 'from' function is reserved for imports 
@@ -70,7 +70,7 @@ def main():
     
     # populate versionTransition's Transactions
     for edge in input_graph.get('edges'):
-        transaction_uri = URIRef( f'{args.uri}{input_filename_base}_transaction_{edge.get("id")}' )
+        transaction_uri = URIRef( f'{args.uri}transaction_{edge.get("id")}' )
         transaction_type = Literal( edge.get('type'), datatype=XSD.string )
         transaction_tags = Literal( edge.get('tags'), datatype=XSD.string )
         source_node = getNodeById(edge.get('source'), input_graph.get('nodes'))
@@ -79,12 +79,14 @@ def main():
         target_node_uri = URIRef( args.uri + target_node.get('globalid') )
 
         output_graph.add( (transaction_uri, RDF.type, VERS.Transaction) )
+        output_graph.add( (transaction_uri, RDF.type, OWL.NamedIndividual) )
         output_graph.add( (transaction_uri, VERS.type, transaction_type) )
         output_graph.add( (transaction_uri, RDFS.comment, transaction_tags) )
         output_graph.add( (transaction_uri, VERS.oldFeature, source_node_uri) )
         output_graph.add( (transaction_uri, VERS.newFeature, target_node_uri) )
 
     # write version graph to file
+    input_filename_base = ".".join( os.path.basename( args.input_file ).split(".")[:-1] )
     if args.format == 'xml':
         output_file = f'{args.output_dir}/{input_filename_base}.rdf'
         logging.info(f'conversion complete, writing output to {output_file}')
