@@ -36,6 +36,7 @@ def main():
     # create output version graph and set namespaces
     output_graph = Graph()
     VERS = Namespace('https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#')
+    output_graph.namespace_manager.bind( 'owl', OWL )
     output_graph.namespace_manager.bind( 'vers', VERS )
     output_graph.namespace_manager.bind( args.prefix, URIRef(args.uri) )
 
