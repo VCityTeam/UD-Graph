@@ -1,4 +1,4 @@
-@prefix core-owl: <http://www.opengis.net/citygml/3.0/core#> .
+@prefix core-owl: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
 @prefix iso19108-obj: <http://def.isotc211.org/iso19108/2006/TemporalObjects#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
@@ -6,7 +6,6 @@
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix doc:   <https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Document/1.0//document#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix iso19103-2015-col: <http://def.isotc211.org/iso19103/2015/Collections#> .
 
 doc:Tag  a               owl:Class ;
         rdfs:label       "Tag"@en ;
@@ -18,12 +17,6 @@ doc:Tag  a               owl:Class ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     doc:Tag.text
                          ] .
-
-doc:Reference.referringTo
-        a            owl:ObjectProperty ;
-        rdfs:domain  doc:Reference ;
-        rdfs:label   "referringTo"@en ;
-        rdfs:range   core-owl:AbstractTopLevelCityObject .
 
 doc:Reference.referringDate
         a            owl:ObjectProperty ;
@@ -45,14 +38,10 @@ doc:AbstractDocument.uri
 
 doc:AbstractDocument  a  owl:Class ;
         rdfs:label       "AbstractDocument"@en ;
-        rdfs:subClassOf  core-owl:AbstractTopLevelCityObject , core-owl:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf  core-owl:AbstractFeatureWithLifespan ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  doc:Tag ;
                            owl:onProperty     doc:AbstractDocument.tag
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  doc:Reference ;
-                           owl:onProperty     doc:AbstractDocument.referringTo
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:anyURI ;
@@ -83,15 +72,15 @@ doc:AbstractDocument.tag
 doc:Reference  a         owl:Class ;
         rdfs:label       "Reference"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core-owl:AbstractTopLevelCityObject ;
-                           owl:onProperty     doc:Reference.referringTo
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19108-obj:TM_Instant ;
                            owl:onProperty     doc:Reference.referringDate
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19103-2015-col:Code ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     doc:Reference.referenceText
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
                            owl:onProperty     doc:Reference.purposeType
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
@@ -101,17 +90,7 @@ doc:Reference  a         owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19108-obj:TM_Period ;
                            owl:onProperty     doc:Reference.coveragePeriod
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     doc:Reference.referenceText
                          ] .
-
-doc:AbstractDocument.referringTo
-        a            owl:ObjectProperty ;
-        rdfs:domain  doc:AbstractDocument ;
-        rdfs:label   "referringTo"@en ;
-        rdfs:range   doc:Reference .
 
 doc:Tag.uri  a       owl:DatatypeProperty ;
         rdfs:domain  doc:Tag ;
@@ -139,4 +118,4 @@ doc:Reference.purposeType
         a            owl:ObjectProperty ;
         rdfs:domain  doc:Reference ;
         rdfs:label   "purposeType"@en ;
-        rdfs:range   iso19103-2015-col:Code .
+        rdfs:range   owl:Class .
