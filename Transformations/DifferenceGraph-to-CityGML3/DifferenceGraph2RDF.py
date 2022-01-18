@@ -17,7 +17,7 @@ def main():
                          default='.',
                          help='specify the output directory')
     parser.add_argument('--base-uri',
-                         default='https://github.com/VCityTeam/UD-Graph/data#',
+                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset#',
                          help='specify the base URI for output individuals')
     parser.add_argument('--prefix',
                          default='data',
@@ -56,68 +56,86 @@ def main():
 
     # create output version graph and set namespaces
     output_graph = Graph()
-    VERS = Namespace(args.versioning_uri)
+    VERS = None
+    DATA = None
+    if args.versioning_uri.endswith('#') or args.versioning_uri.endswith('/'):
+        VERS = Namespace(args.versioning_uri)
+    else:
+        VERS = Namespace(args.versioning_uri + '#')
+    if args.base_uri.endswith('#') or args.base_uri.endswith('/'):
+        DATA = Namespace(args.base_uri)
+    else:
+        DATA = Namespace(args.base_uri + '#')
     output_graph.namespace_manager.bind( 'owl', OWL )
     output_graph.namespace_manager.bind( 'vers', VERS )
-    output_graph.namespace_manager.bind( args.prefix, URIRef(args.base_uri) )
+    output_graph.namespace_manager.bind( args.prefix, DATA )
 
 
     # add VersionTransition and Version
-    source_version_uri = URIRef( f'{args.base_uri}version_{args.time_stamp[0]}' )
-    target_version_uri = URIRef( f'{args.base_uri}version_{args.time_stamp[1]}' )
-    versiontransaction_uri = URIRef( f'{args.base_uri}versiontransition_{args.time_stamp[0]}_{args.time_stamp[1]}' )
+    source_version_uri = URIRef( DATA.version_ + args.time_stamp[0] )
+    target_version_uri = URIRef( DATA.version_ + args.time_stamp[1] )
+    versiontransition_uri = URIRef( DATA.versiontransition_ + f'{args.time_stamp[0]}_{args.time_stamp[1]}' )
 
     output_graph.add( (source_version_uri, RDF.type, VERS.Version) )
     output_graph.add( (source_version_uri, RDF.type, OWL.NamedIndividual) )
     output_graph.add( (target_version_uri, RDF.type, VERS.Version) )
     output_graph.add( (target_version_uri, RDF.type, OWL.NamedIndividual) )
-    output_graph.add( (versiontransaction_uri, RDF.type, VERS.VersionTransition) )
-    output_graph.add( (versiontransaction_uri, RDF.type, OWL.NamedIndividual) )
-    # VERS.from causes a syntax error
-    # output_graph.add( (versiontransaction_uri, VERS.from, source_version_uri) )
-    from_uri = URIRef( VERS + 'from' )
-    output_graph.add( (versiontransaction_uri, from_uri, source_version_uri) )
-    output_graph.add( (versiontransaction_uri, VERS.to, target_version_uri) )
+    output_graph.add( (versiontransition_uri, RDF.type, VERS.VersionTransition) )
+    output_graph.add( (versiontransition_uri, RDF.type, OWL.NamedIndividual) )
+    from_uri = URIRef( VERS.VersionTransition + '.from' )
+    to_uri = URIRef( VERS.VersionTransition + '.to' )
+    output_graph.add( (versiontransition_uri, from_uri, source_version_uri) )
+    output_graph.add( (versiontransition_uri, to_uri, target_version_uri) )
 
     # populate versions' versionMembers
     for node in input_graph.get('nodes'):
         node_gid = node.get("globalid")
-        node_uri = URIRef( args.base_uri + node_gid )
+        node_uri = URIRef( DATA + node_gid )
+        version_member_uri = URIRef( VERS.Version + '.versionMember' )
         if node_gid.startswith(args.time_stamp[0]):
-            output_graph.add( (source_version_uri, VERS.versionMember, node_uri) )
+            output_graph.add( (source_version_uri, version_member_uri, node_uri) )
         elif node_gid.startswith(args.time_stamp[1]):
-            output_graph.add( (target_version_uri, VERS.versionMember, node_uri) )
+            output_graph.add( (target_version_uri, version_member_uri, node_uri) )
         else:
             logging.error(f'could not determine parent version of node: {node_gid}')
-    
+
     # populate versionTransition's Transactions
     for edge in input_graph.get('edges'):
-        transaction_uri = URIRef( f'{args.base_uri}transaction_{edge.get("id")}' )
+        transaction_uri = URIRef( DATA.transaction_ + f'{args.time_stamp[0]}_{args.time_stamp[1]}_' + edge.get("id") )
         transaction_type = Literal( edge.get('type'), datatype=XSD.string )
+        transaction_type_uri = URIRef( VERS.Transaction + '.type' )
         transaction_tags = Literal( edge.get('tags'), datatype=XSD.string )
         source_node = getNodeById(edge.get('source'), input_graph.get('nodes'))
-        source_node_uri = URIRef( args.base_uri + source_node.get('globalid') )
+        source_node_uri = URIRef( DATA + source_node.get('globalid') )
         target_node = getNodeById(edge.get('target'), input_graph.get('nodes'))
-        target_node_uri = URIRef( args.base_uri + target_node.get('globalid') )
+        target_node_uri = URIRef( DATA + target_node.get('globalid') )
+        old_feature_uri = URIRef( VERS.Transaction + '.oldFeature' )
+        new_feature_uri = URIRef( VERS.Transaction + '.newFeature' )
 
         output_graph.add( (transaction_uri, RDF.type, VERS.Transaction) )
         output_graph.add( (transaction_uri, RDF.type, OWL.NamedIndividual) )
-        output_graph.add( (transaction_uri, VERS.type, transaction_type) )
+        output_graph.add( (transaction_uri, transaction_type_uri, transaction_type) )
         output_graph.add( (transaction_uri, RDFS.comment, transaction_tags) )
-        output_graph.add( (transaction_uri, VERS.oldFeature, source_node_uri) )
-        output_graph.add( (transaction_uri, VERS.newFeature, target_node_uri) )
+        output_graph.add( (transaction_uri, old_feature_uri, source_node_uri) )
+        output_graph.add( (transaction_uri, new_feature_uri, target_node_uri) )
+
+    # populate ontology declarations (by default don't use the fragment identifiers '#' or '/')
+    ontology_uri = URIRef( str(DATA)[:-1] )
+    versioning_ontology_uri = URIRef( str(VERS)[:-1] )
+    output_graph.add( ( ontology_uri, RDF.type, OWL.Ontology ) )
+    output_graph.add( ( ontology_uri, OWL.imports, versioning_ontology_uri ) )
 
     # write version graph to file
     input_filename_base = ".".join( os.path.basename( args.input_file ).split(".")[:-1] )
     if args.format == 'xml':
         output_file = f'{args.output_dir}/{input_filename_base}.rdf'
         logging.info(f'conversion complete, writing output to {output_file}')
-        with open(output_file, 'wb') as file:
+        with open(output_file, 'w') as file:
             file.write(output_graph.serialize(format='xml'))
     else:
         output_file = f'{args.output_dir}/{input_filename_base}.ttl'
         logging.info(f'conversion complete, writing output to {output_file}')
-        with open(output_file, 'wb') as file:
+        with open(output_file, 'w') as file:
             file.write(output_graph.serialize(format='turtle'))
     logging.info('Done!')
 
