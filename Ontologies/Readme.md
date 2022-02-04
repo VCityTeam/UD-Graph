@@ -1,9 +1,9 @@
 ### Ontologies
 
-1. [CityGML 2.0 Conceptual Model OWL](/CityGML/2.0/)
+1. [CityGML 2.0 Conceptual Model OWL](CityGML/2.0/)
    - an ontology network for describing semantic 3D city models created from the [CityGML 2.0 UML model](https://github.com/opengeospatial/CityGML-3.0CM/blob/master/Archive/WP%2001%20Resources/CityGML_2.x_new_2016_03_09.eap)
    - transformed with [ShapeChange](https://shapechange.net/) following the [OGC Testbed 12](http://docs.opengeospatial.org/per/16-020.html) recommendations
-2. [CityGML 3.0 Conceptual Model OWL](/CityGML/3.0/)
+2. [CityGML 3.0 Conceptual Model OWL](CityGML/3.0/)
    - an ontology network for describing semantic 3D city models created from the [CityGML 3.0 UML model](https://github.com/opengeospatial/CityGML-3.0CM/blob/master/Conceptual%20Model/XMI%20Files/OGC%20CityGML%203.0/CityGML_3.0_All_Modules_No_References/CityGML_3.0.xml)
    - transformed with [ShapeChange](https://shapechange.net/) following [OGC Testbed 12](http://docs.opengeospatial.org/per/16-020.html) recommendations
 3. [CityGML2OWL](CityGML/CityGML2OWL.rdf)
