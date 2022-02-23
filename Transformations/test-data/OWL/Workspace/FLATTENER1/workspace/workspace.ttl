@@ -1,0 +1,82 @@
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix vers-owl: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wksp:  <https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0//workspace#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+wksp:Scenario.scenarioVersionMember
+        a            owl:ObjectProperty ;
+        rdfs:domain  wksp:Scenario ;
+        rdfs:label   "scenarioVersionMember"@en ;
+        rdfs:range   vers-owl:Version .
+
+wksp:Workspace.creator
+        a            owl:DatatypeProperty ;
+        rdfs:domain  wksp:Workspace ;
+        rdfs:label   "creator"@en ;
+        rdfs:range   xsd:string .
+
+wksp:Scenario.creator
+        a            owl:DatatypeProperty ;
+        rdfs:domain  wksp:Scenario ;
+        rdfs:label   "creator"@en ;
+        rdfs:range   xsd:string .
+
+wksp:Space  a            owl:Class ;
+        rdfs:label       "Space"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     wksp:Space.creator
+                         ] .
+
+wksp:Space.creator  a  owl:DatatypeProperty ;
+        rdfs:domain  wksp:Space ;
+        rdfs:label   "creator"@en ;
+        rdfs:range   xsd:string .
+
+wksp:PropositionsSpace
+        a                owl:Class ;
+        rdfs:label       "Propositions Space"@en ;
+        rdfs:subClassOf  wksp:Space .
+
+wksp:Scenario.scenarioVersionTransitionMember
+        a            owl:ObjectProperty ;
+        rdfs:domain  wksp:Scenario ;
+        rdfs:label   "scenarioVersionTransitionMember"@en ;
+        rdfs:range   vers-owl:VersionTransition .
+
+<https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0//workspace>
+        a                owl:Ontology ;
+        rdfs:label       "Workspace"@en ;
+        owl:imports      <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "This pattern provides a starting point for modeling a GML Application Schema which is a specialized xml schema that uses the Geographic Markup Language to model Features to provide the basis for interoperability within a community of interest."@en .
+
+wksp:Workspace  a        owl:Class ;
+        rdfs:label       "Workspace"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     wksp:Workspace.creator
+                         ] .
+
+wksp:Scenario  a         owl:Class ;
+        rdfs:label       "Scenario"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers-owl:VersionTransition ;
+                           owl:onProperty     wksp:Scenario.scenarioVersionTransitionMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers-owl:Version ;
+                           owl:onProperty     wksp:Scenario.scenarioVersionMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     wksp:Scenario.creator
+                         ] .
+
+wksp:ConcensusSpace  a    owl:Class ;
+        rdfs:label        "Concensus Space"@en ;
+        rdfs:subClassOf   wksp:Space ;
+        owl:disjointWith  wksp:PropositionsSpace .

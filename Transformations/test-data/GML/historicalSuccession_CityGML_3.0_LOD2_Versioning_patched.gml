@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <core:CityModel xmlns="http://www.opengis.net/citygml/3.0" xmlns:bldg="http://www.opengis.net/citygml/building/3.0" xmlns:con="http://www.opengis.net/citygml/construction/3.0" xmlns:core="http://www.opengis.net/citygml/3.0" xmlns:vers="http://www.opengis.net/citygml/versioning/3.0" xmlns:xAL="urn:oasis:names:tc:ciq:xal:3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.opengis.net/citygml/3.0 ../Schema/cityGMLBase.xsd http://www.opengis.net/citygml/construction/3.0 ../Schema/construction.xsd http://www.opengis.net/citygml/building/3.0 ../Schema/building.xsd http://www.opengis.net/citygml/versioning/3.0 ../Schema/versioning.xsd" gml:id="cm1" srsName="EPSG:3946">
     <core:versionMember>
         <vers:Version gml:id="LYON_1ER_snapshot-2000_01_01" srsName="EPSG:3946">

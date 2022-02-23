@@ -13,19 +13,18 @@ This stylesheet is used to create an XML to RDF XSL stylesheet from an XML Schem
 ## To run
 To run the conversion pipeline an XML Schema and a XML file constrained by the schema is required. First the pipeline will transform the XML schema into a XML-to-RDF XSLT stylesheet, then the XML datafile will be transformed into RDF using this new stylesheet. The input files, output filenames, and coordinate referenes systems (for _geo:gmlLiteral_ transformations) can be set by modifying the following variables in _run.py_:
 ```     
-  CRS                  = 'http://www.opengis.net/def/crs/EPSG/0/4326'
-  schema_file          = '../XMLSchema/compositeCityGML2.0.xsd'
-  generator_file       = 'Generate_CityGML2ToRDF.xsl'
-  transformation_file  = 'CityGML2ToRDF.xsl'
-  input_file           = 'LYON_1ER_BATI_2015-1_bldg.gml'
-  output_file          = 'LYON_1ER_BATI_2015-1_bldg.rdf'
+  CRS                  = 'EPSG:3946'
+  transformation_file  = 'XMLToRDF.xsl'
+  output_directory     = '../../test-data/RDF'
+  cleanGeometry        = True
 ```
-
-In addition the variable `convert3Dto2D` can be set to false to disable GeoSPARQL transformations
 
 Afterwards the script can be run using:
 ```
-python run.py
+python run.py [XSL stylesheet] [input XML Schema] [input datafile]
 ```
 
-Output will be written to the Results folder
+For example
+```
+python run.py [XSL stylesheet] [input XML Schema] [input datafile]
+```

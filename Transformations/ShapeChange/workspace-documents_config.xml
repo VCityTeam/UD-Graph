@@ -1,0 +1,138 @@
+<ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
+  <input>
+    <parameter name="inputModelType" value="SCXML"/>
+    <parameter name="inputFile" value='$input$'/>
+    <parameter name="appSchemaNamespaceRegex" value="^https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/.*"/>
+    <parameter name="checkingConstraints" value="disabled"/>
+    <parameter name="addTaggedValues" value="itemType"/>
+    <xi:include href="http://shapechange.net/resources/config/StandardAliases.xml"/>
+    <stereotypeAliases>
+      <StereotypeAlias wellknown="BasicType" alias="basictype"/>
+      <StereotypeAlias wellknown="property" alias="Property"/>
+      <StereotypeAlias wellknown="version" alias="Version"/>
+      <StereotypeAlias wellknown="FeatureType" alias="TopLevelFeatureType"/>
+    </stereotypeAliases>
+  </input>
+  <log>
+    <parameter name="reportLevel" value="WARNING" />
+    <parameter name="logFile" value="logs/log.xml" />
+  </log>
+  <!-- Proposed by OGC document number 16-020  http://docs.opengeospatial.org/per/16-020.html#rdf_cr_associationclass -->
+  <transformers>
+    <Transformer id="ACMAPPER" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.AssociationClassMapper" mode="enabled"/>
+    <!-- Union alternative 1 transformer -->
+    <Transformer id="FLATTENER1" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" mode="enabled">
+      <parameters>
+        <ProcessParameter name="includeUnionIdentifierTaggedValue" value="true"/>
+        <ProcessParameter name="separatorForPropertyFromUnion" value="_"/>
+        <ProcessParameter name="flattenObjectTypes" value="false"/>
+        <ProcessParameter name="flattenDataTypesExcludeRegex" value=".*"/>
+        <ProcessParameter name="setMinCardinalityToZeroWhenMergingUnion" value="false"/>
+      </parameters>
+      <rules>
+        <ProcessRuleSet name="flattener">
+          <rule name="rule-trf-prop-flatten-types"/>
+        </ProcessRuleSet>
+      </rules>
+    </Transformer>
+    <Transformer class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" id="FLATTENER2" mode="disabled">
+      <parameters>
+        <ProcessParameter name="includeUnionIdentifierTaggedValue" value="true"/>
+      </parameters>
+      <rules>
+        <ProcessRuleSet name="flattener">
+          <rule name="rule-trf-cls-replace-with-union-properties"/>
+        </ProcessRuleSet>
+      </rules>
+    </Transformer>
+  </transformers>
+  <targets>
+    <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled"> -->
+    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER1">
+      <targetParameter name="outputDirectory" value="$output$"/>
+      <!-- <targetParameter name="outputDirectory" value="../Data-IO/OWL/CityGML_3.0_Conceptual_Model"/> -->
+      <targetParameter name="defaultEncodingRule" value="CityGML_RDF_Encoding_Rules"/>
+      <!-- <targetParameter name="URIbase" value="https://github.com/VCityTeam/UD-Graph"/> -->
+      <targetParameter name="language" value="en"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardNamespaces-owl.xml"/>
+      <namespaces>
+        <!-- CityGML Ontology namespaces -->
+        <Namespace nsabr="core-owl" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#"/>
+        <Namespace nsabr="vers-owl" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#"/>
+        <!-- Document + Workspace namespace -->
+        <Namespace nsabr="doc" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Document/1.0#"/>
+        <Namespace nsabr="wksp" ns="https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0#"/>
+        <!-- ISO TC211 namespaces -->
+        <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#"/>
+        <Namespace nsabr="iso19103-2015-col" ns="http://def.isotc211.org/iso19103/2015/Collections#"/>
+        <Namespace nsabr="iso19107" ns="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#"/>
+        <Namespace nsabr="iso19108-trs" ns="http://def.isotc211.org/iso19108/2006/TemporalReferenceSystem#"/>
+        <Namespace nsabr="iso19108-obj" ns="http://def.isotc211.org/iso19108/2006/TemporalObjects#"/>
+        <Namespace nsabr="iso19109" ns="http://def.isotc211.org/iso19109/2015/GeneralFeatureModel#"/>
+        <Namespace nsabr="iso19111-2007" ns="http://def.isotc211.org/iso19111/2007/CoordinateReferenceSystems#"/>
+        <Namespace nsabr="iso19111-2019" ns="http://def.isotc211.org/iso19111/2019/CoordinateReferenceSystems#"/>
+        <Namespace nsabr="iso19123" ns="http://def.isotc211.org/iso19123/2005/DiscreteCoverages#"/>
+        <Namespace nsabr="iso19136" ns="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
+      </namespaces>
+      <descriptorTargets>
+        <!-- <DescriptorTarget target="skos:prefLabel" template="[[name]]"/> -->
+        <DescriptorTarget target="rdfs:label" template="[[name]]"/>
+        <DescriptorTarget target="skos:definition" template="[[definition]]"/>
+        <DescriptorTarget target="rdfs:comment" template="[[description]]"/>
+      </descriptorTargets>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19103-owl.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19107-owl-gml.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19108-owl.xml"/>
+      <xi:include href="https://shapechange.net/resources/config/StandardMapEntries_iso19136_2007-owl.xml"/>
+      <rdfMapEntries>
+        <RdfTypeMapEntry target="iso19109:AnyFeature" type="AnyFeature"/>
+        <RdfTypeMapEntry target="iso19123:CV_DiscreteGridPointCoverage" type="CV_DiscreteGridPointCoverage"/>
+        <RdfTypeMapEntry target="iso19111-2019:EngineeringCRS" type="EngineeringCRS"/>
+        <RdfTypeMapEntry target="iso19136:MeasureOrNilReasonList" type="MeasureOrNilReasonList"/>
+        <RdfTypeMapEntry target="iso19111-2007:SC_CRS" type="SC_CRS"/>
+        <RdfTypeMapEntry target="iso19103:UnitOfMeasure" type="UnitOfMeasure"/>
+        <RdfTypeMapEntry target="iso19103-2015-col:Code" type="Code"/>
+        <RdfTypeMapEntry target="iso19108-obj:TM_Duration" type="TM_Duration"/>
+        <RdfTypeMapEntry target="iso19108-obj:TM_Period" type="TM_Period"/>
+        <RdfTypeMapEntry target="iso19108-obj:TM_Instant" type="TM_Instant"/>
+        <RdfTypeMapEntry target="iso19107:GM_TriangulatedSurface" type="GM_TriangulatedSurface"/>
+        <!-- CityGML 3.0 RDF Map Types -->
+        <RdfTypeMapEntry target="core-owl:AbstractFeatureWithLifespan" type="AbstractFeatureWithLifespan"/>
+        <RdfTypeMapEntry target="vers-owl:Version" type="Version"/>
+        <RdfTypeMapEntry target="vers-owl:VersionTransition" type="VersionTransition"/>
+      </rdfMapEntries>
+      <rules>
+        <EncodingRule name="CityGML_RDF_Encoding_Rules">
+          <rule name="rule-owl-pkg-ontologyName-iso191502"/>
+          <!-- <rule name="rule-owl-pkg-ontologyName-code"/> -->
+          <!-- <rule name="rule-owl-pkg-singleOntologyPerSchema"/> -->
+          <rule name="rule-owl-pkg-importISO191502Base"/>
+          <rule name="rule-owl-cls-iso191502IsAbstract"/>
+          <rule name="rule-owl-cls-enumerationAsCodelist"/>
+          <!-- <rule name="rule-owl-cls-iso191502Enumeration"/> -->
+          <rule name="rule-owl-cls-encode-featuretypes"/>
+          <rule name="rule-owl-cls-encode-objecttypes"/>
+          <rule name="rule-owl-cls-encode-mixintypes"/>
+          <rule name="rule-owl-cls-encode-datatypes"/>
+          <rule name="rule-owl-cls-encode-basictypes"/>
+          <rule name="rule-owl-cls-codelist-external"/>
+          <!-- <rule name="rule-owl-cls-codelist-19150-2"/> -->
+          <rule name="rule-owl-cls-generalization"/>
+          <rule name="rule-owl-cls-disjoint-classes"/>
+          <!-- <rule name="rule-owl-cls-union"/> -->
+          <rule name="rule-owl-prop-general"/>
+          <rule name="rule-owl-prop-iso191502-naming"/>
+          <rule name="rule-owl-prop-localScopeAll"/>
+          <!-- <rule name="rule-owl-prop-globalScopeAttributes"/> -->
+          <!-- <rule name="rule-owl-prop-globalScopeByUniquePropertyName"/> -->
+          <!-- <rule name="rule-owl-prop-globalScopeByConversionParameter"/> -->
+          <rule name="rule-owl-prop-range-global"/>
+          <rule name="rule-owl-prop-range-local-withUniversalQuantification"/>
+          <rule name="rule-owl-prop-mapping-compare-specifications"/>
+          <!-- <rule name="rule-owl-all-constraints-humanReadableTextOnly"/> -->
+          <rule name="rule-owl-all-constraints-byConstraintMapping"/>
+        </EncodingRule>
+      </rules>
+    </TargetOwl>
+  </targets>
+</ShapeChangeConfiguration>

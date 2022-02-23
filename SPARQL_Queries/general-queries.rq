@@ -5,6 +5,7 @@ PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX owl:  <http://www.w3.org/2002/07/owl#>
 PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX gml:  <http://www.opengis.net/gml#>
 PREFIX gmlowl:  <http://www.opengis.net/ont/gml#>
 PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
@@ -156,17 +157,5 @@ WHERE {
     FILTER(?tp1 < ?point && ?point < ?tp2)
 }
 
-
-#9 return all buildings that intersect a point in time (with stSPARQL)
-
-#SELECT DISTINCT ?building ?existence ?target
-#WHERE {
-#    ?building a bldg:Building ;
-#        core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
-#        core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
-#    BIND(strdf:period(?tp1, ?tp2) as ?existence)
-#    BIND("[2011-01-01T00:00:00, 'UC')"^^strdf:period as ?target)
-#    FILTER(strdf:during(?target, ?existence))
-#}
 
 #LIMIT 100
