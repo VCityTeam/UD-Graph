@@ -1,0 +1,1 @@
+This folder contains experimentations with the Strabon dockerfile from the National and Kapodistrian UoA's KRR&A team's [tools suite](https://github.com/gioargyr/docker-krrasuite) for the purpose of creating a dockerized strabon endpoint with the temporal functionality of the [PostgreSQL-Temporal](http://github.com/jeff-davis/PostgreSQL-Temporal) postgis extention.
