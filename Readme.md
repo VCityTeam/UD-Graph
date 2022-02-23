@@ -19,7 +19,7 @@ The `./Transformations` folder contains the following implementations:
 3. XSD-to-OWL
    * Scripts for converting XML Schema into RDF/OWL ontologies
 4. test-data
-   * Stores for test GML, RDF, OWL, ShapeFile, and XML Schema data
+   * Stores for test GML, RDF, OWL, ShapeFile, UML, and XML Schema data
 
 ## Ontologies
 Contains the most up to date versions of several ontologies, including ontologies in the [Transformations/test-data/OWL](./Transformations/test-data/OWL) folder.
