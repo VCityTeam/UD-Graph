@@ -22,7 +22,9 @@ def main():
     ##  Initialize variables  ##
     ############################
 
-    logging.basicConfig(filename=args.log, level=logging.DEBUG)
+    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
+                        filename=args.log,
+                        level=logging.DEBUG)
 
     global input_tree
     global input_root
@@ -124,7 +126,6 @@ def main():
     for input_node in input_root.iter():
         # skip comment nodes
         if not isinstance(input_node.tag, str):
-            parsed_nodes.append(input_tree.getelementpath(node))
             input_node_count += 1
             continue
         # skip already parsed nodes
@@ -137,13 +138,13 @@ def main():
 
     print('\nWriting graph to disk...')
     if output_turtle == 'rdf':
-        print(f'{args.output}/{filename}.rdf')
-        with open(f'{args.output}/{filename}.rdf', 'wb') as file:
-            file.write(output_graph.serialize(format='xml'))
+        full_filepath = os.path.normpath(f'{args.output}/{filename}.rdf')
+        print(full_filepath)
+        output_graph.serialize(destination=full_filepath, format='xml')
     else:
-        print(f'{args.output}/{filename}.ttl')
-        with open(f'{args.output}/{filename}.ttl', 'wb') as file:
-            file.write(output_graph.serialize(format='turtle'))
+        full_filepath = os.path.normpath(f'{args.output}/{filename}.ttl')
+        print(full_filepath)
+        output_graph.serialize(destination=full_filepath, format='turtle')
 
 
 
@@ -159,7 +160,6 @@ def generateIndividual(node):
     global input_node_total
     # skip comment nodes
     if not isinstance(node.tag, str):
-        parsed_nodes.append(input_tree.getelementpath(node))
         input_node_count += 1
         return
 
@@ -169,11 +169,7 @@ def generateIndividual(node):
 
     mapped_tag = ''
     node_id = ''
-    # if node.tag has an rdf mapping, replace the tag with the mapping.
-    if node.tag in rdf_mappings:
-        mapped_tag = etree.QName( uriToLXML(rdf_mappings[node.tag]) )
-    else:
-        mapped_tag = mapNamespace(node.tag)
+    mapped_tag = mapNamespace(node.tag)
     # if a gml:id is detected, use it in the URI of the individual
     if '{%s}id' % GML_NAMESPACE in node.attrib:
         node_id = URIRef(f'{output_uri}#' + node.attrib.get('{%s}id' % GML_NAMESPACE))
@@ -255,7 +251,7 @@ def generateIndividual(node):
             annotation_text = Literal(child.text, datatype=XSD.string)
             output_graph.add( (node_id, annotation_tag, annotation_text) )
         else:
-            logging.warning(f'Unknown XML element, {mapped_child_tag}, at: {input_tree.getelementpath(child)}')
+            logging.warning(f'No mapping found for XML element: {mapped_child_tag}')
 
     # when complete, add node to parsed nodes list
     parsed_nodes.append(input_tree.getelementpath(node))
@@ -456,7 +452,7 @@ def findObjectProperty(tag1, tag2=None, property_tag=None):
                 }''' % (mapNamespace(qname1),
                         mapNamespace(qname1)))
             if len(query) > 0:
-                return query
+                return [line[0] for line in query]
         else:
             for property in getObjectProperties(property_tag):
                 query = ontology.query('''
@@ -507,7 +503,7 @@ def findObjectProperty(tag1, tag2=None, property_tag=None):
                     mapNamespace(qname1),
                     mapNamespace(qname2)))
         if len(query) > 0:
-            return query
+            return [line[0] for line in query]
     else:
         for property in getObjectProperties(property_tag):
             query = ontology.query('''
@@ -560,7 +556,7 @@ def findDatatypeProperty(tag, property_tag=None):
                 }''' % (mapNamespace(qname1),
                         mapNamespace(qname1)) )
             if len(query) > 0:
-                return query
+                return [line[0] for line in query]
         else:
             for property in getDatatypeProperties(property_tag):
                 query = ontology.query('''
@@ -608,7 +604,7 @@ def findDatatypeProperty(tag, property_tag=None):
                 }''' % (mapNamespace(qname1),
                         mapNamespace(qname1)) )
             if len(query) > 0:
-                return query
+                return [line[0] for line in query]
         else:
             for property in getDatatypeProperties(property_tag):
                 query = ontology.query('''
