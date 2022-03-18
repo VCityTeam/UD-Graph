@@ -16,6 +16,7 @@ def main():
     parser.add_argument('--output', default='.', help='specify the output directory')
     parser.add_argument('--format', default='ttl', choices=['ttl', 'rdf'], help='specify the output data format [rdf, ttl]')
     parser.add_argument('--log', default='output.log', help='specify the logging file')
+    # TODO: add flag for parsing geometry recursuvely
     parser.add_argument('-v', '--verbose', action='store_true', help='enable verbose console logging')
     args = parser.parse_args()
     ############################
