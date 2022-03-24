@@ -41,6 +41,10 @@ brid:BridgeConstructionElement.lod1TerrainIntersection
         skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD1 BridgeConstructionElement and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules Bridge and Relief are defined in chapter ..."@en ;
         skos:prefLabel   "lod1TerrainIntersection"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:CeilingSurface brid:ClosureSurface brid:FloorSurface brid:GroundSurface brid:InteriorWallSurface brid:OuterCeilingSurface brid:OuterFloorSurface brid:RoofSurface brid:WallSurface )
+] .
+
 brid:BridgeFurniture.lod4ImplicitRepresentation
         a                owl:ObjectProperty ;
         rdfs:domain      brid:BridgeFurniture ;
@@ -123,24 +127,16 @@ brid:BridgeInstallation
         rdfs:label       "BridgeInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     brid:BridgeInstallation.function
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod3Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeInstallation.lod4Geometry
+                           owl:onProperty     brid:BridgeInstallation.lod2Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     brid:BridgeInstallation.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
-                           owl:onProperty     brid:BridgeInstallation.boundedBy
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeInstallation.lod3Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -151,16 +147,24 @@ brid:BridgeInstallation
                            owl:onProperty     brid:BridgeInstallation.lod3ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     brid:BridgeInstallation.lod2ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     brid:BridgeInstallation.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     brid:BridgeInstallation.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:BridgeInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeInstallation.lod2ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeInstallation.lod2Geometry
+                           owl:onProperty     brid:BridgeInstallation.lod4Geometry
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the bridge outer shell, which are accessory for the bridge structure. Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "BridgeInstallation"@en .
@@ -205,15 +209,15 @@ brid:AbstractBoundarySurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     brid:AbstractBoundarySurface.lod4MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     brid:AbstractBoundarySurface.lod2MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  brid:AbstractOpening ;
                                  owl:onProperty     brid:AbstractBoundarySurface.opening
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     brid:AbstractBoundarySurface.lod4MultiSurface
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of boundary surfaces of Bridge, BridgePart and BridgeRoom"@en ;
@@ -289,20 +293,8 @@ brid:BridgeRoom  a       owl:Class ;
         rdfs:label       "BridgeRoom"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:Solid ;
-                           owl:onProperty     brid:BridgeRoom.lod4Solid
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     brid:BridgeRoom.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     brid:BridgeRoom.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:MultiSurface ;
-                           owl:onProperty     brid:BridgeRoom.lod4MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
@@ -313,12 +305,24 @@ brid:BridgeRoom  a       owl:Class ;
                            owl:onProperty     brid:BridgeRoom.boundedBy
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:IntBridgeInstallation ;
-                           owl:onProperty     brid:BridgeRoom.bridgeRoomInstallation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  brid:BridgeFurniture ;
                            owl:onProperty     brid:BridgeRoom.interiorFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:Solid ;
+                           owl:onProperty     brid:BridgeRoom.lod4Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiSurface ;
+                           owl:onProperty     brid:BridgeRoom.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     brid:BridgeRoom.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:IntBridgeInstallation ;
+                           owl:onProperty     brid:BridgeRoom.bridgeRoomInstallation
                          ] ;
         skos:definition  "SIG3D: A Room represents a volume bounded actually or theoretically. Rooms are volumes that provide for certain functions within a bridge."@en ;
         skos:prefLabel   "BridgeRoom"@en .
@@ -336,28 +340,28 @@ brid:IntBridgeInstallation
         rdfs:label       "IntBridgeInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     brid:IntBridgeInstallation.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     brid:IntBridgeInstallation.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
-                           owl:onProperty     brid:IntBridgeInstallation.boundedBy
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     brid:IntBridgeInstallation.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     brid:IntBridgeInstallation.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     brid:IntBridgeInstallation.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:IntBridgeInstallation.lod4Geometry
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:IntBridgeInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     brid:IntBridgeInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:IntBridgeInstallation.lod4ImplicitRepresentation
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the bridge interior which are accessories for the bridge and for bridge rooms.Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "IntBridgeInstallation"@en .
@@ -389,10 +393,6 @@ brid:ClosureSurface  a   owl:Class ;
         rdfs:subClassOf  brid:AbstractBoundarySurface ;
         skos:definition  "SIG3D: Exterior or interior boundary surface providing virtual boundaries, typically used to seal holes in volumetric objects."@en ;
         skos:prefLabel   "ClosureSurface"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:CeilingSurface brid:ClosureSurface brid:FloorSurface brid:GroundSurface brid:InteriorWallSurface brid:OuterCeilingSurface brid:OuterFloorSurface brid:RoofSurface brid:WallSurface )
-] .
 
 brid:AbstractBridge.yearOfDemolition
         a                owl:DatatypeProperty ;
@@ -445,52 +445,8 @@ brid:BridgeConstructionElement
         rdfs:label       "BridgeConstructionElement"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     brid:BridgeConstructionElement.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     brid:BridgeConstructionElement.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:MultiCurve ;
                            owl:onProperty     brid:BridgeConstructionElement.lod2TerrainIntersection
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod2Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod3ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod1ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:MultiCurve ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod4TerrainIntersection
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
-                           owl:onProperty     brid:BridgeConstructionElement.boundedBy
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod1Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod3Geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:MultiCurve ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod1TerrainIntersection
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -498,15 +454,59 @@ brid:BridgeConstructionElement
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeConstructionElement.lod4Geometry
+                           owl:onProperty     brid:BridgeConstructionElement.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  brid:AbstractBoundarySurface ;
+                           owl:onProperty     brid:BridgeConstructionElement.boundedBy
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     brid:BridgeConstructionElement.usage
+                           owl:onProperty     brid:BridgeConstructionElement.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod1Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod4TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod1ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod3Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:MultiCurve ;
                            owl:onProperty     brid:BridgeConstructionElement.lod3TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod1TerrainIntersection
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     brid:BridgeConstructionElement.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     brid:BridgeConstructionElement.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     brid:BridgeConstructionElement.usage
                          ] ;
         skos:definition  "SIG3D: Element of a bridge which is essential from a structural point of view."@en ;
         skos:prefLabel   "BridgeConstructionElement"@en .
@@ -523,8 +523,8 @@ brid:BridgeFurniture  a  owl:Class ;
         rdfs:label       "BridgeFurniture"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     brid:BridgeFurniture.lod4ImplicitRepresentation
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     brid:BridgeFurniture.lod4Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
@@ -539,8 +539,8 @@ brid:BridgeFurniture  a  owl:Class ;
                            owl:onProperty     brid:BridgeFurniture.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     brid:BridgeFurniture.lod4Geometry
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     brid:BridgeFurniture.lod4ImplicitRepresentation
                          ] ;
         skos:definition  "SIG3D: equipment for occupant use, not usually fixed to the bridge or bridge part (cf. ISO 6707-1)"@en ;
         skos:prefLabel   "BridgeFurniture"@en .
@@ -595,76 +595,12 @@ brid:AbstractBridge  a         owl:Class ;
         rdfs:label             "AbstractBridge"@en ;
         rdfs:subClassOf        core:AbstractSite ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     brid:AbstractBridge.lod2Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     brid:AbstractBridge.lod4MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeRoom ;
-                                 owl:onProperty     brid:AbstractBridge.interiorBridgeRoom
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgePart ;
-                                 owl:onProperty     brid:AbstractBridge.consistsOfBridgePart
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     brid:AbstractBridge.lod3MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     brid:AbstractBridge.lod1TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:Address ;
-                                 owl:onProperty     brid:AbstractBridge.address
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeInstallation ;
-                                 owl:onProperty     brid:AbstractBridge.outerBridgeInstallation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     brid:AbstractBridge.lod2TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     brid:AbstractBridge.lod4Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     brid:AbstractBridge.lod2MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     brid:AbstractBridge.lod1Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     brid:AbstractBridge.yearOfDemolition
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     brid:AbstractBridge.lod1MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136-bt:Code ;
-                                 owl:onProperty     brid:AbstractBridge.usage
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     brid:AbstractBridge.lod3TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
                                  owl:onProperty     brid:AbstractBridge.lod4TerrainIntersection
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:boolean ;
-                                 owl:onProperty     brid:AbstractBridge.isMovable
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     brid:AbstractBridge.lod4MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
@@ -672,39 +608,103 @@ brid:AbstractBridge  a         owl:Class ;
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     brid:AbstractBridge.lod4MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeConstructionElement ;
-                                 owl:onProperty     brid:AbstractBridge.outerBridgeConstruction
+                                 owl:onProperty     brid:AbstractBridge.lod3MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  brid:AbstractBoundarySurface ;
                                  owl:onProperty     brid:AbstractBridge.boundedBy
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     brid:AbstractBridge.yearOfConstruction
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     brid:AbstractBridge.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgeRoom ;
+                                 owl:onProperty     brid:AbstractBridge.interiorBridgeRoom
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:Address ;
+                                 owl:onProperty     brid:AbstractBridge.address
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgePart ;
+                                 owl:onProperty     brid:AbstractBridge.consistsOfBridgePart
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     brid:AbstractBridge.lod4MultiCurve
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     brid:AbstractBridge.lod3Solid
+                                 owl:onProperty     brid:AbstractBridge.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgeInstallation ;
+                                 owl:onProperty     brid:AbstractBridge.outerBridgeInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:boolean ;
+                                 owl:onProperty     brid:AbstractBridge.isMovable
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     brid:AbstractBridge.yearOfDemolition
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     brid:AbstractBridge.lod3TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     brid:AbstractBridge.lod1Solid
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136-bt:Code ;
-                                 owl:onProperty     brid:AbstractBridge.class
+                                 owl:onProperty     brid:AbstractBridge.usage
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136-bt:Code ;
                                  owl:onProperty     brid:AbstractBridge.function
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     brid:AbstractBridge.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     brid:AbstractBridge.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     brid:AbstractBridge.lod1MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     brid:AbstractBridge.lod2MultiCurve
+                                 owl:onProperty     brid:AbstractBridge.lod2TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     brid:AbstractBridge.yearOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136-bt:Code ;
+                                 owl:onProperty     brid:AbstractBridge.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  brid:BridgeConstructionElement ;
+                                 owl:onProperty     brid:AbstractBridge.outerBridgeConstruction
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  brid:IntBridgeInstallation ;
                                  owl:onProperty     brid:AbstractBridge.interiorBridgeInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     brid:AbstractBridge.lod2MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     brid:AbstractBridge.lod1TerrainIntersection
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of Bridge and BridgePart"@en ;
@@ -756,14 +756,6 @@ brid:AbstractBoundarySurface.lod4MultiSurface
         skos:definition  "SIG3D: Relation to a LOD4 surface geometry of AbstractBoundarySurface. The LOD concept for the module Bridge is defined in chapter ..."@en ;
         skos:prefLabel   "lod4MultiSurface"@en .
 
-brid:BridgeRoom.interiorFurniture
-        a                owl:ObjectProperty ;
-        rdfs:domain      brid:BridgeRoom ;
-        rdfs:label       "interiorFurniture"@en ;
-        rdfs:range       brid:BridgeFurniture ;
-        skos:definition  "SIG3D: Relation between BridgeRoom and BridgeFurniture"@en ;
-        skos:prefLabel   "interiorFurniture"@en .
-
 brid:BridgeConstructionElement.lod4Geometry
         a                owl:ObjectProperty ;
         rdfs:domain      brid:BridgeConstructionElement ;
@@ -771,6 +763,14 @@ brid:BridgeConstructionElement.lod4Geometry
         rdfs:range       gmlowl:AbstractGeometry ;
         skos:definition  "SIG3D: Relation to LOD4 geometry of BridgeConstructionElement.The LOD concept for the module Bridge is defined in chapter ..."@en ;
         skos:prefLabel   "lod4Geometry"@en .
+
+brid:BridgeRoom.interiorFurniture
+        a                owl:ObjectProperty ;
+        rdfs:domain      brid:BridgeRoom ;
+        rdfs:label       "interiorFurniture"@en ;
+        rdfs:range       brid:BridgeFurniture ;
+        skos:definition  "SIG3D: Relation between BridgeRoom and BridgeFurniture"@en ;
+        skos:prefLabel   "interiorFurniture"@en .
 
 brid:OuterFloorSurface
         a                owl:Class ;
@@ -811,6 +811,13 @@ brid:AbstractBridge.lod2TerrainIntersection
         skos:definition  "SIG3D: Relation to intersection curve(s) between a LOD2 Bridge or BridgePart and a terrain (LOD1 or LOD2 or LOD3 or LOD4). The LOD concepts for the modules"@en ;
         skos:prefLabel   "lod2TerrainIntersection"@en .
 
+brid:Bridge  a            owl:Class ;
+        rdfs:label        "Bridge"@en ;
+        rdfs:subClassOf   brid:AbstractBridge ;
+        owl:disjointWith  brid:BridgePart ;
+        skos:definition   "SIG3D: Civil engineering works that affords passage to pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground (cf. ISO 6707-1)."@en ;
+        skos:prefLabel    "Bridge"@en .
+
 brid:BridgeFurniture.usage
         a                owl:ObjectProperty ;
         rdfs:domain      brid:BridgeFurniture ;
@@ -818,13 +825,6 @@ brid:BridgeFurniture.usage
         rdfs:range       iso19136-bt:Code ;
         skos:definition  "SIG3D: Actual usage of BridgeFurniture as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
-
-brid:Bridge  a            owl:Class ;
-        rdfs:label        "Bridge"@en ;
-        rdfs:subClassOf   brid:AbstractBridge ;
-        owl:disjointWith  brid:BridgePart ;
-        skos:definition   "SIG3D: Civil engineering works that affords passage to pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground (cf. ISO 6707-1)."@en ;
-        skos:prefLabel    "Bridge"@en .
 
 brid:IntBridgeInstallation.usage
         a                owl:ObjectProperty ;
@@ -839,19 +839,19 @@ brid:AbstractOpening  a        owl:Class ;
         rdfs:subClassOf        core:AbstractCityObject ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     brid:AbstractOpening.lod3MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     brid:AbstractOpening.lod4MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:ImplicitGeometry ;
-                                 owl:onProperty     brid:AbstractOpening.lod3ImplicitRepresentation
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     brid:AbstractOpening.lod3MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:ImplicitGeometry ;
                                  owl:onProperty     brid:AbstractOpening.lod4ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ImplicitGeometry ;
+                                 owl:onProperty     brid:AbstractOpening.lod3ImplicitRepresentation
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of Window and Door"@en ;

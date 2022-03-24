@@ -1,8 +1,9 @@
 <ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
   <input>
     <parameter name="inputModelType" value="EA7"/>
+    <!-- <parameter name="inputModelType" value="SCXML"/> -->
     <parameter name="inputFile" value="$input$"/>
-    <parameter name="appSchemaNamespaceRegex" value="^http://www.opengis.net/citygml/.*"/>
+    <parameter name="appSchemaNamespaceRegex" value="^(http://www.opengis.net/citygml/|https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/).*"/>
     <parameter name="checkingConstraints" value="disabled"/>
     <parameter name="addTaggedValues" value="itemType"/>
     <xi:include href="http://shapechange.net/resources/config/StandardAliases.xml"/>
@@ -103,21 +104,13 @@
         <RdfTypeMapEntry type="CV_DiscreteGridPointCoverage" target="iso19123-dc:CV_DiscreteGridPointCoverage"/>
         <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="orph:Sequence.lt.MeasureOrNilReason.gt."/>
         <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="orph:Sequence.lt.Real.gt."/>
-        <!-- Better mappings for AddressDetails and GM_RectifiedGridCoverage should be found -->
-        <RdfTypeMapEntry type="AddressDetails" target="xsd:string"/>
-        <RdfTypeMapEntry type="GM_RectifiedGridCoverage" target="gmlowl:Geometry"/>
-<!--         <RdfTypeMapEntry type="DoubleBetween0and1" target="xsd:double" targetType="datatype"/>
-        <RdfTypeMapEntry type="DoubleBetween0and1List" target="iso19136-bt:doubleList"/>
-        <RdfTypeMapEntry type="TransformationMatrix4x4" target="iso19136-bt:doubleList"/>
-        <RdfTypeMapEntry type="TransformationMatrix3x4" target="iso19136-bt:doubleList"/>
-        <RdfTypeMapEntry type="TransformationMatrix2x2" target="iso19136-bt:doubleList"/>
-        <RdfTypeMapEntry type="IntegerBetween0and4" target="xsd:int" targetType="datatype"/>
-        <RdfTypeMapEntry type="ColorPlusOpacity" target="iso19136-bt:doubleList"/>
-        <RdfTypeMapEntry type="Color" target="iso19136-bt:doubleList"/> -->
+        <RdfTypeMapEntry type="TM_Period" target="time:Interval"/>
         <RdfTypeMapEntry type="NoiseCityFurnitureSegment" target="noise:NoiseCityFurnitureSegment"/>
         <RdfTypeMapEntry type="NoiseRoadSegment" target="noise:NoiseRoadSegment"/>
         <RdfTypeMapEntry type="NoiseRailwaySegment" target="noise:NoiseRailwaySegment"/>
         <RdfTypeMapEntry type="AbstractBuilding" schema="Noise" target="noise:AbstractBuilding"/>
+        <!-- Only use for generating the Versioning ADE Ontology -->
+        <!-- <RdfTypeMapEntry type="AbstractCityObject" schema="Core" target="core:AbstractCityObject"/> -->
       </rdfMapEntries>
       <rules>
         <EncodingRule name="CityGML_RDF_Encoding_Rules">

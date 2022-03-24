@@ -25,11 +25,7 @@ grp:CityObjectGroup  a   owl:Class ;
         rdfs:subClassOf  core:AbstractLogicalSpace ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     grp:CityObjectGroup.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  grp:ADEOfCityObjectGroup ;
-                           owl:onProperty     grp:CityObjectGroup.adeOfCityObjectGroup
+                           owl:onProperty     grp:CityObjectGroup.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  grp:Role ;
@@ -37,11 +33,15 @@ grp:CityObjectGroup  a   owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     grp:CityObjectGroup.function
+                           owl:onProperty     grp:CityObjectGroup.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     grp:CityObjectGroup.usage
+                           owl:onProperty     grp:CityObjectGroup.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  grp:ADEOfCityObjectGroup ;
+                           owl:onProperty     grp:CityObjectGroup.adeOfCityObjectGroup
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:AbstractCityObject ;
@@ -66,7 +66,7 @@ grp:CityObjectGroup.function
 <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityobjectgroup>
         a                owl:Ontology ;
         rdfs:label       "CityObjectGroup"@en ;
-        owl:imports      <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports      <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core.ttl> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:definition  "The CityObjectGroup module supports grouping of city objects. Arbitrary city objects may be aggregated in groups according to user-defined criteria. A group may be further classified by application-specific attributes."@en .
 
 grp:CityObjectGroup.usage

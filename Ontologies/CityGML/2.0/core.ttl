@@ -5,6 +5,7 @@
 @prefix grp:   <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityobjectgroup#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix brid:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/bridge#> .
+@prefix vers:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Versioning/2.0/versioning#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
 @prefix luse:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/landuse#> .
@@ -24,10 +25,10 @@
 core:ExternalReference.externalObject_uri
         a                owl:DatatypeProperty ;
         rdfs:domain      core:ExternalReference ;
-        rdfs:label       "externalObject_uri"@en ;
+        rdfs:label       "externalObject.uri"@en ;
         rdfs:range       xsd:anyURI ;
         skos:definition  "SIG3D: URL or URN of the object."@en ;
-        skos:prefLabel   "externalObject_uri"@en .
+        skos:prefLabel   "externalObject.uri"@en .
 
 core:ExternalReference.informationSystem
         a                owl:DatatypeProperty ;
@@ -74,10 +75,10 @@ core:AbstractAppearance
 core:ExternalReference.externalObject_name
         a                owl:DatatypeProperty ;
         rdfs:domain      core:ExternalReference ;
-        rdfs:label       "externalObject_name"@en ;
+        rdfs:label       "externalObject.name"@en ;
         rdfs:range       xsd:string ;
         skos:definition  "SIG3D: Name of the object"@en ;
-        skos:prefLabel   "externalObject_name"@en .
+        skos:prefLabel   "externalObject.name"@en .
 
 core:AbstractCityObject.terminationDate
         a                owl:DatatypeProperty ;
@@ -120,10 +121,6 @@ core:ExternalReference
         skos:definition  "SIG3D: Reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap?."@en ;
         skos:prefLabel   "ExternalReference"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( noise:NoiseCityFurnitureSegment brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
-] .
-
 core:ImplicitGeometry
         a                owl:Class ;
         rdfs:label       "ImplicitGeometry"@en ;
@@ -150,6 +147,14 @@ core:ImplicitGeometry
         skos:definition  "SIG3D: A  geometric representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model."@en ;
         skos:prefLabel   "ImplicitGeometry"@en .
 
+core:AbstractCityObject.relativeToTerrain
+        a                owl:ObjectProperty ;
+        rdfs:domain      core:AbstractCityObject ;
+        rdfs:label       "relativeToTerrain"@en ;
+        rdfs:range       core:RelativeToTerrain ;
+        skos:definition  "SIG3D: Vertical position of the \r\nAbstractCityObject relative to the surrounding terrain."@en ;
+        skos:prefLabel   "relativeToTerrain"@en .
+
 core:TransformationMatrix2x2.list
         a                owl:ObjectProperty ;
         rdfs:domain      core:TransformationMatrix2x2 ;
@@ -157,14 +162,6 @@ core:TransformationMatrix2x2.list
         rdfs:range       <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
         skos:definition  "SIG3D: Elements of the matrix in row major order."@en ;
         skos:prefLabel   "list"@en .
-
-core:AbstractCityObject.relativeToTerrain
-        a                owl:DataTypeProperty ;
-        rdfs:domain      core:AbstractCityObject ;
-        rdfs:label       "relativeToTerrain"@en ;
-        rdfs:range       core:RelativeToTerrain ;
-        skos:definition  "SIG3D: Vertical position of the \r\nAbstractCityObject relative to the surrounding terrain."@en ;
-        skos:prefLabel   "relativeToTerrain"@en .
 
 core:TransformationMatrix2x2
         a                owl:Class ;
@@ -184,17 +181,17 @@ core:ImplicitGeometry.mimeType
         skos:definition  "SIG3D: Mime type of the referenced external geometric object (attribute libraryObject)."@en ;
         skos:prefLabel   "mimeType"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
-] .
-
 core:RelativeToTerrain
         a               rdfs:Datatype ;
         rdfs:label      "RelativeToTerrain"@en ;
         owl:equivalentClass     [ a             rdfs:Datatype ;
-                                  owl:oneOf     ( "entirelyAboveTerrain" "substantiallyAboveTerrain" "substantiallyAboveAndBelowTerrain" "substantiallyBelowTerrain" "entirelyBelowTerrain" ) ;
+                                  owl:oneOf       ( "entirelyAboveTerrain" "substantiallyAboveTerrain" "substantiallyAboveAndBelowTerrain" "substantiallyBelowTerrain" "entirelyBelowTerrain" ) ;
                                 ] ;
         skos:prefLabel  "RelativeToTerrain"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( noise:NoiseCityFurnitureSegment brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject vers:VersionableAbstractCityObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
+] .
 
 core:AbstractCityObject.externalReference
         a                owl:ObjectProperty ;
@@ -207,9 +204,13 @@ core:AbstractCityObject.externalReference
 core:RelativeToWater  a  rdfs:Datatype ;
         rdfs:label      "RelativeToWater"@en ;
         owl:equivalentClass     [ a             rdfs:Datatype ;
-                                  owl:oneOf     ( "entirelyAboveWaterSurface" "substantiallyAboveWaterSurface" "substantiallyAboveAndBelowWaterSurface" "substantiallyBelowWaterSurface" "entirelyBelowWaterSurface" "temporarilyAboveAndBelowWaterSurface" ) ;
+                                  owl:oneOf       ( "entirelyAboveWaterSurface" "substantiallyAboveWaterSurface" "substantiallyAboveAndBelowWaterSurface" "substantiallyBelowWaterSurface" "entirelyBelowWaterSurface" "temporarilyAboveAndBelowWaterSurface" ) ;
                                 ] ;
         skos:prefLabel  "RelativeToWater"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
+] .
 
 core:DoubleBetween0and1List
         a                owl:Class ;
@@ -223,7 +224,7 @@ core:DoubleBetween0and1List
 <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core>
         a               owl:Ontology ;
         rdfs:label      "Core"@en ;
-        owl:imports     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityobjectgroup.ttl> , <http://www.opengis.net/ont/gml> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/waterbody.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityfurniture.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/vegetation.ttl> , <http://def.isotc211.org/iso19150/-2/2012/base> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/bridge.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/landuse.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/building.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/tunnel.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/transportation.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/generics.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/relief.ttl> ;
+        owl:imports     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityobjectgroup.ttl> , <http://www.opengis.net/ont/gml> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/waterbody.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Versioning/2.0/versioning.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityfurniture.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/vegetation.ttl> , <http://def.isotc211.org/iso19150/-2/2012/base> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/bridge.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/landuse.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/building.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/tunnel.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/transportation.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/generics.ttl> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/relief.ttl> ;
         skos:prefLabel  "Core"@en .
 
 core:IntegerBetween0and4
@@ -249,36 +250,36 @@ core:AbstractCityObject
         a                      owl:Class ;
         rdfs:label             "AbstractCityObject"@en ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:AbstractCityObject ;
-                                 owl:onProperty     core:AbstractCityObject.generalizesTo
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     core:AbstractCityObject.creationDate
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToTerrain ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
+                                 owl:onProperty     core:AbstractCityObject.terminationDate
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gen:AbstractGenericAttribute ;
                                  owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:AbstractAppearance ;
-                                 owl:onProperty     core:AbstractCityObject.appearance
+                                 owl:allValuesFrom  core:RelativeToWater ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToWater
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:ExternalReference ;
                                  owl:onProperty     core:AbstractCityObject.externalReference
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:RelativeToWater ;
-                                 owl:onProperty     core:AbstractCityObject.relativeToWater
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     core:AbstractCityObject.terminationDate
+                                 owl:onProperty     core:AbstractCityObject.creationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractCityObject ;
+                                 owl:onProperty     core:AbstractCityObject.generalizesTo
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
@@ -320,18 +321,18 @@ core:AbstractCityObject.abstractGenericAttribute
         rdfs:range      gen:AbstractGenericAttribute ;
         skos:prefLabel  "abstractGenericAttribute"@en .
 
-core:XALAddressDetails
-        a               owl:Class ;
-        rdfs:label      "XALAddressDetails"@en ;
-        skos:prefLabel  "XALAddressDetails"@en .
-
 core:AbstractCityObject.relativeToWater
-        a                owl:DataTypeProperty ;
+        a                owl:ObjectProperty ;
         rdfs:domain      core:AbstractCityObject ;
         rdfs:label       "relativeToWater"@en ;
         rdfs:range       core:RelativeToWater ;
         skos:definition  "SIG3D: Vertical position of the AbstractCityObject relative to a surrounding water surface."@en ;
         skos:prefLabel   "relativeToWater"@en .
+
+core:XALAddressDetails
+        a               owl:Class ;
+        rdfs:label      "XALAddressDetails"@en ;
+        skos:prefLabel  "XALAddressDetails"@en .
 
 core:Address.multiPoint
         a               owl:ObjectProperty ;
