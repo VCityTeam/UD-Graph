@@ -2,9 +2,9 @@ import os
 
 ### transform CityGML 2 ###
 
-command = (r'python ./CityGML2RDF.py '
+command = (r'python ./XML2RDF.py '
     r'-v '
-    r'--format rdf '
+    r'--format ttl '
     r'--log output2012v2.log '
     r'"C:\Users\Diego Vinasco\Desktop\Datasets\GratteCiel_2009-2018v2\3-split\GratteCiel_2012_split.gml" '
     r'..\..\Ontologies\CityGML\2.0,'
@@ -19,9 +19,9 @@ command = (r'python ./CityGML2RDF.py '
 print(command)
 os.system(command)
 
-command = (r'python CityGML2RDF.py '
+command = (r'python XML2RDF.py '
     r'-v '
-    r'--format rdf '
+    r'--format ttl '
     r'--log output2012v3.log '
     r'"C:\Users\Diego Vinasco\Desktop\Datasets\GratteCiel_2009-2018v2\v3.0\GratteCiel_2012_split_v3.gml" '
     r'..\..\Ontologies\CityGML\3.0,'
