@@ -64,7 +64,7 @@ dem:AbstractReliefComponent.extent
 <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/relief>
         a               owl:Ontology ;
         rdfs:label      "Relief"@en ;
-        owl:imports     <http://www.opengis.net/ont/gml> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports     <http://www.opengis.net/ont/gml> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core.ttl> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:prefLabel  "Relief"@en .
 
 dem:TINRelief  a         owl:Class ;
@@ -92,10 +92,6 @@ dem:AbstractReliefComponent
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of TINRelief, MassPointRelief, RasterRelief and BreaklineRelief"@en ;
         skos:prefLabel         "AbstractReliefComponent"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
 
 dem:MassPointRelief.reliefPoints
         a                owl:ObjectProperty ;
@@ -148,6 +144,10 @@ dem:BreaklineRelief.breaklines
         rdfs:range       gmlowl:MultiCurve ;
         skos:definition  "SIG3D: Relation to 3D lines (gml:MultiCurve) denoting break lines."@en ;
         skos:prefLabel   "breaklines"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
 
 dem:RasterRelief.grid
         a               owl:ObjectProperty ;

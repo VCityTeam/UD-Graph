@@ -56,6 +56,13 @@ app:TexCoordList.textureCoordinates
         skos:definition  "SIG3D: List of texture coordinates with two doubles per ring vertex"@en ;
         skos:prefLabel   "textureCoordinates"@en .
 
+app:TextureType  a      rdfs:Datatype ;
+        rdfs:label      "TextureType"@en ;
+        owl:equivalentClass     [ a             rdfs:Datatype ;
+                                  owl:oneOf       ( "specific" "typical" "unknown" ) ;
+                                ] ;
+        skos:prefLabel  "TextureType"@en .
+
 app:GeoreferencedTexture.orientation
         a                owl:ObjectProperty ;
         rdfs:domain      app:GeoreferencedTexture ;
@@ -99,7 +106,7 @@ app:AbstractTexture.wrapMode
         a                owl:ObjectProperty ;
         rdfs:domain      app:AbstractTexture ;
         rdfs:label       "wrapMode"@en ;
-        rdfs:range       owl:Class ;
+        rdfs:range       app:WrapMode ;
         skos:definition  "Collada: Definition of behavior when accessing the texture outside the underlying image raster"@en ;
         skos:prefLabel   "wrapMode"@en .
 
@@ -126,7 +133,7 @@ app:AbstractTexture.textureType
         a                owl:ObjectProperty ;
         rdfs:domain      app:AbstractTexture ;
         rdfs:label       "textureType"@en ;
-        rdfs:range       owl:Class ;
+        rdfs:range       app:TextureType ;
         skos:definition  "\"SIG3D: Distinction between prototypical (value \"\"typical\"\"), object specific (value \"\"specific\"\") textures, and textures with unknown classification (value \"\"unknown\"\").\""@en ;
         skos:prefLabel   "textureType"@en .
 
@@ -214,6 +221,13 @@ app:TextureAssociation
         skos:definition  "SIG3D: Connects a surface geometry with a parameterized texture."@en ;
         skos:prefLabel   "TextureAssociation"@en .
 
+app:WrapMode  a         rdfs:Datatype ;
+        rdfs:label      "WrapMode"@en ;
+        owl:equivalentClass     [ a             rdfs:Datatype ;
+                                  owl:oneOf       ( "none" "wrap" "mirror" "clamp" "border" ) ;
+                                ] ;
+        skos:prefLabel  "WrapMode"@en .
+
 app:AbstractSurfaceData.isFront
         a                owl:DatatypeProperty ;
         rdfs:domain      app:AbstractSurfaceData ;
@@ -227,6 +241,10 @@ app:GeoreferencedTexture
         rdfs:label        "GeoreferencedTexture"@en ;
         rdfs:subClassOf   app:AbstractTexture ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  core:TransformationMatrix2x2 ;
+                            owl:onProperty     app:GeoreferencedTexture.orientation
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  xsd:anyURI ;
                             owl:onProperty     app:GeoreferencedTexture.target
                           ] ;
@@ -237,10 +255,6 @@ app:GeoreferencedTexture
         rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  gmlowl:Point ;
                             owl:onProperty     app:GeoreferencedTexture.referencePoint
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  core:TransformationMatrix2x2 ;
-                            owl:onProperty     app:GeoreferencedTexture.orientation
                           ] ;
         owl:disjointWith  app:ParameterizedTexture ;
         skos:definition   "SIG3D: Specialized class for georeferenced textures containing an implicit parametrization that is either stored within the image file, an acompanying world file"@en ;
@@ -271,7 +285,7 @@ app:AbstractTexture.imageURI
 <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/appearance>
         a               owl:Ontology ;
         rdfs:label      "Appearance"@en ;
-        owl:imports     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core> , <http://www.opengis.net/ont/gml> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        owl:imports     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core.ttl> , <http://www.opengis.net/ont/gml> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
         skos:prefLabel  "Appearance"@en .
 
 app:X3DMaterial.emissiveColor
@@ -352,8 +366,24 @@ app:X3DMaterial  a       owl:Class ;
         rdfs:label       "X3DMaterial"@en ;
         rdfs:subClassOf  app:AbstractSurfaceData ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  app:Color ;
+                           owl:onProperty     app:X3DMaterial.specularColor
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:anyURI ;
                            owl:onProperty     app:X3DMaterial.target
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  app:Color ;
+                           owl:onProperty     app:X3DMaterial.emissiveColor
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  app:Color ;
+                           owl:onProperty     app:X3DMaterial.diffuseColor
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:DoubleBetween0and1 ;
+                           owl:onProperty     app:X3DMaterial.ambientIntensity
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;
@@ -364,24 +394,8 @@ app:X3DMaterial  a       owl:Class ;
                            owl:onProperty     app:X3DMaterial.isSmooth
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  app:Color ;
-                           owl:onProperty     app:X3DMaterial.diffuseColor
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  app:Color ;
-                           owl:onProperty     app:X3DMaterial.emissiveColor
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;
                            owl:onProperty     app:X3DMaterial.shininess
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:DoubleBetween0and1 ;
-                           owl:onProperty     app:X3DMaterial.ambientIntensity
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  app:Color ;
-                           owl:onProperty     app:X3DMaterial.specularColor
                          ] ;
         skos:definition  "SIG3D: Definition of material properties based on X3D standard."@en ;
         skos:prefLabel   "X3DMaterial"@en .
@@ -409,7 +423,11 @@ app:AbstractTexture  a         owl:Class ;
         rdfs:label             "AbstractTexture"@en ;
         rdfs:subClassOf        app:AbstractSurfaceData ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
+                                 owl:allValuesFrom  xsd:anyURI ;
+                                 owl:onProperty     app:AbstractTexture.imageURI
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  app:TextureType ;
                                  owl:onProperty     app:AbstractTexture.textureType
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
@@ -421,12 +439,8 @@ app:AbstractTexture  a         owl:Class ;
                                  owl:onProperty     app:AbstractTexture.borderColor
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
+                                 owl:allValuesFrom  app:WrapMode ;
                                  owl:onProperty     app:AbstractTexture.wrapMode
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:anyURI ;
-                                 owl:onProperty     app:AbstractTexture.imageURI
                                ] ;
         iso19150-2:isAbstract  true ;
         owl:disjointWith       app:X3DMaterial ;
