@@ -16,14 +16,28 @@ Required Python libraries:
 * [RDFLib](https://rdflib.readthedocs.io/)
 * [lxml](https://lxml.de/)
 
-Usage _(note that ontology input paths are separated by a ',' when declaring multiple ontologies)_:
-```
-python CityGML2RDF.py [input ontology paths] [input datafile] [output folder] [namespace mapping file]
-```
+Usage information  
+```bash
+usage: XML2RDF.py [-h] [--output OUTPUT] [--format {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}] [--log LOG]
+                  [--atomic-geometry] [--deep-geometry] [-v]
+                  input_file input_model mapping_file
 
-Example 
-```
-python CityGML2RDF.py ../../test-data/OWL/CityGML_3.0_Conceptual_Model,../../test-data/OWL/TC_211,../../test-data/OWL/GeoSPARQL ../../test-data/GML/citygml3_versioning_patched.gml ./ ./citygml_3_namespace_mappings.json
+Transform Geospatial XML data to RDF formats
+
+positional arguments:
+  input_file            Specify the input XML datafile
+  input_model           Specify the ontology input path; for multiple ontologies, input paths are separated by a ","
+  mapping_file          Specify the namespace mapping file
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output OUTPUT       Specify the output directory
+  --format {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
+                        Specify the output data format (only RDFLib supported formats)
+  --log LOG             Specify the logging file
+  --atomic-geometry     Iterate into GML geometry to create individuals for each atomic GML element
+  --deep-geometry       Iterate into GML geometry xlinks to and copy the destination GML into the geosparql:asGML property object
+  -v, --verbose         Enable verbose console logging
 ```
 
 ## XSLT-based-transformations
