@@ -19,26 +19,25 @@
 
 data:gratteciel_workspace_1 a wksp:Workspace,
         owl:NamedIndividual ;
-    wksp:creator "Diego Vinasco-Alvarez"^^xsd:string ;
-    wksp:hasSpace data:concensusSpace_1 ;
-    wksp:hasSpace data:propositionSpace_1 .
+    wksp:Workspace.creator "Diego Vinasco-Alvarez"^^xsd:string ;
+    wksp:Workspace.spaceMember data:concensusSpace_1 ;
+    wksp:Workspace.spaceMember data:propositionSpace_1 .
 
 data:concensusSpace_1 a wksp:ConcensusSpace,
         owl:NamedIndividual ;
-    wksp:hasScenario data:scenario_1 .
+    wksp:Space.scenarioMember data:scenario_1 .
 
 data:propositionSpace_1 a wksp:PropositionsSpace,
-        owl:NamedIndividual ;
-    wksp:creator "Diego Vinasco-Alvarez"^^xsd:string ;
-    wksp:hasScenario data:scenario_1 .
+        owl:NamedIndividual .
 
 data:scenario_1 a wksp:Scenario,
         owl:NamedIndividual ;
-    wksp:scenarioVersionMember data:version_2009,
+    wksp:Scenario.creator "Diego Vinasco-Alvarez"^^xsd:string ;
+    wksp:Scenario.versionMember data:version_2009,
         data:version_2012,
         data:version_2015,
         data:version_2018 ;
-    wksp:scenarioVersionTransitionMember data:versiontransition_2009_2012,
+    wksp:Scenario.versionTransitionMember data:versiontransition_2009_2012,
         data:versiontransition_2012_2015,
         data:versiontransition_2015_2018 .
 
