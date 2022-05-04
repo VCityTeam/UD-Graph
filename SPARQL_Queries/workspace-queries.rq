@@ -1,0 +1,99 @@
+### Sample queries for the Gratte Ciel Workspace Dataset ###
+
+# Common prefixes
+PREFIX rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX owl:  <http://www.w3.org/2002/07/owl#>
+PREFIX xsd:  <http://www.w3.org/2001/XMLSchema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+PREFIX gml:  <http://www.opengis.net/gml#>
+PREFIX gmlowl:  <http://www.opengis.net/ont/gml#>
+PREFIX units: <http://www.opengis.net/def/uom/OGC/1.0/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX geof: <http://www.opengis.net/def/function/geosparql/>
+PREFIX strdf: <http://strdf.di.uoa.gr/ontology#>
+PREFIX xlink: <http://www.w3.org/1999/xlink#>
+
+# CityGML 3.0 prefixes
+PREFIX core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#>
+PREFIX bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#>
+PREFIX brid: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/bridge#>
+PREFIX luse: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/landuse#>
+PREFIX app:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/appearance#>
+PREFIX dem:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/relief#>
+PREFIX frn:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityfurniture#>
+PREFIX gen:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/generics#>
+PREFIX grp:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityobjectgroup#>
+PREFIX tex:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/texturedsurface#>
+PREFIX tun:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/tunnel#>
+PREFIX veg:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/vegetation#>
+PREFIX vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#>
+PREFIX wtr:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/waterbody#>
+# Workspace prefixes
+PREFIX wksp:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#>
+PREFIX type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#>
+PREFIX data:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009-2018_Workspace#>
+PREFIX v2009: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009_split_v3#>
+PREFIX v2012: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2012_split_v3#>
+PREFIX v2015: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2015_split_v3#>
+PREFIX v2018: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2018_split_v3#>
+
+
+# return a workspace graph (spaces, scenarios, versionTransitions, and versions) and their immediate properties
+
+SELECT DISTINCT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  {
+    ?subject a wksp:Workspace ;
+      ?predicate ?object .
+    ?subject a ?subjectType .
+    ?object a wksp:ConcensusSpace .
+    ?object a ?objectType .
+  } UNION {
+    ?subject a wksp:ConcensusSpace ;
+      ?predicate ?object .
+    ?subject a ?subjectType .
+    ?object a wksp:Scenario .
+    ?object a ?objectType .
+  } UNION {
+    ?subject a wksp:Scenario ;
+      ?predicate ?object .
+    ?subject a ?subjectType .
+    ?object a vers:Version .
+    ?object a ?objectType .
+  } UNION {
+    ?subject a wksp:Scenario ;
+      ?predicate ?object .
+    ?subject a ?subjectType .
+    ?object a vers:VersionTransition .
+    ?object a ?objectType .
+  } UNION {
+    ?subject a vers:VersionTransition ;
+      ?predicate ?object .
+    ?subject a ?subjectType .
+    ?object a vers:Version .
+    ?object a ?objectType .
+  }
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}
+
+
+# return all features within a version
+
+# SELECT ?subject ?subjectType ?predicate ?object ?objectType
+# WHERE {
+#   ?subject a core:CityModel ;
+#     ?predicate ?object .
+#   ?subject a ?subjectType .
+#   ?object a bldg:Building .
+#   ?object a ?objectType .
+#   data:version_2018 vers:Version.versionMember ?object .
+  
+#   FILTER(?subjectType != owl:NamedIndividual)
+#   FILTER(?objectType != owl:NamedIndividual)
+# }
+
+
+
+LIMIT 100

@@ -63,7 +63,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #    ?object a owl:NamedIndividual ;
 #        a ?type .
 #
-#    FILTER (STR(?type) != STR(owl:NamedIndividual))
+#    FILTER ( ?type != owl:NamedIndividual )
 #}
 
 
@@ -79,7 +79,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #
 #    ?geometry geo:asGML ?serialization .
 #
-#    FILTER (STR(?type) != STR(owl:NamedIndividual))
+#    FILTER ( ?type != owl:NamedIndividual )
 #}
 
 
@@ -111,7 +111,7 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #        as ?bbox)
 #
 #    FILTER (geof:sfIntersects(?serialization, ?bbox)) .
-#    FILTER(STR(?type) != STR(owl:NamedIndividual)) .
+#    FILTER( ?type != owl:NamedIndividual ) .
 #}
 
 
@@ -132,30 +132,6 @@ PREFIX data: <https://github.com/VCityTeam/UD-Graph/citygml3_versioning#>
 #    ?cityobjectmember a ?type ;
 #        (!<>)* ?geometry .
 #}
-
-
-#7 return all cityobjects within a version
-
-#SELECT DISTINCT ?cityobjectmember ?type
-#WHERE {
-
-#    data:LYON_1ER_snapshot-2000_01_01 a vers:Version ;
-#        vers:Version.versionMember ?cityobjectmember .
-
-#    ?cityobjectmember a ?type .
-#}
-
-
-#8 return all buildings that intersect a point in time
-
-SELECT DISTINCT ?building ?tp1 ?tp2
-WHERE {
-    BIND("2010-01-01T00:00:00"^^xsd:dateTime as ?point)
-    ?building a bldg:Building ;
-        core:AbstractFeatureWithLifespan.creationDate ?tp1 ;
-        core:AbstractFeatureWithLifespan.terminationDate ?tp2 .
-    FILTER(?tp1 < ?point && ?point < ?tp2)
-}
 
 
 #LIMIT 100
