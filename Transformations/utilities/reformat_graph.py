@@ -27,11 +27,9 @@ class RdfConverter():
         if output_file == '':
             output_file = '.'.join(input_file.split('/')[-1].split('.')[0:-1]) + '.' + output_format
             print(f'warning: auto-determined output filename: {output_file}')
-            with open(output_file, 'wb') as file:
-                file.write(self.graph.serialize(format=output_format))
+            self.graph.serialize(destination=output_file, format=output_format)
         else:
-            with open(output_file, 'wb') as file:
-                file.write(self.graph.serialize(format=output_format))
+            self.graph.serialize(destination=output_file, format=output_format)
 
     def updateFormat(self, output_format):
         self.output_format = output_format
