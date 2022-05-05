@@ -1,5 +1,5 @@
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
-@prefix vers-owl: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix wksp:  <https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0//workspace#> .
@@ -11,7 +11,7 @@ wksp:Scenario.scenarioVersionMember
         a            owl:ObjectProperty ;
         rdfs:domain  wksp:Scenario ;
         rdfs:label   "scenarioVersionMember"@en ;
-        rdfs:range   vers-owl:Version .
+        rdfs:range   vers:Version .
 
 wksp:Workspace.creator
         a            owl:DatatypeProperty ;
@@ -37,7 +37,7 @@ wksp:Space.creator  a  owl:DatatypeProperty ;
         rdfs:label   "creator"@en ;
         rdfs:range   xsd:string .
 
-wksp:PropositionsSpace
+wksp:PropositionSpace
         a                owl:Class ;
         rdfs:label       "Propositions Space"@en ;
         rdfs:subClassOf  wksp:Space .
@@ -46,7 +46,7 @@ wksp:Scenario.scenarioVersionTransitionMember
         a            owl:ObjectProperty ;
         rdfs:domain  wksp:Scenario ;
         rdfs:label   "scenarioVersionTransitionMember"@en ;
-        rdfs:range   vers-owl:VersionTransition .
+        rdfs:range   vers:VersionTransition .
 
 <https://github.com/VCityTeam/UD-Graph/tree/master/Ontologies/Workspace/1.0//workspace>
         a                owl:Ontology ;
@@ -64,11 +64,11 @@ wksp:Workspace  a        owl:Class ;
 wksp:Scenario  a         owl:Class ;
         rdfs:label       "Scenario"@en ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers-owl:VersionTransition ;
+                           owl:allValuesFrom  vers:VersionTransition ;
                            owl:onProperty     wksp:Scenario.scenarioVersionTransitionMember
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers-owl:Version ;
+                           owl:allValuesFrom  vers:Version ;
                            owl:onProperty     wksp:Scenario.scenarioVersionMember
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
@@ -79,4 +79,4 @@ wksp:Scenario  a         owl:Class ;
 wksp:ConcensusSpace  a    owl:Class ;
         rdfs:label        "Concensus Space"@en ;
         rdfs:subClassOf   wksp:Space ;
-        owl:disjointWith  wksp:PropositionsSpace .
+        owl:disjointWith  wksp:PropositionSpace .
