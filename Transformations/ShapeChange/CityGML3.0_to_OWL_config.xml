@@ -1,7 +1,7 @@
 <ShapeChangeConfiguration xmlns:xi="http://www.w3.org/2001/XInclude" xmlns="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:sc="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.interactive-instruments.de/ShapeChange/Configuration/1.1 http://shapechange.net/resources/schema/ShapeChangeConfiguration.xsd">
   <input>
-    <parameter name="inputModelType" value="EA7"/>
-    <!-- <parameter name="inputModelType" value="SCXML"/> -->
+    <!-- <parameter name="inputModelType" value="EA7"/> -->
+    <parameter name="inputModelType" value="SCXML"/>
     <parameter name="inputFile" value='$input$'/>
     <parameter name="appSchemaNamespaceRegex" value="^(http://www.opengis.net/citygml/|https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/).*"/>
     <parameter name="checkingConstraints" value="disabled"/>
@@ -78,7 +78,7 @@
         <Namespace nsabr="xAL" ns="urn:oasis:names:tc:ciq:xal:3"/>
         <!-- ADE namespaces -->
         <Namespace nsabr="doc" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#"/>
-        <Namespace nsabr="wksp" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies//Workspace/3.0/workspace#"/>
+        <Namespace nsabr="wksp" ns="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#"/>
         <!-- ISO TC211 namespaces -->
         <Namespace nsabr="iso19103" ns="http://def.isotc211.org/iso19103/2005/UnitsOfMeasure#"/>
         <Namespace nsabr="iso19107-cm" ns="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#"/>
@@ -146,10 +146,11 @@
           <!-- <rule name="rule-owl-prop-globalScopeAttributes"/> -->
           <!-- <rule name="rule-owl-prop-globalScopeByUniquePropertyName"/> -->
           <!-- <rule name="rule-owl-prop-globalScopeByConversionParameter"/> -->
-          <!-- <rule name="rule-owl-prop-multiplicityAsQualifiedCardinalityRestriction"/> -->
+          <rule name="rule-owl-prop-multiplicityAsQualifiedCardinalityRestriction"/>
           <!-- <rule name="rule-owl-prop-multiplicityAsUnqualifiedCardinalityRestriction"/> -->
+          <rule name="rule-owl-prop-voidable-as-minCardinality0"/>
           <rule name="rule-owl-prop-range-global"/>
-          <rule name="rule-owl-prop-range-local-withUniversalQuantification"/>
+          <!-- <rule name="rule-owl-prop-range-local-withUniversalQuantification"/> -->
           <rule name="rule-owl-prop-mapping-compare-specifications"/>
           <!-- <rule name="rule-owl-all-constraints-humanReadableTextOnly"/> -->
           <rule name="rule-owl-all-constraints-byConstraintMapping"/>

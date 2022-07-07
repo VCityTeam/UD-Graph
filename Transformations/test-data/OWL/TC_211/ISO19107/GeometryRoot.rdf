@@ -13,6 +13,7 @@
   <!ENTITY iso19107_546 "http://def.isotc211.org/iso19107/2003/GeometricComplex#" >
   <!ENTITY iso19111_562 "http://def.isotc211.org/iso19111/2007/CoordinateReferenceSystems#" >
   <!ENTITY iso19107 "http://def.isotc211.org/iso19107/2003/GeometryRoot#" >
+  <!ENTITY geo "http://www.opengis.net/ont/geosparql#" >
 
 ]>
 
@@ -29,7 +30,8 @@
   xmlns:iso19107_544="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#"
   xmlns:iso19107_546="http://def.isotc211.org/iso19107/2003/GeometricComplex#"
   xmlns:iso19111_562="http://def.isotc211.org/iso19111/2007/CoordinateReferenceSystems#"
-  xmlns:iso19107="http://def.isotc211.org/iso19107/2003/GeometryRoot#">
+  xmlns:iso19107="http://def.isotc211.org/iso19107/2003/GeometryRoot#"
+  xmlns:geo="http://www.opengis.net/ont/geosparql#">
   <owl:Ontology rdf:about="http://def.isotc211.org/iso19107/2003/GeometryRoot">
     <rdfs:label>ISO 19107:2003 Geometry root</rdfs:label>
     <dct:source>http://standards.iso.org/iso/19107/ed-1/en/</dct:source>
@@ -38,6 +40,7 @@
     <owl:imports rdf:resource="http://def.isotc211.org/iso19107/2003/GeometricComplex"/>
     <owl:imports rdf:resource="http://def.isotc211.org/iso19111/2007/CoordinateReferenceSystems"/-->
     <owl:imports rdf:resource="http://def.isotc211.org/iso19150/-2/2012/base"/>
+    <owl:imports rdf:resource="https://schemas.opengis.net/geosparql/1.0/geosparql_vocab_all.rdf"/>
   </owl:Ontology>
   <owl:Class rdf:about="&iso19107;GM_Boundary">
     <rdfs:label>GM_Boundary</rdfs:label>
@@ -56,6 +59,7 @@
     <iso19150-2:constraint>dimension() .gt.  boundary().dimension</iso19150-2:constraint>
     <iso19150-2:constraint>dimension() .gt.  boundary().dimension</iso19150-2:constraint>
     <rdfs:subClassOf rdf:resource="&iso19107_544;TransfiniteSet.lt.DirectPosition.gt."/>
+    <owl:equivalentClass rdf:resource="&geo;Geometry"/>
     <rdfs:subClassOf>
       <owl:Restriction>
         <owl:onProperty rdf:resource="&iso19107;GM_Object.CRS"/>
@@ -77,4 +81,3 @@
     <rdfs:range rdf:resource="&iso19111_562;SC_CRS"/>
   </owl:ObjectProperty>
 </rdf:RDF>
-
