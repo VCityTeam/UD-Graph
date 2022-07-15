@@ -6,7 +6,8 @@
 
 <a href="http://oops.linkeddata.es"><img
 	src="https://oops.linkeddata.es/images/conformance/oops_minor.png"
-	alt="Minor pitfalls were found" height="69.6" width="100" /></a>
+	alt="Minor pitfalls were found" height="50"/>
+</a>
 
 2. [CityGML 3.0 Conceptual Model OWL](CityGML/3.0/)
    - an ontology network for describing semantic 3D city models created from the [CityGML 3.0 UML model](https://github.com/opengeospatial/CityGML-3.0CM/blob/master/Conceptual%20Model/XMI%20Files/OGC%20CityGML%203.0/CityGML_3.0_All_Modules_No_References/CityGML_3.0.xml)
@@ -14,7 +15,8 @@
 
 <a href="http://oops.linkeddata.es"><img
 	src="https://oops.linkeddata.es/images/conformance/oops_minor.png"
-	alt="Minor pitfalls were found" height="69.6" width="100" /></a>
+	alt="Minor pitfalls were found" height="50"/>
+</a>
 
 3. [CityGML2OWL](CityGML/CityGML2OWL.rdf)
    - an ontology to describe city models created from the transformation of the CityGML 2.0 and GML 3.1 XML Schema
@@ -27,7 +29,8 @@
 
 <a href="http://oops.linkeddata.es"><img
 	src="https://oops.linkeddata.es/images/conformance/oops_minor.png"
-	alt="Minor pitfalls were found" height="69.6" width="100" /></a>
+	alt="Minor pitfalls were found" height="50"/>
+</a>
 
 5. [Documents](Document/)
    - a document ontology adapted for extending CityGML 2.0 and 3.0
@@ -35,7 +38,8 @@
 
 <a href="http://oops.linkeddata.es"><img
 	src="https://oops.linkeddata.es/images/conformance/oops_minor.png"
-	alt="Minor pitfalls were found" height="69.6" width="100" /></a>
+	alt="Minor pitfalls were found" height="50"/>
+</a>
 
 6. [iso19136](iso19136)
    - an ontology to describe the GML model from the [TC211 Ontologies](https://def.isotc211.org/ontologies/iso19136/)
