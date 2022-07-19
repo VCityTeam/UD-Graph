@@ -81,19 +81,30 @@ WHERE {
 
 # return all features within a version
 
-# SELECT ?subject ?subjectType ?predicate ?object ?objectType
-# WHERE {
-#   ?subject a core:CityModel ;
-#     ?predicate ?object .
-#   ?subject a ?subjectType .
-#   ?object a bldg:Building .
-#   ?object a ?objectType .
-#   data:version_2018 vers:Version.versionMember ?object .
+SELECT ?subject ?predicate ?object
+WHERE {
+  ?subject a          core:CityModel .
+  ?subject ?predicate ?object .
   
-#   FILTER(?subjectType != owl:NamedIndividual)
-#   FILTER(?objectType != owl:NamedIndividual)
-# }
+  data:version_2018 vers:Version.versionMember ?object .
+  
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}
 
+# return all features (with types) within a version
 
+SELECT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  ?subject a core:CityModel ;
+    ?predicate ?object .
+  ?subject a ?subjectType .
+  ?object a bldg:Building .
+  ?object a ?objectType .
+  data:version_2018 vers:Version.versionMember ?object .
+  
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}
 
 LIMIT 100
