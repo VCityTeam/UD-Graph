@@ -1,0 +1,3987 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core">
+    <Prefix name="sc" IRI="http://shapechange.net/resources/ont/base#"/>
+    <Prefix name="app" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/appearance#"/>
+    <Prefix name="con" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/construction#"/>
+    <Prefix name="dem" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/relief#"/>
+    <Prefix name="doc" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#"/>
+    <Prefix name="dyn" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/dynamizer#"/>
+    <Prefix name="frn" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityfurniture#"/>
+    <Prefix name="gen" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/generics#"/>
+    <Prefix name="grp" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityobjectgroup#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="tun" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/tunnel#"/>
+    <Prefix name="veg" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/vegetation#"/>
+    <Prefix name="wtr" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/waterbody#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="bldg" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#"/>
+    <Prefix name="brid" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/bridge#"/>
+    <Prefix name="core" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#"/>
+    <Prefix name="luse" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/landuse#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="skos" IRI="http://www.w3.org/2004/02/skos/core#"/>
+    <Prefix name="tran" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/transportation#"/>
+    <Prefix name="wksp" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#"/>
+    <Prefix name="gmlowl" IRI="http://www.opengis.net/ont/gml#"/>
+    <Prefix name="iso19109" IRI="http://def.isotc211.org/iso19109/2015/GeneralFeatureModel#"/>
+    <Prefix name="iso19150-2" IRI="http://def.isotc211.org/iso19150/-2/2012/base#"/>
+    <Prefix name="iso19136-bt" IRI="http://def.isotc211.org/iso19136/2007/BasicTypes#"/>
+    <Prefix name="iso19111-2019" IRI="http://def.isotc211.org/iso19111/2019/CoordinateReferenceSystems#"/>
+    <Import>http://def.isotc211.org/iso19150/-2/2012/base</Import>
+    <Import>http://shapechange.net/resources/ont/base</Import>
+    <Import>http://www.opengis.net/ont/gml</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/appearance.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/bridge.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityfurniture.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/cityobjectgroup.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/construction.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/dynamizer.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/generics.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/landuse.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/relief.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/transportation.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/tunnel.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/vegetation.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/waterbody.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace.ttl</Import>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal xml:lang="en">Core</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <Literal xml:lang="en">The Core module defines the basic components of the CityGML conceptual model. This includes abstract base classes that define the core properties of more specialized thematic classes defined in other modules as well as concrete classes that are common to other modules, for example basic data types.</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractAppearance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractCityObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractDynamizer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractFeature"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractFeatureWithLifespan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractLogicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractOccupiedSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractPhysicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractPointCloud"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractSpaceBoundary"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractThematicSurface"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractUnoccupiedSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractVersion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAbstractVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfAddress"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfCityModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfClosureSurface"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractAppearance"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractCityObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractDynamizer"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractFeature"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractGenericAttribute"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractLogicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractOccupiedSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractPointCloud"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractSpaceBoundary"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractThematicSurface"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractUnoccupiedSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractVersion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AbstractVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Address"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CityModel"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CityObjectRelation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ClosureSurface"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DoubleBetween0and1"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DoubleBetween0and1List"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DoubleList"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DoubleOrNilReasonList"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ExternalReference"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ID"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ImplicitGeometry"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#IntegerBetween0and3"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Occupancy"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#QualifiedArea"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#QualifiedVolume"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TransformationMatrix2x2"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TransformationMatrix3x4"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TransformationMatrix4x4"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#XALAddress"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractAppearance.adeOfAbstractAppearance"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.adeOfAbstractCityObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.appearance"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.dynamizer"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.externalReference"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.generalizesTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.genericAttribute"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractCityObject.relatedTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractDynamizer.adeOfAbstractDynamizer"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractFeature.adeOfAbstractFeature"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractFeature.featureID"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractFeature.identifier"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractLogicalSpace.adeOfAbstractLogicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.adeOfAbstractOccupiedSpace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod1ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod2ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod3ImplicitRepresentation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.adeOfAbstractPhysicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod1TerrainIntersectionCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod2TerrainIntersectionCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod3TerrainIntersectionCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.pointCloud"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractPointCloud.adeOfAbstractPointCloud"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.adeOfAbstractSpace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.area"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.boundary"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod0MultiCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod0MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod0Point"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod1Solid"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod2MultiCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod2MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod2Solid"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod3MultiCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod3MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.lod3Solid"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpace.volume"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractSpaceBoundary.adeOfAbstractSpaceBoundary"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.adeOfAbstractThematicSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.area"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiCurve"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod1MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod2MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod3MultiSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractThematicSurface.pointCloud"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractVersion.adeOfAbstractVersion"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#AbstractVersionTransition.adeOfAbstractVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Address.adeOfAddress"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Address.multiPoint"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Address.xalAddress"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.adeOfCityModel"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.cityModelMember_appearanceMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.cityModelMember_cityObjectMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.cityModelMember_featureMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.cityModelMember_versionMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.cityModelMember_versionTransitionMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityModel.engineeringCRS"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityObjectRelation.genericAttribute"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityObjectRelation.relatedTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#CityObjectRelation.relationType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ClosureSurface.adeOfClosureSurface"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#DoubleBetween0and1List.list"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ImplicitGeometry.appearance"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ImplicitGeometry.mimeType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ImplicitGeometry.objectID"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ImplicitGeometry.referencePoint"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ImplicitGeometry.relativeGeometry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#ImplicitGeometry.transformationMatrix"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Occupancy.interval"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Occupancy.occupantType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#QualifiedArea.typeOfArea"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#QualifiedVolume.typeOfVolume"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractCityObject.relativeToTerrain"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractCityObject.relativeToWater"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractFeature.description"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractFeature.name"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.creationDate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.terminationDate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.validFrom"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.validTo"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#AbstractSpace.spaceType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#DoubleList.list"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#DoubleOrNilReasonList.list_nilReason_URI"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#DoubleOrNilReasonList.list_value"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ExternalReference.informationSystem"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ExternalReference.relationType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ExternalReference.targetResource"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#ImplicitGeometry.libraryObject"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Occupancy.numberOfOccupants"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#QualifiedArea.area"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#QualifiedVolume.volume"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="#RelativeToTerrain"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="#RelativeToWater"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="#SpaceType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitDay"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Monday"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="iso19111-2019:EngineeringCRS"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitSecond"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitWeek"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="owl:Class"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitYear"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="iso19109:AnyFeature"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:duration"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/contributor"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gYear"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Saturday"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Wednesday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/description"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/creator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://def.isotc211.org/iso19107/2003/CoordinateGeometry#GM_TriangulatedSurface"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://def.isotc211.org/iso19150-2/2012/base#isEnumeration"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/license"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="rdfs:Resource"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="sc:Measure"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gDay"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitHour"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="iso19136-bt:MeasureOrNilReasonList"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Friday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/description"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Thursday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/creator"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://shapechange.net/resources/ont/base#+"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://shapechange.net/resources/ont/base#-"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="iso19136-bt:Code"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/isVersionOf"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/date"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitMonth"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:date"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitMinute"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="skos:defnition"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gMonth"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://def.isotc211.org/iso19123/2005/DiscreteCoverages#CV_DiscreteGridPointCoverage"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gYearMonth"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/modified"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/rights"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="rdf:List"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Sunday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/title"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/contributor"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="xsd:pattern"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Tuesday"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://def.isotc211.org/iso19111/2007/CoordinateReferenceSystems#SC_CRS"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#AbstractAppearance"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractAppearance"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractAppearance.adeOfAbstractAppearance"/>
+            <Class IRI="#ADEOfAbstractAppearance"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.adeOfAbstractCityObject"/>
+            <Class IRI="#ADEOfAbstractCityObject"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.appearance"/>
+            <Class IRI="#AbstractAppearance"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.dynamizer"/>
+            <Class IRI="#AbstractDynamizer"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.externalReference"/>
+            <Class IRI="#ExternalReference"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.generalizesTo"/>
+            <Class IRI="#AbstractCityObject"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.genericAttribute"/>
+            <Class IRI="#AbstractGenericAttribute"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractCityObject.relatedTo"/>
+            <Class IRI="#CityObjectRelation"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractCityObject.relativeToTerrain"/>
+            <Datatype IRI="#RelativeToTerrain"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractCityObject"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractCityObject.relativeToWater"/>
+            <Datatype IRI="#RelativeToWater"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractDynamizer"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractDynamizer"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractDynamizer.adeOfAbstractDynamizer"/>
+            <Class IRI="#ADEOfAbstractDynamizer"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeature"/>
+        <Class abbreviatedIRI="iso19109:AnyFeature"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeature"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractFeature.adeOfAbstractFeature"/>
+            <Class IRI="#ADEOfAbstractFeature"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeature"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractFeature.featureID"/>
+            <Class IRI="#ID"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeature"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractFeature.identifier"/>
+            <Class abbreviatedIRI="rdfs:Resource"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeature"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractFeature.description"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeature"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractFeature.name"/>
+            <Datatype abbreviatedIRI="xsd:Name"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <Class IRI="#AbstractFeature"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan"/>
+            <Class IRI="#ADEOfAbstractFeatureWithLifespan"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractFeatureWithLifespan.creationDate"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractFeatureWithLifespan.terminationDate"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractFeatureWithLifespan.validFrom"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractFeatureWithLifespan.validTo"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractLogicalSpace"/>
+        <Class IRI="#AbstractSpace"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractLogicalSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractLogicalSpace.adeOfAbstractLogicalSpace"/>
+            <Class IRI="#ADEOfAbstractLogicalSpace"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractOccupiedSpace"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractOccupiedSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractOccupiedSpace.adeOfAbstractOccupiedSpace"/>
+            <Class IRI="#ADEOfAbstractOccupiedSpace"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractOccupiedSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractOccupiedSpace.lod1ImplicitRepresentation"/>
+            <Class IRI="#ImplicitGeometry"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractOccupiedSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractOccupiedSpace.lod2ImplicitRepresentation"/>
+            <Class IRI="#ImplicitGeometry"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractOccupiedSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractOccupiedSpace.lod3ImplicitRepresentation"/>
+            <Class IRI="#ImplicitGeometry"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPhysicalSpace"/>
+        <Class IRI="#AbstractSpace"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPhysicalSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractPhysicalSpace.adeOfAbstractPhysicalSpace"/>
+            <Class IRI="#ADEOfAbstractPhysicalSpace"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPhysicalSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractPhysicalSpace.lod1TerrainIntersectionCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPhysicalSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractPhysicalSpace.lod2TerrainIntersectionCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPhysicalSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractPhysicalSpace.lod3TerrainIntersectionCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPhysicalSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractPhysicalSpace.pointCloud"/>
+            <Class IRI="#AbstractPointCloud"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPointCloud"/>
+        <Class IRI="#AbstractFeature"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractPointCloud"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractPointCloud.adeOfAbstractPointCloud"/>
+            <Class IRI="#ADEOfAbstractPointCloud"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <Class IRI="#AbstractCityObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.adeOfAbstractSpace"/>
+            <Class IRI="#ADEOfAbstractSpace"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.area"/>
+            <Class IRI="#QualifiedArea"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.boundary"/>
+            <Class IRI="#AbstractSpaceBoundary"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod0MultiCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod0MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod0Point"/>
+            <Class abbreviatedIRI="gmlowl:Point"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod1Solid"/>
+            <Class abbreviatedIRI="gmlowl:Solid"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod2MultiCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod2MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod2Solid"/>
+            <Class abbreviatedIRI="gmlowl:Solid"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod3MultiCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod3MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.lod3Solid"/>
+            <Class abbreviatedIRI="gmlowl:Solid"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpace.volume"/>
+            <Class IRI="#QualifiedVolume"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpace"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#AbstractSpace.spaceType"/>
+            <Datatype IRI="#SpaceType"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpaceBoundary"/>
+        <Class IRI="#AbstractCityObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractSpaceBoundary"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractSpaceBoundary.adeOfAbstractSpaceBoundary"/>
+            <Class IRI="#ADEOfAbstractSpaceBoundary"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <Class IRI="#AbstractSpaceBoundary"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.adeOfAbstractThematicSurface"/>
+            <Class IRI="#ADEOfAbstractThematicSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.area"/>
+            <Class IRI="#QualifiedArea"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiCurve"/>
+            <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.lod1MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.lod2MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.lod3MultiSurface"/>
+            <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractThematicSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractThematicSurface.pointCloud"/>
+            <Class IRI="#AbstractPointCloud"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractUnoccupiedSpace"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractUnoccupiedSpace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace"/>
+            <Class IRI="#ADEOfAbstractUnoccupiedSpace"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractVersion"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractVersion"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractVersion.adeOfAbstractVersion"/>
+            <Class IRI="#ADEOfAbstractVersion"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractVersionTransition"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AbstractVersionTransition"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#AbstractVersionTransition.adeOfAbstractVersionTransition"/>
+            <Class IRI="#ADEOfAbstractVersionTransition"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Address"/>
+        <Class IRI="#AbstractFeature"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Address"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Address.adeOfAddress"/>
+            <Class IRI="#ADEOfAddress"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Address"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Address.multiPoint"/>
+            <Class abbreviatedIRI="gmlowl:MultiPoint"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Address"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Address.xalAddress"/>
+            <Class IRI="#XALAddress"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.adeOfCityModel"/>
+            <Class IRI="#ADEOfCityModel"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.cityModelMember_appearanceMember"/>
+            <Class IRI="#AbstractAppearance"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.cityModelMember_cityObjectMember"/>
+            <Class IRI="#AbstractCityObject"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.cityModelMember_featureMember"/>
+            <Class IRI="#AbstractFeature"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.cityModelMember_versionMember"/>
+            <Class IRI="#AbstractVersion"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.cityModelMember_versionTransitionMember"/>
+            <Class IRI="#AbstractVersionTransition"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityModel"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityModel.engineeringCRS"/>
+            <Class abbreviatedIRI="iso19111-2019:EngineeringCRS"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityObjectRelation"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityObjectRelation.genericAttribute"/>
+            <Class IRI="#AbstractGenericAttribute"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityObjectRelation"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityObjectRelation.relatedTo"/>
+            <Class IRI="#AbstractCityObject"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#CityObjectRelation"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#CityObjectRelation.relationType"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ClosureSurface"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ClosureSurface"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ClosureSurface.adeOfClosureSurface"/>
+            <Class IRI="#ADEOfClosureSurface"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DoubleBetween0and1List"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#DoubleBetween0and1List.list"/>
+            <Class IRI="#DoubleBetween0and1"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DoubleList"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#DoubleList.list"/>
+            <Datatype abbreviatedIRI="xsd:double"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DoubleOrNilReasonList"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DoubleOrNilReasonList"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#DoubleOrNilReasonList.list_nilReason_URI"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#DoubleOrNilReasonList"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#DoubleOrNilReasonList.list_value"/>
+            <Datatype abbreviatedIRI="xsd:double"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExternalReference"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#ExternalReference.informationSystem"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExternalReference"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#ExternalReference.relationType"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ExternalReference"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#ExternalReference.targetResource"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ImplicitGeometry.appearance"/>
+            <Class IRI="#AbstractAppearance"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ImplicitGeometry.mimeType"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ImplicitGeometry.objectID"/>
+            <Class IRI="#ID"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ImplicitGeometry.referencePoint"/>
+            <Class abbreviatedIRI="gmlowl:Point"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ImplicitGeometry.relativeGeometry"/>
+            <Class abbreviatedIRI="gmlowl:AbstractGeometry"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#ImplicitGeometry.transformationMatrix"/>
+            <Class IRI="#TransformationMatrix4x4"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ImplicitGeometry"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#ImplicitGeometry.libraryObject"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Occupancy"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Occupancy.interval"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Occupancy"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Occupancy.occupantType"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Occupancy"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Occupancy.numberOfOccupants"/>
+            <Datatype abbreviatedIRI="xsd:integer"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#QualifiedArea"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#QualifiedArea.typeOfArea"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#QualifiedArea"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#QualifiedArea.area"/>
+            <Datatype abbreviatedIRI="sc:Measure"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#QualifiedVolume"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#QualifiedVolume.typeOfVolume"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#QualifiedVolume"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#QualifiedVolume.volume"/>
+            <Datatype abbreviatedIRI="sc:Measure"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TransformationMatrix2x2"/>
+        <Class IRI="#DoubleList"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TransformationMatrix3x4"/>
+        <Class IRI="#DoubleList"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TransformationMatrix4x4"/>
+        <Class IRI="#DoubleList"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class abbreviatedIRI="app:AbstractSurfaceData"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+        <Class IRI="#AbstractPointCloud"/>
+        <Class IRI="#Address"/>
+        <Class abbreviatedIRI="dyn:AbstractTimeseries"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="brid:BridgeRoom"/>
+        <Class abbreviatedIRI="bldg:BuildingRoom"/>
+        <Class abbreviatedIRI="gen:GenericUnoccupiedSpace"/>
+        <Class abbreviatedIRI="tran:AbstractTransportationSpace"/>
+        <Class abbreviatedIRI="tran:AuxiliaryTrafficSpace"/>
+        <Class abbreviatedIRI="tran:ClearanceSpace"/>
+        <Class abbreviatedIRI="tran:Hole"/>
+        <Class abbreviatedIRI="tran:TrafficSpace"/>
+        <Class abbreviatedIRI="tun:HollowSpace"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="bldg:AbstractBuildingSubdivision"/>
+        <Class abbreviatedIRI="grp:CityObjectGroup"/>
+        <Class abbreviatedIRI="gen:GenericLogicalSpace"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="frn:CityFurniture"/>
+        <Class abbreviatedIRI="con:AbstractConstruction"/>
+        <Class abbreviatedIRI="con:AbstractConstructiveElement"/>
+        <Class abbreviatedIRI="con:AbstractFillingElement"/>
+        <Class abbreviatedIRI="con:AbstractFurniture"/>
+        <Class abbreviatedIRI="con:AbstractInstallation"/>
+        <Class abbreviatedIRI="gen:GenericOccupiedSpace"/>
+        <Class abbreviatedIRI="veg:AbstractVegetationObject"/>
+        <Class abbreviatedIRI="wtr:WaterBody"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="con:AbstractConstructionSurface"/>
+        <Class abbreviatedIRI="con:AbstractFillingSurface"/>
+        <Class IRI="#ClosureSurface"/>
+        <Class abbreviatedIRI="gen:GenericThematicSurface"/>
+        <Class abbreviatedIRI="luse:LandUse"/>
+        <Class abbreviatedIRI="tran:AuxiliaryTrafficArea"/>
+        <Class abbreviatedIRI="tran:HoleSurface"/>
+        <Class abbreviatedIRI="tran:Marking"/>
+        <Class abbreviatedIRI="tran:TrafficArea"/>
+        <Class abbreviatedIRI="wtr:AbstractWaterBoundarySurface"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#AbstractAppearance"/>
+        <Class IRI="#AbstractCityObject"/>
+        <Class IRI="#AbstractDynamizer"/>
+        <Class IRI="#AbstractVersion"/>
+        <Class IRI="#AbstractVersionTransition"/>
+        <Class IRI="#CityModel"/>
+        <Class abbreviatedIRI="doc:Document"/>
+        <Class abbreviatedIRI="wksp:Scenario"/>
+        <Class abbreviatedIRI="wksp:Space"/>
+        <Class abbreviatedIRI="wksp:Workspace"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#AbstractLogicalSpace"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#AbstractOccupiedSpace"/>
+        <Class IRI="#AbstractUnoccupiedSpace"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#AbstractSpace"/>
+        <Class IRI="#AbstractSpaceBoundary"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#AbstractThematicSurface"/>
+        <Class abbreviatedIRI="dem:AbstractReliefComponent"/>
+        <Class abbreviatedIRI="dem:ReliefFeature"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="#TransformationMatrix2x2"/>
+        <Class IRI="#TransformationMatrix3x4"/>
+        <Class IRI="#TransformationMatrix4x4"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="gen:CodeAttribute"/>
+        <Class abbreviatedIRI="gen:DateAttribute"/>
+        <Class abbreviatedIRI="gen:DoubleAttribute"/>
+        <Class abbreviatedIRI="gen:GenericAttributeSet"/>
+        <Class abbreviatedIRI="gen:IntAttribute"/>
+        <Class abbreviatedIRI="gen:MeasureAttribute"/>
+        <Class abbreviatedIRI="gen:StringAttribute"/>
+        <Class abbreviatedIRI="gen:UriAttribute"/>
+    </DisjointClasses>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractAppearance.adeOfAbstractAppearance"/>
+        <Class IRI="#AbstractAppearance"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.adeOfAbstractCityObject"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.appearance"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.dynamizer"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.externalReference"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.generalizesTo"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.genericAttribute"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractCityObject.relatedTo"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractDynamizer.adeOfAbstractDynamizer"/>
+        <Class IRI="#AbstractDynamizer"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractFeature.adeOfAbstractFeature"/>
+        <Class IRI="#AbstractFeature"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractFeature.featureID"/>
+        <Class IRI="#AbstractFeature"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractFeature.identifier"/>
+        <Class IRI="#AbstractFeature"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractLogicalSpace.adeOfAbstractLogicalSpace"/>
+        <Class IRI="#AbstractLogicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.adeOfAbstractOccupiedSpace"/>
+        <Class IRI="#AbstractOccupiedSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod1ImplicitRepresentation"/>
+        <Class IRI="#AbstractOccupiedSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod2ImplicitRepresentation"/>
+        <Class IRI="#AbstractOccupiedSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod3ImplicitRepresentation"/>
+        <Class IRI="#AbstractOccupiedSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.adeOfAbstractPhysicalSpace"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod1TerrainIntersectionCurve"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod2TerrainIntersectionCurve"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod3TerrainIntersectionCurve"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.pointCloud"/>
+        <Class IRI="#AbstractPhysicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractPointCloud.adeOfAbstractPointCloud"/>
+        <Class IRI="#AbstractPointCloud"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.adeOfAbstractSpace"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.area"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.boundary"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod0MultiCurve"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod0MultiSurface"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod0Point"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod1Solid"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod2MultiCurve"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod2MultiSurface"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod2Solid"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod3MultiCurve"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod3MultiSurface"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.lod3Solid"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpace.volume"/>
+        <Class IRI="#AbstractSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractSpaceBoundary.adeOfAbstractSpaceBoundary"/>
+        <Class IRI="#AbstractSpaceBoundary"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.adeOfAbstractThematicSurface"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.area"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiCurve"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiSurface"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod1MultiSurface"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod2MultiSurface"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod3MultiSurface"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractThematicSurface.pointCloud"/>
+        <Class IRI="#AbstractThematicSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace"/>
+        <Class IRI="#AbstractUnoccupiedSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractVersion.adeOfAbstractVersion"/>
+        <Class IRI="#AbstractVersion"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#AbstractVersionTransition.adeOfAbstractVersionTransition"/>
+        <Class IRI="#AbstractVersionTransition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Address.adeOfAddress"/>
+        <Class IRI="#Address"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Address.multiPoint"/>
+        <Class IRI="#Address"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Address.xalAddress"/>
+        <Class IRI="#Address"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.adeOfCityModel"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.cityModelMember_appearanceMember"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.cityModelMember_cityObjectMember"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.cityModelMember_featureMember"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.cityModelMember_versionMember"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.cityModelMember_versionTransitionMember"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityModel.engineeringCRS"/>
+        <Class IRI="#CityModel"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityObjectRelation.genericAttribute"/>
+        <Class IRI="#CityObjectRelation"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityObjectRelation.relatedTo"/>
+        <Class IRI="#CityObjectRelation"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#CityObjectRelation.relationType"/>
+        <Class IRI="#CityObjectRelation"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ClosureSurface.adeOfClosureSurface"/>
+        <Class IRI="#ClosureSurface"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#DoubleBetween0and1List.list"/>
+        <Class IRI="#DoubleBetween0and1List"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration"/>
+        <Class IRI="#DoubleOrNilReasonList"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ImplicitGeometry.appearance"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ImplicitGeometry.mimeType"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ImplicitGeometry.objectID"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ImplicitGeometry.referencePoint"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ImplicitGeometry.relativeGeometry"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#ImplicitGeometry.transformationMatrix"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Occupancy.interval"/>
+        <Class IRI="#Occupancy"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Occupancy.occupantType"/>
+        <Class IRI="#Occupancy"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#QualifiedArea.typeOfArea"/>
+        <Class IRI="#QualifiedArea"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#QualifiedVolume.typeOfVolume"/>
+        <Class IRI="#QualifiedVolume"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractAppearance.adeOfAbstractAppearance"/>
+        <Class IRI="#ADEOfAbstractAppearance"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.adeOfAbstractCityObject"/>
+        <Class IRI="#ADEOfAbstractCityObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.appearance"/>
+        <Class IRI="#AbstractAppearance"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.dynamizer"/>
+        <Class IRI="#AbstractDynamizer"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.externalReference"/>
+        <Class IRI="#ExternalReference"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.generalizesTo"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.genericAttribute"/>
+        <Class IRI="#AbstractGenericAttribute"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractCityObject.relatedTo"/>
+        <Class IRI="#CityObjectRelation"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractDynamizer.adeOfAbstractDynamizer"/>
+        <Class IRI="#ADEOfAbstractDynamizer"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractFeature.adeOfAbstractFeature"/>
+        <Class IRI="#ADEOfAbstractFeature"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractFeature.featureID"/>
+        <Class IRI="#ID"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractFeature.identifier"/>
+        <Class abbreviatedIRI="rdfs:Resource"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan"/>
+        <Class IRI="#ADEOfAbstractFeatureWithLifespan"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractLogicalSpace.adeOfAbstractLogicalSpace"/>
+        <Class IRI="#ADEOfAbstractLogicalSpace"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.adeOfAbstractOccupiedSpace"/>
+        <Class IRI="#ADEOfAbstractOccupiedSpace"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod1ImplicitRepresentation"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod2ImplicitRepresentation"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractOccupiedSpace.lod3ImplicitRepresentation"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.adeOfAbstractPhysicalSpace"/>
+        <Class IRI="#ADEOfAbstractPhysicalSpace"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod1TerrainIntersectionCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod2TerrainIntersectionCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.lod3TerrainIntersectionCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractPhysicalSpace.pointCloud"/>
+        <Class IRI="#AbstractPointCloud"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractPointCloud.adeOfAbstractPointCloud"/>
+        <Class IRI="#ADEOfAbstractPointCloud"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.adeOfAbstractSpace"/>
+        <Class IRI="#ADEOfAbstractSpace"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.area"/>
+        <Class IRI="#QualifiedArea"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.boundary"/>
+        <Class IRI="#AbstractSpaceBoundary"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod0MultiCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod0MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod0Point"/>
+        <Class abbreviatedIRI="gmlowl:Point"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod1Solid"/>
+        <Class abbreviatedIRI="gmlowl:Solid"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod2MultiCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod2MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod2Solid"/>
+        <Class abbreviatedIRI="gmlowl:Solid"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod3MultiCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod3MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.lod3Solid"/>
+        <Class abbreviatedIRI="gmlowl:Solid"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpace.volume"/>
+        <Class IRI="#QualifiedVolume"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractSpaceBoundary.adeOfAbstractSpaceBoundary"/>
+        <Class IRI="#ADEOfAbstractSpaceBoundary"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.adeOfAbstractThematicSurface"/>
+        <Class IRI="#ADEOfAbstractThematicSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.area"/>
+        <Class IRI="#QualifiedArea"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiCurve"/>
+        <Class abbreviatedIRI="gmlowl:MultiCurve"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod0MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod1MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod2MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.lod3MultiSurface"/>
+        <Class abbreviatedIRI="gmlowl:MultiSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractThematicSurface.pointCloud"/>
+        <Class IRI="#AbstractPointCloud"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace"/>
+        <Class IRI="#ADEOfAbstractUnoccupiedSpace"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractVersion.adeOfAbstractVersion"/>
+        <Class IRI="#ADEOfAbstractVersion"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#AbstractVersionTransition.adeOfAbstractVersionTransition"/>
+        <Class IRI="#ADEOfAbstractVersionTransition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Address.adeOfAddress"/>
+        <Class IRI="#ADEOfAddress"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Address.multiPoint"/>
+        <Class abbreviatedIRI="gmlowl:MultiPoint"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Address.xalAddress"/>
+        <Class IRI="#XALAddress"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.adeOfCityModel"/>
+        <Class IRI="#ADEOfCityModel"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.cityModelMember_appearanceMember"/>
+        <Class IRI="#AbstractAppearance"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.cityModelMember_cityObjectMember"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.cityModelMember_featureMember"/>
+        <Class IRI="#AbstractFeature"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.cityModelMember_versionMember"/>
+        <Class IRI="#AbstractVersion"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.cityModelMember_versionTransitionMember"/>
+        <Class IRI="#AbstractVersionTransition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityModel.engineeringCRS"/>
+        <Class abbreviatedIRI="iso19111-2019:EngineeringCRS"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityObjectRelation.genericAttribute"/>
+        <Class IRI="#AbstractGenericAttribute"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityObjectRelation.relatedTo"/>
+        <Class IRI="#AbstractCityObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#CityObjectRelation.relationType"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ClosureSurface.adeOfClosureSurface"/>
+        <Class IRI="#ADEOfClosureSurface"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#DoubleBetween0and1List.list"/>
+        <Class IRI="#DoubleBetween0and1"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ImplicitGeometry.appearance"/>
+        <Class IRI="#AbstractAppearance"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ImplicitGeometry.mimeType"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ImplicitGeometry.objectID"/>
+        <Class IRI="#ID"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ImplicitGeometry.referencePoint"/>
+        <Class abbreviatedIRI="gmlowl:Point"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ImplicitGeometry.relativeGeometry"/>
+        <Class abbreviatedIRI="gmlowl:AbstractGeometry"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#ImplicitGeometry.transformationMatrix"/>
+        <Class IRI="#TransformationMatrix4x4"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Occupancy.interval"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Occupancy.occupantType"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#QualifiedArea.typeOfArea"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#QualifiedVolume.typeOfVolume"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractCityObject.relativeToTerrain"/>
+        <Class IRI="#AbstractCityObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractCityObject.relativeToWater"/>
+        <Class IRI="#AbstractCityObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractFeature.description"/>
+        <Class IRI="#AbstractFeature"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractFeature.name"/>
+        <Class IRI="#AbstractFeature"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.creationDate"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.terminationDate"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.validFrom"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.validTo"/>
+        <Class IRI="#AbstractFeatureWithLifespan"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#AbstractSpace.spaceType"/>
+        <Class IRI="#AbstractSpace"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#DoubleList.list"/>
+        <Class IRI="#DoubleList"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#DoubleOrNilReasonList.list_nilReason_URI"/>
+        <Class IRI="#DoubleOrNilReasonList"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#DoubleOrNilReasonList.list_value"/>
+        <Class IRI="#DoubleOrNilReasonList"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ExternalReference.informationSystem"/>
+        <Class IRI="#ExternalReference"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ExternalReference.relationType"/>
+        <Class IRI="#ExternalReference"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ExternalReference.targetResource"/>
+        <Class IRI="#ExternalReference"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#ImplicitGeometry.libraryObject"/>
+        <Class IRI="#ImplicitGeometry"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Occupancy.numberOfOccupants"/>
+        <Class IRI="#Occupancy"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#QualifiedArea.area"/>
+        <Class IRI="#QualifiedArea"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#QualifiedVolume.volume"/>
+        <Class IRI="#QualifiedVolume"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractCityObject.relativeToTerrain"/>
+        <Datatype IRI="#RelativeToTerrain"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractCityObject.relativeToWater"/>
+        <Datatype IRI="#RelativeToWater"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractFeature.description"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractFeature.name"/>
+        <Datatype abbreviatedIRI="xsd:Name"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.creationDate"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.terminationDate"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.validFrom"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractFeatureWithLifespan.validTo"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#AbstractSpace.spaceType"/>
+        <Datatype IRI="#SpaceType"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#DoubleList.list"/>
+        <Datatype abbreviatedIRI="xsd:double"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#DoubleOrNilReasonList.list_nilReason_URI"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#DoubleOrNilReasonList.list_value"/>
+        <Datatype abbreviatedIRI="xsd:double"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ExternalReference.informationSystem"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ExternalReference.relationType"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ExternalReference.targetResource"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#ImplicitGeometry.libraryObject"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Occupancy.numberOfOccupants"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#QualifiedArea.area"/>
+        <Datatype abbreviatedIRI="sc:Measure"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#QualifiedVolume.volume"/>
+        <Datatype abbreviatedIRI="sc:Measure"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractAppearance</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractAppearance</IRI>
+        <Literal xml:lang="en">ADEOfAbstractAppearance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractAppearance</IRI>
+        <Literal xml:lang="en">ADEOfAbstractAppearance acts as a hook to define properties within an ADE that are to be added to AbstractAppearance.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractCityObject</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractCityObject</IRI>
+        <Literal xml:lang="en">ADEOfAbstractCityObject</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractCityObject</IRI>
+        <Literal xml:lang="en">ADEOfAbstractCityObject acts as a hook to define properties within an ADE that are to be added to AbstractCityObject.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractDynamizer</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractDynamizer</IRI>
+        <Literal xml:lang="en">ADEOfAbstractDynamizer</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractDynamizer</IRI>
+        <Literal xml:lang="en">ADEOfAbstractDynamizer acts as a hook to define properties within an ADE that are to be added to AbstractDynamizer.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractFeature</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractFeature</IRI>
+        <Literal xml:lang="en">ADEOfAbstractFeature</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractFeature</IRI>
+        <Literal xml:lang="en">ADEOfAbstractFeature acts as a hook to define properties within an ADE that are to be added to AbstractFeature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractFeatureWithLifespan</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractFeatureWithLifespan</IRI>
+        <Literal xml:lang="en">ADEOfAbstractFeatureWithLifespan</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractFeatureWithLifespan</IRI>
+        <Literal xml:lang="en">ADEOfAbstractFeatureWithLifespan acts as a hook to define properties within an ADE that are to be added to AbstractFeatureWithLifespan.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractLogicalSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractLogicalSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractLogicalSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractLogicalSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractLogicalSpace acts as a hook to define properties within an ADE that are to be added to AbstractLogicalSpace.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractOccupiedSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractOccupiedSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractOccupiedSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractOccupiedSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractOccupiedSpace acts as a hook to define properties within an ADE that are to be added to AbstractOccupiedSpace.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractPhysicalSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractPhysicalSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractPhysicalSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractPhysicalSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractPhysicalSpace acts as a hook to define properties within an ADE that are to be added to AbstractPhysicalSpace.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractPointCloud</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractPointCloud</IRI>
+        <Literal xml:lang="en">ADEOfAbstractPointCloud</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractPointCloud</IRI>
+        <Literal xml:lang="en">ADEOfAbstractPointCloud acts as a hook to define properties within an ADE that are to be added to AbstractPointCloud.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractSpace acts as a hook to define properties within an ADE that are to be added to AbstractSpace.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractSpaceBoundary</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractSpaceBoundary</IRI>
+        <Literal xml:lang="en">ADEOfAbstractSpaceBoundary</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractSpaceBoundary</IRI>
+        <Literal xml:lang="en">ADEOfAbstractSpaceBoundary acts as a hook to define properties within an ADE that are to be added to AbstractSpaceBoundary.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractThematicSurface</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractThematicSurface</IRI>
+        <Literal xml:lang="en">ADEOfAbstractThematicSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractThematicSurface</IRI>
+        <Literal xml:lang="en">ADEOfAbstractThematicSurface acts as a hook to define properties within an ADE that are to be added to AbstractThematicSurface.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractUnoccupiedSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractUnoccupiedSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractUnoccupiedSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractUnoccupiedSpace</IRI>
+        <Literal xml:lang="en">ADEOfAbstractUnoccupiedSpace acts as a hook to define properties within an ADE that are to be added to AbstractUnoccupiedSpace.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractVersion</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractVersion</IRI>
+        <Literal xml:lang="en">ADEOfAbstractVersion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractVersion</IRI>
+        <Literal xml:lang="en">ADEOfAbstractVersion acts as a hook to define properties within an ADE that are to be added to AbstractVersion.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAbstractVersionTransition</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAbstractVersionTransition</IRI>
+        <Literal xml:lang="en">ADEOfAbstractVersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAbstractVersionTransition</IRI>
+        <Literal xml:lang="en">ADEOfAbstractVersionTransition acts as a hook to define properties within an ADE that are to be added to AbstractVersionTransition.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfAddress</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfAddress</IRI>
+        <Literal xml:lang="en">ADEOfAddress</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfAddress</IRI>
+        <Literal xml:lang="en">ADEOfAddress acts as a hook to define properties within an ADE that are to be added to an Address.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfCityModel</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfCityModel</IRI>
+        <Literal xml:lang="en">ADEOfCityModel</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfCityModel</IRI>
+        <Literal xml:lang="en">ADEOfCityModel acts as a hook to define properties within an ADE that are to be added to a CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfClosureSurface</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfClosureSurface</IRI>
+        <Literal xml:lang="en">ADEOfClosureSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfClosureSurface</IRI>
+        <Literal xml:lang="en">ADEOfClosureSurface acts as a hook to define properties within an ADE that are to be added to a ClosureSurface.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractAppearance</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractAppearance</IRI>
+        <Literal xml:lang="en">AbstractAppearance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractAppearance</IRI>
+        <Literal xml:lang="en">AbstractAppearance is the abstract superclass to represent any kind of appearance objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractAppearance.adeOfAbstractAppearance</IRI>
+        <Literal xml:lang="en">adeOfAbstractAppearance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractAppearance.adeOfAbstractAppearance</IRI>
+        <Literal xml:lang="en">Augments AbstractAppearance with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractCityObject</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject</IRI>
+        <Literal xml:lang="en">AbstractCityObject</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject</IRI>
+        <Literal xml:lang="en">AbstractCityObject is the abstract superclass of all thematic classes within the CityGML Conceptual Model.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.adeOfAbstractCityObject</IRI>
+        <Literal xml:lang="en">adeOfAbstractCityObject</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.adeOfAbstractCityObject</IRI>
+        <Literal xml:lang="en">Augments AbstractCityObject with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.appearance</IRI>
+        <Literal xml:lang="en">appearance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.appearance</IRI>
+        <Literal xml:lang="en">Relates appearances to the city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.dynamizer</IRI>
+        <Literal xml:lang="en">dynamizer</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.dynamizer</IRI>
+        <Literal xml:lang="en">Relates Dynamizer objects to the city object. These allow timeseries data to override static attribute values of the city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.externalReference</IRI>
+        <Literal xml:lang="en">externalReference</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.externalReference</IRI>
+        <Literal xml:lang="en">References external objects in other information systems that have a relation to the city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.generalizesTo</IRI>
+        <Literal xml:lang="en">generalizesTo</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.generalizesTo</IRI>
+        <Literal xml:lang="en">Relates generalized representations of the same real-world object in different Levels of Detail to the city object. The direction of this relation is from the city object to the corresponding generalized city objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.genericAttribute</IRI>
+        <Literal xml:lang="en">genericAttribute</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.genericAttribute</IRI>
+        <Literal xml:lang="en">Relates generic attributes to the city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.relatedTo</IRI>
+        <Literal xml:lang="en">relatedTo</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.relatedTo</IRI>
+        <Literal xml:lang="en">Relates other city objects to the city object. It also describes how the city objects are related to each other.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.relativeToTerrain</IRI>
+        <Literal xml:lang="en">relativeToTerrain</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.relativeToTerrain</IRI>
+        <Literal xml:lang="en">Describes the vertical position of the city object relative to the surrounding terrain.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractCityObject.relativeToWater</IRI>
+        <Literal xml:lang="en">relativeToWater</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractCityObject.relativeToWater</IRI>
+        <Literal xml:lang="en">Describes the vertical position of the city object relative to the surrounding water surface.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractDynamizer</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractDynamizer</IRI>
+        <Literal xml:lang="en">AbstractDynamizer</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractDynamizer</IRI>
+        <Literal xml:lang="en">AbstractDynamizer is the abstract superclass to represent Dynamizer objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractDynamizer.adeOfAbstractDynamizer</IRI>
+        <Literal xml:lang="en">adeOfAbstractDynamizer</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractDynamizer.adeOfAbstractDynamizer</IRI>
+        <Literal xml:lang="en">Augments AbstractDynamizer with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractFeature</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeature</IRI>
+        <Literal xml:lang="en">AbstractFeature</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeature</IRI>
+        <Literal xml:lang="en">AbstractFeature is the abstract superclass of all feature types within the CityGML Conceptual Model.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeature.adeOfAbstractFeature</IRI>
+        <Literal xml:lang="en">adeOfAbstractFeature</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeature.adeOfAbstractFeature</IRI>
+        <Literal xml:lang="en">Augments AbstractFeature with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeature.description</IRI>
+        <Literal xml:lang="en">description</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeature.description</IRI>
+        <Literal xml:lang="en">Provides further information on the feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeature.featureID</IRI>
+        <Literal xml:lang="en">featureID</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeature.featureID</IRI>
+        <Literal xml:lang="en">Specifies the unique identifier of the feature that is valid in the instance document within which it occurs.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeature.identifier</IRI>
+        <Literal xml:lang="en">identifier</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeature.identifier</IRI>
+        <Literal xml:lang="en">Specifies the unique identifier of the feature that is valid globally.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeature.name</IRI>
+        <Literal xml:lang="en">name</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeature.name</IRI>
+        <Literal xml:lang="en">Specifies the name of the feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractFeatureWithLifespan</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeatureWithLifespan</IRI>
+        <Literal xml:lang="en">AbstractFeatureWithLifespan</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeatureWithLifespan</IRI>
+        <Literal xml:lang="en">AbstractFeatureWithLifespan is the base class for all CityGML features. This class allows the optional specification of the real-world and database times for the existence of each feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan</IRI>
+        <Literal xml:lang="en">adeOfAbstractFeatureWithLifespan</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeatureWithLifespan.adeOfAbstractFeatureWithLifespan</IRI>
+        <Literal xml:lang="en">Augments AbstractFeatureWithLifespan with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeatureWithLifespan.creationDate</IRI>
+        <Literal xml:lang="en">creationDate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeatureWithLifespan.creationDate</IRI>
+        <Literal xml:lang="en">Indicates the date at which a CityGML feature was added to the CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeatureWithLifespan.terminationDate</IRI>
+        <Literal xml:lang="en">terminationDate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeatureWithLifespan.terminationDate</IRI>
+        <Literal xml:lang="en">Indicates the date at which a CityGML feature was removed from the CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeatureWithLifespan.validFrom</IRI>
+        <Literal xml:lang="en">validFrom</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeatureWithLifespan.validFrom</IRI>
+        <Literal xml:lang="en">Indicates the date at which a CityGML feature started to exist in the real world.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractFeatureWithLifespan.validTo</IRI>
+        <Literal xml:lang="en">validTo</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractFeatureWithLifespan.validTo</IRI>
+        <Literal xml:lang="en">Indicates the date at which a CityGML feature ended to exist in the real world.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractGenericAttribute</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractGenericAttribute</IRI>
+        <Literal xml:lang="en">AbstractGenericAttribute</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractGenericAttribute</IRI>
+        <Literal xml:lang="en">AbstractGenericAttribute is the abstract superclass for all types of generic attributes.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractLogicalSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractLogicalSpace</IRI>
+        <Literal xml:lang="en">AbstractLogicalSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractLogicalSpace</IRI>
+        <Literal xml:lang="en">AbstractLogicalSpace is the abstract superclass for all types of logical spaces. Logical space refers to spaces that are not bounded by physical surfaces but are defined according to thematic considerations.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractLogicalSpace.adeOfAbstractLogicalSpace</IRI>
+        <Literal xml:lang="en">adeOfAbstractLogicalSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractLogicalSpace.adeOfAbstractLogicalSpace</IRI>
+        <Literal xml:lang="en">Augments AbstractLogicalSpace with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractOccupiedSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractOccupiedSpace</IRI>
+        <Literal xml:lang="en">AbstractOccupiedSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractOccupiedSpace</IRI>
+        <Literal xml:lang="en">AbstractOccupiedSpace is the abstract superclass for all types of physically occupied spaces. Occupied space refers to spaces that are partially or entirely filled with matter.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractOccupiedSpace.adeOfAbstractOccupiedSpace</IRI>
+        <Literal xml:lang="en">adeOfAbstractOccupiedSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractOccupiedSpace.adeOfAbstractOccupiedSpace</IRI>
+        <Literal xml:lang="en">Augments AbstractOccupiedSpace with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractOccupiedSpace.lod1ImplicitRepresentation</IRI>
+        <Literal xml:lang="en">lod1ImplicitRepresentation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractOccupiedSpace.lod1ImplicitRepresentation</IRI>
+        <Literal xml:lang="en">Relates to an implicit geometry that represents the occupied space in Level of Detail 1.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractOccupiedSpace.lod2ImplicitRepresentation</IRI>
+        <Literal xml:lang="en">lod2ImplicitRepresentation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractOccupiedSpace.lod2ImplicitRepresentation</IRI>
+        <Literal xml:lang="en">Relates to an implicit geometry that represents the occupied space in Level of Detail 2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractOccupiedSpace.lod3ImplicitRepresentation</IRI>
+        <Literal xml:lang="en">lod3ImplicitRepresentation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractOccupiedSpace.lod3ImplicitRepresentation</IRI>
+        <Literal xml:lang="en">Relates to an implicit geometry that represents the occupied space in Level of Detail 3.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractPhysicalSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPhysicalSpace</IRI>
+        <Literal xml:lang="en">AbstractPhysicalSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPhysicalSpace</IRI>
+        <Literal xml:lang="en">AbstractPhysicalSpace is the abstract superclass for all types of physical spaces. Physical space refers to spaces that are fully or partially bounded by physical objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPhysicalSpace.adeOfAbstractPhysicalSpace</IRI>
+        <Literal xml:lang="en">adeOfAbstractPhysicalSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPhysicalSpace.adeOfAbstractPhysicalSpace</IRI>
+        <Literal xml:lang="en">Augments AbstractPhysicalSpace with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPhysicalSpace.lod1TerrainIntersectionCurve</IRI>
+        <Literal xml:lang="en">lod1TerrainIntersectionCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPhysicalSpace.lod1TerrainIntersectionCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 1.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPhysicalSpace.lod2TerrainIntersectionCurve</IRI>
+        <Literal xml:lang="en">lod2TerrainIntersectionCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPhysicalSpace.lod2TerrainIntersectionCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPhysicalSpace.lod3TerrainIntersectionCurve</IRI>
+        <Literal xml:lang="en">lod3TerrainIntersectionCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPhysicalSpace.lod3TerrainIntersectionCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the terrain intersection curve of the physical space in Level of Detail 3.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPhysicalSpace.pointCloud</IRI>
+        <Literal xml:lang="en">pointCloud</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPhysicalSpace.pointCloud</IRI>
+        <Literal xml:lang="en">Relates to a 3D PointCloud that represents the physical space.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractPointCloud</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPointCloud</IRI>
+        <Literal xml:lang="en">AbstractPointCloud</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPointCloud</IRI>
+        <Literal xml:lang="en">AbstractPointCloud is the abstract superclass to represent PointCloud objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractPointCloud.adeOfAbstractPointCloud</IRI>
+        <Literal xml:lang="en">adeOfAbstractPointCloud</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractPointCloud.adeOfAbstractPointCloud</IRI>
+        <Literal xml:lang="en">Augments AbstractPointCloud with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace</IRI>
+        <Literal xml:lang="en">AbstractSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace</IRI>
+        <Literal xml:lang="en">AbstractSpace is the abstract superclass for all types of spaces. A space is an entity of volumetric extent in the real world.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.adeOfAbstractSpace</IRI>
+        <Literal xml:lang="en">adeOfAbstractSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.adeOfAbstractSpace</IRI>
+        <Literal xml:lang="en">Augments AbstractSpace with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.area</IRI>
+        <Literal xml:lang="en">area</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.area</IRI>
+        <Literal xml:lang="en">Specifies qualified areas related to the space.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.boundary</IRI>
+        <Literal xml:lang="en">boundary</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.boundary</IRI>
+        <Literal xml:lang="en">Relates to surfaces that bound the space.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod0MultiCurve</IRI>
+        <Literal xml:lang="en">lod0MultiCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod0MultiCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 0.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod0MultiSurface</IRI>
+        <Literal xml:lang="en">lod0MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod0MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 0.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod0Point</IRI>
+        <Literal xml:lang="en">lod0Point</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod0Point</IRI>
+        <Literal xml:lang="en">Relates to a 3D Point geometry that represents the space in Level of Detail 0.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod1Solid</IRI>
+        <Literal xml:lang="en">lod1Solid</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod1Solid</IRI>
+        <Literal xml:lang="en">Relates to a 3D Solid geometry that represents the space in Level of Detail 1.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod2MultiCurve</IRI>
+        <Literal xml:lang="en">lod2MultiCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod2MultiCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod2MultiSurface</IRI>
+        <Literal xml:lang="en">lod2MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod2MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod2Solid</IRI>
+        <Literal xml:lang="en">lod2Solid</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod2Solid</IRI>
+        <Literal xml:lang="en">Relates to a 3D Solid geometry that represents the space in Level of Detail 2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod3MultiCurve</IRI>
+        <Literal xml:lang="en">lod3MultiCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod3MultiCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the space in Level of Detail 3.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod3MultiSurface</IRI>
+        <Literal xml:lang="en">lod3MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod3MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the space in Level of Detail 3.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.lod3Solid</IRI>
+        <Literal xml:lang="en">lod3Solid</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.lod3Solid</IRI>
+        <Literal xml:lang="en">Relates to a 3D Solid geometry that represents the space in Level of Detail 3.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.spaceType</IRI>
+        <Literal xml:lang="en">spaceType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.spaceType</IRI>
+        <Literal xml:lang="en">Specifies the degree of openness of a space.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpace.volume</IRI>
+        <Literal xml:lang="en">volume</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpace.volume</IRI>
+        <Literal xml:lang="en">Specifies qualified volumes related to the space.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractSpaceBoundary</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpaceBoundary</IRI>
+        <Literal xml:lang="en">AbstractSpaceBoundary</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpaceBoundary</IRI>
+        <Literal xml:lang="en">AbstractSpaceBoundary is the abstract superclass for all types of space boundaries. A space boundary is an entity with areal extent in the real world. Space boundaries are objects that bound a Space. They also realize the contact between adjacent spaces.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractSpaceBoundary.adeOfAbstractSpaceBoundary</IRI>
+        <Literal xml:lang="en">adeOfAbstractSpaceBoundary</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractSpaceBoundary.adeOfAbstractSpaceBoundary</IRI>
+        <Literal xml:lang="en">Augments AbstractSpaceBoundary with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractThematicSurface</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface</IRI>
+        <Literal xml:lang="en">AbstractThematicSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface</IRI>
+        <Literal xml:lang="en">AbstractThematicSurface is the abstract superclass for all types of thematic surfaces.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.adeOfAbstractThematicSurface</IRI>
+        <Literal xml:lang="en">adeOfAbstractThematicSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.adeOfAbstractThematicSurface</IRI>
+        <Literal xml:lang="en">Augments AbstractThematicSurface with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.area</IRI>
+        <Literal xml:lang="en">area</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.area</IRI>
+        <Literal xml:lang="en">Specifies qualified areas related to the thematic surface.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.lod0MultiCurve</IRI>
+        <Literal xml:lang="en">lod0MultiCurve</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.lod0MultiCurve</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiCurve geometry that represents the thematic surface in Level of Detail 0.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.lod0MultiSurface</IRI>
+        <Literal xml:lang="en">lod0MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.lod0MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 0.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.lod1MultiSurface</IRI>
+        <Literal xml:lang="en">lod1MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.lod1MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 1.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.lod2MultiSurface</IRI>
+        <Literal xml:lang="en">lod2MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.lod2MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.lod3MultiSurface</IRI>
+        <Literal xml:lang="en">lod3MultiSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.lod3MultiSurface</IRI>
+        <Literal xml:lang="en">Relates to a 3D MultiSurface geometry that represents the thematic surface in Level of Detail 3.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractThematicSurface.pointCloud</IRI>
+        <Literal xml:lang="en">pointCloud</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractThematicSurface.pointCloud</IRI>
+        <Literal xml:lang="en">Relates to a 3D PointCloud that represents the thematic surface.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractUnoccupiedSpace</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractUnoccupiedSpace</IRI>
+        <Literal xml:lang="en">AbstractUnoccupiedSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractUnoccupiedSpace</IRI>
+        <Literal xml:lang="en">AbstractUnoccupiedSpace is the abstract superclass for all types of physically unoccupied spaces. Unoccupied space refers to spaces that are entirely or mostly free of matter.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace</IRI>
+        <Literal xml:lang="en">adeOfAbstractUnoccupiedSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractUnoccupiedSpace.adeOfAbstractUnoccupiedSpace</IRI>
+        <Literal xml:lang="en">Augments AbstractUnoccupiedSpace with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractVersion</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractVersion</IRI>
+        <Literal xml:lang="en">AbstractVersion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractVersion</IRI>
+        <Literal xml:lang="en">AbstractVersion is the abstract superclass to represent Version objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractVersion.adeOfAbstractVersion</IRI>
+        <Literal xml:lang="en">adeOfAbstractVersion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractVersion.adeOfAbstractVersion</IRI>
+        <Literal xml:lang="en">Augments AbstractVersion with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#AbstractVersionTransition</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractVersionTransition</IRI>
+        <Literal xml:lang="en">AbstractVersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractVersionTransition</IRI>
+        <Literal xml:lang="en">AbstractVersionTransition is the abstract superclass to represent VersionTransition objects.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AbstractVersionTransition.adeOfAbstractVersionTransition</IRI>
+        <Literal xml:lang="en">adeOfAbstractVersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#AbstractVersionTransition.adeOfAbstractVersionTransition</IRI>
+        <Literal xml:lang="en">Augments AbstractVersionTransition with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Address</IRI>
+        <Literal xml:lang="en">Address</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Address</IRI>
+        <Literal xml:lang="en">Address represents an address of a city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Address.adeOfAddress</IRI>
+        <Literal xml:lang="en">adeOfAddress</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Address.adeOfAddress</IRI>
+        <Literal xml:lang="en">Augments the Address with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Address.multiPoint</IRI>
+        <Literal xml:lang="en">multiPoint</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Address.multiPoint</IRI>
+        <Literal xml:lang="en">Relates to the MultiPoint geometry of the Address. The geometry relates the address spatially to a city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Address.xalAddress</IRI>
+        <Literal xml:lang="en">xalAddress</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Address.xalAddress</IRI>
+        <Literal xml:lang="en">Relates an OASIS address object to the Address.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel</IRI>
+        <Literal xml:lang="en">CityModel</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel</IRI>
+        <Literal xml:lang="en">CityModel is the container for all objects belonging to a city model.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.adeOfCityModel</IRI>
+        <Literal xml:lang="en">adeOfCityModel</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.adeOfCityModel</IRI>
+        <Literal xml:lang="en">Augments the CityModel with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.cityModelMember_appearanceMember</IRI>
+        <Literal xml:lang="en">cityModelMember.appearanceMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.cityModelMember_appearanceMember</IRI>
+        <Literal xml:lang="en">Specifies the appearances of the CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.cityModelMember_cityObjectMember</IRI>
+        <Literal xml:lang="en">cityModelMember.cityObjectMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.cityModelMember_cityObjectMember</IRI>
+        <Literal xml:lang="en">Specifies the city objects that are part of the CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.cityModelMember_featureMember</IRI>
+        <Literal xml:lang="en">cityModelMember.featureMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.cityModelMember_featureMember</IRI>
+        <Literal xml:lang="en">Specifies the feature objects that are part of the CityModel. It allows to include objects that are not derived from a class defined in the CityGML conceptual model, but from the ISO 19109 class AnyFeature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.cityModelMember_versionMember</IRI>
+        <Literal xml:lang="en">cityModelMember.versionMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.cityModelMember_versionMember</IRI>
+        <Literal xml:lang="en">Specifies the different versions of the CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.cityModelMember_versionTransitionMember</IRI>
+        <Literal xml:lang="en">cityModelMember.versionTransitionMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.cityModelMember_versionTransitionMember</IRI>
+        <Literal xml:lang="en">Specifies the transitions between the different versions of the CityModel.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityModel.engineeringCRS</IRI>
+        <Literal xml:lang="en">engineeringCRS</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityModel.engineeringCRS</IRI>
+        <Literal xml:lang="en">Specifies the local engineering coordinate reference system of the CityModel that can be provided inline the CityModel instead of referencing a well-known CRS definition. The definition of an engineering CRS requires an anchor point which relates the origin of the local coordinate system to a point on the earth’s surface in order to facilitate the transformation of coordinates from the local engineering CRS.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityObjectRelation</IRI>
+        <Literal xml:lang="en">CityObjectRelation</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityObjectRelation</IRI>
+        <Literal xml:lang="en">CityObjectRelation represents a specific relation from the city object in which the relation is included to another city object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityObjectRelation.genericAttribute</IRI>
+        <Literal xml:lang="en">genericAttribute</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityObjectRelation.genericAttribute</IRI>
+        <Literal xml:lang="en">Relates generic attributes to the CityObjectRelation.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityObjectRelation.relatedTo</IRI>
+        <Literal xml:lang="en">relatedTo</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityObjectRelation.relatedTo</IRI>
+        <Literal xml:lang="en">Relates other city objects to the city object. It also describes how the city objects are related to each other.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#CityObjectRelation.relationType</IRI>
+        <Literal xml:lang="en">relationType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#CityObjectRelation.relationType</IRI>
+        <Literal xml:lang="en">Indicates the specific type of the CityObjectRelation.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ClosureSurface</IRI>
+        <Literal xml:lang="en">ClosureSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ClosureSurface</IRI>
+        <Literal xml:lang="en">ClosureSurface is a special type of thematic surface used to close holes in volumetric objects. Closure surfaces are virtual (non-physical) surfaces.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ClosureSurface.adeOfClosureSurface</IRI>
+        <Literal xml:lang="en">adeOfClosureSurface</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ClosureSurface.adeOfClosureSurface</IRI>
+        <Literal xml:lang="en">Augments the ClosureSurface with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleBetween0and1</IRI>
+        <Literal xml:lang="en">DoubleBetween0and1</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleBetween0and1</IRI>
+        <Literal xml:lang="en">DoubleBetween0and1 is a basic type for values, which are greater or equal than 0 and less or equal than 1. The type is used for color encoding, for example.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleBetween0and1List</IRI>
+        <Literal xml:lang="en">DoubleBetween0and1List</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleBetween0and1List</IRI>
+        <Literal xml:lang="en">DoubleBetween0and1List is a basic type that represents a list of double values greater or equal than 0 and less or equal than 1. The type is used for color encoding, for example.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleBetween0and1List.list</IRI>
+        <Literal xml:lang="en">list</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleBetween0and1List.list</IRI>
+        <Literal xml:lang="en">Specifies the list of double values.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleList</IRI>
+        <Literal xml:lang="en">DoubleList</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleList</IRI>
+        <Literal xml:lang="en">DoubleList is an ordered sequence of double values.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleList.list</IRI>
+        <Literal xml:lang="en">list</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleList.list</IRI>
+        <Literal xml:lang="en">Specifies the list of double values.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleOrNilReasonList</IRI>
+        <Literal xml:lang="en">DoubleOrNilReasonList</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleOrNilReasonList</IRI>
+        <Literal xml:lang="en">DoubleOrNilReasonList is a basic type that represents a list of double values and/or nil reasons.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleOrNilReasonList.list_nilReason_URI</IRI>
+        <Literal xml:lang="en">list.nilReason.URI</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleOrNilReasonList.list_nilReason_URI</IRI>
+        <Literal xml:lang="en">Specifies a URI that points to a resource that describes the nil reason.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration</IRI>
+        <Literal xml:lang="en">list.nilReason.nilReasonEnumeration</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleOrNilReasonList.list_nilReason_nilReasonEnumeration</IRI>
+        <Literal xml:lang="en">Indicates a nil reason that is provided in a code list.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DoubleOrNilReasonList.list_value</IRI>
+        <Literal xml:lang="en">list.value</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#DoubleOrNilReasonList.list_value</IRI>
+        <Literal xml:lang="en">Specifies the double value.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ExternalReference</IRI>
+        <Literal xml:lang="en">ExternalReference</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ExternalReference</IRI>
+        <Literal xml:lang="en">ExternalReference is a reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap®.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ExternalReference.informationSystem</IRI>
+        <Literal xml:lang="en">informationSystem</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ExternalReference.informationSystem</IRI>
+        <Literal xml:lang="en">Specifies the URI that points to the external information system.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ExternalReference.relationType</IRI>
+        <Literal xml:lang="en">relationType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ExternalReference.relationType</IRI>
+        <Literal xml:lang="en">Specifies a URI that additionally qualifies the ExternalReference. The URI can point to a definition from an external ontology (e.g. the sameAs relation from OWL) and allows for mapping the ExternalReference to RDF triples.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ExternalReference.targetResource</IRI>
+        <Literal xml:lang="en">targetResource</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ExternalReference.targetResource</IRI>
+        <Literal xml:lang="en">Specifies the URI that points to the object in the external information system.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ID</IRI>
+        <Literal xml:lang="en">ID</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ID</IRI>
+        <Literal xml:lang="en">ID is a basic type that represents a unique identifier.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry</IRI>
+        <Literal xml:lang="en">ImplicitGeometry</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry</IRI>
+        <Literal xml:lang="en">ImplicitGeometry is a geometry representation where the shape is stored only once as a prototypical geometry. Examples are a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.appearance</IRI>
+        <Literal xml:lang="en">appearance</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.appearance</IRI>
+        <Literal xml:lang="en">Relates appearances to the ImplicitGeometry.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.libraryObject</IRI>
+        <Literal xml:lang="en">libraryObject</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.libraryObject</IRI>
+        <Literal xml:lang="en">Specifies the URI that points to the prototypical geometry stored in an external file.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.mimeType</IRI>
+        <Literal xml:lang="en">mimeType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.mimeType</IRI>
+        <Literal xml:lang="en">Specifies the MIME type of the external file that stores the prototypical geometry.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.objectID</IRI>
+        <Literal xml:lang="en">objectID</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.objectID</IRI>
+        <Literal xml:lang="en">Specifies the unique identifier of the ImplicitGeometry.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.referencePoint</IRI>
+        <Literal xml:lang="en">referencePoint</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.referencePoint</IRI>
+        <Literal xml:lang="en">Relates to a 3D Point geometry that represents the base point of the object in the world coordinate system.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.relativeGeometry</IRI>
+        <Literal xml:lang="en">relativeGeometry</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.relativeGeometry</IRI>
+        <Literal xml:lang="en">Relates to a prototypical geometry in a local coordinate system stored inline with the city model.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ImplicitGeometry.transformationMatrix</IRI>
+        <Literal xml:lang="en">transformationMatrix</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ImplicitGeometry.transformationMatrix</IRI>
+        <Literal xml:lang="en">Specifies the mathematical transformation (translation, rotation, and scaling) between the prototypical geometry and the actual spatial position of the object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#IntegerBetween0and3</IRI>
+        <Literal xml:lang="en">IntegerBetween0and3</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#IntegerBetween0and3</IRI>
+        <Literal xml:lang="en">IntegerBetween0and3 is a basic type for integer values, which are greater or equal than 0 and less or equal than 3. The type is used for encoding the LOD number.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Occupancy</IRI>
+        <Literal xml:lang="en">Occupancy</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Occupancy</IRI>
+        <Literal xml:lang="en">Occupancy is an application-dependent indication of what is contained by a feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Occupancy.interval</IRI>
+        <Literal xml:lang="en">interval</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Occupancy.interval</IRI>
+        <Literal xml:lang="en">Indicates the time period the occupants are contained by a feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Occupancy.numberOfOccupants</IRI>
+        <Literal xml:lang="en">numberOfOccupants</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Occupancy.numberOfOccupants</IRI>
+        <Literal xml:lang="en">Indicates the number of occupants contained by a feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Occupancy.occupantType</IRI>
+        <Literal xml:lang="en">occupantType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Occupancy.occupantType</IRI>
+        <Literal xml:lang="en">Indicates the specific type of the occupants that are contained by a feature.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QualifiedArea</IRI>
+        <Literal xml:lang="en">QualifiedArea</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#QualifiedArea</IRI>
+        <Literal xml:lang="en">QualifiedArea is an application-dependent measure of the area of a space or of a thematic surface.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QualifiedArea.area</IRI>
+        <Literal xml:lang="en">area</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#QualifiedArea.area</IRI>
+        <Literal xml:lang="en">Specifies the value of the QualifiedArea.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QualifiedArea.typeOfArea</IRI>
+        <Literal xml:lang="en">typeOfArea</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#QualifiedArea.typeOfArea</IRI>
+        <Literal xml:lang="en">Indicates the specific type of the QualifiedArea.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QualifiedVolume</IRI>
+        <Literal xml:lang="en">QualifiedVolume</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#QualifiedVolume</IRI>
+        <Literal xml:lang="en">QualifiedVolume is an application-dependent measure of the volume of a space.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QualifiedVolume.typeOfVolume</IRI>
+        <Literal xml:lang="en">typeOfVolume</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#QualifiedVolume.typeOfVolume</IRI>
+        <Literal xml:lang="en">Indicates the specific type of the QualifiedVolume.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#QualifiedVolume.volume</IRI>
+        <Literal xml:lang="en">volume</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#QualifiedVolume.volume</IRI>
+        <Literal xml:lang="en">Specifies the value of the QualifiedVolume.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RelativeToTerrain</IRI>
+        <Literal xml:lang="en">RelativeToTerrain</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#RelativeToTerrain</IRI>
+        <Literal xml:lang="en">RelativeToTerrain enumerates the spatial relations of a city object relative to terrain in a qualitative way.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RelativeToWater</IRI>
+        <Literal xml:lang="en">RelativeToWater</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#RelativeToWater</IRI>
+        <Literal xml:lang="en">RelativeToWater enumerates the spatial relations of a city object relative to the water surface in a qualitative way.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#SpaceType</IRI>
+        <Literal xml:lang="en">SpaceType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#SpaceType</IRI>
+        <Literal xml:lang="en">SpaceType is an enumeration that characterises a space according to its closure properties.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TransformationMatrix2x2</IRI>
+        <Literal xml:lang="en">TransformationMatrix2x2</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#TransformationMatrix2x2</IRI>
+        <Literal xml:lang="en">TransformationMatrix2x2 is a 2 by 2 matrix represented as a list of four double values in row major order.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TransformationMatrix3x4</IRI>
+        <Literal xml:lang="en">TransformationMatrix3x4</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#TransformationMatrix3x4</IRI>
+        <Literal xml:lang="en">TransformationMatrix3x4 is a 3 by 4 matrix represented as a list of twelve double values in row major order.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TransformationMatrix4x4</IRI>
+        <Literal xml:lang="en">TransformationMatrix4x4</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#TransformationMatrix4x4</IRI>
+        <Literal xml:lang="en">TransformationMatrix4x4 is a 4 by 4 matrix represented as a list of sixteen double values in row major order.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#XALAddress</IRI>
+        <Literal xml:lang="en">XALAddress</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#XALAddress</IRI>
+        <Literal xml:lang="en">XALAddress represents address details according to the OASIS xAL standard.</Literal>
+    </AnnotationAssertion>
+    <DatatypeDefinition>
+        <Datatype IRI="#RelativeToTerrain"/>
+        <DataOneOf>
+            <Literal>entirelyAboveTerrain</Literal>
+            <Literal>entirelyBelowTerrain</Literal>
+            <Literal>substantiallyAboveAndBelowTerrain</Literal>
+            <Literal>substantiallyAboveTerrain</Literal>
+            <Literal>substantiallyBelowTerrain</Literal>
+        </DataOneOf>
+    </DatatypeDefinition>
+    <DatatypeDefinition>
+        <Datatype IRI="#RelativeToWater"/>
+        <DataOneOf>
+            <Literal>entirelyAboveWaterSurface</Literal>
+            <Literal>entirelyBelowWaterSurface</Literal>
+            <Literal>substantiallyAboveAndBelowWaterSurface</Literal>
+            <Literal>substantiallyAboveWaterSurface</Literal>
+            <Literal>substantiallyBelowWaterSurface</Literal>
+            <Literal>temporarilyAboveAndBelowWaterSurface</Literal>
+        </DataOneOf>
+    </DatatypeDefinition>
+    <DatatypeDefinition>
+        <Datatype IRI="#SpaceType"/>
+        <DataOneOf>
+            <Literal>closed</Literal>
+            <Literal>open</Literal>
+            <Literal>semiOpen</Literal>
+        </DataOneOf>
+    </DatatypeDefinition>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+
