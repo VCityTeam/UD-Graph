@@ -1,0 +1,35 @@
+{
+    "prefixes": {
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd" : "http://www.w3.org/2001/XMLSchema#",
+        "time": "http://www.w3.org/2006/time#",
+        "core": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#",
+        "vers": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#",
+        "wksp": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#",
+        "type": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#",
+        "doc" : "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#"
+    },
+    "rules": [
+        {
+            "comment": "12",
+            "rule": "core:AbstractFeature(?f), core:AbstractFeature.featureID(?f, ?d), core:AbstractFeature.identifier(?f, ?i) -> core:ID(?d), rdfs:Resource(?i)"
+        },
+        {   
+            "comment": "14a - how can we restrict cardinality in SWRL and how can we define existence time as either a point OR a period?",
+            "rule": "core:AbstractFeatureWithLifespan(?f) -> core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2)"
+        },
+        {   
+            "comment": "14b",
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2), core:AbstractFeatureWithLifespan.creationDate(?f, ?e1) -> dateTime(?v1), dateTime(?v2), dateTime(?e1)"
+        },
+        {
+            "comment": "21",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.newFeature(?t, ?f2) -> type:insert(?y), core:AbstractFeature(?f2)"
+        },
+        {
+            "comment": "",
+            "rule": "wksp:ConcensusSpace(?c), wksp:Space.scenarioMember(?c, ?s) -> wksp:Scenario(?s)"
+        }
+    ]
+}
+

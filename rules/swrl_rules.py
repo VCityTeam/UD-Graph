@@ -1,3 +1,4 @@
+import json
 from owlready2 import *
 
 def load_ontology(file):
@@ -18,30 +19,38 @@ def get_classes(ontology):
     for _class in ontology.classes():
         print(_class.iri)
 
-def add_rules(ontology, namespace_list, rule_file):
-    ns = ontology.get_namespace(namespace_list[0])
+def add_rules(ontology, config_file):
+    rules = format_rules(config_file)
+    ns = ontology.get_namespace('http://www.w3.org/2000/01/rdf-schema#')
     print(ns)
-    with open(rule_file, 'r') as rules:
-        rule = Imp(namespace=ns)
-        for line in rules:
-            rule.set_as_rule(line, namespaces=[ns])
-            print(str(rule))
+    for rule in rules:
+        implication = Imp(namespace=ns)
+        implication.set_as_rule(rule, namespaces=[ns])
+        print(str(implication))
 
-
+def format_rules(config_file):
+    with open(config_file, 'r') as file:
+        config = json.loads(file.read())
+        prefixes = config.get('prefixes')
+        rules = []
+        for rule in config.get('rules'):
+            if rule.get('ignore'):
+                continue
+            for prefix in prefixes.keys():
+                rule.update({
+                    'rule': rule.get('rule').replace(prefix + ':', prefixes.get(prefix))
+                })
+            rules.append(rule.get('rule'))
+        return rules
 
 ontology_list = [
-    'file://../Ontologies/Workspace/3.0/workspace.owl',
     'file://../Ontologies/CityGML/3.0/core.owl',
     'file://../Ontologies/CityGML/3.0/versioning.owl',
+    'file://../Ontologies/Workspace/3.0/workspace.owl',
+    'file://../Ontologies/Workspace/3.0/transactiontype.owl',
     'file://../Ontologies/Document/3.0/document.owl'
-]
-namespace_list = [
-    'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace',
-    'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core',
-    'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning',
-    'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document'
 ]
 
 ontology_network = load_ontologies(ontology_list)
 get_classes(ontology_network)
-add_rules(ontology_network, namespace_list, 'workspace_rules.txt')
+add_rules(ontology_network, 'workspace_rules.json')
