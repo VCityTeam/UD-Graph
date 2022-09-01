@@ -16,6 +16,7 @@
         },
         {   
             "comment": "14a - how can we restrict cardinality in SWRL and how can we define existence time as either a point OR a period?",
+            "ignore": true,
             "rule": "core:AbstractFeatureWithLifespan(?f) -> core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2)"
         },
         {   
@@ -23,8 +24,19 @@
             "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2), core:AbstractFeatureWithLifespan.creationDate(?f, ?e1) -> dateTime(?v1), dateTime(?v2), dateTime(?e1)"
         },
         {
-            "comment": "21",
-            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.newFeature(?t, ?f2) -> type:insert(?y), core:AbstractFeature(?f2)"
+            "comment": "22",
+            "ignore": true,
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.newFeature(?t, ?f1) -> type:insert(?y), core:AbstractFeatureWithLifespan(?f1)"
+        },
+        {
+            "comment": "23",
+            "ignore": true,
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f2) -> type:delete(?y), core:AbstractFeatureWithLifespan(?f2)"
+        },
+        {
+            "comment": "24",
+            "ignore": true,
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), core:AbstractFeatureWithLifespan.terminationDate(?f1, ?e1), vers:Transaction.newFeature(?t, ?f2), core:AbstractFeatureWithLifespan.terminationDate(?f2, ?e2) -> type:replace(?y), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan(?f2), dateTime(?e1), dateTime(?e2), greaterThanOrEqual(?e1, ?e2)"
         },
         {
             "comment": "",

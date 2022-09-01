@@ -22,10 +22,9 @@ def get_classes(ontology):
 def add_rules(ontology, config_file):
     rules = format_rules(config_file)
     ns = ontology.get_namespace('http://www.w3.org/2000/01/rdf-schema#')
-    print(ns)
     for rule in rules:
         implication = Imp(namespace=ns)
-        implication.set_as_rule(rule, namespaces=[ns])
+        implication.set_as_rule(rule)
         print(str(implication))
 
 def format_rules(config_file):
@@ -52,5 +51,5 @@ ontology_list = [
 ]
 
 ontology_network = load_ontologies(ontology_list)
-get_classes(ontology_network)
+# get_classes(ontology_network)
 add_rules(ontology_network, 'workspace_rules.json')
