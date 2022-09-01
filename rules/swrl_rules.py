@@ -18,6 +18,9 @@ def load_ontologies(ontology_list):
 def get_classes(ontology):
     for _class in ontology.classes():
         print(_class.iri)
+    for _ontology in ontology.imported_ontologies:
+        for _class in _ontology.classes():
+            print(_class.iri)
 
 def add_rules(ontology, config_file):
     rules = format_rules(config_file)
@@ -50,6 +53,8 @@ ontology_list = [
     'file://../Ontologies/Document/3.0/document.owl'
 ]
 
+
 ontology_network = load_ontologies(ontology_list)
 # get_classes(ontology_network)
 add_rules(ontology_network, 'workspace_rules.json')
+print('Done!')

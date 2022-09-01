@@ -10,33 +10,66 @@
         "doc" : "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#"
     },
     "rules": [
-        {
-            "comment": "12",
-            "rule": "core:AbstractFeature(?f), core:AbstractFeature.featureID(?f, ?d), core:AbstractFeature.identifier(?f, ?i) -> core:ID(?d), rdfs:Resource(?i)"
-        },
         {   
-            "comment": "14a - how can we restrict cardinality in SWRL and how can we define existence time as either a point OR a period?",
-            "ignore": true,
-            "rule": "core:AbstractFeatureWithLifespan(?f) -> core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2)"
+            "comment": "14a",
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2)-> lessThanOrEqual(?v1, ?v2)"
         },
         {   
             "comment": "14b",
-            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2), core:AbstractFeatureWithLifespan.creationDate(?f, ?e1) -> dateTime(?v1), dateTime(?v2), dateTime(?e1)"
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.creationDate(?f, ?e1), core:AbstractFeatureWithLifespan.terminationDate(?f, ?e2) -> lessThanOrEqual(?e1, ?e2)"
         },
         {
             "comment": "22",
-            "ignore": true,
-            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.newFeature(?t, ?f1) -> type:insert(?y), core:AbstractFeatureWithLifespan(?f1)"
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:insert) -> empty(?f1), core:AbstractFeatureWithLifespan(?f2)"
         },
         {
             "comment": "23",
-            "ignore": true,
-            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f2) -> type:delete(?y), core:AbstractFeatureWithLifespan(?f2)"
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:delete) -> core:AbstractFeatureWithLifespan(?f1), empty(?f2)"
         },
         {
-            "comment": "24",
             "ignore": true,
-            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), core:AbstractFeatureWithLifespan.terminationDate(?f1, ?e1), vers:Transaction.newFeature(?t, ?f2), core:AbstractFeatureWithLifespan.terminationDate(?f2, ?e2) -> type:replace(?y), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan(?f2), dateTime(?e1), dateTime(?e2), greaterThanOrEqual(?e1, ?e2)"
+            "comment": "24",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:replace), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "comment": "24-unchanged; although feature ids can be unchanged between source datasets, they must be unique to a single graph and are prefixed during the versioning process, checking for this may not be systematically possible without knowing how feature ids are prefixed. Therefore the proposed SWRL rule for validating type:unchanged transactions will be identical to a type:replace",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:unchanged), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "comment": "24-reided",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:re-ided), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeature.featureID(?f1, ?i1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeature.featureID(?f2, ?i2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2), notEqual(?i1, ?i2)"
+        },
+        {
+            "comment": "24-modified; currently verifying 3D geometric changes is not feasible and so the rule for verifying type:modified transactions is identical to the rule for verifying type:re-ided transactions",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:modified), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeature.featureID(?f1, ?i1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeature.featureID(?f2, ?i2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2), notEqual(?i1, ?i2)"
+        },
+        {
+            "comment": "24-fused; how can we verify the cardinality of the existence of multiple transactions with the same vers:newFeature and different vers:oldFeatures is more than 1?",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:fused), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "comment": "24-subdivided; how can we verify the cardinality of the existence of multiple transactions with the same vers:oldFeature and different vers:newFeatures is more than 1?",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:subdivided), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "comment": "27",
+            "rule": "vers:Version(?v), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?v, ?vv1), core:AbstractFeatureWithLifespan.validTo(?v, ?vv2), core:AbstractFeatureWithLifespan.validFrom(?f, ?vf1), core:AbstractFeatureWithLifespan.validTo(?f, ?vf2) -> lessThanOrEqual(?vf1, ?vv1), greaterThanOrEqual(?vf2, ?vv2)"
+        },
+        {
+            "comment": "30",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v1), core:AbstractFeatureWithLifespan.validTo(?v1, ?t1), vers:Version(?v2), core:AbstractFeatureWithLifespan.validFrom(?v2, ?t2), -> lessThanOrEqual(?t1, ?t2)"
+        },
+        {
+            "comment": "31",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v1), core:AbstractFeatureWithLifespan.validTo(?v1, ?t1), vers:Version(?v2), core:AbstractFeatureWithLifespan.validFrom(?v2, ?t2), -> lessThanOrEqual(?t1, ?t2)"
+        },
+        {
+            "comment": "35",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt), vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2) -> wksp:Scenario.versionMember(?s, ?v1), wksp:Scenario.versionMember(?s, ?v2)"
+        },
+        {
+            "comment": "36",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1), wksp:Scenario.versionMember(?s, ?v2), vers:Version(?v2) -> vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2)"
         },
         {
             "comment": "",
@@ -44,4 +77,3 @@
         }
     ]
 }
-
