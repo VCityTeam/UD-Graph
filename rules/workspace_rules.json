@@ -72,8 +72,16 @@
             "rule": "wksp:Scenario(?s), wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1), wksp:Scenario.versionMember(?s, ?v2), vers:Version(?v2) -> vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2)"
         },
         {
-            "comment": "",
-            "rule": "wksp:ConcensusSpace(?c), wksp:Space.scenarioMember(?c, ?s) -> wksp:Scenario(?s)"
+            "comment": "37",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1), core:AbstractFeatureWithLifespan.validFrom(?v1, ?vf1), core:AbstractFeatureWithLifespan.validTo(?v1, ?vt1), wksp:Scenario.versionMember(?s, ?v2), vers:Version(?v2), core:AbstractFeatureWithLifespan.validFrom(?v2, ?vf2), core:AbstractFeatureWithLifespan.validTo(?v2, ?vt2), equal(?vf1, ?vf2), equal(?vt1, ?vt2) -> equal(?v1, ?v2)"
+        },
+        {
+            "comment": "38",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt1), vers:VersionTransition(?vt1), core:AbstractFeatureWithLifespan.validFrom(?vt1, ?vtf1), core:AbstractFeatureWithLifespan.validTo(?vt1, ?vtt1), wksp:Scenario.versionTransitionMember(?s, ?vt2), vers:VersionTransition(?vt2), core:AbstractFeatureWithLifespan.validFrom(?vt2, ?vtf2), core:AbstractFeatureWithLifespan.validTo(?vt2, ?vtt2), equal(?vtf1, ?vtf2), equal(?vtt1, ?vtt2) -> equal(?vt1, ?vt2)"
+        },
+        {
+            "comment": "39",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt1), vers:VersionTransition(?vt1), wksp:Scenario.versionTransitionMember(?s, ?vt2), vers:VersionTransition(?vt2), vers:VersionTransition.to(?vt1, ?v1), vers:VersionTransition.from(?vt2, ?v1) -> wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1)"
         }
     ]
 }
