@@ -78,6 +78,11 @@
         {
             "comment": "39",
             "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt1), vers:VersionTransition(?vt1), wksp:Scenario.versionTransitionMember(?s, ?vt2), vers:VersionTransition(?vt2), vers:VersionTransition.to(?vt1, ?v1), vers:VersionTransition.from(?vt2, ?v1) -> wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1)"
+        },
+        {
+            "ignore": true,
+            "comment": "47; how can we implement existential rules for 'there exists some version'",
+            "rule": "wksp:ConcensusSpace(?c), wksp:Space.scenarioMember(?c, ?s1), wksp:Scenario(?s1), wksp:Scenario.versionMember(?s1, v1), vers:Version(?v1), wksp:PropositionSpace(?p), wksp:Space.scenarioMember(?p, ?s2), wksp:Scenario(?s2), wksp:Scenario.versionMember(?s2, v2), vers:Version(?v2) -> equal(?v1, ?v2)"            
         }
     ]
 }
