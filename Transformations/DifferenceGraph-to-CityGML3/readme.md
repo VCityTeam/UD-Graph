@@ -4,7 +4,7 @@ Data treatment scripts for:
 - adding timestamp values to CityGML datasets in RDF
 
 
-## DifferenceGraph2RDF.py documentation
+## [DifferenceGraph2RDF.py](DifferenceGraph2RDF.py) documentation
 
 The difference graph is created by the stage 4 output of the [cityGMLto3DTiles](https://github.com/VCityTeam/cityGMLto3DTiles/tree/master/PythonCallingDocker#manual-step-by-step-run-of-the-temporal-tiler) temporal data pipeline. These JSON graphs contain the geometric and geographical changes between objects of two or more CityGML 2.0 vintages of a city.
 
@@ -34,7 +34,7 @@ optional arguments:
 See [testDifference.sh](testDifference.sh) for example usages
 
 
-## AddTimeStamps.py documentation
+## [AddTimeStamps.py](AddTimeStamps.py) documentation
 
 Add timestamps to the features of a CityGML dataset
 
