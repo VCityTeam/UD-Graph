@@ -50,7 +50,12 @@ ontology_list = [
     'file://../Ontologies/CityGML/3.0/versioning.owl',
     'file://../Ontologies/Workspace/3.0/workspace.owl',
     'file://../Ontologies/Workspace/3.0/transactiontype.owl',
-    'file://../Ontologies/Document/3.0/document.owl'
+    # 'file://../Ontologies/Document/3.0/document.owl',
+    'file://../Datasets/GratteCiel_2009-2018_Workspace_v3.owl',
+    'file://../Datasets/GratteCiel_2018_split_v3.owl',
+    'file://../Datasets/GratteCiel_2015_split_v3.owl',
+    'file://../Datasets/GratteCiel_2012_split_v3.owl',
+    'file://../Datasets/GratteCiel_2009_split_v3.owl'
 ]
 
 
