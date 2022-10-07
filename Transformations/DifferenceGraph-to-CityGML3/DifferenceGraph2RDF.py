@@ -1,9 +1,8 @@
-import os
 import json
 import logging
 import argparse
-from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import XSD, RDF, RDFS, OWL, Namespace
+from rdflib import Graph, URIRef
+from rdflib.namespace import RDF, OWL, Namespace
 
 def main():
     # initialize command line arguments
