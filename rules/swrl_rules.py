@@ -15,12 +15,27 @@ def load_ontologies(ontology_list):
         ontology_network.imported_ontologies.append(ontology)
     return ontology_network
 
-def get_classes(ontology):
+def print_individuals(ontology):
+    for individual in ontology.individuals():
+        print(individual.iri)
+    if type(ontology) is Ontology:
+        for _ontology in ontology.imported_ontologies:
+            for individual in _ontology.individuals():
+                print(individual.iri)
+
+def print_classes(ontology):
     for _class in ontology.classes():
         print(_class.iri)
-    for _ontology in ontology.imported_ontologies:
-        for _class in _ontology.classes():
-            print(_class.iri)
+    if type(ontology) is Ontology:
+        for _ontology in ontology.imported_ontologies:
+            for _class in _ontology.classes():
+                print(_class.iri)
+
+def get_classes(ontology):
+    classes = [_class for _class in ontology.classes()]
+    if type(ontology) is Ontology:
+        classes += [_class for _class in ontology.imported_ontologies]
+    return classes
 
 def add_rules(ontology, config_file):
     rules = format_rules(config_file)
@@ -51,15 +66,27 @@ ontology_list = [
     'file://../Ontologies/Workspace/3.0/workspace.owl',
     'file://../Ontologies/Workspace/3.0/transactiontype.owl',
     # 'file://../Ontologies/Document/3.0/document.owl',
-    'file://../Datasets/GratteCiel_2009-2018_Workspace_v3.owl',
-    'file://../Datasets/GratteCiel_2018_split_v3.owl',
-    'file://../Datasets/GratteCiel_2015_split_v3.owl',
-    'file://../Datasets/GratteCiel_2012_split_v3.owl',
-    'file://../Datasets/GratteCiel_2009_split_v3.owl'
+    # 'file://../Datasets/GratteCiel_2009-2018_Workspace_v3.owl',
+    # 'file://../Datasets/GratteCiel_2018_split_v3.owl',
+    # 'file://../Datasets/GratteCiel_2015_split_v3.owl',
+    # 'file://../Datasets/GratteCiel_2012_split_v3.owl',
+    # 'file://../Datasets/GratteCiel_2009_split_v3.owl'
+    # 'file://test_1.owl',
+    'file://test_2.owl'
 ]
 
+### load ontologies
+load_ontologies(ontology_list)
+# add_rules(ontology_network, 'workspace_rules.json')
+sync_reasoner_pellet(default_world)
 
-ontology_network = load_ontologies(ontology_list)
-# get_classes(ontology_network)
-add_rules(ontology_network, 'workspace_rules.json')
+# print_classes(default_world)
+# print_individuals(default_world)
+
+### check inconsistency
+print(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
+for _class in get_classes(default_world):
+    if Nothing in _class.equivalent_to:
+        print(f'{_class.iri} is inconsistent')
+
 print('Done!')

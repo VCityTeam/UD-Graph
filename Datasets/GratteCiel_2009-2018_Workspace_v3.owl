@@ -20,13 +20,25 @@
     <Prefix name="v2012" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2012_split_v3#"/>
     <Prefix name="v2015" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2015_split_v3#"/>
     <Prefix name="v2018" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2018_split_v3#"/>
-    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009_split_v3.ttl</Import>
+    <!-- <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009_split_v3.ttl</Import>
     <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2012_split_v3.ttl</Import>
     <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2015_split_v3.ttl</Import>
     <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2018_split_v3.ttl</Import>
     <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning.ttl</Import>
     <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes.ttl</Import>
-    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace.ttl</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace.ttl</Import> -->
+    <Declaration>
+        <NamedIndividual IRI="#concensusSpace_1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#gratteciel_workspace_1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#propositionSpace_1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#scenario_1"/>
+    </Declaration>
     <Declaration>
         <NamedIndividual IRI="#transaction_2009_2012_0"/>
     </Declaration>
@@ -5140,6 +5152,22 @@
         <AnnotationProperty IRI="http://purl.org/dc/elements/1.1/source"/>
     </Declaration>
     <ClassAssertion>
+        <Class abbreviatedIRI="wksp:ConcensusSpace"/>
+        <NamedIndividual IRI="#concensusSpace_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="wksp:Workspace"/>
+        <NamedIndividual IRI="#gratteciel_workspace_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="wksp:PropositionSpace"/>
+        <NamedIndividual IRI="#propositionSpace_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="wksp:Scenario"/>
+        <NamedIndividual IRI="#scenario_1"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class abbreviatedIRI="vers:Transaction"/>
         <NamedIndividual IRI="#transaction_2009_2012_0"/>
     </ClassAssertion>
@@ -11715,6 +11743,56 @@
         <Class abbreviatedIRI="vers:VersionTransition"/>
         <NamedIndividual IRI="#versiontransition_2015_2018"/>
     </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Space.scenarioMember"/>
+        <NamedIndividual IRI="#concensusSpace_1"/>
+        <NamedIndividual IRI="#scenario_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Workspace.spaceMember"/>
+        <NamedIndividual IRI="#gratteciel_workspace_1"/>
+        <NamedIndividual IRI="#concensusSpace_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Workspace.spaceMember"/>
+        <NamedIndividual IRI="#gratteciel_workspace_1"/>
+        <NamedIndividual IRI="#propositionSpace_1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#version_2009"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#version_2012"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#version_2015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#version_2018"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionTransitionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#versiontransition_2009_2012"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionTransitionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#versiontransition_2012_2015"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty abbreviatedIRI="wksp:Scenario.versionTransitionMember"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <NamedIndividual IRI="#versiontransition_2015_2018"/>
+    </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty abbreviatedIRI="vers:Transaction.newFeature"/>
         <NamedIndividual IRI="#transaction_2009_2012_0"/>
@@ -54701,6 +54779,16 @@
         <NamedIndividual IRI="#transaction_2015_2018_99"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty abbreviatedIRI="wksp:Workspace.creator"/>
+        <NamedIndividual IRI="#gratteciel_workspace_1"/>
+        <Literal>Diego Vinasco-Alvarez</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty abbreviatedIRI="wksp:Scenario.creator"/>
+        <NamedIndividual IRI="#scenario_1"/>
+        <Literal>Diego Vinasco-Alvarez</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty abbreviatedIRI="core:AbstractFeatureWithLifespan.validFrom"/>
         <NamedIndividual IRI="#version_2009"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#dateTime">2009-01-01T00:00:00</Literal>
@@ -54775,4 +54863,3 @@
 
 
 <!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
-

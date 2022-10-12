@@ -20,6 +20,30 @@
         <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2015_split_v3.ttl>,
         <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2018_split_v3.ttl> .
 
+data:gratteciel_workspace_1 a wksp:Workspace,
+        owl:NamedIndividual ;
+    wksp:Workspace.creator "Diego Vinasco-Alvarez"^^xsd:string ;
+    wksp:Workspace.spaceMember data:concensusSpace_1 ;
+    wksp:Workspace.spaceMember data:propositionSpace_1 .
+
+data:concensusSpace_1 a wksp:ConcensusSpace,
+        owl:NamedIndividual ;
+    wksp:Space.scenarioMember data:scenario_1 .
+
+data:propositionSpace_1 a wksp:PropositionSpace,
+        owl:NamedIndividual .
+
+data:scenario_1 a wksp:Scenario,
+        owl:NamedIndividual ;
+    wksp:Scenario.creator "Diego Vinasco-Alvarez"^^xsd:string ;
+    wksp:Scenario.versionMember data:version_2009,
+        data:version_2012,
+        data:version_2015,
+        data:version_2018 ;
+    wksp:Scenario.versionTransitionMember data:versiontransition_2009_2012,
+        data:versiontransition_2012_2015,
+        data:versiontransition_2015_2018 .
+
 data:versiontransition_2009_2012 a owl:NamedIndividual,
         vers:VersionTransition ;
     core:AbstractFeatureWithLifespan.validFrom "2009-01-01T00:00:00"^^xsd:dateTime ;
