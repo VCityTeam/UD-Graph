@@ -15,6 +15,14 @@ def load_ontologies(ontology_list):
         ontology_network.imported_ontologies.append(ontology)
     return ontology_network
 
+def print_rules(ontology):
+    for rule in ontology.rules():
+        print(rule)
+    if type(ontology) is Ontology:
+        for _ontology in ontology.imported_ontologies:
+            for rule in _ontology.rules():
+                print(rule)
+
 def print_individuals(ontology):
     for individual in ontology.individuals():
         print(individual.iri)
@@ -40,6 +48,7 @@ def get_classes(ontology):
 def add_rules(ontology, config_file):
     rules = format_rules(config_file)
     ns = ontology.get_namespace('http://www.w3.org/2000/01/rdf-schema#')
+    print(ontology)
     for rule in rules:
         implication = Imp(namespace=ns)
         implication.set_as_rule(rule)
@@ -76,14 +85,15 @@ ontology_list = [
 ]
 
 ### load ontologies
-load_ontologies(ontology_list)
-# add_rules(ontology_network, 'workspace_rules.json')
-sync_reasoner_pellet(default_world)
+ontology_network = load_ontologies(ontology_list)
+add_rules(ontology_network, 'workspace_rules.json')
 
 # print_classes(default_world)
 # print_individuals(default_world)
+# print_rules(default_world)
 
 ### check inconsistency
+sync_reasoner_pellet(default_world)
 print(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
 for _class in get_classes(default_world):
     if Nothing in _class.equivalent_to:
