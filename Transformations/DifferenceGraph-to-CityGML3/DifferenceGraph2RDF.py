@@ -1,53 +1,61 @@
 import json
 import logging
 import argparse
-from rdflib import Graph, URIRef
-from rdflib.namespace import RDF, OWL, Namespace
+from rdflib import Graph, URIRef, Literal
+from rdflib.namespace import XSD, RDF, OWL, Namespace
 
 def main():
     # initialize command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file',
-                         help='specify the input CityGML datafile')
-    parser.add_argument('time_stamps',
+                         help='Specify the input CityGML datafile')
+    parser.add_argument('version_prefix',
                          nargs=2,
-                         help='specify the input timestamps')
+                         help='Specify the prefixes for each version')
     parser.add_argument('output_file',
-                         help='specify the output filename')
+                         help='Specify the output filename')
+    parser.add_argument('--existence_time_stamps',
+                         nargs=2,
+                         help='Specify the existence timestamps. Timestamps should be in the xsd:datatime format')
+    parser.add_argument('--transaction_time_stamps',
+                         nargs=2,
+                         help='Specify the transaction timestamps. Timestamps should be in the xsd:datatime format')
     parser.add_argument('--base-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/workspace_1#',
-                         help='specify the base URI for workspace output individuals')
+                         help='Specify the base URI for workspace output individuals')
     parser.add_argument('--v1-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_1#',
-                         help='specify the base URI for source version output individuals')
+                         help='Specify the base URI for source version output individuals')
     parser.add_argument('--v2-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_2#',
-                         help='specify the base URI for target version output individuals')
+                         help='Specify the base URI for target version output individuals')
     parser.add_argument('--workspace-prefix',
                          default='data',
-                         help='specify the base URI prefix for workspace output individuals')
+                         help='Specify the base URI prefix for workspace output individuals')
     parser.add_argument('--v1-prefix',
                          default='v1',
-                         help='specify the base URI prefix for source version output individuals')
+                         help='Specify the base URI prefix for source version output individuals')
     parser.add_argument('--v2-prefix',
                          default='v2',
-                         help='specify the base URI prefix for target version output individuals')
+                         help='Specify the base URI prefix for target version output individuals')
+    parser.add_argument('--core-uri',
+                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#',
+                         help='Specify the URI for the CityGML 3.0 core module')
     parser.add_argument('--versioning-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#',
-                         help='specify the URI for the CityGML 3.0 versioning module')
+                         help='Specify the URI for the CityGML 3.0 versioning module')
     parser.add_argument('--transaction-type-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#',
-                         help='specify the URI for the transaction type code-list')
+                         help='Specify the URI for the transaction type code-list')
     parser.add_argument('-f', '--format',
                          default='ttl',
-                         choices=['ttl', 'xml'],
-                         help='specify the output RDF format')
+                         help='Specify the output RDFlib format')
     parser.add_argument('--strip-time-stamp',
                          action='store_true',
                          help='strip the time stamp from version individuals')
     parser.add_argument('-l', '--log',
                          default='output.log',
-                         help='specify the logging file')
+                         help='Specify the logging file')
     parser.add_argument('-d', '--debug',
                          action='store_true',
                          help='enable debug level logging')
@@ -72,6 +80,7 @@ def main():
 
     # create output version graph and set namespaces
     output_graph = Graph()
+    CORE = uriToNamespace(args.core_uri)
     VERS = uriToNamespace(args.versioning_uri)
     TYPE = uriToNamespace(args.transaction_type_uri)
     DATA = uriToNamespace(args.base_uri)
@@ -79,6 +88,7 @@ def main():
     V2   = uriToNamespace(args.v2_uri)
 
     output_graph.namespace_manager.bind( 'owl', OWL )
+    output_graph.namespace_manager.bind( 'core', CORE )
     output_graph.namespace_manager.bind( 'vers', VERS )
     output_graph.namespace_manager.bind( 'type', TYPE )
     output_graph.namespace_manager.bind( args.workspace_prefix, DATA )
@@ -87,9 +97,9 @@ def main():
 
 
     # add VersionTransition and Version
-    source_version_uri = URIRef( DATA.version_ + args.time_stamps[0] )
-    target_version_uri = URIRef( DATA.version_ + args.time_stamps[1] )
-    versiontransition_uri = URIRef( DATA.versiontransition_ + f'{args.time_stamps[0]}_{args.time_stamps[1]}' )
+    source_version_uri = URIRef( DATA.version_ + args.version_prefix[0] )
+    target_version_uri = URIRef( DATA.version_ + args.version_prefix[1] )
+    versiontransition_uri = URIRef( DATA.versiontransition_ + f'{args.version_prefix[0]}_{args.version_prefix[1]}' )
 
     output_graph.add( (source_version_uri, RDF.type, VERS.Version) )
     output_graph.add( (source_version_uri, RDF.type, OWL.NamedIndividual) )
@@ -103,14 +113,36 @@ def main():
     output_graph.add( (versiontransition_uri, from_uri, source_version_uri) )
     output_graph.add( (versiontransition_uri, to_uri, target_version_uri) )
 
+    # add version and versionTransition timestamps if provided
+    if args.existence_time_stamps is not None:
+        start_timestamp = Literal(args.existence_time_stamps[0], datatype=XSD.dateTime)
+        end_timestamp = Literal(args.existence_time_stamps[1], datatype=XSD.dateTime)
+        output_graph.add( (source_version_uri, CORE.validFrom, start_timestamp) )
+        output_graph.add( (source_version_uri, CORE.validTo, start_timestamp) )
+        output_graph.add( (target_version_uri, CORE.validFrom, end_timestamp) )
+        output_graph.add( (target_version_uri, CORE.validTo, end_timestamp) )
+        output_graph.add( (versiontransition_uri, CORE.validFrom, start_timestamp) )
+        output_graph.add( (versiontransition_uri, CORE.validTo, end_timestamp) )
+    if args.transaction_time_stamps is not None:
+        start_timestamp = Literal(args.transaction_time_stamps[0], datatype=XSD.dateTime)
+        end_timestamp = Literal(args.transaction_time_stamps[1], datatype=XSD.dateTime)
+        output_graph.add( (source_version_uri, CORE.validFrom, start_timestamp) )
+        output_graph.add( (source_version_uri, CORE.validTo, start_timestamp) )
+        output_graph.add( (target_version_uri, CORE.validFrom, end_timestamp) )
+        output_graph.add( (target_version_uri, CORE.validTo, end_timestamp) )
+        output_graph.add( (versiontransition_uri, CORE.validFrom, start_timestamp) )
+        output_graph.add( (versiontransition_uri, CORE.validTo, end_timestamp) )
+
+
+
     # populate versions' versionMembers
     for node in input_graph.get('nodes'):
         node_gid = node.get("globalid")
         version_member_uri = URIRef( VERS.Version + '.versionMember' )
-        if node_gid.startswith(args.time_stamps[0]):
+        if node_gid.startswith(args.version_prefix[0]):
             node_uri = URIRef( V1 + stripTimeStamp(node_gid, args) )
             output_graph.add( (source_version_uri, version_member_uri, node_uri) )
-        elif node_gid.startswith(args.time_stamps[1]):
+        elif node_gid.startswith(args.version_prefix[1]):
             node_uri = URIRef( V2 + stripTimeStamp(node_gid, args) )
             output_graph.add( (target_version_uri, version_member_uri, node_uri) )
         else:
@@ -118,7 +150,7 @@ def main():
 
     # populate versionTransition's Transactions
     for edge in input_graph.get('edges'):
-        transaction_uri = URIRef( DATA.transaction_ + f'{args.time_stamps[0]}_{args.time_stamps[1]}_' + edge.get("id") )
+        transaction_uri = URIRef( DATA.transaction_ + f'{args.version_prefix[0]}_{args.version_prefix[1]}_' + edge.get("id") )
         transaction_type_uri = URIRef( VERS.Transaction + '.type' )
         source_node = getNodeById(edge.get('source'), input_graph.get('nodes'))
         source_node_uri = URIRef( V1 + stripTimeStamp( source_node.get('globalid'), args ) )
@@ -156,12 +188,8 @@ def main():
     output_graph.add( ( ontology_uri, OWL.imports, target_version_ontology_uri ) )
 
     # write version graph to file
-    if args.format == 'xml':
-        logging.info(f'conversion complete, writing output to {args.output_file}')
-        output_graph.serialize(destination=args.output_file, format='xml')
-    else:
-        logging.info(f'conversion complete, writing output to {args.output_file}')
-        output_graph.serialize(destination=args.output_file, format='turtle')
+    logging.info(f'conversion complete, writing output to {args.output_file}')
+    output_graph.serialize(destination=args.output_file, format=args.format)
     logging.info('Done!')
 
 ## utility functions ##
