@@ -88,15 +88,21 @@ ontology_list = [
 ontology_network = load_ontologies(ontology_list)
 add_rules(ontology_network, 'workspace_rules.json')
 
+# print('classes:')
 # print_classes(default_world)
-# print_individuals(default_world)
+# print('rules:')
 # print_rules(default_world)
+# print('individuals:')
+# print_individuals(default_world)
 
 ### check inconsistency
-sync_reasoner_pellet(default_world)
+sync_reasoner_pellet(infer_property_values = True, infer_data_property_values = True)
 print(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
 for _class in get_classes(default_world):
     if Nothing in _class.equivalent_to:
         print(f'{_class.iri} is inconsistent')
+
+graph = default_world.as_rdflib_graph()
+graph.serialize('./output.ttl', format='ttl')
 
 print('Done!')
