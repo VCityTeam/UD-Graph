@@ -1,0 +1,29 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_0#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_0> a owl:Ontology ;
+    owl:imports <http://www.w3.org/2006/time#> .
+
+:e1 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasEnd :t1 .
+
+:e2 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t2 .
+
+:t1 a time:Instant,
+        owl:NamedIndividual ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:t2 a time:Instant,
+        owl:NamedIndividual ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+[ a owl:AllDifferent ;
+    owl:distinctMembers ( :e1 :e2 :t1 :t2 )
+] .

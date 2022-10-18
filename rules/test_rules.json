@@ -1,0 +1,13 @@
+{
+    "prefixes": {
+        "time": "http://www.w3.org/2006/time#"
+    },
+    "rules": [
+        {
+            "title": "before and after",
+            "description": "infer that two timestaps are before or after one another",
+            "comment": "",
+            "rule": "time:TemporalEntity(?a), time:hasEnd(?t1), time:TemporalEntity(?b), time:hasBeginning(?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
+        }
+    ]
+}

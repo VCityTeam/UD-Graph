@@ -1,5 +1,5 @@
 import json
-from owlready2 import *
+from owlready2 import get_ontology, default_world, sync_reasoner_pellet, Ontology, Imp, Nothing
 
 def load_ontology(file):
     ontology = get_ontology(file).load()
@@ -17,27 +17,27 @@ def load_ontologies(ontology_list):
 
 def print_rules(ontology):
     for rule in ontology.rules():
-        print(rule)
+        print(f'  {rule}')
     if type(ontology) is Ontology:
         for _ontology in ontology.imported_ontologies:
             for rule in _ontology.rules():
-                print(rule)
+                print(f'  {rule}')
 
 def print_individuals(ontology):
     for individual in ontology.individuals():
-        print(individual.iri)
+        print(f'  {individual.iri}')
     if type(ontology) is Ontology:
         for _ontology in ontology.imported_ontologies:
             for individual in _ontology.individuals():
-                print(individual.iri)
+                print(f'  {individual.iri}')
 
 def print_classes(ontology):
     for _class in ontology.classes():
-        print(_class.iri)
+        print(f'  {_class.iri}')
     if type(ontology) is Ontology:
         for _ontology in ontology.imported_ontologies:
             for _class in _ontology.classes():
-                print(_class.iri)
+                print(f'  {_class.iri}')
 
 def get_classes(ontology):
     classes = [_class for _class in ontology.classes()]
@@ -52,7 +52,7 @@ def add_rules(ontology, config_file):
     for rule in rules:
         implication = Imp(namespace=ns)
         implication.set_as_rule(rule)
-        print(str(implication))
+        # print(str(implication))
 
 def format_rules(config_file):
     with open(config_file, 'r') as file:
@@ -70,23 +70,26 @@ def format_rules(config_file):
         return rules
 
 ontology_list = [
-    'file://../Ontologies/CityGML/3.0/core.owl',
-    'file://../Ontologies/CityGML/3.0/versioning.owl',
-    'file://../Ontologies/Workspace/3.0/workspace.owl',
-    'file://../Ontologies/Workspace/3.0/transactiontype.owl',
+    'file://../Ontologies/Time/time.owl',
+    # 'file://../Ontologies/CityGML/3.0/core.owl',
+    # 'file://../Ontologies/CityGML/3.0/versioning.owl',
+    # 'file://../Ontologies/Workspace/3.0/workspace.owl',
+    # 'file://../Ontologies/Workspace/3.0/transactiontype.owl',
     # 'file://../Ontologies/Document/3.0/document.owl',
     # 'file://../Datasets/GratteCiel_2009-2018_Workspace_v3.owl',
     # 'file://../Datasets/GratteCiel_2018_split_v3.owl',
     # 'file://../Datasets/GratteCiel_2015_split_v3.owl',
     # 'file://../Datasets/GratteCiel_2012_split_v3.owl',
     # 'file://../Datasets/GratteCiel_2009_split_v3.owl'
+    'file://test_0.owl',
     # 'file://test_1.owl',
-    'file://test_2.owl'
+    # 'file://test_2.owl'
 ]
 
 ### load ontologies
 ontology_network = load_ontologies(ontology_list)
-add_rules(ontology_network, 'workspace_rules.json')
+# add_rules(ontology_network, 'workspace_rules.json')
+add_rules(ontology_network, 'test_rules.json')
 
 # print('classes:')
 # print_classes(default_world)
@@ -96,7 +99,7 @@ add_rules(ontology_network, 'workspace_rules.json')
 # print_individuals(default_world)
 
 ### check inconsistency
-sync_reasoner_pellet(infer_property_values = True, infer_data_property_values = True)
+sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True)
 print(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
 for _class in get_classes(default_world):
     if Nothing in _class.equivalent_to:
