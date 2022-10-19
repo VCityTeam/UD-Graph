@@ -1,43 +1,48 @@
 import json
 from owlready2 import get_ontology, default_world, sync_reasoner_pellet, Ontology, Imp, Nothing
+import logging
+from rdflib import Namespace
 
 def load_ontology(file):
     ontology = get_ontology(file).load()
-    print(ontology)
+    logging.debug(ontology)
     return ontology
 
 def load_ontologies(ontology_list):
     ontology_network = get_ontology(ontology_list[0]).load()
-    print(ontology_network)
+    logging.debug(ontology_network)
     for ontology_location in ontology_list[1:]:
         ontology = get_ontology(ontology_location).load()
-        print(ontology)
+        logging.debug(ontology)
         ontology_network.imported_ontologies.append(ontology)
     return ontology_network
 
-def print_rules(ontology):
+def log_rules(ontology):
+    logging.debug('rules:')
     for rule in ontology.rules():
-        print(f'  {rule}')
+        logging.debug(f'  {rule}')
     if type(ontology) is Ontology:
         for _ontology in ontology.imported_ontologies:
             for rule in _ontology.rules():
-                print(f'  {rule}')
+                logging.debug(f'  {rule}')
 
-def print_individuals(ontology):
+def log_individuals(ontology):
+    logging.debug('individuals:')
     for individual in ontology.individuals():
-        print(f'  {individual.iri}')
+        logging.debug(f'  {individual.iri}')
     if type(ontology) is Ontology:
         for _ontology in ontology.imported_ontologies:
             for individual in _ontology.individuals():
-                print(f'  {individual.iri}')
+                logging.debug(f'  {individual.iri}')
 
-def print_classes(ontology):
+def log_classes(ontology):
+    logging.debug('classes:')
     for _class in ontology.classes():
-        print(f'  {_class.iri}')
+        logging.debug(f'  {_class.iri}')
     if type(ontology) is Ontology:
         for _ontology in ontology.imported_ontologies:
             for _class in _ontology.classes():
-                print(f'  {_class.iri}')
+                logging.debug(f'  {_class.iri}')
 
 def get_classes(ontology):
     classes = [_class for _class in ontology.classes()]
@@ -48,11 +53,9 @@ def get_classes(ontology):
 def add_rules(ontology, config_file):
     rules = format_rules(config_file)
     ns = ontology.get_namespace('http://www.w3.org/2000/01/rdf-schema#')
-    print(ontology)
     for rule in rules:
         implication = Imp(namespace=ns)
         implication.set_as_rule(rule)
-        # print(str(implication))
 
 def format_rules(config_file):
     with open(config_file, 'r') as file:
@@ -68,6 +71,21 @@ def format_rules(config_file):
                 })
             rules.append(rule.get('rule'))
         return rules
+
+def export_graph(config_file, output_file='output.ttl', output_format='ttl'):
+    graph = default_world.as_rdflib_graph()
+    with open(config_file, 'r') as file:
+        config = json.loads(file.read())
+        graph.bind('swrl', Namespace('http://www.w3.org/2003/11/swrl#'))
+        for prefix, namespace in config['prefixes'].items():
+            graph.bind(prefix, Namespace(namespace))
+    graph.serialize(output_file, format=output_format)
+    logging.info(f'graph exported to {output_file}')
+
+logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
+                    filename='output.log',
+                    # level=logging.INFO)
+                    level=logging.DEBUG)
 
 ontology_list = [
     'file://../Ontologies/Time/time.owl',
@@ -85,27 +103,24 @@ ontology_list = [
     # 'file://test_1.owl',
     # 'file://test_2.owl'
 ]
+# config = 'workspace_rules.json'
+config = 'test_rules.json'
 
 ### load ontologies
 ontology_network = load_ontologies(ontology_list)
-# add_rules(ontology_network, 'workspace_rules.json')
-add_rules(ontology_network, 'test_rules.json')
+add_rules(ontology_network, config)
 
-# print('classes:')
-# print_classes(default_world)
-# print('rules:')
-# print_rules(default_world)
-# print('individuals:')
-# print_individuals(default_world)
+log_classes(default_world)
+log_rules(default_world)
+log_individuals(default_world)
 
 ### check inconsistency
 sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True)
-print(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
+logging.info(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
 for _class in get_classes(default_world):
     if Nothing in _class.equivalent_to:
-        print(f'{_class.iri} is inconsistent')
+        logging.warning(f'{_class.iri} is inconsistent')
 
-graph = default_world.as_rdflib_graph()
-graph.serialize('./output.ttl', format='ttl')
-
+# export graph and finish
+export_graph(config)
 print('Done!')

@@ -5,9 +5,9 @@
     "rules": [
         {
             "title": "before and after",
-            "description": "infer that two timestaps are before or after one another",
+            "description": "infer that two TemporalEntities are before and after one another",
             "comment": "",
-            "rule": "time:TemporalEntity(?a), time:hasEnd(?t1), time:TemporalEntity(?b), time:hasBeginning(?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
+            "rule": "time:TemporalEntity(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:TemporalEntity(?b), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
         }
     ]
 }
