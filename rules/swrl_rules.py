@@ -88,7 +88,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     level=logging.DEBUG)
 
 ontology_list = [
-    'file://../Ontologies/Time/time.owl',
+    'https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.nt',
     # 'file://../Ontologies/CityGML/3.0/core.owl',
     # 'file://../Ontologies/CityGML/3.0/versioning.owl',
     # 'file://../Ontologies/Workspace/3.0/workspace.owl',
@@ -122,5 +122,5 @@ for _class in get_classes(default_world):
         logging.warning(f'{_class.iri} is inconsistent')
 
 # export graph and finish
-export_graph(config)
+# export_graph(config)
 print('Done!')
