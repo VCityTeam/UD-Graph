@@ -1,14 +1,36 @@
 {
+    "ontologies": [
+        "https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.nt",
+        "file://test_time_0.nt"
+    ],
     "prefixes": {
         "owl": "http://www.w3.org/2002/07/owl#",
         "time": "http://www.w3.org/2006/time#"
     },
     "rules": [
         {
+            "title": "beginning and end",
+            "description": "infer that a TemporalEntity begins before it ends",
+            "comment": "",
+            "rule": "time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), greaterThan(?t1, ?t2) -> owl:Nothing(?a)"
+        },
+        {
+            "title": "ProperInterval",
+            "description": "infer that a TemporalEntity is a ProperInterval (i.e. has the same beginning and end)",
+            "comment": "",
+            "rule": "time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), greaterThan(?t1, ?t2) -> time:ProperInterval(?a)"
+        },
+        {
             "title": "before and after",
             "description": "infer that two TemporalEntities are before and after one another",
             "comment": "",
             "rule": "time:TemporalEntity(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:TemporalEntity(?b), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
+        },
+        {
+            "title": "interval before and after",
+            "description": "infer that two ProperIntervals are before and after one another",
+            "comment": "",
+            "rule": "time:ProperInterval(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:ProperInterval(?b), time:hasBeginning(?b, ?i2), time:Instant(?i4), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:intervalBefore(?a, ?b)"
         }
     ]
 }

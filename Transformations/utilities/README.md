@@ -17,17 +17,19 @@ python add_triples.py [primary graph] [secondary graph]
 ```
 
 ## reformat_graph.py
-usage: reformat_graph.py [-h] input_file output_file {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
+usage: reformat_graph.py [-h] input_file {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix} output_file {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
 
-Convert RDF formats
+Convert RDF graph formats
 
 positional arguments:
   input_file            Specify the input datafile, folder, or URL
+  {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
+                        Specify the input data format (only RDFLib supported formats)
   output_file           Specify the output datafile
   {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
                         Specify the output data format (only RDFLib supported formats)
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
 
 ## citygml_3.0_validator.jar

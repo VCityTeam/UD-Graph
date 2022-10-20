@@ -1,0 +1,70 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_time_0#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_time_0> a owl:Ontology ;
+    owl:imports <http://www.w3.org/2006/time> .
+
+:e0 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t0 .
+
+:e1 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t1 .
+
+:e2 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t1 .
+
+:e3 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t3 .
+
+:e4 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t2 .
+
+:e5 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t3 .
+
+:e6 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t3 .
+
+:e7 a time:TemporalEntity,
+        owl:NamedIndividual ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t2 .
+
+:t0 a time:Instant,
+        owl:NamedIndividual ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:t1 a time:Instant,
+        owl:NamedIndividual ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:t2 a time:Instant,
+        owl:NamedIndividual ;
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime .
+
+:t3 a time:Instant,
+        owl:NamedIndividual ;
+    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime .
+
+
+[ a owl:AllDifferent ;
+    owl:distinctMembers ( :e0 :e1 :e2 :e3 :e4 :e5 :e6 :e7 :t0 :t1 :t2 :t3 )
+] .
