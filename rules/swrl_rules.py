@@ -1,7 +1,7 @@
 import json
 from owlready2 import get_ontology, default_world, sync_reasoner_pellet, Ontology, Imp, Nothing
 import logging
-from rdflib import Namespace
+from rdflib import Graph, Namespace
 
 
 def load_ontologies(config):
@@ -67,13 +67,23 @@ def format_rules(config):
         rules.append(rule.get('rule'))
     return rules
 
-def export_graph(config, output_file='output.ttl', output_format='ttl'):
+def export_graph(config, output_file='output.ttl', output_format='ttl', output_all=False):
     graph = default_world.as_rdflib_graph()
-    graph.bind('swrl', Namespace('http://www.w3.org/2003/11/swrl#'))
-    for prefix, namespace in config['prefixes'].items():
-        graph.bind(prefix, Namespace(namespace))
-    graph.serialize(output_file, format=output_format)
+    output = Graph()
+    output.bind('swrl', Namespace('http://www.w3.org/2003/11/swrl#'))
+    output.bind('', Namespace(config.get('output-namespace')))
+    for prefix, namespace in config.get('prefixes').items():
+        output.bind(prefix, Namespace(namespace))
+    for triple in graph.query("""
+        SELECT DISTINCT ?s ?p ?o
+        WHERE {
+            ?s ?p ?o ;
+              a owl:NamedIndividual.
+        }"""):
+        output.add(triple)
+    output.serialize(destination=output_file, format=output_format)
     logging.info(f'graph exported to {output_file}')
+
 
 logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     filename='output.log',
@@ -85,24 +95,24 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
 # config_file = 'workspace_rules.json'
 config_file = 'test_rules.json'
 
+### load ontologies and rules
 with open(config_file, 'r') as file:
     config = json.loads(file.read())
-
-    ### load ontologies
     ontology_network = load_ontologies(config)
     add_rules(ontology_network, config)
 
-    log_classes(default_world)
-    log_rules(default_world)
-    log_individuals(default_world)
+### log potentially useful information
+log_classes(default_world)
+log_rules(default_world)
+log_individuals(default_world)
 
-    ### check inconsistency
-    sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True, debug=2)
-    logging.info(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
-    for _class in get_classes(default_world):
-        if Nothing in _class.equivalent_to:
-            logging.warning(f'{_class.iri} is inconsistent')
+### check inconsistency
+sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True, debug=2)
+logging.info(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
+for _class in get_classes(default_world):
+    if Nothing in _class.equivalent_to:
+        logging.warning(f'{_class.iri} is inconsistent')
 
-    # export graph and finish
-    # export_graph(config)
-    print('Done!')
+# export graph and finish
+export_graph(config)
+print('Done!')

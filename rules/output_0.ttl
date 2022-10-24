@@ -1,0 +1,166 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_time_0#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:e1 a owl:NamedIndividual,
+        time:TemporalEntity ;
+    time:after :e0 ;
+    time:before :e3 ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t1 ;
+    time:hasTime :t1 .
+
+:e0 a owl:NamedIndividual,
+        time:TemporalEntity ;
+    time:before :e1,
+        :e3,
+        :e5,
+        :e7 ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t0 ;
+    time:hasTime :t0 .
+
+:t2 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime .
+
+:t3 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime .
+
+:t0 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:t1 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:e7 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e0 ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t2 ;
+    time:hasTime :t1,
+        :t2 ;
+    time:intervalContains :e3 ;
+    time:intervalDuring :e2,
+        :e4,
+        :e6 ;
+    time:intervalEquals :e7 ;
+    time:intervalFinishes :e4 ;
+    time:intervalIn :e2,
+        :e4,
+        :e5,
+        :e6 ;
+    time:intervalMeets :e3 ;
+    time:intervalMetBy :e2 ;
+    time:intervalStarts :e5 .
+
+:e4 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t2 ;
+    time:hasTime :t0,
+        :t2 ;
+    time:intervalContains :e3,
+        :e5,
+        :e7 ;
+    time:intervalEquals :e4 ;
+    time:intervalFinishedBy :e7 ;
+    time:intervalIn :e6 ;
+    time:intervalMeets :e3 ;
+    time:intervalStartedBy :e2 ;
+    time:intervalStarts :e6 .
+
+:e5 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e0 ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t1,
+        :t3 ;
+    time:intervalContains :e3 ;
+    time:intervalDuring :e2,
+        :e4,
+        :e6 ;
+    time:intervalEquals :e5 ;
+    time:intervalFinishedBy :e3 ;
+    time:intervalFinishes :e6 ;
+    time:intervalIn :e2,
+        :e4,
+        :e6 ;
+    time:intervalMetBy :e2 ;
+    time:intervalStartedBy :e7 .
+
+:e6 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t0,
+        :t3 ;
+    time:intervalContains :e3,
+        :e5,
+        :e7 ;
+    time:intervalEquals :e6 ;
+    time:intervalFinishedBy :e3,
+        :e5 ;
+    time:intervalStartedBy :e2,
+        :e4 .
+
+:e2 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:before :e3 ;
+    time:hasBeginning :t0 ;
+    time:hasEnd :t1 ;
+    time:hasTime :t0,
+        :t1 ;
+    time:intervalBefore :e3 ;
+    time:intervalContains :e3,
+        :e5,
+        :e7 ;
+    time:intervalDisjoint :e3 ;
+    time:intervalEquals :e2 ;
+    time:intervalIn :e4,
+        :e6 ;
+    time:intervalMeets :e5,
+        :e7 ;
+    time:intervalOverlaps :e3 ;
+    time:intervalStarts :e4,
+        :e6 .
+
+:e3 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e0,
+        :e1,
+        :e2 ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t2,
+        :t3 ;
+    time:intervalAfter :e2 ;
+    time:intervalDisjoint :e2 ;
+    time:intervalDuring :e2,
+        :e4,
+        :e5,
+        :e6,
+        :e7 ;
+    time:intervalEquals :e3 ;
+    time:intervalFinishes :e5,
+        :e6 ;
+    time:intervalIn :e2,
+        :e4,
+        :e5,
+        :e6,
+        :e7 ;
+    time:intervalMetBy :e4,
+        :e7 ;
+    time:intervalOverlappedBy :e2 .
+
