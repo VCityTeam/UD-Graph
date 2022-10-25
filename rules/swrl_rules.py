@@ -1,15 +1,15 @@
 import json
-from owlready2 import get_ontology, default_world, sync_reasoner_pellet, Ontology, Imp, Nothing
+from owlready2 import get_ontology, default_world, sync_reasoner_pellet, World, Ontology, Imp, Nothing
 import logging
 from rdflib import Graph, Namespace
 
 
-def load_ontologies(config):
+def load_ontologies(config, world):
     ontology_list = config.get('ontologies')
-    ontology_network = get_ontology(ontology_list[0]).load()
+    ontology_network = world.get_ontology(ontology_list[0]).load()
     logging.debug(ontology_network)
     for ontology_location in ontology_list[1:]:
-        ontology = get_ontology(ontology_location).load()
+        ontology = world.get_ontology(ontology_location).load()
         logging.debug(ontology)
         ontology_network.imported_ontologies.append(ontology)
     return ontology_network
@@ -67,20 +67,23 @@ def format_rules(config):
         rules.append(rule.get('rule'))
     return rules
 
-def export_graph(config, output_file='output.ttl', output_format='ttl', output_all=False):
+def export_graph(test, rules, output_format='ttl'):
     graph = default_world.as_rdflib_graph()
     output = Graph()
-    output.bind('swrl', Namespace('http://www.w3.org/2003/11/swrl#'))
-    output.bind('', Namespace(config.get('output-namespace')))
-    for prefix, namespace in config.get('prefixes').items():
+    output.bind( 'swrl', Namespace('http://www.w3.org/2003/11/swrl#') )
+    output.bind( '', Namespace(test.get('output').get('namespace')) )
+    for prefix, namespace in rules.get('prefixes').items():
         output.bind(prefix, Namespace(namespace))
     for triple in graph.query("""
         SELECT DISTINCT ?s ?p ?o
         WHERE {
             ?s ?p ?o ;
-              a owl:NamedIndividual.
+              a <http://www.w3.org/2002/07/owl#NamedIndividual> .
         }"""):
         output.add(triple)
+    output_file = 'output.ttl'
+    if test.get('output').get('filename'):
+        output_file = test.get('output').get('filename')
     output.serialize(destination=output_file, format=output_format)
     logging.info(f'graph exported to {output_file}')
 
@@ -92,27 +95,38 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
 
 
 ### init configuration
-# config_file = 'workspace_rules.json'
-config_file = 'test_rules.json'
+rule_config_file = 'rules.json'
+test_config_file = 'tests.json'
+rules = None
+tests = None
 
-### load ontologies and rules
-with open(config_file, 'r') as file:
-    config = json.loads(file.read())
-    ontology_network = load_ontologies(config)
-    add_rules(ontology_network, config)
+### load configuration files
+with open(rule_config_file, 'r') as file:
+    rules = json.loads(file.read())
+with open(test_config_file, 'r') as file:
+    tests = json.loads(file.read())
+i = 0
 
-### log potentially useful information
-log_classes(default_world)
-log_rules(default_world)
-log_individuals(default_world)
+for test in tests:
+    i += 1
+    logging.info(f'=== Running Test {i} ===')
+    world = World()
+    ### load ontologies and rules
+    ontology_network = load_ontologies(test, world)
+    add_rules(ontology_network, rules)
 
-### check inconsistency
-sync_reasoner_pellet(infer_property_values=True, infer_data_property_values=True, debug=2)
-logging.info(f'Inconsistent classes: {list(default_world.inconsistent_classes())}')
-for _class in get_classes(default_world):
-    if Nothing in _class.equivalent_to:
-        logging.warning(f'{_class.iri} is inconsistent')
+    ### log potentially useful information
+    log_classes(world)
+    log_rules(world)
+    log_individuals(world)
 
-# export graph and finish
-export_graph(config)
-print('Done!')
+    ### check inconsistency
+    sync_reasoner_pellet(world ,infer_property_values=True, infer_data_property_values=True, debug=2)
+    logging.info(f'Inconsistent classes: {list(world.inconsistent_classes())}')
+    for _class in get_classes(world):
+        if Nothing in _class.equivalent_to:
+            logging.warning(f'{_class.iri} is inconsistent')
+
+    # export graph and finish
+    export_graph(test, rules)
+    print('Done!')

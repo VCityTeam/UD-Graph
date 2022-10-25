@@ -1,0 +1,18 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_time_1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:bad1 a owl:NamedIndividual,
+        time:TemporalEntity ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t1 .
+
+:t1 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:t2 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+

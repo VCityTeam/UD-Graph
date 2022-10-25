@@ -1,9 +1,4 @@
 {
-    "ontologies": [
-        "https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.nt",
-        "file://test_time_0.nt"
-    ],
-    "output-namespace": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_time_0#",
     "prefixes": {
         "owl": "http://www.w3.org/2002/07/owl#",
         "time": "http://www.w3.org/2006/time#"
@@ -12,61 +7,51 @@
         {
             "title": "beginning and end",
             "description": "infer that a TemporalEntity begins before it ends",
-            "comment": "",
             "rule": "time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), greaterThan(?t1, ?t2) -> owl:Nothing(?a)"
         },
         {
             "title": "before and after",
             "description": "infer that two TemporalEntities are before and after one another",
-            "comment": "",
             "rule": "time:TemporalEntity(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:TemporalEntity(?b), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
         },
         {
             "title": "ProperInterval",
             "description": "infer that a TemporalEntity is a ProperInterval (i.e. has a different beginning and end)",
-            "comment": "",
             "rule": "time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:ProperInterval(?a)"
         },
         {
             "title": "interval before",
             "description": "infer that two ProperIntervals are before and after one another",
-            "comment": "",
-            "rule": "time:ProperInterval(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:ProperInterval(?b), time:hasBeginning(?b, ?i2), time:Instant(?i4), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:intervalBefore(?a, ?b)"
+            "rule": "time:ProperInterval(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:ProperInterval(?b), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:intervalBefore(?a, ?b)"
         },
         {
             "title": "interval equals",
             "description": "infer that two ProperIntervals are equal",
-            "comment": "",
             "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), equal(?t1, ?t3), equal(?t2, ?t4) -> time:intervalEquals(?a, ?b)"
         },
         {
             "title": "interval overlaps",
             "description": "infer that two ProperIntervals overlap",
-            "comment": "",
-            "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), lessThan(?t1, ?t3), lessThan(?t2, ?t4), greaterThan(?t3, ?t2) -> time:intervalOverlaps(?a, ?b)"
+            "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), lessThan(?t1, ?t3), lessThan(?t2, ?t4), greaterThan(?t2, ?t3) -> time:intervalOverlaps(?a, ?b)"
         },
         {
             "title": "interval meets",
             "description": "infer that two ProperIntervals meet",
-            "comment": "",
-            "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), equal(?t2, ?t3), notEqual(?t1, ?t4) -> time:intervalMeets(?a, ?b)"
+            "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), equal(?t2, ?t3) -> time:intervalMeets(?a, ?b)"
         },
         {
             "title": "interval during",
             "description": "infer that a ProperInterval is during another",
-            "comment": "",
-            "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), greaterThan(?t1, ?t3), lessThan(?t3, ?t4) -> time:intervalDuring(?a, ?b)"
+            "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), greaterThan(?t1, ?t3), lessThan(?t2, ?t4) -> time:intervalDuring(?a, ?b)"
         },
         {
             "title": "interval starts",
             "description": "infer that a ProperInterval starts another",
-            "comment": "",
             "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), equal(?t1, ?t3), lessThan(?t2, ?t4) -> time:intervalStarts(?a, ?b)"
         },
         {
             "title": "interval finishes",
             "description": "infer that a ProperInterval starts another",
-            "comment": "",
             "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), equal(?t2, ?t4), greaterThan(?t1, ?t3) -> time:intervalFinishes(?a, ?b)"
         }
     ]
