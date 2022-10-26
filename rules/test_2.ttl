@@ -1,13 +1,51 @@
-@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_2#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2#> .
+@prefix time: <http://www.w3.org/2006/time#> .
 @prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
 @prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
 @prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/test_2> a owl:Ontology .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2> a owl:Ontology .
+
+### Instants ###
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+### Temporal Entities ###
+
+:temporalEntity_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 .
+
+:temporalEntity_v1_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1_v2 ;
+    time:hasEnd :end_v1_v2 .
+
+:temporalEntity_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v2 ;
+    time:hasEnd :end_v2 .
+
+### Workspace (including versions, versionTransitions, and Features (with lifespans)) ###
 
 :w1 a wksp:Workspace,
         owl:NamedIndividual ;
@@ -23,49 +61,48 @@
 
 :s1 a wksp:Scenario,
         owl:NamedIndividual ;
-    wksp:Scenario.versionMember :v1,
-        :v2 ;
-    wksp:Scenario.versionTransitionMember :vt1_2 .
+    wksp:Scenario.versionMember :version_v1,
+        :version_v2 ;
+    wksp:Scenario.versionTransitionMember :versionTransition_v1_v2 .
 
-:vt1_2 a vers:VersionTransition,
-        owl:NamedIndividual ;
+:versionTransition_v1_v2 a owl:NamedIndividual,
+        vers:VersionTransition ;
+    time:hasTime :temporalEntity_v1_v2 ;
     core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
-    vers:VersionTransition.from :v1 ;
-    vers:VersionTransition.to :v2 ;
-    vers:VersionTransition.transaction :t1,
-        :t2,
-        :t3 .
+    vers:VersionTransition.from :version_v1 ;
+    vers:VersionTransition.to :version_v2 ;
+    vers:VersionTransition.transaction :transaction_v1_v2_0,
+        :transaction_v1_v2_1,
+        :transaction_v1_v2_2 .
 
-:v1 a vers:Version,
-        owl:NamedIndividual ;
-    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
-    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime ;
-    vers:Version.versionMember :f1_v1,
-        :f2_v1 .
-
-:v2 a vers:Version,
-        owl:NamedIndividual ;
-    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
-    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
-    vers:Version.versionMember :f2_v2,
-        :f3_v2 .
-
-:t1 a vers:Transaction,
-        owl:NamedIndividual ;
-    vers:Transaction.newFeature :f3_v2 ;
-    vers:Transaction.type type:insert .
-
-:t2 a vers:Transaction,
-        owl:NamedIndividual ;
+:transaction_v1_v2_0 a owl:NamedIndividual,
+        vers:Transaction ;
     vers:Transaction.oldFeature :f1_v1 ;
     vers:Transaction.type type:delete .
 
-:t3 a vers:Transaction,
-        owl:NamedIndividual ;
-    vers:Transaction.newFeature :f2_v1 ;
-    vers:Transaction.oldFeature :f2_v2 ;
+:transaction_v1_v2_1 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature :f2_v2 ;
+    vers:Transaction.oldFeature :f2_v1 ;
     vers:Transaction.type type:replace .
+
+:transaction_v1_v2_2 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature :f3_v2 ;
+    vers:Transaction.type type:insert .
+
+:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    time:hasTime :temporalEntity_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:version_v2 a owl:NamedIndividual,
+        vers:Version ;
+    time:hasTime :temporalEntity_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
 
 :f1_v1 a core:AbstractFeatureWithLifespan,
         owl:NamedIndividual ;
@@ -88,5 +125,29 @@
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
 
 [ a owl:AllDifferent ;
-    owl:distinctMembers ( :w1 :cs1 :ps1 :s1 :vt1_2 :v1 :v2 :t1 :t2 :t3 :f1_v1 :f2_v1 :f2_v2 :f3_v2 )
+    owl:distinctMembers ( 
+        :begin_v1
+        :begin_v1_v2
+        :begin_v2
+        :end_v1
+        :end_v1_v2
+        :end_v2
+        :temporalEntity_v1
+        :temporalEntity_v1_v2
+        :temporalEntity_v2
+        :w1
+        :cs1
+        :ps1
+        :s1
+        :versionTransition_v1_v2
+        :transaction_v1_v2_0
+        :transaction_v1_v2_1
+        :transaction_v1_v2_2
+        :version_v1
+        :version_v2
+        :f1_v1
+        :f2_v1
+        :f2_v2
+        :f3_v2
+     )
 ] .

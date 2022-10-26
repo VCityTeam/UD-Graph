@@ -1,6 +1,14 @@
 #!/bin/sh
 
 python DifferenceGraph2RDF.py \
+    --existence_time_stamps \
+        2000-01-01T00:00:00 \
+        2001-01-01T00:00:00 \
+    differences_test.json \
+    v1 v2 \
+    difference_test.ttl
+
+python DifferenceGraph2RDF.py \
     --base-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009-2018_Workspace \
     --v1-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009_split_v3 \
     --v1-prefix v2009 \

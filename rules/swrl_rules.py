@@ -4,8 +4,7 @@ import logging
 from rdflib import Graph, Namespace
 
 
-def load_ontologies(config, world):
-    ontology_list = config.get('ontologies')
+def load_ontologies(ontology_list, world):
     ontology_network = world.get_ontology(ontology_list[0]).load()
     logging.debug(ontology_network)
     for ontology_location in ontology_list[1:]:
@@ -67,24 +66,26 @@ def format_rules(config):
         rules.append(rule.get('rule'))
     return rules
 
-def export_graph(test, rules, output_format='ttl'):
-    graph = default_world.as_rdflib_graph()
+def export_graph(world, test, rules, output_format='ttl'):
+    graph = world.as_rdflib_graph()
     output = Graph()
     output.bind( 'swrl', Namespace('http://www.w3.org/2003/11/swrl#') )
     output.bind( '', Namespace(test.get('output').get('namespace')) )
     for prefix, namespace in rules.get('prefixes').items():
         output.bind(prefix, Namespace(namespace))
+    # output only triples that are part of the input dataset namespace
     for triple in graph.query("""
         SELECT DISTINCT ?s ?p ?o
         WHERE {
-            ?s ?p ?o ;
-              a <http://www.w3.org/2002/07/owl#NamedIndividual> .
-        }"""):
+            ?s ?p ?o .
+            FILTER( STRSTARTS(STR(?s), "%s") )
+        }""" % test.get('output').get('namespace')):
         output.add(triple)
     output_file = 'output.ttl'
     if test.get('output').get('filename'):
         output_file = test.get('output').get('filename')
     output.serialize(destination=output_file, format=output_format)
+    # graph.serialize(destination=output_file, format=output_format)
     logging.info(f'graph exported to {output_file}')
 
 
@@ -96,7 +97,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
 
 ### init configuration
 rule_config_file = 'rules.json'
-test_config_file = 'tests.json'
+test_config_file = '_tests.json'
 rules = None
 tests = None
 
@@ -112,7 +113,8 @@ for test in tests:
     logging.info(f'=== Running Test {i} ===')
     world = World()
     ### load ontologies and rules
-    ontology_network = load_ontologies(test, world)
+    ontology_list = test.get('ontologies') + rules.get('ontologies')
+    ontology_network = load_ontologies(ontology_list, world)
     add_rules(ontology_network, rules)
 
     ### log potentially useful information
@@ -121,12 +123,12 @@ for test in tests:
     log_individuals(world)
 
     ### check inconsistency
-    sync_reasoner_pellet(world ,infer_property_values=True, infer_data_property_values=True, debug=2)
+    sync_reasoner_pellet(world, infer_property_values=True, infer_data_property_values=True, debug=2)
     logging.info(f'Inconsistent classes: {list(world.inconsistent_classes())}')
     for _class in get_classes(world):
         if Nothing in _class.equivalent_to:
             logging.warning(f'{_class.iri} is inconsistent')
 
     # export graph and finish
-    export_graph(test, rules)
+    export_graph(world, test, rules)
     print('Done!')

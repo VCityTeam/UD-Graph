@@ -1,0 +1,85 @@
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix data: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/workspace_1#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#> .
+@prefix v1: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_1#> .
+@prefix v2: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_2#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/workspace_1> a owl:Ontology ;
+    owl:imports <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_1.ttl>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_2.ttl>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning.ttl>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype.ttl> .
+
+data:versionTransition_v1_v2 a owl:NamedIndividual,
+        vers:VersionTransition ;
+    time:hasTime data:temporalEntity_v1_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    vers:VersionTransition.from data:version_v1 ;
+    vers:VersionTransition.to data:version_v2 ;
+    vers:VersionTransition.transaction data:transaction_v1_v2_0,
+        data:transaction_v1_v2_1,
+        data:transaction_v1_v2_2 .
+
+data:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+data:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+data:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+data:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:temporalEntity_v1 a time:TemporalEntity ;
+    time:hasBeginning data:begin_v1 ;
+    time:hasEnd data:end_v1 .
+
+data:temporalEntity_v1_v2 a time:TemporalEntity ;
+    time:hasBeginning data:begin_v1_v2 ;
+    time:hasEnd data:end_v1_v2 .
+
+data:temporalEntity_v2 a time:TemporalEntity ;
+    time:hasBeginning data:begin_v2 ;
+    time:hasEnd data:end_v2 .
+
+data:transaction_v1_v2_0 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.oldFeature v1:f1_v1 ;
+    vers:Transaction.type type:delete .
+
+data:transaction_v1_v2_1 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature v2:f2_v2 ;
+    vers:Transaction.oldFeature v1:f2_v1 ;
+    vers:Transaction.type type:replace .
+
+data:transaction_v1_v2_2 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature v2:f3_v2 ;
+    vers:Transaction.type type:insert .
+
+data:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    time:hasTime data:temporalEntity_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
+
+data:version_v2 a owl:NamedIndividual,
+        vers:Version ;
+    time:hasTime data:temporalEntity_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+

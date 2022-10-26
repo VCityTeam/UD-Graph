@@ -1,7 +1,22 @@
 {
+    "ontologies": [
+        "https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.nt",
+        "file://../Ontologies/CityGML/3.0/core.owl",
+        "file://../Ontologies/CityGML/3.0/versioning.owl",
+        "file://../Ontologies/Workspace/3.0/workspace.owl",
+        "file://../Ontologies/Workspace/3.0/transactiontype.owl",
+        "file://../Ontologies/Document/3.0/document.owl"
+    ],
     "prefixes": {
         "owl": "http://www.w3.org/2002/07/owl#",
-        "time": "http://www.w3.org/2006/time#"
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd" : "http://www.w3.org/2001/XMLSchema#",
+        "time": "http://www.w3.org/2006/time#",
+        "core": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#",
+        "vers": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#",
+        "wksp": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#",
+        "type": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#",
+        "doc" : "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#"
     },
     "rules": [
         {
@@ -12,7 +27,12 @@
         {
             "title": "before and after",
             "description": "infer that two TemporalEntities are before and after one another",
-            "rule": "time:TemporalEntity(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:TemporalEntity(?b), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
+            "rule": "time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:before(?a, ?b)"
+        },
+        {
+            "title": "Instant",
+            "description": "infer that a TemporalEntity is an Instant (i.e. has the same beginning and end)",
+            "rule": "time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), equal(?t1, ?t2) -> time:Instant(?a), time:inXSDDateTimeStamp(?a, ?t1)"
         },
         {
             "title": "ProperInterval",
