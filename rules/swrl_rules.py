@@ -106,8 +106,9 @@ with open(rule_config_file, 'r') as file:
     rules = json.loads(file.read())
 with open(test_config_file, 'r') as file:
     tests = json.loads(file.read())
-i = 0
 
+### run tests
+i = 0
 for test in tests:
     i += 1
     logging.info(f'=== Running Test {i} ===')

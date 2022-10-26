@@ -1,353 +1,10 @@
 @prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_0#> .
-@prefix ns1: <http://www.w3.org/2004/02/skos/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix time: <http://www.w3.org/2006/time#> .
-@prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#> .
-@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix time-ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-<http://shapechange.net/resources/ont/base#+> a owl:NamedIndividual,
-        owl:Thing .
-
-<http://shapechange.net/resources/ont/base#-> a owl:NamedIndividual,
-        owl:Thing .
-
-<http://shapechange.net/resources/ont/base#Measure> a owl:NamedIndividual,
-        owl:Thing .
-
-<http://shapechange.net/resources/ont/base#Sign> a owl:Class,
-        owl:NamedIndividual ;
-    rdfs:subClassOf owl:Thing .
-
-<http://www.opengis.net/def/uom/ISO-8601/0/Gregorian> a owl:NamedIndividual,
-        owl:Thing .
-
-time:Friday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Friday"@en ;
-    ns1:prefLabel "الجمعة"@ar,
-        "Freitag"@de,
-        "Friday"@en,
-        "Viernes"@es,
-        "Vendredi"@fr,
-        "Venerdì"@it,
-        "金曜日"@ja,
-        "Vrijdag"@nl,
-        "Piątek"@pl,
-        "Sexta-feira"@pt,
-        "Пятница"@ru,
-        "星期五"@zh .
-
-time:Monday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Monday"@en ;
-    ns1:prefLabel "الاثنين"@ar,
-        "Montag"@de,
-        "Monday"@en,
-        "Lunes"@es,
-        "Lundi"@fr,
-        "Lunedì"@it,
-        "月曜日"@ja,
-        "Maandag"@nl,
-        "Poniedziałek"@pl,
-        "Segunda-feira"@pt,
-        "Понедельник"@ru,
-        "星期一"@zh .
-
-time:Saturday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Saturday"@en ;
-    ns1:prefLabel "السبت"@ar,
-        "Samstag"@de,
-        "Saturday"@en,
-        "Sábado"@es,
-        "Samedi"@fr,
-        "Sabato"@it,
-        "土曜日"@ja,
-        "Zaterdag"@nl,
-        "Sobota"@pl,
-        "Sábado"@pt,
-        "Суббота"@ru,
-        "星期六"@zh .
-
-time:Sunday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Sunday"@en ;
-    ns1:prefLabel "الأحد (يوم)"@ar,
-        "Sonntag"@de,
-        "Sunday"@en,
-        "Domingo"@es,
-        "Dimanche"@fr,
-        "Domenica"@it,
-        "日曜日"@ja,
-        "Zondag"@nl,
-        "Niedziela"@pl,
-        "Domingo"@pt,
-        "Воскресенье"@ru,
-        "星期日"@zh .
-
-time:Thursday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Thursday"@en ;
-    ns1:prefLabel "الخميس"@ar,
-        "Donnerstag"@de,
-        "Thursday"@en,
-        "Jueves"@es,
-        "Jeudi"@fr,
-        "Giovedì"@it,
-        "木曜日"@ja,
-        "Donderdag"@nl,
-        "Czwartek"@pl,
-        "Quinta-feira"@pt,
-        "Четверг"@ru,
-        "星期四"@zh .
-
-time:Tuesday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Tuesday"@en ;
-    ns1:prefLabel "الثلاثاء"@ar,
-        "Dienstag"@de,
-        "Tuesday"@en,
-        "Martes"@es,
-        "Mardi"@fr,
-        "Martedì"@it,
-        "火曜日"@ja,
-        "Dinsdag"@nl,
-        "Wtorek"@pl,
-        "Terça-feira"@pt,
-        "Вторник"@ru,
-        "星期二"@zh .
-
-time:Wednesday a owl:NamedIndividual,
-        time:DayOfWeek ;
-    rdfs:label "Wednesday"@en ;
-    ns1:prefLabel "الأربعاء"@ar,
-        "Mittwoch"@de,
-        "Wednesday"@en,
-        "Miércoles"@es,
-        "Mercredi"@fr,
-        "Mercoledì"@it,
-        "水曜日"@ja,
-        "Woensdag"@nl,
-        "Środa"@pl,
-        "Quarta-feira"@pt,
-        "Среда"@ru,
-        "星期三"@zh .
-
-time:unitDay a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Day (unit of temporal duration)"@en ;
-    ns1:prefLabel "يوماً ما"@ar,
-        "Tag"@de,
-        "day"@en,
-        "día"@es,
-        "jour"@fr,
-        "giorno"@it,
-        "ある日"@jp,
-        "언젠가"@kr,
-        "dag"@nl,
-        "doba"@pl,
-        "dia"@pt,
-        "一天"@zh ;
-    time:days 1.0 ;
-    time:hours 0.0 ;
-    time:minutes 0.0 ;
-    time:months 0.0 ;
-    time:seconds 0.0 ;
-    time:weeks 0.0 ;
-    time:years 0.0 .
-
-time:unitHour a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Hour (unit of temporal duration)"@en ;
-    ns1:prefLabel "один час\"@ru",
-        "ساعة واحدة"@ar,
-        "Stunde"@de,
-        "hour"@en,
-        "hora"@es,
-        "heure"@fr,
-        "ora"@it,
-        "一時間"@jp,
-        "한 시간"@kr,
-        "uur"@nl,
-        "godzina"@pl,
-        "hora"@pt,
-        "一小時"@zh ;
-    time:days 0.0 ;
-    time:hours 1.0 ;
-    time:minutes 0.0 ;
-    time:months 0.0 ;
-    time:seconds 0.0 ;
-    time:weeks 0.0 ;
-    time:years 0.0 .
-
-time:unitMinute a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Minute (unit of temporal duration)"@en ;
-    ns1:prefLabel "دقيقة واحدة"@ar,
-        "Minute"@de,
-        "minute"@en,
-        "minuto"@es,
-        "minute"@fr,
-        "minuto"@it,
-        "一分"@jp,
-        "분"@kr,
-        "minuut"@nl,
-        "minuta"@pl,
-        "minuto"@pt,
-        "одна минута"@ru,
-        "等一下"@zh ;
-    time:days 0.0 ;
-    time:hours 0.0 ;
-    time:minutes 1.0 ;
-    time:months 0.0 ;
-    time:seconds 0.0 ;
-    time:weeks 0.0 ;
-    time:years 0.0 .
-
-time:unitMonth a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Month (unit of temporal duration)"@en ;
-    ns1:prefLabel "شهر واحد"@ar,
-        "Monat"@de,
-        "month"@en,
-        "mes"@es,
-        "mois"@fr,
-        "mese"@it,
-        "一か月"@jp,
-        "한달"@kr,
-        "maand"@nl,
-        "miesiąc"@pl,
-        "один месяц"@ru,
-        "一個月"@zh ;
-    time:days 0.0 ;
-    time:hours 0.0 ;
-    time:minutes 0.0 ;
-    time:months 1.0 ;
-    time:seconds 0.0 ;
-    time:weeks 0.0 ;
-    time:years 0.0 .
-
-time:unitSecond a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Second (unit of temporal duration)"@en ;
-    ns1:prefLabel "ثانية واحدة"@ar,
-        "Sekunde"@de,
-        "second"@en,
-        "segundo"@es,
-        "seconde"@fr,
-        "secondo"@it,
-        "一秒"@jp,
-        "일초"@kr,
-        "seconde"@nl,
-        "Sekundę"@pl,
-        "segundo"@pt,
-        "一秒"@zh ;
-    time:days 0.0 ;
-    time:hours 0.0 ;
-    time:minutes 0.0 ;
-    time:months 0.0 ;
-    time:seconds 1.0 ;
-    time:weeks 0.0 ;
-    time:years 0.0 .
-
-time:unitWeek a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Week (unit of temporal duration)"@en ;
-    ns1:prefLabel "سبوع واحد"@ar,
-        "Woche"@de,
-        "week"@en,
-        "semana"@es,
-        "semaine"@fr,
-        "settimana"@it,
-        "一週間"@jp,
-        "일주일"@kr,
-        "week"@nl,
-        "tydzień"@pl,
-        "semana"@pt,
-        "одна неделя"@ru,
-        "一周"@zh ;
-    time:days 0.0 ;
-    time:hours 0.0 ;
-    time:minutes 0.0 ;
-    time:months 0.0 ;
-    time:seconds 0.0 ;
-    time:weeks 1.0 ;
-    time:years 0.0 .
-
-time:unitYear a owl:NamedIndividual,
-        time:GeneralDurationDescription,
-        time:TemporalUnit ;
-    rdfs:label "Year (unit of temporal duration)"@en ;
-    ns1:prefLabel "سنة واحدة"@ar,
-        "Jahr"@de,
-        "year"@en,
-        "un año"@es,
-        "an"@fr,
-        "anno"@it,
-        "1年"@jp,
-        "1 년"@kr,
-        "jaar"@nl,
-        "rok"@pl,
-        "ano"@pt,
-        "один год"@ru,
-        "一年"@zh ;
-    time:days 0.0 ;
-    time:hours 0.0 ;
-    time:minutes 0.0 ;
-    time:months 0.0 ;
-    time:seconds 0.0 ;
-    time:weeks 0.0 ;
-    time:years 1.0 .
-
-type:delete a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "delete"@en ;
-    ns1:definition "An old feature is removed from the version"@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
-
-type:fused a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "fused"@en ;
-    ns1:definition "Reverse_correspondence_size_length > 1... It can be: a split building that didn't work for both timestamps and which then denotes a logical fusion; a fusion or a split building problem + modifications; a split building problems + modifications"@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
-
-type:insert a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "insert"@en ;
-    ns1:definition "A new feature is added to the version."@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
-
-type:modified a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "modified"@en ;
-    ns1:definition "The building geometry and ID have changed e.g. it was heightened; its footprint geometry changed, etc.."@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
-
-type:re-ided a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "re-ided"@en ;
-    ns1:definition "The building has been re-ided: same geometry, different (gml) ID."@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
-
-type:subdivided a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "subdivided"@en ;
-    ns1:definition "Current building has more than one correspondent."@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
-
-type:unchanged a owl:NamedIndividual,
-        vers:TransactionTypeValue ;
-    rdfs:label "unchanged"@en ;
-    ns1:definition "Unchanged building: same geometry, same (gml) ID."@en ;
-    ns1:inScheme <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> .
+:e0 a owl:Thing .
 
 :e2 a owl:NamedIndividual,
         time:Instant,
@@ -357,7 +14,11 @@ type:unchanged a owl:NamedIndividual,
     time:hasBeginning :t2 ;
     time:hasEnd :t2 ;
     time:hasTime :t2 ;
-    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time-ext:finishes :e3 ;
+    time-ext:starts :e6,
+        :e8,
+        :e9 .
 
 :e1 a owl:NamedIndividual,
         time:Instant,
@@ -370,17 +31,17 @@ type:unchanged a owl:NamedIndividual,
     time:hasBeginning :t1 ;
     time:hasEnd :t1 ;
     time:hasTime :t1 ;
-    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time-ext:starts :e3,
+        :e5,
+        :e7 .
 
 :t4 a owl:NamedIndividual,
         time:Instant ;
-    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime .
-
-<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype> a owl:NamedIndividual,
-        owl:Ontology,
-        ns1:ConceptScheme ;
-    rdfs:label "TransactionTypeValueCodeList"@en ;
-    ns1:definition "An ontology for an SKOS Concept Scheme as codelist of TransactionTypeValues from the CityGML 3.0 Versioning ontology."@en .
+    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime ;
+    time-ext:finishes :e4,
+        :e6,
+        :e7 .
 
 :e8 a owl:NamedIndividual,
         time:ProperInterval,
@@ -399,7 +60,10 @@ type:unchanged a owl:NamedIndividual,
         :e7 ;
     time:intervalMeets :e4 ;
     time:intervalMetBy :e3 ;
-    time:intervalStarts :e6 .
+    time:intervalStarts :e6 ;
+    time-ext:finishedBy :t3 ;
+    time-ext:startedBy :e2,
+        :t2 .
 
 :e9 a owl:NamedIndividual,
         time:ProperInterval,
@@ -418,11 +82,25 @@ type:unchanged a owl:NamedIndividual,
         :e7 ;
     time:intervalMeets :e4 ;
     time:intervalMetBy :e3 ;
-    time:intervalStarts :e6 .
+    time:intervalStarts :e6 ;
+    time-ext:finishedBy :t3 ;
+    time-ext:startedBy :e2,
+        :t2 .
+
+:t1 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time-ext:starts :e3,
+        :e5,
+        :e7 .
 
 :t3 a owl:NamedIndividual,
         time:Instant ;
-    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime .
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime ;
+    time-ext:finishes :e5,
+        :e8,
+        :e9 ;
+    time-ext:starts :e4 .
 
 :e3 a owl:NamedIndividual,
         time:ProperInterval,
@@ -441,27 +119,11 @@ type:unchanged a owl:NamedIndividual,
         :e8,
         :e9 ;
     time:intervalStarts :e5,
-        :e7 .
-
-:t1 a owl:NamedIndividual,
-        time:Instant ;
-    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
-
-:e5 a owl:NamedIndividual,
-        time:ProperInterval,
-        time:TemporalEntity ;
-    time:hasBeginning :t1 ;
-    time:hasEnd :t3 ;
-    time:hasTime :t1,
-        :t3 ;
-    time:intervalEquals :e5 ;
-    time:intervalFinishedBy :e8,
-        :e9 ;
-    time:intervalIn :e7 ;
-    time:intervalMeets :e4 ;
-    time:intervalOverlaps :e6 ;
-    time:intervalStartedBy :e3 ;
-    time:intervalStarts :e7 .
+        :e7 ;
+    time-ext:finishedBy :e2,
+        :t2 ;
+    time-ext:startedBy :e1,
+        :t1 .
 
 :e4 a owl:NamedIndividual,
         time:ProperInterval,
@@ -482,7 +144,28 @@ type:unchanged a owl:NamedIndividual,
         :e7 ;
     time:intervalMetBy :e5,
         :e8,
-        :e9 .
+        :e9 ;
+    time-ext:finishedBy :t4 ;
+    time-ext:startedBy :t3 .
+
+:e5 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t1,
+        :t3 ;
+    time:intervalEquals :e5 ;
+    time:intervalFinishedBy :e8,
+        :e9 ;
+    time:intervalIn :e7 ;
+    time:intervalMeets :e4 ;
+    time:intervalOverlaps :e6 ;
+    time:intervalStartedBy :e3 ;
+    time:intervalStarts :e7 ;
+    time-ext:finishedBy :t3 ;
+    time-ext:startedBy :e1,
+        :t1 .
 
 :e6 a owl:NamedIndividual,
         time:ProperInterval,
@@ -499,11 +182,18 @@ type:unchanged a owl:NamedIndividual,
     time:intervalMetBy :e3 ;
     time:intervalOverlappedBy :e5 ;
     time:intervalStartedBy :e8,
-        :e9 .
+        :e9 ;
+    time-ext:finishedBy :t4 ;
+    time-ext:startedBy :e2,
+        :t2 .
 
 :t2 a owl:NamedIndividual,
         time:Instant ;
-    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time-ext:finishes :e3 ;
+    time-ext:starts :e6,
+        :e8,
+        :e9 .
 
 :e7 a owl:NamedIndividual,
         time:ProperInterval,
@@ -518,5 +208,8 @@ type:unchanged a owl:NamedIndividual,
     time:intervalFinishedBy :e4,
         :e6 ;
     time:intervalStartedBy :e3,
-        :e5 .
+        :e5 ;
+    time-ext:finishedBy :t4 ;
+    time-ext:startedBy :e1,
+        :t1 .
 

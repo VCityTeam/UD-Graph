@@ -1,6 +1,6 @@
 {
     "ontologies": [
-        "https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.nt",
+        "file://../Ontologies/Time/time-extension.nt",
         "file://../Ontologies/CityGML/3.0/core.owl",
         "file://../Ontologies/CityGML/3.0/versioning.owl",
         "file://../Ontologies/Workspace/3.0/workspace.owl",
@@ -12,6 +12,7 @@
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "xsd" : "http://www.w3.org/2001/XMLSchema#",
         "time": "http://www.w3.org/2006/time#",
+        "time_ext": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#",
         "core": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#",
         "vers": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#",
         "wksp": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#",
@@ -38,6 +39,16 @@
             "title": "ProperInterval",
             "description": "infer that a TemporalEntity is a ProperInterval (i.e. has a different beginning and end)",
             "rule": "time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:ProperInterval(?a)"
+        },
+        {
+            "title": "Instant-Interval Starts",
+            "description": "infer that an instant starts an interval (i.e. the instant has the same beginning and end as the beginning of the interval)",
+            "rule": "time:Instant(?a), time:inXSDDateTimeStamp(?a, ?t1), time:ProperInterval(?b), time:hasBeginning(?b, ?i), time:Instant(?i), time:inXSDDateTimeStamp(?i, ?t2), equal(?t1, ?t2) -> time_ext:starts(?a, ?b)"
+        },
+        {
+            "title": "Instant-Interval Finishes",
+            "description": "infer that an instant starts an interval (i.e. the instant has the same beginning and end as the beginning of the interval)",
+            "rule": "time:Instant(?a), time:inXSDDateTimeStamp(?a, ?t1), time:ProperInterval(?b), time:hasEnd(?b, ?i), time:Instant(?i), time:inXSDDateTimeStamp(?i, ?t2), equal(?t1, ?t2) -> time_ext:finishes(?a, ?b)"
         },
         {
             "title": "interval before",

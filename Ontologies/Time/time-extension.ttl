@@ -1,0 +1,39 @@
+@prefix :     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension>
+        a                owl:Ontology ;
+        skos:definition  "An extention of the OWL-Time ontology to provide instant-interval properties"@en .
+
+:starts a  owl:ObjectProperty ;
+        rdfs:domain     time:Instant ;
+        rdfs:range      time:ProperInterval ;
+        owl:inverseOf   :startedBy ;
+        rdfs:comment    "If an instant T1 is starts a proper interval T2, then the beginning and end of T1 is coincident with the beginning of T2, and the end of T1 is before the end of T2."@en ;
+        skos:definition "If an instant T1 is starts a proper interval T2, then the beginning and end of T1 is coincident with the beginning of T2, and the end of T1 is before the end of T2."@en .
+
+:startedBy a  owl:ObjectProperty ;
+           rdfs:domain     time:ProperInterval ;
+           rdfs:range      time:Instant ;
+           owl:inverseOf   :starts ;
+           rdfs:comment    "If a proper interval T1 is started by another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is after the end of T2."@en ;
+           skos:definition "If a proper interval T1 is started by another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is after the end of T2."@en .
+
+:finishes a  owl:ObjectProperty ;
+        rdfs:domain     time:Instant ;
+        rdfs:range      time:ProperInterval ;
+        owl:inverseOf   :finishedBy ;
+        rdfs:comment    "If an instant T1 finishes a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is coincident with the end of T2."@en ;
+        skos:definition "If an instant T1 finishes a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is coincident with the end of T2."@en .
+
+:finishedBy a  owl:ObjectProperty ;
+        rdfs:domain     time:ProperInterval ;
+        rdfs:range      time:Instant ;
+        owl:inverseOf   :finishes ;
+        rdfs:comment    "If a proper interval T1 is finishedBy an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is coincident with the end of T2."@en ;
+        skos:definition "If a proper interval T1 is finishedBy an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is coincident with the end of T2."@en .

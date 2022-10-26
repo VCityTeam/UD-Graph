@@ -2,6 +2,7 @@
 @prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
 @prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
 @prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -71,50 +72,6 @@
         :transaction_v1_v2_1,
         :transaction_v1_v2_2 .
 
-:begin_v1 a time:Instant ;
-    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
-
-:begin_v1_v2 a time:Instant ;
-    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
-
-:begin_v2 a time:Instant ;
-    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
-
-:end_v1 a time:Instant ;
-    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
-
-:end_v1_v2 a time:Instant ;
-    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
-
-:end_v2 a time:Instant ;
-    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
-
-:temporalEntity_v1 a time:Instant,
-        time:TemporalEntity ;
-    time:before :temporalEntity_v2 ;
-    time:hasBeginning :begin_v1 ;
-    time:hasEnd :end_v1 ;
-    time:hasTime :begin_v1,
-        :end_v1 ;
-    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
-
-:temporalEntity_v1_v2 a time:ProperInterval,
-        time:TemporalEntity ;
-    time:hasBeginning :begin_v1_v2 ;
-    time:hasEnd :end_v1_v2 ;
-    time:hasTime :begin_v1_v2,
-        :end_v1_v2 ;
-    time:intervalEquals :temporalEntity_v1_v2 .
-
-:temporalEntity_v2 a time:Instant,
-        time:TemporalEntity ;
-    time:after :temporalEntity_v1 ;
-    time:hasBeginning :begin_v2 ;
-    time:hasEnd :end_v2 ;
-    time:hasTime :begin_v2,
-        :end_v2 ;
-    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
-
 :version_v1 a owl:NamedIndividual,
         vers:Version ;
     time:hasTime :temporalEntity_v1 ;
@@ -126,4 +83,64 @@
     time:hasTime :temporalEntity_v2 ;
     core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:finishes :temporalEntity_v1_v2 .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:finishes :temporalEntity_v1_v2 .
+
+:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:finishes :temporalEntity_v1_v2 .
+
+:temporalEntity_v1 a time:Instant,
+        time:TemporalEntity ;
+    time:before :temporalEntity_v2 ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 ;
+    time:hasTime :begin_v1,
+        :end_v1 ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:temporalEntity_v2 a time:Instant,
+        time:TemporalEntity ;
+    time:after :temporalEntity_v1 ;
+    time:hasBeginning :begin_v2 ;
+    time:hasEnd :end_v2 ;
+    time:hasTime :begin_v2,
+        :end_v2 ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:finishes :temporalEntity_v1_v2 .
+
+:temporalEntity_v1_v2 a time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :begin_v1_v2 ;
+    time:hasEnd :end_v1_v2 ;
+    time:hasTime :begin_v1_v2,
+        :end_v1_v2 ;
+    time:intervalEquals :temporalEntity_v1_v2 ;
+    time_ext:finishedBy :begin_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_v2 ;
+    time_ext:startedBy :begin_v1,
+        :begin_v1_v2,
+        :end_v1,
+        :temporalEntity_v1 .
 
