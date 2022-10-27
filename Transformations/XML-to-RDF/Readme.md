@@ -1,4 +1,12 @@
-## CityGML to RDF Transformation
+# XML to RDF transformer
+Model driven transformation tools for creating RDF/OWL knowledge graphs from XML files. There are currently 3 tools:
+- A [python based tool](#XML-to-RDF-Transformation) for creating RDF/OWL graphs from XML data and a network of OWL 2 DL ontologies
+- An [XSLT based tool](#XSLT-based-transformations) for creating RDF/OWL graphs and ontologies from XML data, and an XSD schema, following the work of [[Metral et al. 2010]](https://orbi.uliege.be/handle/2268/26716)
+
+Both of these tools support GML instances.
+
+
+## XML to RDF Transformation
 This approach requires an ontology to determine how to convert CityGML documents into RDF triples. Valid GML geometry is converted into GeoSPARQL's `gmlLiteral` values.
 
 ### Input Data
@@ -42,3 +50,4 @@ optional arguments:
 
 ## XSLT-based-transformations
 This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd)
+

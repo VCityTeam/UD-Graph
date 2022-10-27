@@ -1,9 +1,8 @@
 import logging
 import argparse
+from tokenize import Name
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import XSD, RDF, TIME, Namespace, split_uri
-
-from macpath import split
 
 def main():
     # initialize command line arguments
@@ -70,6 +69,7 @@ class timeStamper():
     def __init__(self, core_namespace):
         self.graph = Graph()
         self.CORE = Namespace(core_namespace)
+        self.graph.bind('time', TIME)
 
     def readFile(self, input_file, input_format):
         # read input file
@@ -83,17 +83,20 @@ class timeStamper():
         logging.info('Done!')
 
     def addTimeStamps(self, from_timestamp, to_timestamp, from_timestamp_property, to_timestamp_property, use_owl_time=True):
+        from_timestamp = Literal(from_timestamp, datatype=XSD.dateTime)
+        to_timestamp = Literal(to_timestamp, datatype=XSD.dateTime)
         # add timestamps to CityGML features
         for city_model, city_model_member, feature_member in self.graph.triples(
                 (None, URIRef(self.CORE.CityModel + '.cityModelMember_cityObjectMember'), None)
             ):
-            self.graph.add( (feature_member, URIRef(self.CORE + from_timestamp_property), Literal(from_timestamp, datatype=XSD.dateTime)) )
-            self.graph.add( (feature_member, URIRef(self.CORE + to_timestamp_property), Literal(to_timestamp, datatype=XSD.dateTime)) )
+            self.graph.add( (feature_member, URIRef(self.CORE + from_timestamp_property), from_timestamp) )
+            self.graph.add( (feature_member, URIRef(self.CORE + to_timestamp_property), to_timestamp) )
             if use_owl_time:
-                qname = split_uri(feature_member)
-                temporal_entity_uri = URIRef( qname.namespace.temporalEntity_ + qname.name )
-                beginning_uri = URIRef( qname.namespace.begin_ + qname.name )
-                end_uri = URIRef( qname.namespace.end_ + qname.name )
+                feature_namespace, feature_name = split_uri(feature_member)
+                feature_namespace = Namespace(feature_namespace)
+                temporal_entity_uri = URIRef( feature_namespace.temporalEntity_ + feature_name )
+                beginning_uri = URIRef( feature_namespace.begin_ + feature_name )
+                end_uri = URIRef( feature_namespace.end_ + feature_name )
                 self.graph.add( (temporal_entity_uri, RDF.type, TIME.TemporalEntity) )
                 self.graph.add( (temporal_entity_uri, TIME.hasBeginning, beginning_uri) )
                 self.graph.add( (beginning_uri, RDF.type, TIME.Instant) )

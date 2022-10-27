@@ -1,4 +1,5 @@
 import json
+from warnings import catch_warnings
 from owlready2 import get_ontology, default_world, sync_reasoner_pellet, World, Ontology, Imp, Nothing
 import logging
 from rdflib import Graph, Namespace
@@ -69,10 +70,9 @@ def format_rules(config):
 def export_graph(world, test, rules, output_format='ttl'):
     graph = world.as_rdflib_graph()
     output = Graph()
-    output.bind( 'swrl', Namespace('http://www.w3.org/2003/11/swrl#') )
     output.bind( '', Namespace(test.get('output').get('namespace')) )
     for prefix, namespace in rules.get('prefixes').items():
-        output.bind(prefix, Namespace(namespace))
+        output.bind(prefix, Namespace(namespace), override=True )
     # output only triples that are part of the input dataset namespace
     for triple in graph.query("""
         SELECT DISTINCT ?s ?p ?o
@@ -97,7 +97,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
 
 ### init configuration
 rule_config_file = 'rules.json'
-test_config_file = '_tests.json'
+test_config_file = 'tests.json'
 rules = None
 tests = None
 
@@ -106,11 +106,15 @@ with open(rule_config_file, 'r') as file:
     rules = json.loads(file.read())
 with open(test_config_file, 'r') as file:
     tests = json.loads(file.read())
-i = 0
+
+test_results = []
 
 for test in tests:
-    i += 1
-    logging.info(f'=== Running Test {i} ===')
+    if test.get('ignore'):
+        continue
+
+    logging.info(f'=== Running Test {len(test_results)} ===')
+    test_results.append(True)
     world = World()
     ### load ontologies and rules
     ontology_list = test.get('ontologies') + rules.get('ontologies')
@@ -123,8 +127,12 @@ for test in tests:
     log_individuals(world)
 
     ### check inconsistency
-    sync_reasoner_pellet(world, infer_property_values=True, infer_data_property_values=True, debug=2)
-    logging.info(f'Inconsistent classes: {list(world.inconsistent_classes())}')
+    try:
+        sync_reasoner_pellet(world, infer_property_values=True, infer_data_property_values=True, debug=2)
+    except Exception as e:
+        logging.error(e)
+        test_results[-1] = False
+    logging.warning(f'Inconsistent classes: {list(world.inconsistent_classes())}')
     for _class in get_classes(world):
         if Nothing in _class.equivalent_to:
             logging.warning(f'{_class.iri} is inconsistent')
@@ -132,3 +140,9 @@ for test in tests:
     # export graph and finish
     export_graph(world, test, rules)
     print('Done!')
+
+logging.info(f'==== Test Results ====')
+i = 0
+for result in test_results:
+    logging.info(f'Test {i} passed: {result}')
+    i += 1
