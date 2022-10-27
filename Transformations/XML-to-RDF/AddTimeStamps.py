@@ -1,7 +1,9 @@
 import logging
 import argparse
 from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import XSD, Namespace
+from rdflib.namespace import XSD, RDF, TIME, Namespace, split_uri
+
+from macpath import split
 
 def main():
     # initialize command line arguments
@@ -31,6 +33,10 @@ def main():
     parser.add_argument('-l', '--log',
                          default='output.log',
                          help='specify the logging file')
+    parser.add_argument('--ignore-owl-time',
+                         default=True,
+                         action='store_false',
+                         help='skip the creation of OWL-Time TemporalEntities')
     parser.add_argument('-d', '--debug',
                          action='store_true',
                          help='enable debug level logging')
@@ -53,7 +59,7 @@ def main():
     time_stamper.readFile(args.input_file, args.input_format)
     
     # add timestamps
-    time_stamper.addTimeStamps(args.time_stamps[0], args.time_stamps[1], args.from_property, args.to_property)
+    time_stamper.addTimeStamps(args.time_stamps[0], args.time_stamps[1], args.from_property, args.to_property, args.ignore_owl_time)
 
     # write file
     time_stamper.writeFile(args.output_file, args.output_format)
@@ -76,13 +82,26 @@ class timeStamper():
         self.graph.serialize(destination=output_file, format=output_format)
         logging.info('Done!')
 
-    def addTimeStamps(self, from_timestamp, to_timestamp, from_timestamp_property, to_timestamp_property):
+    def addTimeStamps(self, from_timestamp, to_timestamp, from_timestamp_property, to_timestamp_property, use_owl_time=True):
         # add timestamps to CityGML features
         for city_model, city_model_member, feature_member in self.graph.triples(
                 (None, URIRef(self.CORE.CityModel + '.cityModelMember_cityObjectMember'), None)
             ):
             self.graph.add( (feature_member, URIRef(self.CORE + from_timestamp_property), Literal(from_timestamp, datatype=XSD.dateTime)) )
             self.graph.add( (feature_member, URIRef(self.CORE + to_timestamp_property), Literal(to_timestamp, datatype=XSD.dateTime)) )
+            if use_owl_time:
+                qname = split_uri(feature_member)
+                temporal_entity_uri = URIRef( qname.namespace.temporalEntity_ + qname.name )
+                beginning_uri = URIRef( qname.namespace.begin_ + qname.name )
+                end_uri = URIRef( qname.namespace.end_ + qname.name )
+                self.graph.add( (temporal_entity_uri, RDF.type, TIME.TemporalEntity) )
+                self.graph.add( (temporal_entity_uri, TIME.hasBeginning, beginning_uri) )
+                self.graph.add( (beginning_uri, RDF.type, TIME.Instant) )
+                self.graph.add( (beginning_uri, TIME.inXSDDateTimeStamp, from_timestamp) )
+                self.graph.add( (temporal_entity_uri, TIME.hasEnd, end_uri) )
+                self.graph.add( (end_uri, RDF.type, TIME.Instant) )
+                self.graph.add( (end_uri, TIME.inXSDDateTimeStamp, to_timestamp) )
+                self.graph.add( (feature_member, TIME.hasTime, temporal_entity_uri) )
             logging.debug(f'added timestamps to {feature_member}')
 
 
