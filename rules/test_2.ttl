@@ -1,4 +1,4 @@
-@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2#> .
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
 @prefix time: <http://www.w3.org/2006/time#> .
 @prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
@@ -12,7 +12,7 @@
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 
-<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2> a owl:Ontology .
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test> a owl:Ontology .
 
 ### Instants ###
 
@@ -138,11 +138,15 @@
 :version_v1 a owl:NamedIndividual,
         vers:Version ;
     time:hasTime :temporalEntity_v1 ;
+    vers:Version.versionMember :f1_v1,
+        :f2_v1 ;
     core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
 
 :version_v2 a owl:NamedIndividual,
         vers:Version ;
+    vers:Version.versionMember :f2_v2,
+        :f3_v2 ;
     time:hasTime :temporalEntity_v2 ;
     core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
