@@ -28,25 +28,7 @@
             "title": "rule 14a",
             "description": "",
             "comment": "",
-            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validFrom(?f, ?v2)-> lessThanOrEqual(?v1, ?v2)"
-        },
-        {   
-            "title": "rule 14b",
-            "description": "",
-            "comment": "",
-            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.creationDate(?f, ?e1), core:AbstractFeatureWithLifespan.terminationDate(?f, ?e2) -> lessThanOrEqual(?e1, ?e2)"
-        },
-        {
-            "title": "rule 22",
-            "description": "",
-            "comment": "",
-            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:insert) -> empty(?f1), core:AbstractFeatureWithLifespan(?f2)"
-        },
-        {
-            "title": "rule 23",
-            "description": "",
-            "comment": "",
-            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:delete) -> core:AbstractFeatureWithLifespan(?f1), empty(?f2)"
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validTo(?f, ?v2), greaterThan(?v1, ?v2) -> owl:Nothing(?f)"
         },
         {
             "ignore": true,

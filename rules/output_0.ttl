@@ -1,6 +1,7 @@
 @prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_0#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :e0 a owl:Thing .
@@ -14,8 +15,8 @@
     time:hasEnd :t2 ;
     time:hasTime :t2 ;
     time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
-    time-ext:finishes :e3 ;
-    time-ext:starts :e6,
+    time_ext:finishes :e3 ;
+    time_ext:starts :e6,
         :e8,
         :e9 .
 
@@ -31,13 +32,16 @@
     time:hasEnd :t1 ;
     time:hasTime :t1 ;
     time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
-    time-ext:starts :e3,
+    time_ext:starts :e3,
         :e5,
         :e7 .
 
 :t4 a owl:NamedIndividual,
         time:Instant ;
-    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime .
+    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:finishes :e4,
+        :e6,
+        :e7 .
 
 :e8 a owl:NamedIndividual,
         time:ProperInterval,
@@ -57,8 +61,8 @@
     time:intervalMeets :e4 ;
     time:intervalMetBy :e3 ;
     time:intervalStarts :e6 ;
-    time-ext:finishedBy :t3 ;
-    time-ext:startedBy :e2,
+    time_ext:finishedBy :t3 ;
+    time_ext:startedBy :e2,
         :t2 .
 
 :e9 a owl:NamedIndividual,
@@ -79,24 +83,24 @@
     time:intervalMeets :e4 ;
     time:intervalMetBy :e3 ;
     time:intervalStarts :e6 ;
-    time-ext:finishedBy :t3 ;
-    time-ext:startedBy :e2,
+    time_ext:finishedBy :t3 ;
+    time_ext:startedBy :e2,
         :t2 .
 
 :t1 a owl:NamedIndividual,
         time:Instant ;
     time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
-    time-ext:starts :e3,
+    time_ext:starts :e3,
         :e5,
         :e7 .
 
 :t3 a owl:NamedIndividual,
         time:Instant ;
     time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime ;
-    time-ext:finishes :e5,
+    time_ext:finishes :e5,
         :e8,
         :e9 ;
-    time-ext:starts :e4 .
+    time_ext:starts :e4 .
 
 :e3 a owl:NamedIndividual,
         time:ProperInterval,
@@ -116,9 +120,9 @@
         :e9 ;
     time:intervalStarts :e5,
         :e7 ;
-    time-ext:finishedBy :e2,
+    time_ext:finishedBy :e2,
         :t2 ;
-    time-ext:startedBy :e1,
+    time_ext:startedBy :e1,
         :t1 .
 
 :e4 a owl:NamedIndividual,
@@ -141,8 +145,8 @@
     time:intervalMetBy :e5,
         :e8,
         :e9 ;
-    time-ext:finishedBy :t4 ;
-    time-ext:startedBy :t3 .
+    time_ext:finishedBy :t4 ;
+    time_ext:startedBy :t3 .
 
 :e5 a owl:NamedIndividual,
         time:ProperInterval,
@@ -159,8 +163,8 @@
     time:intervalOverlaps :e6 ;
     time:intervalStartedBy :e3 ;
     time:intervalStarts :e7 ;
-    time-ext:finishedBy :t3 ;
-    time-ext:startedBy :e1,
+    time_ext:finishedBy :t3 ;
+    time_ext:startedBy :e1,
         :t1 .
 
 :e6 a owl:NamedIndividual,
@@ -179,15 +183,15 @@
     time:intervalOverlappedBy :e5 ;
     time:intervalStartedBy :e8,
         :e9 ;
-    time-ext:finishedBy :t4 ;
-    time-ext:startedBy :e2,
+    time_ext:finishedBy :t4 ;
+    time_ext:startedBy :e2,
         :t2 .
 
 :t2 a owl:NamedIndividual,
         time:Instant ;
     time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
-    time-ext:finishes :e3 ;
-    time-ext:starts :e6,
+    time_ext:finishes :e3 ;
+    time_ext:starts :e6,
         :e8,
         :e9 .
 
@@ -205,7 +209,7 @@
         :e6 ;
     time:intervalStartedBy :e3,
         :e5 ;
-    time-ext:finishedBy :t4 ;
-    time-ext:startedBy :e1,
+    time_ext:finishedBy :t4 ;
+    time_ext:startedBy :e1,
         :t1 .
 

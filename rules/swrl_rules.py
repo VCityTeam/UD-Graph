@@ -1,6 +1,5 @@
 import json
-from warnings import catch_warnings
-from owlready2 import get_ontology, default_world, sync_reasoner_pellet, World, Ontology, Imp, Nothing
+from owlready2 import sync_reasoner_pellet, World, Ontology, Imp, Nothing
 import logging
 from rdflib import Graph, Namespace
 
@@ -50,7 +49,9 @@ def get_classes(ontology):
 def add_rules(ontology, config):
     rules = format_rules(config)
     ns = ontology.get_namespace('http://www.w3.org/2000/01/rdf-schema#')
+    print(ns)
     for rule in rules:
+        print(rule)
         implication = Imp(namespace=ns)
         implication.set_as_rule(rule)
 
@@ -107,16 +108,17 @@ with open(rule_config_file, 'r') as file:
 with open(test_config_file, 'r') as file:
     tests = json.loads(file.read())
 
+expected_results = []
 test_results = []
 
 ### run tests
-i = 0
 for test in tests:
     if test.get('ignore'):
         continue
 
     logging.info(f'=== Running Test {len(test_results)} ===')
     test_results.append(True)
+    expected_results.append(test.get('output').get('expected-result'))
     world = World()
     ### load ontologies and rules
     ontology_list = test.get('ontologies') + rules.get('ontologies')
@@ -144,7 +146,9 @@ for test in tests:
     print('Done!')
 
 logging.info(f'==== Test Results ====')
-i = 0
-for result in test_results:
+print(f'==== Test Results ====')
+for i in range(len(test_results)):
+    result = bool(test_results[i] == expected_results[i])
     logging.info(f'Test {i} passed: {result}')
+    print(f'Test {i} passed: {result}')
     i += 1

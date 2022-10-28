@@ -1,42 +1,62 @@
 [
     {
         "ignore": true,
+        "description": "test consistent owl-time entity logic",
         "ontologies": [
             "file://test_0.nt"
         ],
         "output": {
             "namespace": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_0#",
-            "filename": "output_0.ttl"
+            "filename": "output_0.ttl",
+            "expected-result": true
         }
     },
     {
         "ignore": true,
+        "description": "test inconsistent owl-time entity logic",
         "ontologies": [
             "file://test_1.nt"
         ],
         "output": {
             "namespace": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_1#",
-            "filename": "output_1.ttl"
+            "filename": "output_1.ttl",
+            "expected-result": false
         }
     },
     {
-        "ignore": true,
+        "ignore": false,
+        "description": "test consistent historical succession workspace dataset",
         "ontologies": [
             "file://test_2.nt"
         ],
         "output": {
             "namespace": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2#",
-            "filename": "output_2.ttl"
+            "filename": "output_2.ttl",
+            "expected-result": true
         }
     },
     {
-        "ignore": false,
+        "ignore": true,
+        "description": "test inconsistent citygml feature timestamps with OWL-Time period; timestamps should match period beginning and end",
         "ontologies": [
             "file://test_3.nt"
         ],
         "output": {
             "namespace": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_3#",
-            "filename": "output_3.ttl"
+            "filename": "output_3.ttl",
+            "expected-result": false
+        }
+    },
+    {
+        "ignore": false,
+        "description": "test inconsistent citygml feature within a version; all features should be temporally during their parent version",
+        "ontologies": [
+            "file://test_4.nt"
+        ],
+        "output": {
+            "namespace": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_4#",
+            "filename": "output_4.ttl",
+            "expected-result": false
         }
     }
 ]
