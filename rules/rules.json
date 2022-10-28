@@ -11,9 +11,11 @@
         "owl": "http://www.w3.org/2002/07/owl#",
         "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
         "xsd" : "http://www.w3.org/2001/XMLSchema#",
+        "swrl": "http://www.w3.org/2003/11/swrl#",
         "time": "http://www.w3.org/2006/time#",
         "time_ext": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#",
         "core": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#",
+        "bldg": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#",
         "vers": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#",
         "wksp": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#",
         "type": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#",
@@ -84,6 +86,18 @@
             "title": "interval finishes",
             "description": "infer that a ProperInterval starts another",
             "rule": "time:ProperInterval(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:hasEnd(?a, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), time:ProperInterval(?b), time:hasBeginning(?b, ?i3), time:Instant(?i3), time:inXSDDateTimeStamp(?i3, ?t3), time:hasEnd(?b, ?i4), time:Instant(?i4), time:inXSDDateTimeStamp(?i4, ?t4), equal(?t2, ?t4), greaterThan(?t1, ?t3) -> time:intervalFinishes(?a, ?b)"
+        },
+        {   
+            "title": "citygml validFrom timestamps match owl-time entities",
+            "description": "",
+            "comment": "",
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?t1), time:hasTime(?f, ?te), time:hasBeginning(?te, ?i1), time:inXSDDateTimeStamp(?i1, ?t2), notEqual(?t1, ?t2) -> owl:Nothing(?f)"
+        },
+        {   
+            "title": "citygml validFrom timestamps match owl-time entities",
+            "description": "",
+            "comment": "",
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validTo(?f, ?t1), time:hasTime(?f, ?te), time:hasEnd(?te, ?i1), time:inXSDDateTimeStamp(?i1, ?t2), notEqual(?t1, ?t2) -> owl:Nothing(?f)"
         }
     ]
 }

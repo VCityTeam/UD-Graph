@@ -1,5 +1,36 @@
 # Utility scripts
 
+## AddTimeStamps
+Add timestamp values to CityGML RDF graphs
+
+### To run
+```
+usage: AddTimeStamps.py [-h] [--input-format INPUT_FORMAT] [--output-format OUTPUT_FORMAT] [--core-uri CORE_URI] [--from-property FROM_PROPERTY] [--to-property TO_PROPERTY] [-l LOG] [-d]
+                        input_file output_file time_stamps time_stamps
+
+positional arguments:
+  input_file            specify the input CityGML RDF graph
+  output_file           specify the output filename
+  time_stamps           specify the "from" and "to" timestamps
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input-format INPUT_FORMAT
+                        specify the input CityGML RDFlib format.
+  --output-format OUTPUT_FORMAT
+                        specify the output CityGML RDFlib format.
+  --core-uri CORE_URI   specify the URI for the CityGML core module
+  --from-property FROM_PROPERTY
+                        specify the "from" timestamp property URI (without namespace) e.g. validFrom or creationDate
+  --to-property TO_PROPERTY
+                        specify the "to" timestamp property URI (without namespace) e.g. validTo or terminationDate
+  -l LOG, --log LOG     specify the logging file
+  -d, --debug           enable debug level logging
+```
+
+See [testTimestamp.sh](testTimestamp.sh) for example usages
+
+
 ## add_crs.py
 Add a coordinate reference system to a gml file.
 

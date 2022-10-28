@@ -1,9 +1,12 @@
 @prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
 @prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
 @prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
 @prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -11,7 +14,7 @@
 
 <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test_2> a owl:Ontology .
 
-### Temporal Instants ###
+### Instants ###
 
 :begin_v1 a time:Instant ;
     time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
@@ -31,6 +34,30 @@
 :end_v2 a time:Instant ;
     time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
 
+:begin_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f2_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f2_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
 ### Temporal Entities ###
 
 :temporalEntity_v1 a time:TemporalEntity ;
@@ -45,7 +72,23 @@
     time:hasBeginning :begin_v2 ;
     time:hasEnd :end_v2 .
 
-### Workspace (including versions, versionTransitions, and Features (with lifespans)) ###
+:temporalEntity_f1_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_f1_v1 ;
+    time:hasEnd :end_f1_v1 .
+
+:temporalEntity_f2_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_f2_v1 ;
+    time:hasEnd :end_f2_v1 .
+
+:temporalEntity_f2_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_f2_v2 ;
+    time:hasEnd :end_f2_v2 .
+
+:temporalEntity_f3_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_f3_v2 ;
+    time:hasEnd :end_f3_v2 .
+
+### Workspace including versions and versionTransitions ###
 
 :w1 a wksp:Workspace,
         owl:NamedIndividual ;
@@ -104,23 +147,45 @@
     core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
 
-:f1_v1 a core:AbstractFeatureWithLifespan,
-        owl:NamedIndividual ;
+###  Features (with lifespans) ###
+
+:f1_v1 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building C"^^xsd:string,
+        "f1"^^xsd:string ;
+    skos:prefLabel "f1" ;
+    time:hasTime :temporalEntity_f1_v1 ;
     core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
 
-:f2_v1 a core:AbstractFeatureWithLifespan,
-        owl:NamedIndividual ;
+:f2_v1 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v1" ;
+    time:hasTime :temporalEntity_f2_v1 ;
     core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
 
-:f2_v2 a core:AbstractFeatureWithLifespan,
-        owl:NamedIndividual ;
+:f2_v2 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v2" ;
+    time:hasTime :temporalEntity_f2_v2 ;
     core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
 
-:f3_v2 a core:AbstractFeatureWithLifespan,
-        owl:NamedIndividual ;
+:f3_v2 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building A"^^xsd:string,
+        "f3"^^xsd:string ;
+    skos:prefLabel "f3" ;
+    time:hasTime :temporalEntity_f3_v2 ;
     core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
 
@@ -132,9 +197,21 @@
         :end_v1
         :end_v1_v2
         :end_v2
+        :begin_f1_v1
+        :begin_f2_v1
+        :end_f1_v1
+        :end_f2_v1
+        :begin_f2_v2
+        :begin_f3_v2
+        :end_f2_v2
+        :end_f3_v2
         :temporalEntity_v1
         :temporalEntity_v1_v2
         :temporalEntity_v2
+        :temporalEntity_f1_v1
+        :temporalEntity_f2_v1
+        :temporalEntity_f2_v2
+        :temporalEntity_f3_v2
         :w1
         :cs1
         :ps1
@@ -149,5 +226,5 @@
         :f2_v1
         :f2_v2
         :f3_v2
-     )
+    )
 ] .
