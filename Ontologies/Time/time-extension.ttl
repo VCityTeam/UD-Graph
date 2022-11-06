@@ -10,6 +10,18 @@
         a                owl:Ontology ;
         skos:definition  "An extention of the OWL-Time ontology to provide instant-interval properties"@en .
 
+:hasExistenceTime a owl:ObjectProperty ;
+        rdfs:range              time:TemporalEntity ;
+        rdfs:subPropertyOf      time:hasTime ;
+        rdfs:comment    "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing exists in the real-world."@en ;
+        skos:definition "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing exists in the real-world."@en .
+
+:hasTransactionTime a owl:ObjectProperty ;
+        rdfs:range              time:TemporalEntity ;
+        rdfs:subPropertyOf      time:hasTime ;
+        rdfs:comment    "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database."@en ;
+        skos:definition "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database."@en .
+
 :starts a  owl:ObjectProperty ;
         rdfs:domain     time:Instant ;
         rdfs:range      time:ProperInterval ;
@@ -23,6 +35,20 @@
            owl:inverseOf   :starts ;
            rdfs:comment    "If a proper interval T1 is started by another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is after the end of T2."@en ;
            skos:definition "If a proper interval T1 is started by another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is after the end of T2."@en .
+
+:during a  owl:ObjectProperty ;
+        rdfs:domain     time:Instant ;
+        rdfs:range      time:ProperInterval ;
+        owl:inverseOf   :contains ;
+        rdfs:comment    "If an instant T1 is during a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before with the end of T2."@en ;
+        skos:definition "If an instant T1 is during a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before with the end of T2."@en .
+
+:contains a  owl:ObjectProperty ;
+        rdfs:domain     time:ProperInterval ;
+        rdfs:range      time:Instant ;
+        owl:inverseOf   :during ;
+        rdfs:comment    "If a proper interval T1 contains an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after with the end of T2."@en ;
+        skos:definition "If a proper interval T1 contains an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after with the end of T2."@en .
 
 :finishes a  owl:ObjectProperty ;
         rdfs:domain     time:Instant ;

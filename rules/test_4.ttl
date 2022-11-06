@@ -5,6 +5,7 @@
 @prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
 @prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
 @prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
 @prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#> .
 @prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
@@ -38,7 +39,7 @@
 
 :version_v1 a owl:NamedIndividual,
         vers:Version ;
-    time:hasTime :temporalEntity_v1 ;
+    time_ext:hasExistenceTime :temporalEntity_v1 ;
     vers:Version.versionMember :f1_v1 ;
     core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
@@ -49,7 +50,7 @@
     skos:altLabel "Building C"^^xsd:string,
         "f1"^^xsd:string ;
     skos:prefLabel "f1" ;
-    time:hasTime :temporalEntity_f1_v1 ;
+    time_ext:hasExistenceTime :temporalEntity_f1_v1 ;
     core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
     core:AbstractFeatureWithLifespan.validTo "2002-01-01T00:00:00"^^xsd:dateTime .
 
