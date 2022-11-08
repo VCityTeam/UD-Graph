@@ -44,21 +44,10 @@ brid:BridgeConstructiveElement
         a                owl:Class ;
         rdfs:label       "BridgeConstructiveElement"@en ;
         rdfs:subClassOf  con:AbstractConstructiveElement ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:ADEOfBridgeConstructiveElement ;
-                           owl:onProperty     brid:BridgeConstructiveElement.adeOfBridgeConstructiveElement
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeConstructiveElement.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeConstructiveElement.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeConstructiveElement.class
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               brid:BridgeConstructiveElement.class
                          ] ;
         skos:definition  "A BridgeConstructiveElement is an element of a bridge which is essential from a structural point of view. Examples are pylons, anchorages, slabs, beams."@en .
 
@@ -104,33 +93,10 @@ brid:BridgeRoom.function
 brid:BridgeRoom  a       owl:Class ;
         rdfs:label       "BridgeRoom"@en ;
         rdfs:subClassOf  core:AbstractUnoccupiedSpace ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:BridgeInstallation ;
-                           owl:onProperty     brid:BridgeRoom.bridgeInstallation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeRoom.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeRoom.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:BridgeFurniture ;
-                           owl:onProperty     brid:BridgeRoom.bridgeFurniture
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractThematicSurface ;
-                           owl:onProperty     brid:BridgeRoom.boundary
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeRoom.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:ADEOfBridgeRoom ;
-                           owl:onProperty     brid:BridgeRoom.adeOfBridgeRoom
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               brid:BridgeRoom.class
                          ] ;
         skos:definition  "A BridgeRoom is a space within a Bridge or BridgePart intended for human occupancy (e.g. a place of work or recreation) and/or containment (storage) of animals or things. A BridgeRoom is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces)."@en .
 
@@ -151,21 +117,10 @@ brid:AbstractBridge.bridgeConstructiveElement
 brid:BridgeFurniture  a  owl:Class ;
         rdfs:label       "BridgeFurniture"@en ;
         rdfs:subClassOf  con:AbstractFurniture ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:ADEOfBridgeFurniture ;
-                           owl:onProperty     brid:BridgeFurniture.adeOfBridgeFurniture
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeFurniture.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeFurniture.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeFurniture.class
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               brid:BridgeFurniture.class
                          ] ;
         skos:definition  "A BridgeFurniture is an equipment for occupant use, usually not fixed to the bridge. [cf. ISO 6707-1]"@en .
 
@@ -180,21 +135,10 @@ brid:BridgeInstallation
         a                owl:Class ;
         rdfs:label       "BridgeInstallation"@en ;
         rdfs:subClassOf  con:AbstractInstallation ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:ADEOfBridgeInstallation ;
-                           owl:onProperty     brid:BridgeInstallation.adeOfBridgeInstallation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeInstallation.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeInstallation.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     brid:BridgeInstallation.class
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               brid:BridgeInstallation.class
                          ] ;
         skos:definition  "A BridgeInstallation is a permanent part of a Bridge (inside and/or outside) which does not have the significance of a BridgePart. In contrast to BridgeConstructiveElements, a BridgeInstallation is not essential from a structural point of view. Examples are stairs, antennas or railways."@en .
 
@@ -222,10 +166,6 @@ brid:BridgeRoom.bridgeInstallation
 brid:BridgePart  a       owl:Class ;
         rdfs:label       "BridgePart"@en ;
         rdfs:subClassOf  brid:AbstractBridge ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  brid:ADEOfBridgePart ;
-                           owl:onProperty     brid:BridgePart.adeOfBridgePart
-                         ] ;
         skos:definition  "A BridgePart is a physical or functional subdivision of a Bridge. It would be considered a Bridge, if it were not part of a collection of other BridgeParts."@en .
 
 brid:BridgeConstructiveElement.function
@@ -361,45 +301,15 @@ brid:ADEOfBridgeInstallation
 brid:AbstractBridge  a         owl:Class ;
         rdfs:label             "AbstractBridge"@en ;
         rdfs:subClassOf        con:AbstractConstruction ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     brid:AbstractBridge.function
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  xsd:boolean ;
+                                 owl:onProperty               brid:AbstractBridge.isMovable
                                ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:ADEOfAbstractBridge ;
-                                 owl:onProperty     brid:AbstractBridge.adeOfAbstractBridge
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  core:Address ;
-                                 owl:onProperty     brid:AbstractBridge.address
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:boolean ;
-                                 owl:onProperty     brid:AbstractBridge.isMovable
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     brid:AbstractBridge.class
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeInstallation ;
-                                 owl:onProperty     brid:AbstractBridge.bridgeInstallation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeConstructiveElement ;
-                                 owl:onProperty     brid:AbstractBridge.bridgeConstructiveElement
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     brid:AbstractBridge.usage
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeRoom ;
-                                 owl:onProperty     brid:AbstractBridge.bridgeRoom
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  brid:BridgeFurniture ;
-                                 owl:onProperty     brid:AbstractBridge.bridgeFurniture
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  owl:Class ;
+                                 owl:onProperty               brid:AbstractBridge.class
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractBridge is an abstract superclass representing the common attributes and associations of the classes Bridge and BridgePart."@en .
@@ -433,13 +343,5 @@ brid:ADEOfBridge  a            owl:Class ;
 brid:Bridge  a            owl:Class ;
         rdfs:label        "Bridge"@en ;
         rdfs:subClassOf   brid:AbstractBridge ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  brid:ADEOfBridge ;
-                            owl:onProperty     brid:Bridge.adeOfBridge
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  brid:BridgePart ;
-                            owl:onProperty     brid:Bridge.bridgePart
-                          ] ;
         owl:disjointWith  brid:BridgePart ;
         skos:definition   "A Bridge represents a structure that affords the passage of pedestrians, animals, vehicles, and service(s) above obstacles or between two points at a height above ground. [cf. ISO 6707-1]"@en .

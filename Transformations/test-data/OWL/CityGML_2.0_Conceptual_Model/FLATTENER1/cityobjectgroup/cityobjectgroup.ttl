@@ -9,19 +9,12 @@
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 
-<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityobjectgroup>
-        a               owl:Ontology ;
-        rdfs:label      "CityObjectGroup"@en ;
-        owl:imports     <http://www.opengis.net/ont/gml> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
-        skos:prefLabel  "CityObjectGroup"@en .
-
-grp:CityObjectGroup.parent
-        a                owl:ObjectProperty ;
-        rdfs:domain      grp:CityObjectGroup ;
-        rdfs:label       "parent"@en ;
-        rdfs:range       core:AbstractCityObject ;
-        skos:definition  "SIG3D: Reference to an AbstractCityObject related to the aggregation as a whole (e.g. the corresponding building object for the aggregation of rooms to a storey)."@en ;
-        skos:prefLabel   "parent"@en .
+grp:Role.role  a         owl:DatatypeProperty ;
+        rdfs:domain      grp:Role ;
+        rdfs:label       "role"@en ;
+        rdfs:range       xsd:string ;
+        skos:definition  "SIG3D: Description of the role."@en ;
+        skos:prefLabel   "role"@en .
 
 grp:CityObjectGroup.function
         a                owl:ObjectProperty ;
@@ -31,13 +24,13 @@ grp:CityObjectGroup.function
         skos:definition  "SIG3D: Specific semantic meaning of the aggregation. Function of the aggregation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "function"@en .
 
-grp:CityObjectGroup.usage
+grp:CityObjectGroup.geometry
         a                owl:ObjectProperty ;
         rdfs:domain      grp:CityObjectGroup ;
-        rdfs:label       "usage"@en ;
-        rdfs:range       iso19136-bt:Code ;
-        skos:definition  "SIG3D: Usage of the aggregation as given by the relevant national regulations, information communities, or specific applications."@en ;
-        skos:prefLabel   "usage"@en .
+        rdfs:label       "geometry"@en ;
+        rdfs:range       gmlowl:AbstractGeometry ;
+        skos:definition  "SIG3D: Specific geometry assigned to the aggregation (e. g. the floor surface of a building storey represented by an aggregation of rooms)."@en ;
+        skos:prefLabel   "geometry"@en .
 
 grp:CityObjectGroup.class
         a                owl:ObjectProperty ;
@@ -47,18 +40,13 @@ grp:CityObjectGroup.class
         skos:definition  "SIG3D: General semantical meaning of the aggregation. Classification of the aggregation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "class"@en .
 
-grp:Role  a              owl:Class ;
-        rdfs:label       "Role"@en ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractCityObject ;
-                           owl:onProperty     grp:Role.groupMember
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     grp:Role.role
-                         ] ;
-        skos:definition  "SIG3D: Specification of a CityObject and its specific role in a CityObjectGroup."@en ;
-        skos:prefLabel   "Role"@en .
+grp:CityObjectGroup.parent
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:label       "parent"@en ;
+        rdfs:range       core:AbstractCityObject ;
+        skos:definition  "SIG3D: Reference to an AbstractCityObject related to the aggregation as a whole (e.g. the corresponding building object for the aggregation of rooms to a storey)."@en ;
+        skos:prefLabel   "parent"@en .
 
 grp:CityObjectGroup.groupMember
         a               owl:ObjectProperty ;
@@ -67,21 +55,6 @@ grp:CityObjectGroup.groupMember
         rdfs:range      grp:Role ;
         skos:prefLabel  "groupMember"@en .
 
-grp:Role.role  a         owl:DatatypeProperty ;
-        rdfs:domain      grp:Role ;
-        rdfs:label       "role"@en ;
-        rdfs:range       xsd:string ;
-        skos:definition  "SIG3D: Description of the role."@en ;
-        skos:prefLabel   "role"@en .
-
-grp:CityObjectGroup.geometry
-        a                owl:ObjectProperty ;
-        rdfs:domain      grp:CityObjectGroup ;
-        rdfs:label       "geometry"@en ;
-        rdfs:range       gmlowl:AbstractGeometry ;
-        skos:definition  "SIG3D: Specific geometry assigned to the aggregation (e. g. the floor surface of a building storey represented by an aggregation of rooms)."@en ;
-        skos:prefLabel   "geometry"@en .
-
 grp:Role.groupMember  a  owl:ObjectProperty ;
         rdfs:domain      grp:Role ;
         rdfs:label       "groupMember"@en ;
@@ -89,32 +62,52 @@ grp:Role.groupMember  a  owl:ObjectProperty ;
         skos:definition  "SIG3D: Reference to a city object."@en ;
         skos:prefLabel   "groupMember"@en .
 
+grp:Role  a              owl:Class ;
+        rdfs:label       "Role"@en ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               core:AbstractCityObject ;
+                           owl:onProperty            grp:Role.groupMember ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            grp:Role.role ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        skos:definition  "SIG3D: Specification of a CityObject and its specific role in a CityObjectGroup."@en ;
+        skos:prefLabel   "Role"@en .
+
+grp:CityObjectGroup.usage
+        a                owl:ObjectProperty ;
+        rdfs:domain      grp:CityObjectGroup ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136-bt:Code ;
+        skos:definition  "SIG3D: Usage of the aggregation as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
 grp:CityObjectGroup  a   owl:Class ;
         rdfs:label       "CityObjectGroup"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     grp:CityObjectGroup.class
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               grp:CityObjectGroup.geometry
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  grp:Role ;
-                           owl:onProperty     grp:CityObjectGroup.groupMember
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:AbstractCityObject ;
+                           owl:onProperty               grp:CityObjectGroup.parent
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     grp:CityObjectGroup.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractCityObject ;
-                           owl:onProperty     grp:CityObjectGroup.parent
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     grp:CityObjectGroup.geometry
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     grp:CityObjectGroup.usage
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               grp:CityObjectGroup.class
                          ] ;
         skos:definition  "SIG3D: Aggregation of city objects according to user defined criteria (e.g. grouping of rooms belonging to a certain storey)."@en ;
         skos:prefLabel   "CityObjectGroup"@en .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/cityobjectgroup>
+        a               owl:Ontology ;
+        rdfs:label      "CityObjectGroup"@en ;
+        owl:imports     <http://www.opengis.net/ont/gml> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "CityObjectGroup"@en .

@@ -1,0 +1,93 @@
+@prefix core:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix wksp:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/workspace#> .
+@prefix vers:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+wksp:Scenario.creator
+        a            owl:DatatypeProperty ;
+        rdfs:domain  wksp:Scenario ;
+        rdfs:label   "creator"@en ;
+        rdfs:range   xsd:string .
+
+wksp:ConcensusSpace  a    owl:Class ;
+        rdfs:label        "ConcensusSpace"@en ;
+        rdfs:subClassOf   wksp:Space ;
+        owl:disjointWith  wksp:PropositionSpace .
+
+wksp:Space  a            owl:Class ;
+        rdfs:label       "Space"@en ;
+        rdfs:subClassOf  core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  wksp:Scenario ;
+                           owl:onProperty               wksp:Space.scenarioMember
+                         ] .
+
+wksp:Scenario  a         owl:Class ;
+        rdfs:label       "Scenario"@en ;
+        rdfs:subClassOf  core:AbstractFeatureWithLifespan .
+
+wksp:Workspace  a        owl:Class ;
+        rdfs:label       "Workspace"@en ;
+        rdfs:subClassOf  core:AbstractFeatureWithLifespan ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "2"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  wksp:Space ;
+                           owl:onProperty               wksp:Workspace.spaceMember
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  wksp:Space ;
+                           owl:onProperty               wksp:Workspace.spaceMember
+                         ] .
+
+wksp:Space.scenarioMember
+        a            owl:ObjectProperty ;
+        rdfs:domain  wksp:Space ;
+        rdfs:label   "scenarioMember"@en ;
+        rdfs:range   wksp:Scenario .
+
+wksp:Scenario.versionMember
+        a            owl:ObjectProperty ;
+        rdfs:domain  wksp:Scenario ;
+        rdfs:label   "versionMember"@en ;
+        rdfs:range   vers:Version .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/workspace>
+        a                owl:Ontology ;
+        rdfs:label       "Workspace"@en ;
+        owl:imports      <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core> , <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:definition  "This pattern provides a starting point for modeling a GML Application Schema which is a specialized xml schema that uses the Geographic Markup Language to model Features to provide the basis for interoperability within a community of interest."@en .
+
+wksp:Space.creator  a  owl:DatatypeProperty ;
+        rdfs:domain  wksp:Space ;
+        rdfs:label   "creator"@en ;
+        rdfs:range   xsd:string .
+
+wksp:Workspace.creator
+        a            owl:DatatypeProperty ;
+        rdfs:domain  wksp:Workspace ;
+        rdfs:label   "creator"@en ;
+        rdfs:range   xsd:string .
+
+wksp:Scenario.versionTransitionMember
+        a            owl:ObjectProperty ;
+        rdfs:domain  wksp:Scenario ;
+        rdfs:label   "versionTransitionMember"@en ;
+        rdfs:range   vers:VersionTransition .
+
+wksp:PropositionSpace
+        a                owl:Class ;
+        rdfs:label       "PropositionSpace"@en ;
+        rdfs:subClassOf  wksp:Space .
+
+wksp:Workspace.spaceMember
+        a            owl:ObjectProperty ;
+        rdfs:domain  wksp:Workspace ;
+        rdfs:label   "spaceMember"@en ;
+        rdfs:range   wksp:Space .

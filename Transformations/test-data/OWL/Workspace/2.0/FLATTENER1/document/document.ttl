@@ -1,0 +1,118 @@
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix vers:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/version#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix doc:   <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/document#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time:  <http://www.w3.org/2006/time#> .
+
+doc:Document.tag  a     owl:ObjectProperty ;
+        rdfs:domain     doc:Document ;
+        rdfs:label      "tag"@en ;
+        rdfs:range      doc:Tag ;
+        skos:prefLabel  "tag"@en .
+
+doc:Reference.purpose
+        a               owl:DatatypeProperty ;
+        rdfs:domain     doc:Reference ;
+        rdfs:label      "purpose"@en ;
+        rdfs:range      xsd:string ;
+        skos:prefLabel  "purpose"@en .
+
+doc:Document.title  a   owl:DatatypeProperty ;
+        rdfs:domain     doc:Document ;
+        rdfs:label      "title"@en ;
+        rdfs:range      xsd:string ;
+        skos:prefLabel  "title"@en .
+
+doc:Reference  a         owl:Class ;
+        rdfs:label       "Reference"@en ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:dateTime ;
+                           owl:onProperty            doc:Reference.referringDate ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            doc:Reference.referenceText ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               doc:Reference.purposeType
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               time:Interval ;
+                           owl:onProperty            doc:Reference.coveragePeriod ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        skos:prefLabel   "Reference"@en .
+
+doc:Reference.coveragePeriod
+        a               owl:ObjectProperty ;
+        rdfs:domain     doc:Reference ;
+        rdfs:label      "coveragePeriod"@en ;
+        rdfs:range      time:Interval ;
+        skos:prefLabel  "coveragePeriod"@en .
+
+doc:Tag  a               owl:Class ;
+        rdfs:label       "Tag"@en ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            doc:Tag.text ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        skos:prefLabel   "Tag"@en .
+
+doc:Document  a          owl:Class ;
+        rdfs:label       "Document"@en ;
+        rdfs:subClassOf  vers:VersionableAbstractCityObject ;
+        skos:prefLabel   "Document"@en .
+
+doc:Reference.referenceText
+        a               owl:DatatypeProperty ;
+        rdfs:domain     doc:Reference ;
+        rdfs:label      "referenceText"@en ;
+        rdfs:range      xsd:string ;
+        skos:prefLabel  "referenceText"@en .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/document>
+        a               owl:Ontology ;
+        rdfs:label      "Document"@en ;
+        owl:imports     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/version> , <www.w3.org/2006/time> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
+        skos:prefLabel  "Document"@en .
+
+doc:Reference.referringDate
+        a               owl:DatatypeProperty ;
+        rdfs:domain     doc:Reference ;
+        rdfs:label      "referringDate"@en ;
+        rdfs:range      xsd:dateTime ;
+        skos:prefLabel  "referringDate"@en .
+
+doc:Reference.purposeType
+        a               owl:ObjectProperty ;
+        rdfs:domain     doc:Reference ;
+        rdfs:label      "purposeType"@en ;
+        rdfs:range      owl:Class ;
+        skos:prefLabel  "purposeType"@en .
+
+doc:Tag.count  a        owl:DatatypeProperty ;
+        rdfs:domain     doc:Tag ;
+        rdfs:label      "count"@en ;
+        rdfs:range      xsd:integer ;
+        skos:prefLabel  "count"@en .
+
+doc:Document.uri  a     owl:DatatypeProperty ;
+        rdfs:domain     doc:Document ;
+        rdfs:label      "uri"@en ;
+        rdfs:range      xsd:anyURI ;
+        skos:prefLabel  "uri"@en .
+
+doc:Tag.text  a         owl:DatatypeProperty ;
+        rdfs:domain     doc:Tag ;
+        rdfs:label      "text"@en ;
+        rdfs:range      xsd:string ;
+        skos:prefLabel  "text"@en .
