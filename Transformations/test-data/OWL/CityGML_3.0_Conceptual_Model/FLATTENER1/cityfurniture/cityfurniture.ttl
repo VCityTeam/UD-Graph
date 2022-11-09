@@ -30,6 +30,22 @@ frn:CityFurniture.adeOfCityFurniture
 frn:CityFurniture  a     owl:Class ;
         rdfs:label       "CityFurniture"@en ;
         rdfs:subClassOf  core:AbstractOccupiedSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  frn:ADEOfCityFurniture ;
+                           owl:onProperty     frn:CityFurniture.adeOfCityFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     frn:CityFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     frn:CityFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     frn:CityFurniture.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;

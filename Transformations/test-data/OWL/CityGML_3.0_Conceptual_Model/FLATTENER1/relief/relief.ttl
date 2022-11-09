@@ -10,10 +10,6 @@
 @prefix gmlowl: <http://www.opengis.net/ont/gml#> .
 @prefix dem:   <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/relief#> .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
-] .
-
 dem:ADEOfTINRelief  a          owl:Class ;
         rdfs:label             "ADEOfTINRelief"@en ;
         iso19150-2:isAbstract  true ;
@@ -42,10 +38,22 @@ dem:ADEOfBreaklineRelief
 dem:BreaklineRelief  a   owl:Class ;
         rdfs:label       "BreaklineRelief"@en ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dem:ADEOfBreaklineRelief ;
+                           owl:onProperty     dem:BreaklineRelief.adeOfBreaklineRelief
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
+                           owl:onProperty     dem:BreaklineRelief.breaklines
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  gmlowl:MultiCurve ;
                            owl:onProperty               dem:BreaklineRelief.breaklines
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
+                           owl:onProperty     dem:BreaklineRelief.ridgeOrValleyLines
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
@@ -90,10 +98,22 @@ dem:AbstractReliefComponent
         a                      owl:Class ;
         rdfs:label             "AbstractReliefComponent"@en ;
         rdfs:subClassOf        core:AbstractSpaceBoundary ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  dem:ADEOfAbstractReliefComponent ;
+                                 owl:onProperty     dem:AbstractReliefComponent.adeOfAbstractReliefComponent
+                               ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  gmlowl:Surface ;
                                  owl:onProperty               dem:AbstractReliefComponent.extent
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:IntegerBetween0and3 ;
+                                 owl:onProperty     dem:AbstractReliefComponent.lod
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Surface ;
+                                 owl:onProperty     dem:AbstractReliefComponent.extent
                                ] ;
         rdfs:subClassOf        [ a                         owl:Restriction ;
                                  owl:onClass               core:IntegerBetween0and3 ;
@@ -113,6 +133,14 @@ dem:MassPointRelief.pointCloud
 dem:TINRelief  a         owl:Class ;
         rdfs:label       "TINRelief"@en ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dem:ADEOfTINRelief ;
+                           owl:onProperty     dem:TINRelief.adeOfTINRelief
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19107-cm:GM_TriangulatedSurface ;
+                           owl:onProperty     dem:TINRelief.tin
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               iso19107-cm:GM_TriangulatedSurface ;
                            owl:onProperty            dem:TINRelief.tin ;
@@ -136,10 +164,22 @@ dem:AbstractReliefComponent.lod
 dem:MassPointRelief  a   owl:Class ;
         rdfs:label       "MassPointRelief"@en ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dem:ADEOfMassPointRelief ;
+                           owl:onProperty     dem:MassPointRelief.adeOfMassPointRelief
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractPointCloud ;
+                           owl:onProperty     dem:MassPointRelief.pointCloud
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  core:AbstractPointCloud ;
                            owl:onProperty               dem:MassPointRelief.pointCloud
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiPoint ;
+                           owl:onProperty     dem:MassPointRelief.reliefPoints
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
@@ -196,6 +236,10 @@ dem:AbstractReliefComponent.extent
         rdfs:range       gmlowl:Surface ;
         skos:definition  "Indicates the geometrical extent of the terrain component. The geometrical extent is provided as a 2D Surface geometry."@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( dem:BreaklineRelief dem:MassPointRelief dem:RasterRelief dem:TINRelief )
+] .
+
 dem:BreaklineRelief.adeOfBreaklineRelief
         a                owl:ObjectProperty ;
         rdfs:domain      dem:BreaklineRelief ;
@@ -212,6 +256,14 @@ dem:ADEOfRasterRelief
 dem:RasterRelief  a      owl:Class ;
         rdfs:label       "RasterRelief"@en ;
         rdfs:subClassOf  dem:AbstractReliefComponent ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dem:ADEOfRasterRelief ;
+                           owl:onProperty     dem:RasterRelief.adeOfRasterRelief
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19123:CV_DiscreteGridPointCoverage ;
+                           owl:onProperty     dem:RasterRelief.grid
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               iso19123:CV_DiscreteGridPointCoverage ;
                            owl:onProperty            dem:RasterRelief.grid ;
@@ -222,10 +274,22 @@ dem:RasterRelief  a      owl:Class ;
 dem:ReliefFeature  a     owl:Class ;
         rdfs:label       "ReliefFeature"@en ;
         rdfs:subClassOf  core:AbstractSpaceBoundary ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dem:ADEOfReliefFeature ;
+                           owl:onProperty     dem:ReliefFeature.adeOfReliefFeature
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  dem:AbstractReliefComponent ;
+                           owl:onProperty     dem:ReliefFeature.reliefComponent
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  dem:AbstractReliefComponent ;
                            owl:onProperty               dem:ReliefFeature.reliefComponent
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:IntegerBetween0and3 ;
+                           owl:onProperty     dem:ReliefFeature.lod
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               core:IntegerBetween0and3 ;

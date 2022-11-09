@@ -19,10 +19,22 @@ vers:Version.versionMember
 vers:Version  a          owl:Class ;
         rdfs:label       "Version"@en ;
         rdfs:subClassOf  vers:VersionableAbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:VersionableAbstractCityObject ;
+                           owl:onProperty     vers:Version.versionMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:VersionType ;
+                           owl:onProperty     vers:Version.type
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               vers:VersionType ;
                            owl:onProperty            vers:Version.type ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     vers:Version.tag
                          ] ;
         skos:prefLabel   "Version"@en .
 
@@ -51,10 +63,6 @@ vers:VersionTransition.reason
         rdfs:range      xsd:string ;
         skos:prefLabel  "reason"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( doc:Document vers:Version vers:VersionTransition wksp:Scenario wksp:Space wksp:Workspace )
-] .
-
 vers:VersionTransition.clonePredecessor
         a               owl:DatatypeProperty ;
         rdfs:domain     vers:VersionTransition ;
@@ -71,15 +79,27 @@ vers:VersionableAbstractCityObject.validTo
 
 vers:Transaction  a      owl:Class ;
         rdfs:label       "Transaction"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:VersionableAbstractCityObject ;
+                           owl:onProperty     vers:Transaction.newFeature
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  vers:VersionableAbstractCityObject ;
                            owl:onProperty               vers:Transaction.newFeature
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:VersionableAbstractCityObject ;
+                           owl:onProperty     vers:Transaction.oldFeature
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  vers:VersionableAbstractCityObject ;
                            owl:onProperty               vers:Transaction.oldFeature
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:TransactionValue ;
+                           owl:onProperty     vers:Transaction.type
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               vers:TransactionValue ;
@@ -94,6 +114,10 @@ vers:VersionTransition.transaction
         rdfs:label      "transaction"@en ;
         rdfs:range      vers:Transaction ;
         skos:prefLabel  "transaction"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( doc:Document vers:Version vers:VersionTransition wksp:Scenario wksp:Space wksp:Workspace )
+] .
 
 vers:Transaction.oldFeature
         a               owl:ObjectProperty ;
@@ -125,20 +149,35 @@ vers:VersionTransition
         a                owl:Class ;
         rdfs:label       "VersionTransition"@en ;
         rdfs:subClassOf  vers:VersionableAbstractCityObject ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  vers:Version ;
-                           owl:onProperty               vers:VersionTransition.to
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Transaction ;
+                           owl:onProperty     vers:VersionTransition.transaction
                          ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  vers:Version ;
-                           owl:onProperty               vers:VersionTransition.from
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Version ;
+                           owl:onProperty     vers:VersionTransition.to
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  vers:TransitionValue ;
                            owl:onProperty               vers:VersionTransition.type
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:boolean ;
+                           owl:onProperty     vers:VersionTransition.clonePredecessor
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:TransitionValue ;
+                           owl:onProperty     vers:VersionTransition.type
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  vers:Version ;
+                           owl:onProperty               vers:VersionTransition.to
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     vers:VersionTransition.reason
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:boolean ;
@@ -149,6 +188,15 @@ vers:VersionTransition
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  xsd:string ;
                            owl:onProperty               vers:VersionTransition.reason
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  vers:Version ;
+                           owl:onProperty               vers:VersionTransition.from
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  vers:Version ;
+                           owl:onProperty     vers:VersionTransition.from
                          ] ;
         skos:prefLabel   "VersionTransition"@en .
 
@@ -169,10 +217,18 @@ vers:VersionableAbstractCityObject
         a                owl:Class ;
         rdfs:label       "VersionableAbstractCityObject"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:dateTime ;
+                           owl:onProperty     vers:VersionableAbstractCityObject.validTo
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  xsd:dateTime ;
                            owl:onProperty               vers:VersionableAbstractCityObject.validTo
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:dateTime ;
+                           owl:onProperty     vers:VersionableAbstractCityObject.validFrom
                          ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;

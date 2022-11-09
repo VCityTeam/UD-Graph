@@ -29,6 +29,10 @@ con:OuterFloorSurface
         a                owl:Class ;
         rdfs:label       "OuterFloorSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfOuterFloorSurface ;
+                           owl:onProperty     con:OuterFloorSurface.adeOfOuterFloorSurface
+                         ] ;
         skos:definition  "An OuterFloorSurface is a surface that belongs to the outer construction shell with the orientation pointing upwards. An example is the floor of a loggia."@en .
 
 con:AbstractConstruction.adeOfAbstractConstruction
@@ -79,10 +83,18 @@ con:ADEOfDoorSurface  a        owl:Class ;
 
 con:Elevation  a         owl:Class ;
         rdfs:label       "Elevation"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:Point ;
+                           owl:onProperty     con:Elevation.elevationValue
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               gmlowl:Point ;
                            owl:onProperty            con:Elevation.elevationValue ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:Elevation.elevationReference
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               owl:Class ;
@@ -124,13 +136,13 @@ con:AbstractInstallation.boundary
         rdfs:range       core:AbstractThematicSurface ;
         skos:definition  "Relates to the surfaces that bound the installation. This relation is inherited from the Core module."@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:BridgeFurniture bldg:BuildingFurniture tun:TunnelFurniture )
-] .
-
 con:FloorSurface  a      owl:Class ;
         rdfs:label       "FloorSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfFloorSurface ;
+                           owl:onProperty     con:FloorSurface.adeOfFloorSurface
+                         ] ;
         skos:definition  "A FloorSurface is surface that represents the interior floor of a construction. An example is the floor of a room."@en .
 
 con:Window.usage  a      owl:ObjectProperty ;
@@ -149,6 +161,10 @@ con:AbstractConstruction.occupancy
 con:GroundSurface  a     owl:Class ;
         rdfs:label       "GroundSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfGroundSurface ;
+                           owl:onProperty     con:GroundSurface.adeOfGroundSurface
+                         ] ;
         skos:definition  "A GroundSurface is a surface that represents the ground plate of a construction. The polygon defining the ground plate is congruent with the footprint of the construction."@en .
 
 con:ConditionOfConstructionValue
@@ -173,6 +189,10 @@ con:OuterCeilingSurface
         a                owl:Class ;
         rdfs:label       "OuterCeilingSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfOuterCeilingSurface ;
+                           owl:onProperty     con:OuterCeilingSurface.adeOfOuterCeilingSurface
+                         ] ;
         skos:definition  "An OuterCeilingSurface is a surface that belongs to the outer building shell with the orientation pointing downwards. An example is the ceiling of a loggia."@en .
 
 con:ADEOfOtherConstruction
@@ -181,10 +201,6 @@ con:ADEOfOtherConstruction
         iso19150-2:isAbstract  true ;
         skos:definition        "ADEOfOtherConstruction acts as a hook to define properties within an ADE that are to be added to an OtherConstruction."@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( con:CeilingSurface con:FloorSurface con:GroundSurface con:InteriorWallSurface con:OuterCeilingSurface con:OuterFloorSurface con:RoofSurface con:WallSurface )
-] .
-
 con:DoorSurface.adeOfDoorSurface
         a                owl:ObjectProperty ;
         rdfs:domain      con:DoorSurface ;
@@ -192,14 +208,14 @@ con:DoorSurface.adeOfDoorSurface
         rdfs:range       con:ADEOfDoorSurface ;
         skos:definition  "Augments the DoorSurface with properties defined in an ADE."@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding con:OtherConstruction tun:AbstractTunnel )
-] .
-
 con:AbstractFillingSurface
         a                      owl:Class ;
         rdfs:label             "AbstractFillingSurface"@en ;
         rdfs:subClassOf        core:AbstractThematicSurface ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractFillingSurface ;
+                                 owl:onProperty     con:AbstractFillingSurface.adeOfAbstractFillingSurface
+                               ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractFillingSurface is the abstract superclass for different kinds of surfaces that seal openings filled by filling elements."@en .
 
@@ -230,6 +246,10 @@ con:AbstractFurniture
         a                      owl:Class ;
         rdfs:label             "AbstractFurniture"@en ;
         rdfs:subClassOf        core:AbstractOccupiedSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractFurniture ;
+                                 owl:onProperty     con:AbstractFurniture.adeOfAbstractFurniture
+                               ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractFurniture is the abstract superclass for the representation of furniture objects of a construction."@en .
 
@@ -243,6 +263,10 @@ con:Height.lowReference
 con:WallSurface  a       owl:Class ;
         rdfs:label       "WallSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfWallSurface ;
+                           owl:onProperty     con:WallSurface.adeOfWallSurface
+                         ] ;
         skos:definition  "A WallSurface is a surface that is part of the building facade visible from the outside."@en .
 
 con:AbstractFillingElement.adeOfAbstractFillingElement
@@ -259,6 +283,10 @@ con:DoorSurface.address
         rdfs:range       core:Address ;
         skos:definition  "Relates to the addresses that are assigned to the DoorSurface."@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding con:OtherConstruction tun:AbstractTunnel )
+] .
+
 con:RoofSurface.adeOfRoofSurface
         a                owl:ObjectProperty ;
         rdfs:domain      con:RoofSurface ;
@@ -269,15 +297,27 @@ con:RoofSurface.adeOfRoofSurface
 con:ConstructionEvent
         a                owl:Class ;
         rdfs:label       "ConstructionEvent"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     con:ConstructionEvent.description
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  xsd:string ;
                            owl:onProperty               con:ConstructionEvent.description
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:date ;
+                           owl:onProperty     con:ConstructionEvent.dateOfEvent
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:date ;
                            owl:onProperty            con:ConstructionEvent.dateOfEvent ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:ConstructionEvent.event
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               owl:Class ;
@@ -292,6 +332,10 @@ con:WallSurface.adeOfWallSurface
         rdfs:label       "adeOfWallSurface"@en ;
         rdfs:range       con:ADEOfWallSurface ;
         skos:definition  "Augments the WallSurface with properties defined in an ADE."@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( con:CeilingSurface con:FloorSurface con:GroundSurface con:InteriorWallSurface con:OuterCeilingSurface con:OuterFloorSurface con:RoofSurface con:WallSurface )
+] .
 
 con:ADEOfAbstractInstallation
         a                      owl:Class ;
@@ -310,13 +354,33 @@ con:AbstractConstructiveElement
         a                      owl:Class ;
         rdfs:label             "AbstractConstructiveElement"@en ;
         rdfs:subClassOf        core:AbstractOccupiedSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:AbstractFillingElement ;
+                                 owl:onProperty     con:AbstractConstructiveElement.filling
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:boolean ;
+                                 owl:onProperty     con:AbstractConstructiveElement.isStructuralElement
+                               ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  xsd:boolean ;
                                  owl:onProperty               con:AbstractConstructiveElement.isStructuralElement
                                ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractConstructiveElement ;
+                                 owl:onProperty     con:AbstractConstructiveElement.adeOfAbstractConstructiveElement
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractThematicSurface ;
+                                 owl:onProperty     con:AbstractConstructiveElement.boundary
+                               ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractConstructiveElement is the abstract superclass for the representation of volumetric elements of a construction. Examples are walls, beams, slabs."@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:BridgeFurniture bldg:BuildingFurniture tun:TunnelFurniture )
+] .
 
 con:Window.boundary  a   owl:ObjectProperty ;
         rdfs:domain      con:Window ;
@@ -340,6 +404,10 @@ con:Door.function  a     owl:ObjectProperty ;
 con:RoofSurface  a       owl:Class ;
         rdfs:label       "RoofSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfRoofSurface ;
+                           owl:onProperty     con:RoofSurface.adeOfRoofSurface
+                         ] ;
         skos:definition  "A RoofSurface is a surface that delimits major roof parts of a construction."@en .
 
 con:RelationToConstruction
@@ -355,9 +423,13 @@ con:Height  a            owl:Class ;
                            owl:onProperty            con:Height.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  sc:Measure ;
+                           owl:onProperty     con:Height.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               con:HeightStatusValue ;
-                           owl:onProperty            con:Height.status ;
+                           owl:onClass               owl:Class ;
+                           owl:onProperty            con:Height.highReference ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
@@ -366,9 +438,21 @@ con:Height  a            owl:Class ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               owl:Class ;
-                           owl:onProperty            con:Height.highReference ;
+                           owl:onClass               con:HeightStatusValue ;
+                           owl:onProperty            con:Height.status ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:Height.lowReference
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:HeightStatusValue ;
+                           owl:onProperty     con:Height.status
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:Height.highReference
                          ] ;
         skos:definition  "Height represents a vertical distance (measured or estimated) between a low reference and a high reference. [cf. INSPIRE]"@en .
 
@@ -384,10 +468,6 @@ con:Height.status  a     owl:ObjectProperty ;
         rdfs:label       "status"@en ;
         rdfs:range       con:HeightStatusValue ;
         skos:definition  "Indicates the way the height has been captured. [cf. INSPIRE]"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:BridgeConstructiveElement bldg:BuildingConstructiveElement tun:TunnelConstructiveElement )
-] .
 
 con:AbstractConstructiveElement.boundary
         a                owl:ObjectProperty ;
@@ -420,20 +500,56 @@ con:AbstractConstruction
         a                      owl:Class ;
         rdfs:label             "AbstractConstruction"@en ;
         rdfs:subClassOf        core:AbstractOccupiedSpace ;
-        rdfs:subClassOf        [ a                            owl:Restriction ;
-                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                                 owl:onClass                  xsd:date ;
-                                 owl:onProperty               con:AbstractConstruction.dateOfDemolition
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     con:AbstractConstruction.dateOfDemolition
                                ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  xsd:date ;
                                  owl:onProperty               con:AbstractConstruction.dateOfConstruction
                                ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ConstructionEvent ;
+                                 owl:onProperty     con:AbstractConstruction.constructionEvent
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     con:AbstractConstruction.dateOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ConditionOfConstructionValue ;
+                                 owl:onProperty     con:AbstractConstruction.conditionOfConstruction
+                               ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  con:ConditionOfConstructionValue ;
                                  owl:onProperty               con:AbstractConstruction.conditionOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractConstruction ;
+                                 owl:onProperty     con:AbstractConstruction.adeOfAbstractConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractThematicSurface ;
+                                 owl:onProperty     con:AbstractConstruction.boundary
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:Height ;
+                                 owl:onProperty     con:AbstractConstruction.height
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:Occupancy ;
+                                 owl:onProperty     con:AbstractConstruction.occupancy
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:Elevation ;
+                                 owl:onProperty     con:AbstractConstruction.elevation
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  xsd:date ;
+                                 owl:onProperty               con:AbstractConstruction.dateOfDemolition
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractConstruction is the abstract superclass for objects that are manufactured by humans from construction materials, are connected to earth, and are intended to be permanent. A connection with the ground also exists when the construction rests by its own weight on the ground or is moveable limited on stationary rails or if the construction  is intended to be used mainly stationary."@en .
@@ -442,6 +558,10 @@ con:AbstractFillingElement
         a                      owl:Class ;
         rdfs:label             "AbstractFillingElement"@en ;
         rdfs:subClassOf        core:AbstractOccupiedSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractFillingElement ;
+                                 owl:onProperty     con:AbstractFillingElement.adeOfAbstractFillingElement
+                               ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractFillingElement is the abstract superclass for different kinds of elements that fill the openings of a construction."@en .
 
@@ -454,6 +574,10 @@ con:ADEOfAbstractConstruction
 con:WindowSurface  a     owl:Class ;
         rdfs:label       "WindowSurface"@en ;
         rdfs:subClassOf  con:AbstractFillingSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfWindowSurface ;
+                           owl:onProperty     con:WindowSurface.adeOfWindowSurface
+                         ] ;
         skos:definition  "A WindowSurface is either a boundary surface of a Window feature or a surface that seals an opening filled by a window."@en .
 
 con:ADEOfAbstractFurniture
@@ -479,6 +603,14 @@ con:AbstractConstructionSurface
         a                      owl:Class ;
         rdfs:label             "AbstractConstructionSurface"@en ;
         rdfs:subClassOf        core:AbstractThematicSurface ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractConstructionSurface ;
+                                 owl:onProperty     con:AbstractConstructionSurface.adeOfAbstractConstructionSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:AbstractFillingSurface ;
+                                 owl:onProperty     con:AbstractConstructionSurface.fillingSurface
+                               ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractConstructionSurface is the abstract superclass for different kinds of surfaces that bound a construction."@en .
 
@@ -493,21 +625,57 @@ con:InteriorWallSurface
         a                owl:Class ;
         rdfs:label       "InteriorWallSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfInteriorWallSurface ;
+                           owl:onProperty     con:InteriorWallSurface.adeOfInteriorWallSurface
+                         ] ;
         skos:definition  "An InteriorWallSurface is a surface that is visible from inside a construction. An example is the wall of a room."@en .
 
 con:DoorSurface  a        owl:Class ;
         rdfs:label        "DoorSurface"@en ;
         rdfs:subClassOf   con:AbstractFillingSurface ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  con:ADEOfDoorSurface ;
+                            owl:onProperty     con:DoorSurface.adeOfDoorSurface
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  core:Address ;
+                            owl:onProperty     con:DoorSurface.address
+                          ] ;
         owl:disjointWith  con:WindowSurface ;
         skos:definition   "A DoorSurface is either a boundary surface of a Door feature or a surface that seals an opening filled by a door."@en .
 
 con:Door  a               owl:Class ;
         rdfs:label        "Door"@en ;
         rdfs:subClassOf   con:AbstractFillingElement ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  con:ADEOfDoor ;
+                            owl:onProperty     con:Door.adeOfDoor
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  core:Address ;
+                            owl:onProperty     con:Door.address
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  con:DoorSurface ;
+                            owl:onProperty     con:Door.boundary
+                          ] ;
         rdfs:subClassOf   [ a                            owl:Restriction ;
                             owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                             owl:onClass                  owl:Class ;
                             owl:onProperty               con:Door.class
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  owl:Class ;
+                            owl:onProperty     con:Door.function
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  owl:Class ;
+                            owl:onProperty     con:Door.class
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  owl:Class ;
+                            owl:onProperty     con:Door.usage
                           ] ;
         owl:disjointWith  con:Window ;
         skos:definition   "A Door is a construction for closing an opening intended primarily for access or egress or both. [cf. ISO 6707-1]"@en .
@@ -515,10 +683,30 @@ con:Door  a               owl:Class ;
 con:Window  a            owl:Class ;
         rdfs:label       "Window"@en ;
         rdfs:subClassOf  con:AbstractFillingElement ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:Window.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:Window.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:WindowSurface ;
+                           owl:onProperty     con:Window.boundary
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfWindow ;
+                           owl:onProperty     con:Window.adeOfWindow
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
                            owl:onProperty               con:Window.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:Window.function
                          ] ;
         skos:definition  "A Window is a construction for closing an opening in a wall  or roof, primarily intended to admit light and/or provide ventilation. [cf. ISO  6707-1]"@en .
 
@@ -644,6 +832,10 @@ con:HeightStatusValue
 con:CeilingSurface  a    owl:Class ;
         rdfs:label       "CeilingSurface"@en ;
         rdfs:subClassOf  con:AbstractConstructionSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfCeilingSurface ;
+                           owl:onProperty     con:CeilingSurface.adeOfCeilingSurface
+                         ] ;
         skos:definition  "A CeilingSurface is a surface that represents the interior ceiling of a construction. An example is the ceiling of a room."@en .
 
 con:Door.address  a      owl:ObjectProperty ;
@@ -717,6 +909,14 @@ con:ConstructionEvent.event
         rdfs:range       owl:Class ;
         skos:definition  "Indicates the specific event type."@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:BridgeConstructiveElement bldg:BuildingConstructiveElement tun:TunnelConstructiveElement )
+] .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:BridgeInstallation bldg:BuildingInstallation tun:TunnelInstallation )
+] .
+
 con:AbstractInstallation.relationToConstruction
         a                owl:ObjectProperty ;
         rdfs:domain      con:AbstractInstallation ;
@@ -728,6 +928,18 @@ con:AbstractInstallation
         a                      owl:Class ;
         rdfs:label             "AbstractInstallation"@en ;
         rdfs:subClassOf        core:AbstractOccupiedSpace ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:ADEOfAbstractInstallation ;
+                                 owl:onProperty     con:AbstractInstallation.adeOfAbstractInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractThematicSurface ;
+                                 owl:onProperty     con:AbstractInstallation.boundary
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  con:RelationToConstruction ;
+                                 owl:onProperty     con:AbstractInstallation.relationToConstruction
+                               ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  con:RelationToConstruction ;
@@ -758,13 +970,25 @@ con:OtherConstruction
         a                owl:Class ;
         rdfs:label       "OtherConstruction"@en ;
         rdfs:subClassOf  con:AbstractConstruction ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  con:ADEOfOtherConstruction ;
+                           owl:onProperty     con:OtherConstruction.adeOfOtherConstruction
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:OtherConstruction.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:OtherConstruction.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     con:OtherConstruction.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
                            owl:onProperty               con:OtherConstruction.class
                          ] ;
         skos:definition  "An OtherConstruction is a construction that is not covered by any of the other subclasses of AbstractConstruction."@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:BridgeInstallation bldg:BuildingInstallation tun:TunnelInstallation )
-] .

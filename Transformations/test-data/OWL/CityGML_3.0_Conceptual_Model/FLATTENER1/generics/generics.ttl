@@ -25,10 +25,18 @@ gen:GenericLogicalSpace.usage
 gen:DoubleAttribute  a   owl:Class ;
         rdfs:label       "DoubleAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:double ;
+                           owl:onProperty     gen:DoubleAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:double ;
                            owl:onProperty            gen:DoubleAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:DoubleAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -83,6 +91,22 @@ gen:GenericLogicalSpace
         a                owl:Class ;
         rdfs:label       "GenericLogicalSpace"@en ;
         rdfs:subClassOf  core:AbstractLogicalSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gen:ADEOfGenericLogicalSpace ;
+                           owl:onProperty     gen:GenericLogicalSpace.adeOfGenericLogicalSpace
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericLogicalSpace.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericLogicalSpace.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericLogicalSpace.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -127,10 +151,18 @@ gen:GenericOccupiedSpace.class
 gen:DateAttribute  a     owl:Class ;
         rdfs:label       "DateAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:date ;
+                           owl:onProperty     gen:DateAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:date ;
                            owl:onProperty            gen:DateAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:DateAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -142,10 +174,18 @@ gen:DateAttribute  a     owl:Class ;
 gen:CodeAttribute  a     owl:Class ;
         rdfs:label       "CodeAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     gen:CodeAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               iso19136-bt:Code ;
                            owl:onProperty            gen:CodeAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:CodeAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -178,20 +218,32 @@ gen:GenericAttributeSet
         a                owl:Class ;
         rdfs:label       "GenericAttributeSet"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  core:AbstractGenericAttribute ;
-                           owl:onProperty               gen:GenericAttributeSet.genericAttribute
-                         ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  xsd:anyURI ;
-                           owl:onProperty               gen:GenericAttributeSet.codeSpace
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     gen:GenericAttributeSet.codeSpace
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
                            owl:onProperty            gen:GenericAttributeSet.name ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:AbstractGenericAttribute ;
+                           owl:onProperty               gen:GenericAttributeSet.genericAttribute
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:GenericAttributeSet.name
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractGenericAttribute ;
+                           owl:onProperty     gen:GenericAttributeSet.genericAttribute
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  xsd:anyURI ;
+                           owl:onProperty               gen:GenericAttributeSet.codeSpace
                          ] ;
         skos:definition  "A GenericAttributeSet is a named collection of generic attributes."@en .
 
@@ -231,10 +283,18 @@ gen:ADEOfGenericUnoccupiedSpace
 gen:IntAttribute  a      owl:Class ;
         rdfs:label       "IntAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     gen:IntAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:integer ;
                            owl:onProperty            gen:IntAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:IntAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -246,10 +306,18 @@ gen:IntAttribute  a      owl:Class ;
 gen:MeasureAttribute  a  owl:Class ;
         rdfs:label       "MeasureAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  sc:Measure ;
+                           owl:onProperty     gen:MeasureAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               sc:Measure ;
                            owl:onProperty            gen:MeasureAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:MeasureAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -324,10 +392,18 @@ gen:GenericThematicSurface.function
 gen:StringAttribute  a   owl:Class ;
         rdfs:label       "StringAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:StringAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
                            owl:onProperty            gen:StringAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:StringAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -347,6 +423,22 @@ gen:GenericThematicSurface
         a                owl:Class ;
         rdfs:label       "GenericThematicSurface"@en ;
         rdfs:subClassOf  core:AbstractThematicSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gen:ADEOfGenericThematicSurface ;
+                           owl:onProperty     gen:GenericThematicSurface.adeOfGenericThematicSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericThematicSurface.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericThematicSurface.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericThematicSurface.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -386,6 +478,22 @@ gen:GenericUnoccupiedSpace
         a                owl:Class ;
         rdfs:label       "GenericUnoccupiedSpace"@en ;
         rdfs:subClassOf  core:AbstractUnoccupiedSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gen:ADEOfGenericUnoccupiedSpace ;
+                           owl:onProperty     gen:GenericUnoccupiedSpace.adeOfGenericUnoccupiedSpace
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericUnoccupiedSpace.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericUnoccupiedSpace.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericUnoccupiedSpace.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -404,6 +512,22 @@ gen:GenericOccupiedSpace
         a                owl:Class ;
         rdfs:label       "GenericOccupiedSpace"@en ;
         rdfs:subClassOf  core:AbstractOccupiedSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gen:ADEOfGenericOccupiedSpace ;
+                           owl:onProperty     gen:GenericOccupiedSpace.adeOfGenericOccupiedSpace
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericOccupiedSpace.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericOccupiedSpace.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     gen:GenericOccupiedSpace.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -421,10 +545,18 @@ gen:GenericLogicalSpace.function
 gen:UriAttribute  a      owl:Class ;
         rdfs:label       "UriAttribute"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     gen:UriAttribute.value
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:anyURI ;
                            owl:onProperty            gen:UriAttribute.value ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     gen:UriAttribute.name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;

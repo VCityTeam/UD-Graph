@@ -30,24 +30,44 @@ doc:Document.title  a   owl:DatatypeProperty ;
 doc:Reference  a         owl:Class ;
         rdfs:label       "Reference"@en ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:dateTime ;
-                           owl:onProperty            doc:Reference.referringDate ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
                            owl:onProperty            doc:Reference.referenceText ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  owl:Class ;
-                           owl:onProperty               doc:Reference.purposeType
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     doc:Reference.referenceText
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               time:Interval ;
                            owl:onProperty            doc:Reference.coveragePeriod ;
                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     doc:Reference.purpose
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:dateTime ;
+                           owl:onProperty            doc:Reference.referringDate ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:dateTime ;
+                           owl:onProperty     doc:Reference.referringDate
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  time:Interval ;
+                           owl:onProperty     doc:Reference.coveragePeriod
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     doc:Reference.purposeType
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               doc:Reference.purposeType
                          ] ;
         skos:prefLabel   "Reference"@en .
 
@@ -60,6 +80,14 @@ doc:Reference.coveragePeriod
 
 doc:Tag  a               owl:Class ;
         rdfs:label       "Tag"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:integer ;
+                           owl:onProperty     doc:Tag.count
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     doc:Tag.text
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
                            owl:onProperty            doc:Tag.text ;
@@ -70,6 +98,18 @@ doc:Tag  a               owl:Class ;
 doc:Document  a          owl:Class ;
         rdfs:label       "Document"@en ;
         rdfs:subClassOf  vers:VersionableAbstractCityObject ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  doc:Tag ;
+                           owl:onProperty     doc:Document.tag
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     doc:Document.uri
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     doc:Document.title
+                         ] ;
         skos:prefLabel   "Document"@en .
 
 doc:Reference.referenceText

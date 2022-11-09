@@ -16,6 +16,22 @@ luse:LandUse.class  a    owl:ObjectProperty ;
 luse:LandUse  a          owl:Class ;
         rdfs:label       "LandUse"@en ;
         rdfs:subClassOf  core:AbstractThematicSurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  luse:ADEOfLandUse ;
+                           owl:onProperty     luse:LandUse.adeOfLandUse
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     luse:LandUse.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     luse:LandUse.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     luse:LandUse.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;

@@ -29,16 +29,44 @@ wtr:ADEOfAbstractWaterBoundarySurface
 wtr:WaterBody  a         owl:Class ;
         rdfs:label       "WaterBody"@en ;
         rdfs:subClassOf  core:AbstractOccupiedSpace ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  wtr:ADEOfWaterBody ;
+                           owl:onProperty     wtr:WaterBody.adeOfWaterBody
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     wtr:WaterBody.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     wtr:WaterBody.function
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
                            owl:onProperty               wtr:WaterBody.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  wtr:AbstractWaterBoundarySurface ;
+                           owl:onProperty     wtr:WaterBody.boundary
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     wtr:WaterBody.class
                          ] ;
         skos:definition  "A WaterBody represents significant and permanent or semi-permanent accumulations of surface water, usually covering a part of the Earth."@en .
 
 wtr:WaterSurface  a      owl:Class ;
         rdfs:label       "WaterSurface"@en ;
         rdfs:subClassOf  wtr:AbstractWaterBoundarySurface ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  wtr:ADEOfWaterSurface ;
+                           owl:onProperty     wtr:WaterSurface.adeOfWaterSurface
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     wtr:WaterSurface.waterLevel
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -70,6 +98,10 @@ wtr:WaterGroundSurface
         a                 owl:Class ;
         rdfs:label        "WaterGroundSurface"@en ;
         rdfs:subClassOf   wtr:AbstractWaterBoundarySurface ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  wtr:ADEOfWaterGroundSurface ;
+                            owl:onProperty     wtr:WaterGroundSurface.adeOfWaterGroundSurface
+                          ] ;
         owl:disjointWith  wtr:WaterSurface ;
         skos:definition   "A WaterGroundSurface represents the exterior boundary surface of the submerged bottom of a water body."@en .
 
@@ -114,6 +146,10 @@ wtr:AbstractWaterBoundarySurface
         a                      owl:Class ;
         rdfs:label             "AbstractWaterBoundarySurface"@en ;
         rdfs:subClassOf        core:AbstractThematicSurface ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  wtr:ADEOfAbstractWaterBoundarySurface ;
+                                 owl:onProperty     wtr:AbstractWaterBoundarySurface.adeOfAbstractWaterBoundarySurface
+                               ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractWaterBoundarySurface is the abstract superclass for all kinds of thematic surfaces bounding a water body."@en .
 

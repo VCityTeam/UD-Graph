@@ -25,6 +25,14 @@ tun:TunnelInstallation.usage
 tun:Tunnel  a             owl:Class ;
         rdfs:label        "Tunnel"@en ;
         rdfs:subClassOf   tun:AbstractTunnel ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  tun:ADEOfTunnel ;
+                            owl:onProperty     tun:Tunnel.adeOfTunnel
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  tun:TunnelPart ;
+                            owl:onProperty     tun:Tunnel.tunnelPart
+                          ] ;
         owl:disjointWith  tun:TunnelPart ;
         skos:definition   "A Tunnel represents a horizontal or sloping enclosed passage way of a certain length, mainly underground or underwater. [cf. ISO 6707-1]"@en .
 
@@ -96,6 +104,22 @@ tun:ADEOfTunnelConstructiveElement
 tun:TunnelFurniture  a   owl:Class ;
         rdfs:label       "TunnelFurniture"@en ;
         rdfs:subClassOf  con:AbstractFurniture ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:ADEOfTunnelFurniture ;
+                           owl:onProperty     tun:TunnelFurniture.adeOfTunnelFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelFurniture.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelFurniture.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -107,6 +131,22 @@ tun:TunnelConstructiveElement
         a                owl:Class ;
         rdfs:label       "TunnelConstructiveElement"@en ;
         rdfs:subClassOf  con:AbstractConstructiveElement ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:ADEOfTunnelConstructiveElement ;
+                           owl:onProperty     tun:TunnelConstructiveElement.adeOfTunnelConstructiveElement
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelConstructiveElement.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelConstructiveElement.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelConstructiveElement.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -138,6 +178,22 @@ tun:TunnelInstallation
         a                owl:Class ;
         rdfs:label       "TunnelInstallation"@en ;
         rdfs:subClassOf  con:AbstractInstallation ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:ADEOfTunnelInstallation ;
+                           owl:onProperty     tun:TunnelInstallation.adeOfTunnelInstallation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelInstallation.function
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:TunnelInstallation.class
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  owl:Class ;
@@ -148,6 +204,10 @@ tun:TunnelInstallation
 tun:TunnelPart  a        owl:Class ;
         rdfs:label       "TunnelPart"@en ;
         rdfs:subClassOf  tun:AbstractTunnel ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:ADEOfTunnelPart ;
+                           owl:onProperty     tun:TunnelPart.adeOfTunnelPart
+                         ] ;
         skos:definition  "A TunnelPart is a physical or functional subdivision of a Tunnel. It would be considered a Tunnel, if it were not part of a collection of other TunnelParts."@en .
 
 tun:HollowSpace.class
@@ -275,6 +335,34 @@ tun:HollowSpace  a       owl:Class ;
                            owl:onClass                  owl:Class ;
                            owl:onProperty               tun:HollowSpace.class
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:ADEOfHollowSpace ;
+                           owl:onProperty     tun:HollowSpace.adeOfHollowSpace
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:TunnelInstallation ;
+                           owl:onProperty     tun:HollowSpace.tunnelInstallation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractThematicSurface ;
+                           owl:onProperty     tun:HollowSpace.boundary
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:TunnelFurniture ;
+                           owl:onProperty     tun:HollowSpace.tunnelFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:HollowSpace.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:HollowSpace.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  owl:Class ;
+                           owl:onProperty     tun:HollowSpace.function
+                         ] ;
         skos:definition  "A HollowSpace is a space within a Tunnel or TunnelPart intended for certain functions (e.g. transport or passage ways, service rooms, emergency shelters). A HollowSpace is bounded physically and/or virtually (e.g. by ClosureSurfaces or GenericSurfaces)."@en .
 
 tun:TunnelInstallation.adeOfTunnelInstallation
@@ -319,10 +407,42 @@ tun:AbstractTunnel.class
 tun:AbstractTunnel  a          owl:Class ;
         rdfs:label             "AbstractTunnel"@en ;
         rdfs:subClassOf        con:AbstractConstruction ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:HollowSpace ;
+                                 owl:onProperty     tun:AbstractTunnel.hollowSpace
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     tun:AbstractTunnel.function
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     tun:AbstractTunnel.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:ADEOfAbstractTunnel ;
+                                 owl:onProperty     tun:AbstractTunnel.adeOfAbstractTunnel
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelConstructiveElement ;
+                                 owl:onProperty     tun:AbstractTunnel.tunnelConstructiveElement
+                               ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  owl:Class ;
                                  owl:onProperty               tun:AbstractTunnel.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.tunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelFurniture ;
+                                 owl:onProperty     tun:AbstractTunnel.tunnelFurniture
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  owl:Class ;
+                                 owl:onProperty     tun:AbstractTunnel.usage
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "AbstractTunnel is an abstract superclass representing the common attributes and associations of the classes Tunnel and TunnelPart."@en .

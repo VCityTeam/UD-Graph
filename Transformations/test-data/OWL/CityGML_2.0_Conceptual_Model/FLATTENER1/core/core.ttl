@@ -40,10 +40,18 @@ core:ExternalReference.informationSystem
 
 core:Address  a          owl:Class ;
         rdfs:label       "Address"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiPoint ;
+                           owl:onProperty     core:Address.multiPoint
+                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  gmlowl:MultiPoint ;
                            owl:onProperty               core:Address.multiPoint
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:XALAddressDetails ;
+                           owl:onProperty     core:Address.xalAddress
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               core:XALAddressDetails ;
@@ -59,6 +67,10 @@ core:DoubleBetween0and1List.list
         rdfs:label      "list"@en ;
         rdfs:range      <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
         skos:prefLabel  "list"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
+] .
 
 core:ImplicitGeometry.transformationMatrix
         a                owl:ObjectProperty ;
@@ -108,10 +120,13 @@ core:AbstractCityObject.creationDate
 core:ExternalReference
         a                owl:Class ;
         rdfs:label       "ExternalReference"@en ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               xsd:anyURI ;
-                           owl:onProperty            core:ExternalReference.externalObject_uri ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.externalObject_uri
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:string ;
+                           owl:onProperty     core:ExternalReference.externalObject_name
                          ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               xsd:string ;
@@ -123,27 +138,21 @@ core:ExternalReference
                            owl:onClass                  xsd:anyURI ;
                            owl:onProperty               core:ExternalReference.informationSystem
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ExternalReference.informationSystem
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:anyURI ;
+                           owl:onProperty            core:ExternalReference.externalObject_uri ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         skos:definition  "SIG3D: Reference to a corresponding object in another information system, for example in the German cadastre (ALKIS), the German topographic information system (ATKIS), or the OS UK MasterMap?."@en ;
         skos:prefLabel   "ExternalReference"@en .
 
 core:ImplicitGeometry
         a                owl:Class ;
         rdfs:label       "ImplicitGeometry"@en ;
-        rdfs:subClassOf  [ a                         owl:Restriction ;
-                           owl:onClass               gmlowl:Point ;
-                           owl:onProperty            core:ImplicitGeometry.referencePoint ;
-                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
-                         ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  gmlowl:AbstractGeometry ;
-                           owl:onProperty               core:ImplicitGeometry.relativeGMLGeometry
-                         ] ;
-        rdfs:subClassOf  [ a                            owl:Restriction ;
-                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                           owl:onClass                  xsd:anyURI ;
-                           owl:onProperty               core:ImplicitGeometry.libraryObject
-                         ] ;
         rdfs:subClassOf  [ a                            owl:Restriction ;
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  core:TransformationMatrix4x4 ;
@@ -153,6 +162,41 @@ core:ImplicitGeometry
                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                            owl:onClass                  iso19136-bt:Code ;
                            owl:onProperty               core:ImplicitGeometry.mimeType
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               core:ImplicitGeometry.relativeGMLGeometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:TransformationMatrix4x4 ;
+                           owl:onProperty     core:ImplicitGeometry.transformationMatrix
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:Point ;
+                           owl:onProperty     core:ImplicitGeometry.referencePoint
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     core:ImplicitGeometry.relativeGMLGeometry
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  xsd:anyURI ;
+                           owl:onProperty               core:ImplicitGeometry.libraryObject
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     core:ImplicitGeometry.mimeType
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               gmlowl:Point ;
+                           owl:onProperty            core:ImplicitGeometry.referencePoint ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     core:ImplicitGeometry.libraryObject
                          ] ;
         skos:definition  "SIG3D: A  geometric representation where the shape is stored only once as a prototypical geometry, for example a tree or other vegetation object, a traffic light or a traffic sign. This prototypic geometry object can be re-used or referenced many times, wherever the corresponding feature occurs in the 3D city model."@en ;
         skos:prefLabel   "ImplicitGeometry"@en .
@@ -176,6 +220,10 @@ core:AbstractCityObject.relativeToTerrain
 core:TransformationMatrix2x2
         a                owl:Class ;
         rdfs:label       "TransformationMatrix2x2"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+                           owl:onProperty     core:TransformationMatrix2x2.list
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
                            owl:onProperty            core:TransformationMatrix2x2.list ;
@@ -206,10 +254,6 @@ core:AbstractCityObject.externalReference
         skos:definition  "SIG3D: Relation to an ExternalReference"@en ;
         skos:prefLabel   "externalReference"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( brid:AbstractBridge bldg:AbstractBuilding tun:AbstractTunnel )
-] .
-
 core:RelativeToWater  a  rdfs:Datatype ;
         rdfs:label      "RelativeToWater"@en ;
         owl:oneOf       ( "entirelyAboveWaterSurface" "substantiallyAboveWaterSurface" "substantiallyAboveAndBelowWaterSurface" "substantiallyBelowWaterSurface" "entirelyBelowWaterSurface" "temporarilyAboveAndBelowWaterSurface" ) ;
@@ -218,6 +262,10 @@ core:RelativeToWater  a  rdfs:Datatype ;
 core:DoubleBetween0and1List
         a                owl:Class ;
         rdfs:label       "DoubleBetween0and1List"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
+                           owl:onProperty     core:DoubleBetween0and1List.list
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
                            owl:onProperty            core:DoubleBetween0and1List.list ;
@@ -236,6 +284,10 @@ core:IntegerBetween0and4
         rdfs:label      "IntegerBetween0and4"@en ;
         skos:prefLabel  "IntegerBetween0and4"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( noise:NoiseCityFurnitureSegment brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject vers:VersionableAbstractCityObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
+] .
+
 core:Address.xalAddress
         a               owl:ObjectProperty ;
         rdfs:domain     core:Address ;
@@ -253,25 +305,57 @@ core:AbstractCityObject.appearance
 core:AbstractCityObject
         a                      owl:Class ;
         rdfs:label             "AbstractCityObject"@en ;
-        rdfs:subClassOf        [ a                            owl:Restriction ;
-                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                                 owl:onClass                  core:RelativeToWater ;
-                                 owl:onProperty               core:AbstractCityObject.relativeToWater
-                               ] ;
-        rdfs:subClassOf        [ a                            owl:Restriction ;
-                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
-                                 owl:onClass                  core:RelativeToTerrain ;
-                                 owl:onProperty               core:AbstractCityObject.relativeToTerrain
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.creationDate
                                ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  xsd:date ;
                                  owl:onProperty               core:AbstractCityObject.terminationDate
                                ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:ExternalReference ;
+                                 owl:onProperty     core:AbstractCityObject.externalReference
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToWater ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToWater
+                               ] ;
         rdfs:subClassOf        [ a                            owl:Restriction ;
                                  owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
                                  owl:onClass                  xsd:date ;
                                  owl:onProperty               core:AbstractCityObject.creationDate
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractCityObject ;
+                                 owl:onProperty     core:AbstractCityObject.generalizesTo
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:AbstractAppearance ;
+                                 owl:onProperty     core:AbstractCityObject.appearance
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     core:AbstractCityObject.terminationDate
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  core:RelativeToTerrain ;
+                                 owl:onProperty               core:AbstractCityObject.relativeToTerrain
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  core:RelativeToTerrain ;
+                                 owl:onProperty     core:AbstractCityObject.relativeToTerrain
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gen:AbstractGenericAttribute ;
+                                 owl:onProperty     core:AbstractCityObject.abstractGenericAttribute
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  core:RelativeToWater ;
+                                 owl:onProperty               core:AbstractCityObject.relativeToWater
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract super class of all thematic classes within CityGML data model."@en ;
@@ -313,6 +397,11 @@ core:AbstractCityObject.abstractGenericAttribute
         rdfs:range      gen:AbstractGenericAttribute ;
         skos:prefLabel  "abstractGenericAttribute"@en .
 
+core:XALAddressDetails
+        a               owl:Class ;
+        rdfs:label      "XALAddressDetails"@en ;
+        skos:prefLabel  "XALAddressDetails"@en .
+
 core:AbstractCityObject.relativeToWater
         a                owl:ObjectProperty ;
         rdfs:domain      core:AbstractCityObject ;
@@ -320,11 +409,6 @@ core:AbstractCityObject.relativeToWater
         rdfs:range       core:RelativeToWater ;
         skos:definition  "SIG3D: Vertical position of the AbstractCityObject relative to a surrounding water surface."@en ;
         skos:prefLabel   "relativeToWater"@en .
-
-core:XALAddressDetails
-        a               owl:Class ;
-        rdfs:label      "XALAddressDetails"@en ;
-        skos:prefLabel  "XALAddressDetails"@en .
 
 core:Address.multiPoint
         a               owl:ObjectProperty ;
@@ -363,6 +447,10 @@ core:CityModel.cityObjectMember
 core:TransformationMatrix4x4
         a                owl:Class ;
         rdfs:label       "TransformationMatrix4x4"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+                           owl:onProperty     core:TransformationMatrix4x4.list
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
                            owl:onProperty            core:TransformationMatrix4x4.list ;
@@ -381,12 +469,24 @@ core:TransformationMatrix4x4.list
 
 core:CityModel  a        owl:Class ;
         rdfs:label       "CityModel"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractAppearance ;
+                           owl:onProperty     core:CityModel.appearanceMember
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractCityObject ;
+                           owl:onProperty     core:CityModel.cityObjectMember
+                         ] ;
         skos:definition  "SIG3D: Collection of CityObjects with optional metadata."@en ;
         skos:prefLabel   "CityModel"@en .
 
 core:TransformationMatrix3x4
         a                owl:Class ;
         rdfs:label       "TransformationMatrix3x4"@en ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
+                           owl:onProperty     core:TransformationMatrix3x4.list
+                         ] ;
         rdfs:subClassOf  [ a                         owl:Restriction ;
                            owl:onClass               <http://def.isotc211.org/orphans/Orphans#Sequence.lt.Real.gt.> ;
                            owl:onProperty            core:TransformationMatrix3x4.list ;
@@ -394,7 +494,3 @@ core:TransformationMatrix3x4
                          ] ;
         skos:definition  "SIG3D: 3x4 transformation matrix, (arbitrary rotation and scaling and translation)."@en ;
         skos:prefLabel   "TransformationMatrix3x4"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( noise:NoiseCityFurnitureSegment brid:AbstractBoundarySurface brid:AbstractOpening brid:BridgeConstructionElement brid:BridgeFurniture brid:BridgeInstallation brid:BridgeRoom brid:IntBridgeInstallation bldg:AbstractBoundarySurface bldg:AbstractOpening bldg:BuildingFurniture bldg:BuildingInstallation bldg:IntBuildingInstallation bldg:Room frn:CityFurniture grp:CityObjectGroup core:AbstractSite gen:GenericCityObject luse:LandUse dem:AbstractReliefComponent dem:ReliefFeature tran:AbstractTransportationObject tun:AbstractBoundarySurface tun:AbstractOpening tun:HollowSpace tun:IntTunnelInstallation tun:TunnelFurniture tun:TunnelInstallation veg:AbstractVegetationObject vers:VersionableAbstractCityObject wtr:AbstractWaterBoundarySurface wtr:AbstractWaterObject )
-] .

@@ -1,7 +1,6 @@
 import json
 import logging
 import argparse
-from tracemalloc import start
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import XSD, RDF, OWL, TIME, Namespace
 
