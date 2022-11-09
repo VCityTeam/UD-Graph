@@ -1,117 +1,118 @@
-@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
-@prefix owl:   <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix wksp:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/2.0/workspace#> .
-@prefix vers:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Versioning/2.0/versioning#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/version#> .
+@prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/workspace#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-wksp:Scenario.creator
-        a               owl:DatatypeProperty ;
-        rdfs:domain     wksp:Scenario ;
-        rdfs:label      "creator"@en ;
-        rdfs:range      xsd:string ;
-        skos:prefLabel  "creator"@en .
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/workspace> a owl:Ontology ;
+    rdfs:label "Workspace"@en ;
+    owl:imports <http://def.isotc211.org/iso19150/-2/2012/base>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/version> ;
+    skos:prefLabel "Workspace"@en .
 
-wksp:Scenario.versionTransitionMember
-        a               owl:ObjectProperty ;
-        rdfs:domain     wksp:Scenario ;
-        rdfs:label      "versionTransitionMember"@en ;
-        rdfs:range      vers:VersionTransition ;
-        skos:prefLabel  "versionTransitionMember"@en .
+wksp:ConcensusSpace a owl:Class ;
+    rdfs:label "ConcensusSpace"@en ;
+    rdfs:subClassOf wksp:Space ;
+    owl:disjointWith wksp:PropositionSpace ;
+    skos:prefLabel "ConcensusSpace"@en .
 
-<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/2.0/workspace>
-        a               owl:Ontology ;
-        rdfs:label      "Workspace"@en ;
-        owl:imports     <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Versioning/2.0/versioning> , <http://def.isotc211.org/iso19150/-2/2012/base> ;
-        skos:prefLabel  "Workspace"@en .
+wksp:PropositionSpace a owl:Class ;
+    rdfs:label "PropositionSpace"@en ;
+    rdfs:subClassOf wksp:Space ;
+    skos:prefLabel "PropositionSpace"@en .
 
-wksp:PropositionSpace
-        a                owl:Class ;
-        rdfs:label       "PropositionSpace"@en ;
-        rdfs:subClassOf  wksp:Space ;
-        skos:prefLabel   "PropositionSpace"@en .
+wksp:Scenario.creator a owl:DatatypeProperty ;
+    rdfs:label "creator"@en ;
+    rdfs:domain wksp:Scenario ;
+    rdfs:range xsd:string ;
+    skos:prefLabel "creator"@en .
 
-wksp:Workspace.creator
-        a               owl:DatatypeProperty ;
-        rdfs:domain     wksp:Workspace ;
-        rdfs:label      "creator"@en ;
-        rdfs:range      xsd:string ;
-        skos:prefLabel  "creator"@en .
+wksp:Scenario.versionMember a owl:ObjectProperty ;
+    rdfs:label "versionMember"@en ;
+    rdfs:domain wksp:Scenario ;
+    rdfs:range vers:Version ;
+    skos:prefLabel "versionMember"@en .
 
-wksp:Workspace  a        owl:Class ;
-        rdfs:label       "Workspace"@en ;
-        rdfs:subClassOf  vers:VersionableAbstractCityObject ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  wksp:Space ;
-                           owl:onProperty     wksp:Workspace.spaceMember
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     wksp:Workspace.creator
-                         ] ;
-        skos:prefLabel   "Workspace"@en .
+wksp:Space.creator a owl:DatatypeProperty ;
+    rdfs:label "creator"@en ;
+    rdfs:domain wksp:Space ;
+    rdfs:range xsd:string ;
+    skos:prefLabel "creator"@en .
 
-wksp:ConcensusSpace  a    owl:Class ;
-        rdfs:label        "ConcensusSpace"@en ;
-        rdfs:subClassOf   wksp:Space ;
-        owl:disjointWith  wksp:PropositionSpace ;
-        skos:prefLabel    "ConcensusSpace"@en .
+wksp:Workspace.creator a owl:DatatypeProperty ;
+    rdfs:label "creator"@en ;
+    rdfs:domain wksp:Workspace ;
+    rdfs:range xsd:string ;
+    skos:prefLabel "creator"@en .
 
-wksp:Scenario  a         owl:Class ;
-        rdfs:label       "Scenario"@en ;
-        rdfs:subClassOf  vers:VersionableAbstractCityObject ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers:Version ;
-                           owl:onProperty     wksp:Scenario.versionMember
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  vers:VersionTransition ;
-                           owl:onProperty     wksp:Scenario.versionTransitionMember
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     wksp:Scenario.creator
-                         ] ;
-        skos:prefLabel   "Scenario"@en .
+wksp:Scenario.versionTransitionMember a owl:ObjectProperty ;
+    rdfs:label "versionTransitionMember"@en ;
+    rdfs:domain wksp:Scenario ;
+    rdfs:range vers:VersionTransition ;
+    skos:prefLabel "versionTransitionMember"@en .
 
-wksp:Space.creator  a   owl:DatatypeProperty ;
-        rdfs:domain     wksp:Space ;
-        rdfs:label      "creator"@en ;
-        rdfs:range      xsd:string ;
-        skos:prefLabel  "creator"@en .
+wksp:Space.scenarioMember a owl:ObjectProperty ;
+    rdfs:label "scenarioMember"@en ;
+    rdfs:domain wksp:Space ;
+    rdfs:range wksp:Scenario ;
+    skos:prefLabel "scenarioMember"@en .
 
-wksp:Space.scenarioMember
-        a               owl:ObjectProperty ;
-        rdfs:domain     wksp:Space ;
-        rdfs:label      "scenarioMember"@en ;
-        rdfs:range      wksp:Scenario ;
-        skos:prefLabel  "scenarioMember"@en .
+wksp:Workspace a owl:Class ;
+    rdfs:label "Workspace"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom wksp:Space ;
+            owl:onProperty wksp:Workspace.spaceMember ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass wksp:Space ;
+            owl:onProperty wksp:Workspace.spaceMember ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass wksp:Space ;
+            owl:onProperty wksp:Workspace.spaceMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty wksp:Workspace.creator ],
+        vers:VersionableAbstractCityObject ;
+    skos:prefLabel "Workspace"@en .
 
-wksp:Space  a            owl:Class ;
-        rdfs:label       "Space"@en ;
-        rdfs:subClassOf  vers:VersionableAbstractCityObject ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  wksp:Scenario ;
-                           owl:onProperty     wksp:Space.scenarioMember
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     wksp:Space.creator
-                         ] ;
-        skos:prefLabel   "Space"@en .
+wksp:Workspace.spaceMember a owl:ObjectProperty ;
+    rdfs:label "spaceMember"@en ;
+    rdfs:domain wksp:Workspace ;
+    rdfs:range wksp:Space ;
+    skos:prefLabel "spaceMember"@en .
 
-wksp:Scenario.versionMember
-        a               owl:ObjectProperty ;
-        rdfs:domain     wksp:Scenario ;
-        rdfs:label      "versionMember"@en ;
-        rdfs:range      vers:Version ;
-        skos:prefLabel  "versionMember"@en .
+wksp:Scenario a owl:Class ;
+    rdfs:label "Scenario"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom vers:Version ;
+            owl:onProperty wksp:Scenario.versionMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom vers:VersionTransition ;
+            owl:onProperty wksp:Scenario.versionTransitionMember ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass vers:VersionTransition ;
+            owl:onProperty wksp:Scenario.versionTransitionMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty wksp:Scenario.creator ],
+        vers:VersionableAbstractCityObject ;
+    skos:prefLabel "Scenario"@en .
 
-wksp:Workspace.spaceMember
-        a               owl:ObjectProperty ;
-        rdfs:domain     wksp:Workspace ;
-        rdfs:label      "spaceMember"@en ;
-        rdfs:range      wksp:Space ;
-        skos:prefLabel  "spaceMember"@en .
+wksp:Space a owl:Class ;
+    rdfs:label "Space"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass wksp:Scenario ;
+            owl:onProperty wksp:Space.scenarioMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty wksp:Space.creator ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom wksp:Scenario ;
+            owl:onProperty wksp:Space.scenarioMember ],
+        vers:VersionableAbstractCityObject ;
+    skos:prefLabel "Space"@en .
+
