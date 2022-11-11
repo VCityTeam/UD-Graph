@@ -95,17 +95,23 @@ vers:VersionTransition.to a owl:ObjectProperty ;
     rdfs:range vers:Version ;
     skos:definition "Relates to the successor version of the VersionTransition."@en .
 
-vers:VersionTransition.type a owl:DatatypeProperty ;
+vers:VersionTransition.type
+    # a owl:DatatypeProperty ;
+    a owl:ObjectProperty ;
     rdfs:label "type"@en ;
     rdfs:domain vers:VersionTransition ;
     rdfs:range vers:TransitionTypeValue ;
     skos:definition "Indicates the specific type of the VersionTransition."@en .
 
-vers:TransactionTypeValue a rdfs:Datatype ;
+vers:TransactionTypeValue
+    a                owl:Class ;
+    rdfs:subClassOf  skos:Concept ;
+    # a rdfs:Datatype ;
+    # owl:equivalentClass [ a rdfs:Datatype ;
+    #         owl:oneOf ( "insert" "delete" "replace" ) ] ;
+    # skos:definition "TransactionTypeValue enumerates the three possible types of transactions: insert, delete, or replace."@en .
     rdfs:label "TransactionTypeValue"@en ;
-    owl:equivalentClass [ a rdfs:Datatype ;
-            owl:oneOf ( "insert" "delete" "replace" ) ] ;
-    skos:definition "TransactionTypeValue enumerates the three possible types of transactions: insert, delete, or replace."@en .
+    skos:definition  "TransactionTypeValue represents the type of transaction expressed by an skos:Concept."@en .
 
 vers:TransitionTypeValue a rdfs:Datatype ;
     rdfs:label "TransitionTypeValue"@en ;
@@ -165,7 +171,8 @@ vers:VersionTransition a owl:Class ;
             owl:onProperty vers:VersionTransition.reason ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
-            owl:onDataRange vers:TransitionTypeValue ;
+            # owl:onDataRange vers:TransitionTypeValue ;
+            owl:onClass vers:TransitionTypeValue ;
             owl:onProperty vers:VersionTransition.type ],
         [ a owl:Restriction ;
             owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;

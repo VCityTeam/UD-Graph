@@ -1,21 +1,22 @@
 @prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
 @prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
 @prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
-@prefix ns1: <http://www.opengis.net/ont/geosparql#> .
-@prefix ns2: <http://www.w3.org/2004/02/skos/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
 @prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
 :f1_v1 a owl:NamedIndividual,
         bldg:Building ;
-    ns1:coordinateDimension "EPSG:3946" ;
-    ns2:altLabel "Building C"^^xsd:string,
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building C"^^xsd:string,
         "f1"^^xsd:string ;
-    ns2:prefLabel "f1" ;
-    time:hasTime :temporalEntity_f1_v1 ;
+    skos:prefLabel "f1" ;
     core:AbstractFeatureWithLifespan.validFrom "9999-01-01T00:00:00"^^xsd:dateTime ;
-    core:AbstractFeatureWithLifespan.validTo "9999-01-01T00:00:00"^^xsd:dateTime .
+    core:AbstractFeatureWithLifespan.validTo "9999-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:hasExistenceTime :temporalEntity_f1_v1 .
 
 :begin_f1_v1 a time:Instant ;
     time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .

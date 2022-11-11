@@ -1,4 +1,4 @@
-### A simple script for converting all Turtle RDF files to the N-triples RDF format
+### A simple script for converting all Turtle RDF files in the current directory to the N-triples RDF format
 
 import os
 

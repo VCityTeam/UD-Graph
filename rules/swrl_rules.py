@@ -142,7 +142,13 @@ for test in tests:
             logging.warning(f'{_class.iri} is inconsistent')
 
     # export graph and finish
+    logging.info('Exporting Graph...')
     export_graph(world, test, rules)
+    # try:
+    #     export_graph(world, test, rules)
+    # except Exception as e:
+    #     logging.error('Unable to export graph:')
+    #     logging.error(e)
     print('Done!')
 
 logging.info(f'==== Test Results ====')
