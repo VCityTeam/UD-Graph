@@ -14,53 +14,68 @@
 :hasExistenceTime a owl:ObjectProperty ;
         rdfs:range              time:TemporalEntity ;
         rdfs:subPropertyOf      time:hasTime ;
-        rdfs:comment    "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing exists in the real-world."@en ;
-        skos:definition "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing exists in the real-world."@en .
+        rdfs:comment            "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing exists in the real-world."@en ;
+        skos:definition         "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing exists in the real-world."@en .
 
 :hasTransactionTime a owl:ObjectProperty ;
         rdfs:range              time:TemporalEntity ;
         rdfs:subPropertyOf      time:hasTime ;
-        rdfs:comment    "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database."@en ;
-        skos:definition "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database."@en .
+        rdfs:comment            "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database."@en ;
+        skos:definition         "Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database."@en .
 
-:starts a  owl:ObjectProperty ;
-        rdfs:domain     time:Instant ;
-        rdfs:range      time:ProperInterval ;
-        owl:inverseOf   :startedBy ;
-        rdfs:comment    "If an instant T1 is starts a proper interval T2, then the beginning and end of T1 is coincident with the beginning of T2, and the end of T1 is before the end of T2."@en ;
-        skos:definition "If an instant T1 is starts a proper interval T2, then the beginning and end of T1 is coincident with the beginning of T2, and the end of T1 is before the end of T2."@en .
+:starts a owl:ObjectProperty ;
+        rdfs:subPropertyOf      :in ;
+        rdfs:domain             time:Instant ;
+        rdfs:range              time:ProperInterval ;
+        owl:inverseOf           :startedBy ;
+        rdfs:comment            "If an instant T1 is starts a proper interval T2, then the beginning and end of T1 is coincident with the beginning of T2, and the end of T1 is before the end of T2."@en ;
+        skos:definition         "If an instant T1 is starts a proper interval T2, then the beginning and end of T1 is coincident with the beginning of T2, and the end of T1 is before the end of T2."@en .
 
-:startedBy a  owl:ObjectProperty ;
+:startedBy a owl:ObjectProperty ;
            rdfs:domain     time:ProperInterval ;
            rdfs:range      time:Instant ;
            owl:inverseOf   :starts ;
            rdfs:comment    "If a proper interval T1 is started by another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is after the end of T2."@en ;
            skos:definition "If a proper interval T1 is started by another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is after the end of T2."@en .
 
-:during a  owl:ObjectProperty ;
-        rdfs:domain     time:Instant ;
-        rdfs:range      time:ProperInterval ;
-        owl:inverseOf   :contains ;
-        rdfs:comment    "If an instant T1 is during a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before with the end of T2."@en ;
-        skos:definition "If an instant T1 is during a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before with the end of T2."@en .
+:during a owl:ObjectProperty ;
+        rdfs:subPropertyOf      :in ;
+        rdfs:domain             time:Instant ;
+        rdfs:range              time:ProperInterval ;
+        owl:inverseOf           :contains ;
+        rdfs:comment            "If an instant T1 is during a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before with the end of T2."@en ;
+        skos:definition         "If an instant T1 is during a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is before with the end of T2."@en .
 
-:contains a  owl:ObjectProperty ;
+:contains a owl:ObjectProperty ;
         rdfs:domain     time:ProperInterval ;
         rdfs:range      time:Instant ;
         owl:inverseOf   :during ;
         rdfs:comment    "If a proper interval T1 contains an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after with the end of T2."@en ;
         skos:definition "If a proper interval T1 contains an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is after with the end of T2."@en .
 
-:finishes a  owl:ObjectProperty ;
-        rdfs:domain     time:Instant ;
-        rdfs:range      time:ProperInterval ;
-        owl:inverseOf   :finishedBy ;
-        rdfs:comment    "If an instant T1 finishes a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is coincident with the end of T2."@en ;
-        skos:definition "If an instant T1 finishes a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is coincident with the end of T2."@en .
+:finishes a owl:ObjectProperty ;
+        rdfs:subPropertyOf      :in ;
+        rdfs:domain             time:Instant ;
+        rdfs:range              time:ProperInterval ;
+        owl:inverseOf           :finishedBy ;
+        rdfs:comment            "If an instant T1 finishes a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is coincident with the end of T2."@en ;
+        skos:definition         "If an instant T1 finishes a proper interval T2, then the beginning of T1 is after the beginning of T2, and the end of T1 is coincident with the end of T2."@en .
 
-:finishedBy a  owl:ObjectProperty ;
+:finishedBy a owl:ObjectProperty ;
         rdfs:domain     time:ProperInterval ;
         rdfs:range      time:Instant ;
         owl:inverseOf   :finishes ;
         rdfs:comment    "If a proper interval T1 is finishedBy an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is coincident with the end of T2."@en ;
         skos:definition "If a proper interval T1 is finishedBy an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is coincident with the end of T2."@en .
+
+:in     a owl:ObjectProperty ;
+        rdfs:domain     time:Instant ;
+        rdfs:range      time:ProperInterval ;
+        rdfs:comment    "If an instant T1 is in a proper interval T2, then the beginning of T1 is after the beginning of T2 or is coincident with the beginning of T2, and the end of T1 is before the end of T2 or is coincident with the end of T2, except that end of T1 may not be coincident with the end of T2 if the beginning of T1 is coincident with the beginning of T2."@en ;
+        skos:definition "If an instant T1 is in a proper interval T2, then the beginning of T1 is after the beginning of T2 or is coincident with the beginning of T2, and the end of T1 is before the end of T2 or is coincident with the end of T2, except that end of T1 may not be coincident with the end of T2 if the beginning of T1 is coincident with the beginning of T2."@en .
+
+:equals a owl:ObjectProperty ;
+        rdfs:domain     time:Instant ;
+        rdfs:range      time:Instant ;
+        rdfs:comment    "If an instant T1 equals another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is coincident with the end of T2."@en ;
+        skos:definition "If an instant T1 equals another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is coincident with the end of T2."@en .

@@ -26,6 +26,9 @@
         <ObjectProperty IRI="#during"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#equals"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#finishedBy"/>
     </Declaration>
     <Declaration>
@@ -36,6 +39,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTransactionTime"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#in"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#startedBy"/>
@@ -152,6 +158,14 @@
         <AnnotationProperty abbreviatedIRI="skos:changeNote"/>
     </Declaration>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#during"/>
+        <ObjectProperty IRI="#in"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#finishes"/>
+        <ObjectProperty IRI="#in"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasExistenceTime"/>
         <ObjectProperty abbreviatedIRI="time:hasTime"/>
     </SubObjectPropertyOf>
@@ -159,6 +173,10 @@
         <ObjectProperty IRI="#hasTransactionTime"/>
         <ObjectProperty abbreviatedIRI="time:hasTime"/>
     </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#starts"/>
+        <ObjectProperty IRI="#in"/>
+    </SubObjectPropertyOf>
     <InverseObjectProperties>
         <ObjectProperty IRI="#contains"/>
         <ObjectProperty IRI="#during"/>
@@ -180,11 +198,19 @@
         <Class abbreviatedIRI="time:Instant"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#equals"/>
+        <Class abbreviatedIRI="time:Instant"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#finishedBy"/>
         <Class abbreviatedIRI="time:ProperInterval"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#finishes"/>
+        <Class abbreviatedIRI="time:Instant"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#in"/>
         <Class abbreviatedIRI="time:Instant"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -202,6 +228,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#during"/>
         <Class abbreviatedIRI="time:ProperInterval"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#equals"/>
+        <Class abbreviatedIRI="time:Instant"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#finishedBy"/>
@@ -220,6 +250,10 @@
         <Class abbreviatedIRI="time:TemporalEntity"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#in"/>
+        <Class abbreviatedIRI="time:ProperInterval"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#startedBy"/>
         <Class abbreviatedIRI="time:Instant"/>
     </ObjectPropertyRange>
@@ -249,6 +283,16 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#equals</IRI>
+        <Literal xml:lang="en">If an instant T1 equals another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is coincident with the end of T2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#equals</IRI>
+        <Literal xml:lang="en">If an instant T1 equals another instant T2, then the beginning of T1 is coincident with the beginning of T2, and the end of T1 is coincident with the end of T2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#finishedBy</IRI>
         <Literal xml:lang="en">If a proper interval T1 is finishedBy an instant T2, then the beginning of T1 is before the beginning of T2, and the end of T1 is coincident with the end of T2.</Literal>
     </AnnotationAssertion>
@@ -286,6 +330,16 @@
         <AnnotationProperty abbreviatedIRI="skos:definition"/>
         <IRI>#hasTransactionTime</IRI>
         <Literal xml:lang="en">Supports the association of a temporal entity (instant or interval) to any thing where the temporal entity represents the time when that thing is up-to-date in a dataset or database.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#in</IRI>
+        <Literal xml:lang="en">If an instant T1 is in a proper interval T2, then the beginning of T1 is after the beginning of T2 or is coincident with the beginning of T2, and the end of T1 is before the end of T2 or is coincident with the end of T2, except that end of T1 may not be coincident with the end of T2 if the beginning of T1 is coincident with the beginning of T2.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#in</IRI>
+        <Literal xml:lang="en">If an instant T1 is in a proper interval T2, then the beginning of T1 is after the beginning of T2 or is coincident with the beginning of T2, and the end of T1 is before the end of T2 or is coincident with the end of T2, except that end of T1 may not be coincident with the end of T2 if the beginning of T1 is coincident with the beginning of T2.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

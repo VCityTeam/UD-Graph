@@ -124,64 +124,34 @@
             "rule": "vers:Transaction(?t), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f1) -> vers:Transaction.type(?t, ?y), type:replace(?y)"
         },
         {
-            "title": "rule 27a - feature member during version",
-            "description": "a version before its feature member is inconsistent",
+            "title": "rule 27a - version in/equals feature member",
+            "description": "a version before with its feature member is inconsistent",
             "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:before(?t1, ?t2) -> owl:Nothing(?f)"
+            "rule": "vers:Version(?v), time_ext:hasExistenceTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time_ext:hasExistenceTime(?f, ?t2), time:after(?t1, ?t2) -> owl:Nothing(?v)"
         },
         {
-            "title": "rule 27b - feature member during version",
-            "description": "a version interval before its feature member is inconsistent",
+            "title": "rule 27b - version in/equals feature member",
+            "description": "a version after with its feature member is inconsistent",
             "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalBefore(?t1, ?t2) -> owl:Nothing(?f)"
+            "rule": "vers:Version(?v), time_ext:hasExistenceTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time_ext:hasExistenceTime(?f, ?t2), time:before(?t1, ?t2) -> owl:Nothing(?v)"
         },
         {
-            "title": "rule 27c - feature member during version",
-            "description": "a version after its feature member is inconsistent",
+            "title": "rule 27c - version in/equals feature member",
+            "description": "a feature member in its parent version is inconsistent",
             "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:after(?t1, ?t2) -> owl:Nothing(?f)"
+            "rule": "vers:Version(?v), time_ext:hasExistenceTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time_ext:hasExistenceTime(?f, ?t2), time_ext:in(?t2, ?t1) -> owl:Nothing(?v)"
         },
         {
-            "title": "rule 27d - feature member during version",
-            "description": "a version interval after its feature member is inconsistent",
+            "title": "rule 27d - version in/equals feature member",
+            "description": "a feature member interval in its parent version is inconsistent",
             "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalAfter(?t1, ?t2) -> owl:Nothing(?f)"
+            "rule": "vers:Version(?v), time_ext:hasExistenceTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time_ext:hasExistenceTime(?f, ?t2), time:intervalIn(?t2, ?t1) -> owl:Nothing(?v)"
         },
         {
-            "title": "rule 27e - feature member during version",
-            "description": "a version interval overlapping its feature member is inconsistent",
+            "title": "rule 27e - version in/equals feature member",
+            "description": "a version interval overlaps its feature member is inconsistent",
             "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalOverlaps(?t1, ?t2) -> owl:Nothing(?f)"
-        },
-        {
-            "title": "rule 27e - feature member during version",
-            "description": "a version interval overlapped by its feature member parent is inconsistent",
-            "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalOverlappedBy(?t1, ?t2) -> owl:Nothing(?f)"
-        },
-        {
-            "title": "rule 27f - feature member during version",
-            "description": "a version interval meeting its feature member is inconsistent",
-            "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalMeets(?t1, ?t2) -> owl:Nothing(?f)"
-        },
-        {
-            "title": "rule 27g - feature member during version",
-            "description": "a version interval met by its feature member parent is inconsistent",
-            "comment": "",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalMetBy(?t1, ?t2) -> owl:Nothing(?f)"
-        },
-        {
-            "title": "rule 27h - feature member during version",
-            "description": "a version interval starting its feature member parent is inconsistent",
-            "comment": "interval started by would be consistent however",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalStarts(?t1, ?t2) -> owl:Nothing(?f)"
-        },
-        {
-            "title": "rule 27i - feature member during version",
-            "description": "a version interval finishing its feature member parent is inconsistent",
-            "comment": "interval finished by would be consistent however",
-            "rule": "vers:Version(?v), time:hasTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time:hasTime(?f, ?t2), time:intervalFinishes(?t1, ?t2) -> owl:Nothing(?f)"
+            "rule": "vers:Version(?v), time_ext:hasExistenceTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time_ext:hasExistenceTime(?f, ?t2), time:intervalOverlaps(?t1, ?t2) -> owl:Nothing(?v)"
         }
     ]
 }

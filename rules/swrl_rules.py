@@ -51,7 +51,7 @@ def add_rules(ontology, config):
     ns = ontology.get_namespace('http://www.w3.org/2000/01/rdf-schema#')
     print(ns)
     for rule in rules:
-        print(rule)
+        logging.info(f'loading rule: {rule}')
         implication = Imp(namespace=ns)
         implication.set_as_rule(rule)
 
@@ -127,7 +127,7 @@ for test in tests:
 
     ### log potentially useful information
     log_classes(world)
-    log_rules(world)
+    # log_rules(world)
     log_individuals(world)
 
     ### check inconsistency
