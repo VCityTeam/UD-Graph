@@ -56,6 +56,11 @@
             "rule": "time:Instant(?a), time:inXSDDateTimeStamp(?a, ?t1), time:ProperInterval(?b), time:hasEnd(?b, ?i), time:Instant(?i), time:inXSDDateTimeStamp(?i, ?t2), equal(?t1, ?t2) -> time_ext:finishes(?a, ?b)"
         },
         {
+            "title": "Instant-Instant Equals",
+            "description": "infer that an instant equals an instant (i.e. the instant has the same beginning and end as the beginning of the instant)",
+            "rule": "time:Instant(?a), time:inXSDDateTimeStamp(?a, ?t1), time:Instant(?b), time:inXSDDateTimeStamp(?b, ?t2), equal(?t1, ?t2) -> time_ext:equals(?a, ?b)"
+        },
+        {
             "title": "interval before",
             "description": "infer that two ProperIntervals are before and after one another",
             "rule": "time:ProperInterval(?a), time:hasEnd(?a, ?i1), time:Instant(?i1), time:inXSDDateTimeStamp(?i1, ?t1), time:ProperInterval(?b), time:hasBeginning(?b, ?i2), time:Instant(?i2), time:inXSDDateTimeStamp(?i2, ?t2), lessThan(?t1, ?t2) -> time:intervalBefore(?a, ?b)"
@@ -105,23 +110,16 @@
         {
             "ignore": true,
             "title": "rule 22 - insert",
-            "description": "if a transaction has a newFeature, it is of type insert",
+            "description": "if a transaction of type insert, it cannot have a newFeature",
             "comment": "skos concepts as individuals do not seem to work with SWRL rules",
-            "rule": "vers:Transaction(?t), vers:Transaction.newFeature(?t, ?f1) -> vers:Transaction.type(?t, ?y), type:insert(?y)"
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), equals(?y, 'insert'), vers:Transaction.oldFeature(?t, ?f) -> owl:Nothing(?t)"
         },
         {
             "ignore": true,
             "title": "rule 23 - delete",
-            "description": "if a transaction has an oldFeature, it is of type delete",
+            "description": "if a transaction is of type delete, it cannot have an oldFeature",
             "comment": "skos concepts as individuals do not seem to work with SWRL rules",
-            "rule": "vers:Transaction(?t), vers:Transaction.oldFeature(?t, ?f1) -> vers:Transaction.type(?t, ?y), type:delete(?y)"
-        },
-        {
-            "ignore": true,
-            "title": "rule 24 - replace",
-            "description": "if a transaction has an oldFeature and a newFeature, it is of type replace",
-            "comment": "skos concepts as individuals do not seem to work with SWRL rules; it appears that replace is the logical union of insert and delete",
-            "rule": "vers:Transaction(?t), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f1) -> vers:Transaction.type(?t, ?y), type:replace(?y)"
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), equals(?y, 'delete'), vers:Transaction.oldFeature(?t, ?f) -> owl:Nothing(?t)"
         },
         {
             "title": "rule 27a - version in/equals feature member",
@@ -152,6 +150,36 @@
             "description": "a version interval overlaps its feature member is inconsistent",
             "comment": "",
             "rule": "vers:Version(?v), time_ext:hasExistenceTime(?v, ?t1), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), time_ext:hasExistenceTime(?f, ?t2), time:intervalOverlaps(?t1, ?t2) -> owl:Nothing(?v)"
+        },
+        {
+            "title": "rule 31/32a",
+            "description": "the versions preceeding and following a versionTransition are respectively before and after one another",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v1), time_ext:hasExistenceTime(?v1, ?t1), vers:Version(?v2), time_ext:hasExistenceTime(?v2, ?t2), time:after(?t1, ?t2) -> owl:Nothing(?vt)"
+        },
+        {
+            "title": "rule 31/32b",
+            "description": "the versions preceeding and following a versionTransition are respectively before and after one another; and not equal",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v1), time_ext:hasExistenceTime(?v1, ?t1), vers:Version(?v2), time_ext:hasExistenceTime(?v2, ?t2), time_ext:equals(?t1, ?t2) -> owl:Nothing(?vt)"
+        },
+        {
+            "title": "rule 31/32c",
+            "description": "the versions preceeding and following a versionTransition are respectively before and after one another; and not equal",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v1), time_ext:hasExistenceTime(?v1, ?t1), vers:Version(?v2), time_ext:hasExistenceTime(?v2, ?t2), time:intervalEquals(?t1, ?t2) -> owl:Nothing(?vt)"
+        },
+        {
+            "title": "rule 33a",
+            "description": "the versions preceeding and following a versionTransition meet the versionTransition",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:Version(?v1), time_ext:hasExistenceTime(?v1, ?i1), time:hasEnd(?i1, ?e), time:inXSDDateTimeStamp(?e, ?t1), time_ext:hasExistenceTime(?vt, ?i2), time:hasBeginning(?i2, ?b), time:inXSDDateTimeStamp(?b, ?t2), notEqual(?t1, ?t2) -> owl:Nothing(?vt)"
+        },
+        {
+            "title": "rule 33b",
+            "description": "the versions preceeding and following a versionTransition meet the versionTransition",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.to(?vt, ?v1), vers:Version(?v1), time_ext:hasExistenceTime(?v1, ?i1), time:hasBeginning(?i1, ?b), time:inXSDDateTimeStamp(?b, ?t1), time_ext:hasExistenceTime(?vt, ?i2), time:hasEnd(?i2, ?e), time:inXSDDateTimeStamp(?e, ?t2), notEqual(?t1, ?t2) -> owl:Nothing(?vt)"
         }
     ]
 }

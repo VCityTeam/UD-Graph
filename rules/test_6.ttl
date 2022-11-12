@@ -1,0 +1,84 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test> a owl:Ontology .
+
+### Instants ###
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime .
+
+### Temporal Entities ###
+
+:temporalEntity_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 .
+
+:temporalEntity_v1_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1_v2 ;
+    time:hasEnd :end_v1_v2 .
+
+:temporalEntity_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v2 ;
+    time:hasEnd :end_v2 .
+
+### Workspace including versions and versionTransitions ###
+
+:versionTransition_v1_v2 a owl:NamedIndividual,
+        vers:VersionTransition ;
+    time_ext:hasExistenceTime :temporalEntity_v1_v2 ;
+    vers:VersionTransition.from :version_v1 ;
+    vers:VersionTransition.to :version_v2 .
+
+:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    time_ext:hasExistenceTime :temporalEntity_v1 .
+
+:version_v2 a owl:NamedIndividual,
+        vers:Version ;
+    time_ext:hasExistenceTime :temporalEntity_v2 .
+
+
+[ a owl:AllDifferent ;
+    owl:distinctMembers (
+        :begin_v1
+        :end_v1
+        :begin_v1_v2
+        :end_v1_v2
+        :begin_v2
+        :end_v2
+        :temporalEntity_v1
+        :temporalEntity_v1_v2
+        :temporalEntity_v2
+        :versionTransition_v1_v2
+        :version_v1
+        :version_v2
+    )
+] .
