@@ -46,6 +46,10 @@ class ontologyPatcher():
         self.graph = Graph().parse(input_file, format=input_format)
 
     def patchOnClass(self) -> None:
+        """
+        It replaces all occurrences of `owl:onClass` with `owl:onDataRange` that reference
+        a known datatype in the ontology. Otherwise these references are invalid in OWL-DL.
+        """
         logging.info('Patching onClass restrictions...')
         query_where_onClass = '''
             WHERE {
@@ -93,6 +97,11 @@ class ontologyPatcher():
         self.graph.update(query_update_onClass)
 
     def patchDatatypeEnumeration(self) -> None:
+        """
+        Reformats datatypes constrained by a list with a "Protégé friendly" form.
+        If not these datatypes are read as an empty class and datatype when reasoned
+        upon in Protégé, which is invalid in OWL-DL.
+        """
         logging.info('Patching Datatype Enumerations...')
         query_where_enumeration = '''
             WHERE {
@@ -120,6 +129,11 @@ class ontologyPatcher():
     
     
     def patchObjectProperties(self) -> None:
+        """
+        It replaces all occurrences of `owl:ObjectProperty` with `owl:DatatypeProperty`
+        that reference a known datatype in the ontology. Otherwise these references
+        are invalid in OWL-DL
+        """
         logging.info('Patching ObjectProperties Enumerations...')
         query_where_objectproperty = '''
             WHERE {
