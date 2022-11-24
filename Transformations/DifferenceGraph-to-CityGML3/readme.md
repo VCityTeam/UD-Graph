@@ -45,4 +45,31 @@ optional arguments:
   -d, --debug           enable debug level logging
 ```
 
-See [testDifference.sh](testDifference.sh) for example usages
+For example:
+```bash
+python DifferenceGraph2RDF.py \
+    --existence_time_stamps \
+        2000-01-01T00:00:00 \
+        2001-01-01T00:00:00 \
+    differences_test.json \
+    v1 v2 \
+    difference_test.ttl
+```
+URIs can also be specified for referencing existing CityGML datasets and Workspaces.
+```bash
+python DifferenceGraph2RDF.py \
+    --base-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009-2018_Workspace \
+    --v1-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009_split_v3 \
+    --v1-prefix v2009 \
+    --v2-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2012_split_v3 \
+    --v2-prefix v2012 \
+    -d \
+    -f ttl \
+    --strip-time-stamp \
+    --existence_time_stamps \
+        2009-01-01T00:00:00 \
+        2012-01-01T00:00:00 \
+    'DifferencesAsGraph09-12.json' \
+    2009 2012 \
+    'DifferencesAsGraph2009-2012.ttl'
+```
