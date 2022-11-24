@@ -1,7 +1,7 @@
 # Utility scripts
 
 ## AddTimeStamps
-Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data
+Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data. Can optionally add timestamps in the of OWL-Time temporal entities
 
 ### To run
 ```

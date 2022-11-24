@@ -5,7 +5,7 @@ from rdflib.namespace import XSD, RDF, TIME, Namespace, split_uri
 
 def main():
     # initialize command line arguments
-    parser = argparse.ArgumentParser(description="Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data")
+    parser = argparse.ArgumentParser(description="Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data. Can optionally add timestamps in the of OWL-Time temporal entities")
     parser.add_argument('input_file',
                          help='specify the input CityGML RDF graph')
     parser.add_argument('output_file',
@@ -71,20 +71,38 @@ class timeStamper():
         self.graph.bind('time', TIME)
 
     def readFile(self, input_file, input_format):
-        # read input file
+        """
+        It reads the input file and loads it into the graph
+        
+        :param input_file: the path to the input file
+        :param input_format: the format of the input file
+        """
         logging.info(f'loading input file: {input_file}...')
         self.graph.parse(input_file, format=input_format)
 
     def writeFile(self, output_file, output_format):
-        # write version graph to file
+        """
+        This function takes a file path and a format, and writes the graph to that file in that format
+        
+        :param output_file: the file to write the output to
+        :param output_format: The format of the output file
+        """
         logging.info(f'conversion complete, writing output to {output_file}')
         self.graph.serialize(destination=output_file, format=output_format)
         logging.info('Done!')
 
     def addTimeStamps(self, from_timestamp, to_timestamp, from_timestamp_property, to_timestamp_property, use_owl_time=True):
+        """
+        It adds CityGML timestamps to all CityGML feature members in an RDF graph
+        
+        :param from_timestamp: the timestamp to be used for the from_timestamp_property
+        :param to_timestamp: the end date of the time interval
+        :param from_timestamp_property: the property that will be used to store the from timestamp
+        :param to_timestamp_property: the property that will be used to store the end timestamp
+        :param use_owl_time: if True, additional timestamps will be added using the OWL Time ontology entities (optional)
+        """
         from_timestamp = Literal(from_timestamp, datatype=XSD.dateTime)
         to_timestamp = Literal(to_timestamp, datatype=XSD.dateTime)
-        # add timestamps to CityGML features
         for city_model, city_model_member, feature_member in self.graph.triples(
                 (None, URIRef(self.CORE.CityModel + '.cityModelMember_cityObjectMember'), None)
             ):
