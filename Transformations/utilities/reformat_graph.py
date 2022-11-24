@@ -22,6 +22,15 @@ class RdfConverter():
         self.graph = rdflib.Graph()
 
     def convert(self, input_file, input_format, output_file, output_format):
+        """
+        It takes an input file, an input format, an output file, and an output format, and it converts the
+        input file from the input format to the output format and saves it to the output file
+        
+        :param input_file: The file to be converted
+        :param input_format: The format of the input file. Must be an RDFlib compliant format
+        :param output_file: The file to write the output to
+        :param output_format: The format of the output file. Must be an RDFlib compliant format
+        """
         self.graph.parse(input_file, format=input_format)
         self.graph.serialize(destination=output_file, format=output_format)
 
