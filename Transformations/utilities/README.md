@@ -28,7 +28,14 @@ optional arguments:
   -d, --debug           enable debug level logging
 ```
 
-See [testTimestamp.sh](testTimestamp.sh) for example usages
+For example:
+```bash
+python AddTimeStamps.py \
+    ../test-data/RDF/historicalSuccession_CityGML_3.0_v1.ttl \
+    ./historicalSuccession_v1.ttl \
+    2000-01-01T00:00:00 2000-01-01T00:00:00 \
+    -d
+```
 
 
 ## add_crs.py
