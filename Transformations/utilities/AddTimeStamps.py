@@ -1,12 +1,11 @@
 import logging
 import argparse
-from tokenize import Name
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import XSD, RDF, TIME, Namespace, split_uri
 
 def main():
     # initialize command line arguments
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description="Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data")
     parser.add_argument('input_file',
                          help='specify the input CityGML RDF graph')
     parser.add_argument('output_file',

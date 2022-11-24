@@ -1,7 +1,7 @@
 # Utility scripts
 
 ## AddTimeStamps
-Add timestamp values to CityGML RDF graphs
+Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data
 
 ### To run
 ```
