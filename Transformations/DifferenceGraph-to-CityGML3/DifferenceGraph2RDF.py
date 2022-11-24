@@ -16,10 +16,16 @@ def main():
                          help='Specify the output filename')
     parser.add_argument('--existence_time_stamps',
                          nargs=2,
-                         help='Specify the existence timestamps. Timestamps should be in the xsd:datetime format')
+                         help='''Specify the existence timestamps. If provided, bitemporal
+                         timestamps (confomant to CityGML 3.0) will be added to the
+                         generated versions and version transitions. Timestamps should be
+                         in the xsd:datetime format''')
     parser.add_argument('--transaction_time_stamps',
                          nargs=2,
-                         help='Specify the transaction timestamps. Timestamps should be in the xsd:datetime format')
+                         help='''Specify the transaction timestamps. If provided, bitemporal
+                         timestamps (confomant to CityGML 3.0) will be added to the
+                         generated versions and version transitions. Timestamps should be
+                         in the xsd:datetime format''')
     parser.add_argument('--base-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/workspace_1#',
                          help='Specify the base URI for workspace output individuals')
@@ -114,7 +120,7 @@ def main():
     output_graph.add( (versionTransition_uri, from_uri, source_version_uri) )
     output_graph.add( (versionTransition_uri, to_uri, target_version_uri) )
 
-    # add version and versionTransition timestamps if provided
+    # add version and versionTransition existence and transaction timestamps if provided
     if args.existence_time_stamps is not None:
         validfrom_uri = URIRef(CORE.AbstractFeatureWithLifespan + '.validFrom')
         validto_uri = URIRef(CORE.AbstractFeatureWithLifespan + '.validTo')
