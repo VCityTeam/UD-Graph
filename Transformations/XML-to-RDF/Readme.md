@@ -50,18 +50,18 @@ optional arguments:
 
 For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../../UD-Graph/Ontologies/CityGML/2.0/):
 ```bash
-python ./CityGML2RDF.py \
+python ./XML2RDF.py \
   -v \
-  --format rdf \
+  --format ttl \
   ../test-data/GML/LYON_1ER_BATI_2015-1_bldg-patched.gml \
   ../../../UD-Graph/Ontologies/CityGML/2.0/,https://www.w3.org/2009/08/skos-reference/skos.rdf,http://www.opengis.net/ont/geosparql#,http://www.opengis.net/ont/gml# \
   ./citygml_2_mappings.json
 ```
 Or for CityGML 3.0:
 ```bash
-python CityGML2RDF.py \
+python XML2RDF.py \
   -v \
-  --format rdf \
+  --format ttl \
   ../test-data/GML/historicalSuccession_CityGML_3.0_LOD2_Versioning_patched.gml \
   ../../../UD-Graph/Ontologies/CityGML/2.0/,https://www.w3.org/2009/08/skos-reference/skos.rdf,http://www.opengis.net/ont/geosparql#,http://www.opengis.net/ont/gml# \
   citygml_3_mappings.json

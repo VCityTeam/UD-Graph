@@ -11,8 +11,8 @@ def main():
     RDFLIB_SUPPORTED_FORMATS = ['turtle','ttl','turtle2','xml','pretty-xml','json-ld','ntriples','nt','nt11','n3','trig','trix']
     parser = argparse.ArgumentParser(description='Transform Geospatial XML data to RDF formats')
     parser.add_argument('input_file', help='Specify the input XML datafile')
-    parser.add_argument('input_model', help='Specify the ontology input path; for multiple ontologies, input paths are separated by a ","')
     parser.add_argument('mapping_file', help='Specify the namespace mapping file')
+    parser.add_argument('input_models', nargs='*', help='Specify the ontology input path(s); for multiple ontologies, input paths are separated by a space')
     parser.add_argument('--output', default='.', help='Specify the output directory')
     parser.add_argument('--format', default='ttl', choices=RDFLIB_SUPPORTED_FORMATS, help='Specify the output data format (only RDFLib supported formats)')
     parser.add_argument('--log', default='output.log', help='Specify the logging file')
@@ -67,7 +67,7 @@ class XML2RdfTransformer():
         # compile ontology
         print('Compiling mapping ontology(ies)...')
         self.ontology = Graph()
-        for path in self.args.input_model.split(','):
+        for path in self.args.input_models:
             if path.startswith('http://') or path.startswith('https://'):
                 if self.args.verbose:
                     print('  ' + path)
@@ -135,12 +135,6 @@ class XML2RdfTransformer():
     def generateIndividual(self, node):
         '''Generate a new individual from an XML node and its children, then add the
         node to the output graph. An id is returned for recursive calls'''
-        # TODO: implement rdf mappings for individual and children
-
-        # skip node if already parsed
-        if self.input_tree.getelementpath(node) in self.parsed_nodes:
-            return
-
         mapped_tag = ''
         node_id = ''
         mapped_tag = self.mapNamespace(node.tag)
@@ -149,17 +143,14 @@ class XML2RdfTransformer():
             node_id = URIRef(f'{self.output_uri}#' + node.attrib.get('{%s}id' % self.GML_NAMESPACE))
         else:
             node_id = URIRef(self.generateID(mapped_tag))
+        # skip node if already parsed
+        if self.input_tree.getelementpath(node) in self.parsed_nodes:
+            return node_id
+
         self.output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
         self.output_graph.add( (node_id, RDF.type, mapped_tag) )
 
-        # if the node is a geometry node, create a gml serialization and add it as a
-        # triple to the output graph. All descendant nodes are assumed to be part of
-        # the same geometry and therefore are not necessary to parse beyond this step.
-        if self.isGeometry(node.tag):
-            geometry_literal = self.generateGeometryLiteral(node)
-            geometry_node = Literal(geometry_literal, datatype=self.GeoSPARQL_NAMESPACE.gmlLiteral)
-            self.output_graph.add( (node_id, self.GeoSPARQL_NAMESPACE.asGML, geometry_node) )
-
+        # transform the XML attributes into properties and datatype properties
         for attribute in node.attrib:
             if attribute in self.rdf_mappings:
                 attribute_tag = URIRef(self.rdf_mappings[attribute])
@@ -183,45 +174,54 @@ class XML2RdfTransformer():
                 attribute_text = Literal(node.attrib[attribute])
                 self.output_graph.add( (node_id, attribute_tag, attribute_text) )
                 logging.warning(f'No datatype or datatype property found for attribute {attribute}, at {self.input_tree.getelementpath(node)}')
-
-        for child in node:
-            # if child.tag has an rdf mapping, replace the tag with the mapping.
-            mapped_child_tag = child.tag
-            if child.tag in self.rdf_mappings:
-                mapped_child_tag = self.rdf_mappings[child.tag]
-                mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
-            # check if child node is a class. If so, generate a new individual for the
-            # child and create an object property linking the two individuals.
-            if self.isClass(mapped_child_tag):
-                child_id = self.generateIndividual(child)
-                objectproperties = self.findObjectProperty(node.tag, mapped_child_tag)
-                for objectproperty in objectproperties:
-                    self.output_graph.add( (node_id, objectproperty, child_id) )
-                if self.isGeometry(mapped_child_tag):
-                    self.output_graph.add( (node_id, self.GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
-            # check if child node is a datatype. If so, generate a datatype for the
-            # child and create a datatype property linking the individual and datatype.
-            elif self.isDatatype(mapped_child_tag):
-                for property in self.findDatatypeProperty(node.tag, mapped_child_tag):
-                    for datatype in self.getDatatypePropertyRange(property):
-                        child_text = Literal(child.text, datatype=datatype[0])
-                        self.output_graph.add( (node_id, property, child_text) )
-            # check if child node is an object property. If so, generate the object
-            # property nodes and their corresponding individuals by calling
-            # generateObjectProperties().
-            elif self.isObjectProperty(mapped_child_tag, node.tag):
-                self.generateObjectProperties(node, node_id, child)
-            # check if child node is an datatype property. If so, generate the datatype
-            # property nodes and their corresponding individuals by calling
-            # generateDatatypeProperty().
-            elif self.isDatatypeProperty(mapped_child_tag, node.tag):
-                self.generateDatatypeProperty(node, node_id, child)
-            elif self.isAnnotationProperty(mapped_child_tag):
-                annotation_tag = URIRef(mapped_child_tag.namespace + mapped_child_tag.localname)
-                annotation_text = Literal(child.text, datatype=XSD.string)
-                self.output_graph.add( (node_id, annotation_tag, annotation_text) )
-            else:
-                logging.warning(f'No mapping found for XML element: {mapped_child_tag}')
+        # if the node is a geometry node, create a gml serialization and add it as a
+        # triple to the output graph. All descendant nodes are assumed to be part of
+        # the same geometry and therefore are not necessary to parse beyond this step.
+        if self.isGeometry(node.tag):
+            geometry_literal = self.generateGeometryLiteral(node)
+            geometry_node = Literal(geometry_literal, datatype=self.GeoSPARQL_NAMESPACE.gmlLiteral)
+            self.output_graph.add( (node_id, self.GeoSPARQL_NAMESPACE.asGML, geometry_node) )
+        # if it is not geometry, transform the XML children into properties, datatypes, and/or individuals
+        # (unless atomic geometry is enabled)
+        if self.args.atomic_geometry or not self.isGeometry(node.tag):
+            for child in node:
+                # if child.tag has an rdf mapping, replace the tag with the mapping.
+                mapped_child_tag = child.tag
+                if child.tag in self.rdf_mappings:
+                    mapped_child_tag = self.rdf_mappings[child.tag]
+                    mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
+                # check if child node is a class. If so, generate a new individual for the
+                # child and create an object property linking the two individuals.
+                if self.isClass(mapped_child_tag):
+                    child_id = self.generateIndividual(child)
+                    objectproperties = self.findObjectProperty(node.tag, mapped_child_tag)
+                    for objectproperty in objectproperties:
+                        self.output_graph.add( (node_id, objectproperty, child_id) )
+                    if self.isGeometry(mapped_child_tag):
+                        self.output_graph.add( (node_id, self.GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
+                # check if child node is a datatype. If so, generate a datatype for the
+                # child and create a datatype property linking the individual and datatype.
+                elif self.isDatatype(mapped_child_tag):
+                    for property in self.findDatatypeProperty(node.tag, mapped_child_tag):
+                        for datatype in self.getDatatypePropertyRange(property):
+                            child_text = Literal(child.text, datatype=datatype[0])
+                            self.output_graph.add( (node_id, property, child_text) )
+                # check if child node is an object property. If so, generate the object
+                # property nodes and their corresponding individuals by calling
+                # generateObjectProperties().
+                elif self.isObjectProperty(mapped_child_tag, node.tag):
+                    self.generateObjectProperties(node, node_id, child)
+                # check if child node is an datatype property. If so, generate the datatype
+                # property nodes and their corresponding individuals by calling
+                # generateDatatypeProperty().
+                elif self.isDatatypeProperty(mapped_child_tag, node.tag):
+                    self.generateDatatypeProperty(node, node_id, child)
+                elif self.isAnnotationProperty(mapped_child_tag):
+                    annotation_tag = URIRef(mapped_child_tag.namespace + mapped_child_tag.localname)
+                    annotation_text = Literal(child.text, datatype=XSD.string)
+                    self.output_graph.add( (node_id, annotation_tag, annotation_text) )
+                else:
+                    logging.warning(f'No mapping found for XML element: {mapped_child_tag} at {self.input_tree.getelementpath(node)}')
 
         # when complete, add node to parsed nodes list
         self.parsed_nodes.append(self.input_tree.getelementpath(node))
@@ -283,7 +283,7 @@ class XML2RdfTransformer():
 
 
     def generateGeometryLiteral(self, node):
-        '''Generate the gsp:gmlLiteral serialization of a geometry node'''
+        '''Generate the gsp:gmlLiteral serialization of a GML geometry XML tree'''
         node_copy = deepcopy(node)
 
         if self.args.deep_geometry:
@@ -300,6 +300,7 @@ class XML2RdfTransformer():
                     parent.remove(xlink)
 
         geometry = str(etree.tostring(node_copy, pretty_print=False)).split(' ')
+        # remove non gml 2 namespace declarations, newlines, indentations, and single quotes from geometry string
         isGMLTag = lambda tag : not tag.startswith('xmlns') or tag.startswith('xmlns:gml')
         geometry = ' '.join(filter( isGMLTag, geometry ))
         geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip().replace(
@@ -833,9 +834,9 @@ class XML2RdfTransformer():
 
 
     def isGeometry(self, tag):
-        '''return whether tag is a valid gml element supported by Parliament. The uri is
+        '''return whether tag is a valid gml element supported by GeoSPARQL. The uri is
         converted into a qname tuple of (prefix, namespace, localname) to extract the
-        namespace. Note that solid geometry is not supported by Parliament but multisurface
+        namespace. Note that solid geometry is not supported by GeoSPARQL but multisurface
         geometry is.'''
         qname = self.mapNamespace(tag).split('#')
         if qname[0] + '#' == str(self.GML_ONT_NAMESPACE) and self.isClass(tag):
@@ -844,7 +845,7 @@ class XML2RdfTransformer():
             else:
                 return self.ontology.query(
                     'ASK {'
-                        f'<{str(self.GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(self.GML_ONT_NAMESPACE)}AbstractGeometry> .'
+                        f'<{str(self.GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
                     '}')
 
     def updateProgressBar(self, status=''):
