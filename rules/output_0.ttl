@@ -1,0 +1,246 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:e0 a owl:Thing .
+
+:e2 a owl:NamedIndividual,
+        time:Instant,
+        time:TemporalEntity ;
+    time:after :e1 ;
+    time:before :e4 ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t2 ;
+    time:hasTime :t2 ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :e2,
+        :t2 ;
+    time_ext:finishes :e3 ;
+    time_ext:in :e3,
+        :e6,
+        :e8,
+        :e9 ;
+    time_ext:starts :e6,
+        :e8,
+        :e9 .
+
+:e1 a owl:NamedIndividual,
+        time:Instant,
+        time:TemporalEntity ;
+    time:before :e2,
+        :e4,
+        :e6,
+        :e8,
+        :e9 ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t1 ;
+    time:hasTime :t1 ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :e1,
+        :t1 ;
+    time_ext:in :e3,
+        :e5,
+        :e7 ;
+    time_ext:starts :e3,
+        :e5,
+        :e7 .
+
+:t4 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2003-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :t4 ;
+    time_ext:finishes :e4,
+        :e6,
+        :e7 ;
+    time_ext:in :e4,
+        :e6,
+        :e7 .
+
+:t3 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :t3 ;
+    time_ext:finishes :e5,
+        :e8,
+        :e9 ;
+    time_ext:in :e4,
+        :e5,
+        :e8,
+        :e9 ;
+    time_ext:starts :e4 .
+
+:e8 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e1 ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t2,
+        :t3 ;
+    time:intervalDuring :e7 ;
+    time:intervalEquals :e8,
+        :e9 ;
+    time:intervalFinishes :e5 ;
+    time:intervalIn :e5,
+        :e6,
+        :e7 ;
+    time:intervalMeets :e4 ;
+    time:intervalMetBy :e3 ;
+    time:intervalStarts :e6 ;
+    time_ext:finishedBy :t3 ;
+    time_ext:startedBy :e2,
+        :t2 .
+
+:e9 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e1 ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t2,
+        :t3 ;
+    time:intervalDuring :e7 ;
+    time:intervalEquals :e8,
+        :e9 ;
+    time:intervalFinishes :e5 ;
+    time:intervalIn :e5,
+        :e6,
+        :e7 ;
+    time:intervalMeets :e4 ;
+    time:intervalMetBy :e3 ;
+    time:intervalStarts :e6 ;
+    time_ext:finishedBy :t3 ;
+    time_ext:startedBy :e2,
+        :t2 .
+
+:t1 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :e1,
+        :t1 ;
+    time_ext:in :e3,
+        :e5,
+        :e7 ;
+    time_ext:starts :e3,
+        :e5,
+        :e7 .
+
+:e4 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e1,
+        :e2,
+        :e3 ;
+    time:hasBeginning :t3 ;
+    time:hasEnd :t4 ;
+    time:hasTime :t3,
+        :t4 ;
+    time:intervalAfter :e3 ;
+    time:intervalDisjoint :e3 ;
+    time:intervalEquals :e4 ;
+    time:intervalFinishes :e6,
+        :e7 ;
+    time:intervalIn :e6,
+        :e7 ;
+    time:intervalMetBy :e5,
+        :e8,
+        :e9 ;
+    time_ext:finishedBy :t4 ;
+    time_ext:startedBy :t3 .
+
+:e5 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t3 ;
+    time:hasTime :t1,
+        :t3 ;
+    time:intervalEquals :e5 ;
+    time:intervalFinishedBy :e8,
+        :e9 ;
+    time:intervalIn :e7 ;
+    time:intervalMeets :e4 ;
+    time:intervalOverlaps :e6 ;
+    time:intervalStartedBy :e3 ;
+    time:intervalStarts :e7 ;
+    time_ext:finishedBy :t3 ;
+    time_ext:startedBy :e1,
+        :t1 .
+
+:e3 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:before :e4 ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t2 ;
+    time:hasTime :t1,
+        :t2 ;
+    time:intervalBefore :e4 ;
+    time:intervalDisjoint :e4 ;
+    time:intervalEquals :e3 ;
+    time:intervalIn :e5,
+        :e7 ;
+    time:intervalMeets :e6,
+        :e8,
+        :e9 ;
+    time:intervalStarts :e5,
+        :e7 ;
+    time_ext:finishedBy :e2,
+        :t2 ;
+    time_ext:startedBy :e1,
+        :t1 .
+
+:e6 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:after :e1 ;
+    time:hasBeginning :t2 ;
+    time:hasEnd :t4 ;
+    time:hasTime :t2,
+        :t4 ;
+    time:intervalEquals :e6 ;
+    time:intervalFinishedBy :e4 ;
+    time:intervalFinishes :e7 ;
+    time:intervalIn :e7 ;
+    time:intervalMetBy :e3 ;
+    time:intervalOverlappedBy :e5 ;
+    time:intervalStartedBy :e8,
+        :e9 ;
+    time_ext:finishedBy :t4 ;
+    time_ext:startedBy :e2,
+        :t2 .
+
+:t2 a owl:NamedIndividual,
+        time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :e2,
+        :t2 ;
+    time_ext:finishes :e3 ;
+    time_ext:in :e3,
+        :e6,
+        :e8,
+        :e9 ;
+    time_ext:starts :e6,
+        :e8,
+        :e9 .
+
+:e7 a owl:NamedIndividual,
+        time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :t1 ;
+    time:hasEnd :t4 ;
+    time:hasTime :t1,
+        :t4 ;
+    time:intervalContains :e8,
+        :e9 ;
+    time:intervalEquals :e7 ;
+    time:intervalFinishedBy :e4,
+        :e6 ;
+    time:intervalStartedBy :e3,
+        :e5 ;
+    time_ext:finishedBy :t4 ;
+    time_ext:startedBy :e1,
+        :t1 .
+

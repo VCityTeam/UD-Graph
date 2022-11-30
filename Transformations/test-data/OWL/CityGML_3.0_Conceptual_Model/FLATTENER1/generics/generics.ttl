@@ -1,7 +1,7 @@
 @prefix sc:    <http://shapechange.net/resources/ont/base#> .
 @prefix gen:   <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/generics#> .
-@prefix iso19136-bt: <http://def.isotc211.org/iso19136/2007/BasicTypes#> .
 @prefix core:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix iso19136-bt: <http://def.isotc211.org/iso19136/2007/BasicTypes#> .
 @prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -29,9 +29,19 @@ gen:DoubleAttribute  a   owl:Class ;
                            owl:allValuesFrom  xsd:double ;
                            owl:onProperty     gen:DoubleAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:double ;
+                           owl:onProperty            gen:DoubleAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:DoubleAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:DoubleAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "DoubleAttribute is a data type used to define generic attributes of type \"Double\"."@en .
 
@@ -97,6 +107,11 @@ gen:GenericLogicalSpace
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     gen:GenericLogicalSpace.class
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               gen:GenericLogicalSpace.class
+                         ] ;
         skos:definition  "A GenericLogicalSpace is a space that is not represented by any explicitly modelled AbstractLogicalSpace subclass within CityGML."@en .
 
 gen:UriAttribute.value
@@ -140,9 +155,19 @@ gen:DateAttribute  a     owl:Class ;
                            owl:allValuesFrom  xsd:date ;
                            owl:onProperty     gen:DateAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:date ;
+                           owl:onProperty            gen:DateAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:DateAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:DateAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "DateAttribute is a data type used to define generic attributes of type \"Date\"."@en .
 
@@ -153,9 +178,19 @@ gen:CodeAttribute  a     owl:Class ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     gen:CodeAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               iso19136-bt:Code ;
+                           owl:onProperty            gen:CodeAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:CodeAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:CodeAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "CodeAttribute is a data type used to define generic attributes of type \"Code\"."@en .
 
@@ -184,16 +219,31 @@ gen:GenericAttributeSet
         rdfs:label       "GenericAttributeSet"@en ;
         rdfs:subClassOf  core:AbstractGenericAttribute ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:AbstractGenericAttribute ;
-                           owl:onProperty     gen:GenericAttributeSet.genericAttribute
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:anyURI ;
                            owl:onProperty     gen:GenericAttributeSet.codeSpace
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:GenericAttributeSet.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:AbstractGenericAttribute ;
+                           owl:onProperty               gen:GenericAttributeSet.genericAttribute
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:GenericAttributeSet.name
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:AbstractGenericAttribute ;
+                           owl:onProperty     gen:GenericAttributeSet.genericAttribute
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  xsd:anyURI ;
+                           owl:onProperty               gen:GenericAttributeSet.codeSpace
                          ] ;
         skos:definition  "A GenericAttributeSet is a named collection of generic attributes."@en .
 
@@ -237,9 +287,19 @@ gen:IntAttribute  a      owl:Class ;
                            owl:allValuesFrom  xsd:integer ;
                            owl:onProperty     gen:IntAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:integer ;
+                           owl:onProperty            gen:IntAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:IntAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:IntAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "IntAttribute is a data type used to define generic attributes of type \"Integer\"."@en .
 
@@ -250,9 +310,19 @@ gen:MeasureAttribute  a  owl:Class ;
                            owl:allValuesFrom  sc:Measure ;
                            owl:onProperty     gen:MeasureAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               sc:Measure ;
+                           owl:onProperty            gen:MeasureAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:MeasureAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:MeasureAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "MeasureAttribute is a data type used to define generic attributes of type \"Measure\"."@en .
 
@@ -326,9 +396,19 @@ gen:StringAttribute  a   owl:Class ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:StringAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:StringAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:StringAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:StringAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "StringAttribute is a data type used to define generic attributes of type \"String\"."@en .
 
@@ -358,6 +438,11 @@ gen:GenericThematicSurface
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     gen:GenericThematicSurface.class
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               gen:GenericThematicSurface.class
                          ] ;
         skos:definition  "A GenericThematicSurface is a surface that is not represented by any explicitly modelled AbstractThematicSurface subclass within CityGML."@en .
 
@@ -409,6 +494,11 @@ gen:GenericUnoccupiedSpace
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     gen:GenericUnoccupiedSpace.class
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               gen:GenericUnoccupiedSpace.class
+                         ] ;
         skos:definition  "A GenericUnoccupiedSpace is a space that is not represented by any explicitly modelled AbstractUnoccupiedSpace subclass within CityGML."@en .
 
 gen:GenericUnoccupiedSpace.adeOfGenericUnoccupiedSpace
@@ -438,6 +528,11 @@ gen:GenericOccupiedSpace
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     gen:GenericOccupiedSpace.class
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               gen:GenericOccupiedSpace.class
+                         ] ;
         skos:definition  "A GenericOccupiedSpace is a space that is not represented by any explicitly modelled AbstractOccupiedSpace subclass within CityGML."@en .
 
 gen:GenericLogicalSpace.function
@@ -454,9 +549,19 @@ gen:UriAttribute  a      owl:Class ;
                            owl:allValuesFrom  xsd:anyURI ;
                            owl:onProperty     gen:UriAttribute.value
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:anyURI ;
+                           owl:onProperty            gen:UriAttribute.value ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     gen:UriAttribute.name
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            gen:UriAttribute.name ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "UriAttribute is a data type used to define generic attributes of type \"URI\"."@en .
 

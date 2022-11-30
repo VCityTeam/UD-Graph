@@ -1,0 +1,500 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:w1 a owl:NamedIndividual,
+        wksp:Workspace ;
+    wksp:Workspace.spaceMember :cs1,
+        :ps1 .
+
+:cs1 a owl:NamedIndividual,
+        wksp:ConcensusSpace ;
+    wksp:Space.scenarioMember :s1 .
+
+:ps1 a owl:NamedIndividual,
+        wksp:PropositionSpace .
+
+:s1 a owl:NamedIndividual,
+        wksp:Scenario ;
+    wksp:Scenario.versionMember :version_v1,
+        :version_v2 ;
+    wksp:Scenario.versionTransitionMember :versionTransition_v1_v2 .
+
+:transaction_v1_v2_0 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.oldFeature :f1_v1 ;
+    vers:Transaction.type <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#delete> .
+
+:transaction_v1_v2_1 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature :f2_v2 ;
+    vers:Transaction.oldFeature :f2_v1 ;
+    vers:Transaction.type <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#replace> .
+
+:transaction_v1_v2_2 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature :f3_v2 ;
+    vers:Transaction.type <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#insert> .
+
+:versionTransition_v1_v2 a owl:NamedIndividual,
+        vers:VersionTransition ;
+    time:hasTime :temporalEntity_v1_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    vers:VersionTransition.from :version_v1 ;
+    vers:VersionTransition.to :version_v2 ;
+    vers:VersionTransition.transaction :transaction_v1_v2_0,
+        :transaction_v1_v2_1,
+        :transaction_v1_v2_2 ;
+    time_ext:hasExistenceTime :temporalEntity_v1_v2 .
+
+:f1_v1 a owl:NamedIndividual,
+        bldg:Building,
+        core:AbstractFeatureWithLifespan ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building C"^^xsd:string,
+        "f1"^^xsd:string ;
+    skos:prefLabel "f1" ;
+    time:hasTime :temporalEntity_f1_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:hasExistenceTime :temporalEntity_f1_v1 .
+
+:f2_v1 a owl:NamedIndividual,
+        bldg:Building,
+        core:AbstractFeatureWithLifespan ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v1" ;
+    time:hasTime :temporalEntity_f2_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:hasExistenceTime :temporalEntity_f2_v1 .
+
+:f2_v2 a owl:NamedIndividual,
+        bldg:Building,
+        core:AbstractFeatureWithLifespan ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v2" ;
+    time:hasTime :temporalEntity_f2_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:hasExistenceTime :temporalEntity_f2_v2 .
+
+:f3_v2 a owl:NamedIndividual,
+        bldg:Building,
+        core:AbstractFeatureWithLifespan ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building A"^^xsd:string,
+        "f3"^^xsd:string ;
+    skos:prefLabel "f3" ;
+    time:hasTime :temporalEntity_f3_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:hasExistenceTime :temporalEntity_f3_v2 .
+
+:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    time:hasTime :temporalEntity_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime ;
+    vers:Version.versionMember :f1_v1,
+        :f2_v1 ;
+    time_ext:hasExistenceTime :temporalEntity_v1 .
+
+:version_v2 a owl:NamedIndividual,
+        vers:Version ;
+    time:hasTime :temporalEntity_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    vers:Version.versionMember :f2_v2,
+        :f3_v2 ;
+    time_ext:hasExistenceTime :temporalEntity_v2 .
+
+:begin_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:begin_f2_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:begin_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:begin_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:end_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:end_f2_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:end_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:end_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:temporalEntity_f1_v1 a time:Instant,
+        time:TemporalEntity ;
+    time:before :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time:hasBeginning :begin_f1_v1 ;
+    time:hasEnd :end_f1_v1 ;
+    time:hasTime :begin_f1_v1,
+        :end_f1_v1 ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:temporalEntity_f2_v1 a time:Instant,
+        time:TemporalEntity ;
+    time:before :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time:hasBeginning :begin_f2_v1 ;
+    time:hasEnd :end_f2_v1 ;
+    time:hasTime :begin_f2_v1,
+        :end_f2_v1 ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:temporalEntity_f2_v2 a time:Instant,
+        time:TemporalEntity ;
+    time:after :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time:hasBeginning :begin_f2_v2 ;
+    time:hasEnd :end_f2_v2 ;
+    time:hasTime :begin_f2_v2,
+        :end_f2_v2 ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:temporalEntity_f3_v2 a time:Instant,
+        time:TemporalEntity ;
+    time:after :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time:hasBeginning :begin_f3_v2 ;
+    time:hasEnd :end_f3_v2 ;
+    time:hasTime :begin_f3_v2,
+        :end_f3_v2 ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:temporalEntity_v1 a time:Instant,
+        time:TemporalEntity ;
+    time:before :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 ;
+    time:hasTime :begin_v1,
+        :end_v1 ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time_ext:in :temporalEntity_v1_v2 ;
+    time_ext:starts :temporalEntity_v1_v2 .
+
+:temporalEntity_v2 a time:Instant,
+        time:TemporalEntity ;
+    time:after :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 ;
+    time:hasBeginning :begin_v2 ;
+    time:hasEnd :end_v2 ;
+    time:hasTime :begin_v2,
+        :end_v2 ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:equals :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:finishes :temporalEntity_v1_v2 ;
+    time_ext:in :temporalEntity_v1_v2 .
+
+:temporalEntity_v1_v2 a time:ProperInterval,
+        time:TemporalEntity ;
+    time:hasBeginning :begin_v1_v2 ;
+    time:hasEnd :end_v1_v2 ;
+    time:hasTime :begin_v1_v2,
+        :end_v1_v2 ;
+    time:intervalEquals :temporalEntity_v1_v2 ;
+    time_ext:finishedBy :begin_f2_v2,
+        :begin_f3_v2,
+        :begin_v2,
+        :end_f2_v2,
+        :end_f3_v2,
+        :end_v1_v2,
+        :end_v2,
+        :temporalEntity_f2_v2,
+        :temporalEntity_f3_v2,
+        :temporalEntity_v2 ;
+    time_ext:startedBy :begin_f1_v1,
+        :begin_f2_v1,
+        :begin_v1,
+        :begin_v1_v2,
+        :end_f1_v1,
+        :end_f2_v1,
+        :end_v1,
+        :temporalEntity_f1_v1,
+        :temporalEntity_f2_v1,
+        :temporalEntity_v1 .
+

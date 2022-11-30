@@ -1,4 +1,12 @@
-## CityGML to RDF Transformation
+# XML to RDF transformer
+Model driven transformation tools for creating RDF/OWL knowledge graphs from XML files. There are currently 3 tools:
+- A [python based tool](#XML-to-RDF-Transformation) for creating RDF/OWL graphs from XML data and a network of OWL 2 DL ontologies
+- An [XSLT based tool](#XSLT-based-transformations) for creating RDF/OWL graphs and ontologies from XML data, and an XSD schema, following the work of [[Metral et al. 2010]](https://orbi.uliege.be/handle/2268/26716)
+
+Both of these tools support GML instances.
+
+
+## XML to RDF Transformation
 This approach requires an ontology to determine how to convert CityGML documents into RDF triples. Valid GML geometry is converted into GeoSPARQL's `gmlLiteral` values.
 
 ### Input Data
@@ -40,5 +48,24 @@ optional arguments:
   -v, --verbose         Enable verbose console logging
 ```
 
+For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../../UD-Graph/Ontologies/CityGML/2.0/):
+```bash
+python ./XML2RDF.py \
+  -v \
+  --format ttl \
+  ../test-data/GML/LYON_1ER_BATI_2015-1_bldg-patched.gml \
+  ../../../UD-Graph/Ontologies/CityGML/2.0/,https://www.w3.org/2009/08/skos-reference/skos.rdf,http://www.opengis.net/ont/geosparql#,http://www.opengis.net/ont/gml# \
+  ./citygml_2_mappings.json
+```
+Or for CityGML 3.0:
+```bash
+python XML2RDF.py \
+  -v \
+  --format ttl \
+  ../test-data/GML/historicalSuccession_CityGML_3.0_LOD2_Versioning_patched.gml \
+  ../../../UD-Graph/Ontologies/CityGML/2.0/,https://www.w3.org/2009/08/skos-reference/skos.rdf,http://www.opengis.net/ont/geosparql#,http://www.opengis.net/ont/gml# \
+  citygml_3_mappings.json
+```
 ## XSLT-based-transformations
 This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd)
+

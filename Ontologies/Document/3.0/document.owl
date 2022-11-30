@@ -1,0 +1,451 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/document"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/document">
+    <Prefix name="doc" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/document#"/>
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="core" IRI="https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="time" IRI="http://www.w3.org/2006/time#"/>
+    <!-- <Import>http://def.isotc211.org/iso19150/-2/2012/base</Import>
+    <Import>http://www.w3.org/2006/time</Import>
+    <Import>https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core</Import> -->
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal xml:lang="en">Document</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#Document"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DocumentableVersion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DocumentableVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Reference"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Tag"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Document.tag"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Reference.coveragePeriod"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Reference.purposeType"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Document.title"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Document.uri"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Reference.purpose"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Reference.referenceText"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Reference.referringDate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Tag.count"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Tag.text"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#historyNote"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitSecond"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitWeek"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="owl:Class"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/contributor"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitHour"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#definition"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="xsd:pattern"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gMonth"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/creator"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gYearMonth"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitYear"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/modified"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.opengis.net/def/uom/ISO-8601/0/Gregorian"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/isVersionOf"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Tuesday"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:duration"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#note"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Sunday"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitMonth"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#editorialNote"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:date"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitDay"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/license"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Friday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/rights"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#prefLabel"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gYear"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </Declaration>
+    <Declaration>
+        <Datatype abbreviatedIRI="xsd:gDay"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Monday"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Thursday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#scopeNote"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:unitMinute"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Saturday"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="time:Wednesday"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://www.w3.org/2004/02/skos/core#changeNote"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Document"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Document"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Document.tag"/>
+            <Class IRI="#Tag"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Document"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Document.title"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Document"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Document.uri"/>
+            <Datatype abbreviatedIRI="xsd:anyURI"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Reference.coveragePeriod"/>
+            <Class abbreviatedIRI="time:Interval"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Reference.purposeType"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#Reference.purposeType"/>
+            <Class abbreviatedIRI="owl:Class"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <ObjectExactCardinality cardinality="1">
+            <ObjectProperty IRI="#Reference.coveragePeriod"/>
+            <Class abbreviatedIRI="time:Interval"/>
+        </ObjectExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Reference.purpose"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Reference.referenceText"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Reference.referringDate"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#Reference.referenceText"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Reference"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#Reference.referringDate"/>
+            <Datatype abbreviatedIRI="xsd:dateTime"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tag"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Tag.count"/>
+            <Datatype abbreviatedIRI="xsd:integer"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tag"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Tag.text"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Tag"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#Tag.text"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Document.tag"/>
+        <Class IRI="#Document"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Reference.coveragePeriod"/>
+        <Class IRI="#Reference"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Reference.purposeType"/>
+        <Class IRI="#Reference"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Document.tag"/>
+        <Class IRI="#Tag"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Reference.coveragePeriod"/>
+        <Class abbreviatedIRI="time:Interval"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Reference.purposeType"/>
+        <Class abbreviatedIRI="owl:Class"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Document.title"/>
+        <Class IRI="#Document"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Document.uri"/>
+        <Class IRI="#Document"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Reference.purpose"/>
+        <Class IRI="#Reference"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Reference.referenceText"/>
+        <Class IRI="#Reference"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Reference.referringDate"/>
+        <Class IRI="#Reference"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Tag.count"/>
+        <Class IRI="#Tag"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Tag.text"/>
+        <Class IRI="#Tag"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#Document.title"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Document.uri"/>
+        <Datatype abbreviatedIRI="xsd:anyURI"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Reference.purpose"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Reference.referenceText"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Reference.referringDate"/>
+        <Datatype abbreviatedIRI="xsd:dateTime"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Tag.count"/>
+        <Datatype abbreviatedIRI="xsd:integer"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Tag.text"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Document</IRI>
+        <Literal xml:lang="en">Document</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Document.tag</IRI>
+        <Literal xml:lang="en">tag</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Document.title</IRI>
+        <Literal xml:lang="en">title</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Document.uri</IRI>
+        <Literal xml:lang="en">uri</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DocumentableVersion</IRI>
+        <Literal xml:lang="en">DocumentableVersion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#DocumentableVersionTransition</IRI>
+        <Literal xml:lang="en">DocumentableVersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Reference</IRI>
+        <Literal xml:lang="en">Reference</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Reference.coveragePeriod</IRI>
+        <Literal xml:lang="en">coveragePeriod</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Reference.purpose</IRI>
+        <Literal xml:lang="en">purpose</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Reference.purposeType</IRI>
+        <Literal xml:lang="en">purposeType</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Reference.referenceText</IRI>
+        <Literal xml:lang="en">referenceText</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Reference.referringDate</IRI>
+        <Literal xml:lang="en">referringDate</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Tag</IRI>
+        <Literal xml:lang="en">Tag</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Tag.count</IRI>
+        <Literal xml:lang="en">count</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Tag.text</IRI>
+        <Literal xml:lang="en">text</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->

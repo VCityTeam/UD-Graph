@@ -9,8 +9,19 @@ XSD2RDF is an XSLT stylesheet to transform XML Schema files into OWL/RDF format.
 ### postXSLT
 Takes a transformed RDF/OWL ontology and sets the ontology name to 'http://liris.cnrs.fr/ontologies/' + filename. Also any empty subclass declarations and erroneous comment declarations are removed from the tree.
 
+## To install
+Clone this repository and install saxon and cleanup directory
+```bash
+git clone https://github.com/VCityTeam/UD-Graph.git
+cd UD-Graph/Transformations/XSD-to-OWL
+wget https://sourceforge.net/projects/saxon/files/Saxon-HE/9.9/SaxonHE9-9-1-8J.zip/download
+unzip SaxonHE9-9-1-8J.zip
+mkdir ../../lib/
+mv SaxonHE9-9-1-8J/saxon9he.jar ../../lib/saxon9he.jar
+rm -rf SaxonHE9-9-1-8J*
+```
 
-### To Run
+## To Run
 Saxon HE is dependent on Java. Before running the following code, Java 8 or later must be installed.
 
 python scripts are dependent on the _lxml_ and _copy_ libraries.

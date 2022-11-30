@@ -1,0 +1,235 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix wksp: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix type: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontypes#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test> a owl:Ontology .
+
+### Instants ###
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f2_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f2_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+### Temporal Entities ###
+
+:temporalEntity_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 .
+
+:temporalEntity_v1_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1_v2 ;
+    time:hasEnd :end_v1_v2 .
+
+:temporalEntity_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v2 ;
+    time:hasEnd :end_v2 .
+
+:temporalEntity_f1_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_f1_v1 ;
+    time:hasEnd :end_f1_v1 .
+
+:temporalEntity_f2_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_f2_v1 ;
+    time:hasEnd :end_f2_v1 .
+
+:temporalEntity_f2_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_f2_v2 ;
+    time:hasEnd :end_f2_v2 .
+
+:temporalEntity_f3_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_f3_v2 ;
+    time:hasEnd :end_f3_v2 .
+
+### Workspace including versions and versionTransitions ###
+
+:w1 a wksp:Workspace,
+        owl:NamedIndividual ;
+    wksp:Workspace.spaceMember :cs1 ;
+    wksp:Workspace.spaceMember :ps1 .
+
+:cs1 a wksp:ConcensusSpace,
+        owl:NamedIndividual ;
+    wksp:Space.scenarioMember :s1 .
+
+:ps1 a wksp:PropositionSpace,
+        owl:NamedIndividual .
+
+:s1 a wksp:Scenario,
+        owl:NamedIndividual ;
+    wksp:Scenario.versionMember :version_v1,
+        :version_v2 ;
+    wksp:Scenario.versionTransitionMember :versionTransition_v1_v2 .
+
+:versionTransition_v1_v2 a owl:NamedIndividual,
+        vers:VersionTransition ;
+    time_ext:hasExistenceTime :temporalEntity_v1_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    vers:VersionTransition.from :version_v1 ;
+    vers:VersionTransition.to :version_v2 ;
+    vers:VersionTransition.transaction :transaction_v1_v2_0,
+        :transaction_v1_v2_1,
+        :transaction_v1_v2_2 .
+
+:transaction_v1_v2_0 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.oldFeature :f1_v1 ;
+    vers:Transaction.type type:delete .
+
+:transaction_v1_v2_1 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature :f2_v2 ;
+    vers:Transaction.oldFeature :f2_v1 ;
+    vers:Transaction.type type:replace .
+
+:transaction_v1_v2_2 a owl:NamedIndividual,
+        vers:Transaction ;
+    vers:Transaction.newFeature :f3_v2 ;
+    vers:Transaction.type type:insert .
+
+:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    time_ext:hasExistenceTime :temporalEntity_v1 ;
+    vers:Version.versionMember :f1_v1,
+        :f2_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:version_v2 a owl:NamedIndividual,
+        vers:Version ;
+    vers:Version.versionMember :f2_v2,
+        :f3_v2 ;
+    time_ext:hasExistenceTime :temporalEntity_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+
+###  Features (with lifespans) ###
+
+:f1_v1 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building C"^^xsd:string,
+        "f1"^^xsd:string ;
+    skos:prefLabel "f1" ;
+    time_ext:hasExistenceTime :temporalEntity_f1_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:f2_v1 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v1" ;
+    time_ext:hasExistenceTime :temporalEntity_f2_v1 ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:f2_v2 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v2" ;
+    time_ext:hasExistenceTime :temporalEntity_f2_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:f3_v2 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building A"^^xsd:string,
+        "f3"^^xsd:string ;
+    skos:prefLabel "f3" ;
+    time_ext:hasExistenceTime :temporalEntity_f3_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+
+[ a owl:AllDifferent ;
+    owl:distinctMembers ( 
+        :begin_v1
+        :begin_v1_v2
+        :begin_v2
+        :end_v1
+        :end_v1_v2
+        :end_v2
+        :begin_f1_v1
+        :begin_f2_v1
+        :end_f1_v1
+        :end_f2_v1
+        :begin_f2_v2
+        :begin_f3_v2
+        :end_f2_v2
+        :end_f3_v2
+        :temporalEntity_v1
+        :temporalEntity_v1_v2
+        :temporalEntity_v2
+        :temporalEntity_f1_v1
+        :temporalEntity_f2_v1
+        :temporalEntity_f2_v2
+        :temporalEntity_f3_v2
+        :w1
+        :cs1
+        :ps1
+        :s1
+        :versionTransition_v1_v2
+        :transaction_v1_v2_0
+        :transaction_v1_v2_1
+        :transaction_v1_v2_2
+        :version_v1
+        :version_v2
+        :f1_v1
+        :f2_v1
+        :f2_v2
+        :f3_v2
+    )
+] .

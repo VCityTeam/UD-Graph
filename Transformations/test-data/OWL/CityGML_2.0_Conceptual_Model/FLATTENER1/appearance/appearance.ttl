@@ -37,6 +37,11 @@ app:Appearance  a        owl:Class ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     app:Appearance.theme
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  xsd:string ;
+                           owl:onProperty               app:Appearance.theme
+                         ] ;
         skos:definition  "SIG3D: Named container for all AbstractSurfaceData"@en ;
         skos:prefLabel   "Appearance"@en .
 
@@ -55,6 +60,11 @@ app:TexCoordList.textureCoordinates
         rdfs:range       iso19136-bt:doubleList ;
         skos:definition  "SIG3D: List of texture coordinates with two doubles per ring vertex"@en ;
         skos:prefLabel   "textureCoordinates"@en .
+
+app:TextureType  a      rdfs:Datatype ;
+        rdfs:label      "TextureType"@en ;
+        owl:oneOf       ( "specific" "typical" "unknown" ) ;
+        skos:prefLabel  "TextureType"@en .
 
 app:GeoreferencedTexture.orientation
         a                owl:ObjectProperty ;
@@ -99,7 +109,7 @@ app:AbstractTexture.wrapMode
         a                owl:ObjectProperty ;
         rdfs:domain      app:AbstractTexture ;
         rdfs:label       "wrapMode"@en ;
-        rdfs:range       owl:Class ;
+        rdfs:range       app:WrapMode ;
         skos:definition  "Collada: Definition of behavior when accessing the texture outside the underlying image raster"@en ;
         skos:prefLabel   "wrapMode"@en .
 
@@ -126,7 +136,7 @@ app:AbstractTexture.textureType
         a                owl:ObjectProperty ;
         rdfs:domain      app:AbstractTexture ;
         rdfs:label       "textureType"@en ;
-        rdfs:range       owl:Class ;
+        rdfs:range       app:TextureType ;
         skos:definition  "\"SIG3D: Distinction between prototypical (value \"\"typical\"\"), object specific (value \"\"specific\"\") textures, and textures with unknown classification (value \"\"unknown\"\").\""@en ;
         skos:prefLabel   "textureType"@en .
 
@@ -143,6 +153,11 @@ app:ColorPlusOpacity  a  owl:Class ;
                            owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
                            owl:onProperty     app:ColorPlusOpacity.list
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
+                           owl:onProperty            app:ColorPlusOpacity.list ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         skos:prefLabel   "ColorPlusOpacity"@en .
 
 app:TexCoordGen  a        owl:Class ;
@@ -152,9 +167,19 @@ app:TexCoordGen  a        owl:Class ;
                             owl:allValuesFrom  xsd:anyURI ;
                             owl:onProperty     app:TexCoordGen.srsName
                           ] ;
+        rdfs:subClassOf   [ a                            owl:Restriction ;
+                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass                  xsd:anyURI ;
+                            owl:onProperty               app:TexCoordGen.srsName
+                          ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  core:TransformationMatrix3x4 ;
                             owl:onProperty     app:TexCoordGen.worldToTexture
+                          ] ;
+        rdfs:subClassOf   [ a                         owl:Restriction ;
+                            owl:onClass               core:TransformationMatrix3x4 ;
+                            owl:onProperty            app:TexCoordGen.worldToTexture ;
+                            owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                           ] ;
         owl:disjointWith  app:TexCoordList ;
         skos:definition   "SIG3D: Texture parameterization using a transformation matrix."@en ;
@@ -182,6 +207,11 @@ app:Color  a             owl:Class ;
                            owl:allValuesFrom  <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
                            owl:onProperty     app:Color.list
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               <http://def.isotc211.org/orphans/Orphans#Sequence.lt.MeasureOrNilReason.gt.> ;
+                           owl:onProperty            app:Color.list ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         skos:prefLabel   "Color"@en .
 
 app:TexCoordList.ring
@@ -207,12 +237,27 @@ app:TextureAssociation
                            owl:allValuesFrom  app:AbstractTextureParameterization ;
                            owl:onProperty     app:TextureAssociation.target
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               app:AbstractTextureParameterization ;
+                           owl:onProperty            app:TextureAssociation.target ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:anyURI ;
                            owl:onProperty     app:TextureAssociation.uri
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:anyURI ;
+                           owl:onProperty            app:TextureAssociation.uri ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         skos:definition  "SIG3D: Connects a surface geometry with a parameterized texture."@en ;
         skos:prefLabel   "TextureAssociation"@en .
+
+app:WrapMode  a         rdfs:Datatype ;
+        rdfs:label      "WrapMode"@en ;
+        owl:oneOf       ( "none" "wrap" "mirror" "clamp" "border" ) ;
+        skos:prefLabel  "WrapMode"@en .
 
 app:AbstractSurfaceData.isFront
         a                owl:DatatypeProperty ;
@@ -231,16 +276,31 @@ app:GeoreferencedTexture
                             owl:onProperty     app:GeoreferencedTexture.target
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
+                            owl:allValuesFrom  gmlowl:Point ;
+                            owl:onProperty     app:GeoreferencedTexture.referencePoint
+                          ] ;
+        rdfs:subClassOf   [ a                            owl:Restriction ;
+                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass                  gmlowl:Point ;
+                            owl:onProperty               app:GeoreferencedTexture.referencePoint
+                          ] ;
+        rdfs:subClassOf   [ a                            owl:Restriction ;
+                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass                  core:TransformationMatrix2x2 ;
+                            owl:onProperty               app:GeoreferencedTexture.orientation
+                          ] ;
+        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  xsd:boolean ;
                             owl:onProperty     app:GeoreferencedTexture.preferWorldFile
                           ] ;
         rdfs:subClassOf   [ a                  owl:Restriction ;
-                            owl:allValuesFrom  gmlowl:Point ;
-                            owl:onProperty     app:GeoreferencedTexture.referencePoint
-                          ] ;
-        rdfs:subClassOf   [ a                  owl:Restriction ;
                             owl:allValuesFrom  core:TransformationMatrix2x2 ;
                             owl:onProperty     app:GeoreferencedTexture.orientation
+                          ] ;
+        rdfs:subClassOf   [ a                            owl:Restriction ;
+                            owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                            owl:onClass                  xsd:boolean ;
+                            owl:onProperty               app:GeoreferencedTexture.preferWorldFile
                           ] ;
         owl:disjointWith  app:ParameterizedTexture ;
         skos:definition   "SIG3D: Specialized class for georeferenced textures containing an implicit parametrization that is either stored within the image file, an acompanying world file"@en ;
@@ -253,9 +313,19 @@ app:TexCoordList  a      owl:Class ;
                            owl:allValuesFrom  xsd:anyURI ;
                            owl:onProperty     app:TexCoordList.ring
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  xsd:anyURI ;
+                           owl:onProperty               app:TexCoordList.ring
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:doubleList ;
                            owl:onProperty     app:TexCoordList.textureCoordinates
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:minQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:doubleList ;
+                           owl:onProperty               app:TexCoordList.textureCoordinates
                          ] ;
         skos:definition  "SIG3D: Texture parameterization using explicit texture coordinates (a list of pairs of 2 double values). Each ring that is part of the surface requires a TexCoordList"@en ;
         skos:prefLabel   "TexCoordList"@en .
@@ -352,28 +422,25 @@ app:X3DMaterial  a       owl:Class ;
         rdfs:label       "X3DMaterial"@en ;
         rdfs:subClassOf  app:AbstractSurfaceData ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     app:X3DMaterial.target
+                           owl:allValuesFrom  xsd:boolean ;
+                           owl:onProperty     app:X3DMaterial.isSmooth
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;
                            owl:onProperty     app:X3DMaterial.transparency
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:boolean ;
-                           owl:onProperty     app:X3DMaterial.isSmooth
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  app:Color ;
-                           owl:onProperty     app:X3DMaterial.diffuseColor
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  app:Color ;
-                           owl:onProperty     app:X3DMaterial.emissiveColor
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  app:Color ;
+                           owl:onProperty               app:X3DMaterial.specularColor
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;
                            owl:onProperty     app:X3DMaterial.shininess
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  xsd:anyURI ;
+                           owl:onProperty     app:X3DMaterial.target
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:DoubleBetween0and1 ;
@@ -382,6 +449,44 @@ app:X3DMaterial  a       owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  app:Color ;
                            owl:onProperty     app:X3DMaterial.specularColor
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  app:Color ;
+                           owl:onProperty               app:X3DMaterial.diffuseColor
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  app:Color ;
+                           owl:onProperty               app:X3DMaterial.emissiveColor
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  xsd:boolean ;
+                           owl:onProperty               app:X3DMaterial.isSmooth
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:DoubleBetween0and1 ;
+                           owl:onProperty               app:X3DMaterial.shininess
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  app:Color ;
+                           owl:onProperty     app:X3DMaterial.emissiveColor
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:DoubleBetween0and1 ;
+                           owl:onProperty               app:X3DMaterial.transparency
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:DoubleBetween0and1 ;
+                           owl:onProperty               app:X3DMaterial.ambientIntensity
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  app:Color ;
+                           owl:onProperty     app:X3DMaterial.diffuseColor
                          ] ;
         skos:definition  "SIG3D: Definition of material properties based on X3D standard."@en ;
         skos:prefLabel   "X3DMaterial"@en .
@@ -392,6 +497,11 @@ app:AbstractSurfaceData
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:boolean ;
                                  owl:onProperty     app:AbstractSurfaceData.isFront
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  xsd:boolean ;
+                                 owl:onProperty               app:AbstractSurfaceData.isFront
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of X3DMaterial and AbstractTexture"@en ;
@@ -409,24 +519,49 @@ app:AbstractTexture  a         owl:Class ;
         rdfs:label             "AbstractTexture"@en ;
         rdfs:subClassOf        app:AbstractSurfaceData ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     app:AbstractTexture.textureType
+                                 owl:allValuesFrom  app:ColorPlusOpacity ;
+                                 owl:onProperty     app:AbstractTexture.borderColor
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  app:TextureType ;
+                                 owl:onProperty               app:AbstractTexture.textureType
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  iso19136-bt:Code ;
+                                 owl:onProperty               app:AbstractTexture.mimeType
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  app:ColorPlusOpacity ;
+                                 owl:onProperty               app:AbstractTexture.borderColor
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  app:WrapMode ;
+                                 owl:onProperty               app:AbstractTexture.wrapMode
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  app:WrapMode ;
+                                 owl:onProperty     app:AbstractTexture.wrapMode
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136-bt:Code ;
                                  owl:onProperty     app:AbstractTexture.mimeType
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  app:ColorPlusOpacity ;
-                                 owl:onProperty     app:AbstractTexture.borderColor
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  owl:Class ;
-                                 owl:onProperty     app:AbstractTexture.wrapMode
+                                 owl:allValuesFrom  app:TextureType ;
+                                 owl:onProperty     app:AbstractTexture.textureType
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  xsd:anyURI ;
                                  owl:onProperty     app:AbstractTexture.imageURI
+                               ] ;
+        rdfs:subClassOf        [ a                         owl:Restriction ;
+                                 owl:onClass               xsd:anyURI ;
+                                 owl:onProperty            app:AbstractTexture.imageURI ;
+                                 owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                                ] ;
         iso19150-2:isAbstract  true ;
         owl:disjointWith       app:X3DMaterial ;

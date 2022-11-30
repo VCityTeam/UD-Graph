@@ -1,0 +1,51 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:versionTransition_v1_v2 a owl:NamedIndividual,
+        vers:VersionTransition ;
+    vers:VersionTransition.from :version_v1 ;
+    vers:VersionTransition.to :version_v2 ;
+    time_ext:hasExistenceTime :temporalEntity_v1_v2 .
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:temporalEntity_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 .
+
+:temporalEntity_v1_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1_v2 ;
+    time:hasEnd :end_v1_v2 .
+
+:temporalEntity_v2 a time:TemporalEntity ;
+    time:hasBeginning :begin_v2 ;
+    time:hasEnd :end_v2 .
+
+:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    time_ext:hasExistenceTime :temporalEntity_v1 .
+
+:version_v2 a owl:NamedIndividual,
+        vers:Version ;
+    time_ext:hasExistenceTime :temporalEntity_v2 .
+

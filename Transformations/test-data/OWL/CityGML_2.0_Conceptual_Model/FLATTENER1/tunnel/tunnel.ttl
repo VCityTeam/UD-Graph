@@ -80,16 +80,17 @@ tun:AbstractTunnel.lod2Solid
         skos:definition  "SIG3D: Relation to a LOD2 solid geometry of Tunnel or TunnelPart. The LOD concept for tunnels or tunnel parts is defined in chapter ..."@en ;
         skos:prefLabel   "lod2Solid"@en .
 
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( tun:CeilingSurface tun:ClosureSurface tun:FloorSurface tun:GroundSurface tun:InteriorWallSurface tun:OuterCeilingSurface tun:OuterFloorSurface tun:RoofSurface tun:WallSurface )
-] .
-
 tun:AbstractOpening  a         owl:Class ;
         rdfs:label             "AbstractOpening"@en ;
         rdfs:subClassOf        core:AbstractCityObject ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractOpening.lod3MultiSurface
+                                 owl:onProperty     tun:AbstractOpening.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractOpening.lod4MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  core:ImplicitGeometry ;
@@ -101,7 +102,22 @@ tun:AbstractOpening  a         owl:Class ;
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractOpening.lod4MultiSurface
+                                 owl:onProperty     tun:AbstractOpening.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  core:ImplicitGeometry ;
+                                 owl:onProperty               tun:AbstractOpening.lod3ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  core:ImplicitGeometry ;
+                                 owl:onProperty               tun:AbstractOpening.lod4ImplicitRepresentation
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractOpening.lod3MultiSurface
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of Window and Door"@en ;
@@ -120,24 +136,26 @@ tun:TunnelInstallation
         rdfs:label       "TunnelInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
-                           owl:onProperty     tun:TunnelInstallation.lod3Geometry
+                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                           owl:onProperty     tun:TunnelInstallation.boundedBy
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     tun:TunnelInstallation.lod2ImplicitRepresentation
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               tun:TunnelInstallation.lod2Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:TunnelInstallation.lod4Geometry
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:TunnelInstallation.usage
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:ImplicitGeometry ;
+                           owl:onProperty               tun:TunnelInstallation.lod3ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     tun:TunnelInstallation.lod3ImplicitRepresentation
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelInstallation.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
@@ -147,17 +165,50 @@ tun:TunnelInstallation
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:TunnelInstallation.class
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:TunnelInstallation.function
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:ImplicitGeometry ;
+                           owl:onProperty               tun:TunnelInstallation.lod2ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
-                           owl:onProperty     tun:TunnelInstallation.boundedBy
+                           owl:allValuesFrom  gmlowl:AbstractGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod2ImplicitRepresentation
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:TunnelInstallation.lod2Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               tun:TunnelInstallation.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelInstallation.lod3ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:ImplicitGeometry ;
+                           owl:onProperty               tun:TunnelInstallation.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               tun:TunnelInstallation.lod3Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               tun:TunnelInstallation.class
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the tunnel outer shell which are accessory for the tunnel structure. Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "TunnelInstallation"@en .
@@ -290,36 +341,51 @@ tun:HollowSpace  a       owl:Class ;
         rdfs:label       "HollowSpace"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:HollowSpace.usage
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               tun:HollowSpace.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:TunnelFurniture ;
+                           owl:onProperty     tun:HollowSpace.interiorFurniture
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  tun:IntTunnelInstallation ;
                            owl:onProperty     tun:HollowSpace.hollowSpaceInstallation
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:HollowSpace.function
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:MultiSurface ;
+                           owl:onProperty               tun:HollowSpace.lod4MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:Solid ;
+                           owl:onProperty               tun:HollowSpace.lod4Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  tun:AbstractBoundarySurface ;
                            owl:onProperty     tun:HollowSpace.boundedBy
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:HollowSpace.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:HollowSpace.class
+                           owl:allValuesFrom  gmlowl:Solid ;
+                           owl:onProperty     tun:HollowSpace.lod4Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:MultiSurface ;
                            owl:onProperty     tun:HollowSpace.lod4MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:Solid ;
-                           owl:onProperty     tun:HollowSpace.lod4Solid
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:HollowSpace.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  tun:TunnelFurniture ;
-                           owl:onProperty     tun:HollowSpace.interiorFurniture
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:HollowSpace.class
                          ] ;
         skos:definition  "SIG3D: A HollowSpace represents a volume bounded actually or theoretically. HollowSpaces are volumes that provide for certain functions within a tunnel."@en ;
         skos:prefLabel   "HollowSpace"@en .
@@ -434,6 +500,28 @@ tun:IntTunnelInstallation
         rdfs:label       "IntTunnelInstallation"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                           owl:onProperty     tun:IntTunnelInstallation.boundedBy
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               tun:IntTunnelInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:IntTunnelInstallation.class
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:ImplicitGeometry ;
+                           owl:onProperty               tun:IntTunnelInstallation.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:IntTunnelInstallation.lod4Geometry
                          ] ;
@@ -441,21 +529,14 @@ tun:IntTunnelInstallation
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:IntTunnelInstallation.function
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:IntTunnelInstallation.usage
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  tun:AbstractBoundarySurface ;
-                           owl:onProperty     tun:IntTunnelInstallation.boundedBy
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               tun:IntTunnelInstallation.lod4Geometry
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:ImplicitGeometry ;
                            owl:onProperty     tun:IntTunnelInstallation.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:IntTunnelInstallation.class
                          ] ;
         skos:definition  "SIG3D: Permanently installed parts of the tunnel interior which are accessory for the tunnel and for hollow spaces. Doors and windows are modeled by the corresponding CityGML classes."@en ;
         skos:prefLabel   "IntTunnelInstallation"@en .
@@ -492,6 +573,10 @@ tun:AbstractBoundarySurface.opening
         skos:definition  "SIG3D: Relation between BoundarySurface and AbstractOpening. The AbstractOpening object belongs to the BoundarySurface object. The geometry of both objects must not overlap."@en ;
         skos:prefLabel   "opening"@en .
 
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( tun:CeilingSurface tun:ClosureSurface tun:FloorSurface tun:GroundSurface tun:InteriorWallSurface tun:OuterCeilingSurface tun:OuterFloorSurface tun:RoofSurface tun:WallSurface )
+] .
+
 tun:FloorSurface  a      owl:Class ;
         rdfs:label       "FloorSurface"@en ;
         rdfs:subClassOf  tun:AbstractBoundarySurface ;
@@ -501,105 +586,195 @@ tun:FloorSurface  a      owl:Class ;
 tun:AbstractTunnel  a          owl:Class ;
         rdfs:label             "AbstractTunnel"@en ;
         rdfs:subClassOf        core:AbstractSite ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractTunnel.lod2MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractTunnel.lod4MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136-bt:Code ;
-                                 owl:onProperty     tun:AbstractTunnel.class
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod3TerrainIntersection
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractTunnel.lod1MultiSurface
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod3MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod4MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  iso19136-bt:Code ;
-                                 owl:onProperty     tun:AbstractTunnel.usage
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiCurve ;
+                                 owl:onProperty               tun:AbstractTunnel.lod3TerrainIntersection
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
                                  owl:onProperty     tun:AbstractTunnel.lod2TerrainIntersection
                                ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     tun:AbstractTunnel.lod4Solid
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  xsd:date ;
+                                 owl:onProperty               tun:AbstractTunnel.yearOfDemolition
                                ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     tun:AbstractTunnel.yearOfDemolition
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  xsd:date ;
-                                 owl:onProperty     tun:AbstractTunnel.yearOfConstruction
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:IntTunnelInstallation ;
-                                 owl:onProperty     tun:AbstractTunnel.interiorTunnelInstallation
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  iso19136-bt:Code ;
+                                 owl:onProperty               tun:AbstractTunnel.class
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  iso19136-bt:Code ;
                                  owl:onProperty     tun:AbstractTunnel.function
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:TunnelInstallation ;
-                                 owl:onProperty     tun:AbstractTunnel.outerTunnelInstallation
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod1TerrainIntersection
+                                 owl:onProperty     tun:AbstractTunnel.lod4MultiCurve
                                ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:HollowSpace ;
-                                 owl:onProperty     tun:AbstractTunnel.interiorHollowSpace
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     tun:AbstractTunnel.lod2Solid
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:AbstractBoundarySurface ;
-                                 owl:onProperty     tun:AbstractTunnel.boundedBy
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:TunnelPart ;
-                                 owl:onProperty     tun:AbstractTunnel.consistsOfTunnelPart
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:MultiCurve ;
-                                 owl:onProperty     tun:AbstractTunnel.lod2MultiCurve
-                               ] ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  gmlowl:Solid ;
-                                 owl:onProperty     tun:AbstractTunnel.lod3Solid
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Solid ;
+                                 owl:onProperty               tun:AbstractTunnel.lod1Solid
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:Solid ;
                                  owl:onProperty     tun:AbstractTunnel.lod1Solid
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiCurve ;
+                                 owl:onProperty               tun:AbstractTunnel.lod4MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
                                  owl:onProperty     tun:AbstractTunnel.lod3MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractTunnel.lod1MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:IntTunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.interiorTunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractTunnel.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                         owl:Restriction ;
+                                 owl:onClass               gmlowl:MultiCurve ;
+                                 owl:onProperty            tun:AbstractTunnel.lod3MultiCurve ;
+                                 owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractTunnel.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Solid ;
+                                 owl:onProperty               tun:AbstractTunnel.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     tun:AbstractTunnel.yearOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod1TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod3MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  xsd:date ;
+                                 owl:onProperty     tun:AbstractTunnel.yearOfDemolition
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:AbstractBoundarySurface ;
+                                 owl:onProperty     tun:AbstractTunnel.boundedBy
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136-bt:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.usage
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelInstallation ;
+                                 owl:onProperty     tun:AbstractTunnel.outerTunnelInstallation
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiCurve ;
                                  owl:onProperty     tun:AbstractTunnel.lod4TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiCurve ;
+                                 owl:onProperty               tun:AbstractTunnel.lod1TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  iso19136-bt:Code ;
+                                 owl:onProperty     tun:AbstractTunnel.class
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractTunnel.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractTunnel.lod1MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Solid ;
+                                 owl:onProperty               tun:AbstractTunnel.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiCurve ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractTunnel.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiCurve ;
+                                 owl:onProperty               tun:AbstractTunnel.lod4TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:MultiSurface ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  xsd:date ;
+                                 owl:onProperty               tun:AbstractTunnel.yearOfConstruction
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:TunnelPart ;
+                                 owl:onProperty     tun:AbstractTunnel.consistsOfTunnelPart
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiCurve ;
+                                 owl:onProperty               tun:AbstractTunnel.lod2TerrainIntersection
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Solid ;
+                                 owl:onProperty               tun:AbstractTunnel.lod4Solid
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiCurve ;
+                                 owl:onProperty               tun:AbstractTunnel.lod2MultiCurve
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  gmlowl:Solid ;
+                                 owl:onProperty     tun:AbstractTunnel.lod2Solid
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:HollowSpace ;
+                                 owl:onProperty     tun:AbstractTunnel.interiorHollowSpace
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of Tunnel and TunnelPart"@en ;
@@ -704,13 +879,24 @@ tun:AbstractBoundarySurface
         a                      owl:Class ;
         rdfs:label             "AbstractBoundarySurface"@en ;
         rdfs:subClassOf        core:AbstractCityObject ;
-        rdfs:subClassOf        [ a                  owl:Restriction ;
-                                 owl:allValuesFrom  tun:AbstractOpening ;
-                                 owl:onProperty     tun:AbstractBoundarySurface.opening
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractBoundarySurface.lod4MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractBoundarySurface.lod3MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:MultiSurface ;
+                                 owl:onProperty               tun:AbstractBoundarySurface.lod2MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractBoundarySurface.lod2MultiSurface
+                                 owl:onProperty     tun:AbstractBoundarySurface.lod3MultiSurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
@@ -718,7 +904,11 @@ tun:AbstractBoundarySurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:MultiSurface ;
-                                 owl:onProperty     tun:AbstractBoundarySurface.lod3MultiSurface
+                                 owl:onProperty     tun:AbstractBoundarySurface.lod2MultiSurface
+                               ] ;
+        rdfs:subClassOf        [ a                  owl:Restriction ;
+                                 owl:allValuesFrom  tun:AbstractOpening ;
+                                 owl:onProperty     tun:AbstractBoundarySurface.opening
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of boundary surfaces of Tunnel, TunnelPart and HollowSpace"@en ;
@@ -792,24 +982,39 @@ tun:TunnelFurniture  a   owl:Class ;
         rdfs:label       "TunnelFurniture"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  core:ImplicitGeometry ;
+                           owl:onProperty     tun:TunnelFurniture.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               tun:TunnelFurniture.lod4Geometry
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:TunnelFurniture.usage
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     tun:TunnelFurniture.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     tun:TunnelFurniture.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  core:ImplicitGeometry ;
-                           owl:onProperty     tun:TunnelFurniture.lod4ImplicitRepresentation
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     tun:TunnelFurniture.lod4Geometry
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     tun:TunnelFurniture.class
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:ImplicitGeometry ;
+                           owl:onProperty               tun:TunnelFurniture.lod4ImplicitRepresentation
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               tun:TunnelFurniture.class
                          ] ;
         skos:definition  "SIG3D: Equipment for occupant use, usually not fixed to the building (cf. ISO 6707-1) ."@en ;
         skos:prefLabel   "TunnelFurniture"@en .
@@ -822,17 +1027,17 @@ tun:IntTunnelInstallation.usage
         skos:definition  "SIG3D: Actual usage of IntTunnelInstallation as given by the relevant national regulations, information communities, or specific applications."@en ;
         skos:prefLabel   "usage"@en .
 
-tun:CeilingSurface  a    owl:Class ;
-        rdfs:label       "CeilingSurface"@en ;
-        rdfs:subClassOf  tun:AbstractBoundarySurface ;
-        skos:definition  "SIG3D: Overhead boundary surface of a hollow space, covering the upper limit of a hollow space."@en ;
-        skos:prefLabel   "CeilingSurface"@en .
-
 tun:WallSurface  a       owl:Class ;
         rdfs:label       "WallSurface"@en ;
         rdfs:subClassOf  tun:AbstractBoundarySurface ;
         skos:definition  "SIG3D: Exterior, lateral boundary surface of a Tunnel , TunnelPart, or TunnelInstallation."@en ;
         skos:prefLabel   "WallSurface"@en .
+
+tun:CeilingSurface  a    owl:Class ;
+        rdfs:label       "CeilingSurface"@en ;
+        rdfs:subClassOf  tun:AbstractBoundarySurface ;
+        skos:definition  "SIG3D: Overhead boundary surface of a hollow space, covering the upper limit of a hollow space."@en ;
+        skos:prefLabel   "CeilingSurface"@en .
 
 tun:AbstractTunnel.lod4MultiSurface
         a                owl:ObjectProperty ;

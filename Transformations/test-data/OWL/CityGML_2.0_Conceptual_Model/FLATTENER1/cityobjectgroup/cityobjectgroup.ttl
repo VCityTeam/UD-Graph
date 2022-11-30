@@ -53,9 +53,19 @@ grp:Role  a              owl:Class ;
                            owl:allValuesFrom  core:AbstractCityObject ;
                            owl:onProperty     grp:Role.groupMember
                          ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               core:AbstractCityObject ;
+                           owl:onProperty            grp:Role.groupMember ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  xsd:string ;
                            owl:onProperty     grp:Role.role
+                         ] ;
+        rdfs:subClassOf  [ a                         owl:Restriction ;
+                           owl:onClass               xsd:string ;
+                           owl:onProperty            grp:Role.role ;
+                           owl:qualifiedCardinality  "1"^^xsd:nonNegativeInteger
                          ] ;
         skos:definition  "SIG3D: Specification of a CityObject and its specific role in a CityObjectGroup."@en ;
         skos:prefLabel   "Role"@en .
@@ -92,9 +102,23 @@ grp:Role.groupMember  a  owl:ObjectProperty ;
 grp:CityObjectGroup  a   owl:Class ;
         rdfs:label       "CityObjectGroup"@en ;
         rdfs:subClassOf  core:AbstractCityObject ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  core:AbstractCityObject ;
+                           owl:onProperty               grp:CityObjectGroup.parent
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     grp:CityObjectGroup.function
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     grp:CityObjectGroup.class
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               grp:CityObjectGroup.class
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  grp:Role ;
@@ -102,7 +126,7 @@ grp:CityObjectGroup  a   owl:Class ;
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     grp:CityObjectGroup.function
+                           owl:onProperty     grp:CityObjectGroup.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  core:AbstractCityObject ;
@@ -112,9 +136,10 @@ grp:CityObjectGroup  a   owl:Class ;
                            owl:allValuesFrom  gmlowl:AbstractGeometry ;
                            owl:onProperty     grp:CityObjectGroup.geometry
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     grp:CityObjectGroup.usage
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:AbstractGeometry ;
+                           owl:onProperty               grp:CityObjectGroup.geometry
                          ] ;
         skos:definition  "SIG3D: Aggregation of city objects according to user defined criteria (e.g. grouping of rooms belonging to a certain storey)."@en ;
         skos:prefLabel   "CityObjectGroup"@en .

@@ -1,0 +1,58 @@
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix data: <https://github.com/VCityTeam/UD-Graph/historicalSuccession_simple_v2#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://github.com/VCityTeam/UD-Graph/historicalSuccession_simple_v2> a owl:Ontology .
+
+data:cm2 a owl:NamedIndividual,
+        core:CityModel ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:prefLabel "cm2" ;
+    core:CityModel.cityModelMember_cityObjectMember data:f2_v2,
+        data:f3_v2 .
+
+data:begin_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:begin_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:end_f2_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:end_f3_v2 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:f2_v2 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building B"^^xsd:string,
+        "f2"^^xsd:string ;
+    skos:prefLabel "f2_v2" ;
+    time:hasTime data:temporalEntity_f2_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:f3_v2 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building A"^^xsd:string,
+        "f3"^^xsd:string ;
+    skos:prefLabel "f3" ;
+    time:hasTime data:temporalEntity_f3_v2 ;
+    core:AbstractFeatureWithLifespan.validFrom "2001-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime .
+
+data:temporalEntity_f2_v2 a time:TemporalEntity ;
+    time:hasBeginning data:begin_f2_v2 ;
+    time:hasEnd data:end_f2_v2 .
+
+data:temporalEntity_f3_v2 a time:TemporalEntity ;
+    time:hasBeginning data:begin_f3_v2 ;
+    time:hasEnd data:end_f3_v2 .
+

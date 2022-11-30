@@ -34,16 +34,21 @@ wtr:WaterBody  a         owl:Class ;
                            owl:onProperty     wtr:WaterBody.adeOfWaterBody
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  wtr:AbstractWaterBoundarySurface ;
-                           owl:onProperty     wtr:WaterBody.boundary
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     wtr:WaterBody.usage
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     wtr:WaterBody.function
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               wtr:WaterBody.class
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  wtr:AbstractWaterBoundarySurface ;
+                           owl:onProperty     wtr:WaterBody.boundary
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
@@ -61,6 +66,11 @@ wtr:WaterSurface  a      owl:Class ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  owl:Class ;
                            owl:onProperty     wtr:WaterSurface.waterLevel
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  owl:Class ;
+                           owl:onProperty               wtr:WaterSurface.waterLevel
                          ] ;
         skos:definition  "A WaterSurface represents the upper exterior interface between a water body and the atmosphere."@en .
 

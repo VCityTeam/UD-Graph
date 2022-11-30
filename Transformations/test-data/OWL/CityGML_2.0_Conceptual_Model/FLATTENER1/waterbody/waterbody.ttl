@@ -25,40 +25,21 @@ wtr:WaterBody.boundedBy
         skos:definition  "SIG3D: Relation between WaterBody and WaterBoundarySurface"@en ;
         skos:prefLabel   "boundedBy"@en .
 
-wtr:WaterBody.lod1Solid
-        a                owl:ObjectProperty ;
-        rdfs:domain      wtr:WaterBody ;
-        rdfs:label       "lod1Solid"@en ;
-        rdfs:range       gmlowl:Solid ;
-        skos:definition  "SIG3D: Relation to a LOD1 solid geometry of WaterBody. The LOD concept for the module WaterBody is defined in chapter ..."@en ;
-        skos:prefLabel   "lod1Solid"@en .
-
 wtr:WaterBody  a         owl:Class ;
         rdfs:label       "WaterBody"@en ;
         rdfs:subClassOf  wtr:AbstractWaterObject ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     wtr:WaterBody.function
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:Solid ;
-                           owl:onProperty     wtr:WaterBody.lod1Solid
-                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:MultiSurface ;
                            owl:onProperty     wtr:WaterBody.lod1MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:Solid ;
-                           owl:onProperty     wtr:WaterBody.lod3Solid
+                           owl:allValuesFrom  gmlowl:MultiSurface ;
+                           owl:onProperty     wtr:WaterBody.lod0MultiSurface
                          ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  iso19136-bt:Code ;
-                           owl:onProperty     wtr:WaterBody.class
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:MultiCurve ;
-                           owl:onProperty     wtr:WaterBody.lod0MultiCurve
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:MultiSurface ;
+                           owl:onProperty               wtr:WaterBody.lod1MultiSurface
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  wtr:AbstractWaterBoundarySurface ;
@@ -69,23 +50,87 @@ wtr:WaterBody  a         owl:Class ;
                            owl:onProperty     wtr:WaterBody.lod1MultiCurve
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  gmlowl:MultiSurface ;
-                           owl:onProperty     wtr:WaterBody.lod0MultiSurface
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     wtr:WaterBody.class
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:MultiSurface ;
+                           owl:onProperty               wtr:WaterBody.lod0MultiSurface
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:MultiCurve ;
+                           owl:onProperty               wtr:WaterBody.lod1MultiCurve
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:Solid ;
+                           owl:onProperty               wtr:WaterBody.lod2Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:MultiCurve ;
+                           owl:onProperty     wtr:WaterBody.lod0MultiCurve
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:Solid ;
+                           owl:onProperty               wtr:WaterBody.lod4Solid
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:Solid ;
-                           owl:onProperty     wtr:WaterBody.lod4Solid
+                           owl:onProperty     wtr:WaterBody.lod3Solid
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:MultiCurve ;
+                           owl:onProperty               wtr:WaterBody.lod0MultiCurve
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:Solid ;
+                           owl:onProperty     wtr:WaterBody.lod1Solid
+                         ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  iso19136-bt:Code ;
+                           owl:onProperty     wtr:WaterBody.function
                          ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  gmlowl:Solid ;
                            owl:onProperty     wtr:WaterBody.lod2Solid
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               wtr:WaterBody.class
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:Solid ;
+                           owl:onProperty               wtr:WaterBody.lod3Solid
+                         ] ;
         rdfs:subClassOf  [ a                  owl:Restriction ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     wtr:WaterBody.usage
                          ] ;
+        rdfs:subClassOf  [ a                  owl:Restriction ;
+                           owl:allValuesFrom  gmlowl:Solid ;
+                           owl:onProperty     wtr:WaterBody.lod4Solid
+                         ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  gmlowl:Solid ;
+                           owl:onProperty               wtr:WaterBody.lod1Solid
+                         ] ;
         skos:definition  "SIG3D: Any significant accumulation of water, usually covering a part of the Earth"@en ;
         skos:prefLabel   "WaterBody"@en .
+
+wtr:WaterBody.lod1Solid
+        a                owl:ObjectProperty ;
+        rdfs:domain      wtr:WaterBody ;
+        rdfs:label       "lod1Solid"@en ;
+        rdfs:range       gmlowl:Solid ;
+        skos:definition  "SIG3D: Relation to a LOD1 solid geometry of WaterBody. The LOD concept for the module WaterBody is defined in chapter ..."@en ;
+        skos:prefLabel   "lod1Solid"@en .
 
 wtr:WaterBody.class  a   owl:ObjectProperty ;
         rdfs:domain      wtr:WaterBody ;
@@ -140,6 +185,11 @@ wtr:WaterSurface  a      owl:Class ;
                            owl:allValuesFrom  iso19136-bt:Code ;
                            owl:onProperty     wtr:WaterSurface.waterLevel
                          ] ;
+        rdfs:subClassOf  [ a                            owl:Restriction ;
+                           owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                           owl:onClass                  iso19136-bt:Code ;
+                           owl:onProperty               wtr:WaterSurface.waterLevel
+                         ] ;
         skos:definition  "SIG3D: Exterior boundary surface of a boundary layer between water and the atmosphere, used to describe parts of the outer shell of WaterBody."@en ;
         skos:prefLabel   "WaterSurface"@en .
 
@@ -150,6 +200,10 @@ wtr:WaterBody.lod2Solid
         rdfs:range       gmlowl:Solid ;
         skos:definition  "SIG3D: Relation to a LOD2 solid geometry of WaterBody. The LOD concept for the module WaterBody is defined in chapter ..."@en ;
         skos:prefLabel   "lod2Solid"@en .
+
+[ a            owl:AllDisjointClasses ;
+  owl:members  ( wtr:WaterClosureSurface wtr:WaterGroundSurface wtr:WaterSurface )
+] .
 
 wtr:WaterGroundSurface
         a                owl:Class ;
@@ -166,13 +220,6 @@ wtr:AbstractWaterObject
         skos:definition        "SIG3D: Abstract superclass of WaterBody."@en ;
         skos:prefLabel         "AbstractWaterObject"@en .
 
-wtr:WaterBody.usage  a   owl:ObjectProperty ;
-        rdfs:domain      wtr:WaterBody ;
-        rdfs:label       "usage"@en ;
-        rdfs:range       iso19136-bt:Code ;
-        skos:definition  "SIG3D: Actual usage of WaterBody as given by the relevant national regulations, information communities, or specific applications."@en ;
-        skos:prefLabel   "usage"@en .
-
 wtr:WaterBody.lod4Solid
         a                owl:ObjectProperty ;
         rdfs:domain      wtr:WaterBody ;
@@ -181,6 +228,13 @@ wtr:WaterBody.lod4Solid
         skos:definition  "SIG3D: Relation to a LOD4 solid geometry of WaterBody. The LOD concept for the module WaterBody is defined in chapter ..."@en ;
         skos:prefLabel   "lod4Solid"@en .
 
+wtr:WaterBody.usage  a   owl:ObjectProperty ;
+        rdfs:domain      wtr:WaterBody ;
+        rdfs:label       "usage"@en ;
+        rdfs:range       iso19136-bt:Code ;
+        skos:definition  "SIG3D: Actual usage of WaterBody as given by the relevant national regulations, information communities, or specific applications."@en ;
+        skos:prefLabel   "usage"@en .
+
 wtr:AbstractWaterBoundarySurface.lod2Surface
         a                owl:ObjectProperty ;
         rdfs:domain      wtr:AbstractWaterBoundarySurface ;
@@ -188,10 +242,6 @@ wtr:AbstractWaterBoundarySurface.lod2Surface
         rdfs:range       gmlowl:Surface ;
         skos:definition  "SIG3D:  Relation to a LOD2 surface geometry of AbstractWaterBoundarySurface.The LOD concept for the module WaterBody is defined in chapter ..."@en ;
         skos:prefLabel   "lod2Surface"@en .
-
-[ a            owl:AllDisjointClasses ;
-  owl:members  ( wtr:WaterClosureSurface wtr:WaterGroundSurface wtr:WaterSurface )
-] .
 
 <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/waterbody>
         a               owl:Ontology ;
@@ -203,9 +253,24 @@ wtr:AbstractWaterBoundarySurface
         a                      owl:Class ;
         rdfs:label             "AbstractWaterBoundarySurface"@en ;
         rdfs:subClassOf        core:AbstractCityObject ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Surface ;
+                                 owl:onProperty               wtr:AbstractWaterBoundarySurface.lod4Surface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Surface ;
+                                 owl:onProperty               wtr:AbstractWaterBoundarySurface.lod2Surface
+                               ] ;
+        rdfs:subClassOf        [ a                            owl:Restriction ;
+                                 owl:maxQualifiedCardinality  "1"^^xsd:nonNegativeInteger ;
+                                 owl:onClass                  gmlowl:Surface ;
+                                 owl:onProperty               wtr:AbstractWaterBoundarySurface.lod3Surface
+                               ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:Surface ;
-                                 owl:onProperty     wtr:AbstractWaterBoundarySurface.lod4Surface
+                                 owl:onProperty     wtr:AbstractWaterBoundarySurface.lod2Surface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:Surface ;
@@ -213,7 +278,7 @@ wtr:AbstractWaterBoundarySurface
                                ] ;
         rdfs:subClassOf        [ a                  owl:Restriction ;
                                  owl:allValuesFrom  gmlowl:Surface ;
-                                 owl:onProperty     wtr:AbstractWaterBoundarySurface.lod2Surface
+                                 owl:onProperty     wtr:AbstractWaterBoundarySurface.lod4Surface
                                ] ;
         iso19150-2:isAbstract  true ;
         skos:definition        "SIG3D: Abstract superclass of boundary surfaces of WaterBody."@en ;

@@ -1,5 +1,43 @@
 # Utility scripts
 
+## AddTimeStamps
+Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data. Can optionally add timestamps in the of OWL-Time temporal entities
+
+### To run
+```
+usage: AddTimeStamps.py [-h] [--input-format INPUT_FORMAT] [--output-format OUTPUT_FORMAT] [--core-uri CORE_URI] [--from-property FROM_PROPERTY] [--to-property TO_PROPERTY] [-l LOG] [-d]
+                        input_file output_file time_stamps time_stamps
+
+positional arguments:
+  input_file            specify the input CityGML RDF graph
+  output_file           specify the output filename
+  time_stamps           specify the "from" and "to" timestamps
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --input-format INPUT_FORMAT
+                        specify the input CityGML RDFlib format.
+  --output-format OUTPUT_FORMAT
+                        specify the output CityGML RDFlib format.
+  --core-uri CORE_URI   specify the URI for the CityGML core module
+  --from-property FROM_PROPERTY
+                        specify the "from" timestamp property URI (without namespace) e.g. validFrom or creationDate
+  --to-property TO_PROPERTY
+                        specify the "to" timestamp property URI (without namespace) e.g. validTo or terminationDate
+  -l LOG, --log LOG     specify the logging file
+  -d, --debug           enable debug level logging
+```
+
+For example:
+```bash
+python AddTimeStamps.py \
+    ../test-data/RDF/historicalSuccession_CityGML_3.0_v1.ttl \
+    ./historicalSuccession_v1.ttl \
+    2000-01-01T00:00:00 2000-01-01T00:00:00 \
+    -d
+```
+
+
 ## add_crs.py
 Add a coordinate reference system to a gml file.
 
@@ -17,17 +55,19 @@ python add_triples.py [primary graph] [secondary graph]
 ```
 
 ## reformat_graph.py
-usage: reformat_graph.py [-h] input_file output_file {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
+usage: reformat_graph.py [-h] input_file {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix} output_file {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
 
-Convert RDF formats
+Convert RDF graph formats
 
 positional arguments:
   input_file            Specify the input datafile, folder, or URL
+  {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
+                        Specify the input data format (only RDFLib supported formats)
   output_file           Specify the output datafile
   {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}
                         Specify the output data format (only RDFLib supported formats)
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
 
 ## citygml_3.0_validator.jar

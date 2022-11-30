@@ -1,126 +1,129 @@
-@prefix core:  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
-@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
-@prefix owl:   <http://www.w3.org/2002/07/owl#> .
-@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
-@prefix doc:   <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix time:  <http://www.w3.org/2006/time#> .
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix doc: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/document#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 
-doc:Reference.coveragePeriod
-        a            owl:ObjectProperty ;
-        rdfs:domain  doc:Reference ;
-        rdfs:label   "coveragePeriod"@en ;
-        rdfs:range   time:Interval .
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/document> a owl:Ontology ;
+    rdfs:label "Document"@en ;
+    owl:imports <http://www.w3.org/2006/time>,
+        <http://def.isotc211.org/iso19150/-2/2012/base>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core.ttl> .
 
-doc:Document.title  a  owl:DatatypeProperty ;
-        rdfs:domain  doc:Document ;
-        rdfs:label   "title"@en ;
-        rdfs:range   xsd:string .
+doc:DocumentableVersion a owl:Class ;
+    rdfs:label "DocumentableVersion"@en .
 
-doc:Document.tag  a  owl:ObjectProperty ;
-        rdfs:domain  doc:Document ;
-        rdfs:label   "tag"@en ;
-        rdfs:range   doc:Tag .
+doc:DocumentableVersionTransition a owl:Class ;
+    rdfs:label "DocumentableVersionTransition"@en .
 
-doc:Reference.referringDate
-        a            owl:DatatypeProperty ;
-        rdfs:domain  doc:Reference ;
-        rdfs:label   "referringDate"@en ;
-        rdfs:range   xsd:dateTime .
+doc:Document.tag a owl:ObjectProperty ;
+    rdfs:label "tag"@en ;
+    rdfs:domain doc:Document ;
+    rdfs:range doc:Tag .
 
-doc:Tag.text  a      owl:DatatypeProperty ;
-        rdfs:domain  doc:Tag ;
-        rdfs:label   "text"@en ;
-        rdfs:range   xsd:string .
+doc:Document.title a owl:DatatypeProperty ;
+    rdfs:label "title"@en ;
+    rdfs:domain doc:Document ;
+    rdfs:range xsd:string .
 
-doc:Document  a          owl:Class ;
-        rdfs:label       "Document"@en ;
-        rdfs:subClassOf  core:AbstractFeatureWithLifespan ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  doc:Tag ;
-                           owl:onProperty     doc:Document.tag
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:anyURI ;
-                           owl:onProperty     doc:Document.uri
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     doc:Document.title
-                         ] .
+doc:Document.uri a owl:DatatypeProperty ;
+    rdfs:label "uri"@en ;
+    rdfs:domain doc:Document ;
+    rdfs:range xsd:anyURI .
 
-doc:Tag.count  a     owl:DatatypeProperty ;
-        rdfs:domain  doc:Tag ;
-        rdfs:label   "count"@en ;
-        rdfs:range   xsd:integer .
+doc:Reference.purpose a owl:DatatypeProperty ;
+    rdfs:label "purpose"@en ;
+    rdfs:domain doc:Reference ;
+    rdfs:range xsd:string .
 
-doc:DocumentableVersion
-        a           owl:Class ;
-        rdfs:label  "DocumentableVersion"@en .
+doc:Tag.count a owl:DatatypeProperty ;
+    rdfs:label "count"@en ;
+    rdfs:domain doc:Tag ;
+    rdfs:range xsd:integer .
 
-doc:Tag  a               owl:Class ;
-        rdfs:label       "Tag"@en ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:integer ;
-                           owl:onProperty     doc:Tag.count
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     doc:Tag.text
-                         ] .
+doc:Reference.coveragePeriod a owl:ObjectProperty ;
+    rdfs:label "coveragePeriod"@en ;
+    rdfs:domain doc:Reference ;
+    rdfs:range time:Interval .
 
-<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document>
-        a            owl:Ontology ;
-        rdfs:label   "Document"@en ;
-        owl:imports  <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core> , <http://www.w3.org/2006/time> , <http://def.isotc211.org/iso19150/-2/2012/base> .
+doc:Reference.purposeType a owl:ObjectProperty ;
+    rdfs:label "purposeType"@en ;
+    rdfs:domain doc:Reference ;
+    rdfs:range owl:Class .
 
-doc:Reference.referenceText
-        a            owl:DatatypeProperty ;
-        rdfs:domain  doc:Reference ;
-        rdfs:label   "referenceText"@en ;
-        rdfs:range   xsd:string .
+doc:Reference.referenceText a owl:DatatypeProperty ;
+    rdfs:label "referenceText"@en ;
+    rdfs:domain doc:Reference ;
+    rdfs:range xsd:string .
 
-doc:Document.uri  a  owl:DatatypeProperty ;
-        rdfs:domain  doc:Document ;
-        rdfs:label   "uri"@en ;
-        rdfs:range   xsd:anyURI .
+doc:Reference.referringDate a owl:DatatypeProperty ;
+    rdfs:label "referringDate"@en ;
+    rdfs:domain doc:Reference ;
+    rdfs:range xsd:dateTime .
 
-doc:DocumentableVersionTransition
-        a           owl:Class ;
-        rdfs:label  "DocumentableVersionTransition"@en .
+doc:Tag.text a owl:DatatypeProperty ;
+    rdfs:label "text"@en ;
+    rdfs:domain doc:Tag ;
+    rdfs:range xsd:string .
 
-doc:Reference  a         owl:Class ;
-        rdfs:label       "Reference"@en ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:dateTime ;
-                           owl:onProperty     doc:Reference.referringDate
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     doc:Reference.referenceText
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  owl:Class ;
-                           owl:onProperty     doc:Reference.purposeType
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  xsd:string ;
-                           owl:onProperty     doc:Reference.purpose
-                         ] ;
-        rdfs:subClassOf  [ a                  owl:Restriction ;
-                           owl:allValuesFrom  time:Interval ;
-                           owl:onProperty     doc:Reference.coveragePeriod
-                         ] .
+doc:Document a owl:Class ;
+    rdfs:label "Document"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom doc:Tag ;
+            owl:onProperty doc:Document.tag ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty doc:Document.uri ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty doc:Document.title ],
+        core:AbstractFeatureWithLifespan .
 
-doc:Reference.purposeType
-        a            owl:ObjectProperty ;
-        rdfs:domain  doc:Reference ;
-        rdfs:label   "purposeType"@en ;
-        rdfs:range   owl:Class .
+doc:Tag a owl:Class ;
+    rdfs:label "Tag"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty doc:Tag.count ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty doc:Tag.text ],
+        [ a owl:Restriction ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty doc:Tag.text ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ] .
 
-doc:Reference.purpose
-        a            owl:DatatypeProperty ;
-        rdfs:domain  doc:Reference ;
-        rdfs:label   "purpose"@en ;
-        rdfs:range   xsd:string .
+doc:Reference a owl:Class ;
+    rdfs:label "Reference"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom time:Interval ;
+            owl:onProperty doc:Reference.coveragePeriod ],
+        [ a owl:Restriction ;
+            owl:onClass time:Interval ;
+            owl:onProperty doc:Reference.coveragePeriod ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom owl:Class ;
+            owl:onProperty doc:Reference.purposeType ],
+        [ a owl:Restriction ;
+            owl:onDataRange xsd:dateTime ;
+            owl:onProperty doc:Reference.referringDate ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty doc:Reference.referenceText ;
+            owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty doc:Reference.referenceText ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass owl:Class ;
+            owl:onProperty doc:Reference.purposeType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty doc:Reference.purpose ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:dateTime ;
+            owl:onProperty doc:Reference.referringDate ] .
+

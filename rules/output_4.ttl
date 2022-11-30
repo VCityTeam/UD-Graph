@@ -1,0 +1,48 @@
+@prefix : <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/rules/test#> .
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix time_ext: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#> .
+@prefix vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:version_v1 a owl:NamedIndividual,
+        vers:Version ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2002-01-01T00:00:00"^^xsd:dateTime ;
+    vers:Version.versionMember :f1_v1 ;
+    time_ext:hasExistenceTime :temporalEntity_v1 .
+
+:begin_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:begin_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2000-01-01T00:00:00"^^xsd:dateTime .
+
+:end_f1_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2001-01-01T00:00:00"^^xsd:dateTime .
+
+:end_v1 a time:Instant ;
+    time:inXSDDateTimeStamp "2002-01-01T00:00:00"^^xsd:dateTime .
+
+:f1_v1 a owl:NamedIndividual,
+        bldg:Building ;
+    geo:coordinateDimension "EPSG:3946" ;
+    skos:altLabel "Building C"^^xsd:string,
+        "f1"^^xsd:string ;
+    skos:prefLabel "f1" ;
+    core:AbstractFeatureWithLifespan.validFrom "2000-01-01T00:00:00"^^xsd:dateTime ;
+    core:AbstractFeatureWithLifespan.validTo "2001-01-01T00:00:00"^^xsd:dateTime ;
+    time_ext:hasExistenceTime :temporalEntity_f1_v1 .
+
+:temporalEntity_f1_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_f1_v1 ;
+    time:hasEnd :end_f1_v1 .
+
+:temporalEntity_v1 a time:TemporalEntity ;
+    time:hasBeginning :begin_v1 ;
+    time:hasEnd :end_v1 .
+

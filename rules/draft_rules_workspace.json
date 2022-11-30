@@ -1,0 +1,132 @@
+{
+    "ontologies": [
+        "https://raw.githubusercontent.com/w3c/sdw/gh-pages/time/rdf/time.nt",
+        "file://../Ontologies/CityGML/3.0/core.owl",
+        "file://../Ontologies/CityGML/3.0/versioning.owl",
+        "file://../Ontologies/Workspace/3.0/workspace.owl",
+        "file://../Ontologies/Workspace/3.0/transactiontype.owl",
+        "file://../Ontologies/Document/3.0/document.owl",
+        "file://../Datasets/GratteCiel_2009-2018_Workspace_v3.owl",
+        "file://../Datasets/GratteCiel_2018_split_v3.owl",
+        "file://../Datasets/GratteCiel_2015_split_v3.owl",
+        "file://../Datasets/GratteCiel_2012_split_v3.owl",
+        "file://../Datasets/GratteCiel_2009_split_v3.owl",
+        "file://test_wksp_0.nt"
+    ],
+    "prefixes": {
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "xsd" : "http://www.w3.org/2001/XMLSchema#",
+        "time": "http://www.w3.org/2006/time#",
+        "core": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#",
+        "vers": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#",
+        "wksp": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/workspace#",
+        "type": "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#",
+        "doc" : "https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Document/3.0/document#"
+    },
+    "rules": [
+        {   
+            "title": "rule 14a",
+            "description": "",
+            "comment": "",
+            "rule": "core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?f, ?v1), core:AbstractFeatureWithLifespan.validTo(?f, ?v2), greaterThan(?v1, ?v2) -> owl:Nothing(?f)"
+        },
+        {
+            "ignore": true,
+            "title": "rule 24",
+            "description": "",
+            "comment": "",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:replace), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "title": "rule 24-unchanged",
+            "description": "",
+            "comment": "although feature ids can be unchanged between source datasets, they must be unique to a single graph and are prefixed during the versioning process, checking for this may not be systematically possible without knowing how feature ids are prefixed. Therefore the proposed SWRL rule for validating type:unchanged transactions will be identical to a type:replace",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:unchanged), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "title": "rule 24-reided",
+            "description": "",
+            "comment": "",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:re-ided), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeature.featureID(?f1, ?i1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeature.featureID(?f2, ?i2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2), notEqual(?i1, ?i2)"
+        },
+        {
+            "title": "rule 24-modified",
+            "description": "",
+            "comment": "currently verifying 3D geometric changes is not feasible and so the rule for verifying type:modified transactions is identical to the rule for verifying type:re-ided transactions",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:modified), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeature.featureID(?f1, ?i1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeature.featureID(?f2, ?i2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2), notEqual(?i1, ?i2)"
+        },
+        {
+            "title": "rule 24-fused",
+            "description": "",
+            "comment": "how can we verify the cardinality of the existence of multiple transactions with the same vers:newFeature and different vers:oldFeatures is more than 2?",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:fused), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "title": "rule 24-subdivided",
+            "description": "",
+            "comment": "how can we verify the cardinality of the existence of multiple transactions with the same vers:oldFeature and different vers:newFeatures is more than 2?",
+            "rule": "vers:Transaction(?t), vers:Transaction.type(?t, ?y), vers:Transaction.oldFeature(?t, ?f1), vers:Transaction.newFeature(?t, ?f2), equal(?y, type:subdivided), core:AbstractFeatureWithLifespan(?f1), core:AbstractFeatureWithLifespan.validTo(?f1, ?d1), core:AbstractFeatureWithLifespan(?f2), core:AbstractFeatureWithLifespan.validFrom(?f2, ?d2) -> lessThanOrEqual(?d1, ?d2)"
+        },
+        {
+            "title": "rule 27",
+            "description": "",
+            "comment": "",
+            "rule": "vers:Version(?v), vers:Version.versionMember(?v, ?f), core:AbstractFeatureWithLifespan(?f), core:AbstractFeatureWithLifespan.validFrom(?v, ?vv1), core:AbstractFeatureWithLifespan.validTo(?v, ?vv2), core:AbstractFeatureWithLifespan.validFrom(?f, ?vf1), core:AbstractFeatureWithLifespan.validTo(?f, ?vf2) -> lessThanOrEqual(?vf1, ?vv1), greaterThanOrEqual(?vf2, ?vv2)"
+        },
+        {
+            "title": "rule 31",
+            "description": "",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v1), core:AbstractFeatureWithLifespan.validTo(?v1, ?t1), vers:Version(?v2), core:AbstractFeatureWithLifespan.validFrom(?v2, ?t2) -> lessThanOrEqual(?t1, ?t2)"
+        },
+        {
+            "title": "rule 32",
+            "description": "",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:Version(?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v2), core:AbstractFeatureWithLifespan.validTo(?v1, ?t1), core:AbstractFeatureWithLifespan.validFrom(?v2, ?t2) -> lessThanOrEqual(?t1, ?t2)"
+        },
+        {
+            "title": "rule 33",
+            "description": "",
+            "comment": "",
+            "rule": "vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:Version(?v1), vers:VersionTransition.to(?vt, ?v2), vers:Version(?v2), core:AbstractFeatureWithLifespan.validTo(?v1, ?t1), core:AbstractFeatureWithLifespan.validFrom(?vt, ?t2), core:AbstractFeatureWithLifespan.validTo(?vt, ?t3), core:AbstractFeatureWithLifespan.validFrom(?v2, ?t4) -> lessThanOrEqual(?t1, ?t2), lessThanOrEqual(?t3, ?t4)"
+        },
+        {
+            "title": "rule 35",
+            "description": "",
+            "comment": "",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt), vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2) -> wksp:Scenario.versionMember(?s, ?v1), wksp:Scenario.versionMember(?s, ?v2)"
+        },
+        {
+            "title": "rule 36",
+            "description": "",
+            "comment": "",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1), wksp:Scenario.versionMember(?s, ?v2), vers:Version(?v2) -> vers:VersionTransition(?vt), vers:VersionTransition.from(?vt, ?v1), vers:VersionTransition.to(?vt, ?v2)"
+        },
+        {
+            "title": "rule 37",
+            "description": "",
+            "comment": "",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1), core:AbstractFeatureWithLifespan.validFrom(?v1, ?vf1), core:AbstractFeatureWithLifespan.validTo(?v1, ?vt1), wksp:Scenario.versionMember(?s, ?v2), vers:Version(?v2), core:AbstractFeatureWithLifespan.validFrom(?v2, ?vf2), core:AbstractFeatureWithLifespan.validTo(?v2, ?vt2), equal(?vf1, ?vf2), equal(?vt1, ?vt2) -> equal(?v1, ?v2)"
+        },
+        {
+            "title": "rule 38",
+            "description": "",
+            "comment": "",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt1), vers:VersionTransition(?vt1), core:AbstractFeatureWithLifespan.validFrom(?vt1, ?vtf1), core:AbstractFeatureWithLifespan.validTo(?vt1, ?vtt1), wksp:Scenario.versionTransitionMember(?s, ?vt2), vers:VersionTransition(?vt2), core:AbstractFeatureWithLifespan.validFrom(?vt2, ?vtf2), core:AbstractFeatureWithLifespan.validTo(?vt2, ?vtt2), equal(?vtf1, ?vtf2), equal(?vtt1, ?vtt2) -> equal(?vt1, ?vt2)"
+        },
+        {
+            "title": "rule 39",
+            "description": "",
+            "comment": "",
+            "rule": "wksp:Scenario(?s), wksp:Scenario.versionTransitionMember(?s, ?vt1), vers:VersionTransition(?vt1), wksp:Scenario.versionTransitionMember(?s, ?vt2), vers:VersionTransition(?vt2), vers:VersionTransition.to(?vt1, ?v1), vers:VersionTransition.from(?vt2, ?v1) -> wksp:Scenario.versionMember(?s, ?v1), vers:Version(?v1)"
+        },
+        {
+            "ignore": true,
+            "title": "rule 47; how can we implement existential rules for 'there exists some version'",
+            "description": "",
+            "comment": "",
+            "rule": "wksp:ConcensusSpace(?c), wksp:Space.scenarioMember(?c, ?s1), wksp:Scenario(?s1), wksp:Scenario.versionMember(?s1, v1), vers:Version(?v1), wksp:PropositionSpace(?p), wksp:Space.scenarioMember(?p, ?s2), wksp:Scenario(?s2), wksp:Scenario.versionMember(?s2, v2), vers:Version(?v2) -> equal(?v1, ?v2)"            
+        }
+    ]
+}
