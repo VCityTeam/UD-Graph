@@ -4,7 +4,7 @@ import logging
 import argparse
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
-from rdflib.namespace import RDF, OWL, XSD, NamespaceManager, Namespace
+from rdflib.namespace import RDF, OWL, XSD, GEO, NamespaceManager, Namespace
 from lxml import etree
 
 def main():
@@ -90,7 +90,6 @@ class XML2RdfTransformer():
 
         self.GML_NAMESPACE = Namespace(self.input_root.nsmap.get('gml'))
         self.GML_ONT_NAMESPACE = Namespace('http://www.opengis.net/ont/gml#')
-        self.GeoSPARQL_NAMESPACE = Namespace('http://www.opengis.net/ont/geosparql#')
 
     ######################################
     ##  Graph transformation functions  ##
@@ -116,7 +115,8 @@ class XML2RdfTransformer():
                 continue
 
             # if the node is a class, generate an id and individual for it.
-            if self.isClass( input_node.tag ):
+            mapped_tag = self.mapNamespace(input_node.tag)
+            if self.isClass( mapped_tag ):
                 self.generateIndividual(input_node)
 
 
@@ -135,7 +135,6 @@ class XML2RdfTransformer():
     def generateIndividual(self, node):
         '''Generate a new individual from an XML node and its children, then add the
         node to the output graph. An id is returned for recursive calls'''
-        mapped_tag = ''
         node_id = ''
         mapped_tag = self.mapNamespace(node.tag)
         # if a gml:id is detected, use it in the URI of the individual
@@ -147,8 +146,9 @@ class XML2RdfTransformer():
         if self.input_tree.getelementpath(node) in self.parsed_nodes:
             return node_id
 
+        node_type = self.lxmlToURIRef(mapped_tag)
         self.output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
-        self.output_graph.add( (node_id, RDF.type, mapped_tag) )
+        self.output_graph.add( (node_id, RDF.type, node_type) )
 
         # transform the XML attributes into properties and datatype properties
         for attribute in node.attrib:
@@ -156,72 +156,73 @@ class XML2RdfTransformer():
                 attribute_tag = URIRef(self.rdf_mappings[attribute])
                 attribute_text = Literal(node.attrib[attribute])
                 self.output_graph.add( (node_id, attribute_tag, attribute_text) )
-            elif self.isDatatypeProperty(attribute, node.tag):
+            elif self.isDatatypeProperty(attribute, mapped_tag):
                 for property in self.getDatatypeProperties(attribute):
-                    for datatype in self.getDatatypePropertyRange(property):
+                    for datatype in self.getDatatypePropertyRange(self.uriToLXML(property)):
                         attribute_text = Literal(node.attrib[attribute],
                                                 datatype=datatype[0])
-                    self.output_graph.add((node_id, property, attribute_text))
+                        self.output_graph.add((node_id, property, attribute_text))
             elif self.isDatatype(attribute):
-                for property in self.findDatatypeProperty(attribute, node.tag):
-                    for datatype in self.getDatatypePropertyRange(property):
+                for property in self.findDatatypeProperty(attribute, mapped_tag):
+                    for datatype in self.getDatatypePropertyRange(self.uriToLXML(property)):
                         attribute_text = Literal(node.attrib[attribute],
                                                 datatype=datatype[0])
-                    self.output_graph.add((node_id, property, attribute_text))
+                        self.output_graph.add((node_id, property, attribute_text))
             else:
                 # TODO: add dynamic datatype detection
                 attribute_tag = self.mapNamespace(attribute)
+                attribute_uri = self.lxmlToURIRef(attribute_tag)
                 attribute_text = Literal(node.attrib[attribute])
-                self.output_graph.add( (node_id, attribute_tag, attribute_text) )
+                self.output_graph.add( (node_id, attribute_uri, attribute_text) )
                 logging.warning(f'No datatype or datatype property found for attribute {attribute}, at {self.input_tree.getelementpath(node)}')
         # if the node is a geometry node, create a gml serialization and add it as a
         # triple to the output graph. All descendant nodes are assumed to be part of
         # the same geometry and therefore are not necessary to parse beyond this step.
-        if self.isGeometry(node.tag):
+        if self.isGeometry(mapped_tag):
             geometry_literal = self.generateGeometryLiteral(node)
-            geometry_node = Literal(geometry_literal, datatype=self.GeoSPARQL_NAMESPACE.gmlLiteral)
-            self.output_graph.add( (node_id, self.GeoSPARQL_NAMESPACE.asGML, geometry_node) )
+            geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
+            self.output_graph.add( (node_id, GEO.asGML, geometry_node) )
         # if it is not geometry, transform the XML children into properties, datatypes, and/or individuals
         # (unless atomic geometry is enabled)
-        if self.args.atomic_geometry or not self.isGeometry(node.tag):
+        if self.args.atomic_geometry or not self.isGeometry(mapped_tag):
             for child in node:
                 # if child.tag has an rdf mapping, replace the tag with the mapping.
-                mapped_child_tag = child.tag
-                if child.tag in self.rdf_mappings:
-                    mapped_child_tag = self.rdf_mappings[child.tag]
-                    mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
+                mapped_child_tag = self.mapNamespace(child.tag)
+                # if child.tag in self.rdf_mappings:
+                #     mapped_child_tag = self.rdf_mappings[child.tag]
+                #     mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
                 # check if child node is a class. If so, generate a new individual for the
                 # child and create an object property linking the two individuals.
                 if self.isClass(mapped_child_tag):
                     child_id = self.generateIndividual(child)
-                    objectproperties = self.findObjectProperty(node.tag, mapped_child_tag)
+                    objectproperties = self.findObjectProperty(mapped_tag, mapped_child_tag)
                     for objectproperty in objectproperties:
                         self.output_graph.add( (node_id, objectproperty, child_id) )
                     if self.isGeometry(mapped_child_tag):
-                        self.output_graph.add( (node_id, self.GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
+                        self.output_graph.add( (node_id, GEO.hasGeometry, child_id) )
                 # check if child node is a datatype. If so, generate a datatype for the
                 # child and create a datatype property linking the individual and datatype.
                 elif self.isDatatype(mapped_child_tag):
-                    for property in self.findDatatypeProperty(node.tag, mapped_child_tag):
-                        for datatype in self.getDatatypePropertyRange(property):
+                    for property in self.findDatatypeProperty(mapped_tag, mapped_child_tag):
+                        for datatype in self.getDatatypePropertyRange(self.uriToLXML(property)):
                             child_text = Literal(child.text, datatype=datatype[0])
                             self.output_graph.add( (node_id, property, child_text) )
                 # check if child node is an object property. If so, generate the object
                 # property nodes and their corresponding individuals by calling
                 # generateObjectProperties().
-                elif self.isObjectProperty(mapped_child_tag, node.tag):
+                elif self.isObjectProperty(mapped_child_tag, mapped_tag):
                     self.generateObjectProperties(node, node_id, child)
                 # check if child node is an datatype property. If so, generate the datatype
                 # property nodes and their corresponding individuals by calling
                 # generateDatatypeProperty().
-                elif self.isDatatypeProperty(mapped_child_tag, node.tag):
+                elif self.isDatatypeProperty(mapped_child_tag, mapped_tag):
                     self.generateDatatypeProperty(node, node_id, child)
                 elif self.isAnnotationProperty(mapped_child_tag):
-                    annotation_tag = URIRef(mapped_child_tag.namespace + mapped_child_tag.localname)
+                    annotation_uri = self.lxmlToURIRef(mapped_child_tag)
                     annotation_text = Literal(child.text, datatype=XSD.string)
-                    self.output_graph.add( (node_id, annotation_tag, annotation_text) )
+                    self.output_graph.add( (node_id, annotation_uri, annotation_text) )
                 else:
-                    logging.warning(f'No mapping found for XML element: {mapped_child_tag} at {self.input_tree.getelementpath(node)}')
+                    logging.warning(f'No mapping found between parent node: {node.tag} and child node: {child.tag} at {self.input_tree.getelementpath(node)}')
 
         # when complete, add node to parsed nodes list
         self.parsed_nodes.append(self.input_tree.getelementpath(node))
@@ -233,53 +234,61 @@ class XML2RdfTransformer():
         '''Generate an individual for each child (which should all be classes if input
         tree is well formed) and create an object property linking the parent
         individual with each child individual. Also check for xlinks.'''
-
+        mapped_tag = self.mapNamespace(node.tag)
+        mapped_parent_tag = self.mapNamespace(parent.tag)
         if node.attrib.get('{http://www.w3.org/1999/xlink}href') is not None:
             # Check if an xlink is present. If so create a triple referencing the resource
-            property = self.findObjectProperty(parent.tag, None, node.tag)
+            property = self.findObjectProperty(mapped_parent_tag, None, mapped_tag)
             if property is not None:
                 reference = URIRef(f'{self.output_uri}#' +
                     node.attrib['{http://www.w3.org/1999/xlink}href'].split('#')[-1])
                 self.output_graph.add( (parent_id, property, reference) )
         for child in node:
+            # if child.tag has an rdf mapping, replace the tag with the mapping.
+            mapped_child_tag = self.mapNamespace(child.tag)
+            # if child.tag in self.rdf_mappings:
+            #     mapped_child_tag = self.rdf_mappings[child.tag]
+            #     mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
             # check if child node is a class. If so, generate a new individual for the
             # child and create an object property linking the two individuals. In the
             # case the child is geometry, generate a geometry serialization.
-            if self.isClass(child.tag):
+            if self.isClass(mapped_child_tag):
                 child_id = self.generateIndividual(child)
-                property = self.findObjectProperty(parent.tag, child.tag, node.tag)
+                property = self.findObjectProperty(mapped_parent_tag, mapped_child_tag, mapped_tag)
+                # property = self.findObjectProperty(parent.tag, mapped_child_tag, self.uriToLXML(mapped_tag))
                 if property is not None:
                     self.output_graph.add((parent_id, property, child_id))
                 else:
-                    logging.warning(f'Object property, {node.tag}, not found for child, {child.tag}, '
+                    logging.warning(f'Object property, {mapped_tag}, not found for child, {mapped_child_tag}, '
                         f'at: {self.input_tree.getelementpath(node)}')
                 # check if child is a gml geometry node. If so, generate the geometry
                 # property gsp:hasGeometry.
-                if self.isGeometry(child.tag):
-                    self.output_graph.add( (parent_id, self.GeoSPARQL_NAMESPACE.hasGeometry, child_id) )
+                if self.isGeometry(mapped_child_tag):
+                    self.output_graph.add( (parent_id, GEO.hasGeometry, child_id) )
             else:
-                logging.warning(f'Child class element, {child.tag}, for object property, {node.tag}, '
-                    f'generation not found at: {self.input_tree.getelementpath(child)}')
+                logging.warning(f'No object property, {node.tag}, found between {parent.tag} '
+                    f'and {child.tag} at: {self.input_tree.getelementpath(child)}')
 
 
     def generateDatatypeProperty(self, parent, parent_id, node):
         '''Generate a datatype for each child (which should all contain datatype literals
         if well formed) and create a datatype property linking the parent individual
         with each child datatype literal.'''
-
+        mapped_tag = self.mapNamespace(node.tag)
+        mapped_parent_tag = self.mapNamespace(parent.tag)
         # check if child node is a datatype. If so, generate a new datatype literal
         # for the child and create a datatype property linking the class with the
         # datatype literal.
         if node.text is None:
-            logging.warning(f'Datatype text for datatype property not found: {self.input_tree.getelementpath(node)}')
+            logging.warning(f'Datatype text for datatype property not found at {self.input_tree.getelementpath(node)}')
         else:
-            property = self.findDatatypeProperty(parent.tag, node.tag)
+            property = self.findDatatypeProperty(mapped_parent_tag, mapped_tag)
             if property is not None:
-                for datatype in self.getDatatypePropertyRange(property):
+                for datatype in self.getDatatypePropertyRange(self.uriToLXML(property)):
                     self.output_graph.add((parent_id, property,
                                     Literal(node.text, datatype=datatype[0])))
             else:
-                logging.warning(f'Datatype property not found: {self.input_tree.getelementpath(node)}')
+                logging.warning(f'Datatype property not found {node.tag} at {self.input_tree.getelementpath(node)}')
 
 
     def generateGeometryLiteral(self, node):
@@ -321,6 +330,7 @@ class XML2RdfTransformer():
 
     def uriToLXML(self, uri):
         '''convert a uri string to an lxml friendly string'''
+        # TODO: instead we should use rdflib.URIRef.defrag to handle URIs not LXML. This is more generic
         if '#' in uri:
             uri = uri.split('#')
             return '{%s#}%s' % (uri[0], uri[1])
@@ -329,8 +339,14 @@ class XML2RdfTransformer():
             return '{%s/}%s' % ('/'.join(uri[0:-1]), uri[-1])
 
 
+    def lxmlToURIRef(self, tag) -> URIRef:
+        '''convert an lxml tag to a URIRef string'''
+        qname = etree.QName(tag)
+        return URIRef(qname.namespace + qname.localname)
+
+
     def normalizeNamespace(self, namespace):
-        '''normalize an namespace for OWL'''
+        '''normalize an namespace for OWL by ensuring uri fragments ('#') are used'''
         namespace = str(namespace)
         if namespace[-1] == '#':
             return namespace
@@ -340,42 +356,49 @@ class XML2RdfTransformer():
             return namespace + '#'
 
 
-    def mapNamespace(self, node_or_tag):
+    def mapNamespace(self, uri: str) -> etree.QName:
         '''map an XML tag namespace based based on the given mapping file. If an RDF
         mapping exists for the tag, simply return that mapping. If a tag namespace is
         in namespace mappings, return the namespace mapping. When a tag namespace is
         mapped to multiple namespaces, the ontology model is queried to determine which
         namespace is appropriate. The first target namespace+localname to appear in
-        the ontology model, is selected as the target namespace. Namespaces are returned
-        as rdflib.URIRef objects.'''
-        if node_or_tag in self.rdf_mappings:
+        the ontology model, is selected as the target namespace.'''
+        qname = etree.QName(uri)
+        if qname in self.rdf_mappings:
+            return self.uriToLXML( self.rdf_mappings[qname] )
+            # return URIRef( self.rdf_mappings[uri] )
             # if an rdf mapping exists, convert it into a lxml friendly format
-            return URIRef( self.rdf_mappings[node_or_tag] )
-            # mapped_tag = self.rdf_mappings[node_or_tag]
+            # mapped_tag = self.rdf_mappings[uri]
             # if '#' in mapped_tag:
             #     mapped_tag = mapped_tag.split('#')
             #     return URIRef( '{%s#}%s' % (mapped_tag[0], mapped_tag[1]) )
 
-        qname = etree.QName(node_or_tag)
-
         if qname.namespace in self.namespace_mappings.keys():
-            if len(self.namespace_mappings[qname.namespace]) == 1:
-                return URIRef(self.namespace_mappings[qname.namespace][0] + qname.localname)
-            else:
-                # TODO: implement dynamic namespace resolution for multiple mappings
-                for namespace in self.namespace_mappings[qname.namespace]:
-                    if self.ontology.query('''
-                            ASK { <%s%s> ?predicate ?object }''' % (namespace, qname.localname)):
-                        return URIRef(namespace + qname.localname)
-                logging.warning(f'Unable to map qname, {qname}, to a namespace')
-                return URIRef(self.normalizeNamespace(qname.namespace) + qname.localname)
+            return etree.QName(self.uriToLXML(self.namespace_mappings[qname.namespace] + qname.localname))
+            # if len(self.namespace_mappings[qname.namespace]) == 1:
+            #     # return URIRef(self.namespace_mappings[qname.namespace][0] + qname.localname)
+            #     return etree.QName(self.uriToLXML(self.namespace_mappings[qname.namespace][0] + qname.localname))
+            # else:
+            #     # TODO: implement dynamic namespace resolution for multiple mappings
+            #     for namespace in self.namespace_mappings[qname.namespace]:
+            #         if self.ontology.query('''
+            #                 ASK { 
+            #                     { <%s> ?predicate ?object }
+            #                     UNION
+            #                     { <%s.> ?predicate ?object }''' % ( URIRef( namespace + qname.localname) )):
+            #             # return URIRef(namespace + qname.localname)
+            #             return etree.QName(self.uriToLXML(namespace + qname.localname))
+            #     logging.warning(f'Unable to map {qname.namespace}, to a namespace')
+            #     # return URIRef(self.normalizeNamespace(qname.namespace) + qname.localname)
+            #     return etree.QName(self.uriToLXML(self.normalizeNamespace(qname.namespace) + qname.localname))
         else:
-            return URIRef(self.normalizeNamespace(qname.namespace) + qname.localname)
-
+            # return URIRef(self.normalizeNamespace(qname.namespace) + qname.localname)
+            return etree.QName(self.uriToLXML(self.normalizeNamespace(qname.namespace) + qname.localname))
 
     def generateID(self, tag):
         '''create a new, unique id from a normalized XML node tag'''
-        name = str(tag).split('#')[-1]
+        tag = etree.QName(tag)
+        name = tag.localname
         if name in self.id_count:
             self.id_count[name] += 1
             return f'{self.output_uri}#{name}_{self.id_count[name]}'
@@ -400,40 +423,48 @@ class XML2RdfTransformer():
                 query = self.ontology.query('''
                     SELECT DISTINCT ?objectproperty
                     WHERE {
-                        {   ?objectproperty a owl:ObjectProperty ;
+                        {
+                            ?objectproperty a owl:ObjectProperty ;
                                 rdfs:domain ?domain .
-                            <%s> rdfs:subClassOf* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                         }
                         UNION
-                        {   <%s> a owl:Class ;
+                        {
+                            ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:allValuesFrom ?someClass ;
+                                                owl:allValuesFrom ?someOtherClass ;
                                                 owl:onProperty    ?objectproperty 
                                                 ] .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                         }
-                    }''' % (self.mapNamespace(qname1),
-                            self.mapNamespace(qname1)))
+                    }''' % (self.lxmlToURIRef(qname1),
+                            self.lxmlToURIRef(qname1)
+                    ))
                 if len(query) > 0:
                     return [line[0] for line in query]
             else:
                 for property in self.getObjectProperties(property_tag):
                     query = self.ontology.query('''
                         ASK   {
-                            { <%s> a owl:ObjectProperty ;
+                            {
+                                <%s> a owl:ObjectProperty ;
                                     rdfs:domain ?domain .
-                                <%s> rdfs:subClassOf* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                             }
                             UNION
-                            { <%s> a owl:Class ;
+                            {
+                                ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:allValuesFrom ?someClass ;
+                                                owl:allValuesFrom ?someOtherClass ;
                                                 owl:onProperty    <%s> 
                                                 ] .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                             }
                         }''' % (property[0],
-                                self.mapNamespace(qname1),
-                                self.mapNamespace(qname1),
-                                property[0]) )
+                                self.lxmlToURIRef(qname1),
+                                property[0],
+                                self.lxmlToURIRef(qname1)
+                        ))
                     if bool(query):
                         return property[0]
 
@@ -447,48 +478,57 @@ class XML2RdfTransformer():
             query = self.ontology.query('''
                 SELECT DISTINCT ?objectproperty
                 WHERE {
-                    {   ?objectproperty a owl:ObjectProperty ;
+                    {
+                        ?objectproperty a owl:ObjectProperty ;
                             rdfs:domain ?domain ;
                             rdfs:range  ?range .
-                        <%s> rdfs:subClassOf* ?domain .
-                        <%s> rdfs:subClassOf* ?range .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?range .
                     }
                     UNION
-                    {   <%s> a owl:Class ;
+                    {
+                        ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
                                             owl:allValuesFrom <%s> ;
                                             owl:onProperty    ?objectproperty 
                                             ] .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                     }
-                }''' % (self.mapNamespace(qname1),
-                        self.mapNamespace(qname2),
-                        self.mapNamespace(qname1),
-                        self.mapNamespace(qname2)))
+                }''' % (self.lxmlToURIRef(qname1),
+                        self.lxmlToURIRef(qname2),
+                        self.lxmlToURIRef(qname2),
+                        self.lxmlToURIRef(qname1)
+                ))
             if len(query) > 0:
                 return [line[0] for line in query]
         else:
             for property in self.getObjectProperties(property_tag):
                 query = self.ontology.query('''
                     ASK   {
-                        { <%s> a owl:ObjectProperty ;
+                        {
+                            <%s> a owl:ObjectProperty ;
                                 rdfs:domain ?domain ;
                                 rdfs:range  ?range .
-                            <%s> rdfs:subClassOf* ?domain .
-                            <%s> rdfs:subClassOf* ?range .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?range .
                         }
                         UNION
-                        { <%s> a owl:Class ;
+                        {
+                            ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
-                                            owl:allValuesFrom <%s> ;
+                                            owl:allValuesFrom ?someOtherClass ;
                                             owl:onProperty    <%s> 
                                             ] .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someOtherClass .
                         }
                     }''' % (property[0],
-                            self.mapNamespace(qname1),
-                            self.mapNamespace(qname2),
-                            self.mapNamespace(qname1),
-                            self.mapNamespace(qname2),
-                            property[0]) )
+                            self.lxmlToURIRef(qname1),
+                            self.lxmlToURIRef(qname2),
+                            property[0],
+                            self.lxmlToURIRef(qname1),
+                            self.lxmlToURIRef(qname2)
+                    ))
                 if bool(query):
                     return property[0]
         logging.warning(f'No matching object property found between: {tag1}, {tag2}')
@@ -505,86 +545,46 @@ class XML2RdfTransformer():
                 query = self.ontology.query('''
                     SELECT DISTINCT ?datatypeproperty
                     WHERE {
-                        { ?datatypeproperty a owl:DatatypeProperty ;
+                        {
+                            ?datatypeproperty a owl:DatatypeProperty ;
                                 rdfs:domain ?domain .
-                            <%s> rdfs:subClassOf* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                         }
                         UNION
-                        { <%s> a owl:Class ;
+                        {
+                            ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
                                             owl:onProperty    ?datatypeproperty 
                                             ] .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                         }
-                    }''' % (self.mapNamespace(qname1),
-                            self.mapNamespace(qname1)) )
+                    }''' % (self.lxmlToURIRef(qname1),
+                            self.lxmlToURIRef(qname1)
+                    ))
                 if len(query) > 0:
                     return [line[0] for line in query]
             else:
                 for property in self.getDatatypeProperties(property_tag):
                     query = self.ontology.query('''
                         ASK   {
-                            { <%s> a owl:DatatypeProperty ;
+                            {
+                                <%s> a owl:DatatypeProperty ;
                                     rdfs:domain ?domain .
-                                <%s> rdfs:subClassOf* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                             }
                             UNION
-                            { <%s> a owl:Class ;
+                            {
+                                ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
                                                 owl:onProperty <%s> 
                                                 ] .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                             }
                         }''' % (property[0],
-                                self.mapNamespace(qname1),
-                                self.mapNamespace(qname1),
-                                property[0]) )
-                    if bool(query):
-                        return property[0]
-        logging.warning(f'No matching datatype property found between: {tag}, {property_tag}')
-        return None
-
-
-    def findDatatypeProperty(self, tag, property_tag=None):
-        '''Find a datatype property which links (intersects) a given class and a datatype
-        based on the domain and range of the property or which a given class contains
-        a universal restriction of the property.'''
-        qname1 = etree.QName(tag)
-        if self.isClass(tag):
-            if property_tag is None:
-                query = self.ontology.query('''
-                    SELECT DISTINCT ?datatypeproperty
-                    WHERE {
-                        { ?datatypeproperty a owl:DatatypeProperty ;
-                                rdfs:domain ?domain .
-                            <%s> rdfs:subClassOf* ?domain .
-                        }
-                        UNION
-                        { <%s> a owl:Class ;
-                            rdfs:subClassOf [ a owl:Restriction ;
-                                            owl:onProperty    ?datatypeproperty 
-                                            ] .
-                        }
-                    }''' % (self.mapNamespace(qname1),
-                            self.mapNamespace(qname1)) )
-                if len(query) > 0:
-                    return [line[0] for line in query]
-            else:
-                for property in self.getDatatypeProperties(property_tag):
-                    query = self.ontology.query('''
-                        ASK   {
-                            { <%s> a owl:DatatypeProperty ;
-                                    rdfs:domain ?domain .
-                                <%s> rdfs:subClassOf* ?domain .
-                            }
-                            UNION
-                            { <%s> a owl:Class ;
-                                rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:onProperty <%s> 
-                                                ] .
-                            }
-                        }''' % (property[0],
-                                self.mapNamespace(qname1),
-                                self.mapNamespace(qname1),
-                                property[0]) )
+                                self.lxmlToURIRef(qname1),
+                                property[0],
+                                self.lxmlToURIRef(qname1)
+                        ))
                     if bool(query):
                         return property[0]
         logging.warning(f'No matching datatype property found between: {tag}, {property_tag}')
@@ -598,24 +598,24 @@ class XML2RdfTransformer():
             return len(self.class_definition_cache.get(tag)) > 0
         # TODO: optimize query
         query = []
-        tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
-        if tag_namespace_mappings is None:
-            for line in self.ontology.query('''
-                            SELECT DISTINCT ?class
-                            WHERE {
-                                ?class rdf:type owl:Class .
-                                FILTER ( STR(?class) = "%s%s" )
-                            }''' % (qname.namespace, qname.localname)):
-                query.append(line)
-        else:
-            for namespace in self.namespace_mappings.get(qname.namespace, [qname.namespace]):
-                for line in self.ontology.query('''
-                        SELECT DISTINCT ?class
-                        WHERE {
-                            ?class rdf:type owl:Class .
-                            FILTER ( STR(?class) = "%s%s" )
-                        }''' % (namespace, qname.localname) ):
-                    query.append(line)
+        # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
+        # if tag_namespace_mappings is None:
+        #     for line in self.ontology.query('''
+        #                 SELECT DISTINCT ?class
+        #                 WHERE {
+        #                     ?class rdf:type owl:Class .
+        #                     FILTER ( STR(?class) = "%s" )
+        #                 }''' % (self.lxmlToURIRef(qname))):
+        #         query.append(line)
+        # else:
+        #     for namespace in self.namespace_mappings.get(qname.namespace, [qname.namespace]):
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?class
+                WHERE {
+                    ?class rdf:type owl:Class .
+                    FILTER ( STR(?class) = "%s%s" )
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
         self.class_definition_cache[tag] = query
         return len(self.class_definition_cache.get(tag)) > 0
 
@@ -625,64 +625,81 @@ class XML2RdfTransformer():
         if self.isClass(tag):
             return self.class_definition_cache.get( str(tag) )
         else:
-            logging.warning(f'Unable to get Class: {tag}')
+            logging.warning(f'Class Class definition not found in ontology network: : {tag}')
 
 
     def isObjectProperty(self, tag, parent_tag=None):
         '''return whether object property definition exists in self.ontology. Local property
-        names may require searching through the shapechange [[name]] descriptor target
-        (rdfs:label by default) depending on shapechange property encoding
-        configurations. The node's parent tag may be provided to verify if the parent
-        class is within the domain of the property.'''
+        naming conventions (as defined by ISO 19150-2:2016 and executed by ShapeChange) are 
+        structured as '[property domain].[property]'. The ontology is queried looking for 
+        properties with local and global naming conventions. The node's parent tag may be
+        provided to verify if the parent class is within the domain of the property.'''
+        # TODO: optimize queries
         qname = etree.QName(tag)
         if tag in self.objectproperty_definition_cache.keys():
             if parent_tag is None:
                 return len(self.objectproperty_definition_cache.get(tag)) > 0
             else:
-                parent_qname = self.mapNamespace(etree.QName(parent_tag))
                 for objectproperty in self.objectproperty_definition_cache.get(tag):
                     if self.ontology.query('''
                         ASK {
                             <%s> rdf:type owl:ObjectProperty ;
                                 rdfs:domain ?domain .
-                            <%s> rdfs:subClassOf* ?domain .
-                        }''' % (objectproperty[0], parent_qname) ):
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                        }''' % (objectproperty[0],
+                                self.lxmlToURIRef(parent_tag)) ):
                         return True
                 return False
         query = []
-        tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
-        if tag_namespace_mappings is None:
-            for line in self.ontology.query('''
-                    SELECT DISTINCT ?objectproperty
-                    WHERE {
-                        ?objectproperty rdf:type owl:ObjectProperty .
-                        FILTER regex(STR(?objectproperty), "^%s.*.%s$")
-                    }''' % (qname.namespace, qname.localname) ):
-                query.append(line)
-        else:
-            for namespace in self.namespace_mappings[qname.namespace]:
-                # TODO: optimize queries
-                for line in self.ontology.query('''
-                        SELECT DISTINCT ?objectproperty
-                        WHERE {
-                            ?objectproperty rdf:type owl:ObjectProperty .
-                            FILTER regex(STR(?objectproperty), "^%s.*.%s$")
-                        }''' % (namespace, qname.localname) ):
-                    query.append(line)
+        # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
+        # if tag_namespace_mappings is None:
+        #     # add properties matching local naming conventions
+        #     for line in self.ontology.query('''
+        #             SELECT DISTINCT ?objectproperty
+        #             WHERE {
+        #                 ?objectproperty rdf:type owl:ObjectProperty .
+        #                 FILTER regex(STR(?objectproperty), "^%s.*.%s$")
+        #             }''' % (qname.namespace, qname.localname) ):
+        #         query.append(line)
+        #     # add properties matching global naming conventions
+        #     for line in self.ontology.query('''
+        #             SELECT DISTINCT ?objectproperty
+        #             WHERE {
+        #                 ?objectproperty rdf:type owl:ObjectProperty .
+        #                 FILTER (STR(?objectproperty) = "%s")
+        #             }''' % (self.lxmlToURIRef(qname)) ):
+        #         query.append(line)
+        # else:
+        #     for namespace in self.namespace_mappings[qname.namespace]:
+        # add properties matching local naming conventions
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?objectproperty
+                WHERE {
+                    ?objectproperty rdf:type owl:ObjectProperty .
+                    FILTER regex(STR(?objectproperty), "^%s.*.%s$")
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
+        # add properties matching global naming conventions
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?objectproperty
+                WHERE {
+                    ?objectproperty rdf:type owl:ObjectProperty .
+                    FILTER (STR(?objectproperty) = "%s%s")
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
         self.objectproperty_definition_cache[tag] = query
-        if parent_tag is None:
-            return len(self.objectproperty_definition_cache.get(tag)) > 0
-        else:
-            parent_qname = self.mapNamespace(etree.QName(parent_tag))
+        if parent_tag is not None:
             for objectproperty in self.objectproperty_definition_cache.get(tag):
                 if self.ontology.query('''
                     ASK {
                         <%s> rdf:type owl:ObjectProperty ;
                             rdfs:domain ?domain .
-                        <%s> rdfs:subClassOf* ?domain .
-                    }''' % (objectproperty[0], parent_qname)):
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                    }''' % (objectproperty[0],
+                            self.lxmlToURIRef(parent_tag)
+                    )):
                     return True
-        return False
+        return len(self.objectproperty_definition_cache.get(tag)) > 0
 
 
 
@@ -691,91 +708,104 @@ class XML2RdfTransformer():
         if self.isObjectProperty(tag):
             return self.objectproperty_definition_cache.get( str(tag) )
         else:
-            logging.warning(f'Unable to get Object Property: {tag}')
+            logging.warning(f'Object Property definition not found in ontology network: {tag}')
 
 
     def isDatatypeProperty(self, tag, parent_tag=None):
         '''return whether datatype property definition exists in self.ontology. Local property
-        names may require searching through the shapechange [[name]] descriptor target
-        (rdfs:label by default) depending on shapechange property encoding
-        configurations. The node's parent tag may be provided to verify if the parent
-        class is within the domain of the property.'''
+        naming conventions (as defined by ISO 19150-2:2016 and executed by ShapeChange) are 
+        structured as '[property domain].[property]'. The ontology is queried looking for 
+        properties with local and global naming conventions. The node's parent tag may be provided
+        to verify if the parent class is within the domain of the property.'''
+        # TODO: optimize query
         qname = etree.QName(tag)
         if tag in self.datatypeproperty_definition_cache.keys():
-            if parent_tag is None:
-                return len(self.datatypeproperty_definition_cache.get(tag)) > 0
-            else:
-                parent_qname = self.mapNamespace(etree.QName(parent_tag))
+            if parent_tag is not None:
                 for datatypeproperty in self.datatypeproperty_definition_cache.get(tag):
                     if self.ontology.query('''
                             ASK {
                                 <%s> rdf:type owl:DatatypeProperty ;
                                     rdfs:domain ?domain .
-                                <%s> rdfs:subClassOf* ?domain .
-                            }''' % (datatypeproperty[0], parent_qname) ):
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                            }''' % (datatypeproperty[0],
+                                    self.lxmlToURIRef(parent_tag)) ):
                         return True
-                return False
-        query = []
-        tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
-        if tag_namespace_mappings is None:
-            for line in self.ontology.query('''
-                        SELECT DISTINCT ?datatypeproperty
-                        WHERE {
-                            ?datatypeproperty rdf:type owl:DatatypeProperty .
-                            FILTER regex(STR(?datatypeproperty), "^%s.*.%s$")
-                        }''' % (qname.namespace, qname.localname) ):
-                    query.append(line)
-        else:
-            for namespace in tag_namespace_mappings:
-                # TODO: optimize query
-                for line in self.ontology.query('''
-                        SELECT DISTINCT ?datatypeproperty
-                        WHERE {
-                            ?datatypeproperty rdf:type owl:DatatypeProperty .
-                            FILTER regex(STR(?datatypeproperty), "^%s.*.%s$")
-                        }''' % (namespace, qname.localname) ):
-                    query.append(line)
-        self.datatypeproperty_definition_cache[tag] = query
-        if parent_tag is None:
             return len(self.datatypeproperty_definition_cache.get(tag)) > 0
-        else:
-            parent_qname = self.mapNamespace(etree.QName(parent_tag))
+        query = []
+        # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
+        # if tag_namespace_mappings is None:
+        #     # add properties matching local naming conventions
+        #     for line in self.ontology.query('''
+        #             SELECT DISTINCT ?datatypeproperty
+        #             WHERE {
+        #                 ?datatypeproperty rdf:type owl:DatatypeProperty .
+        #                 FILTER regex(STR(?datatypeproperty), "^%s.*.%s$")
+        #             }''' % (qname.namespace, qname.localname) ):
+        #         query.append(line)
+        #     # add properties matching global naming conventions
+        #     for line in self.ontology.query('''
+        #             SELECT DISTINCT ?datatypeproperty
+        #             WHERE {
+        #                 ?datatypeproperty rdf:type owl:DatatypeProperty .
+        #                 FILTER (STR(?datatypeproperty) = "%s")
+        #             }''' % (self.lxmlToURIRef(qname)) ):
+        #         query.append(line)
+        # else:
+        #     for namespace in tag_namespace_mappings:
+        # add properties matching local naming conventions
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?datatypeproperty
+                WHERE {
+                    ?datatypeproperty rdf:type owl:DatatypeProperty .
+                    FILTER regex(STR(?datatypeproperty), "^%s.*.%s$")
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
+        # add properties matching global naming conventions
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?datatypeproperty
+                WHERE {
+                    ?datatypeproperty rdf:type owl:DatatypeProperty .
+                    FILTER (STR(?datatypeproperty) = "%s%s")
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
+        self.datatypeproperty_definition_cache[tag] = query
+        if parent_tag is not None:
             for datatypeproperty in self.datatypeproperty_definition_cache.get(tag):
                 if self.ontology.query('''
                     ASK {
                         <%s> rdf:type owl:DatatypeProperty ;
                             rdfs:domain ?domain .
-                        <%s> rdfs:subClassOf* ?domain .
-                    }''' % (datatypeproperty[0], parent_qname)):
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                    }''' % (datatypeproperty[0], self.lxmlToURIRef(parent_tag))):
                     return True
-        return False
+        return len(self.datatypeproperty_definition_cache.get(tag)) > 0
 
 
     def isAnnotationProperty(self, tag):
         '''return whether an annotation property definition exists in the self.ontology.
         Local naming conventions are not used for this query.'''
         # TODO: add annotation definition cache
+        # TODO: optimize query
         qname = etree.QName(tag)
         query = []
-        tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
-        if tag_namespace_mappings is None:
-            for line in self.ontology.query('''
-                        SELECT DISTINCT ?annotationproperty
-                        WHERE {
-                            ?annotationproperty rdf:type owl:AnnotationProperty .
-                            FILTER regex(STR(?annotationproperty), "^%s%s")
-                        }''' % (qname.namespace, qname.localname) ):
-                query.append(line)
-        else:
-            for namespace in tag_namespace_mappings:
-                # TODO: optimize query
-                for line in self.ontology.query('''
-                        SELECT DISTINCT ?annotationproperty
-                        WHERE {
-                            ?annotationproperty rdf:type owl:AnnotationProperty .
-                            FILTER regex(STR(?annotationproperty), "^%s%s")
-                        }''' % (namespace, qname.localname) ):
-                    query.append(line)
+        # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
+        # if tag_namespace_mappings is None:
+        #     for line in self.ontology.query('''
+        #                 SELECT DISTINCT ?annotationproperty
+        #                 WHERE {
+        #                     ?annotationproperty rdf:type owl:AnnotationProperty .
+        #                     FILTER regex(STR(?annotationproperty), "^%s")
+        #                 }''' % (self.lxmlToURIRef(qname)) ):
+        #         query.append(line)
+        # else:
+        #     for namespace in tag_namespace_mappings:
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?annotationproperty
+                WHERE {
+                    ?annotationproperty rdf:type owl:AnnotationProperty .
+                    FILTER regex(STR(?annotationproperty), "^%s%s")
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
         return len(query) > 0
 
 
@@ -784,16 +814,17 @@ class XML2RdfTransformer():
         if self.isDatatypeProperty(tag):
             return self.datatypeproperty_definition_cache.get( str(tag) )
         else:
-            logging.warning(f'Unable to get Datatype Property: {tag}')
+            logging.warning(f'Datatype Property definition not found in ontology network: {tag}')
 
 
-    def getDatatypePropertyRange(self, property):
+    def getDatatypePropertyRange(self, uri):
         '''Get the rdfs:range of a datatype property'''
+        qname = etree.QName(uri)
         return self.ontology.query('''
             SELECT DISTINCT ?range
             WHERE {
-                <%s> rdfs:range ?range .
-            }''' % property)
+                <%s%s> rdfs:range ?range .
+            }''' % (qname.namespace, qname.localname))
 
 
     def isDatatype(self, tag):
@@ -803,24 +834,24 @@ class XML2RdfTransformer():
             return len(self.datatype_definition_cache.get(tag)) > 0
         # TODO: optimize query
         query = []
-        tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
-        if tag_namespace_mappings is None:
-            for line in self.ontology.query('''
-                    SELECT DISTINCT ?datatype
-                    WHERE {
-                        ?datatype rdf:type rdfs:Datatype .
-                        FILTER ( STR(?datatype) = "%s%s" )
-                    }''' % (qname.namespace, qname.localname) ):
-                query.append(line)
-        else:
-            for namespace in self.namespace_mappings[qname.namespace]:
-                for line in self.ontology.query('''
-                        SELECT DISTINCT ?datatype
-                        WHERE {
-                            ?datatype rdf:type rdfs:Datatype .
-                            FILTER ( STR(?datatype) = "%s%s" )
-                        }''' % (namespace, qname.localname) ):
-                    query.append(line)
+        # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
+        # if tag_namespace_mappings is None:
+        #     for line in self.ontology.query('''
+        #             SELECT DISTINCT ?datatype
+        #             WHERE {
+        #                 ?datatype rdf:type rdfs:Datatype .
+        #                 FILTER ( STR(?datatype) = "%s" )
+        #             }''' % (self.lxmlToURIRef(qname)) ):
+        #         query.append(line)
+        # else:
+        #     for namespace in self.namespace_mappings[qname.namespace]:
+        for line in self.ontology.query('''
+                SELECT DISTINCT ?datatype
+                WHERE {
+                    ?datatype rdf:type rdfs:Datatype .
+                    FILTER ( STR(?datatype) = "%s%s" )
+                }''' % (qname.namespace, qname.localname) ):
+            query.append(line)
         self.datatype_definition_cache[tag] = query
         return len(self.datatype_definition_cache.get(tag)) > 0
 
@@ -830,23 +861,22 @@ class XML2RdfTransformer():
         if self.isDatatype(tag):
             return self.datatype_definition_cache.get( str(tag) )
         else:
-            logging.warning(f'Unable to get Datatype: {tag}')
+            logging.warning(f'Datatype definition not found in ontology network: {tag}')
 
 
     def isGeometry(self, tag):
-        '''return whether tag is a valid gml element supported by GeoSPARQL. The uri is
-        converted into a qname tuple of (prefix, namespace, localname) to extract the
-        namespace. Note that solid geometry is not supported by GeoSPARQL but multisurface
-        geometry is.'''
-        qname = self.mapNamespace(tag).split('#')
-        if qname[0] + '#' == str(self.GML_ONT_NAMESPACE) and self.isClass(tag):
+        '''return whether a uri is a valid gml element supported by GeoSPARQL. Note that
+        solid geometry is not supported by GeoSPARQL but multisurface geometry is.'''
+        qname = etree.QName(tag)
+        if qname.namespace == str(self.GML_ONT_NAMESPACE) and self.isClass(tag):
             if self.valid_geometry:
-                return qname[1] in self.valid_geometry
+                return qname.localname in self.valid_geometry
             else:
                 return self.ontology.query(
                     'ASK {'
-                        f'<{str(self.GML_ONT_NAMESPACE)}{qname[1]}> rdfs:subClassOf* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
+                        f'<{str(self.GML_ONT_NAMESPACE)}{qname.localname}> (owl:equivalentClass|rdfs:subClassOf)* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
                     '}')
+
 
     def updateProgressBar(self, status=''):
         if self.args.verbose:
