@@ -86,15 +86,17 @@ def main():
 
     # create output version graph and set namespaces
     output_graph = Graph()
-    CORE = uriToNamespace(args.core_uri)
-    VERS = uriToNamespace(args.versioning_uri)
-    TYPE = uriToNamespace(args.transaction_type_uri)
-    DATA = uriToNamespace(args.base_uri)
-    V1   = uriToNamespace(args.v1_uri)
-    V2   = uriToNamespace(args.v2_uri)
+    TIME_EXT    = uriToNamespace('https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#')
+    CORE        = uriToNamespace(args.core_uri)
+    VERS        = uriToNamespace(args.versioning_uri)
+    TYPE        = uriToNamespace(args.transaction_type_uri)
+    DATA        = uriToNamespace(args.base_uri)
+    V1          = uriToNamespace(args.v1_uri)
+    V2          = uriToNamespace(args.v2_uri)
 
     output_graph.namespace_manager.bind( 'owl', OWL )
     output_graph.namespace_manager.bind( 'time', TIME )
+    output_graph.namespace_manager.bind( 'time_ext', TIME_EXT )
     output_graph.namespace_manager.bind( 'core', CORE )
     output_graph.namespace_manager.bind( 'vers', VERS )
     output_graph.namespace_manager.bind( 'type', TYPE )
@@ -136,10 +138,13 @@ def main():
         # add OWL-Time entities to versions and versionTransition
         temporal_entity_uri = createTemporalEntity(output_graph, start_timestamp, start_timestamp, args.version_ids[0], DATA)
         output_graph.add( (source_version_uri, TIME.hasTime, temporal_entity_uri))
+        output_graph.add( (source_version_uri, TIME_EXT.hasExistenceTime, temporal_entity_uri))
         temporal_entity_uri = createTemporalEntity(output_graph, end_timestamp, end_timestamp, args.version_ids[1], DATA)
         output_graph.add( (target_version_uri, TIME.hasTime, temporal_entity_uri))
+        output_graph.add( (target_version_uri, TIME_EXT.hasExistenceTime, temporal_entity_uri))
         temporal_entity_uri = createTemporalEntity(output_graph, start_timestamp, end_timestamp, f'{args.version_ids[0]}_{args.version_ids[1]}', DATA)
         output_graph.add( (versionTransition_uri, TIME.hasTime, temporal_entity_uri))
+        output_graph.add( (versionTransition_uri, TIME_EXT.hasExistenceTime, temporal_entity_uri))
     if args.transaction_time_stamps is not None:
         creationDate_uri = URIRef(CORE.AbstractFeatureWithLifespan + '.creationDate')
         terminationDate_uri = URIRef(CORE.AbstractFeatureWithLifespan + '.terminationDate')
@@ -155,10 +160,13 @@ def main():
         # add OWL-Time entities to versions and versionTransition
         temporal_entity_uri = createTemporalEntity(output_graph, start_timestamp, start_timestamp, args.version_ids[0], args.version_ids[1], DATA)
         output_graph.add( (source_version_uri, TIME.hasTime, temporal_entity_uri))
+        output_graph.add( (source_version_uri, TIME_EXT.hasTransactionTime, temporal_entity_uri))
         temporal_entity_uri = createTemporalEntity(output_graph, end_timestamp, end_timestamp, args.version_ids[0], args.version_ids[1], DATA)
         output_graph.add( (target_version_uri, TIME.hasTime, temporal_entity_uri))
+        output_graph.add( (target_version_uri, TIME_EXT.hasTransactionTime, temporal_entity_uri))
         temporal_entity_uri = createTemporalEntity(output_graph, start_timestamp, end_timestamp, args.version_ids[0], args.version_ids[1], DATA)
         output_graph.add( (versionTransition_uri, TIME.hasTime, temporal_entity_uri))
+        output_graph.add( (versionTransition_uri, TIME_EXT.hasTransactionTime, temporal_entity_uri))
 
 
 

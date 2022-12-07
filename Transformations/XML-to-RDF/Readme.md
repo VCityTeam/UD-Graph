@@ -1,7 +1,7 @@
 # XML to RDF transformer
 Model driven transformation tools for creating RDF/OWL knowledge graphs from XML files. There are currently 3 tools:
 - A [python based tool](#XML-to-RDF-Transformation) for creating RDF/OWL graphs from XML data and a network of OWL 2 DL ontologies
-- An [XSLT based tool](#XSLT-based-transformations) for creating RDF/OWL graphs and ontologies from XML data, and an XSD schema, following the work of [[Metral et al. 2010]](https://orbi.uliege.be/handle/2268/26716)
+- An [XSLT based tool](#XSLT-based-transformations) for creating RDF/OWL graphs and ontologies from XML data, and an XSD schema, following the work of [[Metral et al. 2010]](https://orbi.uliege.be/handle/2268/26716) and [[Bedini et al. 2011]](https://ieeexplore.ieee.org/document/6061418)
 
 Both of these tools support GML instances.
 
@@ -16,16 +16,32 @@ Example ontologies are generated using the `UD-Graph/Transformations/ShapeChange
 * `UD-Graph/Ontologies`
 * `UD-Graph/Transformations/test-data/OWL`
 
+#### Namespace/RDF Mappings
 Note that a namespace mapping file required to map namespaces from the XML document to namespaces in the ontologies and XML tags to RDF URIs. Two example namespace files are available for CityGML 2.0 and 3.0. Note that the RDF mapping URIs are written with LXML syntax:
 * `citygml_2_mappings.json`
+* `citygml_2_xslt_mappings.json`
 * `citygml_3_mappings.json`
+
+`namespace-mappings` are used by XML2RDF.py to determine what an XML element or attribute corresponds to as a instance (or individual) of a Class, ObjectProperty, DatatypeProperty, AnnotationProperty, or Datatype in an OWL ontology (or ontology network in the case of multiple, aligned ontologies) 
+The `namespace-mappings` dictionary should be declared as follows:
+- Keys should be defragmented XML namespaces (meaning no trailing `/` or `#` character in the URI/URL) corresponding to namespaces in the input XML document. 
+  - For example, a namespace declaration `xmlns="http://www.opengis.net/citygml/2.0/"` should be written as `"http://www.opengis.net/citygml/2.0"`
+- Values should be corresponding URIs in the input_model (ontology or ontology network) and can have a trailing `/` or `#` character
+
+`rdf-mappings` can be used to manually declare a mapping between an XML element or attribute and a URI in the ontology (or ontology network)
+`rdf-mappings` must be declared as follows:
+- Keys must be LXML friendly strings.
+  - For example, a XML element `<gml:description>` with a namespace declaration `xmlns:gml="http://www.opengis.net/gml"` should be declared as `{http://www.opengis.net/gml}description` with the namespace between `{}` brackets.
+  - For example, a XML attribute `<gml:id="someID">` with a namespace declaration `xmlns:gml="http://www.opengis.net/gml"` should be declared as `{http://www.opengis.net/gml}id` with the namespace between `{}` brackets.
+- Similar to the `namespace-mappings` dictionary, values in the `namespace-mappings` dictionary can have complete fragments
+  - For example `"http://www.w3.org/2004/02/skos/core#note"` is valid (here the URI fragment is `#note`)
 
 Required Python libraries:
 * [RDFLib](https://rdflib.readthedocs.io/)
 * [lxml](https://lxml.de/)
 
 Usage information  
-```bash
+```
 usage: XML2RDF.py [-h] [--output OUTPUT] [--format {turtle,ttl,turtle2,xml,pretty-xml,json-ld,ntriples,nt,nt11,n3,trig,trix}] [--log LOG]
                   [--atomic-geometry] [--deep-geometry] [-v]
                   input_file input_model mapping_file
@@ -48,6 +64,18 @@ optional arguments:
   -v, --verbose         Enable verbose console logging
 ```
 
+Namespace Mapping files should have the following structure:
+```json
+{
+    "namespace-mappings" : {
+        "string" : "string"
+    },
+    "rdf-mappings" : {
+        "string":  "string"
+    }
+}
+```
+
 For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../../UD-Graph/Ontologies/CityGML/2.0/):
 ```bash
 python ./XML2RDF.py \
@@ -67,5 +95,5 @@ python XML2RDF.py \
   citygml_3_mappings.json
 ```
 ## XSLT-based-transformations
-This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd)
+This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd). See the [readme](./XSLT-based-transformations/Readme.md) for more information.
 

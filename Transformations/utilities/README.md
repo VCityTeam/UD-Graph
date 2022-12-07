@@ -5,8 +5,11 @@ Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and fea
 
 ### To run
 ```
-usage: AddTimeStamps.py [-h] [--input-format INPUT_FORMAT] [--output-format OUTPUT_FORMAT] [--core-uri CORE_URI] [--from-property FROM_PROPERTY] [--to-property TO_PROPERTY] [-l LOG] [-d]
+usage: AddTimeStamps.py [-h] [--input-format INPUT_FORMAT] [--output-format OUTPUT_FORMAT] [--core-uri CORE_URI] [--from-property FROM_PROPERTY] [--to-property TO_PROPERTY]
+                        [--t-entity-property T_ENTITY_PROPERTY] [-l LOG] [--ignore-owl-time] [-d]
                         input_file output_file time_stamps time_stamps
+
+Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data. Can optionally add timestamps as OWL-Time temporal entities
 
 positional arguments:
   input_file            specify the input CityGML RDF graph
@@ -24,19 +27,35 @@ optional arguments:
                         specify the "from" timestamp property URI (without namespace) e.g. validFrom or creationDate
   --to-property TO_PROPERTY
                         specify the "to" timestamp property URI (without namespace) e.g. validTo or terminationDate
+  --t-entity-property T_ENTITY_PROPERTY
+                        specify the URI for the property relating a CityGML feature to its OWL-Time temporal entity. If unspecified, the #hasTime property from OWL-Time is used. If the --ignore-owl-time flag is enabled, this field will be ignored.
   -l LOG, --log LOG     specify the logging file
+  --ignore-owl-time     skip the creation of OWL-Time TemporalEntities
   -d, --debug           enable debug level logging
 ```
 
 For example:
 ```bash
 python AddTimeStamps.py \
+    --t-entity-property 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#' \
     ../test-data/RDF/historicalSuccession_CityGML_3.0_v1.ttl \
     ./historicalSuccession_v1.ttl \
     2000-01-01T00:00:00 2000-01-01T00:00:00 \
     -d
 ```
-
+Default URI values correspond to the CityGML 3.0 ontologies proposed [here](../../Ontologies/CityGML/3.0), for the CityGML 2.0 ontologies the following may be done:
+```bash
+python AddTimeStamps.py \
+    --core-uri 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core#' \
+    --feature-member-property 'CityModel.cityObjectMember' \
+    --from-property 'AbstractCityObject.creationDate' \
+    --to-property 'AbstractCityObject.terminationDate' \
+    --t-entity-property 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#hasExistenceTime' \
+    ../../Datasets/GratteCiel_Workspace_2009_2018/2.0/GratteCiel_2012_split.ttl \
+    ./GratteCiel_2012_split.ttl \
+    2012-01-01T00:00:00 2012-01-01T00:00:00 \
+    -d
+```
 
 ## add_crs.py
 Add a coordinate reference system to a gml file.

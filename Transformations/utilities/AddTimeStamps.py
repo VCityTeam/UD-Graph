@@ -5,7 +5,7 @@ from rdflib.namespace import XSD, RDF, TIME, Namespace, split_uri
 
 def main():
     # initialize command line arguments
-    parser = argparse.ArgumentParser(description="Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data. Can optionally add timestamps in the of OWL-Time temporal entities")
+    parser = argparse.ArgumentParser(description="Add timestamp values to CityGML RDF graphs. Useful when CityGML versions and features do not have temporal data. Can optionally add timestamps as OWL-Time temporal entities")
     parser.add_argument('input_file',
                          help='specify the input CityGML RDF graph')
     parser.add_argument('output_file',
@@ -21,18 +21,23 @@ def main():
                          help='specify the output CityGML RDFlib format.')
     parser.add_argument('--core-uri',
                          default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#',
-                         help='specify the URI for the CityGML core module')
+                         help='specify the URI for the CityGML core module used in the dataset')
+    parser.add_argument('--feature-member-property',
+                         default='CityModel.cityModelMember_cityObjectMember',
+                         help='specify the CityGML feature member property URI (without namespace) e.g. "CityModel.cityModelMember_cityObjectMember" or "CityModel.cityObjectMember". This property will be used to find CityModel feature members in the given dataset')
     parser.add_argument('--from-property',
                          default='AbstractFeatureWithLifespan.validFrom',
                          help='specify the "from" timestamp property URI (without namespace) e.g. validFrom or creationDate')
     parser.add_argument('--to-property',
                          default='AbstractFeatureWithLifespan.validTo',
                          help='specify the "to" timestamp property URI (without namespace) e.g. validTo or terminationDate')
+    parser.add_argument('--t-entity-property',
+                         help='specify the URI for the property relating a CityGML feature to its OWL-Time temporal entity in addition to the the #hasTime property from OWL-Time. If the --ignore-owl-time flag is enabled, this field will be ignored.')
     parser.add_argument('-l', '--log',
                          default='output.log',
                          help='specify the logging file')
     parser.add_argument('--ignore-owl-time',
-                         default=True,
+                         default=False,
                          action='store_false',
                          help='skip the creation of OWL-Time TemporalEntities')
     parser.add_argument('-d', '--debug',
@@ -51,13 +56,18 @@ def main():
                             format='%(asctime)s %(levelname)-8s %(message)s')
 
     logging.debug(f'received arguments: {args}')
-
+    # print(args)
     # initialize timestamper
-    time_stamper = timeStamper(args.core_uri)
+    time_stamper = timeStamper(args.core_uri, args.t_entity_property)
     time_stamper.readFile(args.input_file, args.input_format)
     
     # add timestamps
-    time_stamper.addTimeStamps(args.time_stamps[0], args.time_stamps[1], args.from_property, args.to_property, args.ignore_owl_time)
+    time_stamper.addTimeStamps(args.time_stamps[0],
+                args.time_stamps[1],
+                args.feature_member_property,
+                args.from_property,
+                args.to_property,
+                args.ignore_owl_time)
 
     # write file
     time_stamper.writeFile(args.output_file, args.output_format)
@@ -65,10 +75,14 @@ def main():
 
 class timeStamper():
 
-    def __init__(self, core_namespace):
+    def __init__(self, core_namespace, custom_has_time_uri=None):
         self.graph = Graph()
         self.CORE = Namespace(core_namespace)
         self.graph.bind('time', TIME)
+        self.custom_has_time_uri = custom_has_time_uri
+        # bind custom has time uri to the time_ext prefix
+        if custom_has_time_uri is not None:
+            self.graph.bind('time_ext', custom_has_time_uri.split('#')[0] + '#')
 
     def readFile(self, input_file, input_format):
         """
@@ -91,7 +105,7 @@ class timeStamper():
         self.graph.serialize(destination=output_file, format=output_format)
         logging.info('Done!')
 
-    def addTimeStamps(self, from_timestamp, to_timestamp, from_timestamp_property, to_timestamp_property, use_owl_time=True):
+    def addTimeStamps(self, from_timestamp, to_timestamp, feature_member_property, from_timestamp_property, to_timestamp_property, ignore_owl_time=False):
         """
         It adds CityGML timestamps to all CityGML feature members in an RDF graph
         
@@ -104,11 +118,11 @@ class timeStamper():
         from_timestamp = Literal(from_timestamp, datatype=XSD.dateTime)
         to_timestamp = Literal(to_timestamp, datatype=XSD.dateTime)
         for city_model, city_model_member, feature_member in self.graph.triples(
-                (None, URIRef(self.CORE.CityModel + '.cityModelMember_cityObjectMember'), None)
+                (None, URIRef(self.CORE + feature_member_property), None)
             ):
             self.graph.add( (feature_member, URIRef(self.CORE + from_timestamp_property), from_timestamp) )
             self.graph.add( (feature_member, URIRef(self.CORE + to_timestamp_property), to_timestamp) )
-            if use_owl_time:
+            if not ignore_owl_time:
                 feature_namespace, feature_name = split_uri(feature_member)
                 feature_namespace = Namespace(feature_namespace)
                 temporal_entity_uri = URIRef( feature_namespace.temporalEntity_ + feature_name )
@@ -121,7 +135,9 @@ class timeStamper():
                 self.graph.add( (temporal_entity_uri, TIME.hasEnd, end_uri) )
                 self.graph.add( (end_uri, RDF.type, TIME.Instant) )
                 self.graph.add( (end_uri, TIME.inXSDDateTimeStamp, to_timestamp) )
-                self.graph.add( (feature_member, TIME.hasTime, temporal_entity_uri) )
+                self.graph.add( (feature_member, TIME.hasTime, temporal_entity_uri))
+                if self.custom_has_time_uri is not None:
+                    self.graph.add( (feature_member, URIRef(self.custom_has_time_uri), temporal_entity_uri))
             logging.debug(f'added timestamps to {feature_member}')
 
 
