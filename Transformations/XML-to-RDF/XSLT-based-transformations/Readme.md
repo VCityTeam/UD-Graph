@@ -1,13 +1,15 @@
 ## XML to RDF Transformation
 This folder contains scripts for transforming CityGML schema to RDF graphs and several resulting transformations of sample data. This process is specialized for GML based application schema. Any recognized GML geometry or coordinates will be converted into the GeoSPARQL _geo:gmlLiteral_ datatypes.
 
-XSL transformations reauire [Saxon-HE](http://saxon.sourceforge.net/) which is dependent on Java
+XSL transformations require [Saxon-HE](http://saxon.sourceforge.net/) which is dependent on Java
 
 ### Input Data
 GML files used for testing are located in the _../input-data_ folder. They consist of cityGML data from the [Metropole of Lyon](https://data.grandlyon.com/accueil) and the [Open Geospatial Consortium Github CityGML 3.0 Encoding Github](https://github.com/opengeospatial/CityGML-3.0Encodings/tree/master/CityGML/Examples).
 
 ##### Generate_xToRDF.xsl
 This stylesheet is used to create an XML to RDF XSL stylesheet from an XML Schema document. Two stylesheets exist, each with the required namespaces for CityGML 3.0 and 2.0.
+
+To create a new stylesheet, copy the `Generate_XToRDF.xsl` stylesheet and copy any missing namespace declarations to from the source XML Schema.
 
 ## To install
 Clone this repository and install saxon and cleanup directory
