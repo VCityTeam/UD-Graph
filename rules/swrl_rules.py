@@ -137,7 +137,8 @@ def export_graph(world, test, rules, output_format='ttl'):
     output = Graph()
     output.bind( '', Namespace(test.get('output').get('namespace')) )
     for prefix, namespace in rules.get('prefixes').items():
-        output.bind(prefix, Namespace(namespace), override=True )
+        # output.bind(prefix, Namespace(namespace), override=True )
+        output.bind(prefix, Namespace(namespace))
     # output only triples that are part of the input dataset namespace
     for triple in graph.query("""
         SELECT DISTINCT ?s ?p ?o
@@ -163,8 +164,8 @@ def export_graph(world, test, rules, output_format='ttl'):
 ### init logging
 logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     filename='output.log',
-                    # level=logging.INFO)
-                    level=logging.DEBUG)
+                    level=logging.INFO)
+                    # level=logging.DEBUG)
 
 ### init configuration
 rule_config_file = 'rules.json'

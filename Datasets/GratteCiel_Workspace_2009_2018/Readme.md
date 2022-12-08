@@ -12,6 +12,7 @@ Supplementary methodology activity notes:
   - VersionTransitions were calculated using [cityGMLto3DTiles](https://github.com/VCityTeam/cityGMLto3DTiles) and the [DifferenceGraph2RDF](../../Transformations/DifferenceGraph-to-CityGML3/) script.
   - Bitemporal timestamps were added to the city features, and Versions using the [AddTimeStamps.py](../../Transformations/utilities/AddTimeStamps.py) utility script.
   - The Workspace was instantiated manually
-- Data was validated for consistency using the SWRL rules test suite proposed [here](../../rules/) with [these rules](../../rules/rules.json)
+- The Proof of concept SWRL rules test suite proposed [here](../../rules/) was used to validate the workspace for consistency using the SWRL rules proposed [here](../../rules/rules.json)
+  - The tests effectuated are located [here](../../rules/tests.json). Due to memory limitations, the entire workspace could not validated at once. Thus far the first two versions and corresponding transition of each scenario of the workspace have been tested.
 
 This approach is currently being dockerized in [UD-Reproducibility](https://github.com/VCityTeam/UD-Reproducibility) as a transformation pipeline using the [UD-Graph-docker](https://github.com/VCityTeam/UD-Graph-docker) container
