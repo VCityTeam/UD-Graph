@@ -64,7 +64,7 @@ class XML2RdfTransformer():
             self.namespace_mappings = mappings_as_json['namespace-mappings']
             self.rdf_mappings =       mappings_as_json['rdf-mappings']
 
-        # compile ontology
+        # compile ontology(ies)
         print('Compiling mapping ontology(ies)...')
         self.ontology = Graph()
         for path in self.args.input_models:
