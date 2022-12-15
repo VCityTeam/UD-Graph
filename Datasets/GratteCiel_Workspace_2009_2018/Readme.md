@@ -24,8 +24,9 @@ Supplementary methodology activity notes:
     - From CityGML 2.0 `core:AbstractFeature.creationDate` and `core:AbstractFeature.terminationDate`
     - From CityGML 3.0 `core:AbstractFeatureWithLifespan.validFrom` and `core:AbstractFeatureWithLifespan.validTo`
   - Workspace, Space, and Scenario data was instantiated manually.
-- The Proof of concept SWRL rules test suite proposed [here](../../rules/) was used to validate the workspace for consistency using the SWRL rules proposed [here](../../rules/rules.json)
-    - Note that these rules use the previously declared bitemporal timestamps added to the data to determine if features are also temporally consistent   
+- The Proof of concept SWRL rules test suite proposed [here](../../rules/) was used to validate the CityGML 3.0 workspace for consistency using the SWRL rules proposed [here](../../rules/rules.json)
+  - Note that these rules use the previously declared bitemporal timestamps added to the data to determine if features are also temporally consistent   
   - The tests effectuated are defined [here](../../rules/workspace_tests.json). Due to memory limitations, the entire workspace could not validated at once. Thus far the first two versions and corresponding transition of each scenario of the workspace have been tested.
+  - Rules are currently being written for CityGML 2.0
 
 This approach is currently being dockerized in [UD-Reproducibility](https://github.com/VCityTeam/UD-Reproducibility) as a transformation pipeline using the [UD-Graph-docker](https://github.com/VCityTeam/UD-Graph-docker) container
