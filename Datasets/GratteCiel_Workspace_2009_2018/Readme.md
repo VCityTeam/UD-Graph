@@ -1,4 +1,8 @@
 ## Gratte Ciel 2009-2018 Workspace
+A set of RDF datasets of the Gratte Ciel neigborhood of the Villurbanne commune in France.
+
+These data are structured and validated according to the CityGML model and the CityGML Workspace extension proposed in
+> [1] J. Samuel, S. Servigne, and G. Gesquière, “Representation of concurrent points of view of urban changes for city models,” J Geogr Syst, vol. 22, no. 3, pp. 335–359, Jul. 2020, doi: 10.1007/s10109-020-00319-1.
 
 These RDF datasets were produced using the following methodology:
 
