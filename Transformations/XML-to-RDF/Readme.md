@@ -81,18 +81,30 @@ For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.
 python ./XML2RDF.py \
   -v \
   --format ttl \
-  ../test-data/GML/LYON_1ER_BATI_2015-1_bldg-patched.gml \
-  ../../../UD-Graph/Ontologies/CityGML/2.0/,https://www.w3.org/2009/08/skos-reference/skos.rdf,http://www.opengis.net/ont/geosparql#,http://www.opengis.net/ont/gml# \
-  ./citygml_2_mappings.json
+  ../test-data/GML/Lyon_1er_arrondisement/LYON_1ER_BATI_2015-1_bldg-patched.gml \
+  ./citygml_2_mappings.json \
+  ../../Ontologies/CityGML/2.0/ \
+  https://www.w3.org/2009/08/skos-reference/skos.rdf \
+  http://www.opengis.net/ont/geosparql# \
+  http://www.opengis.net/ont/gml# \
+  ../../Ontologies/Alignments \
+  https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
+  https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
 Or for CityGML 3.0:
 ```bash
 python XML2RDF.py \
   -v \
   --format ttl \
-  ../test-data/GML/historicalSuccession_CityGML_3.0_LOD2_Versioning_patched.gml \
-  ../../../UD-Graph/Ontologies/CityGML/2.0/,https://www.w3.org/2009/08/skos-reference/skos.rdf,http://www.opengis.net/ont/geosparql#,http://www.opengis.net/ont/gml# \
-  citygml_3_mappings.json
+  ../test-data/GML/Building_CityGML3.0_LOD2_with_several_attributes.gml \
+  citygml_3_mappings.json \
+  ../../Ontologies/CityGML/3.0/ \
+  https://www.w3.org/2009/08/skos-reference/skos.rdf \
+  http://www.opengis.net/ont/geosparql# \
+  http://www.opengis.net/ont/gml# \
+  ../../Ontologies/Alignments \
+  https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
+  https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
 ## XSLT-based-transformations
 This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd). See the [readme](./XSLT-based-transformations/Readme.md) for more information.

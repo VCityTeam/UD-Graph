@@ -1,4 +1,5 @@
 import json
+import argparse
 from owlready2 import sync_reasoner_pellet, World, Ontology, Imp, Nothing
 import logging
 from rdflib import Graph, Namespace
@@ -84,14 +85,14 @@ def add_rules(ontology, config):
     :param ontology: the ontology object
     :param config: a dictionary of the form:
         {
-            "ontologies": [], # a list of ontology location strings in the forms "file://..." or "http://..."
-            "prefixes": {
-                "string": "string",   # where the prefix and namespace uri could be for example: "owl": "http://www.w3.org/2002/07/owl#"; these prefixes can be used in the defined rules
+            "ontologies": [], # a list of ontology location strings in the forms "file://..." or "http://..." containing the classes and properties used in the subsequent rules
+            "prefixes": {               # prefixes used in the defined rules
+                "string": "string",     # where the prefix and uri could be for example: "owl": "http://www.w3.org/2002/07/owl#"
             },
             "rules": [  # a list of objects for configuring rules formed as:
                 {
-                    "ignore": "boolean",
-                    "rule": "atom1(?a), atom2(?b) -> atom3(?a, ?b)"     # prefixes declared in the "prefixes" object will be replaced with their namespace uri
+                    "ignore": "boolean",        # if set to true this rule will be ignored during testing
+                    "rule": "atom1(?a), atom2(?b) -> atom3(?a, ?b)"     # prefixes declared in the "prefixes" object will be replaced with their uri values
                 },
             ]
         }
@@ -119,12 +120,12 @@ def export_graph(world, test, rules, output_format='ttl'):
     
     :param world: the world object that contains the graph
     :param test: list in the form:
-        [       # a list of objects for configuring tests formed as:
+        [       # a list of objects for configuring tests where each test is an object formed as:
             {
-                "ignore": "boolean",
-                "ontologies": [], # a list of ontology location strings in the forms "file://..." or "http://..."
+                "ignore": "boolean",            # if set to true this test will be ignored during testing
+                "ontologies": [], # a list of ontology location strings in the forms "file://..." or "http://..." containing the individuals to be reasoned upon in this test
                 "output": {
-                    "namespace": "string",          # the namespace uri to be used when exporting the results of inferencing after a test 
+                    "namespace": "string",          # individuals starting with this  uri will be exported after a test; this should be the same uri as the individuals to be reasoned upon
                     "filename": "string",           # the name of the output file to be exported to
                     "expected-result": "boolean"    # the expected result of the test, true meaning passed and false meaning failed
                 }
@@ -160,6 +161,11 @@ def export_graph(world, test, rules, output_format='ttl'):
 ### Main test suite script ###
 ##############################
 
+parser = argparse.ArgumentParser(description='A proof of concept test suite for reasoning over RDF/OWL knowledge graphs with SWRL rules. '
+        'See https://github.com/VCityTeam/UD-Graph/tree/master/rules/Readme.md#how-to-run for usage information')
+parser.add_argument('rule_file', help='Declare the rule JSON file.')
+parser.add_argument('test_file', help='Declare the test JSON file.')
+args = parser.parse_args()
 
 ### init logging
 logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
@@ -168,8 +174,8 @@ logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
                     # level=logging.DEBUG)
 
 ### init configuration
-rule_config_file = 'rules.json'
-test_config_file = 'tests.json'
+rule_config_file = args.rule_file
+test_config_file = args.test_file
 rules = None
 tests = None
 
