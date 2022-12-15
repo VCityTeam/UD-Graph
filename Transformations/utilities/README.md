@@ -147,3 +147,23 @@ python compileXMLSchema.py
 
 
 Outputs are written to the file _"compositeSchemaOutput.xsd"_.
+
+### rdf-xmlify.py
+A simple script for converting Turtle RDF files to the XML/RDF format
+
+```
+usage: rdf-xmlify.py [-h] [files ...]
+
+A simple script for converting Turtle RDF files to the XML/RDF format
+
+positional arguments:
+  files       A space separated list of files, directories, or URLs to convert. Files found in specified directories will be converted, however subdirectories will be ignored.
+
+options:
+  -h, --help  show this help message and exit
+```
+
+For example, to transform all of the Turtle RDF files in this directory:
+```bash
+python rdf-xmlify.py .
+```

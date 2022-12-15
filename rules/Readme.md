@@ -21,6 +21,23 @@ git clone git://github.com/VCityTeam/UD-Graph
 cd UD-Graph
 ```
 
+### To Run
+Usage:
+```
+usage: swrl_rules.py [-h] rule_file test_file
+
+positional arguments:
+  rule_file   Declare the rule JSON file.
+  test_file   Declare the test JSON file.
+
+options:
+  -h, --help  show this help message and exit
+```
+To execute the basic tests defined in this directory use the following command:
+```
+python swrl_rules.py rules.json tests.json
+```
+
 ### Rule and Test configuration
 First two JSON files must be declared to configure:
 1. What rules will be used to inference new information? Which OWL ontologies (the data model or Tbox of a knowledge graph) define the classes and properties used to define these rules?
@@ -52,26 +69,12 @@ The 2nd JSON file for defining tests should be structured as follows:
         "output": {
             "namespace": "string",          # individuals starting with this  uri will be exported after a test; this should be the same uri as the individuals to be reasoned upon
             "filename": "string",           # the name of the output file to be exported to
-            "expected-result": "boolean"    # the expected result of the test, true meaning passed and false meaning failed
+            "expected-result": "boolean"    # the expected result of the test, true meaning passed and false meaning failed (or that an inconsitency was inferred)
         }
     },
 ]
 ```
 For example: [./tests.json](./tests.json)
 
-### To Run
-Usage:
-```
-usage: swrl_rules.py [-h] rule_file test_file
-
-positional arguments:
-  rule_file   Declare the rule JSON file.
-  test_file   Declare the test JSON file.
-
-options:
-  -h, --help  show this help message and exit
-```
-To execute the basic tests defined in this directory use the following command:
-```
-python swrl_rules.py rules.json tests.json
-```
+### Data Preparation
+OWLReady2 (v0.39) can only import RDF data in RDF/XML, OWL/XML or NTriples format. To convert Turtle RDF files to XML/RDF we recommend the convenient [rdf-xmlify.py](../Transformations/utilities/rdf-xmlify.py) script.
