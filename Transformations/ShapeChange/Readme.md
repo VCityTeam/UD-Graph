@@ -20,18 +20,17 @@ containing the owl:oneOf property.
 These patches help ensure the generated ontologies are in OWL-DL and not just OWL Full (to enable reasoning). Patch 3 may be specific to Protégé or just the Turtle RDF format.
 
 ## To run shapechange
-ShapeChange 2.10 requires at least Java 11 or later.
-
 Use the following command to run ShapeChange with the configuration files. Be sure to update the variables in '[]' brackets with their desired values.
 ```bash
-java -jar [path to ShapeChange jar] -Dfile.encoding=UTF-8 -c [CONFIGURATION FILE] -x '$input$' '[UML FILE]' -x '$output$' '[OUTPUT FOLDER]'
+java -jar [path to ShapeChange jar] -Dfile.encoding=UTF-8 -c [CONFIGURATION FILE] -x '$input$' '[UML FILE]' -x '$output$' '[OUTPUT FOLDER]' -x '$localdir$' '[THIS DIRECTORY]'
 ```
 
 Example:
 ```bash
 java -jar [path to ShapeChange jar] -Dfile.encoding=UTF-8 -c CityGML3.0_config.xml \
   -x '$input$' '../test-data/UML/CityGML_3.0_Conceptual_Model.xml' \
-  -x '$output$' '../test-data/OWL/CityGML_3.0_Conceptual_Model_Ontology'
+  -x '$output$' '../test-data/OWL/CityGML_3.0_Conceptual_Model_Ontology' \
+  -x '$localdir$' './'
 ```
 
 ## To run the ontology patcher
