@@ -18,7 +18,6 @@ git clone https://github.com/VCityTeam/UD-Graph.git
 cd UD-Graph/Transformations/XML-to-RDF/XSLT-based-transformations
 wget https://sourceforge.net/projects/saxon/files/Saxon-HE/9.9/SaxonHE9-9-1-8J.zip/download
 unzip SaxonHE9-9-1-8J.zip
-mkdir ../../lib/
 mv SaxonHE9-9-1-8J/saxon9he.jar ../../lib/saxon9he.jar
 rm -rf SaxonHE9-9-1-8J*
 ```
