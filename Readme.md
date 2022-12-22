@@ -1,10 +1,12 @@
 # UD-Graph
 Repository for transforming and manipulating urban data models and data with knowledge graphs.
 
-This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/) of LIRIS, Université de Lyon, France
+This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/) of LIRIS UMR 5205 CNRS, in conjunction with the Université de Lyon, and The Université Lumière Lyon.
+
+A [dockerized version of UD-Graph](https://github.com/VCityTeam/UD-Graph-docker) has been created to facilitate the reproducibility of the proposed transformation workflows possible with this repository.
 
 ## Related Articles
-- [Leveraging Standards in Model-Centric Geospatial Knowledge Graph Creation](https://hal.archives-ouvertes.fr/hal-03693607) - Diego Vinasco-Alvarez
+- [Leveraging Standards in Model-Centric Geospatial Knowledge Graph Creation](https://hal.archives-ouvertes.fr/hal-03693607) - Diego Vinasco-Alvarez, ESWC 2022
 - [Towards Limiting Semantic Data Loss In 4D Urban Data Semantic Graph Generation](https://hal.archives-ouvertes.fr/hal-03375084v1) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, 3D GeoInfo 2021
 - [Towards a semantic web representation from a 3D geospatial urban data model](https://hal.archives-ouvertes.fr/hal-03240567v1) - Diego Vinasco-Alvarez, John Samuel, Sylvie Servigne, Gilles Gesquière, SAGEO 2021
 - [From CityGML to OWL](https://hal.archives-ouvertes.fr/hal-02948955) (Technical report on HAL)
@@ -29,10 +31,9 @@ Contains datasets generated using model driven transformations and scripts in th
 See [here](./Datasets/Readme.md) for more information.
 
 ### Ontologies
-Contains the most up to date versions of several proposed ontologies, notably several ontologies based on the CityGML model.
-See [here](./Ontologies/Readme.md) for more information.
+Up to date versions of several proposed ontologies are available on [https://datasets.liris.cnrs.fr/rdfowl-urban-data-ontologies-version1](https://datasets.liris.cnrs.fr/rdfowl-urban-data-ontologies-version1), notably several ontologies based on the CityGML model.
 
-These ontologies are created using model driven transformations and scripts in the [Transformations](./Transformations) directory. Minor ontology editing is done using the [Protégé](https://protege.stanford.edu/) resource, which is supported by grant GM10331601 from the National Institute of General Medical Sciences of the United States National Institutes of Health.
+Some of these ontologies are created using model driven transformations and scripts in the [Transformations](./Transformations) directory. Minor ontology editing is done using the [Protégé](https://protege.stanford.edu/) resource, which is supported by grant GM10331601 from the National Institute of General Medical Sciences of the United States National Institutes of Health.
 
 ### SPARQL Queries
 Contains basic queries to be used on the RDF generated from XML to OWL scripts and their results.
