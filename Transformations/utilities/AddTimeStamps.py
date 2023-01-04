@@ -81,8 +81,8 @@ class timeStamper():
         self.graph.bind('time', TIME)
         self.custom_has_time_uri = custom_has_time_uri
         # bind custom has time uri to the time_ext prefix
-        if custom_has_time_uri is not None:
-            self.graph.bind('time_ext', custom_has_time_uri.split('#')[0] + '#')
+        if self.custom_has_time_uri is not None:
+            self.graph.bind('time_ext', self.custom_has_time_uri.split('#')[0] + '#')
 
     def readFile(self, input_file, input_format):
         """

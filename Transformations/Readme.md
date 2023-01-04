@@ -10,8 +10,13 @@ These transformations are a product of the following works:
 
 > [4] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “From CityGML to OWL,” LIRIS UMR 5205, Technical Report, Sep. 2020. [Online]. Available: https://hal.archives-ouvertes.fr/hal-02948955
 
-## Test data
-Test transformation data is stored in the [test-data](./test-data/) directory. Note that this data is experimental and may not be compliant with current standards.
+- [UD-Graph Transformations](#ud-graph-transformations)
+  - [Transformations](#transformations)
+    - [Utility Scripts](#utility-scripts)
+  - [Transformation Workflows](#transformation-workflows)
+    - [ShapeChange -\> XML2RDF (with validation)](#shapechange---xml2rdf-with-validation)
+    - [XSD2OWL + Generate\_XToRDF -\> XToRDF (Illustrated with CityGML XML Schemas)](#xsd2owl--generate_xtordf---xtordf-illustrated-with-citygml-xml-schemas)
+      - [Convert CityGML Instances to RDF Activity](#convert-citygml-instances-to-rdf-activity)
 
 ## Transformations
 For more information on each proposed transformation tool or transformation tool configuration can be found in each transformation sub-directory:
@@ -26,10 +31,17 @@ For more information on each proposed transformation tool or transformation tool
 2. [DifferenceGraph-to-CityGML3](./DifferenceGraph-to-CityGML3/): Contains a script to convert a `DifferencesAsGraph.json` file (produced by the Change Detection stage of the [cityGMLto3DTiles](https://github.com/VCityTeam/cityGMLto3DTiles) transformation pipeline) to conform to a Version Transition conformant to the CityGML 3.0 Version Module in OWL/RDF.
 
 ## Transformation Workflows
-These workflows can be executed using the dockerized version of [UD-Graph](https://github.com/VCityTeam/UD-Graph-docker)
+Reproducible examples of these workflows are *in development* on [UD-Reproducibility](https://github.com/VCityTeam/UD-Reproducibility) 
+
+These workflows are illustrated below using the CityGML standard with Workspace and Document ADEs using their models, schemas, and data stored in the [test-data](./test-data/) directory. Note that the produced data is experimental and may not be fully compliant with the CityGML standard.
 
 ### ShapeChange -> XML2RDF (with validation)
 ![ShapeChange and XML2RDF transformation workflow](./UD-Graph%20UML%20Pipeline_Component%20Diagram.svg)
+
+This proposed workflow is composed of 3 activities:
+- Transform a UML model to OWL/RDF
+- Transform XML data (conformant to the UML model) to OWL/RDF
+- Combine the results into an Ontology (TBox+ABox)
 
 ### XSD2OWL + Generate_XToRDF -> XToRDF (Illustrated with CityGML XML Schemas)
 ![XML/XSD transformation workflow](./UD-Graph%20XSD%20Pipeline.svg)
