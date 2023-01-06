@@ -87,11 +87,11 @@ python ./XML2RDF.py \
   --format ttl \
   ../test-data/GML/Lyon_1er_arrondisement/LYON_1ER_BATI_2015-1_bldg-patched.gml \
   ./citygml_2_mappings.json \
-  ../../Ontologies/CityGML/2.0/ \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/ \
   https://www.w3.org/2009/08/skos-reference/skos.rdf \
   http://www.opengis.net/ont/geosparql# \
   http://www.opengis.net/ont/gml# \
-  ../../Ontologies/Alignments \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments \
   https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
   https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
@@ -102,11 +102,11 @@ python XML2RDF.py \
   --format ttl \
   ../test-data/GML/Building_CityGML3.0_LOD2_with_several_attributes.gml \
   citygml_3_mappings.json \
-  ../../Ontologies/CityGML/3.0/ \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/ \
   https://www.w3.org/2009/08/skos-reference/skos.rdf \
   http://www.opengis.net/ont/geosparql# \
   http://www.opengis.net/ont/gml# \
-  ../../Ontologies/Alignments \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments \
   https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
   https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```

@@ -43,7 +43,7 @@ python addTimeStamps.py \
     2000-01-01T00:00:00 2000-01-01T00:00:00 \
     -d
 ```
-Default URI values correspond to the CityGML 3.0 ontologies proposed [here](../../Ontologies/CityGML/3.0), for the CityGML 2.0 ontologies proposed [here](../../Ontologies/CityGML/2.0) the following may be used:
+Default URI values correspond to the CityGML 3.0 ontologies proposed [here](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/), for the CityGML 2.0 ontologies proposed [here](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/) the following may be used:
 ```bash
 python addTimeStamps.py \
     --core-uri 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core#' \
