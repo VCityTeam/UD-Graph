@@ -38,10 +38,10 @@ To run the conversion pipeline an XML Schema and a XML file constrained by the s
 
 Afterwards the script can be run using:
 ```
-python run.py [XSL stylesheet] [input XML Schema] [input datafile]
+python run.py [XSLT stylesheet] [input XML Schema] [input datafile]
 ```
 
 For example
 ```
-python run.py [XSL stylesheet] [input XML Schema] [input datafile]
+python run.py [XSLT stylesheet] [input XML Schema] [input datafile]
 ```
