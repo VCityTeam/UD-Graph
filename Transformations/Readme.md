@@ -39,12 +39,21 @@ These workflows are illustrated below using the CityGML standard with Workspace 
 ![ShapeChange and XML2RDF transformation workflow](./UD-Graph%20UML%20Pipeline_Component%20Diagram.svg)
 
 This proposed workflow is composed of 3 activities:
-- Transform a UML model to OWL/RDF
-- Transform XML data (conformant to the UML model) to OWL/RDF
-- Combine the results into an Ontology (TBox+ABox)
+| Activity | Description | Component | Example Input Data | Example Output Data |
+| -------- | ----------- | --------- | ------------------ | ------------------- |
+| 1. UML to OWL transformation | Transform a UML model to OWL/RDF. The generated ontologie(s) may be conformant to OWL-Full but not OWL-DL. An **ontologyPatcher** script is provided to fix identified OWL-DL inconsistencies that can result from ShapeChange UML to OWL transformations. | <li>[ShapeChange](https://shapechange.net/)</li><li>[ontologyPatcher](./ShapeChange/Readme.md#to-run-the-ontology-patcher)</li> | <li>[CityGML 3.0 UML Model](./test-data/UML/CityGML_3.0-workspaces-documents_shapechange-export.xml)</li><li>[ShapeChange configuration](./ShapeChange/CityGML3.0_to_OWL_config.xml)</li> | [CityGML 3.0 Ontology Network](./test-data/OWL/CityGML_3.0_Conceptual_Model/) |
+| 2. XML to RDF conversion | Transform XML data (conformant to the UML model) to OWL/RDF using a set of ontologies. | [XML2RDF](./XML-to-RDF/Readme.md#xml-to-rdf-transformation) | <li>[CityGML 3.0 OWL Ontology](./test-data/OWL/CityGML_3.0_Conceptual_Model/)</li><li>[SKOS Ontology](https://www.w3.org/2009/08/skos-reference/skos.rdf)</li><li>[GeoSPARQL Ontology](http://www.opengis.net/ont/geosparql#)</li><li>[GML Ontology](http://www.opengis.net/ont/gml#)</li><li>[ISO 19136 Feature Ontology](https://def.isotc211.org/iso19136/2007/Feature.rdf)</li><li>[ISO 19107 Coordinate Geometry](https://def.isotc211.org/iso19107/2003/CoordinateGeometry.rdf)</li><li>[Ontology Alignments](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments/)</li><li>[CityGML 3.0 Dataset](./test-data/GML/historicalSuccession_CityGML_3.0_LOD2_Versioning_patched.gml)</li><li>[Namespace Mapping File](./XML-to-RDF/citygml_3_mappings.json)</li> | [CityGML 3.0 RDF/OWL Individuals](./test-data/RDF/historicalSuccession_CityGML_3.0_LOD2_Versioning_patched.rdf) |
+| 3. Combine Model and Data | This activity is a formality to illustrate that the resulting ontology network and the generated individuals can be combined into 1 file composed of the ABox (or model) and the TBox (or data instances) of the ontology network | | | |
 
 ### XSD2OWL + Generate_XToRDF -> XToRDF (Illustrated with CityGML XML Schemas)
 ![XML/XSD transformation workflow](./UD-Graph%20XSD%20Pipeline.svg)
+
+This proposed workflow is composed of 3 activities:
+| Activity | Description | Component | Example Input Data | Example Output Data |
+| -------- | ----------- | --------- | ------------------ | ------------------- |
+| XSD Compilation | Combine XSD files into a single XSD file | [XSD combination script](./utilities/README.md#compilexmlschemapy) | [CityGML 2.0 XML Schema](./test-data/XMLSchema/CityGML%202.0/) | [Composite CityGML 2.0 Schema file](./test-data/XMLSchema/compositeCityGML2.0.xsd) |
+| Convert CityGML Model to OWL | Convert the composite schema to RDF/OWL | [XSLT Transformation](./XSD-to-OWL/Readme.md) | [Composite CityGML 2.0 Schema file](./test-data/XMLSchema/compositeCityGML2.0.xsd) | [CityGML 2.0 Ontology](./test-data/OWL/compositeCityGML2.0.rdf) |
+| Convert CityGML Instances to RDF | Convert XML data conform to the XML Schema to RDF/OWL. This activity is decomposed in 3 subactivities [illustrated below](#convert-citygml-instances-to-rdf-activity): <li>Creation of a schema specific XML to RDF/OWL XSLT stylesheet</li><li>Transformation of XML data to RDF/OWL using generated XSLT stylesheet</li><li>Finally some data cleaning is applied post-transformation</li> | [XSLT-based transformation workflow](./XML-to-RDF/XSLT-based-transformations/Readme.md) | <li>[Composite CityGML 2.0 Schema file](./test-data/XMLSchema/compositeCityGML2.0.xsd)</li><li>[CityGML 2.0 Schema to RDF XSLT generation XSLT stylesheet](./XML-to-RDF/XSLT-based-transformations/Generate_CityGML2ToRDF.xsl)</li><li>[CityGML 2.0 XML file](./test-data/GML/Lyon_1er_arrondisement/LYON_1ER_BATI_2015-1_bldg-patched.gml)</li> | [CityGML 2.0 RDF/OWL Individuals](./test-data/RDF/XSLT-based-transformations/) |
 
 #### Convert CityGML Instances to RDF Activity
 ![XML to OWL transformation activity](./XML%20to%20RDF%20Pipeline.svg)
