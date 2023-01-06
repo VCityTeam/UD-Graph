@@ -26,7 +26,7 @@ The proposed rules are for validating temporal consistency of Workspace data acc
 
 This article details what composes a Workspace and how "versioned" urban data or can be structured and temporally ordered using UML and [Description Logic](https://en.wikipedia.org/wiki/Description_logic) (DL) rules. 
 
-A subset of these rules have been rewritten in SWRL and adapted [here](./rules.json), for validating urban data according to [OWL-Time Temporal Entities](https://www.w3.org/TR/owl-time/#time:TemporalEntity) and the proposed OWL-Time extension, CityGML, and Workspace ontologies located [here](../Ontologies/).
+A subset of these rules have been rewritten in SWRL and adapted [here](./rules.json), for validating urban data according to [OWL-Time Temporal Entities](https://www.w3.org/TR/owl-time/#time:TemporalEntity) and the proposed OWL-Time extension, CityGML, and Workspace ontologies located [here](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/).
 
 A set of basic rules are declared to verify that temporal entities (as modeled below) from OWL-Time are temporally consistent.
 For example to verify a temporal entity begins before it ends we use the rule:
