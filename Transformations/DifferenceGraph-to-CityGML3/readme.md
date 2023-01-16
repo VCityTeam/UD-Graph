@@ -58,10 +58,10 @@ python DifferenceGraph2RDF.py \
 URIs can also be specified for referencing existing CityGML datasets and Workspaces.
 ```bash
 python DifferenceGraph2RDF.py \
-    --base-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009-2018_Workspace \
-    --v1-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2009_split_v3 \
+    --base-uri https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_2009-2018_Workspace \
+    --v1-uri https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_2009_split_v3 \
     --v1-prefix v2009 \
-    --v2-uri https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2012_split_v3 \
+    --v2-uri https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/GratteCiel_2012_split_v3 \
     --v2-prefix v2012 \
     -d \
     -f ttl \

@@ -67,7 +67,7 @@ To add these properties to a CityGML city model and its features that do not con
 Two sets of tests are provided:
 1. [tests.json](./tests.json) for testing the provided test datasets `test_x.rdf`
    - These datasets are also provided in the Turtle format for easier human readability
-2. [workspace_tests.json](./workspace_tests.json) for testing the Gratte Ciel dataset located [here](../Datasets/GratteCiel_Workspace_2009_2018)
+2. [workspace_tests.json](./workspace_tests.json) for testing the Gratte Ciel dataset located [here](../Datasets/)
 
 Note that these tests are currently written for features conformant to the CityGML 3.0 model. Tests for CityGML 2.0 are currently in progress.
 

@@ -80,7 +80,7 @@ Namespace Mapping files should have the following structure:
 }
 ```
 
-For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../../UD-Graph/Ontologies/CityGML/2.0/):
+For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../Ontologies/):
 ```bash
 python ./XML2RDF.py \
   -v \

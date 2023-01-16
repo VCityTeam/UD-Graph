@@ -37,7 +37,7 @@ optional arguments:
 For example:
 ```bash
 python addTimeStamps.py \
-    --t-entity-property 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#' \
+    --t-entity-property 'https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Time/time-extension#' \
     ../test-data/RDF/historicalSuccession_CityGML_3.0_v1.ttl \
     ./historicalSuccession_v1.ttl \
     2000-01-01T00:00:00 2000-01-01T00:00:00 \
@@ -46,11 +46,11 @@ python addTimeStamps.py \
 Default URI values correspond to the CityGML 3.0 ontologies proposed [here](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/), for the CityGML 2.0 ontologies proposed [here](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/) the following may be used:
 ```bash
 python addTimeStamps.py \
-    --core-uri 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core#' \
+    --core-uri 'https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/core#' \
     --feature-member-property 'CityModel.cityObjectMember' \
     --from-property 'AbstractCityObject.creationDate' \
     --to-property 'AbstractCityObject.terminationDate' \
-    --t-entity-property 'https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#hasExistenceTime' \
+    --t-entity-property 'https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Time/time-extension#hasExistenceTime' \
     ../../Datasets/GratteCiel_Workspace_2009_2018/2.0/GratteCiel_2012_split.ttl \
     ./GratteCiel_2012_split.ttl \
     2012-01-01T00:00:00 2012-01-01T00:00:00 \

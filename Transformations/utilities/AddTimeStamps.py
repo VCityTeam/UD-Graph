@@ -20,7 +20,7 @@ def main():
                          default='turtle',
                          help='specify the output CityGML RDFlib format.')
     parser.add_argument('--core-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#',
                          help='specify the URI for the CityGML core module used in the dataset')
     parser.add_argument('--feature-member-property',
                          default='CityModel.cityModelMember_cityObjectMember',
