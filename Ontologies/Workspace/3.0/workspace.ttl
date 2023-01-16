@@ -1,0 +1,104 @@
+@prefix core: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix vers: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning#> .
+@prefix wksp: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/workspace#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/workspace> a owl:Ontology ;
+    rdfs:label "Workspace"@en ;
+    owl:imports <http://def.isotc211.org/iso19150/-2/2012/base>,
+        <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core.ttl>,
+        <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning.ttl> ;
+    skos:definition "This pattern provides a starting point for modeling a GML Application Schema which is a specialized xml schema that uses the Geographic Markup Language to model Features to provide the basis for interoperability within a community of interest."@en .
+
+wksp:ConcensusSpace a owl:Class ;
+    rdfs:label "ConcensusSpace"@en ;
+    rdfs:subClassOf wksp:Space ;
+    owl:disjointWith wksp:PropositionSpace .
+
+wksp:PropositionSpace a owl:Class ;
+    rdfs:label "PropositionSpace"@en ;
+    rdfs:subClassOf wksp:Space .
+
+wksp:Scenario.creator a owl:DatatypeProperty ;
+    rdfs:label "creator"@en ;
+    rdfs:domain wksp:Scenario ;
+    rdfs:range xsd:string .
+
+wksp:Scenario.versionMember a owl:ObjectProperty ;
+    rdfs:label "versionMember"@en ;
+    rdfs:domain wksp:Scenario ;
+    rdfs:range vers:Version .
+
+wksp:Scenario.versionTransitionMember a owl:ObjectProperty ;
+    rdfs:label "versionTransitionMember"@en ;
+    rdfs:domain wksp:Scenario ;
+    rdfs:range vers:VersionTransition .
+
+wksp:Space.creator a owl:DatatypeProperty ;
+    rdfs:label "creator"@en ;
+    rdfs:domain wksp:Space ;
+    rdfs:range xsd:string .
+
+wksp:Workspace.creator a owl:DatatypeProperty ;
+    rdfs:label "creator"@en ;
+    rdfs:domain wksp:Workspace ;
+    rdfs:range xsd:string .
+
+wksp:Space.scenarioMember a owl:ObjectProperty ;
+    rdfs:label "scenarioMember"@en ;
+    rdfs:domain wksp:Space ;
+    rdfs:range wksp:Scenario .
+
+wksp:Workspace a owl:Class ;
+    rdfs:label "Workspace"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty wksp:Workspace.creator ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom wksp:Space ;
+            owl:onProperty wksp:Workspace.spaceMember ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+            owl:onClass wksp:Space ;
+            owl:onProperty wksp:Workspace.spaceMember ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass wksp:Space ;
+            owl:onProperty wksp:Workspace.spaceMember ],
+        core:AbstractFeatureWithLifespan .
+
+wksp:Workspace.spaceMember a owl:ObjectProperty ;
+    rdfs:label "spaceMember"@en ;
+    rdfs:domain wksp:Workspace ;
+    rdfs:range wksp:Space .
+
+wksp:Scenario a owl:Class ;
+    rdfs:label "Scenario"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom vers:VersionTransition ;
+            owl:onProperty wksp:Scenario.versionTransitionMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom vers:Version ;
+            owl:onProperty wksp:Scenario.versionMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty wksp:Scenario.creator ],
+        core:AbstractFeatureWithLifespan .
+
+wksp:Space a owl:Class ;
+    rdfs:label "Space"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom wksp:Scenario ;
+            owl:onProperty wksp:Space.scenarioMember ],
+        [ a owl:Restriction ;
+            owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass wksp:Scenario ;
+            owl:onProperty wksp:Space.scenarioMember ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty wksp:Space.creator ],
+        core:AbstractFeatureWithLifespan .
+

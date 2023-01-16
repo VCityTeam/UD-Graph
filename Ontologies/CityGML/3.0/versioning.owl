@@ -1,0 +1,593 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="core" IRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="skos" IRI="http://www.w3.org/2004/02/skos/core#"/>
+    <Prefix name="vers" IRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning#"/>
+    <Prefix name="iso19150-2" IRI="http://def.isotc211.org/iso19150/-2/2012/base#"/>
+    <!-- <Import>http://def.isotc211.org/iso19150/-2/2012/base</Import>
+    <Import>https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core</Import> -->
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal xml:lang="en">Versioning</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <Literal xml:lang="en">The Versioning module supports representation of multiple versions of CityGML features within a single CityGML model. In addition, also the version transitions and transactions that lead to the different versions can be represented.</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#ADEOfVersion"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ADEOfVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Transaction"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TransactionTypeValue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Version"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Transaction.newFeature"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Transaction.oldFeature"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Version.adeOfVersion"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Version.versionMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#VersionTransition.adeOfVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#VersionTransition.from"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#VersionTransition.to"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#VersionTransition.transaction"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#VersionTransition.type"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Transaction.type"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Version.tag"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#VersionTransition.clonePredecessor"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#VersionTransition.reason"/>
+    </Declaration>
+    <Declaration>
+        <Datatype IRI="#TransitionTypeValue"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="core:AbstractVersion"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="core:AbstractVersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="skos:Concept"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#Transaction"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Transaction.newFeature"/>
+            <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transaction"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Transaction.oldFeature"/>
+            <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transaction"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Transaction.type"/>
+            <Class IRI="#TransactionTypeValue"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transaction"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#Transaction.newFeature"/>
+            <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transaction"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#Transaction.oldFeature"/>
+            <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Transaction"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#Transaction.type"/>
+            <Datatype IRI="#TransactionTypeValue"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TransactionTypeValue"/>
+        <Class abbreviatedIRI="skos:Concept"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Version"/>
+        <Class abbreviatedIRI="core:AbstractVersion"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Version"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Version.adeOfVersion"/>
+            <Class IRI="#ADEOfVersion"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Version"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Version.versionMember"/>
+            <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Version"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Version.tag"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <Class abbreviatedIRI="core:AbstractVersionTransition"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#VersionTransition.adeOfVersionTransition"/>
+            <Class IRI="#ADEOfVersionTransition"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#VersionTransition.from"/>
+            <Class IRI="#Version"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#VersionTransition.to"/>
+            <Class IRI="#Version"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#VersionTransition.transaction"/>
+            <Class IRI="#Transaction"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#VersionTransition.type"/>
+            <Class IRI="#TransitionTypeValue"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#VersionTransition.from"/>
+            <Class IRI="#Version"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#VersionTransition.to"/>
+            <Class IRI="#Version"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <ObjectMaxCardinality cardinality="1">
+            <ObjectProperty IRI="#VersionTransition.type"/>
+            <Class IRI="#TransitionTypeValue"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#VersionTransition.clonePredecessor"/>
+            <Datatype abbreviatedIRI="xsd:boolean"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#VersionTransition.reason"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <DataExactCardinality cardinality="1">
+            <DataProperty IRI="#VersionTransition.clonePredecessor"/>
+            <Datatype abbreviatedIRI="xsd:boolean"/>
+        </DataExactCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#VersionTransition"/>
+        <DataMaxCardinality cardinality="1">
+            <DataProperty IRI="#VersionTransition.reason"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataMaxCardinality>
+    </SubClassOf>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Transaction.newFeature"/>
+        <Class IRI="#Transaction"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Transaction.oldFeature"/>
+        <Class IRI="#Transaction"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Version.adeOfVersion"/>
+        <Class IRI="#Version"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Version.versionMember"/>
+        <Class IRI="#Version"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#VersionTransition.adeOfVersionTransition"/>
+        <Class IRI="#VersionTransition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#VersionTransition.from"/>
+        <Class IRI="#VersionTransition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#VersionTransition.to"/>
+        <Class IRI="#VersionTransition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#VersionTransition.transaction"/>
+        <Class IRI="#VersionTransition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#VersionTransition.type"/>
+        <Class IRI="#VersionTransition"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Transaction.newFeature"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Transaction.oldFeature"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Version.adeOfVersion"/>
+        <Class IRI="#ADEOfVersion"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Version.versionMember"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#VersionTransition.adeOfVersionTransition"/>
+        <Class IRI="#ADEOfVersionTransition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#VersionTransition.from"/>
+        <Class IRI="#Version"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#VersionTransition.to"/>
+        <Class IRI="#Version"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#VersionTransition.transaction"/>
+        <Class IRI="#Transaction"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#VersionTransition.type"/>
+        <Class IRI="#TransitionTypeValue"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Transaction.type"/>
+        <Class IRI="#Transaction"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Version.tag"/>
+        <Class IRI="#Version"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#VersionTransition.clonePredecessor"/>
+        <Class IRI="#VersionTransition"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#VersionTransition.reason"/>
+        <Class IRI="#VersionTransition"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#Transaction.type"/>
+        <Datatype IRI="#TransactionTypeValue"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Version.tag"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#VersionTransition.clonePredecessor"/>
+        <Datatype abbreviatedIRI="xsd:boolean"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#VersionTransition.reason"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfVersion</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfVersion</IRI>
+        <Literal xml:lang="en">ADEOfVersion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfVersion</IRI>
+        <Literal xml:lang="en">ADEOfVersion acts as a hook to define properties within an ADE that are to be added to a Version.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="iso19150-2:isAbstract"/>
+        <IRI>#ADEOfVersionTransition</IRI>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#boolean">true</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ADEOfVersionTransition</IRI>
+        <Literal xml:lang="en">ADEOfVersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#ADEOfVersionTransition</IRI>
+        <Literal xml:lang="en">ADEOfVersionTransition acts as a hook to define properties within an ADE that are to be added to a VersionTransition.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Transaction</IRI>
+        <Literal xml:lang="en">Transaction</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Transaction</IRI>
+        <Literal xml:lang="en">Transaction represents a modification of the city model by the creation, termination, or replacement of a specific city object. While the creation of a city object also marks its first object version, the termination marks the end of existence of a real world object and, hence, also terminates the final version of a city object. The replacement of a city object means that a specific version of it is replaced by a new version.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Transaction.newFeature</IRI>
+        <Literal xml:lang="en">newFeature</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Transaction.newFeature</IRI>
+        <Literal xml:lang="en">Relates to the version of the city object subsequent to the Transaction.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Transaction.oldFeature</IRI>
+        <Literal xml:lang="en">oldFeature</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Transaction.oldFeature</IRI>
+        <Literal xml:lang="en">Relates to the version of the city object prior to the Transaction.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Transaction.type</IRI>
+        <Literal xml:lang="en">type</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Transaction.type</IRI>
+        <Literal xml:lang="en">Indicates the specific type of the Transaction.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TransactionTypeValue</IRI>
+        <Literal xml:lang="en">TransactionTypeValue</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#TransactionTypeValue</IRI>
+        <Literal xml:lang="en">TransactionTypeValue represents the type of transaction expressed by an skos:Concept.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TransitionTypeValue</IRI>
+        <Literal xml:lang="en">TransitionTypeValue</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#TransitionTypeValue</IRI>
+        <Literal xml:lang="en">TransitionTypeValue enumerates the different kinds of version transitions. “planned” and “fork” should be used in cases when from one city model version multiple successor versions are being created. “realized” and “merge” should be used when different city model versions are converging into a common successor version.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Version</IRI>
+        <Literal xml:lang="en">Version</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Version</IRI>
+        <Literal xml:lang="en">Version represents a defined state of a city model consisting of the dedicated versions of all city object instances that belong to the respective city model version. Versions can have names, a description and can be labeled with an arbitrary number of user defined tags.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Version.adeOfVersion</IRI>
+        <Literal xml:lang="en">adeOfVersion</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Version.adeOfVersion</IRI>
+        <Literal xml:lang="en">Augments the Version with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Version.tag</IRI>
+        <Literal xml:lang="en">tag</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Version.tag</IRI>
+        <Literal xml:lang="en">Allows for adding keywords to the city model version.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Version.versionMember</IRI>
+        <Literal xml:lang="en">versionMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#Version.versionMember</IRI>
+        <Literal xml:lang="en">Relates to all city objects that are part of the city model version.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition</IRI>
+        <Literal xml:lang="en">VersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition</IRI>
+        <Literal xml:lang="en">VersionTransition describes the change of the state of a city model from one version to another. Version transitions can have names, a description and can be further qualified by a type and a reason.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.adeOfVersionTransition</IRI>
+        <Literal xml:lang="en">adeOfVersionTransition</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.adeOfVersionTransition</IRI>
+        <Literal xml:lang="en">Augments the VersionTransition with properties defined in an ADE.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.clonePredecessor</IRI>
+        <Literal xml:lang="en">clonePredecessor</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.clonePredecessor</IRI>
+        <Literal xml:lang="en">Indicates whether the set of city object instances belonging to the successor version of the city model is either explicitly enumerated within the successor version object (attribute clonePredecessor=false),  or has to be derived from the modifications of the city model provided as a list of transactions on the city object versions contained in the predecessor version (attribute clonePredecessor=true).</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.from</IRI>
+        <Literal xml:lang="en">from</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.from</IRI>
+        <Literal xml:lang="en">Relates to the predecessor version of the VersionTransition.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.reason</IRI>
+        <Literal xml:lang="en">reason</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.reason</IRI>
+        <Literal xml:lang="en">Specifies why the VersionTransition has been carried out.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.to</IRI>
+        <Literal xml:lang="en">to</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.to</IRI>
+        <Literal xml:lang="en">Relates to the successor version of the VersionTransition.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.transaction</IRI>
+        <Literal xml:lang="en">transaction</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.transaction</IRI>
+        <Literal xml:lang="en">Relates to all transactions that have been applied as part of the VersionTransition.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#VersionTransition.type</IRI>
+        <Literal xml:lang="en">type</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <IRI>#VersionTransition.type</IRI>
+        <Literal xml:lang="en">Indicates the specific type of the VersionTransition.</Literal>
+    </AnnotationAssertion>
+    <DatatypeDefinition>
+        <Datatype IRI="#TransitionTypeValue"/>
+        <DataOneOf>
+            <Literal>fork</Literal>
+            <Literal>historicalSuccession</Literal>
+            <Literal>merge</Literal>
+            <Literal>planned</Literal>
+            <Literal>realized</Literal>
+        </DataOneOf>
+    </DatatypeDefinition>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->

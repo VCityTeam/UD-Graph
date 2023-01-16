@@ -1,0 +1,87 @@
+@prefix core: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
+@prefix iso19150-2: <http://def.isotc211.org/iso19150/-2/2012/base#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix pcl: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/pointcloud#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/pointcloud> a owl:Ontology ;
+    rdfs:label "PointCloud"@en ;
+    owl:imports <http://def.isotc211.org/iso19150/-2/2012/base>,
+        <http://www.opengis.net/ont/gml>,
+        <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core.ttl> ;
+    skos:definition "The PointCloud module supports representation of CityGML features by a collection of points."@en .
+
+pcl:PointCloud.adeOfPointCloud a owl:ObjectProperty ;
+    rdfs:label "adeOfPointCloud"@en ;
+    rdfs:domain pcl:PointCloud ;
+    rdfs:range pcl:ADEOfPointCloud ;
+    skos:definition "Augments the PointCloud with properties defined in an ADE."@en .
+
+pcl:ADEOfPointCloud a owl:Class ;
+    rdfs:label "ADEOfPointCloud"@en ;
+    iso19150-2:isAbstract true ;
+    skos:definition "ADEOfPointCloud acts as a hook to define properties within an ADE that are to be added to a PointCloud."@en .
+
+pcl:PointCloud.mimeType a owl:ObjectProperty ;
+    rdfs:label "mimeType"@en ;
+    rdfs:domain pcl:PointCloud ;
+    rdfs:range owl:Class ;
+    skos:definition "Specifies the MIME type of the external point cloud file."@en .
+
+pcl:PointCloud.pointFile a owl:DatatypeProperty ;
+    rdfs:label "pointFile"@en ;
+    rdfs:domain pcl:PointCloud ;
+    rdfs:range xsd:anyURI ;
+    skos:definition "Specifies the URI that points to the external point cloud file."@en .
+
+pcl:PointCloud.pointFileSrsName a owl:DatatypeProperty ;
+    rdfs:label "pointFileSrsName"@en ;
+    rdfs:domain pcl:PointCloud ;
+    rdfs:range xsd:string ;
+    skos:definition "Indicates the coordinate reference system used by the external point cloud file."@en .
+
+pcl:PointCloud.points a owl:ObjectProperty ;
+    rdfs:label "points"@en ;
+    rdfs:domain pcl:PointCloud ;
+    rdfs:range gmlowl:MultiPoint ;
+    skos:definition "Relates to the 3D MultiPoint geometry of the PointCloud stored inline with the city model."@en .
+
+pcl:PointCloud a owl:Class ;
+    rdfs:label "PointCloud"@en ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onDataRange xsd:string ;
+            owl:onProperty pcl:PointCloud.pointFileSrsName ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom gmlowl:MultiPoint ;
+            owl:onProperty pcl:PointCloud.points ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass owl:Class ;
+            owl:onProperty pcl:PointCloud.mimeType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:anyURI ;
+            owl:onProperty pcl:PointCloud.pointFile ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom owl:Class ;
+            owl:onProperty pcl:PointCloud.mimeType ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom pcl:ADEOfPointCloud ;
+            owl:onProperty pcl:PointCloud.adeOfPointCloud ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onClass gmlowl:MultiPoint ;
+            owl:onProperty pcl:PointCloud.points ],
+        [ a owl:Restriction ;
+            owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+            owl:onDataRange xsd:anyURI ;
+            owl:onProperty pcl:PointCloud.pointFile ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty pcl:PointCloud.pointFileSrsName ],
+        core:AbstractPointCloud ;
+    skos:definition "A PointCloud is an unordered collection of points that is a sampling of the geometry of a space or space boundary."@en .
+

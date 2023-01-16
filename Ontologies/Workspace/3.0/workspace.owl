@@ -1,0 +1,291 @@
+<?xml version="1.0"?>
+<Ontology xmlns="http://www.w3.org/2002/07/owl#"
+     xml:base="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/workspace"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     ontologyIRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/workspace">
+    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
+    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
+    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
+    <Prefix name="core" IRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#"/>
+    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Prefix name="skos" IRI="http://www.w3.org/2004/02/skos/core#"/>
+    <Prefix name="vers" IRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning#"/>
+    <Prefix name="wksp" IRI="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/workspace#"/>
+    <!-- <Import>http://def.isotc211.org/iso19150/-2/2012/base</Import>
+    <Import>https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core</Import>
+    <Import>https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning</Import> -->
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal xml:lang="en">Workspace</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+        <Literal xml:lang="en">This pattern provides a starting point for modeling a GML Application Schema which is a specialized xml schema that uses the Geographic Markup Language to model Features to provide the basis for interoperability within a community of interest.</Literal>
+    </Annotation>
+    <Declaration>
+        <Class IRI="#ConcensusSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PropositionSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Scenario"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Space"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Workspace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Scenario.versionMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Scenario.versionTransitionMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Space.scenarioMember"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#Workspace.spaceMember"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Scenario.creator"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Space.creator"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#Workspace.creator"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="vers:Version"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty abbreviatedIRI="skos:definition"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="vers:VersionTransition"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="#ConcensusSpace"/>
+        <Class IRI="#Space"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PropositionSpace"/>
+        <Class IRI="#Space"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Scenario"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Scenario"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Scenario.versionMember"/>
+            <Class abbreviatedIRI="vers:Version"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Scenario"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Scenario.versionTransitionMember"/>
+            <Class abbreviatedIRI="vers:VersionTransition"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Scenario"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Scenario.creator"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Space"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Space"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Space.scenarioMember"/>
+            <Class IRI="#Scenario"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Space"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#Space.scenarioMember"/>
+            <Class IRI="#Scenario"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Space"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Space.creator"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Workspace"/>
+        <Class abbreviatedIRI="core:AbstractFeatureWithLifespan"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Workspace"/>
+        <ObjectAllValuesFrom>
+            <ObjectProperty IRI="#Workspace.spaceMember"/>
+            <Class IRI="#Space"/>
+        </ObjectAllValuesFrom>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Workspace"/>
+        <ObjectMinCardinality cardinality="1">
+            <ObjectProperty IRI="#Workspace.spaceMember"/>
+            <Class IRI="#Space"/>
+        </ObjectMinCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Workspace"/>
+        <ObjectMaxCardinality cardinality="2">
+            <ObjectProperty IRI="#Workspace.spaceMember"/>
+            <Class IRI="#Space"/>
+        </ObjectMaxCardinality>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Workspace"/>
+        <DataAllValuesFrom>
+            <DataProperty IRI="#Workspace.creator"/>
+            <Datatype abbreviatedIRI="xsd:string"/>
+        </DataAllValuesFrom>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="#ConcensusSpace"/>
+        <Class IRI="#PropositionSpace"/>
+    </DisjointClasses>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Scenario.versionMember"/>
+        <Class IRI="#Scenario"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Scenario.versionTransitionMember"/>
+        <Class IRI="#Scenario"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Space.scenarioMember"/>
+        <Class IRI="#Space"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#Workspace.spaceMember"/>
+        <Class IRI="#Workspace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Scenario.versionMember"/>
+        <Class abbreviatedIRI="vers:Version"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Scenario.versionTransitionMember"/>
+        <Class abbreviatedIRI="vers:VersionTransition"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Space.scenarioMember"/>
+        <Class IRI="#Scenario"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#Workspace.spaceMember"/>
+        <Class IRI="#Space"/>
+    </ObjectPropertyRange>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Scenario.creator"/>
+        <Class IRI="#Scenario"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Space.creator"/>
+        <Class IRI="#Space"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#Workspace.creator"/>
+        <Class IRI="#Workspace"/>
+    </DataPropertyDomain>
+    <DataPropertyRange>
+        <DataProperty IRI="#Scenario.creator"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Space.creator"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <DataPropertyRange>
+        <DataProperty IRI="#Workspace.creator"/>
+        <Datatype abbreviatedIRI="xsd:string"/>
+    </DataPropertyRange>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ConcensusSpace</IRI>
+        <Literal xml:lang="en">ConcensusSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#PropositionSpace</IRI>
+        <Literal xml:lang="en">PropositionSpace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Scenario</IRI>
+        <Literal xml:lang="en">Scenario</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Scenario.creator</IRI>
+        <Literal xml:lang="en">creator</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Scenario.versionMember</IRI>
+        <Literal xml:lang="en">versionMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Scenario.versionTransitionMember</IRI>
+        <Literal xml:lang="en">versionTransitionMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Space</IRI>
+        <Literal xml:lang="en">Space</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Space.creator</IRI>
+        <Literal xml:lang="en">creator</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Space.scenarioMember</IRI>
+        <Literal xml:lang="en">scenarioMember</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Workspace</IRI>
+        <Literal xml:lang="en">Workspace</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Workspace.creator</IRI>
+        <Literal xml:lang="en">creator</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Workspace.spaceMember</IRI>
+        <Literal xml:lang="en">spaceMember</Literal>
+    </AnnotationAssertion>
+</Ontology>
+
+
+
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
