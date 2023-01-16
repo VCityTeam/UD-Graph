@@ -27,13 +27,13 @@ def main():
                          generated versions and version transitions. Timestamps should be
                          in the xsd:datetime format''')
     parser.add_argument('--base-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/workspace_1#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/workspace_1#',
                          help='Specify the base URI for workspace output individuals')
     parser.add_argument('--v1-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_1#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/dataset_1#',
                          help='Specify the base URI for source version output individuals')
     parser.add_argument('--v2-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/dataset_2#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/dataset_2#',
                          help='Specify the base URI for target version output individuals')
     parser.add_argument('--workspace-prefix',
                          default='data',
@@ -45,13 +45,13 @@ def main():
                          default='v2',
                          help='Specify the base URI prefix for target version output individuals')
     parser.add_argument('--core-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/core#',
                          help='Specify the URI for the CityGML 3.0 core module')
     parser.add_argument('--versioning-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning#',
                          help='Specify the URI for the CityGML 3.0 versioning module')
     parser.add_argument('--transaction-type-uri',
-                         default='https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Workspace/3.0/transactiontype#',
+                         default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/3.0/transactiontype#',
                          help='Specify the URI for the transaction type code-list')
     parser.add_argument('-f', '--format',
                          default='ttl',
@@ -86,7 +86,7 @@ def main():
 
     # create output version graph and set namespaces
     output_graph = Graph()
-    TIME_EXT    = uriToNamespace('https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/Time/time-extension#')
+    TIME_EXT    = uriToNamespace('https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Time/time-extension#')
     CORE        = uriToNamespace(args.core_uri)
     VERS        = uriToNamespace(args.versioning_uri)
     TYPE        = uriToNamespace(args.transaction_type_uri)

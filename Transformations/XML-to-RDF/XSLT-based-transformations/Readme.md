@@ -3,6 +3,11 @@ This folder contains scripts for transforming CityGML schema to RDF graphs and s
 
 XSL transformations require [Saxon-HE](http://saxon.sourceforge.net/) which is dependent on Java
 
+These transformation stylesheets are a product of the following works:
+> [1] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “Towards a semantic web representation from a 3D geospatial urban data model,” in SAGEO 2021, 16ème Conférence Internationale de la Géomatique, de l’Analyse Spatiale et des Sciences de l’Information Géographique., La Rochelle [Online Event], France, May 2021, pp. 227–238. [Online]. Available: https://hal.archives-ouvertes.fr/hal-03240567
+
+> [2] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “From CityGML to OWL,” LIRIS UMR 5205, Technical Report, Sep. 2020. [Online]. Available: https://hal.archives-ouvertes.fr/hal-02948955
+
 ### Input Data
 GML files used for testing are located in the _../input-data_ folder. They consist of cityGML data from the [Metropole of Lyon](https://data.grandlyon.com/accueil) and the [Open Geospatial Consortium Github CityGML 3.0 Encoding Github](https://github.com/opengeospatial/CityGML-3.0Encodings/tree/master/CityGML/Examples).
 
@@ -32,10 +37,10 @@ To run the conversion pipeline an XML Schema and a XML file constrained by the s
 
 Afterwards the script can be run using:
 ```
-python run.py [XSL stylesheet] [input XML Schema] [input datafile]
+python run.py [XSLT stylesheet] [input XML Schema] [input datafile]
 ```
 
 For example
 ```
-python run.py [XSL stylesheet] [input XML Schema] [input datafile]
+python run.py [XSLT stylesheet] [input XML Schema] [input datafile]
 ```

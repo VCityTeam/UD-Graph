@@ -5,9 +5,13 @@ Model driven transformation tools for creating RDF/OWL knowledge graphs from XML
 
 Both of these tools support GML instances.
 
-
 ## XML to RDF Transformation
 This approach requires an ontology to determine how to convert CityGML documents into RDF triples. Valid GML geometry is converted into GeoSPARQL's `gmlLiteral` values.
+
+This transformation tool is a product of the following works:
+> [1] D. Vinasco-Alvarez, “Leveraging Standards in Model-Centric Geospatial Knowledge Graph Creation,” in ESWC 2022 Ph.D. Symposium, Hersonissos, Greece, May 2022. [Online]. Available: https://hal.archives-ouvertes.fr/hal-03693607
+
+> [2] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “Towards Limiting Semantic Data Loss In 4D Urban Data Semantic Graph Generation,” ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, vol. VIII-4/W2-2021, pp. 37–44, Oct. 2021, doi: 10.5194/isprs-annals-VIII-4-W2-2021-37-2021.
 
 ### Input Data
 GML files used for testing are located in the `UD-Graph/Transformations/test-data/GML` folder. They consist of cityGML data from the [Metropole of Lyon](https://data.grandlyon.com/accueil), the [Open Geospatial Consortium Github CityGML 3.0 Encoding Github](https://github.com/opengeospatial/CityGML-3.0Encodings/tree/master/CityGML/Examples), and other sources.
@@ -76,18 +80,18 @@ Namespace Mapping files should have the following structure:
 }
 ```
 
-For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../../UD-Graph/Ontologies/CityGML/2.0/):
+For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.0 ontology in the [Ontology directory](../../Ontologies/):
 ```bash
 python ./XML2RDF.py \
   -v \
   --format ttl \
   ../test-data/GML/Lyon_1er_arrondisement/LYON_1ER_BATI_2015-1_bldg-patched.gml \
   ./citygml_2_mappings.json \
-  ../../Ontologies/CityGML/2.0/ \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/ \
   https://www.w3.org/2009/08/skos-reference/skos.rdf \
   http://www.opengis.net/ont/geosparql# \
   http://www.opengis.net/ont/gml# \
-  ../../Ontologies/Alignments \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments \
   https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
   https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
@@ -98,14 +102,18 @@ python XML2RDF.py \
   --format ttl \
   ../test-data/GML/Building_CityGML3.0_LOD2_with_several_attributes.gml \
   citygml_3_mappings.json \
-  ../../Ontologies/CityGML/3.0/ \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/ \
   https://www.w3.org/2009/08/skos-reference/skos.rdf \
   http://www.opengis.net/ont/geosparql# \
   http://www.opengis.net/ont/gml# \
-  ../../Ontologies/Alignments \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments \
   https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
   https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
 ## XSLT-based-transformations
 This is a similar approach based on XSLT to transform XML to RDF according to a given XML Schema file (as .xsd). See the [readme](./XSLT-based-transformations/Readme.md) for more information.
 
+The transformation stylesheet provided are a product of the following works:
+> [3] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “Towards a semantic web representation from a 3D geospatial urban data model,” in SAGEO 2021, 16ème Conférence Internationale de la Géomatique, de l’Analyse Spatiale et des Sciences de l’Information Géographique., La Rochelle [Online Event], France, May 2021, pp. 227–238. [Online]. Available: https://hal.archives-ouvertes.fr/hal-03240567
+
+> [4] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “From CityGML to OWL,” LIRIS UMR 5205, Technical Report, Sep. 2020. [Online]. Available: https://hal.archives-ouvertes.fr/hal-02948955

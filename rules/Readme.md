@@ -26,7 +26,7 @@ The proposed rules are for validating temporal consistency of Workspace data acc
 
 This article details what composes a Workspace and how "versioned" urban data or can be structured and temporally ordered using UML and [Description Logic](https://en.wikipedia.org/wiki/Description_logic) (DL) rules. 
 
-A subset of these rules have been rewritten in SWRL and adapted [here](./rules.json), for validating urban data according to [OWL-Time Temporal Entities](https://www.w3.org/TR/owl-time/#time:TemporalEntity) and the proposed OWL-Time extension, CityGML, and Workspace ontologies located [here](../Ontologies/).
+A subset of these rules have been rewritten in SWRL and adapted [here](./rules.json), for validating urban data according to [OWL-Time Temporal Entities](https://www.w3.org/TR/owl-time/#time:TemporalEntity) and the proposed OWL-Time extension, CityGML, and Workspace ontologies located [here](https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/).
 
 A set of basic rules are declared to verify that temporal entities (as modeled below) from OWL-Time are temporally consistent.
 For example to verify a temporal entity begins before it ends we use the rule:
@@ -67,7 +67,7 @@ To add these properties to a CityGML city model and its features that do not con
 Two sets of tests are provided:
 1. [tests.json](./tests.json) for testing the provided test datasets `test_x.rdf`
    - These datasets are also provided in the Turtle format for easier human readability
-2. [workspace_tests.json](./workspace_tests.json) for testing the Gratte Ciel dataset located [here](../Datasets/GratteCiel_Workspace_2009_2018)
+2. [workspace_tests.json](./workspace_tests.json) for testing the Gratte Ciel dataset located [here](../Datasets/)
 
 Note that these tests are currently written for features conformant to the CityGML 3.0 model. Tests for CityGML 2.0 are currently in progress.
 
