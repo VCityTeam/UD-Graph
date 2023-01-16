@@ -1,1 +1,1 @@
-Datasets moved to [https://datasets.liris.cnrs.fr/rdfowl-urban-data-ontologies-version1](https://datasets.liris.cnrs.fr/rdfowl-urban-data-ontologies-version1)
+Datasets are also available on [https://datasets.liris.cnrs.fr/rdfowl-urban-data-ontologies-version1](https://datasets.liris.cnrs.fr/rdfowl-urban-data-ontologies-version1)
