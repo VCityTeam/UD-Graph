@@ -17,6 +17,8 @@ These transformations are a product of the following works:
     - [ShapeChange -\> XML2RDF (with validation)](#shapechange---xml2rdf-with-validation)
     - [XSD2OWL + Generate\_XToRDF -\> XToRDF (Illustrated with CityGML XML Schemas)](#xsd2owl--generate_xtordf---xtordf-illustrated-with-citygml-xml-schemas)
       - [Convert CityGML Instances to RDF Activity](#convert-citygml-instances-to-rdf-activity)
+    - [Discussion: XSD vs UML based Transformation Workflow](#discussion-xsd-vs-uml-based-transformation-workflow)
+  - [References](#references)
 
 ## Transformations
 For more information on each proposed transformation tool or transformation tool configuration can be found in each transformation sub-directory:
@@ -57,3 +59,37 @@ This proposed workflow is composed of 3 activities:
 
 #### Convert CityGML Instances to RDF Activity
 ![XML to OWL transformation activity](./XML%20to%20RDF%20Pipeline.svg)
+
+### Discussion: XSD vs UML based Transformation Workflow
+Which workflow is recommended? In summary, the answer depends on what models and schema are available and the use-case for integration or transformation.
+In articles [2,3] we discuss _XSD to OWL_ vs _UML to OWL_ referencing [3,4]. Both approaches have limitations and it's unclear which is general better and if one is better for a specific use case. However, *our UML-based workflow is currently more mature and is the current workflow we recommend using*. 
+
+**From a theoretical perspective:**
+
+To _broadly_ summarize:
+|      | XSLT approach [3] | ShapeChange+XML2RDF approach [2] |
+|------|-------------------|----------------------------------|
+| Pros | <li>Fully automated (only requires declaring at least the namespaces in the input XML Schema)</li> | <li>Highly customizable transformations</li><li>More concise results</li>
+| Cons | <li>Less concise results</li> | <li>Semi-automated (requires at least a ShapeChange configuration and XML2RDF namespace mappings)</li> |
+
+There are more notes about this on the [project wiki](https://github.com/VCityTeam/VCity/blob/master/Projects/Project_UD-Graph/UD-Graph-UML-to-OWL-vs-XSD-to-OWL-in-Model-Transformation.md#conclusions)
+
+**From a technical perspective:**
+
+- Our implementation of [2] is more mature than our implementation of [3]
+- Since publication of [3], the work in [7] has further developed the approach
+
+## References
+> [1] D. Vinasco-Alvarez, “Leveraging Standards in Model-Centric Geospatial Knowledge Graph Creation,” in ESWC 2022 Ph.D. Symposium, Hersonissos, Greece, May 2022. [Online]. Available: https://hal.archives-ouvertes.fr/hal-03693607
+
+> [2] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “Towards Limiting Semantic Data Loss In 4D Urban Data Semantic Graph Generation,” ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, vol. VIII-4/W2-2021, pp. 37–44, Oct. 2021, doi: 10.5194/isprs-annals-VIII-4-W2-2021-37-2021.
+
+> [3] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “Towards a semantic web representation from a 3D geospatial urban data model,” in SAGEO 2021, 16ème Conférence Internationale de la Géomatique, de l’Analyse Spatiale et des Sciences de l’Information Géographique., La Rochelle [Online Event], France, May 2021, pp. 227–238. [Online]. Available: https://hal.archives-ouvertes.fr/hal-03240567
+
+> [4] D. Vinasco-Alvarez, J. S. Samuel, S. Servigne, and G. Gesquière, “From CityGML to OWL,” LIRIS UMR 5205, Technical Report, Sep. 2020. [Online]. Available: https://hal.archives-ouvertes.fr/hal-02948955
+
+> [5] S. J. D. Cox, “An explicit OWL representation of ISO/OGC Observations and Measurements,” presented at the Proceedings of the 6th International Workshop on Semantic Sensor Networks co-located with the 12th International Semantic Web Conference, Jan. 2013, pp. 1–18.
+
+> [6] L. Brink, P. Janssen, W. Quak, and J. Stoter, “Linking spatial data: automated conversion of geo-information models and GML data to RDF,” International Journal of Spatial Data Infrastructures Research, vol. 9, pp. 59–85, Oct. 2014, doi: [10.2902/1725-0463.2014.09.art3](https://doi.org/10.2902/1725-0463.2014.09.art3).
+
+> [7] A. U. Usmani, M. Jadidi, and G. Sohn, “Towards the Automatic Ontology Generation and Alignment of BIM and GIS Data Formats,” in ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Oct. 2021, vol. VIII-4-W2-2021, pp. 183–188. doi: [10.5194/isprs-annals-VIII-4-W2-2021-183-2021](https://doi.org/10.5194/isprs-annals-VIII-4-W2-2021-183-2021).
