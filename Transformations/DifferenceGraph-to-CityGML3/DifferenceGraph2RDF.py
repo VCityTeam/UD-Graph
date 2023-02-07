@@ -106,8 +106,8 @@ def main():
 
 
     # add VersionTransition and Version
-    source_version_uri = URIRef( DATA.version_ + args.version_ids[0] )
-    target_version_uri = URIRef( DATA.version_ + args.version_ids[1] )
+    source_version_uri = URIRef( V1.version_ + args.version_ids[0] )
+    target_version_uri = URIRef( V2.version_ + args.version_ids[1] )
     versionTransition_uri = URIRef( DATA.versionTransition_ + f'{args.version_ids[0]}_{args.version_ids[1]}' )
 
     output_graph.add( (source_version_uri, RDF.type, VERS.Version) )
