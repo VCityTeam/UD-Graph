@@ -10,9 +10,6 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file',
                          help='Specify the difference JSON file')   
-    parser.add_argument('-o', '--output_file',
-                         default=None,
-                         help='Specify the output filename base. "vt_", "v1_", and "v2_" will be prefixed to the output filenames.')
     parser.add_argument('version_prefix',
                          nargs=2,
                          help='Specify the "globalid" prefix that corresponds to each version in the JSON file. Typically the globalid is formed as "[prefix]::[localid]"')
@@ -30,13 +27,13 @@ def main():
                          in the xsd:datetime format''')
     parser.add_argument('--base-uri',
                          default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/workspace_1#',
-                         help='Specify the base URI for workspace output individuals')
+                         help='Specify the base URI for workspace output individuals. Also used to name output file')
     parser.add_argument('--v1-uri',
                          default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/dataset_1#',
-                         help='Specify the base URI for source version output individuals')
+                         help='Specify the base URI for source version output individuals. Also used to name output file')
     parser.add_argument('--v2-uri',
                          default='https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Datasets/dataset_2#',
-                         help='Specify the base URI for target version output individuals')
+                         help='Specify the base URI for target version output individuals. Also used to name output file')
     parser.add_argument('--workspace-prefix',
                          default='data',
                          help='Specify the base URI prefix for workspace output individuals')
@@ -224,7 +221,7 @@ def main():
             logging.error(f'could not determine transaction type for edge: {edge}')
 
     # populate ontology declarations (by default don't use the fragment identifiers '#' or '/')
-    version_transition_ontology_uri = URIRef( str(VT)[:-1] )
+    version_transition_ontology_uri = URIRef( str(VT)[:-1] + '.ttl' )
     versioning_ontology_uri = URIRef( str(VERS)[:-1] + '.ttl' )
     transactiontype_ontology_uri = URIRef( str(TYPE)[:-1] + '.ttl' )
     source_version_ontology_uri = URIRef( str(V1)[:-1] + '.ttl' )
@@ -239,20 +236,26 @@ def main():
     output_v2.add( ( target_version_ontology_uri, RDF.type, OWL.Ontology ) )
     output_v2.add( ( target_version_ontology_uri, OWL.imports, versioning_ontology_uri ) )
 
-    if args.output_file is None:
-        # strip input_file of path and file extension and update output_file
-        args.output_file = '.'.join(
-            os.path.basename(args.input_file).split('.')[:-1]
-        ) + '.rdf'
-
     # write graphs to files
-    serializeGraph(output_vt, f'vt_{args.output_file}', args.format)
-    serializeGraph(output_v1, f'v1_{args.output_file}', args.format)
-    serializeGraph(output_v2, f'v2_{args.output_file}', args.format)
+    serializeGraph(
+        output_vt,
+        os.path.split(str(VT)[:-1])[-1],
+        args.format
+    )
+    serializeGraph(
+        output_v1,
+        os.path.split(str(V1)[:-1])[-1],
+        args.format
+    )
+    serializeGraph(
+        output_v2,
+        os.path.split(str(V2)[:-1])[-1],
+        args.format
+    )
 
 def serializeGraph(graph, output_filename, format):
-    logging.info(f'writing output to {output_filename}')
-    graph.serialize(destination=f'{output_filename}.ttl', format=format)   
+    logging.info(f'writing output to {output_filename}.{format}')
+    graph.serialize(destination=f'{output_filename}.{format}', format=format)   
     logging.info('Done!')
 
 def bindPrefixes(graph, prefixes):
