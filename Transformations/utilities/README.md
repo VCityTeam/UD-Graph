@@ -66,8 +66,20 @@ python add_crs.py [input datafile] [CRS] [output datafile]
 ```
 
 ## add_triples.py
-Add triples from secondary graph to primary graph.
+```
+usage: add_triples.py [-h] primary_graph secondary_graph output_file
 
+Read a primary and secondary RDF graph in turtle syntax. Add triples
+from secondary graph to primary graph and output the new primary graph
+
+positional arguments:
+  primary_graph    Specify the primary RDF graph
+  secondary_graph  Specify the secondary RDF graph
+  output_file      Specify the output graph
+
+options:
+  -h, --help       show this help message and exit
+```
 To run
 ```
 python add_triples.py [primary graph] [secondary graph]
