@@ -1,4 +1,6 @@
 # UD-Graph
+[![Build Status](https://travis-ci.com/VCityTeam/UD-Graph.svg?branch=master)](https://app.travis-ci.com/github/VCityTeam/UD-Graph)
+
 Repository for transforming and manipulating urban data models and data with knowledge graphs.
 
 This work is part of the larger [Virtual City Project](https://projet.liris.cnrs.fr/vcity/) of LIRIS UMR 5205 CNRS, in conjunction with the Université de Lyon, and The Université Lumière Lyon.
