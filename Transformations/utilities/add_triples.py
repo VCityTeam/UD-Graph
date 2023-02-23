@@ -1,5 +1,4 @@
 import os
-import sys
 import rdflib
 import argparse
 
@@ -21,6 +20,10 @@ def main():
     primary_graph, secondary_graph = rdflib.Graph(), rdflib.Graph()
     primary_graph.parse(os.path.normpath(args.primary_graph), format='turtle')
     secondary_graph.parse(os.path.normpath(args.secondary_graph), format='turtle')
+
+    print('binding namespaces...')
+    for binding in secondary_graph.namespace_manager.namespaces:
+        primary_graph.bind(binding[0], binding[1])
 
     print('Merging triples...')
     for triple in secondary_graph:
