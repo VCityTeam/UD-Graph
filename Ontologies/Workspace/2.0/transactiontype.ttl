@@ -8,55 +8,73 @@
 
 
 <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype>
-        a                owl:Ontology, skos:ConceptScheme;
-        rdfs:label       "TransactionTypeValueCodeList"@en ;
+        a                owl:Ontology ;
+        rdfs:label       "TransactionTypeValues"@en ;
         owl:imports      <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Versioning/2.0/versioning.ttl> ;
         skos:definition  "An ontology for an SKOS Concept Scheme as codelist of TransactionTypeValues from the CityGML 2.0 Versioning ontology."@en .
+
+
+type:transactionType1
+        a                skos:ConceptScheme ;
+        rdfs:label       "TransactionTypeValueCodeList1"@en ;
+        skos:definition  "An SKOS Concept Scheme as codelist of TransactionTypeValues from the CityGML 3.0 Versioning ontology based on CityGML 3.0."@en .
+
+
+type:transactionType2
+        a                skos:ConceptScheme ;
+        rdfs:label       "TransactionTypeValueCodeList2"@en ;
+        skos:definition  "An SKOS Concept Scheme as codelist of TransactionTypeValues from the CityGML 3.0 Versioning ontology based on [Jaillot et al. 2021] - Integrating multimedia documents and time-evolving 3D city models for web visualization and navigation."@en .
 
 
 type:insert  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "insert"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype> ;
+        skos:inScheme    type:transactionType1 ;
         skos:definition  "A new feature is added to the version."@en .
 
 type:delete  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "delete"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype> ;
+        skos:inScheme    type:transactionType1 ;
         skos:definition  "An old feature is removed from the version"@en .
+
+type:replace  a  vers:TransactionTypeValue,
+                owl:NamedIndividual ;
+        rdfs:label       "delete"@en ;
+        skos:inScheme    type:transactionType1 ;
+        skos:definition  "An old feature is replaced with a new feature between versions"@en .
 
 
 type:unchanged  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "unchanged"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype> ;
+        skos:inScheme    type:transactionType2 ;
         skos:definition  "Unchanged building: same geometry, same (gml) ID."@en .
 
 
 type:re-ided  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "re-ided"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype>;
+        skos:inScheme    type:transactionType2;
         skos:definition  "The building has been re-ided: same geometry, different (gml) ID."@en .
 
 
 type:modified  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "modified"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype>;
+        skos:inScheme    type:transactionType2;
         skos:definition  "The building geometry and ID have changed e.g. it was heightened; its footprint geometry changed, etc.."@en .
 
 
 type:fused  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "fused"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype>;
+        skos:inScheme    type:transactionType2;
         skos:definition  "Reverse_correspondence_size_length > 1... It can be: a split building that didn't work for both timestamps and which then denotes a logical fusion; a fusion or a split building problem + modifications; a split building problems + modifications"@en .
 
 
 type:subdivided  a  vers:TransactionTypeValue,
                 owl:NamedIndividual ;
         rdfs:label       "subdivided"@en ;
-        skos:inScheme    <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Workspace/2.0/transactiontype>;
+        skos:inScheme    type:transactionType2;
         skos:definition  "Current building has more than one correspondent."@en .
