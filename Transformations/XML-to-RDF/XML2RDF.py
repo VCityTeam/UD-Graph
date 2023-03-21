@@ -2,7 +2,8 @@ import os
 import json
 import logging
 import argparse
-from time import strptime, strftime, process_time
+from time import strptime, strftime, time
+from math import floor
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, XSD, GEO, NamespaceManager, Namespace
@@ -26,8 +27,6 @@ def main():
     transformer = XML2RdfTransformer(args)
     transformer.executeTransformation()
     transformer.writeOutputToFile()
-    e_time = strptime( process_time(), "%S" )
-    print(f'execution time: { strftime( "%H:%M:%S", e_time ) }')
 
 class XML2RdfTransformer():
 
@@ -106,7 +105,7 @@ class XML2RdfTransformer():
 
     def executeTransformation(self):
         '''Convert input file into rdf'''
-
+        start = time()
         print('Declaring ontology imports...')
         self.output_graph.add( (URIRef(self.output_uri), RDF.type, OWL.Ontology) )
         for ontology_uri in self.ontology.query('''
@@ -127,6 +126,11 @@ class XML2RdfTransformer():
             mapped_tag = self.mapNamespace(input_node.tag)
             if self.isClass( mapped_tag ):
                 self.generateIndividual(input_node)
+        if self.args.verbose:
+            end = time()
+            execution_time = strptime( str(floor(end - start) ), "%S" )
+            formatted_execution_time = strftime( "%H:%M:%S", execution_time )
+            print(f'execution time: {formatted_execution_time}')
 
     def writeOutputToFile(self):
         print('\nWriting graph to disk...')
