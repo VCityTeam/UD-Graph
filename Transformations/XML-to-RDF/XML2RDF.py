@@ -2,6 +2,7 @@ import os
 import json
 import logging
 import argparse
+from time import strftime, process_time
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, XSD, GEO, NamespaceManager, Namespace
@@ -16,8 +17,9 @@ def main():
     parser.add_argument('--output', default='.', help='Specify the output directory')
     parser.add_argument('--format', default='ttl', choices=RDFLIB_SUPPORTED_FORMATS, help='Specify the output data format (only RDFLib supported formats)')
     parser.add_argument('--log', default='output.log', help='Specify the logging file')
-    parser.add_argument('--atomic-geometry', action='store_true', help='Iterate into GML geometry to create individuals for each atomic GML element')
-    parser.add_argument('--deep-geometry', action='store_true', help='Iterate into GML geometry xlinks to and copy the destination GML into the geosparql:asGML property object')
+    parser.add_argument('--no-gmlLiterals', action='store_true', help='Do not generate gsp:gmlLiterals. Individuals for the geometry are still generated. This overrides the following flags: atomic-geometry, deep-geometry')
+    parser.add_argument('--atomic-geometry', action='store_true', help='Create individuals for each atomic GML element instead of generating a gsp:gmlLiteral. Note this requires loading a GML ontology that defines the elements found in GML')
+    parser.add_argument('--deep-geometry', action='store_true', help='When generating gsp:gmlLiterals, iterate into GML xlinks to and copy the contents at the destinatoin into the gsp:gmlLiteral. It is not recommended to enable this in combination with the atomic-geometry flag')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose console logging')
     args = parser.parse_args()
 
@@ -28,6 +30,7 @@ def main():
     transformer = XML2RdfTransformer(args)
     transformer.executeTransformation()
     transformer.writeOutputToFile()
+    print(f'finished in {process_time()} seconds')
 
 class XML2RdfTransformer():
 
@@ -178,7 +181,7 @@ class XML2RdfTransformer():
         # if the node is a geometry node, create a gml serialization and add it as a
         # triple to the output graph. All descendant nodes are assumed to be part of
         # the same geometry and therefore are not necessary to parse beyond this step.
-        if self.isGeometry(mapped_tag):
+        if self.isGeometry(mapped_tag) and not self.args.no_gmlLiterals:
             geometry_literal = self.generateGeometryLiteral(node)
             geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
             self.output_graph.add( (node_id, GEO.asGML, geometry_node) )
@@ -296,17 +299,7 @@ class XML2RdfTransformer():
         node_copy = deepcopy(node)
 
         if self.args.deep_geometry:
-            # gather geometry referenced though xlinks 
-            for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
-                reference = xlink.attrib.get('{http://www.w3.org/1999/xlink}href').split('#')[-1]
-                reference_node = self.input_root.find('.//*[@{%s}id = "%s"]' % (self.GML_NAMESPACE, reference))
-                if reference_node is not None:
-                    # logging.info(f'Compiling geometry for xlink reference to: {reference}')
-                    new_element = etree.Element(xlink.tag)
-                    new_element.append(deepcopy(reference_node))
-                    parent = xlink.getparent()
-                    parent.append(new_element)
-                    parent.remove(xlink)
+            node_copy = self.getXlinkContent(node)
 
         geometry = str(etree.tostring(node_copy, pretty_print=False)).split(' ')
         # remove non gml 2 namespace declarations, newlines, indentations, and single quotes from geometry string
@@ -322,6 +315,22 @@ class XML2RdfTransformer():
                 self.updateProgressBar(descendant.tag)
         return geometry
 
+    def getXlinkContent(self, node):
+        '''Take an lxml node and return a copy of the contents at the destination
+           of the node. This function will recursively search within new xlinks.'''
+        node_copy = deepcopy(node)
+        for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
+            reference = xlink.attrib.get('{http://www.w3.org/1999/xlink}href').split('#')[-1]
+            reference_node = self.input_root.find('.//*[@{%s}id = "%s"]' % (self.GML_NAMESPACE, reference))
+            if reference_node is not None:
+                # logging.info(f'Compiling geometry for xlink reference to: {reference}')
+                new_element = etree.Element(xlink.tag)
+                # check recursively for new xlinks and append the content to the result
+                new_element.append(self.getXlinkContent(reference_node))
+                parent = xlink.getparent()
+                parent.append(new_element)
+                parent.remove(xlink)
+        return node_copy
 
 
     #########################
