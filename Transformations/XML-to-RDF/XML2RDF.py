@@ -2,7 +2,7 @@ import os
 import json
 import logging
 import argparse
-from time import strftime, process_time
+from time import strptime, strftime, process_time
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, XSD, GEO, NamespaceManager, Namespace
@@ -17,20 +17,17 @@ def main():
     parser.add_argument('--output', default='.', help='Specify the output directory')
     parser.add_argument('--format', default='ttl', choices=RDFLIB_SUPPORTED_FORMATS, help='Specify the output data format (only RDFLib supported formats)')
     parser.add_argument('--log', default='output.log', help='Specify the logging file')
-    parser.add_argument('--no-gmlLiterals', action='store_true', help='Do not generate gsp:gmlLiterals. Individuals for the geometry are still generated. This overrides the following flags: atomic-geometry, deep-geometry')
+    parser.add_argument('--no-geometry', action='store_true', help='Ignore GML geometry nodes. This overrides the following flags: atomic-geometry, deep-geometry')
     parser.add_argument('--atomic-geometry', action='store_true', help='Create individuals for each atomic GML element instead of generating a gsp:gmlLiteral. Note this requires loading a GML ontology that defines the elements found in GML')
     parser.add_argument('--deep-geometry', action='store_true', help='When generating gsp:gmlLiterals, iterate into GML xlinks to and copy the contents at the destinatoin into the gsp:gmlLiteral. It is not recommended to enable this in combination with the atomic-geometry flag')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose console logging')
     args = parser.parse_args()
 
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
-                        filename=args.log,
-                        level=logging.DEBUG)
-
     transformer = XML2RdfTransformer(args)
     transformer.executeTransformation()
     transformer.writeOutputToFile()
-    print(f'finished in {process_time()} seconds')
+    e_time = strptime( process_time(), "%S" )
+    print(f'execution time: { strftime( "%H:%M:%S", e_time ) }')
 
 class XML2RdfTransformer():
 
@@ -54,9 +51,15 @@ class XML2RdfTransformer():
         self.datatypeproperty_definition_cache = {}
         self.input_node_count = 0
         self.input_node_total = 0
-        self.valid_geometry = {'MultiPoint', 'MultiCurve', 'MultiSurface', 'MultiGeometry',
-        'Point', 'LineString', 'Curve', 'Polygon', 'Surface', 'Solid'}
+        self.valid_geometry = ['MultiPoint', 'MultiCurve', 'MultiSurface', 'MultiGeometry',
+        'Point', 'LineString', 'Curve', 'Polygon', 'Surface', 'Solid']
         self.parsed_nodes = []
+
+        logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
+                            filename=args.log,
+                            level=logging.DEBUG)
+        
+        logging.info('initialized')
 
         for _ in self.input_root.iter(): # get input node total
             self.input_node_total += 1
@@ -71,20 +74,23 @@ class XML2RdfTransformer():
         print('Compiling mapping ontology(ies)...')
         self.ontology = Graph()
         for path in self.args.input_models:
+            if self.args.verbose:
+                print('  ' + path)
             if path.startswith('http://') or path.startswith('https://'):
-                if self.args.verbose:
-                    print('  ' + path)
                 self.ontology.parse(path, format='xml')
                 continue
+            if os.path.isfile(path):
+                if path.endswith('.ttl'):
+                    self.ontology.parse(path, format='turtle')
+                if path.endswith('.rdf'):
+                    self.ontology.parse(path, format='xml')
             for root, dirs, files in os.walk(path):
                 for file in files:
+                    if self.args.verbose:
+                        print('    ' + file)
                     if file.endswith('.ttl'):
-                        if self.args.verbose:
-                            print('  ' + file)
                         self.ontology.parse(os.path.join(root, file), format='turtle')
                     if file.endswith('.rdf'):
-                        if self.args.verbose:
-                            print('  ' + file)
                         self.ontology.parse(os.path.join(root, file), format='xml')
         # copy ontology namespace bindings to output graph namespace manager, add
         # default output namespace binding, and set geospatial namespaces
@@ -122,7 +128,6 @@ class XML2RdfTransformer():
             if self.isClass( mapped_tag ):
                 self.generateIndividual(input_node)
 
-
     def writeOutputToFile(self):
         print('\nWriting graph to disk...')
         if self.args.format == 'rdf':
@@ -140,6 +145,7 @@ class XML2RdfTransformer():
         node to the output graph. An id is returned for recursive calls'''
         node_id = ''
         mapped_tag = self.mapNamespace(node.tag)
+        self.updateProgressBar(node.tag)
         # if a gml:id is detected, use it in the URI of the individual
         if '{%s}id' % self.GML_NAMESPACE in node.attrib:
             node_id = URIRef(f'{self.output_uri}#' + node.attrib.get('{%s}id' % self.GML_NAMESPACE))
@@ -148,6 +154,20 @@ class XML2RdfTransformer():
         # skip node if already parsed
         if self.input_tree.getelementpath(node) in self.parsed_nodes:
             return node_id
+
+        # if the node is a geometry node, create a gml serialization and add it as a
+        # triple to the output graph. All descendant nodes are assumed to be part of
+        # the same geometry and therefore are not necessary to parse beyond this step
+        # if the no-geometry flag is enabled.
+        if self.isGeometry(mapped_tag):
+            if self.args.no_geometry:
+                self.ignoreNodeTree(node)
+                return node_id
+            else:
+                # generate gmlLiteral
+                geometry_literal = self.generateGeometryLiteral(node)
+                geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
+                self.output_graph.add( (node_id, GEO.asGML, geometry_node) )
 
         node_type = self.lxmlToURIRef(mapped_tag)
         self.output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
@@ -178,22 +198,23 @@ class XML2RdfTransformer():
                 attribute_text = Literal(node.attrib[attribute])
                 self.output_graph.add( (node_id, attribute_uri, attribute_text) )
                 logging.warning(f'No datatype or datatype property found for attribute {attribute}, at {self.input_tree.getelementpath(node)}')
-        # if the node is a geometry node, create a gml serialization and add it as a
-        # triple to the output graph. All descendant nodes are assumed to be part of
-        # the same geometry and therefore are not necessary to parse beyond this step.
-        if self.isGeometry(mapped_tag) and not self.args.no_gmlLiterals:
-            geometry_literal = self.generateGeometryLiteral(node)
-            geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
-            self.output_graph.add( (node_id, GEO.asGML, geometry_node) )
-        # if it is not geometry, transform the XML children into properties, datatypes, and/or individuals
+
+        # if node is not geometry, transform the XML children into properties, datatypes, and/or individuals
         # (unless atomic geometry is enabled)
         if self.args.atomic_geometry or not self.isGeometry(mapped_tag):
             for child in node:
                 # if child.tag has an rdf mapping, replace the tag with the mapping.
                 mapped_child_tag = self.mapNamespace(child.tag)
+
                 # if child.tag in self.rdf_mappings:
                 #     mapped_child_tag = self.rdf_mappings[child.tag]
                 #     mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
+                
+                # check if the child is geometry, if the no-geometry flag is enabled, skip the child and its descendants
+                if self.isGeometry(mapped_child_tag):
+                    if self.args.no_geometry:
+                        self.ignoreNodeTree(node)
+                        continue
                 # check if child node is a class. If so, generate a new individual for the
                 # child and create an object property linking the two individuals.
                 if self.isClass(mapped_child_tag):
@@ -229,7 +250,7 @@ class XML2RdfTransformer():
 
         # when complete, add node to parsed nodes list
         self.parsed_nodes.append(self.input_tree.getelementpath(node))
-        self.updateProgressBar(node.tag)
+        self.input_node_count += 1
         return node_id
 
 
@@ -307,12 +328,7 @@ class XML2RdfTransformer():
         geometry = ' '.join(filter( isGMLTag, geometry ))
         geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip().replace(
             "xmlns:gml='http://www.opengis.net/gml/3.2'", "xmlns:gml='http://www.opengis.net/gml'")
-        # if atomic_geometry is not enabled add the descendant gml nodes to the parsed_nodes list
-        # so they will not be converted to RDF.
-        if not self.args.atomic_geometry:
-            for descendant in node.iter():
-                self.parsed_nodes.append(self.input_tree.getelementpath(descendant))
-                self.updateProgressBar(descendant.tag)
+        self.ignoreNodeTree(node)
         return geometry
 
     def getXlinkContent(self, node):
@@ -415,7 +431,11 @@ class XML2RdfTransformer():
             self.id_count[name] = 0
             return f'{self.output_uri}#{name}_0'
 
-
+    def ignoreNodeTree(self, node):
+        '''add a node and its decendants to the parsed_nodes so they will not be transformed to RDF.'''
+        for descendant in node.iter():
+            self.parsed_nodes.append(self.input_tree.getelementpath(descendant))
+            self.input_node_count += 1
 
     #########################
     ##  Query functions  ##
@@ -435,7 +455,7 @@ class XML2RdfTransformer():
                         {
                             ?objectproperty a owl:ObjectProperty ;
                                 rdfs:domain ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                         }
                         UNION
                         {
@@ -444,7 +464,7 @@ class XML2RdfTransformer():
                                                 owl:allValuesFrom ?someOtherClass ;
                                                 owl:onProperty    ?objectproperty 
                                                 ] .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
                         }
                     }''' % (self.lxmlToURIRef(qname1),
                             self.lxmlToURIRef(qname1)
@@ -458,7 +478,7 @@ class XML2RdfTransformer():
                             {
                                 <%s> a owl:ObjectProperty ;
                                     rdfs:domain ?domain .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                             }
                             UNION
                             {
@@ -467,7 +487,7 @@ class XML2RdfTransformer():
                                                 owl:allValuesFrom ?someOtherClass ;
                                                 owl:onProperty    <%s> 
                                                 ] .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
                             }
                         }''' % (property[0],
                                 self.lxmlToURIRef(qname1),
@@ -491,8 +511,8 @@ class XML2RdfTransformer():
                         ?objectproperty a owl:ObjectProperty ;
                             rdfs:domain ?domain ;
                             rdfs:range  ?range .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?range .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?range .
                     }
                     UNION
                     {
@@ -501,7 +521,7 @@ class XML2RdfTransformer():
                                             owl:allValuesFrom <%s> ;
                                             owl:onProperty    ?objectproperty 
                                             ] .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
                     }
                 }''' % (self.lxmlToURIRef(qname1),
                         self.lxmlToURIRef(qname2),
@@ -518,8 +538,8 @@ class XML2RdfTransformer():
                             <%s> a owl:ObjectProperty ;
                                 rdfs:domain ?domain ;
                                 rdfs:range  ?range .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?range .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?range .
                         }
                         UNION
                         {
@@ -528,8 +548,8 @@ class XML2RdfTransformer():
                                             owl:allValuesFrom ?someOtherClass ;
                                             owl:onProperty    <%s> 
                                             ] .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someOtherClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someOtherClass .
                         }
                     }''' % (property[0],
                             self.lxmlToURIRef(qname1),
@@ -557,7 +577,7 @@ class XML2RdfTransformer():
                         {
                             ?datatypeproperty a owl:DatatypeProperty ;
                                 rdfs:domain ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                         }
                         UNION
                         {
@@ -565,7 +585,7 @@ class XML2RdfTransformer():
                             rdfs:subClassOf [ a owl:Restriction ;
                                             owl:onProperty    ?datatypeproperty 
                                             ] .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
                         }
                     }''' % (self.lxmlToURIRef(qname1),
                             self.lxmlToURIRef(qname1)
@@ -579,7 +599,7 @@ class XML2RdfTransformer():
                             {
                                 <%s> a owl:DatatypeProperty ;
                                     rdfs:domain ?domain .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                             }
                             UNION
                             {
@@ -587,7 +607,7 @@ class XML2RdfTransformer():
                                 rdfs:subClassOf [ a owl:Restriction ;
                                                 owl:onProperty <%s> 
                                                 ] .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
                             }
                         }''' % (property[0],
                                 self.lxmlToURIRef(qname1),
@@ -654,7 +674,7 @@ class XML2RdfTransformer():
                         ASK {
                             <%s> rdf:type owl:ObjectProperty ;
                                 rdfs:domain ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                         }''' % (objectproperty[0],
                                 self.lxmlToURIRef(parent_tag)) ):
                         return True
@@ -703,7 +723,7 @@ class XML2RdfTransformer():
                     ASK {
                         <%s> rdf:type owl:ObjectProperty ;
                             rdfs:domain ?domain .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                     }''' % (objectproperty[0],
                             self.lxmlToURIRef(parent_tag)
                     )):
@@ -735,7 +755,7 @@ class XML2RdfTransformer():
                             ASK {
                                 <%s> rdf:type owl:DatatypeProperty ;
                                     rdfs:domain ?domain .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                             }''' % (datatypeproperty[0],
                                     self.lxmlToURIRef(parent_tag)) ):
                         return True
@@ -784,7 +804,7 @@ class XML2RdfTransformer():
                     ASK {
                         <%s> rdf:type owl:DatatypeProperty ;
                             rdfs:domain ?domain .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
                     }''' % (datatypeproperty[0], self.lxmlToURIRef(parent_tag))):
                     return True
         return len(self.datatypeproperty_definition_cache.get(tag)) > 0
@@ -883,7 +903,7 @@ class XML2RdfTransformer():
             else:
                 return self.ontology.query(
                     'ASK {'
-                        f'<{str(self.GML_ONT_NAMESPACE)}{qname.localname}> (owl:equivalentClass|rdfs:subClassOf)* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
+                        f'<{str(self.GML_ONT_NAMESPACE)}{qname.localname}> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
                     '}')
 
 

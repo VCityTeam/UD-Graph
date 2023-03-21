@@ -4,10 +4,13 @@ python ./XML2RDF.py \
     -v \
     --log test_FZK.log \
     --format ttl \
-    --no-gmlLiterals \
+    --no-geometry \
     ../test-data/GML/FZK-Haus-LoD4-KIT-IAI-KHH-B36-V1.gml \
     ./citygml_2_mappings.json \
-    ../../Ontologies/CityGML/2.0/ \
+    ../../Ontologies/CityGML/2.0/core.ttl \
+    ../../Ontologies/CityGML/2.0/appearance.ttl \
+    ../../Ontologies/CityGML/2.0/building.ttl \
+    ../../Ontologies/CityGML/2.0/generics.ttl \
     https://www.w3.org/2009/08/skos-reference/skos.rdf \
     http://www.opengis.net/ont/geosparql# \
     http://www.opengis.net/ont/gml# \
