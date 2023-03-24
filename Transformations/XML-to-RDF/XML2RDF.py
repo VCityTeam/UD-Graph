@@ -214,10 +214,11 @@ class XML2RdfTransformer():
                 #     mapped_child_tag = self.rdf_mappings[child.tag]
                 #     mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
                 
-                # check if the child is geometry, if the no-geometry flag is enabled, skip the child and its descendants
+                # check if the child is geometry, if the no-geometry flag is enabled,
+                # skip the child and its descendants
                 if self.isGeometry(mapped_child_tag):
                     if self.args.no_geometry:
-                        self.ignoreNodeTree(node)
+                        self.ignoreNodeTree(child)
                         continue
                 # check if child node is a class. If so, generate a new individual for the
                 # child and create an object property linking the two individuals.
