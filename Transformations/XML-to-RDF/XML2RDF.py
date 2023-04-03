@@ -489,7 +489,7 @@ class XML2RdfTransformer():
                             {
                                 ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:allValuesFrom ?someOtherClass ;
+                                                (owl:allValuesFrom|owl:someValuesFrom) ?someOtherClass ;
                                                 owl:onProperty    <%s> 
                                                 ] .
                                 <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
@@ -523,7 +523,7 @@ class XML2RdfTransformer():
                     {
                         ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
-                                            owl:allValuesFrom <%s> ;
+                                            (owl:allValuesFrom|owl:someValuesFrom) <%s> ;
                                             owl:onProperty    ?objectproperty 
                                             ] .
                         <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
@@ -550,7 +550,7 @@ class XML2RdfTransformer():
                         {
                             ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
-                                            owl:allValuesFrom ?someOtherClass ;
+                                            (owl:allValuesFrom|owl:someValuesFrom) ?someOtherClass ;
                                             owl:onProperty    <%s> 
                                             ] .
                             <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
