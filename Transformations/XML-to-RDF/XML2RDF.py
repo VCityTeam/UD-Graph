@@ -78,19 +78,22 @@ class XML2RdfTransformer():
             if path.startswith('http://') or path.startswith('https://'):
                 self.ontology.parse(path, format='xml')
                 continue
-            if os.path.isfile(path):
+            elif os.path.isfile(path):
                 if path.endswith('.ttl'):
                     self.ontology.parse(path, format='turtle')
                 if path.endswith('.rdf'):
                     self.ontology.parse(path, format='xml')
-            for root, dirs, files in os.walk(path):
-                for file in files:
-                    if self.args.verbose:
-                        print('    ' + file)
-                    if file.endswith('.ttl'):
-                        self.ontology.parse(os.path.join(root, file), format='turtle')
-                    if file.endswith('.rdf'):
-                        self.ontology.parse(os.path.join(root, file), format='xml')
+            elif os.path.isdir(path):
+                for root, dirs, files in os.walk(path):
+                    for file in files:
+                        if self.args.verbose:
+                            print('    ' + file)
+                        if file.endswith('.ttl'):
+                            self.ontology.parse(os.path.join(root, file), format='turtle')
+                        if file.endswith('.rdf'):
+                            self.ontology.parse(os.path.join(root, file), format='xml')
+            else:
+                raise Exception(f'Could not find file or directory: {path}')
         # copy ontology namespace bindings to output graph namespace manager, add
         # default output namespace binding, and set geospatial namespaces
         self.output_graph.namespace_manager = NamespaceManager(self.ontology)
@@ -249,7 +252,7 @@ class XML2RdfTransformer():
                     annotation_text = Literal(child.text, datatype=XSD.string)
                     self.output_graph.add( (node_id, annotation_uri, annotation_text) )
                 else:
-                    logging.warning(f'No mapping found between parent node: {node.tag} and child node: {child.tag} at {self.input_tree.getelementpath(node)}')
+                    logging.warning(f'No mapping found between parent node: {node.tag} and child node: {child.tag} at {self.input_tree.getelementpath(child)}')
 
         # when complete, add node to parsed nodes list
         self.parsed_nodes.append(self.input_tree.getelementpath(node))
@@ -819,7 +822,6 @@ class XML2RdfTransformer():
         # TODO: add annotation definition cache
         # TODO: optimize query
         qname = etree.QName(tag)
-        query = []
         # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
         # if tag_namespace_mappings is None:
         #     for line in self.ontology.query('''
@@ -831,15 +833,12 @@ class XML2RdfTransformer():
         #         query.append(line)
         # else:
         #     for namespace in tag_namespace_mappings:
-        for line in self.ontology.query('''
-                SELECT DISTINCT ?annotationproperty
-                WHERE {
-                    ?annotationproperty rdf:type owl:AnnotationProperty .
-                    FILTER regex(STR(?annotationproperty), "^%s%s")
-                }''' % (qname.namespace, qname.localname) ):
-            query.append(line)
-        return len(query) > 0
-
+        return self.ontology.query('''
+            ASK
+            WHERE {
+                <%s%s> rdf:type owl:AnnotationProperty .
+            }''' % (qname.namespace, qname.localname) )
+        
 
     def getDatatypeProperties(self, tag):
         '''check if uri corresponds to an datatype property and return the possible properties'''
