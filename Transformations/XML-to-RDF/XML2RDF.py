@@ -460,16 +460,16 @@ class XML2RdfTransformer():
                         {
                             ?objectproperty a owl:ObjectProperty ;
                                 rdfs:domain ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                         }
                         UNION
                         {
                             ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:allValuesFrom ?someOtherClass ;
+                                                (owl:allValuesFrom|owl:someValuesFrom) ?someOtherClass ;
                                                 owl:onProperty    ?objectproperty 
                                                 ] .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                         }
                     }''' % (self.lxmlToURIRef(qname1),
                             self.lxmlToURIRef(qname1)
@@ -483,7 +483,7 @@ class XML2RdfTransformer():
                             {
                                 <%s> a owl:ObjectProperty ;
                                     rdfs:domain ?domain .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                             }
                             UNION
                             {
@@ -492,7 +492,7 @@ class XML2RdfTransformer():
                                                 owl:allValuesFrom ?someOtherClass ;
                                                 owl:onProperty    <%s> 
                                                 ] .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                             }
                         }''' % (property[0],
                                 self.lxmlToURIRef(qname1),
@@ -516,8 +516,8 @@ class XML2RdfTransformer():
                         ?objectproperty a owl:ObjectProperty ;
                             rdfs:domain ?domain ;
                             rdfs:range  ?range .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?range .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?range .
                     }
                     UNION
                     {
@@ -526,7 +526,7 @@ class XML2RdfTransformer():
                                             owl:allValuesFrom <%s> ;
                                             owl:onProperty    ?objectproperty 
                                             ] .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                     }
                 }''' % (self.lxmlToURIRef(qname1),
                         self.lxmlToURIRef(qname2),
@@ -543,8 +543,8 @@ class XML2RdfTransformer():
                             <%s> a owl:ObjectProperty ;
                                 rdfs:domain ?domain ;
                                 rdfs:range  ?range .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?range .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?range .
                         }
                         UNION
                         {
@@ -553,8 +553,8 @@ class XML2RdfTransformer():
                                             owl:allValuesFrom ?someOtherClass ;
                                             owl:onProperty    <%s> 
                                             ] .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someOtherClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someOtherClass .
                         }
                     }''' % (property[0],
                             self.lxmlToURIRef(qname1),
@@ -582,7 +582,7 @@ class XML2RdfTransformer():
                         {
                             ?datatypeproperty a owl:DatatypeProperty ;
                                 rdfs:domain ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                         }
                         UNION
                         {
@@ -590,7 +590,7 @@ class XML2RdfTransformer():
                             rdfs:subClassOf [ a owl:Restriction ;
                                             owl:onProperty    ?datatypeproperty 
                                             ] .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                         }
                     }''' % (self.lxmlToURIRef(qname1),
                             self.lxmlToURIRef(qname1)
@@ -604,7 +604,7 @@ class XML2RdfTransformer():
                             {
                                 <%s> a owl:DatatypeProperty ;
                                     rdfs:domain ?domain .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                             }
                             UNION
                             {
@@ -612,7 +612,7 @@ class XML2RdfTransformer():
                                 rdfs:subClassOf [ a owl:Restriction ;
                                                 owl:onProperty <%s> 
                                                 ] .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?someClass .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
                             }
                         }''' % (property[0],
                                 self.lxmlToURIRef(qname1),
@@ -679,7 +679,7 @@ class XML2RdfTransformer():
                         ASK {
                             <%s> rdf:type owl:ObjectProperty ;
                                 rdfs:domain ?domain .
-                            <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                            <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                         }''' % (objectproperty[0],
                                 self.lxmlToURIRef(parent_tag)) ):
                         return True
@@ -728,7 +728,7 @@ class XML2RdfTransformer():
                     ASK {
                         <%s> rdf:type owl:ObjectProperty ;
                             rdfs:domain ?domain .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                     }''' % (objectproperty[0],
                             self.lxmlToURIRef(parent_tag)
                     )):
@@ -760,7 +760,7 @@ class XML2RdfTransformer():
                             ASK {
                                 <%s> rdf:type owl:DatatypeProperty ;
                                     rdfs:domain ?domain .
-                                <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                                <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                             }''' % (datatypeproperty[0],
                                     self.lxmlToURIRef(parent_tag)) ):
                         return True
@@ -809,7 +809,7 @@ class XML2RdfTransformer():
                     ASK {
                         <%s> rdf:type owl:DatatypeProperty ;
                             rdfs:domain ?domain .
-                        <%s> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* ?domain .
+                        <%s> (owl:equivalentClass|rdfs:subClassOf)* ?domain .
                     }''' % (datatypeproperty[0], self.lxmlToURIRef(parent_tag))):
                     return True
         return len(self.datatypeproperty_definition_cache.get(tag)) > 0
@@ -908,7 +908,7 @@ class XML2RdfTransformer():
             else:
                 return self.ontology.query(
                     'ASK {'
-                        f'<{str(self.GML_ONT_NAMESPACE)}{qname.localname}> (owl:equivalentClass|rdfs:subClassOf|^rdfs:subClassOf)* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
+                        f'<{str(self.GML_ONT_NAMESPACE)}{qname.localname}> (owl:equivalentClass|rdfs:subClassOf)* <{str(self.GML_ONT_NAMESPACE)}Geometry> .'
                     '}')
 
 
