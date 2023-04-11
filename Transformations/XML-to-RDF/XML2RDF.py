@@ -75,16 +75,14 @@ class XML2RdfTransformer():
         for path in self.args.input_models:
             if self.args.verbose:
                 print('  ' + path)
-            if path.startswith('http://') or path.startswith('https://'):
+            if path.endswith('.ttl'):
+                self.ontology.parse(path, format='turtle')
+            elif path.endswith('.rdf'):
                 self.ontology.parse(path, format='xml')
-                continue
-            elif os.path.isfile(path):
-                if path.endswith('.ttl'):
-                    self.ontology.parse(path, format='turtle')
-                if path.endswith('.rdf'):
-                    self.ontology.parse(path, format='xml')
+            elif path.startswith('http://') or path.startswith('https://'):
+                self.ontology.parse(path)
             elif os.path.isdir(path):
-                for root, dirs, files in os.walk(path):
+                for root, _, files in os.walk(path):
                     for file in files:
                         if self.args.verbose:
                             print('    ' + file)
@@ -150,7 +148,6 @@ class XML2RdfTransformer():
         node to the output graph. An id is returned for recursive calls'''
         node_id = ''
         mapped_tag = self.mapNamespace(node.tag)
-        self.updateProgressBar(node.tag)
         # if a gml:id is detected, use it in the URI of the individual
         if '{%s}id' % self.GML_NAMESPACE in node.attrib:
             node_id = URIRef(f'{self.output_uri}#' + node.attrib.get('{%s}id' % self.GML_NAMESPACE))
@@ -158,8 +155,10 @@ class XML2RdfTransformer():
             node_id = URIRef(self.generateID(mapped_tag))
         # skip node if already parsed
         if self.input_tree.getelementpath(node) in self.parsed_nodes:
+            logging.debug(f'reparsing node {self.input_tree.getelementpath(node)}')
             return node_id
-
+        
+        self.updateProgressBar(node.tag)
         # if the node is a geometry node, create a gml serialization and add it as a
         # triple to the output graph. All descendant nodes are assumed to be part of
         # the same geometry and therefore are not necessary to parse beyond this step
@@ -253,7 +252,6 @@ class XML2RdfTransformer():
                     self.output_graph.add( (node_id, annotation_uri, annotation_text) )
                 else:
                     logging.warning(f'No mapping found between parent node: {node.tag} and child node: {child.tag} at {self.input_tree.getelementpath(child)}')
-
         # when complete, add node to parsed nodes list
         self.parsed_nodes.append(self.input_tree.getelementpath(node))
         self.input_node_count += 1
