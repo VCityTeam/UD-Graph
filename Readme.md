@@ -25,7 +25,7 @@ The [Transformations](./Transformations) directory contains the following implem
 3. XSD-to-OWL
    * Scripts for converting XML Schema into RDF/OWL ontologies
 4. test-data
-   * Stores for test GML, RDF, OWL, ShapeFile, UML, and XML Schema data
+   * Stores for test GML, RDF, OWL, UML, and XML Schema data
 See [here](./Transformations/Readme.md) for more information.
 
 ### Datasets
