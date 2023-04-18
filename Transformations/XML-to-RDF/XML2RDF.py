@@ -2,6 +2,8 @@ import os
 import json
 import logging
 import argparse
+from time import time
+from datetime import timedelta
 from copy import deepcopy
 from rdflib import Graph, URIRef, Literal
 from rdflib.namespace import RDF, OWL, XSD, GEO, NamespaceManager, Namespace
@@ -16,14 +18,11 @@ def main():
     parser.add_argument('--output', default='.', help='Specify the output directory')
     parser.add_argument('--format', default='ttl', choices=RDFLIB_SUPPORTED_FORMATS, help='Specify the output data format (only RDFLib supported formats)')
     parser.add_argument('--log', default='output.log', help='Specify the logging file')
-    parser.add_argument('--atomic-geometry', action='store_true', help='Iterate into GML geometry to create individuals for each atomic GML element')
-    parser.add_argument('--deep-geometry', action='store_true', help='Iterate into GML geometry xlinks to and copy the destination GML into the geosparql:asGML property object')
+    parser.add_argument('--no-geometry', action='store_true', help='Ignore GML geometry nodes. This overrides the following flags: atomic-geometry, deep-geometry')
+    parser.add_argument('--atomic-geometry', action='store_true', help='Create individuals for each atomic GML element instead of generating a gsp:gmlLiteral. Note this requires loading a GML ontology that defines the elements found in GML')
+    parser.add_argument('--deep-geometry', action='store_true', help='When generating gsp:gmlLiterals, iterate into GML xlinks to and copy the contents at the destinatoin into the gsp:gmlLiteral. It is not recommended to enable this in combination with the atomic-geometry flag')
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose console logging')
     args = parser.parse_args()
-
-    logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
-                        filename=args.log,
-                        level=logging.DEBUG)
 
     transformer = XML2RdfTransformer(args)
     transformer.executeTransformation()
@@ -51,9 +50,15 @@ class XML2RdfTransformer():
         self.datatypeproperty_definition_cache = {}
         self.input_node_count = 0
         self.input_node_total = 0
-        self.valid_geometry = {'MultiPoint', 'MultiCurve', 'MultiSurface', 'MultiGeometry',
-        'Point', 'LineString', 'Curve', 'Polygon', 'Surface', 'Solid'}
+        self.valid_geometry = ['MultiPoint', 'MultiCurve', 'MultiSurface', 'MultiGeometry',
+        'Point', 'LineString', 'Curve', 'Polygon', 'Surface', 'Solid']
         self.parsed_nodes = []
+
+        logging.basicConfig(format='%(asctime)s %(levelname)-8s %(message)s',
+                            filename=args.log,
+                            level=logging.DEBUG)
+        
+        logging.info('initialized')
 
         for _ in self.input_root.iter(): # get input node total
             self.input_node_total += 1
@@ -68,21 +73,25 @@ class XML2RdfTransformer():
         print('Compiling mapping ontology(ies)...')
         self.ontology = Graph()
         for path in self.args.input_models:
-            if path.startswith('http://') or path.startswith('https://'):
-                if self.args.verbose:
-                    print('  ' + path)
+            if self.args.verbose:
+                print('  ' + path)
+            if path.endswith('.ttl'):
+                self.ontology.parse(path, format='turtle')
+            elif path.endswith('.rdf'):
                 self.ontology.parse(path, format='xml')
-                continue
-            for root, dirs, files in os.walk(path):
-                for file in files:
-                    if file.endswith('.ttl'):
+            elif path.startswith('http://') or path.startswith('https://'):
+                self.ontology.parse(path)
+            elif os.path.isdir(path):
+                for root, _, files in os.walk(path):
+                    for file in files:
                         if self.args.verbose:
-                            print('  ' + file)
-                        self.ontology.parse(os.path.join(root, file), format='turtle')
-                    if file.endswith('.rdf'):
-                        if self.args.verbose:
-                            print('  ' + file)
-                        self.ontology.parse(os.path.join(root, file), format='xml')
+                            print('    ' + file)
+                        if file.endswith('.ttl'):
+                            self.ontology.parse(os.path.join(root, file), format='turtle')
+                        if file.endswith('.rdf'):
+                            self.ontology.parse(os.path.join(root, file), format='xml')
+            else:
+                raise Exception(f'Could not find file or directory: {path}')
         # copy ontology namespace bindings to output graph namespace manager, add
         # default output namespace binding, and set geospatial namespaces
         self.output_graph.namespace_manager = NamespaceManager(self.ontology)
@@ -97,7 +106,7 @@ class XML2RdfTransformer():
 
     def executeTransformation(self):
         '''Convert input file into rdf'''
-
+        start = timedelta(seconds=time())
         print('Declaring ontology imports...')
         self.output_graph.add( (URIRef(self.output_uri), RDF.type, OWL.Ontology) )
         for ontology_uri in self.ontology.query('''
@@ -118,7 +127,9 @@ class XML2RdfTransformer():
             mapped_tag = self.mapNamespace(input_node.tag)
             if self.isClass( mapped_tag ):
                 self.generateIndividual(input_node)
-
+        if self.args.verbose:
+            end = timedelta(seconds=time())
+            print(f'\nexecution time: {end - start}')
 
     def writeOutputToFile(self):
         print('\nWriting graph to disk...')
@@ -144,7 +155,23 @@ class XML2RdfTransformer():
             node_id = URIRef(self.generateID(mapped_tag))
         # skip node if already parsed
         if self.input_tree.getelementpath(node) in self.parsed_nodes:
+            logging.debug(f'reparsing node {self.input_tree.getelementpath(node)}')
             return node_id
+        
+        self.updateProgressBar(node.tag)
+        # if the node is a geometry node, create a gml serialization and add it as a
+        # triple to the output graph. All descendant nodes are assumed to be part of
+        # the same geometry and therefore are not necessary to parse beyond this step
+        # if the no-geometry flag is enabled.
+        if self.isGeometry(mapped_tag):
+            if self.args.no_geometry:
+                self.ignoreNodeTree(node)
+                return node_id
+            else:
+                # generate gmlLiteral
+                geometry_literal = self.generateGeometryLiteral(node)
+                geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
+                self.output_graph.add( (node_id, GEO.asGML, geometry_node) )
 
         node_type = self.lxmlToURIRef(mapped_tag)
         self.output_graph.add( (node_id, RDF.type, OWL.NamedIndividual) )
@@ -175,22 +202,24 @@ class XML2RdfTransformer():
                 attribute_text = Literal(node.attrib[attribute])
                 self.output_graph.add( (node_id, attribute_uri, attribute_text) )
                 logging.warning(f'No datatype or datatype property found for attribute {attribute}, at {self.input_tree.getelementpath(node)}')
-        # if the node is a geometry node, create a gml serialization and add it as a
-        # triple to the output graph. All descendant nodes are assumed to be part of
-        # the same geometry and therefore are not necessary to parse beyond this step.
-        if self.isGeometry(mapped_tag):
-            geometry_literal = self.generateGeometryLiteral(node)
-            geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
-            self.output_graph.add( (node_id, GEO.asGML, geometry_node) )
-        # if it is not geometry, transform the XML children into properties, datatypes, and/or individuals
+
+        # if node is not geometry, transform the XML children into properties, datatypes, and/or individuals
         # (unless atomic geometry is enabled)
         if self.args.atomic_geometry or not self.isGeometry(mapped_tag):
             for child in node:
                 # if child.tag has an rdf mapping, replace the tag with the mapping.
                 mapped_child_tag = self.mapNamespace(child.tag)
+
                 # if child.tag in self.rdf_mappings:
                 #     mapped_child_tag = self.rdf_mappings[child.tag]
                 #     mapped_child_tag = etree.QName( self.uriToLXML( mapped_child_tag ) )
+                
+                # check if the child is geometry, if the no-geometry flag is enabled,
+                # skip the child and its descendants
+                if self.isGeometry(mapped_child_tag):
+                    if self.args.no_geometry:
+                        self.ignoreNodeTree(child)
+                        continue
                 # check if child node is a class. If so, generate a new individual for the
                 # child and create an object property linking the two individuals.
                 if self.isClass(mapped_child_tag):
@@ -222,11 +251,10 @@ class XML2RdfTransformer():
                     annotation_text = Literal(child.text, datatype=XSD.string)
                     self.output_graph.add( (node_id, annotation_uri, annotation_text) )
                 else:
-                    logging.warning(f'No mapping found between parent node: {node.tag} and child node: {child.tag} at {self.input_tree.getelementpath(node)}')
-
+                    logging.warning(f'No mapping found between parent node: {node.tag} and child node: {child.tag} at {self.input_tree.getelementpath(child)}')
         # when complete, add node to parsed nodes list
         self.parsed_nodes.append(self.input_tree.getelementpath(node))
-        self.updateProgressBar(node.tag)
+        self.input_node_count += 1
         return node_id
 
 
@@ -296,17 +324,7 @@ class XML2RdfTransformer():
         node_copy = deepcopy(node)
 
         if self.args.deep_geometry:
-            # gather geometry referenced though xlinks 
-            for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
-                reference = xlink.attrib.get('{http://www.w3.org/1999/xlink}href').split('#')[-1]
-                reference_node = self.input_root.find('.//*[@{%s}id = "%s"]' % (self.GML_NAMESPACE, reference))
-                if reference_node is not None:
-                    # logging.info(f'Compiling geometry for xlink reference to: {reference}')
-                    new_element = etree.Element(xlink.tag)
-                    new_element.append(deepcopy(reference_node))
-                    parent = xlink.getparent()
-                    parent.append(new_element)
-                    parent.remove(xlink)
+            node_copy = self.getXlinkContent(node)
 
         geometry = str(etree.tostring(node_copy, pretty_print=False)).split(' ')
         # remove non gml 2 namespace declarations, newlines, indentations, and single quotes from geometry string
@@ -314,14 +332,25 @@ class XML2RdfTransformer():
         geometry = ' '.join(filter( isGMLTag, geometry ))
         geometry = str(geometry)[2:-1].replace('\\n', '').replace('  ', '').replace('"', "'").strip().replace(
             "xmlns:gml='http://www.opengis.net/gml/3.2'", "xmlns:gml='http://www.opengis.net/gml'")
-        # if atomic_geometry is not enabled add the descendant gml nodes to the parsed_nodes list
-        # so they will not be converted to RDF.
-        if not self.args.atomic_geometry:
-            for descendant in node.iter():
-                self.parsed_nodes.append(self.input_tree.getelementpath(descendant))
-                self.updateProgressBar(descendant.tag)
+        self.ignoreNodeTree(node)
         return geometry
 
+    def getXlinkContent(self, node):
+        '''Take an lxml node and return a copy of the contents at the destination
+           of the node. This function will recursively search within new xlinks.'''
+        node_copy = deepcopy(node)
+        for xlink in node_copy.findall('.//*[@{http://www.w3.org/1999/xlink}href]'):
+            reference = xlink.attrib.get('{http://www.w3.org/1999/xlink}href').split('#')[-1]
+            reference_node = self.input_root.find('.//*[@{%s}id = "%s"]' % (self.GML_NAMESPACE, reference))
+            if reference_node is not None:
+                # logging.info(f'Compiling geometry for xlink reference to: {reference}')
+                new_element = etree.Element(xlink.tag)
+                # check recursively for new xlinks and append the content to the result
+                new_element.append(self.getXlinkContent(reference_node))
+                parent = xlink.getparent()
+                parent.append(new_element)
+                parent.remove(xlink)
+        return node_copy
 
 
     #########################
@@ -406,7 +435,11 @@ class XML2RdfTransformer():
             self.id_count[name] = 0
             return f'{self.output_uri}#{name}_0'
 
-
+    def ignoreNodeTree(self, node):
+        '''add a node and its decendants to the parsed_nodes so they will not be transformed to RDF.'''
+        for descendant in node.iter():
+            self.parsed_nodes.append(self.input_tree.getelementpath(descendant))
+            self.input_node_count += 1
 
     #########################
     ##  Query functions  ##
@@ -432,7 +465,7 @@ class XML2RdfTransformer():
                         {
                             ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:allValuesFrom ?someOtherClass ;
+                                                (owl:allValuesFrom|owl:someValuesFrom) ?someOtherClass ;
                                                 owl:onProperty    ?objectproperty 
                                                 ] .
                             <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
@@ -455,7 +488,7 @@ class XML2RdfTransformer():
                             {
                                 ?someClass a owl:Class ;
                                 rdfs:subClassOf [ a owl:Restriction ;
-                                                owl:allValuesFrom ?someOtherClass ;
+                                                (owl:allValuesFrom|owl:someValuesFrom) ?someOtherClass ;
                                                 owl:onProperty    <%s> 
                                                 ] .
                                 <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
@@ -489,7 +522,7 @@ class XML2RdfTransformer():
                     {
                         ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
-                                            owl:allValuesFrom <%s> ;
+                                            (owl:allValuesFrom|owl:someValuesFrom) <%s> ;
                                             owl:onProperty    ?objectproperty 
                                             ] .
                         <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
@@ -516,7 +549,7 @@ class XML2RdfTransformer():
                         {
                             ?someClass a owl:Class ;
                             rdfs:subClassOf [ a owl:Restriction ;
-                                            owl:allValuesFrom ?someOtherClass ;
+                                            (owl:allValuesFrom|owl:someValuesFrom) ?someOtherClass ;
                                             owl:onProperty    <%s> 
                                             ] .
                             <%s> (owl:equivalentClass|rdfs:subClassOf)* ?someClass .
@@ -787,7 +820,6 @@ class XML2RdfTransformer():
         # TODO: add annotation definition cache
         # TODO: optimize query
         qname = etree.QName(tag)
-        query = []
         # tag_namespace_mappings = self.namespace_mappings.get(qname.namespace)
         # if tag_namespace_mappings is None:
         #     for line in self.ontology.query('''
@@ -799,15 +831,12 @@ class XML2RdfTransformer():
         #         query.append(line)
         # else:
         #     for namespace in tag_namespace_mappings:
-        for line in self.ontology.query('''
-                SELECT DISTINCT ?annotationproperty
-                WHERE {
-                    ?annotationproperty rdf:type owl:AnnotationProperty .
-                    FILTER regex(STR(?annotationproperty), "^%s%s")
-                }''' % (qname.namespace, qname.localname) ):
-            query.append(line)
-        return len(query) > 0
-
+        return self.ontology.query('''
+            ASK
+            WHERE {
+                <%s%s> rdf:type owl:AnnotationProperty .
+            }''' % (qname.namespace, qname.localname) )
+        
 
     def getDatatypeProperties(self, tag):
         '''check if uri corresponds to an datatype property and return the possible properties'''
