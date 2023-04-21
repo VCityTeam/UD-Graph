@@ -1,10 +1,4 @@
 ### Test Queries
+Most of these queries are coming from the [GeoDataDays demo](https://demo.liris.cnrs.fr/vcity/geodatadays/), and the [UD-Viz SPARQL examples](https://github.com/VCityTeam/UD-Viz/tree/5fe0f7dd8751ede60aafa2ff2ed32ace03e4f8bc).
 
-1. Query all buildings
-2. Query a building and it's linked individuals
-3. Query building geometry
-4. Query all GeoSPARQL features within 10 m of a point
-5. Query all geometry within a given bounding box
-6. Query all cityobjects within a given bounding box
-
-Note: that queries on larger files are performed with a limit of 100 results
+Note: that queries on larger files are often performed with a limit of 10, 20, 30, or 100 results

@@ -1,0 +1,22 @@
+PREFIX owl:    <http://www.w3.org/2002/07/owl#>
+PREFIX core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/core#>
+PREFIX bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/building#>
+PREFIX vers: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/versioning#>
+PREFIX vt:    <https://github.com/VCityTeam/UD-Graph/DOUA_BATI_2009-2018_Workspace#>
+
+# Return several features (with types) within a version
+
+SELECT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  ?subject a core:CityModel ;
+    ?predicate ?object ;
+    a ?subjectType .
+  ?object a bldg:Building .
+  ?object a ?objectType .
+  vt:version_2012 vers:Version.versionMember ?object .
+  
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}
+
+LIMIT 30
