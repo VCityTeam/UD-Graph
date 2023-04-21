@@ -1,0 +1,10 @@
+PREFIX ifc:     <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#>
+
+# return number of IFC Slabs in the dataset
+
+SELECT (COUNT(?ifcSlab) AS ?NumOfIfcSlab)
+WHERE {
+  ?ifcSlab a ifc:IfcSlab .
+}
+
+LIMIT 30

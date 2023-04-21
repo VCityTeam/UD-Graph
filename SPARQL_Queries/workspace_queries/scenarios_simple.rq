@@ -1,0 +1,27 @@
+# Common prefixes
+PREFIX rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX owl:    <http://www.w3.org/2002/07/owl#>
+PREFIX vers: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0/versioning#>
+
+
+# return the versionTransitions, and versions of the workspace and their immediate properties
+
+SELECT DISTINCT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  
+    ?subject a vers:VersionTransition ;
+      a ?subjectType ;
+      ( vers:VersionTransition.to|vers:VersionTransition.from ) ?object ;
+      ?predicate ?object .
+    OPTIONAL {
+      ?object a ?objectType .
+    } 
+  
+  FILTER(?predicate != vers:Version.versionMember)
+  FILTER(?predicate != vers:VersionTransition.transaction)
+  FILTER(?predicate != rdf:type)
+  FILTER(?subject != owl:NamedIndividual)
+  FILTER(?object != owl:NamedIndividual)
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}

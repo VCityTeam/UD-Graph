@@ -1,0 +1,31 @@
+PREFIX owl:    <http://www.w3.org/2002/07/owl#>
+PREFIX skos:   <http://www.w3.org/2004/02/skos/core#>
+PREFIX geo:    <http://www.opengis.net/ont/geosparql#>
+PREFIX bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/2.0/building#>
+PREFIX v2012: <https://github.com/VCityTeam/UD-Graph/DOUA_BATI_2012_stripped_split#>
+
+# return a CityGML Building matching an ID
+SELECT ?subject ?subjectType ?predicate ?object ?objectType
+WHERE {
+  {
+    ?subject ?predicate ?object ;
+      a ?subjectType ;
+      skos:prefLabel "VILLEURBANNE_00012_23" .
+  
+    OPTIONAL { ?object a ?objectType }
+  } UNION {
+    v2012:VILLEURBANNE_00012_23 bldg:AbstractBuilding.boundedBy ?subject .
+    ?subject ?predicate ?object ;
+      a ?subjectType .
+  
+    OPTIONAL { ?object a ?objectType }
+  } UNION {
+    v2012:VILLEURBANNE_00012_23 bldg:AbstractBuilding.boundedBy/geo:hasGeometry ?subject .
+    ?subject ?predicate ?object ;
+      a ?subjectType .
+  
+    OPTIONAL { ?object a ?objectType }
+  }
+  FILTER(?subjectType != owl:NamedIndividual)
+  FILTER(?objectType != owl:NamedIndividual)
+}
