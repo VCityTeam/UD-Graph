@@ -85,13 +85,14 @@ For example, for transforming CityGML 2.0 XML data using the proposed CityGML 2.
 python ./XML2RDF.py \
   -v \
   --format ttl \
-  ../test-data/GML/Lyon_1er_arrondisement/LYON_1ER_BATI_2015-1_bldg-patched.gml \
+  [dataset path] \
   ./citygml_2_mappings.json \
   https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/2.0/ \
   https://www.w3.org/2009/08/skos-reference/skos.rdf \
   http://www.opengis.net/ont/geosparql# \
   http://www.opengis.net/ont/gml# \
-  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments/CityGML2-GeoSPARQL \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments/CityGML2-ISO19136 \
   https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
   https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
@@ -106,7 +107,8 @@ python XML2RDF.py \
   https://www.w3.org/2009/08/skos-reference/skos.rdf \
   http://www.opengis.net/ont/geosparql# \
   http://www.opengis.net/ont/gml# \
-  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments/CityGML3-GeoSPARQL \
+  https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Alignments/CityGML3-ISO19136 \
   https://def.isotc211.org/ontologies/iso19136/2007/Feature.rdf \
   https://def.isotc211.org/ontologies/iso19107/2003/CoordinateGeometry.rdf
 ```
