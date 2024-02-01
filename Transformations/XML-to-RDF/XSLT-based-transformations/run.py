@@ -13,7 +13,7 @@ def main():
   global CRS
   CRS                  = 'EPSG:3946'
   transformation_file  = 'XMLToRDF.xsl'
-  output_directory     = '../../test-data/RDF'
+  output_directory     = '../../test-data/RDF/XSLT-based-transformations'
   cleanGeometry        = True
   generator_file       = sys.argv[1]
   schema_file          = sys.argv[2]
