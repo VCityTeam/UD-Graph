@@ -3,7 +3,7 @@
     <!-- <parameter name="inputModelType" value="EA7"/> -->
     <parameter name="inputModelType" value="SCXML"/>
     <parameter name="inputFile" value='$input$'/>
-    <parameter name="appSchemaNamespaceRegex" value="^(http://www.opengis.net/citygml/|https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/).*"/>
+    <parameter name="appSchemaNamespaceRegex" value="^(https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/|http://www.opengis.net/citygml/).*"/>
     <parameter name="checkingConstraints" value="disabled"/>
     <parameter name="addTaggedValues" value="itemType"/>
     <xi:include href="http://shapechange.net/resources/config/StandardAliases.xml"/>
@@ -22,7 +22,7 @@
   <transformers>
     <Transformer id="ACMAPPER" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.AssociationClassMapper" mode="enabled"/>
     <!-- Union alternative 1 transformer -->
-    <Transformer id="FLATTENER1" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" mode="enabled">
+    <Transformer id="FLATTENER1" class="de.interactive_instruments.ShapeChange.Transformation.Flattening.Flattener" input="ACMAPPER" mode="disabled">
       <parameters>
         <ProcessParameter name="includeUnionIdentifierTaggedValue" value="true"/>
         <ProcessParameter name="separatorForPropertyFromUnion" value="."/>
@@ -49,10 +49,11 @@
   </transformers>
   <targets>
     <!-- <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled"> -->
-    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="FLATTENER1">
+    <TargetOwl class="de.interactive_instruments.ShapeChange.Target.Ontology.OWLISO19150" mode="enabled" inputs="ACMAPPER">
       <targetParameter name="outputDirectory" value="$output$"/>
       <!-- <targetParameter name="outputDirectory" value="../Data-IO/OWL/CityGML_3.0_Conceptual_Model"/> -->
       <targetParameter name="defaultEncodingRule" value="CityGML_RDF_Encoding_Rules"/>
+      <targetParameter name="defaultTypeImplementation" value="owl:Thing"/>
       <targetParameter name="URIbase" value="https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/CityGML/3.0"/>
       <targetParameter name="language" value="en"/>
       <xi:include href="https://shapechange.net/resources/config/StandardNamespaces-owl.xml"/>
@@ -114,7 +115,6 @@
         <RdfTypeMapEntry type="TM_Duration" target="time:TemporalDuration"/>
         <RdfTypeMapEntry type="TM_Period" target="time:Interval"/>
         <RdfTypeMapEntry type="GM_TriangulatedSurface" target="iso19107-cm:GM_TriangulatedSurface"/>
-        <RdfTypeMapEntry type="GM_Complex" target="iso19107-gc:GM_Complex"/>
         <RdfTypeMapEntry type="Sequence&lt;Real&gt;" target="orph:Sequence.lt.Real.gt."/>
         <RdfTypeMapEntry type="Code" target="iso19136-bt:Code"/>
         <RdfTypeMapEntry type="Sequence&lt;DoubleBetween0and1&gt;" target="orph:Sequence.lt.MeasureOrNilReason.gt."/>
@@ -152,6 +152,7 @@
           <rule name="rule-owl-prop-voidable-as-minCardinality0"/>
           <rule name="rule-owl-prop-range-global"/>
           <rule name="rule-owl-prop-range-local-withUniversalQuantification"/>
+          <rule name="rule-owl-prop-inverseOf"/>
           <rule name="rule-owl-prop-mapping-compare-specifications"/>
           <!-- <rule name="rule-owl-all-constraints-humanReadableTextOnly"/> -->
           <rule name="rule-owl-all-constraints-byConstraintMapping"/>

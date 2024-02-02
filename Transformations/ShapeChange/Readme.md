@@ -10,6 +10,9 @@ Currently there are 4 configuration files:
 3. Enterprise Architect to ShapeChange XML: `EA_to_SCXML_config.xml`
 4. CityGML 2.0 ADE to XML Schema: `CityGML2.0_to_XSD_config.xml`
 
+Additionally the `StandardMapEntries_iso19107-owl.xml` file contains mappings between the abstract geometric UML classes from ISO 19107 and the [GML ontology](https://schemas.opengis.net/gml/3.2.1/gml_32_geometries.rdf) (adapted from [the mappings proposed by ShapeChange](https://shapechange.net/resources/config/StandardMapEntries_iso19107-owl.xml))
+
+
 A tool for patching OWL ontologies created using ShapeChange and these configurations is provided: `ontologyPatcher.py`
 Currently 3 types of patches are targeted:
 1. Class restrictions that use the property owl:onClass with the object of an rdfs:Datatype are converted to owl:onDataRange.
@@ -22,16 +25,16 @@ These patches help ensure the generated ontologies are in OWL-DL and not just OW
 ## To run shapechange
 Use the following command to run ShapeChange with the configuration files. Be sure to update the variables in '[]' brackets with their desired values.
 ```bash
-java -jar [path to ShapeChange jar] -Dfile.encoding=UTF-8 -c [CONFIGURATION FILE] -x '$input$' '[UML FILE]' -x '$output$' '[OUTPUT FOLDER]' -x '$localdir$' '[THIS DIRECTORY]'
+java -jar [path to ShapeChange jar] -Dfile.encoding=UTF-8 -c [CONFIGURATION FILE] -x '$input$' '[UML FILE]' -x '$output$' '[OUTPUT FOLDER]'
 ```
 
 Example for with a ShapeChange JAR file, `../lib/ShapeChange-2.11.0.jar`:
 ```bash
 java -jar ../lib/ShapeChange-2.11.0.jar -Dfile.encoding=UTF-8 -c CityGML3.0_config.xml \
   -x '$input$' './test-data/UML/CityGML_3.0-workspaces-documents_shapechange-export.xml' \
-  -x '$output$' './test-data/OWL/CityGML_3.0_Conceptual_Model' \
-  -x '$localdir$' './'
+  -x '$output$' './test-data/OWL/CityGML_3.0_Conceptual_Model'
 ```
+
 
 ## To run the ontology patcher
 ```

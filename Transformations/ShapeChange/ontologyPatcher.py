@@ -2,24 +2,25 @@ import logging
 import argparse
 from rdflib import Graph
 
+
 def main():
     # initialize command line arguments
     parser = argparse.ArgumentParser()
     parser.add_argument('input_file',
-                         help='Specify the input file')
+                        help='Specify the input file')
     parser.add_argument('output_file',
-                         help='Specify the output file')
+                        help='Specify the output file')
     parser.add_argument('--input_format',
-                         default='ttl',
-                         help='Specify the RDFLib compliant input file format')
+                        default='ttl',
+                        help='Specify the RDFLib compliant input file format')
     parser.add_argument('--output_format',
-                         default='ttl',
-                         help='Specify the RDFLib compliant output file format')
+                        default='ttl',
+                        help='Specify the RDFLib compliant output file format')
     parser.add_argument('--log', '-l',
-                         default='output.log',
-                         help='Specify the logging file')
+                        default='output.log',
+                        help='Specify the logging file')
     args = parser.parse_args()
-    
+
     patcher = ontologyPatcher(args.input_file, args.input_format, args.log)
     patcher.patchOnClass()
     patcher.patchDatatypeEnumeration()
@@ -39,6 +40,13 @@ class ontologyPatcher():
     their range are redefined as DatatypeProperties."""
 
     def __init__(self, input_file, input_format, log_file) -> None:
+        """
+        Initialize an ontologyPatcher()
+        ---
+        Parameters:
+        - input_file: (str) input file
+        - input_format: (str) RDFLib compliant input file format
+        """
         logging.basicConfig(filename=log_file,
                             level=logging.DEBUG,
                             format='%(asctime)s %(levelname)-8s %(message)s')
@@ -47,11 +55,14 @@ class ontologyPatcher():
 
     def patchOnClass(self) -> None:
         """
-        It replaces all occurrences of `owl:onClass` with `owl:onDataRange` that reference
-        a known datatype in the ontology. Otherwise these references are invalid in OWL-DL.
+        It replaces all occurrences of `owl:onClass` with `owl:onDataRange`
+        that reference a known datatype in the ontology. Otherwise these
+        references are invalid in OWL-DL.
         """
         logging.info('Patching onClass restrictions...')
         query_where_onClass = '''
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX sc:  <http://shapechange.net/resources/ont/base#>
             WHERE {
                 {
                     ?_class a owl:Class ;
@@ -64,10 +75,10 @@ class ontologyPatcher():
                         rdfs:subClassOf|owl:equivalentClass ?restriction .
                     ?restriction a owl:Restriction ;
                         owl:onClass ?object .
-                    FILTER( ?object = <http://www.w3.org/2002/07/owl#real> ||
-                            ?object = <http://www.w3.org/2002/07/owl#rational> ||
-                            ?object = <http://shapechange.net/resources/ont/base#Measure> ||
-                            ?object = <http://shapechange.net/resources/ont/base#Sign>
+                    FILTER( ?object = owl:real ||
+                            ?object = owl:rational ||
+                            ?object = sc:Measure ||
+                            ?object = sc:Sign
                     )
                 } UNION {
                     ?_class a owl:Class;
@@ -85,7 +96,8 @@ class ontologyPatcher():
             %s
             ''' % query_where_onClass
         for row in self.graph.query(query_select_onClass):
-            logging.info(f'correcting class: {row._class} owl:onClass {row.object}')
+            logging.info(
+                f'correcting class: {row._class} owl:onClass {row.object}')
 
         query_update_onClass = '''
             DELETE {
@@ -98,9 +110,9 @@ class ontologyPatcher():
 
     def patchDatatypeEnumeration(self) -> None:
         """
-        Reformats datatypes constrained by a list with a "Protégé friendly" form.
-        If not these datatypes are read as an empty class and datatype when reasoned
-        upon in Protégé, which is invalid in OWL-DL.
+        Reformats datatypes constrained by a list with a "Protégé friendly"
+        form. If not these datatypes are read as an empty class and datatype
+        when reasoned upon in Protégé, which is invalid in OWL-DL.
         """
         logging.info('Patching Datatype Enumerations...')
         query_where_enumeration = '''
@@ -114,7 +126,8 @@ class ontologyPatcher():
             %s
             ''' % query_where_enumeration
         for row in self.graph.query(query_select_enumeration):
-            logging.info(f'correcting datatype: {row.datatype} owl:oneOf {row.list}')
+            logging.info(
+                f'correcting datatype: {row.datatype} owl:oneOf {row.list}')
         query_update_enumeration = '''
             DELETE {
                 ?datatype owl:oneOf ?list
@@ -126,16 +139,17 @@ class ontologyPatcher():
             } %s
             ''' % query_where_enumeration
         self.graph.update(query_update_enumeration)
-    
-    
+
     def patchObjectProperties(self) -> None:
         """
-        It replaces all occurrences of `owl:ObjectProperty` with `owl:DatatypeProperty`
-        that reference a known datatype in the ontology. Otherwise these references
-        are invalid in OWL-DL
+        It replaces all occurrences of `owl:ObjectProperty` with
+        `owl:DatatypeProperty` that reference a known datatype in the ontology.
+        Otherwise these references are invalid in OWL-DL
         """
         logging.info('Patching ObjectProperties Enumerations...')
         query_where_objectproperty = '''
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            PREFIX sc:  <http://shapechange.net/resources/ont/base#>
             WHERE {
                 {
                     ?property a owl:ObjectProperty ;
@@ -144,10 +158,10 @@ class ontologyPatcher():
                 } UNION {
                     ?property a owl:ObjectProperty ;
                         rdfs:range ?object .
-                    FILTER( ?object = <http://www.w3.org/2002/07/owl#real> ||
-                            ?object = <http://www.w3.org/2002/07/owl#rational> ||
-                            ?object = <http://shapechange.net/resources/ont/base#Measure> ||
-                            ?object = <http://shapechange.net/resources/ont/base#Sign>
+                    FILTER( ?object = owl:real ||
+                            ?object = owl:rational ||
+                            ?object = sc:Measure ||
+                            ?object = sc:Sign
                     )
                 } UNION {
                     ?property a owl:ObjectProperty ;
@@ -163,7 +177,8 @@ class ontologyPatcher():
             %s
             ''' % query_where_objectproperty
         for row in self.graph.query(query_select_objectproperty):
-            logging.info(f'correcting property: {row.property} rdfs:range {row.object}')
+            logging.info(
+                f'correcting property: {row.property} rdfs:range {row.object}')
         query_update_objectproperty = '''
             DELETE {
                 ?property a owl:ObjectProperty
