@@ -34,7 +34,7 @@ class ontologyPatcher():
     1. Class restrictions that use the property owl:onClass
     with the object of an rdfs:Datatype are converted to owl:onDataRange.
     2. Datatype definitions created from enumerations that use owl:oneOf
-    are redefined to use a Protégé friendly owl:equvalentClass axiom
+    are redefined to use a Protégé friendly owl:equvalentClass axiom 
     containing the owl:oneOf property.
     3. ObjectProperty definitions which contain an rdfs:Datatype within
     their range are redefined as DatatypeProperties."""
@@ -145,7 +145,7 @@ class ontologyPatcher():
         `owl:DatatypeProperty` that reference a known datatype in the ontology.
         Otherwise these references are invalid in OWL-DL
         """
-        logging.info('Patching ObjectProperties Enumerations...')
+        logging.info('Patching ObjectProperties...')
         query_where_objectproperty = '''
             WHERE {
                 {
@@ -184,6 +184,46 @@ class ontologyPatcher():
             } %s
             ''' % query_where_objectproperty
         self.graph.update(query_update_objectproperty)
+
+    def patchDatatypeProperties(self) -> None:
+        """
+        It replaces all occurrences of `owl:DatatypeProperty` with
+        `owl:DatatypeProperty` that reference a known datatype in the ontology.
+        Otherwise these references are invalid in OWL-DL
+        """
+        logging.info('Patching DatatypeProperties...')
+        query_where_datatypeproperty = '''
+            WHERE {
+                {
+                    ?property a owl:DatatypeProperty ;
+                        rdfs:range ?object .
+                    ?object a owl:Class .
+                } UNION {
+                    ?property a owl:DatatypeProperty ;
+                        rdfs:range ?object .
+                    FILTER( ?object = owl:real ||
+                            ?object = owl:rational ||
+                            ?object = sc:Measure ||
+                            ?object = sc:Sign
+                    )
+                }
+            }
+            '''
+        query_select_datatypeproperty = '''
+            SELECT ?property ?object
+            %s
+            ''' % query_where_datatypeproperty
+        for row in self.graph.query(query_select_datatypeproperty):
+            logging.info(
+                f'correcting property: {row.property} rdfs:range {row.object}')
+        query_update_datatypeproperty = '''
+            DELETE {
+                ?property a owl:DatatypeProperty
+            } INSERT {
+                ?property a owl:ObjectProperty
+            } %s
+            ''' % query_where_datatypeproperty
+        self.graph.update(query_update_datatypeproperty)
 
     def outputGraph(self, output_file: str, output_format: str) -> None:
         self.graph.serialize(destination=output_file, format=output_format)
