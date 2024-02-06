@@ -1,6 +1,6 @@
 import logging
 import argparse
-from rdflib import Graph
+from rdflib import Graph, Namespace
 
 
 def main():
@@ -39,19 +39,20 @@ class ontologyPatcher():
     3. ObjectProperty definitions which contain an rdfs:Datatype within
     their range are redefined as DatatypeProperties."""
 
-    def __init__(self, input_file, input_format, log_file) -> None:
+    def __init__(self, input_file: str,
+                 input_format: str,
+                 log_file: str) -> None:
         """
         Initialize an ontologyPatcher()
-        ---
-        Parameters:
-        - input_file: (str) input file
-        - input_format: (str) RDFLib compliant input file format
         """
         logging.basicConfig(filename=log_file,
                             level=logging.DEBUG,
                             format='%(asctime)s %(levelname)-8s %(message)s')
         logging.info(f'=== Loading {input_file} ===')
-        self.graph = Graph().parse(input_file, format=input_format)
+        self.graph = Graph(bind_namespaces='rdflib')
+        SC = Namespace('http://shapechange.net/resources/ont/base#')
+        self.graph.bind('sc', SC)
+        self.graph.parse(input_file, format=input_format)
 
     def patchOnClass(self) -> None:
         """
@@ -61,8 +62,6 @@ class ontologyPatcher():
         """
         logging.info('Patching onClass restrictions...')
         query_where_onClass = '''
-            PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            PREFIX sc:  <http://shapechange.net/resources/ont/base#>
             WHERE {
                 {
                     ?_class a owl:Class ;
@@ -148,8 +147,6 @@ class ontologyPatcher():
         """
         logging.info('Patching ObjectProperties Enumerations...')
         query_where_objectproperty = '''
-            PREFIX owl: <http://www.w3.org/2002/07/owl#>
-            PREFIX sc:  <http://shapechange.net/resources/ont/base#>
             WHERE {
                 {
                     ?property a owl:ObjectProperty ;
@@ -188,7 +185,7 @@ class ontologyPatcher():
             ''' % query_where_objectproperty
         self.graph.update(query_update_objectproperty)
 
-    def outputGraph(self, output_file, output_format) -> None:
+    def outputGraph(self, output_file: str, output_format: str) -> None:
         self.graph.serialize(destination=output_file, format=output_format)
 
 
