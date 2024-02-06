@@ -34,7 +34,7 @@ class ontologyPatcher():
     1. Class restrictions that use the property owl:onClass
     with the object of an rdfs:Datatype are converted to owl:onDataRange.
     2. Datatype definitions created from enumerations that use owl:oneOf
-    are redefined to use a Protégé friendly owl:equvalentClass axiom 
+    are redefined to use a Protégé friendly owl:equvalentClass axiom
     containing the owl:oneOf property.
     3. ObjectProperty definitions which contain an rdfs:Datatype within
     their range are redefined as DatatypeProperties."""
