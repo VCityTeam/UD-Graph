@@ -13,10 +13,14 @@ def main():
     parser.add_argument('secondary_graph', help="""Specify the secondary RDF
                         graph""")
     parser.add_argument('output_file', help='Specify the output graph')
+    parser.add_argument('-v', '--verbose',
+                        action='store_true',
+                        help='Toggle verbose printing')
 
     args = parser.parse_args()
 
-    print('Reading files...')
+    if args.verbose:
+        print('Reading files...')
     # read graphs
     primary_graph, secondary_graph = rdflib.Graph(), rdflib.Graph()
     path = os.path.normpath(args.primary_graph)
@@ -24,16 +28,19 @@ def main():
     path = os.path.normpath(args.secondary_graph)
     secondary_graph.parse(path, format='turtle')
 
-    print('Binding namespaces...')
+    if args.verbose:
+        print('Binding namespaces...')
     for binding in secondary_graph.namespace_manager.namespaces():
         primary_graph.bind(binding[0], binding[1])
 
-    print('Merging triples...')
+    if args.verbose:
+        print('Merging triples...')
     for triple in secondary_graph:
         primary_graph.add(triple)
 
     primary_graph.serialize(destination=args.output_file, format='turtle')
-    print('Writing complete!')
+    if args.verbose:
+        print('Writing complete!')
 
 
 if __name__ == "__main__":
