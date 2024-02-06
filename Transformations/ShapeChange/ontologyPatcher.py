@@ -54,9 +54,10 @@ class ontologyPatcher():
         self.graph.bind('sc', SC)
         self.graph.parse(input_file, format=input_format)
 
+
     def patchOnClass(self) -> None:
         """
-        It replaces all occurrences of `owl:onClass` with `owl:onDataRange`
+        Replace all occurrences of `owl:onClass` with `owl:onDataRange`
         that reference a known datatype in the ontology. Otherwise these
         references are invalid in OWL-DL.
         """
@@ -107,9 +108,10 @@ class ontologyPatcher():
             ''' % query_where_onClass
         self.graph.update(query_update_onClass)
 
+
     def patchDatatypeEnumeration(self) -> None:
         """
-        Reformats datatypes constrained by a list with a "Protégé friendly"
+        Reformat datatypes constrained by a list with a "Protégé friendly"
         form. If not these datatypes are read as an empty class and datatype
         when reasoned upon in Protégé, which is invalid in OWL-DL.
         """
@@ -139,11 +141,12 @@ class ontologyPatcher():
             ''' % query_where_enumeration
         self.graph.update(query_update_enumeration)
 
+
     def patchObjectProperties(self) -> None:
         """
-        It replaces all occurrences of `owl:ObjectProperty` with
-        `owl:DatatypeProperty` that reference a known datatype in the ontology.
-        Otherwise these references are invalid in OWL-DL
+        Select all occurrences of a `owl:ObjectProperty` with a `rdfs:range`
+        that references a known `rdfs:Datatype` in the ontology. Replace
+        occurrence with a `owl:DatatypeProperty` declaration.
         """
         logging.info('Patching ObjectProperties...')
         query_where_objectproperty = '''
@@ -185,45 +188,6 @@ class ontologyPatcher():
             ''' % query_where_objectproperty
         self.graph.update(query_update_objectproperty)
 
-    def patchDatatypeProperties(self) -> None:
-        """
-        It replaces all occurrences of `owl:DatatypeProperty` with
-        `owl:DatatypeProperty` that reference a known datatype in the ontology.
-        Otherwise these references are invalid in OWL-DL
-        """
-        logging.info('Patching DatatypeProperties...')
-        query_where_datatypeproperty = '''
-            WHERE {
-                {
-                    ?property a owl:DatatypeProperty ;
-                        rdfs:range ?object .
-                    ?object a owl:Class .
-                } UNION {
-                    ?property a owl:DatatypeProperty ;
-                        rdfs:range ?object .
-                    FILTER( ?object = owl:real ||
-                            ?object = owl:rational ||
-                            ?object = sc:Measure ||
-                            ?object = sc:Sign
-                    )
-                }
-            }
-            '''
-        query_select_datatypeproperty = '''
-            SELECT ?property ?object
-            %s
-            ''' % query_where_datatypeproperty
-        for row in self.graph.query(query_select_datatypeproperty):
-            logging.info(
-                f'correcting property: {row.property} rdfs:range {row.object}')
-        query_update_datatypeproperty = '''
-            DELETE {
-                ?property a owl:DatatypeProperty
-            } INSERT {
-                ?property a owl:ObjectProperty
-            } %s
-            ''' % query_where_datatypeproperty
-        self.graph.update(query_update_datatypeproperty)
 
     def outputGraph(self, output_file: str, output_format: str) -> None:
         self.graph.serialize(destination=output_file, format=output_format)
