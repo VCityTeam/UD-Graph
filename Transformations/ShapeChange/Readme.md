@@ -28,9 +28,9 @@ Use the following command to run ShapeChange with the configuration files. Be su
 java -jar [path to ShapeChange jar] -Dfile.encoding=UTF-8 -c [CONFIGURATION FILE] -x '$input$' '[UML FILE]' -x '$output$' '[OUTPUT FOLDER]'
 ```
 
-Example for with a ShapeChange JAR file, `../lib/ShapeChange-2.11.0.jar`:
+Example for with a ShapeChange JAR file, `../lib/ShapeChange-3.0.0.jar`:
 ```bash
-java -jar ../lib/ShapeChange-2.11.0.jar -Dfile.encoding=UTF-8 -c CityGML3.0_config.xml \
+java -jar ../lib/ShapeChange-3.0.0.jar -Dfile.encoding=UTF-8 -c CityGML3.0_config.xml \
   -x '$input$' './test-data/UML/CityGML_3.0-workspaces-documents_shapechange-export.xml' \
   -x '$output$' './test-data/OWL/CityGML_3.0_Conceptual_Model'
 ```
