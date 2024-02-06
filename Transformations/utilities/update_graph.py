@@ -28,7 +28,8 @@ def main():
     graph.update(args.query)
 
     graph.serialize(destination=args.output_file, format='turtle')
-    print('Writing complete!')
+    if args.verbose:
+        print('Writing complete!')
 
 
 if __name__ == "__main__":
