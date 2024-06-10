@@ -5,7 +5,7 @@ import argparse
 from time import time
 from datetime import timedelta
 from copy import deepcopy
-from rdflib import Graph, URIRef, Literal
+from rdflib import Graph, URIRef, Literal, plugin
 from rdflib.namespace import RDF, OWL, XSD, GEO, NamespaceManager, Namespace
 from lxml import etree
 
@@ -152,7 +152,13 @@ class XML2RdfTransformer:
             elif path.endswith(".rdf"):
                 self.ontology.parse(path, format="xml")
             elif path.startswith("http://") or path.startswith("https://"):
-                self.ontology.parse(path)
+                try:
+                    self.ontology.parse(path)
+                except plugin.PluginException as e:
+                    print(f"    Error {e} for path {path}... trying again with "
+                          f"xml parser")
+                    self.ontology.parse(path, format="xml")
+
             elif os.path.isdir(path):
                 for root, _, files in os.walk(path):
                     for file in files:
@@ -167,7 +173,7 @@ class XML2RdfTransformer:
                                 os.path.join(root, file), format="xml"
                             )
             else:
-                raise Exception(f"Could not find file or directory: {path}")
+                raise Exception(f"Could not find path: {path}")
         # copy ontology namespace bindings to output graph namespace manager,
         # add default output namespace binding, and set geospatial namespaces
         self.output_graph.namespace_manager = NamespaceManager(self.ontology)
