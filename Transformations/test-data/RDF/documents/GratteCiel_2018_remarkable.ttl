@@ -1,0 +1,52 @@
+@prefix core: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core#> .
+@prefix bldg: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building#> .
+@prefix doc: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Document/3.0/document#> .
+@prefix time: <http://www.w3.org/2006/time#> .
+@prefix data: <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2018_split_v3#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix gmlowl: <http://www.opengis.net/ont/gml#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+
+<https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Datasets/GratteCiel_2018_split_v3> a owl:Ontology ;
+    owl:imports <http://www.opengis.net/ont/geosparql>,
+        <http://www.opengis.net/ont/gml>,
+        <http://www.w3.org/2004/02/skos/core>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/building.ttl>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/document.ttl>,
+        <https://raw.githubusercontent.com/VCityTeam/UD-Graph/master/Ontologies/CityGML/3.0/core.ttl>,
+
+data:BU_69266BO56_3 a owl:NamedIndividual,
+        bldg:Building ;
+    skos:prefLabel "BU_69266BO56_3" ;
+    core:AbstractSpace.boundary data:RoofSurface_168,
+        data:WallSurface_168 .
+
+data:document_1 a owl:NamedIndividual,
+        doc:Document ;
+    doc:Document.tag "Gratte ciel aerial view"@en ;
+    doc:Document.tag "Vue aérienne de Gratte ciel"@fr ;
+    doc:Document.referringTo data:reference_1 ;
+    doc:Document.uri "https://commons.wikimedia.org/w/index.php?title=File:Vue_a%C3%A9rienne_de_la_cit%C3%A9_des_Gratte-Ciel_en_1936.jpg&oldid=477031065"^^xsd:anyURI
+    doc:Document.title "Vue aérienne de la cité des Gratte-Ciel en 1936" .
+
+data:reference_1 a owl:NamedIndividual, 
+        doc:Reference ;
+    doc:Reference.coveragePeriod data:interval_1 ;
+    doc:Reference.referringTo data:BU_69266BO56_3 ;
+    doc:Reference.referringDate "11 March 2020, 15:47:26"^^xsd:Datetime ;
+    doc:Reference.purposeType "Aerial View" ;
+    doc:Reference.referenceText "Vue aérienne de la cité des Gratte-Ciel en 1936" .
+
+data:interval_1 a owl:NamedIndividual, 
+        time:Interval ;
+    time:hasBeginning data:instant_1 ;
+    time:hasEnd data:instant_2 .
+
+data:instant_1 a owl:NamedIndividual, 
+        time:Interval ;
+    time:inXSDgYearMonth "01-1936" .
+
+data:instant_2 a owl:NamedIndividual, 
+        time:Interval ;
+    time:inXSDgYearMonth "12-1936" .
