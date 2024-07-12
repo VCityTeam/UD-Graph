@@ -1,0 +1,9 @@
+PREFIX doc: <https://dataset-dl.liris.cnrs.fr/rdf-owl-urban-data-ontologies/Ontologies/Document/3.0/document#>
+
+SELECT *
+WHERE {
+  ?document a doc:Document ;
+  	doc:Document.referringTo/doc:Reference.referringTo ?feature ;
+	doc:Document.uri ?uri .
+
+}
