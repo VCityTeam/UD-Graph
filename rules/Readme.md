@@ -35,14 +35,15 @@ time:TemporalEntity(?a), time:hasBeginning(?a, ?i1), time:Instant(?i1), time:inX
 ```
 Which would infer that a temporal entity with descendant properties such as...:
 ```mermaid
-graph TD
-    id1([#TemporalEntity_A])   -->|time:hasBeginning| id2([#begin_point])
-    id1([#TemporalEntity_A])   -->|time:hasEnd| id3([#end_point])
-    id2([#begin_point])        -->|time:inXSDDateTimeStamp| 2000-01-01T00:00:00
-    id2([#begin_point])        -->|a| id4(time:TemporalEntity)
-    id1([#TemporalEntity_A])   -->|a| id4(time:TemporalEntity)
-    id3([#end_point])          -->|time:inXSDDateTimeStamp| 1999-01-01T00:00:00
-    id3([#end_point])          -->|a| id4(time:TemporalEntity)
+flowchart TD
+    id1([:TemporalEntity_A]) -->|time:hasBeginning| id2([:begin_point])
+    id1 -->|time:hasEnd| id3([:end_point])
+    id2 -->|time:inXSDDateTimeStamp| 2000-01-01T00:00:00
+    id5 -->|rdfs:subClassOf| id4
+    id3 -->|time:inXSDDateTimeStamp| 1999-01-01T00:00:00
+    id1 -->|a| id4([time:TemporalEntity])
+    id2 -->|a| id5([time:Instant])
+    id3 -->|a| id5
 ```
 would be of type `owl:Nothing` and therefore inconsistent.
 
@@ -53,9 +54,9 @@ CityGML features can be compared using these basic rules according to [1] by usi
 - `time_ext:hasTransactionTime` for denoting a temporal entity that represents when a feature was added or removed from a dataset.
 
 ```mermaid
-graph TD
-    #feature_A -->|time_ext:hasExistenceTime| #TemporalEntity_A
-    #feature_A -->|a| core:AbstractFeatureWithLifespan
+flowchart LR
+    :feature_A -->|time_ext:hasExistenceTime| :TemporalEntity_A
+    :feature_A -->|a| core:AbstractFeatureWithLifespan
 ```
 
 Note that these rules are currently a work in progress and do not cover the Document CityGML ADE rules nor do yet not cover all of the DL Workspace rules  proposed in [1].
