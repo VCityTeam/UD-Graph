@@ -29,27 +29,21 @@ def main():
         description="Transform Geospatial XML data to RDF formats"
     )
     parser.add_argument("input_file", help="Specify the input XML datafile")
-    parser.add_argument(
-        "mapping_file", help="Specify the namespace mapping file"
-    )
+    parser.add_argument("mapping_file", help="Specify the namespace mapping file")
     parser.add_argument(
         "input_models",
         nargs="*",
         help="""Specify the ontology input path(s); for multiple ontologies,
             input paths are separated by a space""",
     )
-    parser.add_argument(
-        "--output", default=".", help="Specify the output directory"
-    )
+    parser.add_argument("--output", default=".", help="Specify the output directory")
     parser.add_argument(
         "--format",
         default="ttl",
         choices=RDFLIB_SUPPORTED_FORMATS,
         help="Specify the output data format (only RDFLib supported formats)",
     )
-    parser.add_argument(
-        "--log", default="output.log", help="Specify the logging file"
-    )
+    parser.add_argument("--log", default="output.log", help="Specify the logging file")
     parser.add_argument(
         "--no-geometry",
         action="store_true",
@@ -91,16 +85,12 @@ class XML2RdfTransformer:
         configuration file using the given command line arguments."""
         super().__init__()
         self.args = args
-        self.filename = ".".join(
-            os.path.split(args.input_file)[-1].split(".")[:-1]
-        )
+        self.filename = ".".join(os.path.split(args.input_file)[-1].split(".")[:-1])
         parser = etree.XMLParser(remove_comments=True)
         self.input_tree = etree.parse(args.input_file, parser)
         self.input_root = self.input_tree.getroot()
 
-        self.output_uri = (
-            f"https://github.com/VCityTeam/UD-Graph/{self.filename}"
-        )
+        self.output_uri = f"https://github.com/VCityTeam/UD-Graph/{self.filename}"
         self.output_graph = Graph()
 
         self.id_count = {}
@@ -155,8 +145,10 @@ class XML2RdfTransformer:
                 try:
                     self.ontology.parse(path)
                 except plugin.PluginException as e:
-                    print(f"    Error {e} for path {path}... trying again with "
-                          f"xml parser")
+                    print(
+                        f"    Error {e} for path {path}... trying again with "
+                        f"xml parser"
+                    )
                     self.ontology.parse(path, format="xml")
 
             elif os.path.isdir(path):
@@ -169,9 +161,7 @@ class XML2RdfTransformer:
                                 os.path.join(root, file), format="turtle"
                             )
                         if file.endswith(".rdf"):
-                            self.ontology.parse(
-                                os.path.join(root, file), format="xml"
-                            )
+                            self.ontology.parse(os.path.join(root, file), format="xml")
             else:
                 raise Exception(f"Could not find path: {path}")
         # copy ontology namespace bindings to output graph namespace manager,
@@ -227,19 +217,13 @@ class XML2RdfTransformer:
     def writeOutputToFile(self):
         print("\nWriting graph to disk...")
         if self.args.format == "rdf":
-            full_filepath = os.path.normpath(
-                f"{self.args.output}/{self.filename}.rdf"
-            )
+            full_filepath = os.path.normpath(f"{self.args.output}/{self.filename}.rdf")
             print(full_filepath)
             self.output_graph.serialize(destination=full_filepath, format="xml")
         else:
-            full_filepath = os.path.normpath(
-                f"{self.args.output}/{self.filename}.ttl"
-            )
+            full_filepath = os.path.normpath(f"{self.args.output}/{self.filename}.ttl")
             print(full_filepath)
-            self.output_graph.serialize(
-                destination=full_filepath, format="turtle"
-            )
+            self.output_graph.serialize(destination=full_filepath, format="turtle")
 
     def generateIndividual(self, node):
         """Generate a new individual from an XML node and its children, then
@@ -250,16 +234,13 @@ class XML2RdfTransformer:
         # if a gml:id is detected, use it in the URI of the individual
         if "{%s}id" % self.GML_NAMESPACE in node.attrib:
             node_id = URIRef(
-                f"{self.output_uri}#"
-                + node.attrib.get("{%s}id" % self.GML_NAMESPACE)
+                f"{self.output_uri}#" + node.attrib.get("{%s}id" % self.GML_NAMESPACE)
             )
         else:
             node_id = URIRef(self.generateID(mapped_tag))
         # skip node if already parsed
         if self.input_tree.getelementpath(node) in self.parsed_nodes:
-            logging.debug(
-                f"reparsing node {self.input_tree.getelementpath(node)}"
-            )
+            logging.debug(f"reparsing node {self.input_tree.getelementpath(node)}")
             return node_id
 
         self.updateProgressBar(node.tag)
@@ -274,9 +255,7 @@ class XML2RdfTransformer:
             else:
                 # generate gmlLiteral
                 geometry_literal = self.generateGeometryLiteral(node)
-                geometry_node = Literal(
-                    geometry_literal, datatype=GEO.gmlLiteral
-                )
+                geometry_node = Literal(geometry_literal, datatype=GEO.gmlLiteral)
                 self.output_graph.add((node_id, GEO.asGML, geometry_node))
 
         node_type = self.lxmlToURIRef(mapped_tag)
@@ -297,22 +276,16 @@ class XML2RdfTransformer:
                         attribute_text = Literal(
                             node.attrib[attribute], datatype=datatype[0]
                         )
-                        self.output_graph.add(
-                            (node_id, property, attribute_text)
-                        )
+                        self.output_graph.add((node_id, property, attribute_text))
             elif self.isDatatype(attribute):
-                for property in self.findDatatypeProperty(
-                    attribute, mapped_tag
-                ):
+                for property in self.findDatatypeProperty(attribute, mapped_tag):
                     for datatype in self.getDatatypePropertyRange(
                         self.uriToLXML(property)
                     ):
                         attribute_text = Literal(
                             node.attrib[attribute], datatype=datatype[0]
                         )
-                        self.output_graph.add(
-                            (node_id, property, attribute_text)
-                        )
+                        self.output_graph.add((node_id, property, attribute_text))
             else:
                 # TODO: add dynamic datatype detection
                 attribute_tag = self.mapNamespace(attribute)
@@ -338,12 +311,11 @@ class XML2RdfTransformer:
                 #         self.uriToLXML( mapped_child_tag )
                 #     )
 
-                # check if the child is geometry, if the no-geometry flag is
+                # check if the child is geometry and the no-geometry flag is
                 # enabled, skip the child and its descendants
-                if self.isGeometry(mapped_child_tag):
-                    if self.args.no_geometry:
-                        self.ignoreNodeTree(child)
-                        continue
+                if self.isGeometry(mapped_child_tag) and self.args.no_geometry:
+                    self.ignoreNodeTree(child)
+                    continue
                 # check if child node is a class. If so, generate a new
                 # individual for the child and create an object property linking
                 # the two individuals.
@@ -353,13 +325,9 @@ class XML2RdfTransformer:
                         mapped_tag, mapped_child_tag
                     )
                     for objectproperty in objectproperties:
-                        self.output_graph.add(
-                            (node_id, objectproperty, child_id)
-                        )
+                        self.output_graph.add((node_id, objectproperty, child_id))
                     if self.isGeometry(mapped_child_tag):
-                        self.output_graph.add(
-                            (node_id, GEO.hasGeometry, child_id)
-                        )
+                        self.output_graph.add((node_id, GEO.hasGeometry, child_id))
                 # check if child node is a datatype. If so, generate a datatype
                 # for the child and create a datatype property linking the
                 # individual and datatype.
@@ -370,12 +338,8 @@ class XML2RdfTransformer:
                         for datatype in self.getDatatypePropertyRange(
                             self.uriToLXML(property)
                         ):
-                            child_text = Literal(
-                                child.text, datatype=datatype[0]
-                            )
-                            self.output_graph.add(
-                                (node_id, property, child_text)
-                            )
+                            child_text = Literal(child.text, datatype=datatype[0])
+                            self.output_graph.add((node_id, property, child_text))
                 # check if child node is an object property. If so, generate
                 # the object property nodes and their corresponding individuals
                 # by calling generateObjectProperties().
@@ -389,9 +353,7 @@ class XML2RdfTransformer:
                 elif self.isAnnotationProperty(mapped_child_tag):
                     annotation_uri = self.lxmlToURIRef(mapped_child_tag)
                     annotation_text = Literal(child.text, datatype=XSD.string)
-                    self.output_graph.add(
-                        (node_id, annotation_uri, annotation_text)
-                    )
+                    self.output_graph.add((node_id, annotation_uri, annotation_text))
                 else:
                     logging.warning(
                         "No mapping found between parent node: {node.tag} and "
@@ -412,15 +374,11 @@ class XML2RdfTransformer:
         if node.attrib.get("{http://www.w3.org/1999/xlink}href") is not None:
             # Check if an xlink is present. If so create a triple referencing
             # the resource
-            property = self.findObjectProperty(
-                mapped_parent_tag, None, mapped_tag
-            )
+            property = self.findObjectProperty(mapped_parent_tag, None, mapped_tag)
             if property is not None:
                 reference = URIRef(
                     f"{self.output_uri}#"
-                    + node.attrib["{http://www.w3.org/1999/xlink}href"].split(
-                        "#"
-                    )[-1]
+                    + node.attrib["{http://www.w3.org/1999/xlink}href"].split("#")[-1]
                 )
                 self.output_graph.add((parent_id, property, reference))
         for child in node:
@@ -456,9 +414,7 @@ class XML2RdfTransformer:
                 # check if child is a gml geometry node. If so, generate the
                 # geometry property gsp:hasGeometry.
                 if self.isGeometry(mapped_child_tag):
-                    self.output_graph.add(
-                        (parent_id, GEO.hasGeometry, child_id)
-                    )
+                    self.output_graph.add((parent_id, GEO.hasGeometry, child_id))
             else:
                 logging.warning(
                     f"No object property, {node.tag}, found between "
@@ -484,9 +440,7 @@ class XML2RdfTransformer:
         else:
             property = self.findDatatypeProperty(mapped_parent_tag, mapped_tag)
             if property is not None:
-                for datatype in self.getDatatypePropertyRange(
-                    self.uriToLXML(property)
-                ):
+                for datatype in self.getDatatypePropertyRange(self.uriToLXML(property)):
                     self.output_graph.add(
                         (
                             parent_id,
@@ -510,9 +464,9 @@ class XML2RdfTransformer:
 
         geometry = str(etree.tostring(node_copy, pretty_print=False)).split(" ")
 
+        # remove non gml 2 namespace declarations, newlines, indentations,
+        # and single quotes from geometry string
         def isGMLTag(tag):
-            # remove non gml 2 namespace declarations, newlines, indentations,
-            # and single quotes from geometry string
             not tag.startswith("xmlns") or tag.startswith("xmlns:gml")
 
         geometry = " ".join(filter(isGMLTag, geometry))
@@ -535,12 +489,10 @@ class XML2RdfTransformer:
         destination of the node. This function will recursively search within
         new xlinks."""
         node_copy = deepcopy(node)
-        for xlink in node_copy.findall(
-            ".//*[@{http://www.w3.org/1999/xlink}href]"
-        ):
-            reference = xlink.attrib.get(
-                "{http://www.w3.org/1999/xlink}href"
-            ).split("#")[-1]
+        for xlink in node_copy.findall(".//*[@{http://www.w3.org/1999/xlink}href]"):
+            reference = xlink.attrib.get("{http://www.w3.org/1999/xlink}href").split(
+                "#"
+            )[-1]
             reference_node = self.input_root.find(
                 './/*[@{%s}id = "%s"]' % (self.GML_NAMESPACE, reference)
             )
@@ -840,9 +792,7 @@ class XML2RdfTransformer:
                 )
                 if bool(query):
                     return property[0]
-        logging.warning(
-            f"No matching object property found between: {tag1}, {tag2}"
-        )
+        logging.warning(f"No matching object property found between: {tag1}, {tag2}")
         return None
 
     def findDatatypeProperty(self, tag, property_tag=None):
@@ -907,8 +857,7 @@ class XML2RdfTransformer:
                     if bool(query):
                         return property[0]
         logging.warning(
-            "No matching datatype property found between: "
-            f"{tag}, {property_tag}"
+            "No matching datatype property found between: " f"{tag}, {property_tag}"
         )
         return None
 
@@ -970,9 +919,7 @@ class XML2RdfTransformer:
             if parent_tag is None:
                 return len(self.objectproperty_definition_cache.get(tag)) > 0
             else:
-                for objectproperty in self.objectproperty_definition_cache.get(
-                    tag
-                ):
+                for objectproperty in self.objectproperty_definition_cache.get(tag):
                     if self.ontology.query(
                         """
                         ASK {
@@ -1050,8 +997,7 @@ class XML2RdfTransformer:
             return self.objectproperty_definition_cache.get(str(tag))
         else:
             logging.warning(
-                "Object Property definition not found in ontology network: "
-                f"{tag}"
+                "Object Property definition not found in ontology network: " f"{tag}"
             )
 
     def isDatatypeProperty(self, tag, parent_tag=None):
@@ -1066,9 +1012,7 @@ class XML2RdfTransformer:
         qname = etree.QName(tag)
         if tag in self.datatypeproperty_definition_cache.keys():
             if parent_tag is not None:
-                for (
-                    datatypeproperty
-                ) in self.datatypeproperty_definition_cache.get(tag):
+                for datatypeproperty in self.datatypeproperty_definition_cache.get(tag):
                     if self.ontology.query(
                         """
                             ASK {
@@ -1126,9 +1070,7 @@ class XML2RdfTransformer:
             query.append(line)
         self.datatypeproperty_definition_cache[tag] = query
         if parent_tag is not None:
-            for datatypeproperty in self.datatypeproperty_definition_cache.get(
-                tag
-            ):
+            for datatypeproperty in self.datatypeproperty_definition_cache.get(tag):
                 if self.ontology.query(
                     """
                     ASK {
@@ -1175,8 +1117,7 @@ class XML2RdfTransformer:
             return self.datatypeproperty_definition_cache.get(str(tag))
         else:
             logging.warning(
-                "Datatype Property definition not found in ontology network: "
-                f"{tag}"
+                "Datatype Property definition not found in ontology network: " f"{tag}"
             )
 
     def getDatatypePropertyRange(self, uri):
@@ -1228,9 +1169,7 @@ class XML2RdfTransformer:
         if self.isDatatype(tag):
             return self.datatype_definition_cache.get(str(tag))
         else:
-            logging.warning(
-                f"Datatype definition not found in ontology network: {tag}"
-            )
+            logging.warning(f"Datatype definition not found in ontology network: {tag}")
 
     def isGeometry(self, tag):
         """return whether a uri is a valid gml element supported by GeoSPARQL.
@@ -1261,9 +1200,11 @@ class XML2RdfTransformer:
                 100.0 * self.input_node_count / float(self.input_node_total), 1
             )
             bar = "#" * filled_length + "-" * (bar_length - filled_length)
-            output = (f"[{bar}] {percent}%, "
-                      f"{self.input_node_count}/{self.input_node_total} "
-                      f"...{status}")
+            output = (
+                f"[{bar}] {percent}%, "
+                f"{self.input_node_count}/{self.input_node_total} "
+                f"...{status}"
+            )
 
             print(" " * buffer_size + "\r", end="")
             print(output[0:buffer_size] + "\r", end="")
