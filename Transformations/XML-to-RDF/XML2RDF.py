@@ -466,10 +466,11 @@ class XML2RdfTransformer:
 
         # remove non gml 2 namespace declarations, newlines, indentations,
         # and single quotes from geometry string
-        def isGMLTag(tag):
-            not tag.startswith("xmlns") or tag.startswith("xmlns:gml")
 
-        geometry = " ".join(filter(isGMLTag, geometry))
+        # geometry = filter(
+        #     lambda tag: tag.startswith("xmlns") or tag.startswith("xmlns:gml"), geometry
+        # )
+        geometry = " ".join(geometry)
         geometry = (
             str(geometry)[2:-1]
             .replace("\\n", "")
