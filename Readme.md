@@ -1,5 +1,5 @@
 # UD-Graph
-[![Build Status](https://travis-ci.com/VCityTeam/UD-Graph.svg?branch=master)](https://app.travis-ci.com/github/VCityTeam/UD-Graph)
+[![Build Status](https://app.travis-ci.com/VCityTeam/UD-Graph.svg?token=2TLV2qhtpKaFYJvsMzwz&branch=master)](https://app.travis-ci.com/github/VCityTeam/UD-Graph)
 
 Repository for transforming and manipulating urban data models and data with knowledge graphs.
 
